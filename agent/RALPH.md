@@ -85,8 +85,12 @@ given directly:
 > "the roasting needs to happen after a task is done, and then you roast the
 > roast, then add to-do! and then go on and start from the next to-do"
 
-Re-roasting until a score improves has no end, because a fresh adversarial
-reviewer always finds something. That is what burned a whole day.
+Re-roasting until a score improves has no end: ask any reviewer the same
+question again and it will look harder for something to say. That is what burned
+a whole day.
+
+It is a **check**, not an attack. The question is whether the work does what it
+was meant to do, and "it does" is a complete answer.
 
 ### 7. Relay it to the owner
 

@@ -1,9 +1,15 @@
 ---
 name: roast
-description: Get another model to tear work apart. Use after finishing a board task (task roast, codex/terra), after a run of large tasks (technical roast, claude/opus), or when a question needs looking up (search, codex/terra). Runs .claude/skills/roast/roast.py, which keeps a separate conversation per kind and writes the answer to .claude/roast-result.md.
+description: Get another model to check work. Use after finishing a board task (task roast, codex/terra), after a run of large tasks (technical roast, claude/opus), or when a question needs looking up (search, codex/terra). Runs .claude/skills/roast/roast.py, which keeps a separate conversation per kind and writes the answer to .claude/roast-result.md.
 ---
 
 # Roast
+
+**It is a check, not an attack.** The question is always "does this do what it was
+meant to do", never "what can I find wrong with it". A reviewer told to tear
+something apart will always produce something, because that is what it was asked
+for, and a finding produced to fill a quota is worse than silence. "This does
+what it should, here is what I checked" is a complete and useful answer.
 
 You do not score your own work. You know what you meant, so you read the code as
 the thing you intended rather than the thing you wrote. A different model with a
@@ -49,9 +55,11 @@ Three questions are always added for you: whether it matches the logic it was
 meant to follow, whether it is DRY or wrongly abstracted, and what it claims that
 is not true.
 
-The script also tells the reviewer to roast its own draft before answering and
-throw out anything it asserted without looking. That is there because an
-un-roasted review is a list of plausible-sounding things.
+The script also tells the reviewer to check its own draft before answering: throw
+out anything asserted without opening the file, anything that is a preference
+dressed as a defect, and anything that would apply to any codebase. It is told
+plainly that finding nothing is a correct answer, and never to inflate a small
+problem to look thorough.
 
 ## Then: judge it, file it, move on
 
@@ -73,7 +81,8 @@ one**.
 
 A finding is work for later, not a reason to reopen what was just finished.
 There is no passing score and no minimum. Re-roasting until a number improves has
-no end, because a fresh adversarial reviewer always finds something.
+no end: ask any reviewer the same question again and it will look harder for
+something to say.
 
 **Relay it to the owner in your reply**: what was found, what you accepted, what
 you rejected and why. They never see `.claude/roast-result.md`.
@@ -91,8 +100,9 @@ python .claude/skills/roast/roast.py technical \
   --ask "where will this hurt in three months?"
 ```
 
-It asks about shape rather than correctness: boundaries, coupling, data flow, the
-cost of the next change, what a new engineer would misread first.
+It checks shape rather than correctness: boundaries, coupling, data flow, the
+cost of the next change, what a new engineer would misread first. Where the shape
+holds it says so.
 
 **This one may run as an agent instead of the script.** Spawn a subagent with the
 same brief when you want it to read the repository itself rather than judge from

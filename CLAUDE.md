@@ -49,8 +49,11 @@ So, per task, once:
 
 **One roast per task. Never re-roast.** A finding is work for later, not a
 reason to reopen what was just finished. There is no passing score and no
-minimum. Re-roasting until a number improves has no end, because a fresh
-adversarial reviewer always finds something.
+minimum. Re-roasting until a number improves has no end: ask any reviewer the
+same question again and it will look harder for something to say.
+
+And it is a **check**, not an attack. The question is whether the work does what
+it was meant to do. "It does, here is what I checked" is a complete answer.
 
 Relay the roast to the owner in the reply: what was found, what was accepted,
 what was rejected and why. The owner does not see the codex output.

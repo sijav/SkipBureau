@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Ask another model to tear this work apart, honestly.
+"""Ask another model to check this work, honestly.
 
 Three kinds of roast, one script:
 
@@ -65,9 +65,11 @@ MODES = {
             ("claude", "sonnet", "medium"),
         ],
         "role": (
-            "You are reviewing one unit of work in the SkipBureau repository, which is a "
-            "step-by-step guide to bureaucracy abroad for travellers and expats. Be adversarial "
-            "and specific. Your job is to find what is WRONG, not to summarise what was done."
+            "You are CHECKING one unit of work in the SkipBureau repository, which is a "
+            "step-by-step guide to bureaucracy abroad for travellers and expats. The question is "
+            "whether it does what it was meant to do. Be specific and concrete. Where it is "
+            "wrong, say exactly what and why. Where it is right, say so and move on. You are not "
+            "here to find fault; you are here to find out."
         ),
         "standing_questions": [
             "Is this implemented correctly against the logic it was supposed to follow?",
@@ -83,9 +85,10 @@ MODES = {
         # whole point of this kind is the depth of the reviewer.
         "chain": [("claude", "opus", "high")],
         "role": (
-            "You are reviewing the SkipBureau codebase as a whole, after a run of large tasks, "
-            "not one change in isolation. Judge the technical shape of it: architecture, "
-            "boundaries, data flow, coupling, the cost of the next change. Be adversarial."
+            "You are CHECKING the SkipBureau codebase as a whole, after a run of large tasks, "
+            "not one change in isolation. The question is whether its technical shape holds: "
+            "architecture, boundaries, data flow, coupling, the cost of the next change. Where it "
+            "holds, say so. Where it does not, say exactly where and what it will cost."
         ),
         "standing_questions": [
             "Where is this codebase going to hurt in three months, and what is the cheapest "
@@ -115,21 +118,24 @@ MODES = {
 # The instruction that makes the answer worth reading. Without it the reply is
 # the first plausible thing the model thought of.
 SELF_ROAST = """
-Before you answer, roast your own draft, and do it privately.
+Before you answer, check your own draft, and do it privately.
 
-1. Write your findings.
-2. Then attack them. Which did you assert without opening the file? Which are
-   style dressed up as defects? Which would you have written about any codebase,
-   without reading this one? Which did you soften because it sounded harsh?
-3. Throw those out, and keep only what survives.
+1. Write what you found.
+2. Then test each one. Did you actually open the file, or assume? Is it a defect,
+   or a preference dressed as one? Would you have written it about any codebase
+   without reading this one? Does it survive someone asking "so what breaks?"
+3. Throw out whatever fails that, and keep the rest.
 
-Report only what survived. A short honest review beats a long thorough-looking
-one. If you genuinely found nothing, say so and say exactly what you checked and
-how you tried to break it, so someone can tell the difference between nothing
-being wrong and you not having looked.
+Report only what survived.
 
-Never invent a problem to look useful. A false finding costs more than a missed
-one, because someone will go and fix it.
+**Finding nothing wrong is a correct and useful answer.** If that is the honest
+result, say so, and say exactly what you checked and how you tried to break it,
+so the reader can tell the difference between nothing being wrong and you not
+having looked. A short honest check beats a long thorough-looking one.
+
+Never invent a problem to seem useful, and never inflate a small one to seem
+thorough. A false finding costs more than a missed one, because someone will go
+and act on it.
 """
 
 
@@ -297,7 +303,7 @@ def build_prompt(mode: str, args: argparse.Namespace) -> str:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Ask another model to tear this work apart.")
+    parser = argparse.ArgumentParser(description="Ask another model to check this work.")
     parser.add_argument("mode", choices=sorted(MODES))
     parser.add_argument("--title", default="", help="the task, as the board states it")
     parser.add_argument("--why", default="", help="the task's why, so the reviewer judges against intent")
