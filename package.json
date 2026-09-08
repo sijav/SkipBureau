@@ -1,0 +1,17 @@
+{
+  "name": "skipbureau",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "A step-by-step guide to bureaucracy abroad, for travellers and expats",
+  "workspaces": [
+    "apps/web",
+    "apps/api"
+  ],
+  "scripts": {
+    "next": "node agent/next.mjs"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}
