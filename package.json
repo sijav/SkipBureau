@@ -9,7 +9,7 @@
     "apps/api"
   ],
   "scripts": {
-    "next": "node agent/next.mjs"
+    "todo": "node agent/todo.mjs"
   },
   "engines": {
     "node": ">=22.12.0"

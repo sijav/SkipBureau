@@ -1,4 +1,7 @@
 node_modules/
+agent/todo.db-journal
+agent/todo.db-wal
+agent/todo.db-shm
 dist/
 build/
 .env
