@@ -1,13 +1,23 @@
 ---
 name: todo
-description: The SkipBureau board. Use whenever picking what to work on next, creating a task, or changing a task's status. The board is a real SQLite database at agent/todo.db, not a document, so read and write it through these commands rather than editing files.
+description: The SkipBureau board, a real SQLite database at agent/todo.db. Use this INSTEAD of the built-in TodoWrite tool, every time: picking what to work on next, creating a task, changing a status, or recording something discovered mid-task. Read and write it through npm run todo, never by editing a file.
 ---
 
 # The board
 
 `agent/todo.db` is a SQLite database. It is the only record of what is to be
-done. Do not keep a second copy in a markdown file, and do not track work in a
-reply that is not also in the board.
+done on this project.
+
+## This replaces the built-in to-do tool
+
+**Do not use TodoWrite here.** It is private scratch that vanishes with the
+session, it carries none of the nine fields the owner requires, and `next` does
+not read it. Anything tracked there is invisible to the owner and to the next
+iteration, which is the same as not tracking it.
+
+Everything goes in this board instead: what the owner asks for, what is
+discovered mid-task, what a roast finds. Write it down while you are holding it,
+then carry on with what you were doing.
 
 ## Before touching any file
 
@@ -15,16 +25,16 @@ reply that is not also in the board.
 npm run todo -- next
 ```
 
-Prints the task to work on and why it was picked. The rule, which is the owner's
-and is not to be overridden in your head: **highest severity, then fewest story
-points, then lowest id, never one whose parent is unfinished.** Anything already
+Prints the task to work on and why it was picked. The rule is the owner's and is
+not to be overridden in your head: **highest severity, then fewest story points,
+then lowest id, never one whose parent is unfinished.** Anything already
 `in_progress` or `review` comes first, so work in flight gets finished before
-anything new is started.
+anything new starts.
 
-If the pick looks wrong, the fix is to correct that task's severity, points or
-parents in the board and run it again. Not to pick something else.
+If the pick looks wrong, correct that task's severity, points or parents and run
+it again. Do not simply pick something else.
 
-Then, before editing anything:
+Then:
 
 ```bash
 npm run todo -- move SB-001 in_progress
@@ -32,32 +42,26 @@ npm run todo -- move SB-001 in_progress
 
 ## Creating a task
 
-Every task carries nine fields and `add` refuses without them: `title`, `desc`,
-`why`, `severity`, `points`, `exit`, plus `parent` and `status`, with `id`
-assigned automatically.
+Nine fields, and `add` refuses without them.
 
 ```bash
 npm run todo -- add \
   --title "Short imperative title" \
   --desc "What is actually to be built." \
-  --why "The story: what breaks or stays broken without it, for whom." \
+  --why "The story: what breaks, or stays broken, without it, and for whom." \
   --severity high \
   --points 3 \
   --parent "SB-002,SB-003" \
   --exit "A condition someone else could check: a named test, or a scenario in a browser."
 ```
 
-- `severity`: `critical`, `high`, `medium`, `low`.
-- `points`: 1, 2, 3, 5, 8, 13.
-- `parent`: comma separated ids that must be `done` first. Omit if nothing blocks it.
+- `severity`: `critical`, `high`, `medium`, `low`
+- `points`: 1, 2, 3, 5, 8, 13
+- `parent`: comma separated ids that must be `done` first; omit if nothing blocks it
 - `exit`: checkable by someone who did not do the work. "It works" is not an exit
   condition. "The header renders at the design height in fa-IR dark" is.
 
-**Everything becomes a task before it is done.** Something the owner asks for,
-something discovered mid-task, something a roast found. Write it down while you
-are holding it, then carry on with what you were doing.
-
-## The other commands
+## Everything else
 
 ```bash
 npm run todo                        the whole board, by column
@@ -67,9 +71,10 @@ npm run todo -- move SB-003 done    backlog, in_progress, review, done, dropped
 
 ## What this board does not do
 
-It records work. It does not gate it. There is no score threshold, no passing
-mark, nothing that refuses to let a task close. If a check like that seems
-necessary, say so to the owner and let them decide, rather than building it.
+It records work. It does not gate it. There is no passing score, no minimum, and
+nothing that refuses to let a task close. A roast finding becomes a new task
+here and the finished task closes; it is never a reason to reopen work.
 
-A previous version of this repository had gates nobody asked for, and a full
-working day went into satisfying them while the product stayed empty.
+If a gate seems necessary, tell the owner and let them decide. A previous
+version of this repository had gates nobody asked for, and a full working day
+went into satisfying them while the product stayed empty.
