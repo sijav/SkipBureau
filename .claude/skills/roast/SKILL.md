@@ -118,10 +118,32 @@ python .claude/skills/roast/roast.py search \
 Terra medium, its own conversation, and the ask is the whole job: it answers the
 question and does not review code or suggest work.
 
-## Rate limits
+## Usage limits, and the order of the fallback
 
-Codex is checked before it is called, not after: if a previous run was refused
-for quota, the script skips straight to the fallback for thirty minutes rather
-than spending a slow round trip discovering the same thing. The result file
-records which reviewer actually answered and what was skipped, so a fallback is
-never invisible.
+**The clock is checked first, before anything is called.** Every model that is
+out of usage is recorded in `.claude/roast-sessions.json` with the time it comes
+back. At the start of a run, any block whose time has passed is deleted: that
+model is simply usable again, with no record left behind. Anything still in date
+is skipped without spending a slow round trip learning what we already knew.
+
+**The record is per model, not per brand.** Terra being out of usage says
+nothing about the reserved gpt model, which is the entire point of holding one
+in reserve. So the order is:
+
+1. **terra medium.** If it is out of usage, note when it returns and fall to
+2. **gpt high, the reserve.** If that is out of usage too, then codex is done for
+   now, and fall to
+3. **claude sonnet medium.**
+
+The `technical` kind has no fallback at all. If opus is out of usage it fails and
+says so, because answering that question with a smaller model is worse than
+waiting.
+
+**How long a block lasts is what the model said**, not a guess. The reply is read
+for a reset time, in any of the forms they use: `resets at 2026-09-08T18:30:00Z`,
+`try again in 4 hours`, `in 45 minutes`, `in 2h 30m`. Only when it refuses
+without saying when is an hour assumed, and the result file says which of those
+happened.
+
+The result file also records the reviewer that actually answered and every one
+that was skipped, with the reason. A fallback is never invisible.

@@ -42,11 +42,6 @@ CLAUDE_DIR = REPO / ".claude"
 RESULT = CLAUDE_DIR / "roast-result.md"
 SESSIONS = CLAUDE_DIR / "roast-sessions.json"
 
-# How long to stop trying codex after it has told us it is out of quota. Codex
-# limits reset on a rolling window, so there is no point asking again for a
-# while, and every attempt costs a slow round trip before it fails.
-CODEX_COOLDOWN_SECONDS = 30 * 60
-
 TIMEOUT_SECONDS = 900
 
 
@@ -156,29 +151,103 @@ def save_sessions(state: dict) -> None:
     SESSIONS.write_text(json.dumps(state, indent=2) + "\n", encoding="utf-8")
 
 
-def codex_is_available(state: dict) -> tuple[bool, str]:
-    """Whether it is worth trying codex at all, right now.
-
-    Two questions: is the binary here, and did it recently tell us we are out of
-    quota. The second is the one the owner asked for: check the clock before
-    burning a slow round trip on a call that will be refused.
-    """
-    blocked_until = state.get("codex_blocked_until", 0)
-    if blocked_until > time.time():
-        minutes = int((blocked_until - time.time()) // 60) + 1
-        return False, f"codex was rate limited recently, {minutes} minute(s) left on the cooldown"
-
-    try:
-        subprocess.run(["codex", "--version"], capture_output=True, timeout=30, shell=True, check=True)
-    except (OSError, subprocess.SubprocessError):
-        return False, "the codex CLI is not on PATH"
-
-    return True, ""
-
-
 RATE_LIMITED = re.compile(
     r"rate.?limit|quota|too many requests|429|usage limit|try again (later|in)", re.IGNORECASE
 )
+
+# A recorded session id that the tool no longer knows about. Only this means the
+# id is worthless; every other failure leaves it alone.
+SESSION_GONE = re.compile(
+    r"(session|thread|conversation)\s+\S*\s*(not found|does not exist|unknown|no longer)"
+    r"|no (such )?(session|thread|conversation)",
+    re.IGNORECASE,
+)
+
+# When a model is out of usage it says until when. These pull that out, so the
+# block lasts exactly as long as the model says and not a guessed interval.
+RESET_ABSOLUTE = re.compile(
+    r"(?:reset|available|try again|retry)\w*\s*(?:at|on|after)?\s*"
+    r"(\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}(?::\d{2})?(?:Z|[+-]\d{2}:?\d{2})?)",
+    re.IGNORECASE,
+)
+# The word boundary matters more than it looks. Without it, "in" matches inside
+# "again", and because both groups here are optional the whole pattern then
+# matches emptily at that earlier position and wins, so "try again in 2h 30m"
+# silently fell through to the assumed hour. The lookahead is belt and braces:
+# there has to be a digit for this to be a duration at all.
+RESET_COMPOUND = re.compile(r"\b(?:in|for)\s+(?=\d)(?:(\d+)\s*h\w*)?\s*(?:(\d+)\s*m\w*)?", re.IGNORECASE)
+RESET_SINGLE = re.compile(r"\b(?:in|after|for)\s+(\d+)\s*(second|minute|hour|day)s?", re.IGNORECASE)
+
+# Only used when the model refuses without saying when it will be back.
+UNSTATED_BLOCK_SECONDS = 60 * 60
+
+
+def parse_reset(text: str) -> tuple[float, str]:
+    """When this model will be usable again, as (epoch, how we know)."""
+    found = RESET_ABSOLUTE.search(text)
+    if found:
+        stamp = found.group(1).replace(" ", "T").replace("Z", "+00:00")
+        try:
+            when = datetime.fromisoformat(stamp)
+            if when.tzinfo is None:
+                when = when.replace(tzinfo=timezone.utc)
+            return when.timestamp(), f"it said it resets at {found.group(1)}"
+        except ValueError:
+            pass
+
+    found = RESET_SINGLE.search(text)
+    if found:
+        amount = int(found.group(1))
+        unit = found.group(2).lower()
+        seconds = amount * {"second": 1, "minute": 60, "hour": 3600, "day": 86400}[unit]
+        return time.time() + seconds, f"it said to try again in {amount} {unit}(s)"
+
+    found = RESET_COMPOUND.search(text)
+    if found and (found.group(1) or found.group(2)):
+        seconds = int(found.group(1) or 0) * 3600 + int(found.group(2) or 0) * 60
+        if seconds:
+            spoken = re.sub(r"^(?:in|for)\s+", "", found.group(0).strip(), flags=re.IGNORECASE)
+            return time.time() + seconds, f"it said to try again in {spoken}"
+
+    return time.time() + UNSTATED_BLOCK_SECONDS, "it did not say when, so an hour is assumed"
+
+
+def prune_expired(state: dict) -> list[str]:
+    """Drop every block whose time has passed. This is the clock check the owner
+    asked for, and it happens before anything else: a model whose window has
+    come round again is simply usable, with no record left behind."""
+    blocked = state.get("blocked", {})
+    now = time.time()
+    expired = [model for model, until in blocked.items() if until <= now]
+    for model in expired:
+        del blocked[model]
+    if not blocked:
+        state.pop("blocked", None)
+    return expired
+
+
+def blocked_for(state: dict, model: str) -> str:
+    """Empty string if the model is usable, otherwise why it is not."""
+    until = state.get("blocked", {}).get(model)
+    if not until:
+        return ""
+    minutes = int((until - time.time()) // 60) + 1
+    when = datetime.fromtimestamp(until, timezone.utc).isoformat(timespec="minutes")
+    return f"out of usage until {when} ({minutes} minute(s) away)"
+
+
+def block_model(state: dict, model: str, output: str) -> str:
+    until, how = parse_reset(output)
+    state.setdefault("blocked", {})[model] = until
+    return how
+
+
+def codex_installed() -> bool:
+    try:
+        subprocess.run(["codex", "--version"], capture_output=True, timeout=30, shell=True, check=True)
+        return True
+    except (OSError, subprocess.SubprocessError):
+        return False
 
 
 # --------------------------------------------------------------------------
@@ -191,22 +260,24 @@ def run_codex(model: str, effort: str, prompt: str, session_id: str | None) -> t
     last_message = CLAUDE_DIR / "roast-last-message.tmp"
     last_message.unlink(missing_ok=True)
 
-    if session_id:
-        argv = ["codex", "exec", "resume", session_id, "-"]
-    else:
-        argv = ["codex", "exec", "-"]
-
-    argv += [
+    options = [
         "-m",
         model,
         "-c",
         f'model_reasoning_effort="{effort}"',
-        "-s",
-        "read-only",
         "--skip-git-repo-check",
         "-o",
         str(last_message),
     ]
+
+    # `codex exec resume` takes a different option set from `codex exec`: it has
+    # no -s/--sandbox, and passing one is a hard argument error. The sandbox is
+    # set through config there instead. Options go before the positionals in
+    # both, which is what the usage line says.
+    if session_id:
+        argv = ["codex", "exec", "resume", *options, "-c", 'sandbox_mode="read-only"', session_id, "-"]
+    else:
+        argv = ["codex", "exec", *options, "-s", "read-only", "-"]
 
     # The prompt goes in on stdin. Passing it as an argument breaks on Windows
     # once it is longer than the command line limit, and a real roast prompt
@@ -332,12 +403,27 @@ def main() -> int:
         brand = "claude" if args.model in {"opus", "sonnet", "haiku", "fable"} else "codex"
         chain = [(brand, args.model, "medium")]
 
-    codex_ok, codex_reason = codex_is_available(state)
+    # Before anything else: check the clock. Any block whose reset time has
+    # passed is removed, so a model whose window has come round is simply usable
+    # again with no stale record left behind.
+    for model in prune_expired(state):
+        print(f"{model} is out of its usage window and usable again", file=sys.stderr)
+    save_sessions(state)
+
+    have_codex = codex_installed()
     attempts: list[str] = []
 
     for brand, model, effort in chain:
-        if brand == "codex" and not codex_ok:
-            attempts.append(f"skipped codex/{model}: {codex_reason}")
+        if brand == "codex" and not have_codex:
+            attempts.append(f"skipped codex/{model}: the codex CLI is not on PATH")
+            continue
+
+        # Per model, not per brand. Terra being out of usage says nothing about
+        # the reserved gpt model, which is the whole point of it being reserved.
+        why_not = blocked_for(state, model)
+        if why_not:
+            attempts.append(f"skipped {brand}/{model}: {why_not}")
+            print(f"skipping {brand}/{model}, {why_not}", file=sys.stderr)
             continue
 
         # The session belongs to the brand, not the model: a codex thread cannot
@@ -363,13 +449,19 @@ def main() -> int:
             continue
 
         if not ok:
-            attempts.append(f"{brand}/{model} failed: {output[:300]}")
-            if brand == "codex" and RATE_LIMITED.search(output):
-                state["codex_blocked_until"] = time.time() + CODEX_COOLDOWN_SECONDS
-                codex_ok, codex_reason = False, "codex reported a rate limit during this run"
-            # A resume can fail because the recorded session is gone. Drop it and
-            # let the next attempt start clean rather than failing forever.
-            if session_id:
+            if RATE_LIMITED.search(output):
+                how = block_model(state, model, output)
+                attempts.append(f"{brand}/{model} is out of usage: {how}")
+                print(f"{model} is out of usage, {how}. Falling back.", file=sys.stderr)
+            else:
+                attempts.append(f"{brand}/{model} failed: {output[:300]}")
+            # A resume can fail because the recorded session is gone, and then
+            # the id is worthless and should go. But it can also fail for a
+            # reason that has nothing to do with the session, and throwing the
+            # id away then loses a conversation for no reason: that is exactly
+            # what happened when a bad argument was mistaken for a dead session.
+            if session_id and SESSION_GONE.search(output):
+                print(f"the recorded {brand} session is gone, forgetting it", file=sys.stderr)
                 sessions.pop(session_key, None)
             save_sessions(state)
             continue
