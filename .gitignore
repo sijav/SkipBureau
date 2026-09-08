@@ -9,3 +9,8 @@ build/
 storybook-static/
 playwright-report/
 test-results/
+
+# roast state: this machine, not the project
+.claude/roast-result.md
+.claude/roast-sessions.json
+.claude/roast-last-message.tmp
