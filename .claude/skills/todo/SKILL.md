@@ -8,6 +8,31 @@ description: The SkipBureau board, a real SQLite database at agent/todo.db. Use 
 `agent/todo.db` is a SQLite database. It is the only record of what is to be
 done on this project.
 
+## Setup
+
+**Node 24 or newer. That is the whole list.**
+
+- **SQLite is not a separate install.** It ships inside Node as `node:sqlite`.
+  Nothing to download, no `sqlite3` binary, no native build step.
+- **No `npm install` is needed for the board.** `agent/todo.mjs` imports only
+  Node built-ins, so it works in a repository with no `node_modules` at all.
+- **The database creates itself** on first run, tables and all. There is no
+  migration step and nothing to initialise.
+
+On Node 22 or 23 `node:sqlite` exists but is behind `--experimental-sqlite`, and
+on anything older it is absent. The script checks and says so plainly rather
+than failing with a stack trace.
+
+If `npm` is not available, or you are outside the repository root, call the
+script directly. The two are the same thing:
+
+```bash
+node agent/todo.mjs next          # same as: npm run todo -- next
+node agent/todo.mjs add --title ...
+```
+
+`npm run todo` exists only because `package.json` is where a person looks first.
+
 ## This replaces the built-in to-do tool
 
 **Do not use TodoWrite here.** It is private scratch that vanishes with the

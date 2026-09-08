@@ -21,8 +21,13 @@ it.
 
 ### 1. Rebuild context
 
-Read `TODO.md`, then `AGENTS.md`, then `DESIGN.md`. Read the actual Figma node
-before building a component.
+Read `CLAUDE.md`, then `DESIGN.md`, then the board:
+
+```bash
+npm run todo
+```
+
+Read the actual Figma node before building a component.
 
 ### 2. Roast the last summary
 
@@ -34,14 +39,17 @@ claimed done and was not, finish that before starting anything new.
 ### 3. Pick the next task
 
 ```bash
-npm run next
+npm run todo -- next
+npm run todo -- move SB-001 in_progress
 ```
 
 Highest severity, then fewest points, then lowest id, never one whose parent is
-unfinished. Move it to `In progress` in `TODO.md` before touching a file.
+unfinished. Move it to `in_progress` before touching a file.
 
 Anything the owner asks for becomes a task before it is begun. Anything
-discovered becomes a task before it is done. All nine fields, filled.
+discovered becomes a task before it is done. All nine fields, filled. The board
+is `agent/todo.db`; see `.claude/skills/todo/SKILL.md`, and do not use the
+built-in TodoWrite tool.
 
 ### 4. Do the work, then check it in a browser
 
@@ -66,9 +74,9 @@ Codex's output is evidence, not a verdict. Judge each finding against the code:
 - **Wrong** — say what the reviewer misread. Never silently drop one.
 - **Out of scope** — real, but not this task.
 
-Then **every finding that survives becomes its own task in `TODO.md`**, all nine
-fields filled, and **the finished task moves to Done and you take the next
-task**.
+Then **every finding that survives becomes its own task on the board** via
+`npm run todo -- add`, all nine fields filled, and **the finished task moves to
+`done` and you take the next task**.
 
 **Do not re-roast the same task.** One roast per task. A finding is work for
 later, not a reason to reopen what was just finished. This is the owner's rule,

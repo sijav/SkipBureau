@@ -11,9 +11,22 @@
 // lowest id, and never a task whose parent is unfinished. Anything already in
 // progress or review comes first, so work in flight gets finished.
 
-import { DatabaseSync } from 'node:sqlite'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+
+// SQLite is inside Node, so this script has no dependencies and works in a
+// checkout with no node_modules. It is unflagged from Node 24; on 22 and 23 it
+// needs --experimental-sqlite, and before that it does not exist. Saying which
+// beats letting the import throw a stack trace at someone.
+let DatabaseSync
+try {
+  ;({ DatabaseSync } = await import('node:sqlite'))
+} catch {
+  console.error(`This board needs node:sqlite, and this is Node ${process.version}.`)
+  console.error('Node 24 or newer has it built in. On 22 or 23, run with --experimental-sqlite.')
+  console.error('There is nothing to install: SQLite ships inside Node, and this script has no dependencies.')
+  process.exit(1)
+}
 
 const AGENT = dirname(fileURLToPath(import.meta.url))
 const db = new DatabaseSync(join(AGENT, 'todo.db'))
