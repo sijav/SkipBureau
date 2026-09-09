@@ -30,6 +30,75 @@ signed-in states, and there are no end-user accounts in this product.
 
 ---
 
+## The rules that are easy to break
+
+Measurements are checkable. These are not, and every one of them is a decision
+the file states in words, with its reasoning, which means breaking one is not a
+near miss but a different product. Each links to the section that details it.
+
+1. **One primary Ask entry point is visible at a time.** Home owns it until it
+   scrolls away, then the header takes it, and internal pages always use the
+   header. Two ask fields on one screen is the failure this rule exists to
+   prevent. [The app shell](#the-app-shell-page-52)
+
+2. **Context is not a filter, and it is asked for after a question.** There are
+   no nationality or city dropdowns beside Ask, by design. The control states
+   what SkipBureau knows, in words, never as a flag, and it is requested only
+   when it changes the answer. [Context control](#context-control)
+
+3. **Twelve goals, no grouping layer.** A person should recognise their own
+   situation in five seconds without first decoding a category system. Two
+   alternatives were considered and archived on the page as history: grouped
+   rows, and an index grid. They are not options to revisit casually.
+   [The twelve goals](#the-twelve-goals)
+
+4. **Guided setup and the topic list are peers, not a funnel.** Someone who
+   already knows what they need goes straight to a topic without being pushed
+   through questions. [Task hub](#task-hub-page-78523)
+
+5. **A hub shows what a goal involves without pretending to know which parts
+   apply to this person.** That only becomes definite inside a process.
+   [Task hub](#task-hub-page-78523)
+
+6. **The guide template must stay coherent when any optional field is empty.**
+   Every field is content, not layout. This is what lets a thin guide ship
+   instead of waiting to be complete. [The content model](#the-content-model-quoted-from-151995)
+
+7. **`Your options` is removed entirely where there is no meaningful choice, not
+   hidden.** An empty section heading tells the reader there is a decision they
+   have not found. [The reading column](#the-reading-column)
+
+8. **The last verified date is required, and appears in three places:** the
+   header, the sources section, and the footer note. It is the only visible
+   signal that the content is current, which is what this product is actually
+   selling. [The content model](#the-content-model-quoted-from-151995)
+
+9. **The category hub checklist saves nothing, and the page has to say so.** A
+   checklist that looks like it remembers, and does not, loses someone their
+   place in a bureaucratic process.
+   [The checklist saves nothing](#the-checklist-saves-nothing-and-says-so)
+
+10. **A submission is reviewed before it changes a guide, and the reader is told
+    that.** Someone who submits into silence does not submit twice.
+    [Suggest an update](#suggest-an-update-145865-1440x940)
+
+11. **The header is 68 high, and 60 once scrolled.** Nothing added to it may
+    change either number. This is the constraint the owner attached to the
+    language control request: a control that alters the height has destroyed
+    the thing the request was protecting.
+    [Where the language control goes](#where-the-language-control-goes)
+
+12. **Hover tints the surface, focus keeps the resting surface and adds a 2px
+    `accent-text` outline.** The same escalation on every row and every tile.
+    One row inventing its own makes keyboard use unreadable.
+    [Topic item](#topic-item-78552-860x82-or-100-with-a-kind-label)
+
+13. **There is no mobile design, and the file says so by being empty.** Every
+    screen is drawn at 1440. What happens below that is not a detail to
+    improvise. [Three pages of the design are empty](#three-pages-of-the-design-are-empty)
+
+---
+
 ## Colour
 
 Semantic tokens only. A component binds to the name, never to a primitive and
@@ -122,19 +191,19 @@ closer to a well-set document than to a dashboard.
 Sixteen families on page `0:1`. Every variant below is a real node, so each can
 be opened and measured. Sizes are the frame sizes in the file.
 
-### Button `11:44` — 146x40
+### Button `11:44`, 146x40
 
 Four styles, five states each: **Default, Hover, Focus, Pressed, Disabled**.
 
 - Primary `11:4` · Secondary `11:14` · Ghost `11:24` · Destructive `11:34`
 
-### Tag / Status `13:26` — height 24
+### Tag / Status `13:26`, height 24
 
 By meaning, not by colour: Official `13:2`, Verified `13:5`, Needs context
 `13:8`, Deadline `13:11`, Warning `13:14`, Blocked `13:17`, Waiting `13:20`,
 Completed `13:23`.
 
-### Alert / Information panel `14:26` — width 560
+### Alert / Information panel `14:26`, width 560
 
 Official information `14:2` (126h), Practical advice `14:6`, Warning `14:10`,
 Scam warning `14:14`, Legal uncertainty `14:18`, Coverage gap `14:22` (126h).
@@ -142,21 +211,21 @@ Scam warning `14:14`, Legal uncertainty `14:18`, Coverage gap `14:22` (126h).
 The last two matter: the design has a panel for admitting the law is unclear and
 a panel for admitting the guide does not cover something.
 
-### Input `16:32` — 320x98, error 320x120
+### Input `16:32`, 320x98, error 320x120
 
 Default `16:2`, Hover `16:7`, Focus `16:12`, Filled `16:17`, Disabled `16:22`,
 Error `16:27`. The error state is 22px taller: the message is inside the
 component, not floating under it.
 
-### Select `16:53` — 320x68
+### Select `16:53`, 320x68
 
 Default `16:33`, Hover `16:38`, Focus `16:43`, Disabled `16:48`.
 
-### Search input `17:17` — 720x56
+### Search input `17:17`, 720x56
 
 Default `17:2`, Focus `17:7`, Filled `17:12`.
 
-### Context chip `17:27` — height 26
+### Context chip `17:27`, height 26
 
 Set `17:18`, Hover `17:21`, Unset `17:24` (wider, 239 against 141).
 
@@ -164,19 +233,19 @@ Set `17:18`, Hover `17:21`, Unset `17:24` (wider, 239 against 141).
 
 Steps `17:28` (360x36), Bar `17:40` (360x34).
 
-### Guide card `18:14` — 360x154
+### Guide card `18:14`, 360x154
 
 Default `18:2`, Hover `18:8`.
 
-### Process card `18:40` — 360x158
+### Process card `18:40`, 360x158
 
 Default `18:15`, Hover `18:20`, In progress `18:25` (150h).
 
-### Document card `18:65` — 360x178
+### Document card `18:65`, 360x178
 
 Not started `18:41`, Ready `18:47`, Missing `18:53`, Expiring `18:59`.
 
-### Checklist item `27:218` — 640x64
+### Checklist item `27:218`, 640x64
 
 Required `27:2`, Completed `27:31`, Optional `27:62`, Missing `27:91`, Expired
 `27:122`, Needs verification `27:154`, Not applicable `27:187`.
@@ -185,17 +254,17 @@ Seven states, all the same height. "Not applicable" is a state, which means the
 checklist adapts to the person rather than showing them work they do not have to
 do.
 
-### Deadline item `28:46` — 380x66
+### Deadline item `28:46`, 380x66
 
 Normal `28:2`, Upcoming `28:9`, Due soon `28:16`, Today `28:24`, Overdue
 `28:32`, Completed `28:39`.
 
-### Saved item `28:101` — 560x88
+### Saved item `28:101`, 560x88
 
 Guide, Process and Document, each with Default and Hover: `28:47` `28:56`
 `28:65` `28:74` `28:83` `28:92`.
 
-### Source citation card `30:84` — 520x180
+### Source citation card `30:84`, 520x180
 
 Official / verified `30:2`, Recently checked `30:18`, Older source `30:34`,
 Source unavailable `30:50`, Verification pending `30:66`.
@@ -204,7 +273,7 @@ Five states for how much a source can be trusted, including one for the source
 being gone. This is the component that carries the product's honesty about
 outdated information.
 
-### Roadmap step `32:437` — width 720
+### Roadmap step `32:437`, width 720
 
 Collapsed, 73h (Upcoming is 56h): Completed `31:2`, Current `31:13`, Upcoming
 `31:24`, Waiting `31:35`, Blocked `31:48`, Needs user input `31:59`.
@@ -214,7 +283,7 @@ Expanded: Completed `32:2` (915h), Current `32:74` (839h), Upcoming `32:111`
 
 ---
 
-## The app shell — page `5:2`
+## The app shell, page `5:2`
 
 ### The governing rule, quoted from the file
 
@@ -235,11 +304,11 @@ The shell is organised around how people arrive, not around the content model.
 | **Ask Skipbureau** | "I have a specific question." | Natural language in, structured answer out. Large on Home, compact in the header everywhere else. |
 | **My processes** | "I already started something." | Signed in only, because it only means anything then. **Not in the public MVP.** |
 
-### Header `45:637` — width 1440
+### Header `45:637`, width 1440
 
-- Public / Default `45:523` — **68 high**
-- Public / Scrolled `45:548` — **60 high**
-- Logged in / Default `45:573`, Logged in / Scrolled `45:605` — not in MVP
+- Public / Default `45:523`, **68 high**
+- Public / Scrolled `45:548`, **60 high**
+- Logged in / Default `45:573`, Logged in / Scrolled `45:605`, not in MVP
 
 Scrolling drops the height 68 to 60 and strengthens the bottom rule. **No shadow,
 no blur.**
@@ -289,18 +358,18 @@ Marked `NOT IN PUBLIC MVP`: `48:751`, `55:1121`, `48:785`, `48:850`.
 
 ---
 
-## Home and Explore — page `58:523`
+## Home and Explore, page `58:523`
 
 **Home is the Explore experience.** Three intentions, three paths: ask a
 question, pick a goal, or continue something already started. There is no
 separate Explore page.
 
-### Home ask field `58:538` — 760x64
+### Home ask field `58:538`, 760x64
 
 Rest `58:524`, Focus `58:531`. This is the large field that owns the top of
 Home. Compare the header's compact one at 420x40.
 
-### Task tile `65:1285` — 302x100
+### Task tile `65:1285`, 302x100
 
 Default `65:1261`, Hover `65:1267`, Focus `65:1273`, Pressed `65:1279`,
 Coming soon `137:1391` (302x120).
@@ -340,7 +409,7 @@ Four columns, tile 302 wide, **24px gutter** (326 pitch). Three rows at y 0,
 144, 288. The first eight tiles are **120 high**; the last four are **100 high**.
 Total block 1280x388.
 
-### Public home `60:587` — 1440 wide
+### Public home `60:587`, 1440 wide
 
 Content column **1280, inset 80 left and right**. Header 68, then Body:
 
@@ -380,12 +449,12 @@ The four steps, from the file:
 4. **Continuity, not duplication.** The compact "Ask Skipbureau..." is the same
    action in a smaller place. The two are never on screen together.
 
-### Task row `58:551` — 560x70
+### Task row `58:551`, 560x70
 
 Default `58:539`, Hover `58:545`. Used by the archived Option B, and by grouped
 lists elsewhere.
 
-### Logged-in home `61:704` — NOT IN PUBLIC MVP
+### Logged-in home `61:704`, NOT IN PUBLIC MVP
 
 Recorded because it explains the ordering rule: same Ask, same tiles, reordered
 page. "Continue where you left off" sits directly under Ask, because an
@@ -394,7 +463,7 @@ comes from position and padding rather than bigger type.
 
 ---
 
-## Guide Detail — page `142:523`
+## Guide Detail, page `142:523`
 
 The template every guide renders through. `Guide Detail / Template` `143:523`,
 1440 wide, and two worked examples: `Get a SIM Card or eSIM` `143:734` and
@@ -444,7 +513,7 @@ This is the shape the Prisma schema has to hold, and the reason nearly every
 field is nullable: the template is required to survive any of them being absent.
 `Last verified date` is the one that is not, and it appears in three places.
 
-### Suggest an update `145:865` — 1440x940
+### Suggest an update `145:865`, 1440x940
 
 The anonymous contribution screen. Textarea `142:542` (660x626), and the file
 states the policy:
@@ -464,12 +533,12 @@ guides where there is no meaningful choice."** Not hidden, removed.
 
 ---
 
-## Category Hub — page `132:523`
+## Category Hub, page `132:523`
 
 Template `133:523` (1440x1839) with a worked example, `Getting Settled`
 `133:690`. This is the layer between a task tile and a guide.
 
-### Checklist line `132:537` — 344x40
+### Checklist line `132:537`, 344x40
 
 Unchecked `132:524`, Hover `132:527`, Focus `132:530`, Checked `132:533`.
 
@@ -505,7 +574,7 @@ different measure.
 
 ---
 
-## Task Hub — page `78:523`
+## Task Hub, page `78:523`
 
 The bridge between a goal and a process. Worked example: `Start a Business /
 Public` `81:523` (1440x2697).
@@ -525,7 +594,7 @@ Choose a topic      ->  Guide
 > knows what they need goes straight to a topic without being pushed through
 > questions."
 
-### Topic item `78:552` — 860x82, or 100 with a Kind label
+### Topic item `78:552`, 860x82, or 100 with a Kind label
 
 Default `78:524`, Hover `78:531`, Focus `78:538`, Pressed `78:545`.
 
@@ -541,7 +610,7 @@ Interaction matches the task tile and the file says so: hover tints the surface
 for a pointer, focus keeps the resting surface and adds a **2px `accent-text`
 outline** for a keyboard. Same escalation, different container.
 
-### The sections — Main is 860 wide
+### The sections, Main is 860 wide
 
 | section | node | height |
 |---|---|---|
