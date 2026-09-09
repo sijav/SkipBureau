@@ -55,11 +55,14 @@ Three questions are always added for you: whether it matches the logic it was
 meant to follow, whether it is DRY or wrongly abstracted, and what it claims that
 is not true.
 
-The script also tells the reviewer to check its own draft before answering: throw
-out anything asserted without opening the file, anything that is a preference
-dressed as a defect, and anything that would apply to any codebase. It is told
-plainly that finding nothing is a correct answer, and never to inflate a small
-problem to look thorough.
+**The reviewer answers in three passes**, and only the third is shown. It works
+through the questions and reaches a conclusion; then it checks that conclusion
+as if someone else had written it, throwing out anything asserted without
+opening the file, anything that is a preference dressed as a defect, anything it
+would have said about any codebase, and anything it sharpened only because a
+thin answer felt like failure; then it writes what survived. It is told plainly
+that finding nothing is a correct and complete answer, and never to inflate a
+small problem to look thorough.
 
 ## Then: judge it, file it, move on
 
@@ -71,8 +74,8 @@ the code:
 - **Out of scope** — real, but not this task.
 
 Then **every finding that survives becomes its own task on the board**, all nine
-fields filled, and **the finished task moves to `done` and you take the next
-one**.
+fields filled, and only then does the finished task move from `wait_for_roast`
+to `done`. Then you take the next one.
 
 **One roast per task. Never re-roast.** This is the owner's rule, given directly:
 

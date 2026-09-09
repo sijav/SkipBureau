@@ -53,8 +53,8 @@ npm run todo -- next
 Prints the task to work on and why it was picked. The rule is the owner's and is
 not to be overridden in your head: **highest severity, then fewest story points,
 then lowest id, never one whose parent is unfinished.** Anything already
-`in_progress` or `review` comes first, so work in flight gets finished before
-anything new starts.
+`in_progress` or `wait_for_roast` comes first, so work in flight gets finished
+before anything new starts.
 
 If the pick looks wrong, correct that task's severity, points or parents and run
 it again. Do not simply pick something else.
@@ -83,6 +83,8 @@ npm run todo -- add \
 - `severity`: `critical`, `high`, `medium`, `low`
 - `points`: 1, 2, 3, 5, 8, 13
 - `parent`: comma separated ids that must be `done` first; omit if nothing blocks it
+- `status`: a task stops at `wait_for_roast` when the work is finished. Only the
+  loop moves it to `done`, after the roast has been judged and its findings filed
 - `exit`: checkable by someone who did not do the work. "It works" is not an exit
   condition. "The header renders at the design height in fa-IR dark" is.
 
@@ -91,7 +93,7 @@ npm run todo -- add \
 ```bash
 npm run todo                        the whole board, by column
 npm run todo -- show SB-003         one task in full
-npm run todo -- move SB-003 done    backlog, in_progress, review, done, dropped
+npm run todo -- move SB-003 done    backlog, in_progress, wait_for_roast, done, dropped
 ```
 
 ## What this board does not do

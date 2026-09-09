@@ -32,7 +32,7 @@ const AGENT = dirname(fileURLToPath(import.meta.url))
 const db = new DatabaseSync(join(AGENT, 'todo.db'))
 
 const SEVERITIES = ['critical', 'high', 'medium', 'low']
-const STATUSES = ['backlog', 'in_progress', 'review', 'done', 'dropped']
+const STATUSES = ['backlog', 'in_progress', 'wait_for_roast', 'done', 'dropped']
 const POINTS = [1, 2, 3, 5, 8, 13]
 
 db.exec(`
@@ -43,7 +43,7 @@ db.exec(`
     why       TEXT NOT NULL,
     severity  TEXT NOT NULL CHECK (severity IN ('critical','high','medium','low')),
     points    INTEGER NOT NULL CHECK (points IN (1,2,3,5,8,13)),
-    status    TEXT NOT NULL CHECK (status IN ('backlog','in_progress','review','done','dropped')),
+    status    TEXT NOT NULL CHECK (status IN ('backlog','in_progress','wait_for_roast','done','dropped')),
     exit_cond TEXT NOT NULL,
     created   TEXT NOT NULL DEFAULT (datetime('now'))
   );
@@ -113,7 +113,7 @@ if (command === 'list') {
 } else if (command === 'next') {
   const tasks = all()
   const done = new Set(tasks.filter((task) => task.status === 'done').map((task) => task.id))
-  const started = tasks.filter((task) => task.status === 'in_progress' || task.status === 'review')
+  const started = tasks.filter((task) => task.status === 'in_progress' || task.status === 'wait_for_roast')
 
   const eligible = tasks
     .filter((task) => task.status === 'backlog')

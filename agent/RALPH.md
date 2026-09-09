@@ -17,89 +17,115 @@ mutation testing, no verification apparatus. If a check seems necessary, say so
 in the reply and let the owner decide, rather than building it and then obeying
 it.
 
-## Each iteration, in order
+---
 
-### 1. Rebuild context
+Four steps. In order, every iteration.
 
-Read `CLAUDE.md`, then `DESIGN.md`, then the board:
+## 1. Compact
 
-```bash
-npm run todo
-```
+The context is gone. Assume you remember nothing and rebuild from files:
 
-Read the actual Figma node before building a component.
+1. `CLAUDE.md`, the working agreement and what the product is.
+2. `DESIGN.md`, the design contract. Read the actual Figma node before building
+   any component.
+3. The board: `npm run todo`.
 
-### 2. Roast the last summary
+## 2. Self-roast the last summary
 
-Ask of the previous iteration's work: **is this implementation really done, or is
-something left over?** Check the repository, not the summary. Run the thing.
-`git status`, `git diff`, run the tests, read the output. If the last iteration
-claimed done and was not, finish that before starting anything new.
+**This one is yours. It is not the external skill.** Ask plainly of the previous
+iteration's summary:
 
-### 3. Pick the next task
+> **Is this implementation really done? Is something left over?**
+
+Check the repository, not the summary. Run the thing. `git status`, `git diff`,
+run the tests and read the output. A summary that says "done", "green",
+"passing" or "fixed" is a claim, and claims get checked.
+
+## 3. Do one task, and stop at `wait_for_roast`
+
+**If step 2 found something left over**, that task goes back to `in_progress`
+and you finish it. Nothing new is picked up until it is done.
+
+**Otherwise take the next one:**
 
 ```bash
 npm run todo -- next
-npm run todo -- move SB-001 in_progress
+npm run todo -- move SB-00X in_progress
 ```
 
 Highest severity, then fewest points, then lowest id, never one whose parent is
-unfinished. Move it to `in_progress` before touching a file.
+unfinished. Use the `/todo` skill, never the built-in TodoWrite. Anything the
+owner asks for, and anything you discover on the way, becomes a task with all
+nine fields before it is begun.
 
-Anything the owner asks for becomes a task before it is begun. Anything
-discovered becomes a task before it is done. All nine fields, filled. The board
-is `agent/todo.db`; see `.claude/skills/todo/SKILL.md`, and do not use the
-built-in TodoWrite tool.
+Work until it actually meets its exit condition. For anything with a UI, open it
+in a browser and look at it in `en-US` and `fa-IR`, light and dark.
 
-### 4. Do the work, then check it in a browser
-
-One task at a time. For anything with a UI, actually open it and look at it in
-`en-US` and `fa-IR`, light and dark.
-
-### 5. Hand it to codex for a roast
+Then:
 
 ```bash
-codex exec -m gpt-5.6-terra -s read-only
+npm run todo -- move SB-00X wait_for_roast
 ```
 
-Give it the task card, what was actually done, the diff, and two or three
-questions aimed at the part you are least sure of. Generic questions get generic
-answers.
+**Every task stops here. You never move one to `done` yourself.**
 
-### 6. Roast the roast, file to-dos, and move on
+## 4. Roast it, roast the roast, file what survives
 
-Codex's output is evidence, not a verdict. Judge each finding against the code:
+A task sitting in `wait_for_roast` gets an external check. Use the `/roast`
+skill, in the background so the wait is not dead time:
 
-- **Real** — reproduce it, name the input that triggers it.
+```bash
+python .claude/skills/roast/roast.py task \
+  --title "SB-00X ..." --exit-condition "..." \
+  --did "what you actually did, honestly, including what you skipped" \
+  --files "$(git diff --name-only HEAD)" \
+  --ask "a real question about THIS task's logic" \
+  --ask "a second one, aimed where you are least sure"
+```
+
+The reviewer answers in three passes: reach a conclusion, check that conclusion
+as if someone else wrote it, then give only what survived.
+
+When it comes back, **you roast the roast**. It is evidence, not a verdict. Take
+each point and judge it against the code:
+
+- **Real** — reproduce it, name the input or state that triggers it.
 - **Wrong** — say what the reviewer misread. Never silently drop one.
 - **Out of scope** — real, but not this task.
 
-Then **every finding that survives becomes its own task on the board** via
-`npm run todo -- add`, all nine fields filled, and **the finished task moves to
-`done` and you take the next task**.
+Then **everything that survives becomes a new task on the board**, all nine
+fields filled. Then, and only then:
 
-**Do not re-roast the same task.** One roast per task. A finding is work for
-later, not a reason to reopen what was just finished. This is the owner's rule,
-given directly:
+```bash
+npm run todo -- move SB-00X done
+```
+
+And back to step 1.
+
+**One roast per task. Never re-roast.** This is the owner's rule, given directly:
 
 > "the roasting needs to happen after a task is done, and then you roast the
 > roast, then add to-do! and then go on and start from the next to-do"
 
-Re-roasting until a score improves has no end: ask any reviewer the same
-question again and it will look harder for something to say. That is what burned
-a whole day.
+A finding is work for later, not a reason to reopen what was just finished.
+There is no passing score and no minimum. Re-roasting until a score improves has
+no end: ask any reviewer the same question again and it will look harder for
+something to say. That is what burned a whole day.
 
 It is a **check**, not an attack. The question is whether the work does what it
 was meant to do, and "it does" is a complete answer.
 
-### 7. Relay it to the owner
+**Relay the roast to the owner** in your reply: what was found, what you
+accepted, what you rejected and why. They never see `.claude/roast-result.md`.
 
-Say what was found, what was accepted, what was rejected and why. The owner does
-not see the codex output.
+---
 
-### 8. Commit and continue
+## The skills this loop runs on
 
-Commit. Take the next task.
+| skill | what it is for |
+|---|---|
+| `/todo` | the board, a real SQLite database at `agent/todo.db`. Replaces the built-in TodoWrite. |
+| `/roast` | the external check. `task` after one task, `technical` after a run of them, `search` for a question. |
 
 ## Asking the owner
 

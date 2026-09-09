@@ -37,6 +37,16 @@ import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 
+# A reviewer writes arrows, dashes and quotes, and the Windows console is cp1252
+# by default, so printing a perfectly good answer killed the script with an
+# encoding error after the work was already paid for. The answer was safely on
+# disk and the exit code still said failure.
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, OSError, ValueError):
+        pass
+
 REPO = Path(__file__).resolve().parents[3]
 CLAUDE_DIR = REPO / ".claude"
 RESULT = CLAUDE_DIR / "roast-result.md"
@@ -113,22 +123,37 @@ MODES = {
 # The instruction that makes the answer worth reading. Without it the reply is
 # the first plausible thing the model thought of.
 SELF_ROAST = """
-Before you answer, check your own draft, and do it privately.
+## How to answer: three passes, and only the third is shown
 
-1. Write what you found.
-2. Then test each one. Did you actually open the file, or assume? Is it a defect,
-   or a preference dressed as one? Would you have written it about any codebase
-   without reading this one? Does it survive someone asking "so what breaks?"
-3. Throw out whatever fails that, and keep the rest.
+**Pass one. Work through the questions above and reach a conclusion.** Go and
+look. Open the files. Say what you actually found.
 
-Report only what survived.
+**Pass two. Now check that conclusion, as if someone else had written it.** This
+is the pass that makes the answer worth reading, so do it properly, and do it
+privately. Ask of every point you just made:
 
-**Finding nothing wrong is a correct and useful answer.** If that is the honest
-result, say so, and say exactly what you checked and how you tried to break it,
-so the reader can tell the difference between nothing being wrong and you not
-having looked. A short honest check beats a long thorough-looking one.
+- Did I open the file, or did I assume? If I assumed, it does not survive.
+- Is this a defect, or a preference wearing a defect's clothes?
+- Would I have written this about any codebase, without reading this one?
+- If someone asks "so what actually breaks, and when?", do I have an answer?
+- Did I soften this because it sounded harsh, or sharpen it because it sounded
+  thin? Both are dishonest.
+- Am I saying this because it is true, or because I have been asked to review
+  something and an empty answer feels like failure?
 
-Never invent a problem to seem useful, and never inflate a small one to seem
+Throw out everything that fails. Keep what survives, in the words that survive
+it.
+
+**Pass three. Write the final answer, and only that.** Do not show your working
+from passes one and two. Do not list what you discarded.
+
+**Finding nothing wrong is a correct and complete answer.** If that is the honest
+result of the two passes, say so, and say exactly what you checked and how you
+tried to break it, so the reader can tell the difference between nothing being
+wrong and you not having looked. A short honest check beats a long
+thorough-looking one every time.
+
+Never invent a problem to seem useful. Never inflate a small one to seem
 thorough. A false finding costs more than a missed one, because someone will go
 and act on it.
 """
