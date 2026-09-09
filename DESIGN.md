@@ -729,5 +729,35 @@ Nothing states what happens below that, and the instruction is to match the
 design exactly.
 
 So responsive behaviour cannot be read from the file, and anything built for
-small screens is invention rather than transcription. That is a decision for the
-owner, not something to quietly guess at, and it is filed as its own task.
+small screens is invention rather than transcription.
+
+### What the owner decided, 2026-09-10
+
+He looked and agreed there is nothing there. The decision, in his words: build
+the MVP from the desktop screens, but **the infrastructure has to support a
+phone correctly from the start**, using MUI properly so the result displays
+correctly, with the shape taken from allaboutberlin.com. Testing on a phone
+waits until later. Infrastructure first, then the big things in front of the
+eyes, then the details.
+
+That splits into three rules.
+
+1. **Every measurement in this file is a desktop measurement, and it is
+   transcribed.** Nothing below 1440 is transcription, so nothing below 1440 may
+   be recorded here as though it were.
+
+2. **A design width becomes a max-width, a gap, or a column count. Never a fixed
+   width.** A guide card is `360x154` on the desktop frame, which means at most
+   360 wide, not exactly 360. A component that hardcodes the number cannot
+   reflow, and a page of them needs horizontal scrolling on a phone. This is the
+   rule that has to exist before the component library is built, which is why
+   SB-071 blocks it.
+
+3. **Derived is labelled derived.** Breakpoints, the collapsed header, the
+   drawer, the tile grid stepping from four columns to two to one: all of it is
+   invention, recorded as invention, the same way the dark palette is. When
+   mobile frames ever arrive they replace it wholesale rather than being
+   reconciled with it.
+
+SB-071 builds the foundation, SB-072 tests it on a phone once the desktop MVP
+stands up.
