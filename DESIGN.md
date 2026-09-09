@@ -337,6 +337,76 @@ Ask result row `46:610` (640x66): Task `46:591`, Guide `46:596`, Quick answer
 
 Ask panel `46:659` (640): Empty `46:611` (313h), Results `46:637` (317h).
 
+#### What Ask does, and what it refuses to do
+
+The file never says what answers a question, so it was decided here, SB-034.
+
+**Ask searches SkipBureau's own content. It does not generate answers.** A
+question returns rows pointing at things we wrote and dated: a task, a guide, a
+guide's stored quick answer, or something the reader looked at recently. It
+never composes prose about a bureaucratic rule.
+
+**This is a product decision, not something the design forced.** Nothing in the
+file forbids a generative backend; the row variants could have been rendered
+from a model. The reason is below, and the design is the corroboration rather
+than the argument. Recording it that way so that whoever revisits it argues with
+the reason instead of with a component name.
+
+**The reason: the only asset this product has is being correct and current.**
+Every guide carries a required last verified date printed in three places. A
+generated paragraph has no verified date, no source and no editor, and a reader
+acts on a residence permit deadline. An empty result costs a reader a search; an
+invented rule costs them an appointment, a fee, or a legal status. That
+asymmetry is the whole decision.
+
+The design corroborates it in three places, read off the nodes rather than
+inferred from their names:
+
+1. **Every result kind is a pointer.** The row has exactly four variants and
+   three are our records; the fourth is the reader's own history. There is no
+   answer variant.
+
+2. **Quick answer is a badge, not a body.** `46:601` contains
+   `Content` `46:602` holding `Title` (503x20) and `Sub` (503x22), plus a
+   `Kind` label (89x14). `46:596`, the Guide variant, is the same structure with
+   the same two text nodes and a 37px `Kind`. The only difference between them
+   is the width of the label, which tracks the length of the word in it. A 22px
+   `Sub` cannot hold a generated answer. And `Quick answer` `151:1007` is a
+   field in the guide content model that an editor fills in, rendered third on
+   Guide Detail at `182:1054`, so the row is showing that field.
+
+3. **The same row appears where nothing has been asked.** Home's
+   `Common questions` band `60:738` is four of these at full 1280 width, and the
+   Task hub's `Guides` section `81:655` is six in two columns. Both are curated
+   lists. A row that serves as a static list item is not the output of a
+   generative call.
+
+**So Ask, in this version:**
+
+- Matches the question against guide and task titles, descriptions and quick
+  answers, and returns the `Task`, `Guide` and `Quick answer` rows.
+- **Matches within one language, over separate fields per language.** A Persian
+  query does not retrieve an English-only guide, because a hit a reader cannot
+  read is not a hit. What the reader sees instead is SB-049's business.
+- **`Recent` is not a search result.** It is the reader's own history from this
+  browser, in its own labelled section of the panel, never ranked in among
+  matches. It needs no account and no server.
+- **No match means no match.** Nothing adjacent is promoted to fill the panel.
+  The empty state `46:611` is 313 high and what fills it is curated entry
+  points, the same editorial content as Home's `Common questions` band `60:738`,
+  plus the suggest-an-update route. Curated is not the same as adjacent: it is
+  chosen by an editor, not by a scorer that ran out of good answers.
+
+**It does not** answer in prose, summarise several guides into one reply, or
+answer about a country or a topic we have not covered.
+
+**What would change this.** A model call becomes reasonable as a **router**, not
+an author: turning a question into the right guide without writing any claim of
+its own, still showing our dated content as the answer. That needs enough
+content that finding the right guide is genuinely hard, a budget the free tier
+does not have, and an evaluation showing routing beats plain search on real
+questions. Until those three, the decision stands.
+
 ### Where the language control goes
 
 The owner requires a language control in the topbar that does not destroy the
