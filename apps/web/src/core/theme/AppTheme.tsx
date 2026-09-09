@@ -1,11 +1,11 @@
 import { ThemeProvider } from '@mui/material/styles'
 import { useEffect, useMemo, type ReactNode } from 'react'
-import { appTheme } from './theme'
+import { appTheme, type Direction, type Mode } from './theme'
 
 export type AppThemeProps = {
   children: ReactNode
-  mode?: 'light' | 'dark'
-  direction?: 'ltr' | 'rtl'
+  mode?: Mode
+  direction?: Direction
 }
 
 /**
