@@ -15,8 +15,6 @@ test-results/
 .claude/roast-sessions.json
 .claude/roast-last-message.tmp
 
-# The board is per project and per checkout, never shared between sessions
-.claude/todo.db
 .claude/todo.db-journal
 .claude/todo.db-wal
 .claude/todo.db-shm

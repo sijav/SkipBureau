@@ -8,19 +8,14 @@ description: The SkipBureau board, a real SQLite database at .claude/todo.db. Us
 `.claude/todo.db` is a SQLite database. It is the only record of what is to be
 done on this project.
 
-## It is local to this project, and not shared
+## It lives with the project
 
-`.claude/todo.db` sits in the project-local `.claude` folder and is **gitignored
-on purpose**. Each project, and each checkout of a project, has its own board.
+`.claude/todo.db`, in the project-local `.claude` folder, so the board belongs to
+this project and no other. It is committed, so it travels with the repository.
 
-That matters because more than one session can be pointed at the same directory.
-A board committed to the repository would have two of them writing the same
-SQLite file and clobbering each other's work. This one cannot be shared by
-accident.
-
-The consequence, stated so nobody is surprised by it: **the board does not
-travel with a clone.** A fresh checkout starts with an empty board, which the
-script creates on first run.
+**More than one session can be pointed at the same directory.** Two of them
+writing this file will clobber each other. Before starting work, check that no
+other session is running against this project.
 
 ## Setup
 
