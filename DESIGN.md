@@ -809,3 +809,36 @@ That splits into three rules.
 
 SB-071 builds the foundation, SB-072 tests it on a phone once the desktop MVP
 stands up.
+
+### The foundation, as built
+
+**MUI's breakpoints are kept as they are**: xs 0, sm 600, md 900, lg 1200, xl
+1536. The Figma numbers are content constraints, not viewport thresholds, and
+the two are different things: a 1080 guide column is not a claim about a 1080
+screen. So the design's widths are named caps in `layout`, and the breakpoints
+stay the ones every MUI component already speaks.
+
+Four primitives, and screens are assembled from them rather than from pixels:
+
+| what | is | from the design |
+|---|---|---|
+| `Page` | the content column, `maxWidth` 1280 or 1080, inset stepping 80, 24, 16 | `60:587` content column 1280 inset 80 |
+| `Reading` | the prose measure, `maxWidth` 720 | the reading measure, the one width the file explains |
+| `AppShell` | header slot, `main`, footer slot, `100dvh`, `overflow-x: clip` | the shell, `5:2` |
+| `TileGrid` | a column COUNT, stepping 4 to 2 to 1, gap 24 | `60:648`, four columns of 302 on a 24 gutter |
+
+302 is what 1280 minus three 24px gutters divides into. It is a result, not an
+input, and typing it in is what makes a grid that cannot reflow.
+
+`100dvh` rather than `vh`, because mobile browser chrome makes `vh` taller than
+the visible area and the page then scrolls a little for no reason.
+
+**What proves it.** `e2e/responsive.spec.ts` loads five routes at ten widths,
+360 through 1440, including both sides of every MUI breakpoint, in English and
+Persian, and asserts that **no element anywhere** has an edge outside the
+viewport. Breakpoint edges rather than round device widths, because a layout
+that breaks does it one pixel either side of a threshold. It also checks the
+Persian heading starts on the right at every width, which a text assertion
+would not catch. `src/shared/layout.test.ts` is a tripwire for a design width
+written as `width:` instead of `maxWidth:`. Both were proven by planting a
+failure and watching them fire.

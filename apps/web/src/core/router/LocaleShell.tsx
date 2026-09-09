@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import { useLocation } from 'react-router-dom'
 import { I18nProvider, defaultLocale, locales } from 'src/core/i18n'
 import { AppTheme } from 'src/core/theme'
+import { AppShell } from 'src/shared/app-shell'
 import { aliasedLocale, localeFromSegment } from './paths'
 
 /**
@@ -22,7 +23,7 @@ export const LocaleShell = ({ children }: { children: ReactNode }) => {
     <I18nProvider locale={locale}>
       <AppTheme direction={locales[locale].dir}>
         <CssBaseline />
-        {children}
+        <AppShell>{children}</AppShell>
       </AppTheme>
     </I18nProvider>
   )

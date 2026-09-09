@@ -13,9 +13,17 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/shared/page/Page.stories.tsx
+msgid "A column, not a width"
+msgstr "A column, not a width"
+
 #: src/App.tsx
 #~ msgid "A step-by-step guide to bureaucracy abroad, for travellers and expats. Nothing is built yet: this page exists to prove the scaffold runs."
 #~ msgstr "A step-by-step guide to bureaucracy abroad, for travellers and expats. Nothing is built yet: this page exists to prove the scaffold runs."
+
+#: src/shared/page/Page.stories.tsx
+msgid "Cap"
+msgstr "Cap"
 
 #: src/screens/Placeholder.tsx
 msgid "Not built yet"
@@ -28,6 +36,14 @@ msgstr "The address may be mistyped, or it may point at a country or a guide Ski
 #: src/screens/Placeholder.tsx
 msgid "The address resolved, which is what this page is here to show."
 msgstr "The address resolved, which is what this page is here to show."
+
+#: src/shared/app-shell/AppShell.stories.tsx
+msgid "The page goes here"
+msgstr "The page goes here"
+
+#: src/shared/reading/Reading.stories.tsx
+msgid "The reading measure is 720. The design gives a reason for that one number and for no other, so it is the only width here that is about how text reads rather than about how a screen is divided."
+msgstr "The reading measure is 720. The design gives a reason for that one number and for no other, so it is the only width here that is about how text reads rather than about how a screen is divided."
 
 #: src/screens/NotFound.tsx
 msgid "This page does not exist"

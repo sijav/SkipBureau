@@ -13,9 +13,17 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/shared/page/Page.stories.tsx
+msgid "A column, not a width"
+msgstr "یک ستون، نه یک عرض"
+
 #: src/App.tsx
 #~ msgid "A step-by-step guide to bureaucracy abroad, for travellers and expats. Nothing is built yet: this page exists to prove the scaffold runs."
 #~ msgstr "یک راهنمای گام‌به‌گام برای کارهای اداری در خارج از کشور، برای مسافران و مهاجران. هنوز چیزی ساخته نشده: این صفحه فقط نشان می‌دهد که ساختار پروژه کار می‌کند."
+
+#: src/shared/page/Page.stories.tsx
+msgid "Cap"
+msgstr "سقف"
 
 #: src/screens/Placeholder.tsx
 msgid "Not built yet"
@@ -28,6 +36,14 @@ msgstr "ممکن است نشانی اشتباه تایپ شده باشد، یا 
 #: src/screens/Placeholder.tsx
 msgid "The address resolved, which is what this page is here to show."
 msgstr "نشانی درست تشخیص داده شد؛ همین چیزی است که این صفحه برای نشان دادنش اینجاست."
+
+#: src/shared/app-shell/AppShell.stories.tsx
+msgid "The page goes here"
+msgstr "صفحه اینجا قرار می‌گیرد"
+
+#: src/shared/reading/Reading.stories.tsx
+msgid "The reading measure is 720. The design gives a reason for that one number and for no other, so it is the only width here that is about how text reads rather than about how a screen is divided."
+msgstr "عرض خوانش ۷۲۰ است. طراحی فقط برای همین یک عدد دلیل آورده، پس تنها عرضی است که به خوانایی متن مربوط می‌شود، نه به تقسیم‌بندی صفحه."
 
 #: src/screens/NotFound.tsx
 msgid "This page does not exist"
