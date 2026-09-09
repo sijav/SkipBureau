@@ -11,7 +11,7 @@
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix",
     "lint:tsc": "tsc -b --noEmit",
-    "storybook": "storybook dev -p 6006 --no-open",
+    "storybook": "storybook dev -p 6016 --ci",
     "build-storybook": "storybook build",
     "test": "vitest run",
     "test:watch": "vitest",
