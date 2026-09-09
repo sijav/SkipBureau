@@ -18,3 +18,5 @@ test-results/
 .claude/todo.db-journal
 .claude/todo.db-wal
 .claude/todo.db-shm
+
+__pycache__/

@@ -13,8 +13,8 @@ close. If a check seems necessary, say so in the reply and let the owner decide.
 
 ## The to-do board
 
-`.claude/todo.db`, a real SQLite database, driven by `npm run todo`. It is the
-only record of what is to be done.
+`.claude/todo.db`, a real SQLite database, driven by the global `/todo` skill.
+It is the only record of what is to be done on this project.
 
 **Use it instead of the built-in TodoWrite tool.** The built-in list is private
 scratch that disappears; this board is the project's memory, carries the nine

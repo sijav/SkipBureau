@@ -8,9 +8,7 @@
     "apps/web",
     "apps/api"
   ],
-  "scripts": {
-    "todo": "node agent/todo.mjs"
-  },
+  "scripts": {},
   "engines": {
     "node": ">=22.12.0"
   }

@@ -36,7 +36,7 @@ The context is gone. Assume you remember nothing and rebuild from files:
 1. `CLAUDE.md`, the working agreement and what the product is.
 2. `DESIGN.md`, the design contract. Read the actual Figma node before building
    any component.
-3. The board: `npm run todo`.
+3. The board: `todo` (see the `/todo` skill).
 
 ## 2. Self-roast the last summary
 
@@ -57,8 +57,8 @@ and you finish it. Nothing new is picked up until it is done.
 **Otherwise take the next one:**
 
 ```bash
-npm run todo -- next
-npm run todo -- move SB-00X in_progress
+todo next
+todo move SB-00X in_progress
 ```
 
 Highest severity, then fewest points, then lowest id, never one whose parent is
@@ -72,7 +72,7 @@ in a browser and look at it in `en-US` and `fa-IR`, light and dark.
 Then:
 
 ```bash
-npm run todo -- move SB-00X wait_for_roast
+todo move SB-00X wait_for_roast
 ```
 
 **Every task stops here. You never move one to `done` yourself.**
@@ -90,7 +90,7 @@ next card, `DESIGN.md`, the Figma node you will need next. If the wait is long,
 say so in the reply instead of filling it with work that has to be undone.
 
 ```bash
-python .claude/skills/roast/roast.py task \
+python ~/.claude/skills/roast/roast.py task \
   --title "SB-00X ..." --exit-condition "..." \
   --did "what you actually did, honestly, including what you skipped" \
   --files "$(git diff --name-only HEAD)" \
@@ -112,7 +112,7 @@ Then **everything that survives becomes a new task on the board**, all nine
 fields filled. Then, and only then:
 
 ```bash
-npm run todo -- move SB-00X done
+todo move SB-00X done
 ```
 
 And back to step 1.
@@ -139,8 +139,8 @@ accepted, what you rejected and why. They never see `.claude/roast-result.md`.
 
 | skill | what it is for |
 |---|---|
-| `/todo` | the board, a real SQLite database at `.claude/todo.db`. Replaces the built-in TodoWrite. |
-| `/roast` | the external check. `task` after one task, `technical` after a run of them, `search` for a question. |
+| `/todo` | global, at ~/.claude/skills/todo/. The board for this project, `.claude/todo.db`. Global skill, per-project board. Replaces the built-in TodoWrite. |
+| `/roast` | global, at ~/.claude/skills/roast/. The external check. `task` after one task, `technical` after a run of them, `search` for a question. |
 
 ## Asking the owner
 
