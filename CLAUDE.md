@@ -29,23 +29,39 @@ never one whose parent is unfinished.** Anything already started comes first.
 
 ## The roast
 
-The owner's rule, given directly on 2026-09-07, which overrides anything earlier:
+The owner's rule, 2026-09-07, restated and sharpened by him on **2026-09-10**,
+which is the version that binds:
 
-> "the roasting needs to happen after a task is done, and then you roast the
-> roast, then add to-do! and then go on and start from the next to-do"
+> "you finish the task first (with test and everything and you make sure it
+> works, THEN and only THEN you put it in done and roast the task via roasting
+> system with it's rules, in background, when done then roast the roast and
+> find the findings and put them in to-do IF those tasks makes the ongoing task
+> block, then you revert whatever you did for the current task, and pick the
+> first todo (which possibly is going to be one of those tasks that are more
+> important) IF NOT THEN you just FORGET and continue what you were doing"
 
-So, per task, once:
+So, per task, once, in this order:
 
-1. Finish the task.
-2. Hand it to codex with terra for a roast, with real questions about **this**
-   task's logic, the context of what it was, what you did, and which files
-   changed. Generic questions get generic answers.
-3. Roast the roast. Judge each finding against the code: **real** (reproduce it,
-   name the input), **wrong** (say what the reviewer misread, never silently
-   drop it), or **out of scope**.
-4. **Every finding that survives becomes a new task on the board**, all nine
+1. **Finish it. With tests, and make sure it works.** Tests passing, lint
+   clean, typecheck clean, build succeeding, and the thing actually run rather
+   than reasoned about. A guard you added must have been watched failing on a
+   planted case.
+2. **Then** move it to `done`. A task is not closed on the expectation that it
+   works, and never closed pending a roast.
+3. **Then** fire the roast in the **background** and carry straight on to the
+   next task. Real questions about **this** task's logic, what it was, what you
+   did, and which files changed. Generic questions get generic answers.
+4. When it returns, roast the roast. Judge each finding against the code:
+   **real** (reproduce it, name the input), **wrong** (say what the reviewer
+   misread, never silently drop it), or **out of scope**.
+5. **Every finding that survives becomes a new task on the board**, all nine
    fields filled.
-5. Move the finished task to `done` and **take the next task**.
+6. Then one of two things, and nothing else:
+   - **It blocks the task you are building right now** → revert what you did on
+     that task, put it back to `backlog`, and take `todo next`, which will
+     probably hand you the finding because it is more important.
+   - **It does not** → **forget it.** It is on the board. Carry on exactly as
+     you were.
 
 **One roast per task. Never re-roast.** A finding is work for later, not a
 reason to reopen what was just finished. There is no passing score and no

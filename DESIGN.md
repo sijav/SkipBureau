@@ -99,6 +99,79 @@ near miss but a different product. Each links to the section that details it.
 
 ---
 
+## Comparing two countries
+
+The owner asked for this on 2026-09-10 and it is an **invention**: nothing in
+the Figma file describes it. It is also the thing that separates SkipBureau from
+a folder of articles. Someone who has already done all of this once in Iran and
+is now doing it in Turkey does not want to read Turkey from scratch. They want
+to know what is different.
+
+### Why it needs two tables, not one
+
+You cannot diff `Turkey: register within 20 days` against `Germany: Anmeldung
+within 14 days` if each is a paragraph, or even if each is a row, because
+nothing says they are the same thing.
+
+- **`Obligation`** is the concept, country and language independent:
+  `register-your-address`, `get-a-tax-number`, `hold-health-insurance`.
+- **`RuleVersion`** is one country's version of one obligation, for a
+  particular kind of person, in force over a period, with its source.
+
+The diff is then a join on the obligation, and it falls out in four kinds:
+identical, changed, only in the destination, and stops on leaving.
+
+**Deciding that two national requirements are the same obligation is editorial
+work, and there is no shortcut.** LegalRuleML can represent formal legal rules
+but supplies no catalogue of "the same obligation" across countries, and
+CPSV-AP is useful prior art for eligibility, evidence and cost metadata rather
+than a ready-made comparison schema. The semantic alignment is the product's
+own work. Nobody should go looking for a standard that does it for us.
+
+### Why the values are rows
+
+A rule is not one deadline. It can carry several deadlines, a fee, a list of
+documents and an exception at once, so values live in `RuleFact` rows with a
+key, an operator, a number or a text, a unit and a currency. Rules are only
+compared when they share an obligation, so the keys line up.
+
+**That is what makes the answer specific.** "Something is different about
+registering your address" is what a folder of articles already tells you. "The
+deadline is 14 days rather than 20, and Germany also wants a
+Wohnungsgeberbestaetigung" is the product.
+
+### Who a rule applies to, and what happens when that is unclear
+
+Eligibility is child rows, not nullable columns, so age, income, length of stay
+and family status can be added later without migrating every rule. A version
+with no criteria applies to everyone.
+
+Specificity is **set inclusion, not a count**. A rule for EU nationals and a
+rule for students each have one criterion and neither is more specific than the
+other, so both survive and the answer is **`needsReview`**, naming the versions
+that clash.
+
+**That refusal is the same decision the Ask section already made.** This
+product does not guess at a rule a reader will act on. Picking one of two
+applicable residence permit rules is the same class of harm as inventing one.
+
+### Time is the same machinery
+
+`validFrom` and `validTo`, half open, so `validFrom <= at < validTo` and a rule
+ending on the first of the month does not overlap one starting that day. **A
+change is a new row, never an edit**, which is what lets the identical
+resolution answer "what changed here since I arrived" with two dates instead of
+two countries.
+
+Nationality group membership is dated too, or a question about 2020 is answered
+with today's groups.
+
+That append-only rule is enforced in the database, in
+`20260909232307_rule_history_is_append_only`, not left as a comment nobody
+checks. What it does not yet cover is in TECH-DEBT.md.
+
+---
+
 ## What a SkipBureau address contains
 
 Decided in SB-033. The Figma file says nothing about URLs, and this product is

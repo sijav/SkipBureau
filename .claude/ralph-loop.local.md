@@ -92,11 +92,24 @@ close. If a check seems necessary, say so in the reply and let them decide.
 
    Then judge it as you would any roast, adjust the plan, and only then build.
 
-4. **Do it**, linear, one unit at a time, until it meets its exit condition. For
-   anything with a UI, open it in a browser and look at it in `en-US` and
-   `fa-IR`, light and dark.
+4. **FINISH IT FIRST. Tests and everything, and make sure it actually works.**
 
-5. **Fire the roast in the BACKGROUND, close the task, and take the next one.**
+   The owner, 2026-09-10: _"you finish the task first (with test and everything
+   and you make sure it works, THEN and only THEN you put it in done)"_.
+
+   Linear, one unit at a time, until it meets its exit condition. Then, before
+   the task is `done`:
+
+   - the tests it needed are written and **passing**
+   - lint clean, `lint:tsc` clean, the build succeeds
+   - **it was run**, not inferred. For anything with a UI that means a browser,
+     in `en-US` and `fa-IR`, light and dark
+   - a guard you added was watched failing on a case you planted by hand
+
+   A task that is `done` is a task that works. Nothing is closed on the
+   expectation that it works, and nothing waits for a roast to find out.
+
+5. **THEN move it to `done`, and only then fire the roast, in the background.**
 
    ```bash
    python ~/.claude/skills/roast/roast.py task --title ... --did ... --ask ... &
@@ -107,21 +120,30 @@ close. If a check seems necessary, say so in the reply and let them decide.
    task while it runs. Waiting on a round trip to another model is how an
    iteration gets spent on nothing.
 
-6. **When the roast comes back, judge it and FILE. Do not stop to do it.**
+   The roast is a check on work that is already finished and already proven. It
+   is not the thing that decides whether the task was done.
+
+6. **When the roast comes back: roast it, file the findings, and then FORGET
+   them unless they block what you are building now.**
 
    Its output is evidence, not a verdict. Reproduce each finding, or say what it
    misread, and never silently drop one. **Every finding that survives becomes
-   its own board entry with all nine fields, and you carry on with the task you
-   are already building.** A finding is work for later. It is not an interrupt.
+   its own board entry with all nine fields.**
+
+   Then exactly one of two things happens.
+
+   **Does a filed finding block the task you are building RIGHT NOW?**
+
+   - **Yes** → revert what you have done on the current task, put it back to
+     `backlog`, and go to `todo next`. The first pick will probably be one of
+     the findings you just filed, because it is more important, which is the
+     whole point of the board choosing.
+   - **No** → **forget it.** It is on the board. Carry on with what you were
+     building as though the roast had never come back. Do not weigh it up
+     again, do not half-do it, do not let it change the current task.
 
    **Relay the roast to the owner in your reply**, they cannot see it: what was
    found, what you accepted, what you rejected and why.
-
-   **The one exception.** If a finding means the task you are building right now
-   is built on something wrong, and would have to be redone anyway, then stop:
-   revert what you have done on the current task, put it back to `backlog`, and
-   do the finding first. That is a judgement about whether the current work is
-   already wasted, not an excuse to chase every finding.
 
    **Never re-roast a task to grind its score up.** There is no score and no
    minimum. That once cost five rounds on one task while the product stayed

@@ -8,7 +8,28 @@ type Country {
   name: String!
 }
 
+"""One obligation, and what happens to it."""
+type DiffEntry {
+  differences: [FactDifference!]!
+  from: ResolvedRule
+  obligationSlug: String!
+
+  """Why a person has to decide this one. Null when nobody does."""
+  reason: String
+  to: ResolvedRule
+  verdict: Verdict!
+}
+
+type FactDifference {
+  from: RuleFactValue
+  key: String!
+  to: RuleFactValue
+}
+
 type Query {
+  """What changed in one country between two dates, for this person."""
+  changes(country: String!, nationality: String, since: String!, situation: String, until: String!): [DiffEntry!]!
+
   """Every country SkipBureau covers."""
   countries: [Country!]!
 
@@ -17,4 +38,33 @@ type Query {
 
   """True when the API is answering. Nothing more is promised."""
   health: Boolean!
+
+  """What changes for this person on moving between two countries."""
+  move(at: String, from: String!, nationality: String, situation: String, to: String!): [DiffEntry!]!
+}
+
+type ResolvedRule {
+  facts: [RuleFactValue!]!
+  obligationSlug: String!
+  ruleVersionId: String!
+}
+
+type RuleFactValue {
+  currency: String
+  key: String!
+  numericValue: String
+  operator: String!
+  textValue: String
+  unit: String
+}
+
+"""
+What happens to one obligation when this person moves, or when time passes.
+"""
+enum Verdict {
+  changed
+  endsOnLeaving
+  identical
+  needsReview
+  newInDestination
 }

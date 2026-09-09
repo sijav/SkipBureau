@@ -5,6 +5,7 @@ import { join } from 'node:path'
 import { CountryModule } from './country/country.module.js'
 import { HealthModule } from './health/health.module.js'
 import { PrismaModule } from './prisma/prisma.module.js'
+import { RulesModule } from './rules/rules.module.js'
 
 // Code first: the SDL is generated from the decorated classes and written to
 // schema.gql, which SB-047 turns into the web app's types. Hand-written SDL
@@ -20,6 +21,7 @@ import { PrismaModule } from './prisma/prisma.module.js'
     PrismaModule,
     HealthModule,
     CountryModule,
+    RulesModule,
   ],
 })
 export class AppModule {}

@@ -14,7 +14,10 @@ const connection = (): string => {
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
   constructor() {
-    super({ adapter: new PrismaPg({ connectionString: connection() }) })
+    // The pool is capped because the local database is PGlite, which is a
+    // single connection Postgres behind a multiplexer. A wide pool there ends
+    // in ConnectionClosed under load. A deployment sets its own size.
+    super({ adapter: new PrismaPg({ connectionString: connection(), max: Number(process.env.DATABASE_POOL_MAX ?? 1) }) })
   }
 
   async onModuleInit(): Promise<void> {

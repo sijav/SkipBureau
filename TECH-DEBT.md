@@ -67,3 +67,29 @@ or a sentence.
 
 **The check that says it can go.** A rule option, or a typed-lint improvement,
 that skips prop union values without a shape-based pattern.
+
+---
+
+## A fact can still be added to a rule version that was already closed
+
+**What.** `rule_fact_history_is_immutable` fires on UPDATE and DELETE only.
+Nothing already written to a closed `RuleVersion` can be changed or removed,
+and the version row itself is fully immutable once closed, but a NEW `RuleFact`
+can be inserted against one.
+
+**Why.** Recording history has to stay possible. A version imported already
+closed, a past rule someone is backfilling, writes its facts after the version
+row, so a blanket INSERT rule made the past unrecordable rather than immutable.
+The first version of the trigger did exactly that and the boundary test caught
+it. Telling "written while creating it" from "added later" needs a transaction
+check, and `createdAt` cannot serve as one: Prisma 7 generates that default on
+the client, so it never equals `transaction_timestamp()`.
+
+**What it costs.** Someone with write access to the database could add a fact to
+a historical version and change what the past appears to have said. Nothing
+already recorded can be altered, which is the property the verified dates rest
+on.
+
+**The check that says it can go.** An editorial publish workflow, SB-011, that
+owns writes and refuses to touch a closed version, or a database-generated
+`createdAt` that a trigger can compare against `transaction_timestamp()`.

@@ -1,6 +1,5 @@
-// One model, deliberately. The guide content model is SB-008 and the rule
-// records that make a country-to-country move a computable diff are SB-073.
-// A scaffold that grows a content model is a scaffold that takes a week.
+// The shape that makes a move between two countries a computable diff.
+// The reasoning lives in DESIGN.md, under "Comparing two countries".
 
 generator client {
   provider = "prisma-client"
@@ -15,7 +14,154 @@ datasource db {
 /// subject. Adding a second must need no code change, which is why this is a
 /// table rather than an enum.
 model Country {
-  code      String   @id @db.VarChar(2)
+  code      String        @id @db.VarChar(2)
   name      String
-  createdAt DateTime @default(now())
+  createdAt DateTime      @default(now())
+  rules     RuleVersion[]
+}
+
+enum ObligationKind {
+  document
+  registration
+  permit
+  deadline
+  fee
+  tax
+  insurance
+}
+
+/// The shared identity that makes two countries comparable.
+///
+/// `register-your-address` is the same obligation in Turkey and in Germany even
+/// though the deadline, the office and the paperwork all differ. Without this
+/// row there is nothing to join on and a diff is impossible. Deciding that two
+/// national requirements are the same obligation is editorial work, not
+/// something a schema can infer.
+model Obligation {
+  id       String           @id @default(cuid())
+  slug     String           @unique
+  kind     ObligationKind
+  texts    ObligationText[]
+  versions RuleVersion[]
+}
+
+model ObligationText {
+  obligationId String
+  locale       String     @db.VarChar(5)
+  title        String
+  summary      String?
+  obligation   Obligation @relation(fields: [obligationId], references: [id], onDelete: Cascade)
+
+  @@id([obligationId, locale])
+}
+
+/// One country's version of one obligation, over a period.
+///
+/// A change is a NEW row, never an edit. That is what lets the same machinery
+/// answer "what changed here since I arrived" and what makes `verifiedAt` mean
+/// something: a date on an edited row records when someone looked, not what
+/// they found. A migration adds the exclusion constraint that enforces it,
+/// because Prisma cannot express one.
+model RuleVersion {
+  id           String                @id @default(cuid())
+  countryCode  String                @db.VarChar(2)
+  obligationId String
+  /// Half open: valid when validFrom <= at < validTo. `null` means in force.
+  validFrom    DateTime              @db.Date
+  validTo      DateTime?             @db.Date
+  sourceUrl    String
+  sourceName   String
+  /// Required. It is the only visible signal that this is current, which is
+  /// the thing this product is actually selling.
+  verifiedAt   DateTime              @db.Date
+  createdAt    DateTime              @default(now())
+  country      Country               @relation(fields: [countryCode], references: [code], onDelete: Cascade)
+  obligation   Obligation            @relation(fields: [obligationId], references: [id], onDelete: Cascade)
+  criteria     EligibilityCriterion[]
+  facts        RuleFact[]
+  texts        RuleText[]
+
+  @@index([countryCode, obligationId, validFrom])
+}
+
+enum FactOperator {
+  equals
+  atMost
+  atLeast
+  within
+}
+
+/// The comparable part of a rule.
+///
+/// A rule is not one deadline. It can carry several deadlines, a fee, a list of
+/// documents and an exception at once, so the values are rows rather than
+/// columns on the rule. Two rules are compared by matching fact keys, which is
+/// what lets the answer be "the deadline differs" rather than only "this also
+/// exists over there".
+model RuleFact {
+  id            String       @id @default(cuid())
+  ruleVersionId String
+  key           String
+  operator      FactOperator @default(equals)
+  numericValue  Decimal?     @db.Decimal(14, 2)
+  textValue     String?
+  /// `days`, `months`, `pages`. Null where the value is not a quantity.
+  unit          String?
+  /// ISO 4217, for a fee. Kept apart from `unit` so money never compares
+  /// against a duration.
+  currency      String?      @db.VarChar(3)
+  ruleVersion   RuleVersion  @relation(fields: [ruleVersionId], references: [id], onDelete: Cascade)
+
+  @@unique([ruleVersionId, key])
+}
+
+model RuleText {
+  ruleVersionId String
+  locale        String      @db.VarChar(5)
+  notes         String
+  ruleVersion   RuleVersion @relation(fields: [ruleVersionId], references: [id], onDelete: Cascade)
+
+  @@id([ruleVersionId, locale])
+}
+
+enum EligibilityDimension {
+  nationality
+  nationalityGroup
+  situation
+}
+
+/// Who a rule applies to, as child rows rather than nullable columns.
+///
+/// Age, income, duration of stay and family status all change real answers and
+/// will be wanted eventually. As rows they are added without migrating every
+/// rule; as columns each one is another migration and another null to reason
+/// about. A version with no criteria applies to everyone.
+model EligibilityCriterion {
+  id            String               @id @default(cuid())
+  ruleVersionId String
+  dimension     EligibilityDimension
+  value         String
+  ruleVersion   RuleVersion          @relation(fields: [ruleVersionId], references: [id], onDelete: Cascade)
+
+  @@unique([ruleVersionId, dimension, value])
+  @@index([dimension, value])
+}
+
+model NationalityGroup {
+  code    String                   @id
+  name    String
+  members NationalityGroupMember[]
+}
+
+/// Membership is dated, or a historical question is answered with today's
+/// groups. Which countries were in a group in 2019 is not which are today.
+model NationalityGroupMember {
+  id          String           @id @default(cuid())
+  groupCode   String
+  nationality String           @db.VarChar(2)
+  validFrom   DateTime         @db.Date
+  validTo     DateTime?        @db.Date
+  group       NationalityGroup @relation(fields: [groupCode], references: [code], onDelete: Cascade)
+
+  @@index([nationality, groupCode])
 }

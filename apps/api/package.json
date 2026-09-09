@@ -13,7 +13,8 @@
     "db:dev": "node scripts/pglite-server.mjs",
     "db:deploy": "prisma migrate deploy",
     "db:generate": "prisma generate",
-    "db:migrate": "prisma migrate diff --from-empty --to-schema-datamodel prisma/schema.prisma --script"
+    "db:migrate": "prisma migrate diff --from-empty --to-schema-datamodel prisma/schema.prisma --script",
+    "db:seed": "node --experimental-strip-types prisma/seed.ts"
   },
   "devDependencies": {
     "@electric-sql/pglite": "^0.4.3",

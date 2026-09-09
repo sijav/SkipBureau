@@ -29,7 +29,7 @@ if (dataDir) mkdirSync(dataDir, { recursive: true })
 
 export const startPglite = async (port = PORT) => {
   const db = await PGlite.create(dataDir ? { dataDir } : {})
-  const server = new PGLiteSocketServer({ db, port, host: '127.0.0.1' })
+  const server = new PGLiteSocketServer({ db, port, host: '127.0.0.1', maxConnections: 100, idleTimeout: 0 })
   await server.start()
 
   return {
