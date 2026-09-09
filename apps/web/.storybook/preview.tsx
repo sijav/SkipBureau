@@ -7,9 +7,13 @@ import { AppTheme } from 'src/core/theme'
  * Every story renders inside the real app theme, so a story cannot look right
  * while the app looks wrong.
  *
- * The mode and direction toolbars exist because the design has to hold in four
- * combinations, and a component is only finished when it has been seen in all
- * of them: en-US and fa-IR, light and dark.
+ * The mode and direction toolbars let a person switch between the four
+ * combinations the design has to hold in: en-US and fa-IR, light and dark.
+ *
+ * They are a review aid, not a test matrix. Vitest runs each story once, with
+ * the default globals below, so nothing here automatically checks the other
+ * three. Seeing all four is a rule someone follows, not one the suite enforces,
+ * and the first version of this comment implied otherwise.
  */
 const preview: Preview = {
   parameters: {
