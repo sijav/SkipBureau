@@ -2,8 +2,8 @@ import { createContext, use } from 'react'
 import type { Locale } from './locales'
 
 export type LocaleContext = {
+  /** The locale that is actually active, never one that was only requested. */
   locale: Locale
-  setLocale: (locale: Locale) => void
 }
 
 /**
@@ -12,6 +12,9 @@ export type LocaleContext = {
  * Not a style preference: a module that exports both a component and a hook
  * breaks React Fast Refresh, so editing the provider would reload the whole
  * app instead of the component. The lint rule that says so is on.
+ *
+ * There is no `setLocale`. The locale lives in the URL, so changing it is a
+ * navigation, which the language control does with `samePageIn`.
  */
 export const Context = createContext<LocaleContext | null>(null)
 

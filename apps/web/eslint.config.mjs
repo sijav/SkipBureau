@@ -24,6 +24,11 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
   ...storybook.configs['flat/recommended'],
   {
+    // Test harness scripts run under Node, not in a browser.
+    files: ['e2e/**/*.mjs'],
+    languageOptions: { ecmaVersion: 2022, globals: globals.node },
+  },
+  {
     files: ['**/*.{ts,tsx}'],
     languageOptions: { ecmaVersion: 2022, globals: globals.browser },
     plugins: { 'react-hooks': reactHooks, 'react-refresh': reactRefresh },
@@ -68,7 +73,17 @@ export default tseslint.config(
           // Attribute names that are machinery: an `sx` object, a test id, a
           // variant name. `useTsTypes` is off because it needs typed linting,
           // which this config does not run.
-          ignoreNames: [{ regex: { pattern: '^(data-|aria-controls|id|key|role|variant|component|color)' } }],
+          ignoreNames: [
+            { regex: { pattern: '^(data-|aria-controls|id|key|role|variant|component|color)' } },
+            // A route pattern is an address, not something anyone reads.
+            'path',
+            'route',
+            'to',
+            // Style objects. Their values are CSS, and the design forbids a
+            // colour literal in them anyway, which tokens.test.ts checks.
+            'sx',
+            'style',
+          ],
         },
       ],
       'lingui/no-trans-inside-trans': 'error',

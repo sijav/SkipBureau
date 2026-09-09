@@ -6,7 +6,33 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: en\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
 
 #: src/App.tsx
-msgid "A step-by-step guide to bureaucracy abroad, for travellers and expats. Nothing is built yet: this page exists to prove the scaffold runs."
-msgstr "A step-by-step guide to bureaucracy abroad, for travellers and expats. Nothing is built yet: this page exists to prove the scaffold runs."
+#~ msgid "A step-by-step guide to bureaucracy abroad, for travellers and expats. Nothing is built yet: this page exists to prove the scaffold runs."
+#~ msgstr "A step-by-step guide to bureaucracy abroad, for travellers and expats. Nothing is built yet: this page exists to prove the scaffold runs."
+
+#: src/screens/Placeholder.tsx
+msgid "Not built yet"
+msgstr "Not built yet"
+
+#: src/screens/NotFound.tsx
+msgid "The address may be mistyped, or it may point at a country or a guide SkipBureau does not cover yet."
+msgstr "The address may be mistyped, or it may point at a country or a guide SkipBureau does not cover yet."
+
+#: src/screens/Placeholder.tsx
+msgid "The address resolved, which is what this page is here to show."
+msgstr "The address resolved, which is what this page is here to show."
+
+#: src/screens/NotFound.tsx
+msgid "This page does not exist"
+msgstr "This page does not exist"
+
+#: src/core/i18n/I18nProvider.stories.tsx
+msgid "What do you need to do?"
+msgstr "What do you need to do?"

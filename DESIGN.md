@@ -99,6 +99,54 @@ near miss but a different product. Each links to the section that details it.
 
 ---
 
+## What a SkipBureau address contains
+
+Decided in SB-033. The Figma file says nothing about URLs, and this product is
+one people send each other, so the address is part of the design.
+
+```
+/:locale/:country                          Home
+/:locale/:country/t/:goal                  Task hub
+/:locale/:country/t/:goal/:category        Category hub
+/:locale/:country/g/:guide                 Guide detail
+/:locale/:country/g/:guide/suggest         Suggest an update
+```
+
+`/en/tr/g/get-a-sim-card`. The language is the short public form, `en`, not the
+lingui tag; the mapping lives in `locales.ts` next to `dir`, so a locale cannot
+be added without deciding what it looks like in a URL. `/en-US/...` still
+resolves, by redirecting, so a link already shared keeps working while one page
+keeps one address.
+
+**Country is in the path because a guide is about a country.** "Get a SIM card
+in Turkey" and the same guide for Germany are different documents with different
+sources and different verified dates, not one document filtered two ways. This
+is a different thing from the context control, which is nationality and city,
+and which the file says explicitly is not a filter.
+
+**An unknown language or country is Not Found, never a redirect to one we do
+have.** A stale link reading `/en/zz/g/residence-permit` must not quietly become
+Turkey's rules. Someone would act on them.
+
+`/` is the only place a language is guessed, from a stored choice and then the
+browser's languages. Every address below it names its own.
+
+### What GitHub Pages costs, stated rather than hidden
+
+Pages has no rewrite rule, so a deep link matches no file and Pages serves
+`404.html`. The build writes a copy of the app shell there, so the link opens
+the guide. **The HTTP status is still 404.** A search engine reads that as a
+page that does not exist and does not index it.
+
+For a product whose value is being findable, that is not a small compromise, and
+it is the one thing about the hosting choice worth revisiting. It is recorded
+here rather than discovered later: the deep link works for a person who was sent
+one, and does not work for a person searching. `e2e/pages.spec.ts` asserts both
+halves against the built site served the way Pages serves it, including the 404
+status, so nobody has to trust this paragraph.
+
+---
+
 ## Colour
 
 Semantic tokens only. A component binds to the name, never to a primitive and
