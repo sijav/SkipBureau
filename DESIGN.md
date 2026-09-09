@@ -4,6 +4,14 @@ Figma file `Xk7m6KtxdfGtZb6CO32K74`. Every value here was read from a node, not
 estimated. Node ids are given so any component can be checked against its source
 before it is built, which is the rule: **match the design exactly**.
 
+**This document is not sufficient on its own to match a component exactly, and
+it does not pretend to be.** It was built from `get_metadata`, which gives
+names, sizes, positions and structure. It does not give per-node fills, strokes,
+paddings, corner radii or font weights. Those come from `get_design_context` on
+the specific node, which is why every node id is recorded here. **Call it on the
+node before building the component**; this file tells you which node, what its
+variants are, and what rules govern it.
+
 | page | node | what is on it |
 |---|---|---|
 | 01 Foundations & Components | `0:1` | tokens, type, spacing, 16 component families |
@@ -62,8 +70,9 @@ refused, or at risk.
 | `danger-deep` | `#8E2A2A` | red/950 |
 | `text-on-danger` | `#FFFFFF` | paper/white |
 
-**`text-on-accent` is near-black, and the swatch says "was white".** White on
-`#3EB489` measures about 2.6:1, which fails. Ink on mint passes. Anything placed
+**`text-on-accent` is near-black, and the swatch says "was white".** That note is
+in the file; the reason is not, so treat this sentence as reasoning rather than
+transcription: white on `#3EB489` does not reach 4.5:1, ink on it does. Anything placed
 on `accent` uses `text-on-accent`, and `accent-text` is the darker mint for text
 and focus rings on light backgrounds.
 
@@ -396,7 +405,7 @@ The template every guide renders through. `Guide Detail / Template` `143:523`,
 
 Body 1440 → Main **1080** → most sections **720 wide**. The reading measure is
 720, and only `Your options` `182:1074` breaks out to the full 1080. Body text is
-Source Serif at 16/26, so 720 is roughly 75 characters, which is the point.
+Source Serif at 16/26. Why 720 is not stated in the file.
 
 ### The sections, in order
 
