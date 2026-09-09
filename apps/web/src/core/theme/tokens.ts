@@ -176,11 +176,17 @@ export const spacing = { none: 0, xs: 4, sm: 8, md: 16, lg: 24, xl: 32, '2xl': 4
  */
 export const radius = { none: 0, xs: 2, sm: 4, md: 6, lg: 8 } as const
 
-/** The header does not change height on scroll by accident: 68 becomes 60. */
+/**
+ * Widths are CAPS, not sizes. See DESIGN.md on what the design's numbers mean
+ * below 1440. Heights are exact: 68 becomes 60 on scroll and neither may move.
+ */
 export const layout = {
   headerHeight: 68,
   headerHeightScrolled: 60,
   contentWidth: 1280,
   contentInset: 80,
+  mainWidth: 1080,
+  columnWidth: 860,
   readingWidth: 720,
+  panelWidth: 640,
 } as const

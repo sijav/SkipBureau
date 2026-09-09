@@ -24,13 +24,27 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
   ...storybook.configs['flat/recommended'],
   {
-    // Test harness scripts run under Node, not in a browser.
-    files: ['e2e/**/*.mjs'],
+    // Config files and test harness scripts run under Node, and sit outside
+    // the app's tsconfig project graph, so no type information here.
+    files: ['*.ts', '*.mjs', 'e2e/**/*.mjs'],
     languageOptions: { ecmaVersion: 2022, globals: globals.node },
   },
   {
-    files: ['**/*.{ts,tsx}'],
+    // Storybook's own config is outside the project graph too.
+    files: ['.storybook/**/*.{ts,tsx}'],
     languageOptions: { ecmaVersion: 2022, globals: globals.browser },
+  },
+  {
+    files: ['src/**/*.{ts,tsx}', 'e2e/**/*.ts'],
+    languageOptions: {
+      ecmaVersion: 2022,
+      globals: globals.browser,
+      // Type information lets `lingui/no-unlocalized-strings` skip a string
+      // assigned to a union type: an MUI prop, one of our own. Without it the
+      // ignore list grows by a literal per prop union, and every entry is a
+      // hole the rule can no longer see through.
+      parserOptions: { projectService: true, tsconfigRootDir: import.meta.dirname },
+    },
     plugins: { 'react-hooks': reactHooks, 'react-refresh': reactRefresh },
     rules: {
       ...reactHooks.configs.recommended.rules,
@@ -48,8 +62,8 @@ export default tseslint.config(
    * off, and this plugin was already installed and reads a real syntax tree.
    */
   {
-    files: ['**/*.tsx'],
-    ignores: ['**/*.stories.tsx', '.storybook/**'],
+    files: ['src/**/*.tsx'],
+    ignores: ['**/*.stories.tsx'],
     plugins: { lingui },
     rules: {
       'lingui/no-unlocalized-strings': [
@@ -57,22 +71,25 @@ export default tseslint.config(
         {
           // The rule reports every string literal, not only JSX text, which is
           // the right default: an aria-label or a toast message is read by a
-          // person too. Each exemption below is a specific kind of string that
-          // nobody reads, and is listed rather than described by shape, so a
-          // genuine one-word label cannot slip through a broad pattern.
+          // person too. `useTsTypes` then removes the largest class of false
+          // positives on its own, so what is listed below is the machinery
+          // that has no type to read.
+          useTsTypes: true,
           ignore: [
-            '^skipbureau\\.', // our own storage keys
+            // A single lowercase token: an identifier, a storage key, a default
+            // for a prop union the checker cannot see through. Taken from the
+            // reference project, which uses the same pattern. The hole is a
+            // genuine one word lowercase label, which this design does not
+            // have: every visible string in the Figma file is a capitalised
+            // phrase or a sentence.
+            '^[a-z0-9_.:/#-]+$',
             '^\\.{1,2}/', // relative module paths
-            '^(ltr|rtl|light|dark)$', // direction and mode unions
             // The product name. It is the same word in both languages, and
             // putting it in the catalogue invites someone to translate it.
             '^SkipBureau$',
           ],
           // Text that goes to a developer, never to a reader.
           ignoreFunctions: ['console.*', 'Error', 'document.getElementById'],
-          // Attribute names that are machinery: an `sx` object, a test id, a
-          // variant name. `useTsTypes` is off because it needs typed linting,
-          // which this config does not run.
           ignoreNames: [
             { regex: { pattern: '^(data-|aria-controls|id|key|role|variant|component|color)' } },
             // A route pattern is an address, not something anyone reads.
