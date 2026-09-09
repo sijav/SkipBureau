@@ -1,6 +1,18 @@
+import createCache from '@emotion/cache'
+import { CacheProvider } from '@emotion/react'
+import rtlPlugin from '@mui/stylis-plugin-rtl'
 import { ThemeProvider } from '@mui/material/styles'
 import { useEffect, useMemo, type ReactNode } from 'react'
+import { prefixer } from 'stylis'
 import { appTheme, type Direction, type Mode } from './theme'
+
+// One cache per direction, made once. Emotion keys its generated class names by
+// cache, so building a new one on every render would leak stylesheets and lose
+// the ordering that decides which rule wins.
+const caches = {
+  ltr: createCache({ key: 'sb', stylisPlugins: [prefixer] }),
+  rtl: createCache({ key: 'sb-rtl', stylisPlugins: [prefixer, rtlPlugin] }),
+}
 
 export type AppThemeProps = {
   children: ReactNode
@@ -22,5 +34,9 @@ export const AppTheme = ({ children, mode = 'light', direction = 'ltr' }: AppThe
     document.documentElement.dir = direction
   }, [direction])
 
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>
+  return (
+    <CacheProvider value={caches[direction]}>
+      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+    </CacheProvider>
+  )
 }

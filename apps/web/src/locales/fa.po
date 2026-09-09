@@ -1,0 +1,12 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2026-09-09 23:13+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: fa\n"
+
+#: src/App.tsx
+msgid "A step-by-step guide to bureaucracy abroad, for travellers and expats. Nothing is built yet: this page exists to prove the scaffold runs."
+msgstr "یک راهنمای گام‌به‌گام برای کارهای اداری در خارج از کشور، برای مسافران و مهاجران. هنوز چیزی ساخته نشده: این صفحه فقط نشان می‌دهد که ساختار پروژه کار می‌کند."

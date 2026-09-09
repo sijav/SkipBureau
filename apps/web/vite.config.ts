@@ -5,8 +5,10 @@ import { defineConfig } from 'vite'
 
 const here = dirname(fileURLToPath(import.meta.url))
 
+const lingui = () => react({ plugins: [['@lingui/swc-plugin', {}]] })
+
 export default defineConfig({
-  plugins: [react()],
+  plugins: [lingui()],
   resolve: { alias: { src: join(here, 'src') } },
   // GitHub Pages serves the site from a repository subpath, so the built asset
   // URLs have to carry it. SB-013 sets this from CI; it is root in development.

@@ -1,6 +1,7 @@
 import CssBaseline from '@mui/material/CssBaseline'
 import type { Preview } from '@storybook/react-vite'
 import type { ReactElement } from 'react'
+import { I18nProvider } from 'src/core/i18n'
 import { AppTheme } from 'src/core/theme'
 
 /**
@@ -35,14 +36,14 @@ const preview: Preview = {
       },
     },
     direction: {
-      description: 'Reading direction',
-      defaultValue: 'ltr',
+      description: 'Language and reading direction',
+      defaultValue: 'en-US',
       toolbar: {
         title: 'Direction',
         icon: 'transfer',
         items: [
-          { value: 'ltr', title: 'en-US, left to right' },
-          { value: 'rtl', title: 'fa-IR, right to left' },
+          { value: 'en-US', title: 'en-US, left to right' },
+          { value: 'fa-IR', title: 'fa-IR, right to left' },
         ],
         dynamicTitle: true,
       },
@@ -51,13 +52,15 @@ const preview: Preview = {
   decorators: [
     (Story, context): ReactElement => {
       const mode = context.globals.mode === 'dark' ? 'dark' : 'light'
-      const direction = context.globals.direction === 'rtl' ? 'rtl' : 'ltr'
+      const locale = context.globals.direction === 'fa-IR' ? 'fa-IR' : 'en-US'
 
       return (
-        <AppTheme mode={mode} direction={direction}>
-          <CssBaseline />
-          <Story />
-        </AppTheme>
+        <I18nProvider locale={locale}>
+          <AppTheme mode={mode} direction={locale === 'fa-IR' ? 'rtl' : 'ltr'}>
+            <CssBaseline />
+            <Story />
+          </AppTheme>
+        </I18nProvider>
       )
     },
   ],

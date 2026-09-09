@@ -8,6 +8,8 @@ import { defineConfig } from 'vitest/config'
 const here = dirname(fileURLToPath(import.meta.url))
 const alias = { src: join(here, 'src') }
 
+const lingui = () => react({ plugins: [['@lingui/swc-plugin', {}]] })
+
 export default defineConfig({
   resolve: { alias },
   test: {
@@ -23,7 +25,7 @@ export default defineConfig({
     projects: [
       {
         resolve: { alias },
-        plugins: [react()],
+        plugins: [lingui()],
         test: {
           name: 'unit',
           environment: 'node',
@@ -35,7 +37,7 @@ export default defineConfig({
         // renders is a component that has been seen, which a jsdom assertion
         // does not give you.
         resolve: { alias },
-        plugins: [react(), storybookTest({ configDir: join(here, '.storybook') })],
+        plugins: [lingui(), storybookTest({ configDir: join(here, '.storybook') })],
         test: {
           name: 'storybook',
           browser: {

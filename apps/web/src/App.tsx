@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/react/macro'
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
@@ -14,8 +15,10 @@ export const App = () => (
         SkipBureau
       </Typography>
       <Typography>
-        A step-by-step guide to bureaucracy abroad, for travellers and expats. Nothing is built yet: this page exists to
-        prove the scaffold runs.
+        <Trans>
+          A step-by-step guide to bureaucracy abroad, for travellers and expats. Nothing is built yet: this page exists to
+          prove the scaffold runs.
+        </Trans>
       </Typography>
     </Stack>
   </Box>

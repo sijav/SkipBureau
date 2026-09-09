@@ -1,6 +1,6 @@
 ---
 active: true
-iteration: 2
+iteration: 3
 max_iterations: 0
 completion_promise: "SKIPBUREAU-DONE"
 started_at: "2026-09-09T22:50:00Z"
@@ -67,31 +67,66 @@ close. If a check seems necessary, say so in the reply and let them decide.
    done, is something left over? Check against reality. Run it, read the code,
    read `git status` and `git diff`. A false or premature "done" is repaired
    before any new work starts. This roast is yours, not the skill.
+
 2. **Pick the work.** `todo next`, then `todo move <id> in_progress` before
    touching a file. The script picks, not you: highest severity, fewest points,
    lowest id, never one whose parent is unfinished. If the pick looks wrong, fix
    that task's severity, points or parents and run it again. Discovered work
    becomes a board entry with all nine fields **before** you do it. Never use
    the built-in TodoWrite.
-3. **Do it**, linear, one unit at a time, until it meets its exit condition.
-   For anything with a UI, open it in a browser and look at it in `en-US` and
-   `fa-IR`, light and dark. Then `todo move <id> wait_for_roast`. **You never
-   move a task to `done` yourself.**
-4. **Roast it**, in the background, with the `/roast` skill:
-   `python ~/.claude/skills/roast/roast.py task --title ... --did ... --ask ...`
-   Aim the questions at the mechanism you are least sure of. While it runs, do
-   not edit files: the reviewer is reading the worktree you just finished.
-5. **Roast the roast, then FILE AND MOVE ON.** Its output is evidence, not a
-   verdict. Reproduce each finding, or say what it misread, and never silently
-   drop one. **Every finding that survives becomes its own board entry with all
-   nine fields; it does NOT hold this task open.** Fix in-task ONLY when the
-   task's own exit condition is not met because of the finding. Everything else
-   is a card. **Relay the roast to the owner in your reply**, they cannot see
-   it: what was found, what you accepted, what you rejected and why.
-   **Do NOT re-roast the same task to grind its score up.** There is no score
-   and no minimum. That mistake once cost five rounds on one task while the
-   product stayed empty. One roast, one adjudication, file, next.
-6. **Close it.** `todo move <id> done`, after the findings are filed.
+
+3. **WRITE THE PLAN FIRST, AND HAVE IT CHECKED, BEFORE BUILDING ANYTHING.**
+
+   Write exactly what you are about to do into `.claude/plan.md`: the approach,
+   the files you will touch, how it meets the exit condition, and the step you
+   are least sure of. Then:
+
+   ```bash
+   python ~/.claude/skills/roast/roast.py plan      --title "SB-00X ..." --exit-condition "..."      --did "$(cat .claude/plan.md)"      --ask "the thing you are least sure of"
+   ```
+
+   That kind is ChatGPT **with web search**, because half of "is this the right
+   approach" is a question about what a library actually does in this version.
+   **Every time `.claude/plan.md` is touched it gets checked again.** Wait for
+   this one: the whole point is that it comes back before the time is spent.
+
+   Then judge it as you would any roast, adjust the plan, and only then build.
+
+4. **Do it**, linear, one unit at a time, until it meets its exit condition. For
+   anything with a UI, open it in a browser and look at it in `en-US` and
+   `fa-IR`, light and dark.
+
+5. **Fire the roast in the BACKGROUND, close the task, and take the next one.**
+
+   ```bash
+   python ~/.claude/skills/roast/roast.py task --title ... --did ... --ask ... &
+   todo move <id> done
+   ```
+
+   **Do not wait for it.** Commit, `todo next`, and start building the next
+   task while it runs. Waiting on a round trip to another model is how an
+   iteration gets spent on nothing.
+
+6. **When the roast comes back, judge it and FILE. Do not stop to do it.**
+
+   Its output is evidence, not a verdict. Reproduce each finding, or say what it
+   misread, and never silently drop one. **Every finding that survives becomes
+   its own board entry with all nine fields, and you carry on with the task you
+   are already building.** A finding is work for later. It is not an interrupt.
+
+   **Relay the roast to the owner in your reply**, they cannot see it: what was
+   found, what you accepted, what you rejected and why.
+
+   **The one exception.** If a finding means the task you are building right now
+   is built on something wrong, and would have to be redone anyway, then stop:
+   revert what you have done on the current task, put it back to `backlog`, and
+   do the finding first. That is a judgement about whether the current work is
+   already wasted, not an excuse to chase every finding.
+
+   **Never re-roast a task to grind its score up.** There is no score and no
+   minimum. That once cost five rounds on one task while the product stayed
+   empty. One roast, one adjudication, file, next.
+
 7. **Commit**, then go straight to `todo next`.
 
 ## Never
