@@ -22,7 +22,6 @@ test-results/
 __pycache__/
 
 # the plan is working state for the current task
-.claude/plan.md
 
 # compiled lingui catalogs, generated from the .po files
 apps/web/src/locales/*.mjs

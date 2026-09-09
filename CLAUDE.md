@@ -27,6 +27,29 @@ Every task carries all nine fields, filled at creation, never blank:
 Picking work: **highest severity, then fewest story points, then lowest id,
 never one whose parent is unfinished.** Anything already started comes first.
 
+## The plan, before any task
+
+The owner, 2026-09-10, on top of the earlier plan-first rule:
+
+> "you write in the file named #[task_number] - [title].md in the related
+> folder that the doing is about to write there! not a separate folder, this is
+> important"
+
+Before touching a file for a task, write what you are about to do into
+`#SB-0XX - <the task's title>.md`, **in the folder the task is about to build
+in**. `apps/api/prisma/` for a schema change, `apps/web/src/shared/<name>/` for
+a component, `apps/web/src/core/<area>/` for a core one. Never `.claude/`,
+never a `plans/` folder. It is committed with the work, so the folder carries
+the reasoning next to the result.
+
+Then have it checked by the `plan` roast, which runs with web search, and
+**wait for that one**: the point is that it lands before the time is spent.
+Every time the plan file is touched it is checked again.
+
+**Ask it real questions.** `--ask` is what makes the check worth its round
+trip. Name the mechanism you doubt. "Is this a good approach" gets an answer
+that would fit any codebase and teaches you nothing.
+
 ## The roast
 
 The owner's rule, 2026-09-07, restated and sharpened by him on **2026-09-10**,

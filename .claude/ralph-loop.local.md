@@ -1,6 +1,6 @@
 ---
 active: true
-iteration: 4
+iteration: 5
 max_iterations: 0
 completion_promise: "SKIPBUREAU-DONE"
 started_at: "2026-09-09T22:50:00Z"
@@ -77,20 +77,45 @@ close. If a check seems necessary, say so in the reply and let them decide.
 
 3. **WRITE THE PLAN FIRST, AND HAVE IT CHECKED, BEFORE BUILDING ANYTHING.**
 
-   Write exactly what you are about to do into `.claude/plan.md`: the approach,
-   the files you will touch, how it meets the exit condition, and the step you
-   are least sure of. Then:
+   **The plan file goes where the work goes.** The owner, 2026-09-10:
+
+   > "you write in the file named #[task_number] - [title].md in the related
+   > folder that the doing is about to write there! not a separate folder, this
+   > is important"
+
+   So the file is `#SB-0XX - <the task's title>.md`, written **in the folder
+   the task is about to build in**: `apps/api/prisma/` for a schema task,
+   `apps/web/src/shared/<component>/` for a component, `apps/web/src/core/` for
+   a core change. Not in `.claude/`, not in a `plans/` folder. Whoever opens
+   that folder later sees what was intended there, next to what was built.
+
+   Where a task genuinely spans several folders, it goes in the one that
+   receives most of the work, and the plan says which others it touches.
+
+   Write exactly what you are about to do: the approach, the files you will
+   touch, how it meets the exit condition, and the step you are least sure of.
+   Then:
 
    ```bash
-   python ~/.claude/skills/roast/roast.py plan      --title "SB-00X ..." --exit-condition "..."      --did "$(cat .claude/plan.md)"      --ask "the thing you are least sure of"
+   PLAN="apps/api/prisma/#SB-008 - Data model, country is a dimension.md"
+   python ~/.claude/skills/roast/roast.py plan \
+     --title "SB-008 ..." --exit-condition "..." \
+     --did "$(cat "$PLAN")" \
+     --ask "the mechanism you are least sure of, named"
    ```
 
    That kind is ChatGPT **with web search**, because half of "is this the right
    approach" is a question about what a library actually does in this version.
-   **Every time `.claude/plan.md` is touched it gets checked again.** Wait for
-   this one: the whole point is that it comes back before the time is spent.
+   **Every time the plan file is touched it gets checked again.** Wait for this
+   one: the whole point is that it comes back before the time is spent.
+
+   **Ask it real questions.** `--ask` is the roast. A question that names the
+   mechanism you doubt gets an answer worth having; "is this a good approach"
+   gets a generic answer and wastes the round trip. Ask about the part you are
+   least sure of, not the part you are proudest of.
 
    Then judge it as you would any roast, adjust the plan, and only then build.
+   The plan file stays in the tree and is committed with the work.
 
 4. **FINISH IT FIRST. Tests and everything, and make sure it actually works.**
 
