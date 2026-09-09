@@ -1,12 +1,26 @@
 ---
 name: todo
-description: The SkipBureau board, a real SQLite database at agent/todo.db. Use this INSTEAD of the built-in TodoWrite tool, every time: picking what to work on next, creating a task, changing a status, or recording something discovered mid-task. Read and write it through npm run todo, never by editing a file.
+description: The SkipBureau board, a real SQLite database at .claude/todo.db. Use this INSTEAD of the built-in TodoWrite tool, every time: picking what to work on next, creating a task, changing a status, or recording something discovered mid-task. Read and write it through npm run todo, never by editing a file.
 ---
 
 # The board
 
-`agent/todo.db` is a SQLite database. It is the only record of what is to be
+`.claude/todo.db` is a SQLite database. It is the only record of what is to be
 done on this project.
+
+## It is local to this project, and not shared
+
+`.claude/todo.db` sits in the project-local `.claude` folder and is **gitignored
+on purpose**. Each project, and each checkout of a project, has its own board.
+
+That matters because more than one session can be pointed at the same directory.
+A board committed to the repository would have two of them writing the same
+SQLite file and clobbering each other's work. This one cannot be shared by
+accident.
+
+The consequence, stated so nobody is surprised by it: **the board does not
+travel with a clone.** A fresh checkout starts with an empty board, which the
+script creates on first run.
 
 ## Setup
 

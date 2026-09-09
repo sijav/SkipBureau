@@ -139,7 +139,7 @@ accepted, what you rejected and why. They never see `.claude/roast-result.md`.
 
 | skill | what it is for |
 |---|---|
-| `/todo` | the board, a real SQLite database at `agent/todo.db`. Replaces the built-in TodoWrite. |
+| `/todo` | the board, a real SQLite database at `.claude/todo.db`. Replaces the built-in TodoWrite. |
 | `/roast` | the external check. `task` after one task, `technical` after a run of them, `search` for a question. |
 
 ## Asking the owner

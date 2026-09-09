@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// The board. A real database, at agent/todo.db.
+// The board. A real database, at .claude/todo.db, local to this project.
 //
 //   npm run todo                      the whole board
 //   npm run todo -- next              what to do next, and why it was picked
@@ -28,8 +28,11 @@ try {
   process.exit(1)
 }
 
-const AGENT = dirname(fileURLToPath(import.meta.url))
-const db = new DatabaseSync(join(AGENT, 'todo.db'))
+// The board lives in .claude, the project-local folder, and is NOT committed.
+// Each project and each checkout gets its own, which is the point: two sessions
+// pointed at one repository must not be writing the same board.
+const PROJECT = join(dirname(fileURLToPath(import.meta.url)), '..')
+const db = new DatabaseSync(join(PROJECT, '.claude', 'todo.db'))
 
 const SEVERITIES = ['critical', 'high', 'medium', 'low']
 const STATUSES = ['backlog', 'in_progress', 'wait_for_roast', 'done', 'dropped']
