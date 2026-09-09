@@ -19,7 +19,15 @@ it.
 
 ---
 
-Four steps. In order, every iteration.
+Five steps. In order, every iteration.
+
+1. **Compact.** Rebuild from files; assume you remember nothing.
+2. **Self-roast the last summary.** Yours, not the skill.
+3. **One task, to `wait_for_roast`.** Finish what step 2 found unfinished; if
+   there is nothing, take the next one.
+4. **External roast, in the background.** Then roast the roast and file what
+   survives as new tasks.
+5. **Move it to `done`** and go back to 1.
 
 ## 1. Compact
 
@@ -72,7 +80,14 @@ npm run todo -- move SB-00X wait_for_roast
 ## 4. Roast it, roast the roast, file what survives
 
 A task sitting in `wait_for_roast` gets an external check. Use the `/roast`
-skill, in the background so the wait is not dead time:
+skill and **run it in the background**. It is a round trip to another model and
+blocking on it is the easiest way to spend an iteration on nothing.
+
+While it runs, **do not edit files**. The reviewer is reading the worktree you
+just finished, so changing it underneath produces findings about code that no
+longer exists, and you cannot tell those from real ones. Reading is free: the
+next card, `DESIGN.md`, the Figma node you will need next. If the wait is long,
+say so in the reply instead of filling it with work that has to be undone.
 
 ```bash
 python .claude/skills/roast/roast.py task \
