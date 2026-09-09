@@ -1,0 +1,21 @@
+// One model, deliberately. The guide content model is SB-008 and the rule
+// records that make a country-to-country move a computable diff are SB-073.
+// A scaffold that grows a content model is a scaffold that takes a week.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// Country is a dimension, not a constant: Turkey is the first one, not the
+/// subject. Adding a second must need no code change, which is why this is a
+/// table rather than an enum.
+model Country {
+  code      String   @id @db.VarChar(2)
+  name      String
+  createdAt DateTime @default(now())
+}

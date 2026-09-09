@@ -1,0 +1,20 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Country {
+  """ISO 3166-1 alpha-2, lowercased, as it appears in a URL."""
+  code: String!
+  name: String!
+}
+
+type Query {
+  """Every country SkipBureau covers."""
+  countries: [Country!]!
+
+  """One country, or null where we do not cover it."""
+  country(code: String!): Country
+
+  """True when the API is answering. Nothing more is promised."""
+  health: Boolean!
+}
