@@ -29,3 +29,6 @@ apps/web/src/locales/*.mjs
 # the contract test's throwaway copy of the API source: it renames a field
 # there rather than in the tree, so a killed run cannot leave one behind
 apps/api/.contract/
+
+# generated coverage reports
+coverage/
