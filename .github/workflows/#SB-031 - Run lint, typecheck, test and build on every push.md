@@ -98,12 +98,23 @@ is proved on GitHub:
 
 Both observed through `gh run`, with the conclusion quoted.
 
-## The step I am least sure of
+## What it did on GitHub
 
-**Whether restoring the browser cache before `npm ci` actually stops the
-download.** The postinstall hook runs `playwright install chromium`, which is
-supposed to be a no-op when the browser is already in `~/.cache/ms-playwright`
-at the exact revision it wants. If the revision in the cache key does not match
-the revision the installed Playwright asks for, it downloads anyway and the
-cache silently buys nothing but a slower job. I will check the install step's
-log for a download line rather than assuming the timing improved.
+Both halves of the exit condition, observed rather than asserted:
+
+- **34429470971, red.** Failed at `Lint the web app`, annotated
+  `String not marked for translation. Wrap it with <Trans>` on
+  `apps/web/src/screens/NotFound.tsx#15`. Every step before it passed, so the
+  failure is the planted one rather than an install problem wearing its coat.
+- **34429762085, green.** Every step, 1m51s.
+
+**The first clean run found a real bug**, which is the best argument for this
+card that could have been asked for. npm pre-hooks are per script NAME:
+`pretest` existed, so `npm test` compiled the lingui catalogs, and
+`test:unit`, `test:storybook` and `test:coverage` had none. They passed on this
+machine only because `src/locales/*.mjs` were left over from an earlier run.
+They are gitignored, so a fresh checkout has none, the Persian catalog silently
+failed to load, and a story that expects `fa-IR` got `en-US`. Reproduced
+locally by deleting the compiled catalogs, and fixed in `package.json` rather
+than in the workflow, because the three scripts were broken for anyone with a
+fresh clone.
