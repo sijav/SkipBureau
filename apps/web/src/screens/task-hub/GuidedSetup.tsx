@@ -1,15 +1,16 @@
 import { Trans } from '@lingui/react/macro'
 import { Box, Button, Typography, useTheme } from '@mui/material'
+import { Link } from 'react-router-dom'
 import { radius, spacing } from 'src/core/theme'
 
 const STROKE = 1
 
 /**
  * Figma 81:577, guided setup offered beside the areas as a peer, not a funnel
- * in front of them. Guided setup itself is not built, so its button leads
- * nowhere yet.
+ * in front of them. Guided setup itself is not built, so both ways in lead to
+ * its Coming soon page.
  */
-export const GuidedSetup = () => {
+export const GuidedSetup = ({ to }: { to: string }) => {
   const { tokens } = useTheme()
 
   return (
@@ -25,18 +26,28 @@ export const GuidedSetup = () => {
         flexWrap: { xs: 'wrap', sm: 'nowrap' },
       }}
     >
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: '5px', flex: '1 0 0', minWidth: 0 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: '5px', flex: '1 0 0', minWidth: 0, alignItems: 'flex-start' }}>
         <Typography variant="h4" component="h2">
           <Trans>Not sure where to start?</Trans>
         </Typography>
         <Typography variant="body1" sx={{ color: tokens.textSecondary }}>
           <Trans>Answer a few questions and we’ll build a roadmap for your situation.</Trans>
         </Typography>
-        <Typography variant="overline" sx={{ color: tokens.accentText }}>
+        <Typography
+          component={Link}
+          to={to}
+          variant="overline"
+          sx={{
+            color: tokens.accentText,
+            textDecoration: 'none',
+            '&:hover': { textDecoration: 'underline' },
+            '&:focus-visible': { outline: `2px solid ${tokens.accentText}`, outlineOffset: '2px', borderRadius: '2px' },
+          }}
+        >
           <Trans>How it works</Trans>
         </Typography>
       </Box>
-      <Button variant="primary" sx={{ flexShrink: 0 }}>
+      <Button component={Link} to={to} variant="primary" sx={{ flexShrink: 0 }}>
         <Trans>Start guided setup</Trans>
       </Button>
     </Box>

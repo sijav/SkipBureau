@@ -6,8 +6,8 @@ import { graphql } from './generated/gql'
 // contract that stopped holding without anyone noticing.
 
 export const CountriesQuery = graphql(`
-  query Countries {
-    countries {
+  query Countries($locale: String) {
+    countries(locale: $locale) {
       code
       name
     }
@@ -31,6 +31,7 @@ export const GuideQuery = graphql(`
       slug
       title
       description
+      intro
       quickAnswer
       verifiedAt
       locale
@@ -217,6 +218,32 @@ export const AskQuery = graphql(`
         slug
         title
         verifiedAt
+      }
+      answers {
+        slug
+        question
+        answer
+        guideSlug
+      }
+    }
+  }
+`)
+
+export const SearchQuery = graphql(`
+  query Search($country: String!, $text: String!, $locale: String) {
+    search(country: $country, text: $text, locale: $locale) {
+      tasks {
+        slug
+        title
+        subtitle
+        open
+      }
+      guides {
+        slug
+        title
+        verifiedAt
+        snippet
+        written
       }
       answers {
         slug

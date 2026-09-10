@@ -17,7 +17,19 @@ export const StepRow = ({ number, title, description, note }: StepRowProps) => {
   const { i18n } = useLingui()
 
   return (
-    <Box component="li" sx={{ display: 'flex', alignItems: 'flex-start', gap: '20px', paddingBlock: '20px', borderTop: `1px solid ${tokens.border}`, listStyle: 'none' }}>
+    // 95 high as drawn: the rule sits inside the 20 above, not on top of it.
+    <Box
+      component="li"
+      sx={{
+        display: 'flex',
+        alignItems: 'flex-start',
+        gap: '20px',
+        paddingTop: '19px',
+        paddingBottom: '20px',
+        borderTop: `1px solid ${tokens.border}`,
+        listStyle: 'none',
+      }}
+    >
       <Typography component="span" variant="monoData" aria-hidden sx={{ width: '32px', flexShrink: 0, color: tokens.accentText }}>
         {i18n.number(number, { minimumIntegerDigits: 2 })}
       </Typography>

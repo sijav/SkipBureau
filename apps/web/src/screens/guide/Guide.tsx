@@ -6,7 +6,7 @@ import { useQuery } from 'urql'
 import { useCountry } from 'src/core/country'
 import { GuideQuery } from 'src/core/graphql'
 import { formatMonth, isLocale, locales, useLocale } from 'src/core/i18n'
-import { paths } from 'src/core/router'
+import { paths, useJourney } from 'src/core/router'
 import { spacing, type SourceState } from 'src/core/theme'
 import { Breadcrumb } from 'src/shared/breadcrumb'
 import { FactStrip } from 'src/shared/fact-strip'
@@ -15,6 +15,7 @@ import { InformationDisclaimer } from 'src/shared/information-disclaimer'
 import { Page } from 'src/shared/page'
 import { SourceCard } from 'src/shared/source-card'
 import { TopicItem } from 'src/shared/topic-item'
+import { ComingSoon } from 'src/screens/coming-soon'
 import { NotFound } from 'src/screens/NotFound'
 import { Unreachable } from 'src/screens/Unreachable'
 import { GuideSection, SectionFrame, type GuideData, type SectionData } from './GuideSection'
@@ -39,6 +40,7 @@ export const Guide = () => {
   const { t } = useLingui()
   const { locale } = useLocale()
   const { country, name } = useCountry()
+  const journey = useJourney()
   const { guide: slug = '' } = useParams()
 
   const [{ data, fetching, error }, refetch] = useQuery({ query: GuideQuery, variables: { country, slug, locale } })
@@ -51,13 +53,28 @@ export const Guide = () => {
   const language = isLocale(guide.locale) ? guide.locale : locale
   const content = (text: string): ReactNode => <bdi lang={language}>{text}</bdi>
   const verified = formatMonth(guide.verifiedAt, locale, 'long')
+  const lead = guide.intro ?? guide.description
   const place = guide.place
   const areaPath = place
     ? place.goalAreas > 1
-      ? paths.categoryHub(locale, country, place.goalSlug, place.categorySlug)
-      : paths.taskHub(locale, country, place.goalSlug)
-    : paths.home(locale, country)
-  const guidePath = (other: string) => paths.guide(locale, country, other)
+      ? paths.categoryHub(journey, place.goalSlug, place.categorySlug)
+      : paths.taskHub(journey, place.goalSlug)
+    : paths.home(journey)
+  const guidePath = (other: string) => paths.guide(journey, other)
+
+  // Listed on a hub, not written yet: its Coming soon page, never an empty guide.
+  if (guide.sections.length === 0 && guide.options.length === 0 && !guide.quickAnswer) {
+    const categoryTitle = place?.categoryTitle ?? ''
+    return (
+      <ComingSoon
+        title={content(guide.title)}
+        back={{ to: areaPath, label: place ? <Trans>Back to {categoryTitle}</Trans> : <Trans>Back to the home page</Trans> }}
+      >
+        {lead && <>{content(lead)} </>}
+        <Trans>We are still writing this guide, and checking it against official sources.</Trans>
+      </ComingSoon>
+    )
+  }
 
   const facts = [
     guide.cost && { label: <Trans>Typical cost</Trans>, value: content(guide.cost) },
@@ -112,9 +129,10 @@ export const Guide = () => {
           <Typography variant="h2" component="h1">
             {content(guide.title)}
           </Typography>
-          {guide.description && (
+          {/* The page's own opening, longer than the line a hub lists it with. */}
+          {lead && (
             <Typography variant="subtitle1" sx={{ color: tokens.textSecondary }}>
-              {content(guide.description)}
+              {content(lead)}
             </Typography>
           )}
         </Stack>
@@ -211,7 +229,7 @@ export const Guide = () => {
                   If you know this information is outdated or incorrect, let us know. We review submissions before updating the guide.
                 </Trans>
               </Typography>
-              <Button component={Link} to={paths.suggest(locale, country, guide.slug)} variant="secondary">
+              <Button component={Link} to={paths.suggest(journey, guide.slug)} variant="secondary">
                 <Trans>Suggest an update</Trans>
               </Button>
             </Stack>

@@ -1,10 +1,11 @@
 import { Trans } from '@lingui/react/macro'
 import { useDeferredValue, useEffect, useId, useState, type KeyboardEvent, type ReactNode } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'urql'
 import { withCountry } from 'src/core/country'
 import { AskQuery } from 'src/core/graphql'
 import { formatMonth, useLocale } from 'src/core/i18n'
-import { paths } from 'src/core/router'
+import { paths, useShellJourney } from 'src/core/router'
 import { useShell } from 'src/core/shell'
 import { AskResultRow } from 'src/shared/ask-result-row'
 import { AskPanel, NothingFound, type AskPanelGroup } from './AskPanel'
@@ -26,7 +27,7 @@ export type AskBindings = {
     'aria-expanded': boolean
     'aria-controls': string
   }
-  /** Asking keeps the panel open on its results and remembers the question. */
+  /** Asking remembers the question and opens everything it found, on the results page. */
   onAsk: (question: string) => void
 }
 
@@ -62,6 +63,8 @@ const remember = (question: string): string[] => {
 export const useAsk = ({ question, onQuestion }: { question: string; onQuestion: (question: string) => void }): { bindings: AskBindings; panel: ReactNode } => {
   const { locale } = useLocale()
   const { country, countryName } = useShell()
+  const journey = useShellJourney()
+  const navigate = useNavigate()
   const [anchor, setAnchor] = useState<HTMLElement | null>(null)
   const [open, setOpen] = useState(false)
   const [recent, setRecent] = useState<string[]>(readRecent)
@@ -99,12 +102,18 @@ export const useAsk = ({ question, onQuestion }: { question: string; onQuestion:
     },
     onAsk: (asked) => {
       const trimmed = asked.trim()
-      if (trimmed) setRecent(remember(trimmed))
-      setOpen(true)
+      // Nothing typed: the panel, with what is popular, is the answer.
+      if (!trimmed || !journey) {
+        setOpen(true)
+        return
+      }
+      setRecent(remember(trimmed))
+      setOpen(false)
+      void navigate(paths.search(journey, trimmed))
     },
   }
 
-  if (!country) return { bindings, panel: null }
+  if (!country || !journey) return { bindings, panel: null }
 
   const name = countryName ?? ''
   const found = data?.ask
@@ -119,7 +128,7 @@ export const useAsk = ({ question, onQuestion }: { question: string; onQuestion:
           kind="task"
           title={<bdi>{withCountry(task.title, name)}</bdi>}
           detail={task.subtitle ? <bdi>{withCountry(task.subtitle, name)}</bdi> : undefined}
-          to={paths.taskHub(locale, country, task.slug)}
+          to={paths.taskHub(journey, task.slug)}
           onClick={close}
         />
       )),
@@ -131,7 +140,7 @@ export const useAsk = ({ question, onQuestion }: { question: string; onQuestion:
           kind="guide"
           title={<bdi>{guide.title}</bdi>}
           detail={<Trans>Reading · verified {verified}</Trans>}
-          to={paths.guide(locale, country, guide.slug)}
+          to={paths.guide(journey, guide.slug)}
           onClick={close}
         />
       )
@@ -142,7 +151,7 @@ export const useAsk = ({ question, onQuestion }: { question: string; onQuestion:
         kind="quickAnswer"
         title={<bdi>{answer.question}</bdi>}
         detail={<bdi>{answer.answer}</bdi>}
-        to={answer.guideSlug ? paths.guide(locale, country, answer.guideSlug) : undefined}
+        to={answer.guideSlug ? paths.guide(journey, answer.guideSlug) : undefined}
         onClick={answer.guideSlug ? close : undefined}
       />
     )),

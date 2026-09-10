@@ -20,11 +20,11 @@ const meta = {
     (Story, { parameters, globals }) => (
       <GraphQLProvider>
         {/* The address carries the language in the app, so here it follows the toolbar. */}
-        <MemoryRouter initialEntries={[`/${localeSegment(isLocale(globals['locale']) ? globals['locale'] : 'en-US')}/${typeof parameters['at'] === 'string' ? parameters['at'] : 'tr'}`]}>
+        <MemoryRouter initialEntries={[`/${localeSegment(isLocale(globals['locale']) ? globals['locale'] : 'en-US')}/${typeof parameters['at'] === 'string' ? parameters['at'] : 'TR'}`]}>
           <ShellProvider>
             <AppShell header={<Header />}>
               <Routes>
-                <Route path=":locale/:country" element={<CountryRoute />}>
+                <Route path=":reader/:country" element={<CountryRoute />}>
                   <Route index element={<Story />} />
                 </Route>
               </Routes>
@@ -53,7 +53,7 @@ export const Default: Story = {
     await expect(grid).toBeTruthy()
     if (!grid) return
     await expect(within(grid).getAllByRole('link')).toHaveLength(2)
-    await expect(within(grid).getByRole('link', { name: /Start a business/ })).toHaveAttribute('href', '/en/tr/t/start-a-business')
+    await expect(within(grid).getByRole('link', { name: /Start a business/ })).toHaveAttribute('href', '/en/TR/tasks/start-a-business')
     await expect(within(grid).getAllByText(/Coming soon/)).toHaveLength(10)
     // A global goal names the country it is being read in.
     await expect(within(grid).getByText(/Study in Turkey/)).toBeVisible()
@@ -63,7 +63,7 @@ export const Default: Story = {
     await expect(common).toBeTruthy()
     if (!common) return
     await expect(within(common).getAllByText(/Quick answer/)).toHaveLength(4)
-    await expect(within(common).getByRole('link', { name: /buy a house/ })).toHaveAttribute('href', '/en/tr/g/register-your-address')
+    await expect(within(common).getByRole('link', { name: /buy a house/ })).toHaveAttribute('href', '/en/TR/guides/register-your-address')
   },
 }
 
@@ -85,7 +85,7 @@ export const OneAsk: Story = {
 
 /** A country with no content yet: every goal is Coming soon and there are no questions. */
 export const NothingYet: Story = {
-  parameters: { at: 'de' },
+  parameters: { at: 'DE' },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     await expect(await canvas.findByRole('heading', { level: 1, name: /Germany/ }, { timeout: 5000 })).toBeVisible()
@@ -126,7 +126,7 @@ export const Ask: Story = {
     await userEvent.type(field, 'company')
     await expect(await page.findByText(/Results for “company”/)).toBeVisible()
     const panel = within(page.getByRole('dialog', { name: /What Ask found/ }))
-    await expect(await panel.findByRole('link', { name: /Start a business/ })).toHaveAttribute('href', '/en/tr/t/start-a-business')
+    await expect(await panel.findByRole('link', { name: /Start a business/ })).toHaveAttribute('href', '/en/TR/tasks/start-a-business')
 
     await userEvent.keyboard('{Escape}')
     await expect(field).toHaveAttribute('aria-expanded', 'false')

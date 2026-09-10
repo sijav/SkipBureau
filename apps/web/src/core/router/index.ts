@@ -1,4 +1,19 @@
 export { AppRoutes } from './AppRoutes'
 export { CountryRoute } from './CountryRoute'
+export { useJourney, useShellJourney } from './journey'
 export { LocaleShell } from './LocaleShell'
-export { localeFromSegment, localeSegment, paths, samePageIn, type Place } from './paths'
+export {
+  canonicalPath,
+  countryFromSegment,
+  countrySegment,
+  localeFromSegment,
+  localeSegment,
+  paths,
+  readerFromSegment,
+  readerSegment,
+  samePageFrom,
+  samePageIn,
+  type Journey,
+  type Place,
+  type Reader,
+} from './paths'

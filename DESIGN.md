@@ -182,22 +182,31 @@ past query returns.
 
 ## What a SkipBureau address contains
 
-Decided in SB-033. The Figma file says nothing about URLs, and this product is
-one people send each other, so the address is part of the design.
+Decided in SB-033, and reshaped by the owner on 2026-09-10 (SB-147, SB-148):
+pages are named in words, and the first segment says where the reader comes
+from once they have said it. His reading of `/en-TR/DE`: in English, from
+Turkey, moving to Germany. The Figma file says nothing about URLs, and this
+product is one people send each other, so the address is part of the design.
 
 ```
-/:locale/:country                          Home
-/:locale/:country/t/:goal                  Task hub
-/:locale/:country/t/:goal/:category        Category hub
-/:locale/:country/g/:guide                 Guide detail
-/:locale/:country/g/:guide/suggest         Suggest an update
+/:reader/:country                            Home
+/:reader/:country/tasks/:goal                Task hub
+/:reader/:country/tasks/:goal/:category      Category hub
+/:reader/:country/guides/:guide              Guide detail
+/:reader/:country/guides/:guide/suggest      Suggest an update
+/:reader/:country/search?q=                  What a question found
+/:reader/:country/guides                     Every guide (Coming soon)
+/:reader/:country/setup/:goal                Guided setup (Coming soon)
 ```
 
-`/en/tr/g/get-a-sim-card`. The language is the short public form, `en`, not the
-lingui tag; the mapping lives in `locales.ts` next to `dir`, so a locale cannot
-be added without deciding what it looks like in a URL. `/en-US/...` still
-resolves, by redirecting, so a link already shared keeps working while one page
-keeps one address.
+`/en/TR/guides/sim-card`, or `/fa-IR/TR/guides/sim-card` for a Persian reader
+from Iran. The reader is the language's short public form, `en`, not the lingui
+tag, and then the origin's ISO code once the reader has set it in the context
+panel; it is never guessed. Countries are written in capitals. The mapping lives
+in `locales.ts` next to `dir`, so a locale cannot be added without deciding what
+it looks like in a URL. Every older form still resolves, by redirecting: lowercase
+countries, and the `/t/` and `/g/` markers pages had before, so a link already
+shared keeps working while one page keeps one address.
 
 **Country is in the path because a guide is about a country.** "Get a SIM card
 in Turkey" and the same guide for Germany are different documents with different
@@ -206,7 +215,7 @@ is a different thing from the context control, which is nationality and city,
 and which the file says explicitly is not a filter.
 
 **An unknown language or country is Not Found, never a redirect to one we do
-have.** A stale link reading `/en/zz/g/residence-permit` must not quietly become
+have.** A stale link reading `/en/ZZ/guides/residence-permit` must not quietly become
 Turkey's rules. Someone would act on them.
 
 `/` is the only place a language is guessed, from a stored choice and then the

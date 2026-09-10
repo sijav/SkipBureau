@@ -2,11 +2,10 @@ import { Trans, useLingui } from '@lingui/react/macro'
 import { Box, InputBase, Typography, useTheme } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { useLocale } from 'src/core/i18n'
-import { paths } from 'src/core/router'
+import { paths, useShellJourney } from 'src/core/router'
 import { useShell } from 'src/core/shell'
 import { useAsk } from 'src/shared/ask-panel'
-import { ContextControl } from 'src/shared/context-control'
+import { YourDetails } from 'src/shared/context-control'
 import { HeaderGlyph } from './icons'
 import { LanguageControl } from './LanguageControl'
 
@@ -31,8 +30,8 @@ const useScrolled = () => {
 export const Header = ({ onAsk }: { onAsk?: (question: string) => void }) => {
   const { tokens, typography } = useTheme()
   const { t } = useLingui()
-  const { locale } = useLocale()
-  const { pageOwnsAsk, country } = useShell()
+  const { pageOwnsAsk } = useShell()
+  const journey = useShellJourney()
   const scrolled = useScrolled()
   const [question, setQuestion] = useState('')
   const { bindings: ask, panel } = useAsk({ question, onQuestion: setQuestion })
@@ -40,7 +39,7 @@ export const Header = ({ onAsk }: { onAsk?: (question: string) => void }) => {
 
   // Only a country the route confirmed; before one is known, the root decides.
   // No country is hardcoded here.
-  const home = country ? paths.home(locale, country) : '/'
+  const home = journey ? paths.home(journey) : '/'
 
   return (
     <Box
@@ -122,9 +121,9 @@ export const Header = ({ onAsk }: { onAsk?: (question: string) => void }) => {
             <Typography component={NavLink} to={home} end variant="uiText">
               <Trans>Explore</Trans>
             </Typography>
-            {/* No guides index is designed yet, so Guides is a plain link that
-                never claims to be the current page. */}
-            <Typography component={Link} to={home} variant="uiText">
+            {/* There is no index of every guide yet, so Guides leads to its
+                Coming soon page, which it can then mark as the current one. */}
+            <Typography component={NavLink} to={journey ? paths.guides(journey) : '/'} end variant="uiText">
               <Trans>Guides</Trans>
             </Typography>
           </Box>
@@ -178,7 +177,7 @@ export const Header = ({ onAsk }: { onAsk?: (question: string) => void }) => {
         )}
 
         <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0, marginInlineStart: 'auto' }}>
-          <ContextControl />
+          <YourDetails />
           <LanguageControl />
         </Box>
       </Box>

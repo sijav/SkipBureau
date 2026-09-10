@@ -9,7 +9,7 @@ const meta = {
   title: 'Shared/TopicItem',
   component: TopicItem,
   args: {
-    to: '/en/tr/t/start-a-business/register-your-company',
+    to: '/en/TR/tasks/start-a-business/register-your-company',
     title: <Trans>Register your company</Trans>,
     description: <Trans>Understand the registration process and what needs to be prepared.</Trans>,
   },
@@ -29,7 +29,7 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   play: async ({ canvasElement }) => {
     const row = await within(canvasElement).findByRole('link', { name: /Register your company/ })
-    await expect(row).toHaveAttribute('href', '/en/tr/t/start-a-business/register-your-company')
+    await expect(row).toHaveAttribute('href', '/en/TR/tasks/start-a-business/register-your-company')
     await expect(window.getComputedStyle(row).height).toBe('82px')
     await expect(window.getComputedStyle(row).borderBottomWidth).toBe('1px')
   },

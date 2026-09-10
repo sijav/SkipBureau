@@ -6,7 +6,7 @@ import { useQuery } from 'urql'
 import { useCountry, withCountry } from 'src/core/country'
 import { CategoryHubQuery } from 'src/core/graphql'
 import { formatMonth, useLocale } from 'src/core/i18n'
-import { paths } from 'src/core/router'
+import { paths, useJourney } from 'src/core/router'
 import { radius, spacing } from 'src/core/theme'
 import { HomeAskField } from 'src/shared/ask-field'
 import { useAsk } from 'src/shared/ask-panel'
@@ -35,6 +35,7 @@ export const CategoryHub = (props: CategoryHubProps) => {
   const { t } = useLingui()
   const { locale } = useLocale()
   const { country, name } = useCountry()
+  const journey = useJourney()
   const params = useParams()
   const goal = props.goal ?? params['goal'] ?? ''
   const slug = props.category ?? params['category'] ?? ''
@@ -52,11 +53,11 @@ export const CategoryHub = (props: CategoryHubProps) => {
   if (!hub) return <NotFound />
 
   const fill = (text: string) => withCountry(text, name)
-  const home = paths.home(locale, country)
+  const home = paths.home(journey)
   // A goal with one area opens it directly, so the goal is not a step between.
   const trail =
     hub.goalAreas > 1
-      ? [{ label: <Trans>Home</Trans>, to: home }, { label: <bdi>{fill(hub.goalTitle)}</bdi>, to: paths.taskHub(locale, country, hub.goalSlug) }, { label: <bdi>{hub.title}</bdi> }]
+      ? [{ label: <Trans>Home</Trans>, to: home }, { label: <bdi>{fill(hub.goalTitle)}</bdi>, to: paths.taskHub(journey, hub.goalSlug) }, { label: <bdi>{hub.title}</bdi> }]
       : [{ label: <Trans>Home</Trans>, to: home }, { label: <bdi>{hub.title}</bdi> }]
   const reviewed = hub.lastReviewed ? formatMonth(hub.lastReviewed, locale, 'long') : null
 
@@ -86,7 +87,7 @@ export const CategoryHub = (props: CategoryHubProps) => {
         <RecommendedStart
           title={<bdi>{hub.start.title}</bdi>}
           reason={hub.start.reason ? <bdi>{fill(hub.start.reason)}</bdi> : undefined}
-          to={paths.guide(locale, country, hub.start.guideSlug)}
+          to={paths.guide(journey, hub.start.guideSlug)}
         />
       )}
 
@@ -102,7 +103,7 @@ export const CategoryHub = (props: CategoryHubProps) => {
               return (
                 <TopicItem
                   key={guide.slug}
-                  to={paths.guide(locale, country, guide.slug)}
+                  to={paths.guide(journey, guide.slug)}
                   kind={minutes ? <Trans>{minutes} min read</Trans> : undefined}
                   title={<bdi>{guide.title}</bdi>}
                   description={guide.description ? <bdi>{guide.description}</bdi> : undefined}
@@ -154,7 +155,7 @@ export const CategoryHub = (props: CategoryHubProps) => {
               <TopicItem
                 key={other.slug}
                 // A goal with nothing in this country yet is the tile's Coming soon.
-                to={other.open ? paths.taskHub(locale, country, other.slug) : undefined}
+                to={other.open ? paths.taskHub(journey, other.slug) : undefined}
                 unavailable={!other.open}
                 kind={other.open ? undefined : <Trans>Coming soon</Trans>}
                 title={<bdi>{fill(other.title)}</bdi>}
@@ -178,7 +179,6 @@ export const CategoryHub = (props: CategoryHubProps) => {
             placeholder={t`What do you need help with?`}
             value={question}
             onChange={setQuestion}
-            onAsk={() => undefined}
             bindings={ask.bindings}
           />
           {ask.panel}

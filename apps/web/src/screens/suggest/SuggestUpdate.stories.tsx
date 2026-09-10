@@ -18,12 +18,12 @@ const meta = {
   decorators: [
     (Story, { globals }) => (
       <GraphQLProvider>
-        <MemoryRouter initialEntries={[`/${localeSegment(isLocale(globals['locale']) ? globals['locale'] : 'en-US')}/tr/g/sim-card/suggest`]}>
+        <MemoryRouter initialEntries={[`/${localeSegment(isLocale(globals['locale']) ? globals['locale'] : 'en-US')}/TR/guides/sim-card/suggest`]}>
           <ShellProvider>
             <AppShell header={<Header />}>
               <Routes>
-                <Route path=":locale/:country" element={<CountryRoute />}>
-                  <Route path="g/:guide/suggest" element={<Story />} />
+                <Route path=":reader/:country" element={<CountryRoute />}>
+                  <Route path="guides/:guide/suggest" element={<Story />} />
                 </Route>
               </Routes>
             </AppShell>

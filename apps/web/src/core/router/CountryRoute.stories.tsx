@@ -21,7 +21,7 @@ import { CountryRoute } from './CountryRoute'
  */
 
 /** A country the fixtures do have, so the success path resolves. */
-const AT = '/en/tr'
+const AT = '/en/TR'
 
 const meta = {
   title: 'Foundations/CountryRoute',
@@ -34,7 +34,7 @@ const meta = {
       <GraphQLProvider>
         <MemoryRouter initialEntries={[AT]}>
           <Routes>
-            <Route path=":locale/:country" element={<Story />}>
+            <Route path=":reader/:country" element={<Story />}>
               <Route index element={<CountryName variant="h6" />} />
             </Route>
           </Routes>

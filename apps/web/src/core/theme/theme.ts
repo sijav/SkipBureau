@@ -23,8 +23,10 @@ const face = (style: (typeof type)[keyof typeof type]) => ({
   // MUI's overline is uppercase, so Label Small rendered in capitals while the
   // design's tags are sentence case.
   textTransform: 'uppercase' in style && style.uppercase ? ('uppercase' as const) : ('none' as const),
-  ...('uppercase' in style && style.uppercase ? { letterSpacing: '0.06em' } : {}),
-  ...('tracking' in style ? { letterSpacing: style.tracking } : {}),
+  // Explicit too, for the same reason: an untracked style kept MUI's tracking,
+  // and a field's helper, which MUI builds on caption, set Body Small 1.12px
+  // apart and wrapped a line the design fits on one.
+  letterSpacing: 'tracking' in style ? style.tracking : 0,
   // Persian is a cursive script with no monospaced tradition. IBM Plex Mono
   // has no Persian letters, so the browser fell through to a monospaced Arabic
   // face with each letter in its own cell, and tracking pulls the joins apart.

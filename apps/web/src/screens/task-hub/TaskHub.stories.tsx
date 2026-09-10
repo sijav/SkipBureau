@@ -20,14 +20,14 @@ const meta = {
       <GraphQLProvider>
         <MemoryRouter
           initialEntries={[
-            `/${localeSegment(isLocale(globals['locale']) ? globals['locale'] : 'en-US')}/tr/t/${typeof parameters['goal'] === 'string' ? parameters['goal'] : 'start-a-business'}`,
+            `/${localeSegment(isLocale(globals['locale']) ? globals['locale'] : 'en-US')}/TR/tasks/${typeof parameters['goal'] === 'string' ? parameters['goal'] : 'start-a-business'}`,
           ]}
         >
           <ShellProvider>
             <AppShell header={<Header />}>
               <Routes>
-                <Route path=":locale/:country" element={<CountryRoute />}>
-                  <Route path="t/:goal" element={<Story />} />
+                <Route path=":reader/:country" element={<CountryRoute />}>
+                  <Route path="tasks/:goal" element={<Story />} />
                 </Route>
               </Routes>
             </AppShell>
@@ -58,7 +58,7 @@ export const Default: Story = {
     const rows = within(areas).getAllByRole('link')
     await expect(rows).toHaveLength(8)
     await expect(rows[0]).toHaveTextContent(/Decision/)
-    await expect(rows[0]).toHaveAttribute('href', '/en/tr/t/start-a-business/choose-a-company-type')
+    await expect(rows[0]).toHaveAttribute('href', '/en/TR/tasks/start-a-business/choose-a-company-type')
 
     // The alternative route is kept apart from the areas.
     const other = (await canvas.findByRole('heading', { level: 2, name: /Other routes/ })).closest('section')

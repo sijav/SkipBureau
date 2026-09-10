@@ -6,6 +6,8 @@ export type CountryContext = {
   country: CountryCode
   /** Its name in the reader's language, where the API had one. */
   name: string
+  /** Where the reader comes from, when they have said: part of the address, like the country. */
+  origin: string | null
 }
 
 /**

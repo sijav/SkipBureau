@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../prisma/prisma.service.js'
 import { generalVersionAt } from '../rules/selection.js'
-import type { AskView, CategoryHubView, CategoryView, GuideView, HubSourceView, QuestionView, TaskHubView, TaskView } from './guide.model.js'
+import type { AskView, CategoryHubView, CategoryView, GuideView, HubSourceView, QuestionView, SearchView, TaskHubView, TaskView } from './guide.model.js'
 import { CategoryKind, ObligationResolution, SectionKind } from './guide.model.js'
+import { best, match, WEIGHT, wordsOf, type Field } from './search.js'
 
 const FALLBACK = 'en-US'
 
@@ -48,27 +49,9 @@ const placeOf = (
   }
 }
 
-// Words that match nearly everything and so tell nothing apart, and anything
-// shorter than three letters. English only for now; Persian is SB-069.
-const STOP = new Set(['the', 'and', 'for', 'can', 'how', 'what', 'who', 'when', 'where', 'why', 'with', 'want', 'need', 'get', 'have', 'does', 'from', 'into', 'your', 'you', 'are', 'was', 'will', 'this', 'that', 'there', 'about', 'which', 'should', 'would', 'could'])
-
-const wordsOf = (text: string): string[] => [
-  ...new Set(
-    text
-      .toLowerCase()
-      .normalize('NFKC')
-      .split(/[^\p{L}\p{N}]+/u)
-      .filter((word) => word.length >= 3 && !STOP.has(word)),
-  ),
-]
-
-/** How many of the question's words a text contains. Zero is no match. */
-const scoreOf = (words: readonly string[], ...texts: (string | null | undefined)[]): number => {
-  const haystack = texts.filter(Boolean).join(' ').toLowerCase()
-  return words.filter((word) => haystack.includes(word)).length
-}
-
-const EACH = 3
+// How many of each kind Ask's panel shows, and the results page.
+const IN_PANEL = 3
+const ON_PAGE = 20
 
 @Injectable()
 export class GuideService {
@@ -211,38 +194,114 @@ export class GuideService {
    * each thing is. With no words, what is popular. Matched in memory while the
    * content is small; real search is SB-051.
    */
-  async ask(countryCode: string, locale: string, text: string): Promise<AskView> {
+  /**
+   * What a question finds in one country, SB-149: goals by their titles, guides
+   * by everything written in them, quick answers by question and answer. The
+   * matching is `search.ts`; this gathers what it matches against.
+   */
+  private async find(countryCode: string, locale: string, text: string, limit: number): Promise<SearchView> {
     const [tasks, categories, guides, questions] = await Promise.all([
       this.tasks(locale),
       this.prisma.category.findMany({ where: { countryCode }, select: { task: { select: { slug: true } } } }),
-      this.prisma.guide.findMany({ where: { countryCode }, orderBy: [{ position: 'asc' }, { createdAt: 'asc' }], include: { texts: true } }),
+      this.prisma.guide.findMany({
+        where: { countryCode },
+        orderBy: [{ position: 'asc' }, { createdAt: 'asc' }],
+        include: {
+          texts: true,
+          options: { include: { texts: true } },
+          sections: { include: { texts: true, steps: { include: { texts: true } } } },
+        },
+      }),
       this.questions(countryCode, locale),
     ])
     const open = new Set(categories.map((category) => category.task.slug))
     const withOpen = tasks.map((task) => ({ slug: task.slug, title: task.title, subtitle: task.subtitle, open: open.has(task.slug) }))
-    const readable = guides.flatMap((guide) => {
-      const { text: reading } = pick(guide.texts, locale)
-      return reading ? [{ slug: guide.slug, title: reading.title, description: reading.description, verifiedAt: date(guide.verifiedAt) }] : []
-    })
 
     const words = wordsOf(text)
-    if (words.length === 0) {
-      return { tasks: withOpen.filter((task) => task.open).slice(0, 1), guides: [], answers: questions.slice(0, 1) }
-    }
+    if (words.length === 0) return { tasks: [], guides: [], answers: [] }
 
-    const best = <T>(items: readonly T[], score: (item: T) => number): T[] =>
-      items
-        .map((item, index) => ({ item, index, score: score(item) }))
-        .filter((entry) => entry.score > 0)
-        .sort((a, b) => b.score - a.score || a.index - b.index)
-        .slice(0, EACH)
-        .map((entry) => entry.item)
+    const readable = guides.flatMap((guide) => {
+      const { text: reading } = pick(guide.texts, locale)
+      if (!reading) return []
+      const body = (value: string | null | undefined): Field => ({ text: value, weight: WEIGHT.body, snippet: true })
+      const fields: Field[] = [
+        { text: reading.title, weight: WEIGHT.title },
+        { text: reading.description, weight: WEIGHT.summary, snippet: true },
+        { text: reading.intro, weight: WEIGHT.summary, snippet: true },
+        { text: reading.quickAnswer, weight: WEIGHT.summary, snippet: true },
+        ...guide.sections.flatMap((section) => {
+          const { text: part } = pick(section.texts, locale)
+          return [
+            body(part?.title),
+            body(part?.body),
+            body(part?.note),
+            body(part?.callout),
+            body(part?.calloutBody),
+            ...section.steps.flatMap((step) => {
+              const { text: line } = pick(step.texts, locale)
+              return [body(line?.title), body(line?.body), body(line?.note), body(line?.label)]
+            }),
+          ]
+        }),
+        ...guide.options.flatMap((option) => {
+          const { text: choice } = pick(option.texts, locale)
+          return [body(choice?.title), body(choice?.body), body(choice?.bestFor), body(choice?.caveat)]
+        }),
+      ]
+      return [
+        {
+          fields,
+          // Matched by its title alone, a guide is shown with its own summary.
+          summary: reading.description ?? reading.intro,
+          view: {
+            slug: guide.slug,
+            title: reading.title,
+            verifiedAt: date(guide.verifiedAt),
+            written: guide.sections.length > 0 || guide.options.length > 0 || Boolean(reading.quickAnswer),
+          },
+        },
+      ]
+    })
 
     return {
-      tasks: best(withOpen, (task) => scoreOf(words, task.title, task.subtitle)),
-      guides: best(readable, (guide) => scoreOf(words, guide.title, guide.description)).map(({ slug, title, verifiedAt }) => ({ slug, title, verifiedAt })),
-      answers: best(questions, (entry) => scoreOf(words, entry.question, entry.answer)),
+      // A goal with nothing in this country has no page to go to.
+      tasks: best(
+        withOpen.filter((task) => task.open),
+        (task) => match(words, [{ text: task.title, weight: WEIGHT.title }, { text: task.subtitle, weight: WEIGHT.summary }]),
+        limit,
+      ).map(({ item }) => item),
+      guides: best(readable, (guide) => match(words, guide.fields), limit).map(({ item, match: found }) => ({ ...item.view, snippet: found.snippet ?? item.summary })),
+      answers: best(
+        questions,
+        (entry) => match(words, [{ text: entry.question, weight: WEIGHT.title }, { text: entry.answer, weight: WEIGHT.summary }]),
+        limit,
+      ).map(({ item }) => item),
     }
+  }
+
+  /** Everything a question found, for the results page. */
+  async search(countryCode: string, locale: string, text: string): Promise<SearchView> {
+    return this.find(countryCode, locale, text, ON_PAGE)
+  }
+
+  /** The panel under an Ask field: a few of each kind, and what is popular while nothing is typed. */
+  async ask(countryCode: string, locale: string, text: string): Promise<AskView> {
+    if (wordsOf(text).length === 0) {
+      const [tasks, categories, questions] = await Promise.all([
+        this.tasks(locale),
+        this.prisma.category.findMany({ where: { countryCode }, select: { task: { select: { slug: true } } } }),
+        this.questions(countryCode, locale),
+      ])
+      const open = new Set(categories.map((category) => category.task.slug))
+      const first = tasks.find((task) => open.has(task.slug))
+      return {
+        tasks: first ? [{ slug: first.slug, title: first.title, subtitle: first.subtitle, open: true }] : [],
+        guides: [],
+        answers: questions.slice(0, 1),
+      }
+    }
+    const found = await this.find(countryCode, locale, text, IN_PANEL)
+    return { ...found, guides: found.guides.map(({ slug, title, verifiedAt }) => ({ slug, title, verifiedAt })) }
   }
 
   async questions(countryCode: string, locale: string): Promise<QuestionView[]> {
@@ -349,6 +408,7 @@ export class GuideService {
       translationMissing: missing,
       title: text.title,
       description: text.description,
+      intro: text.intro,
       quickAnswer: text.quickAnswer,
       cost: text.cost,
       time: text.time,

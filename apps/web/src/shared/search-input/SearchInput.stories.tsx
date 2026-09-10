@@ -84,7 +84,7 @@ const checkState = async (canvasElement: HTMLElement, mode: unknown, filled: boo
   await expect(iconStyle.height).toBe('18px')
 
   // Serif on purpose: the design wants a sentence, not a keyword.
-  await expect(window.getComputedStyle(input).fontFamily).toMatch(/^"?Source Serif 4/)
+  await expect(window.getComputedStyle(input).fontFamily).toMatch(/^"?Source Serif 4 Variable/)
   await expect(asHex(window.getComputedStyle(input).color)).toBe(tokens[SEARCH_PAINT.value].toLowerCase())
 }
 

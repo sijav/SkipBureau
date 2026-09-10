@@ -19,13 +19,13 @@ const meta = {
     (Story, { parameters, globals }) => (
       <GraphQLProvider>
         <MemoryRouter
-          initialEntries={[`/${localeSegment(isLocale(globals['locale']) ? globals['locale'] : 'en-US')}/tr/g/${typeof parameters['guide'] === 'string' ? parameters['guide'] : 'sim-card'}`]}
+          initialEntries={[`/${localeSegment(isLocale(globals['locale']) ? globals['locale'] : 'en-US')}/TR/guides/${typeof parameters['guide'] === 'string' ? parameters['guide'] : 'sim-card'}`]}
         >
           <ShellProvider>
             <AppShell header={<Header />}>
               <Routes>
-                <Route path=":locale/:country" element={<CountryRoute />}>
-                  <Route path="g/:guide" element={<Story />} />
+                <Route path=":reader/:country" element={<CountryRoute />}>
+                  <Route path="guides/:guide" element={<Story />} />
                 </Route>
               </Routes>
             </AppShell>
@@ -47,7 +47,7 @@ export const Default: Story = {
 
     // The way back is to its area, which for Getting Settled is the goal itself.
     const crumbs = within(canvas.getByRole('navigation', { name: /Breadcrumb/ }))
-    await expect(crumbs.getByRole('link', { name: /Getting Settled/ })).toHaveAttribute('href', '/en/tr/t/getting-settled')
+    await expect(crumbs.getByRole('link', { name: /Getting Settled/ })).toHaveAttribute('href', '/en/TR/tasks/getting-settled')
 
     // The quick answer comes before any detail.
     await expect(canvas.getByText(/Quick answer/)).toBeVisible()
@@ -66,7 +66,7 @@ export const Default: Story = {
     await expect(canvas.getByText(/For general information only/)).toBeVisible()
 
     // Something changed leads to suggesting an update to this guide.
-    await expect(canvas.getByRole('link', { name: /Suggest an update/ })).toHaveAttribute('href', '/en/tr/g/sim-card/suggest')
+    await expect(canvas.getByRole('link', { name: /Suggest an update/ })).toHaveAttribute('href', '/en/TR/guides/sim-card/suggest')
   },
 }
 

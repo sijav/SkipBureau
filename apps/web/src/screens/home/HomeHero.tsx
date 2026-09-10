@@ -9,7 +9,6 @@ export type HomeHeroProps = {
   name: string
   question: string
   onQuestion: (question: string) => void
-  onAsk: (question: string) => void
   /** Questions to try, which fill the field. */
   examples: readonly string[]
   askRef?: Ref<HTMLDivElement> | undefined
@@ -18,7 +17,7 @@ export type HomeHeroProps = {
 }
 
 /** Figma 60:629: the heading, its line, the ask field and questions to try. */
-export const HomeHero = ({ name, question, onQuestion, onAsk, examples, askRef, bindings }: HomeHeroProps) => {
+export const HomeHero = ({ name, question, onQuestion, examples, askRef, bindings }: HomeHeroProps) => {
   const { tokens, layout } = useTheme()
   const { t } = useLingui()
 
@@ -36,7 +35,6 @@ export const HomeHero = ({ name, question, onQuestion, onAsk, examples, askRef, 
           placeholder={t`Ask a question or describe what you’re trying to do…`}
           value={question}
           onChange={onQuestion}
-          onAsk={onAsk}
           bindings={bindings}
         />
       </Box>

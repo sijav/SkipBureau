@@ -13,6 +13,10 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/screens/search/SearchResults.tsx
+msgid "{count, plural, one {# result} other {# results}}"
+msgstr "{count, plural, one {# نتیجه} other {# نتیجه}}"
+
 #: src/shared/progress-indicator/ProgressIndicator.tsx
 msgid "{done} of {total, plural, one {# step completed} other {# steps completed}}"
 msgstr "{done} از {total, plural, one {# مرحله انجام شده} other {# مرحله انجام شده}}"
@@ -24,6 +28,10 @@ msgstr "{minutes} دقیقه مطالعه"
 #: src/shared/page/Page.stories.tsx
 msgid "A column, not a width"
 msgstr "یک ستون، نه یک عرض"
+
+#: src/screens/coming-soon/SetupSoon.tsx
+msgid "A few questions about your situation, then only the steps that apply to you, in the order they come. Until it is ready, the overview lists every area the goal involves."
+msgstr "چند پرسش درباره وضعیت شما، و بعد فقط گام‌هایی که به شما مربوط است، به همان ترتیبی که پیش می‌آیند. تا آماده شدنش، نمای کلی همه حوزه‌هایی را که این هدف در بر می‌گیرد فهرست می‌کند."
 
 #: src/App.tsx
 #~ msgid "A step-by-step guide to bureaucracy abroad, for travellers and expats. Nothing is built yet: this page exists to prove the scaffold runs."
@@ -40,6 +48,10 @@ msgstr "سیم‌کارتی که کار می‌کند به معنای دستگا
 #: src/shared/step-row/StepRow.stories.tsx
 msgid "Activate and test it"
 msgstr "فعال‌سازی و آزمایش"
+
+#: src/shared/context-control/ContextPanel.tsx
+msgid "Add"
+msgstr "افزودن"
 
 #: src/shared/context-chip/ContextChip.stories.tsx
 msgid "Add to sharpen answers"
@@ -82,6 +94,7 @@ msgid "Ask"
 msgstr "بپرس"
 
 #: src/screens/home/HomeHero.tsx
+#: src/screens/search/SearchResults.tsx
 #: src/shared/ask-field/HomeAskField.stories.tsx
 #: src/shared/search-input/SearchInput.stories.tsx
 msgid "Ask a question or describe what you’re trying to do…"
@@ -92,11 +105,16 @@ msgstr "سؤالی بپرسید یا بگویید چه کاری می‌خواه�
 msgid "Ask about {0}"
 msgstr "درباره {0} بپرسید"
 
+#: src/screens/search/SearchResults.tsx
+msgid "Ask about {name}"
+msgstr "درباره {name} بپرسید"
+
 #: src/screens/category-hub/CategoryHub.tsx
 msgid "Ask about this and find the most relevant guide."
 msgstr "درباره این موضوع بپرسید و مرتبط‌ترین راهنما را پیدا کنید."
 
 #: src/screens/home/HomeHero.tsx
+#: src/screens/search/SearchResults.tsx
 #: src/shared/header/Header.tsx
 msgid "Ask Skipbureau"
 msgstr "از Skipbureau بپرسید"
@@ -113,9 +131,23 @@ msgstr "از Skipbureau بپرسید…"
 msgid "Available once you confirm your nationality"
 msgstr "پس از تأیید ملیت شما در دسترس است"
 
+#: src/screens/guide/Guide.tsx
+msgid "Back to {categoryTitle}"
+msgstr "بازگشت به {categoryTitle}"
+
 #: src/screens/suggest/SuggestUpdate.tsx
 msgid "Back to the guide"
 msgstr "بازگشت به راهنما"
+
+#: src/screens/coming-soon/GuidesSoon.tsx
+#: src/screens/guide/Guide.tsx
+#: src/screens/search/SearchResults.tsx
+msgid "Back to the home page"
+msgstr "بازگشت به خانه"
+
+#: src/screens/coming-soon/SetupSoon.tsx
+msgid "Back to the overview"
+msgstr "بازگشت به نمای کلی"
 
 #: src/screens/guide/GuideSection.tsx
 msgid "Before you start"
@@ -173,15 +205,26 @@ msgstr "این ماه بررسی شده"
 msgid "Choose a company type"
 msgstr "انتخاب نوع شرکت"
 
+#: src/shared/context-control/ContextPanel.tsx
+msgid "City in {countryName}"
+msgstr "شهر در {countryName}"
+
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "City in Turkey"
 msgstr "شهری در ترکیه"
+
+#: src/shared/context-control/ContextPanel.tsx
+msgid "Clear all"
+msgstr "پاک کردن همه"
 
 #: src/screens/home/HomeHero.tsx
 msgid "Clear, step-by-step guidance for living, studying, working and doing business in {name}."
 msgstr "راهنمای روشن و گام‌به‌گام برای زندگی، تحصیل، کار و کسب‌وکار در {name}."
 
 #: src/screens/category-hub/CategoryHub.tsx
+#: src/screens/coming-soon/ComingSoon.tsx
+#: src/screens/search/SearchResults.tsx
+#: src/shared/context-control/ContextPanel.tsx
 #: src/shared/task-tile/TaskTile.tsx
 #: src/shared/topic-item/TopicItem.stories.tsx
 msgid "Coming soon"
@@ -216,6 +259,10 @@ msgstr "محتوای این صفحه نمونه‌ای برای بازبینی �
 msgid "Cost and time"
 msgstr "هزینه و زمان"
 
+#: src/shared/context-control/ContextPanel.tsx
+msgid "Currently in"
+msgstr "محل زندگی فعلی"
+
 #: src/screens/task-hub/TaskHub.tsx
 #: src/shared/topic-item/TopicItem.stories.tsx
 msgid "Decision"
@@ -241,6 +288,10 @@ msgstr "توضیحات این صفحه محتوای نمونه برای بازب
 msgid "Due in 12 days"
 msgstr "۱۲ روز تا موعد"
 
+#: src/screens/coming-soon/GuidesSoon.tsx
+msgid "Every guide for {name}"
+msgstr "همه راهنماهای {name}"
+
 #: src/screens/category-hub/CategoryHub.tsx
 #: src/screens/home/Home.tsx
 msgid "Every guide shows when it was last verified and links to the official source"
@@ -257,6 +308,10 @@ msgstr "ارقام، زمان‌بندی‌ها و الزاماتی که در س
 #: src/shared/information-disclaimer/InformationDisclaimer.tsx
 msgid "For general information only"
 msgstr "فقط برای اطلاع عمومی"
+
+#: src/shared/context-control/YourDetails.tsx
+msgid "From {originName}"
+msgstr "از {originName}"
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "From applicant reports, not an official rule"
@@ -279,10 +334,15 @@ msgstr "راهنما"
 msgid "Guided process · 9 steps"
 msgstr "فرایند راهنمایی‌شده · ۹ گام"
 
+#: src/screens/coming-soon/SetupSoon.tsx
+msgid "Guided setup"
+msgstr "راه‌اندازی راهنمایی‌شده"
+
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Guided setup works this out with you"
 msgstr "راه‌اندازی راهنمایی‌شده این را همراه شما مشخص می‌کند"
 
+#: src/screens/search/SearchResults.tsx
 #: src/screens/task-hub/TaskHub.tsx
 #: src/shared/header/Header.tsx
 msgid "Guides"
@@ -369,6 +429,7 @@ msgid "Main"
 msgstr "اصلی"
 
 #: src/shared/context-chip/ContextChip.stories.tsx
+#: src/shared/context-control/ContextPanel.tsx
 msgid "Nationality"
 msgstr "ملیت"
 
@@ -399,6 +460,14 @@ msgstr "نمی‌دانید از کجا شروع کنید؟"
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Not yet verified"
 msgstr "هنوز تأیید نشده"
+
+#: src/shared/context-control/ContextPanel.tsx
+msgid "Nothing here is required."
+msgstr "هیچ‌کدام از این‌ها الزامی نیست."
+
+#: src/screens/search/SearchResults.tsx
+msgid "Nothing matches yet"
+msgstr "هنوز چیزی پیدا نشد"
 
 #: src/shared/ask-panel/AskPanel.tsx
 msgid "Nothing matches yet. Try other words, or pick a goal on the home page."
@@ -431,6 +500,10 @@ msgstr "منبع رسمی"
 #: src/screens/guide/Guide.tsx
 msgid "Official sources"
 msgstr "منابع رسمی"
+
+#: src/screens/coming-soon/GuidesSoon.tsx
+msgid "One list of every guide, to browse by topic. Until it is ready, each guide is a click away from its goal on the home page, or from Ask."
+msgstr "فهرستی از همه راهنماها، برای مرور بر اساس موضوع. تا آماده شدنش، هر راهنما با یک کلیک از هدفش در خانه، یا از پرسش، در دسترس است."
 
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Ongoing"
@@ -477,6 +550,10 @@ msgstr "ریاست مدیریت مهاجرت · تأییدشده در اوت ۲�
 msgid "Quick answer"
 msgstr "پاسخ کوتاه"
 
+#: src/screens/search/SearchResults.tsx
+msgid "Quick answers"
+msgstr "پاسخ‌های کوتاه"
+
 #: src/shared/source-card/SourceCard.tsx
 msgid "Re-verification in progress"
 msgstr "بازبینی دوباره در جریان است"
@@ -485,6 +562,7 @@ msgstr "بازبینی دوباره در جریان است"
 msgid "Read about a topic before you deal with it. Guides explain how something works; the areas above are things you may need to do."
 msgstr "پیش از رسیدگی به هر موضوع درباره آن بخوانید. راهنماها توضیح می‌دهند چیزی چگونه کار می‌کند؛ حوزه‌های بالا کارهایی هستند که شاید لازم باشد انجام دهید."
 
+#: src/screens/search/SearchResults.tsx
 #: src/screens/task-hub/TaskHub.tsx
 #: src/shared/ask-panel/useAsk.tsx
 msgid "Reading · verified {verified}"
@@ -520,13 +598,29 @@ msgstr "راهنماهای مرتبط"
 msgid "Remove the dash, this field takes letters and numbers only"
 msgstr "خط تیره را حذف کنید، این فیلد فقط حرف و عدد می‌پذیرد"
 
+#: src/shared/context-control/ContextPanel.tsx
+msgid "Residence status"
+msgstr "وضعیت اقامت"
+
+#: src/screens/search/SearchResults.tsx
+msgid "Results for “{asked}”"
+msgstr "نتایج برای «{asked}»"
+
 #: src/shared/ask-panel/useAsk.tsx
 msgid "Results for “{text}”"
 msgstr "نتایج برای «{text}»"
 
+#: src/shared/context-control/ContextPanel.tsx
+msgid "Role"
+msgstr "نقش"
+
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Scam risk"
 msgstr "خطر کلاهبرداری"
+
+#: src/screens/search/SearchResults.tsx
+msgid "Search"
+msgstr "جست‌وجو"
 
 #: src/shared/search-input/SearchInput.stories.tsx
 msgid "Search the guides"
@@ -628,6 +722,10 @@ msgstr "کار"
 msgid "Task hub"
 msgstr "مرکز کار"
 
+#: src/screens/search/SearchResults.tsx
+msgid "Tasks"
+msgstr "کارها"
+
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Tell us if you have done this in Antalya"
 msgstr "اگر این کار را در آنتالیا انجام داده‌اید، به ما بگویید"
@@ -684,6 +782,10 @@ msgstr "امتحان کنید"
 #: src/screens/Unreachable.tsx
 msgid "Try again"
 msgstr "تلاش دوباره"
+
+#: src/shared/context-control/ContextPanel.tsx
+msgid "Type a country"
+msgstr "نام کشور را بنویسید"
 
 #: src/screens/guide/Guide.tsx
 #: src/shared/fact-strip/FactStrip.stories.tsx
@@ -743,6 +845,10 @@ msgstr "در انتظار نهاد"
 msgid "Warning"
 msgstr "هشدار"
 
+#: src/screens/guide/Guide.tsx
+msgid "We are still writing this guide, and checking it against official sources."
+msgstr "هنوز این راهنما را می‌نویسیم و با منابع رسمی بررسی می‌کنیم."
+
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "We have not verified this process for Antalya. The steps below are correct for Istanbul, Ankara and Izmir; local document requirements may differ."
 msgstr "این روند را برای آنتالیا تأیید نکرده‌ایم. مراحل زیر برای استانبول، آنکارا و ازمیر درست است؛ مدارک لازم در هر شهر ممکن است فرق کند."
@@ -751,10 +857,19 @@ msgstr "این روند را برای آنتالیا تأیید نکرده‌ا�
 msgid "We may contact you if we need more information. Your email will not be published."
 msgstr "اگر به اطلاعات بیشتری نیاز داشته باشیم ممکن است با شما تماس بگیریم. ایمیل شما منتشر نمی‌شود."
 
+#: src/shared/context-control/ContextPanel.tsx
+msgid "We only ask for details when they change your answer."
+msgstr "فقط وقتی جزئیات را می‌پرسیم که پاسخ شما را تغییر دهد."
+
+#: src/screens/search/SearchResults.tsx
+msgid "We only search what we have written and checked, so try other words, or start from a goal on the home page."
+msgstr "ما فقط در آنچه خودمان نوشته و بررسی کرده‌ایم جست‌وجو می‌کنیم؛ پس واژه‌های دیگری را امتحان کنید، یا از یک هدف در خانه شروع کنید."
+
 #: src/screens/suggest/SuggestUpdate.tsx
 msgid "We use your email only to review and follow up on this submission."
 msgstr "از ایمیل شما فقط برای بررسی و پیگیری همین پیشنهاد استفاده می‌کنیم."
 
+#: src/screens/search/SearchResults.tsx
 #: src/shared/ask-panel/useAsk.tsx
 msgid "We’ll ask about your nationality or city only if it changes the answer."
 msgstr "فقط اگر پاسخ را تغییر دهد، درباره ملیت یا شهرتان می‌پرسیم."
@@ -794,6 +909,10 @@ msgstr "می‌خواهید چه کار کنید؟"
 #: src/shared/ask-result-row/AskResultRow.stories.tsx
 msgid "What documents do I need for student residence?"
 msgstr "برای اقامت دانشجویی به چه مدارکی نیاز دارم؟"
+
+#: src/shared/context-control/ContextPanel.tsx
+msgid "What Skipbureau knows about you"
+msgstr "آنچه Skipbureau درباره شما می‌داند"
 
 #: src/screens/guide/GuideSection.tsx
 msgid "What to check"

@@ -18,7 +18,11 @@ import { categories, categoryHub, countries, guide, persianNames, questions, sim
 const api = graphql.link(endpoint())
 
 export const handlers = [
-  api.query('Countries', () => HttpResponse.json({ data: { countries } })),
+  api.query('Countries', ({ variables }) =>
+    HttpResponse.json({
+      data: { countries: countries.map((row) => (variables['locale'] === 'fa-IR' ? { ...row, name: persianNames[row.code] ?? row.name } : row)) },
+    }),
+  ),
 
   api.query('Tasks', () => HttpResponse.json({ data: { tasks } })),
 
@@ -84,6 +88,31 @@ export const handlers = [
           tasks: all.tasks.filter((task) => hits(task.title, task.subtitle)).slice(0, 3),
           guides: all.guides.filter((guide) => hits(guide.title)).slice(0, 3),
           answers: all.answers.filter((answer) => hits(answer.question, answer.answer)).slice(0, 3),
+        },
+      },
+    })
+  }),
+
+  // The results page: the same naive matching as Ask, all of it, and a guide
+  // carries the sentence it matched in, as the server's does.
+  api.query('Search', ({ variables }) => {
+    const ours = variables['country'] === 'tr'
+    const words = (typeof variables['text'] === 'string' ? variables['text'] : '')
+      .toLowerCase()
+      .split(/[^\p{L}\p{N}]+/u)
+      .filter((word) => word.length >= 3)
+    const open = new Set(ours ? categories.map((category) => category.taskSlug) : [])
+    const hits = (...texts: (string | null)[]) => words.some((word) => texts.join(' ').toLowerCase().includes(word))
+    const written = { slug: simGuide.slug, title: simGuide.title, verifiedAt: simGuide.verifiedAt, snippet: simGuide.quickAnswer, written: true }
+    const listed = taskHub.guides.map((guide) => ({ ...guide, snippet: null, written: false }))
+    return HttpResponse.json({
+      data: {
+        search: {
+          tasks: tasks
+            .filter((task) => open.has(task.slug) && hits(task.title, task.subtitle))
+            .map((task) => ({ slug: task.slug, title: task.title, subtitle: task.subtitle, open: true })),
+          guides: ours ? [...(hits(written.title, written.snippet) ? [written] : []), ...listed.filter((guide) => hits(guide.title))] : [],
+          answers: (ours ? questions : []).filter((answer) => hits(answer.question, answer.answer)),
         },
       },
     })

@@ -13,6 +13,10 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/screens/search/SearchResults.tsx
+msgid "{count, plural, one {# result} other {# results}}"
+msgstr "{count, plural, one {# result} other {# results}}"
+
 #: src/shared/progress-indicator/ProgressIndicator.tsx
 msgid "{done} of {total, plural, one {# step completed} other {# steps completed}}"
 msgstr "{done} of {total, plural, one {# step completed} other {# steps completed}}"
@@ -24,6 +28,10 @@ msgstr "{minutes} min read"
 #: src/shared/page/Page.stories.tsx
 msgid "A column, not a width"
 msgstr "A column, not a width"
+
+#: src/screens/coming-soon/SetupSoon.tsx
+msgid "A few questions about your situation, then only the steps that apply to you, in the order they come. Until it is ready, the overview lists every area the goal involves."
+msgstr "A few questions about your situation, then only the steps that apply to you, in the order they come. Until it is ready, the overview lists every area the goal involves."
 
 #: src/App.tsx
 #~ msgid "A step-by-step guide to bureaucracy abroad, for travellers and expats. Nothing is built yet: this page exists to prove the scaffold runs."
@@ -40,6 +48,10 @@ msgstr "A working SIM does not mean a registered device."
 #: src/shared/step-row/StepRow.stories.tsx
 msgid "Activate and test it"
 msgstr "Activate and test it"
+
+#: src/shared/context-control/ContextPanel.tsx
+msgid "Add"
+msgstr "Add"
 
 #: src/shared/context-chip/ContextChip.stories.tsx
 msgid "Add to sharpen answers"
@@ -82,6 +94,7 @@ msgid "Ask"
 msgstr "Ask"
 
 #: src/screens/home/HomeHero.tsx
+#: src/screens/search/SearchResults.tsx
 #: src/shared/ask-field/HomeAskField.stories.tsx
 #: src/shared/search-input/SearchInput.stories.tsx
 msgid "Ask a question or describe what you’re trying to do…"
@@ -92,11 +105,16 @@ msgstr "Ask a question or describe what you’re trying to do…"
 msgid "Ask about {0}"
 msgstr "Ask about {0}"
 
+#: src/screens/search/SearchResults.tsx
+msgid "Ask about {name}"
+msgstr "Ask about {name}"
+
 #: src/screens/category-hub/CategoryHub.tsx
 msgid "Ask about this and find the most relevant guide."
 msgstr "Ask about this and find the most relevant guide."
 
 #: src/screens/home/HomeHero.tsx
+#: src/screens/search/SearchResults.tsx
 #: src/shared/header/Header.tsx
 msgid "Ask Skipbureau"
 msgstr "Ask Skipbureau"
@@ -113,9 +131,23 @@ msgstr "Ask Skipbureau…"
 msgid "Available once you confirm your nationality"
 msgstr "Available once you confirm your nationality"
 
+#: src/screens/guide/Guide.tsx
+msgid "Back to {categoryTitle}"
+msgstr "Back to {categoryTitle}"
+
 #: src/screens/suggest/SuggestUpdate.tsx
 msgid "Back to the guide"
 msgstr "Back to the guide"
+
+#: src/screens/coming-soon/GuidesSoon.tsx
+#: src/screens/guide/Guide.tsx
+#: src/screens/search/SearchResults.tsx
+msgid "Back to the home page"
+msgstr "Back to the home page"
+
+#: src/screens/coming-soon/SetupSoon.tsx
+msgid "Back to the overview"
+msgstr "Back to the overview"
 
 #: src/screens/guide/GuideSection.tsx
 msgid "Before you start"
@@ -173,15 +205,26 @@ msgstr "Checked this month"
 msgid "Choose a company type"
 msgstr "Choose a company type"
 
+#: src/shared/context-control/ContextPanel.tsx
+msgid "City in {countryName}"
+msgstr "City in {countryName}"
+
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "City in Turkey"
 msgstr "City in Turkey"
+
+#: src/shared/context-control/ContextPanel.tsx
+msgid "Clear all"
+msgstr "Clear all"
 
 #: src/screens/home/HomeHero.tsx
 msgid "Clear, step-by-step guidance for living, studying, working and doing business in {name}."
 msgstr "Clear, step-by-step guidance for living, studying, working and doing business in {name}."
 
 #: src/screens/category-hub/CategoryHub.tsx
+#: src/screens/coming-soon/ComingSoon.tsx
+#: src/screens/search/SearchResults.tsx
+#: src/shared/context-control/ContextPanel.tsx
 #: src/shared/task-tile/TaskTile.tsx
 #: src/shared/topic-item/TopicItem.stories.tsx
 msgid "Coming soon"
@@ -216,6 +259,10 @@ msgstr "Content shown here is sample material for design review."
 msgid "Cost and time"
 msgstr "Cost and time"
 
+#: src/shared/context-control/ContextPanel.tsx
+msgid "Currently in"
+msgstr "Currently in"
+
 #: src/screens/task-hub/TaskHub.tsx
 #: src/shared/topic-item/TopicItem.stories.tsx
 msgid "Decision"
@@ -241,6 +288,10 @@ msgstr "Descriptions on this page are sample content for design review. They del
 msgid "Due in 12 days"
 msgstr "Due in 12 days"
 
+#: src/screens/coming-soon/GuidesSoon.tsx
+msgid "Every guide for {name}"
+msgstr "Every guide for {name}"
+
 #: src/screens/category-hub/CategoryHub.tsx
 #: src/screens/home/Home.tsx
 msgid "Every guide shows when it was last verified and links to the official source"
@@ -257,6 +308,10 @@ msgstr "Figures, timings and requirements shown throughout this design are sampl
 #: src/shared/information-disclaimer/InformationDisclaimer.tsx
 msgid "For general information only"
 msgstr "For general information only"
+
+#: src/shared/context-control/YourDetails.tsx
+msgid "From {originName}"
+msgstr "From {originName}"
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "From applicant reports, not an official rule"
@@ -279,10 +334,15 @@ msgstr "Guide"
 msgid "Guided process · 9 steps"
 msgstr "Guided process · 9 steps"
 
+#: src/screens/coming-soon/SetupSoon.tsx
+msgid "Guided setup"
+msgstr "Guided setup"
+
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Guided setup works this out with you"
 msgstr "Guided setup works this out with you"
 
+#: src/screens/search/SearchResults.tsx
 #: src/screens/task-hub/TaskHub.tsx
 #: src/shared/header/Header.tsx
 msgid "Guides"
@@ -369,6 +429,7 @@ msgid "Main"
 msgstr "Main"
 
 #: src/shared/context-chip/ContextChip.stories.tsx
+#: src/shared/context-control/ContextPanel.tsx
 msgid "Nationality"
 msgstr "Nationality"
 
@@ -399,6 +460,14 @@ msgstr "Not sure where to start?"
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Not yet verified"
 msgstr "Not yet verified"
+
+#: src/shared/context-control/ContextPanel.tsx
+msgid "Nothing here is required."
+msgstr "Nothing here is required."
+
+#: src/screens/search/SearchResults.tsx
+msgid "Nothing matches yet"
+msgstr "Nothing matches yet"
 
 #: src/shared/ask-panel/AskPanel.tsx
 msgid "Nothing matches yet. Try other words, or pick a goal on the home page."
@@ -431,6 +500,10 @@ msgstr "Official source"
 #: src/screens/guide/Guide.tsx
 msgid "Official sources"
 msgstr "Official sources"
+
+#: src/screens/coming-soon/GuidesSoon.tsx
+msgid "One list of every guide, to browse by topic. Until it is ready, each guide is a click away from its goal on the home page, or from Ask."
+msgstr "One list of every guide, to browse by topic. Until it is ready, each guide is a click away from its goal on the home page, or from Ask."
 
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Ongoing"
@@ -477,6 +550,10 @@ msgstr "Presidency of Migration Management · verified August 2026"
 msgid "Quick answer"
 msgstr "Quick answer"
 
+#: src/screens/search/SearchResults.tsx
+msgid "Quick answers"
+msgstr "Quick answers"
+
 #: src/shared/source-card/SourceCard.tsx
 msgid "Re-verification in progress"
 msgstr "Re-verification in progress"
@@ -485,6 +562,7 @@ msgstr "Re-verification in progress"
 msgid "Read about a topic before you deal with it. Guides explain how something works; the areas above are things you may need to do."
 msgstr "Read about a topic before you deal with it. Guides explain how something works; the areas above are things you may need to do."
 
+#: src/screens/search/SearchResults.tsx
 #: src/screens/task-hub/TaskHub.tsx
 #: src/shared/ask-panel/useAsk.tsx
 msgid "Reading · verified {verified}"
@@ -520,13 +598,29 @@ msgstr "Related guides"
 msgid "Remove the dash, this field takes letters and numbers only"
 msgstr "Remove the dash, this field takes letters and numbers only"
 
+#: src/shared/context-control/ContextPanel.tsx
+msgid "Residence status"
+msgstr "Residence status"
+
+#: src/screens/search/SearchResults.tsx
+msgid "Results for “{asked}”"
+msgstr "Results for “{asked}”"
+
 #: src/shared/ask-panel/useAsk.tsx
 msgid "Results for “{text}”"
 msgstr "Results for “{text}”"
 
+#: src/shared/context-control/ContextPanel.tsx
+msgid "Role"
+msgstr "Role"
+
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Scam risk"
 msgstr "Scam risk"
+
+#: src/screens/search/SearchResults.tsx
+msgid "Search"
+msgstr "Search"
 
 #: src/shared/search-input/SearchInput.stories.tsx
 msgid "Search the guides"
@@ -628,6 +722,10 @@ msgstr "Task"
 msgid "Task hub"
 msgstr "Task hub"
 
+#: src/screens/search/SearchResults.tsx
+msgid "Tasks"
+msgstr "Tasks"
+
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Tell us if you have done this in Antalya"
 msgstr "Tell us if you have done this in Antalya"
@@ -684,6 +782,10 @@ msgstr "Try"
 #: src/screens/Unreachable.tsx
 msgid "Try again"
 msgstr "Try again"
+
+#: src/shared/context-control/ContextPanel.tsx
+msgid "Type a country"
+msgstr "Type a country"
 
 #: src/screens/guide/Guide.tsx
 #: src/shared/fact-strip/FactStrip.stories.tsx
@@ -743,6 +845,10 @@ msgstr "Waiting on institution"
 msgid "Warning"
 msgstr "Warning"
 
+#: src/screens/guide/Guide.tsx
+msgid "We are still writing this guide, and checking it against official sources."
+msgstr "We are still writing this guide, and checking it against official sources."
+
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "We have not verified this process for Antalya. The steps below are correct for Istanbul, Ankara and Izmir; local document requirements may differ."
 msgstr "We have not verified this process for Antalya. The steps below are correct for Istanbul, Ankara and Izmir; local document requirements may differ."
@@ -751,10 +857,19 @@ msgstr "We have not verified this process for Antalya. The steps below are corre
 msgid "We may contact you if we need more information. Your email will not be published."
 msgstr "We may contact you if we need more information. Your email will not be published."
 
+#: src/shared/context-control/ContextPanel.tsx
+msgid "We only ask for details when they change your answer."
+msgstr "We only ask for details when they change your answer."
+
+#: src/screens/search/SearchResults.tsx
+msgid "We only search what we have written and checked, so try other words, or start from a goal on the home page."
+msgstr "We only search what we have written and checked, so try other words, or start from a goal on the home page."
+
 #: src/screens/suggest/SuggestUpdate.tsx
 msgid "We use your email only to review and follow up on this submission."
 msgstr "We use your email only to review and follow up on this submission."
 
+#: src/screens/search/SearchResults.tsx
 #: src/shared/ask-panel/useAsk.tsx
 msgid "We’ll ask about your nationality or city only if it changes the answer."
 msgstr "We’ll ask about your nationality or city only if it changes the answer."
@@ -794,6 +909,10 @@ msgstr "What do you want to do?"
 #: src/shared/ask-result-row/AskResultRow.stories.tsx
 msgid "What documents do I need for student residence?"
 msgstr "What documents do I need for student residence?"
+
+#: src/shared/context-control/ContextPanel.tsx
+msgid "What Skipbureau knows about you"
+msgstr "What Skipbureau knows about you"
 
 #: src/screens/guide/GuideSection.tsx
 msgid "What to check"

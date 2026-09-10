@@ -39,3 +39,24 @@ The design's email field carries no "(optional)", but the product brief says
 visitors propose changes anonymously, so the email is optional in the API and
 in the form. The design's Privacy Notice link is left out: there is no privacy
 notice page to link to.
+
+## Search runs in memory, over one country's content
+
+**Decided 2026-09-10**, from the owner's order that Ask search on the server
+and show what it finds on a page (SB-149).
+
+`apps/api/src/guide/search.ts` folds both sides the same way (case, Persian
+letters typed in their Arabic forms, half-spaces, marks, digits), stems English
+plurals and endings, and weighs a title over a summary over the body. It reads
+every guide of the country on each question. That is fine for tens of guides and
+wrong for thousands: before content grows past a few hundred guides, move it to
+Postgres full-text search with an index (SB-051).
+
+## What is not built has a Coming soon page
+
+**Decided 2026-09-10**, the owner's order: "instead of not built yet, just make
+a coming soon page". The header's Guides link, Start guided setup and How it
+works, and a guide a hub lists before anyone has written it, each land on one
+Coming soon page that says what will be there and links back. In the context
+panel, the four rows after Nationality say Coming soon rather than offering an
+Add that does nothing.

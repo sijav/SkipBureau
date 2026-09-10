@@ -118,6 +118,8 @@ export class GuideView {
 
   @Field(() => String) title!: string
   @Field(() => String, { nullable: true }) description!: string | null
+  @Field(() => String, { nullable: true, description: 'The page’s opening paragraph; lists show the shorter description.' })
+  intro!: string | null
   @Field(() => String, { nullable: true }) quickAnswer!: string | null
   @Field(() => String, { nullable: true }) cost!: string | null
   @Field(() => String, { nullable: true }) time!: string | null
@@ -285,6 +287,24 @@ export class AskGuideView {
   @Field(() => String) slug!: string
   @Field(() => String) title!: string
   @Field(() => String) verifiedAt!: string
+}
+
+@ObjectType()
+export class SearchGuideView {
+  @Field(() => String) slug!: string
+  @Field(() => String) title!: string
+  @Field(() => String) verifiedAt!: string
+  @Field(() => String, { nullable: true, description: 'The sentence that matched best, to show under the title.' })
+  snippet!: string | null
+  @Field(() => Boolean, { description: 'False for a guide a hub lists that is not written yet.' })
+  written!: boolean
+}
+
+@ObjectType({ description: 'Everything a question found in one country, for the results page: the same matching as Ask, more of it.' })
+export class SearchView {
+  @Field(() => [AskTaskView]) tasks!: readonly AskTaskView[]
+  @Field(() => [SearchGuideView]) guides!: readonly SearchGuideView[]
+  @Field(() => [QuestionView]) answers!: readonly QuestionView[]
 }
 
 @ObjectType({ description: 'What Ask found, grouped by what each thing is, Figma 46:659.' })

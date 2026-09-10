@@ -24,11 +24,14 @@ const HEADING = {
   commonProblems: msg`Common problems`,
 } satisfies Record<Kind, unknown>
 
-/** The frame every section shares, Figma 179:1031 and its siblings: 44 above, an H2, then the body. */
-export const SectionFrame = ({ heading, gap = 10, children }: { heading: ReactNode; gap?: number; children: ReactNode }) => {
+/**
+ * The frame every section shares, Figma 179:1031 and its siblings: 44 above,
+ * an H2, then the body. Before you start is drawn 40 below the options grid.
+ */
+export const SectionFrame = ({ heading, gap = 10, top = 44, children }: { heading: ReactNode; gap?: number; top?: number; children: ReactNode }) => {
   const id = useId()
   return (
-    <Box component="section" aria-labelledby={id} sx={{ display: 'flex', flexDirection: 'column', gap: `${gap}px`, paddingTop: '44px' }}>
+    <Box component="section" aria-labelledby={id} sx={{ display: 'flex', flexDirection: 'column', gap: `${gap}px`, paddingTop: `${top}px` }}>
       <Typography id={id} variant="h3" component="h2">
         {heading}
       </Typography>
@@ -47,13 +50,22 @@ const Note = ({ children }: { children: ReactNode }) => {
   )
 }
 
+// Every ruled row below draws its rule inside the padding above, as Figma
+// does: a line is 50, 12 above a 26 line and 12 below, rule included.
+const RULE = 1
+
 /** A ruled list of single lines, Figma 179:1015. */
 const Lines = ({ items }: { items: readonly ReactNode[] }) => {
   const { tokens } = useTheme()
   return (
     <Box component="ul" sx={{ margin: 0, padding: 0, paddingTop: '4px', listStyle: 'none' }}>
       {items.map((item, index) => (
-        <Typography key={index} component="li" variant="body1" sx={{ paddingBlock: '12px', borderTop: `1px solid ${tokens.border}` }}>
+        <Typography
+          key={index}
+          component="li"
+          variant="body1"
+          sx={{ paddingTop: `${12 - RULE}px`, paddingBottom: '12px', borderTop: `${RULE}px solid ${tokens.border}` }}
+        >
           {item}
         </Typography>
       ))}
@@ -90,7 +102,7 @@ export const GuideSection = ({ section, options, content, guidePath }: GuideSect
           {intro}
           <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, minmax(0, 1fr))' }, gap: '32px 40px', paddingTop: '6px' }}>
             {options.map((option, index) => (
-              <Stack key={index} spacing="6px" sx={{ paddingTop: '14px', borderTop: `2px solid ${tokens.borderStrong}` }}>
+              <Stack key={index} spacing="6px" sx={{ paddingTop: `${14 - 2 * RULE}px`, borderTop: `${2 * RULE}px solid ${tokens.borderStrong}` }}>
                 <Typography variant="h4" component="h3">
                   {content(option.title)}
                 </Typography>
@@ -124,7 +136,7 @@ export const GuideSection = ({ section, options, content, guidePath }: GuideSect
     case 'beforeYouStart':
     case 'whatToCheck':
       return (
-        <SectionFrame heading={heading}>
+        <SectionFrame heading={heading} top={section.kind === 'beforeYouStart' ? 40 : 44}>
           {intro}
           <Lines items={section.steps.map((step) => content(step.title))} />
           {note}
@@ -139,9 +151,17 @@ export const GuideSection = ({ section, options, content, guidePath }: GuideSect
             {section.steps.map((step) => (
               <Box
                 key={step.position}
-                sx={{ display: 'flex', flexWrap: { xs: 'wrap', sm: 'nowrap' }, gap: '4px 20px', paddingBlock: '14px', borderTop: `1px solid ${tokens.border}` }}
+                sx={{
+                  display: 'flex',
+                  flexWrap: { xs: 'wrap', sm: 'nowrap' },
+                  gap: '4px 20px',
+                  paddingTop: `${14 - RULE}px`,
+                  paddingBottom: '14px',
+                  borderTop: `${RULE}px solid ${tokens.border}`,
+                }}
               >
-                <Typography component="dt" variant="button" sx={{ width: { xs: '100%', sm: '200px' }, flexShrink: 0, paddingTop: '3px' }}>
+                {/* Figma's 200 column, top-aligned with the value beside it. */}
+                <Typography component="dt" variant="button" sx={{ width: { xs: '100%', sm: '200px' }, flexShrink: 0 }}>
                   {content(step.title)}
                 </Typography>
                 {step.body && (
@@ -220,7 +240,11 @@ export const GuideSection = ({ section, options, content, guidePath }: GuideSect
           {intro}
           <Box sx={{ paddingTop: '4px' }}>
             {section.steps.map((step) => (
-              <Stack key={step.position} spacing="5px" sx={{ paddingBlock: '16px', borderTop: `1px solid ${tokens.border}` }}>
+              <Stack
+                key={step.position}
+                spacing="5px"
+                sx={{ paddingTop: `${16 - RULE}px`, paddingBottom: '16px', borderTop: `${RULE}px solid ${tokens.border}` }}
+              >
                 <Typography variant="h4" component="h3">
                   {content(step.title)}
                 </Typography>

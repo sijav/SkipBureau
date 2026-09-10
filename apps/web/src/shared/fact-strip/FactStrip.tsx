@@ -35,8 +35,11 @@ export const FactStrip = ({ facts }: FactStripProps) => {
             display: 'flex',
             flexDirection: 'column',
             gap: '5px',
-            paddingBlock: '16px',
-            paddingInlineStart: index === 0 ? 0 : '20px',
+            // 95 high as drawn: 16 around the text, the hairlines inside it.
+            paddingBlock: '15px',
+            // Stacked on a phone, every fact starts at the edge; side by side,
+            // the divider sits inside the 20 before the text.
+            paddingInlineStart: index === 0 ? 0 : { xs: 0, sm: '19px' },
             paddingInlineEnd: '20px',
             borderInlineStart: index === 0 ? 'none' : { xs: 'none', sm: `1px solid ${tokens.border}` },
           }}

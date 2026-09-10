@@ -6,8 +6,9 @@ export type CountryProviderProps = {
   children: ReactNode
   country: CountryCode
   name: string
+  origin?: string | null
 }
 
-export const CountryProvider = ({ children, country, name }: CountryProviderProps) => (
-  <Context value={{ country, name }}>{children}</Context>
+export const CountryProvider = ({ children, country, name, origin = null }: CountryProviderProps) => (
+  <Context value={{ country, name, origin }}>{children}</Context>
 )

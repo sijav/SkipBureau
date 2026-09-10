@@ -299,6 +299,9 @@ model GuideText {
   locale      String  @db.VarChar(5)
   title       String
   description String?
+  /// The guide page's own opening paragraph, under its title. Lists show the
+  /// shorter description; a guide with no intro opens with that instead.
+  intro       String?
   /// Rendered third on the page, before any of the detail.
   quickAnswer String?
   cost        String?

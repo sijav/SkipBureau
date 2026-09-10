@@ -186,6 +186,9 @@ type GuideView {
   deadlines: String
   description: String
 
+  """The page’s opening paragraph; lists show the shorter description."""
+  intro: String
+
   """
   The locale this content is actually in, which may not be the one asked for.
   """
@@ -296,6 +299,9 @@ type Query {
   """Common questions in one country, each with its short answer."""
   questions(country: String!, locale: String = "en-US"): [QuestionView!]!
 
+  """Everything a question matches in one country, for the results page."""
+  search(country: String!, locale: String = "en-US", text: String!): SearchView!
+
   """
   What one goal involves in one country, or null where it is Coming soon.
   """
@@ -345,6 +351,27 @@ type RuleFactValue {
   operator: String!
   textValue: String
   unit: String
+}
+
+type SearchGuideView {
+  slug: String!
+
+  """The sentence that matched best, to show under the title."""
+  snippet: String
+  title: String!
+  verifiedAt: String!
+
+  """False for a guide a hub lists that is not written yet."""
+  written: Boolean!
+}
+
+"""
+Everything a question found in one country, for the results page: the same matching as Ask, more of it.
+"""
+type SearchView {
+  answers: [QuestionView!]!
+  guides: [SearchGuideView!]!
+  tasks: [AskTaskView!]!
 }
 
 """The sections the design draws. Each renders its own way."""

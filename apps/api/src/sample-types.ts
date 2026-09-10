@@ -30,6 +30,8 @@ export type SourceSeed = { url: string; name: string; publisher?: string; offici
 export type GuideDetailSeed = {
   slug: string
   showDisclaimer?: boolean
+  /** The page's opening paragraph, longer than the description a hub lists. */
+  intro?: Localised
   quickAnswer?: Localised
   cost?: Localised
   time?: Localised

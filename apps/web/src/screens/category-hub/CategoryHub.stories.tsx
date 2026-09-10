@@ -21,15 +21,15 @@ const meta = {
       <GraphQLProvider>
         <MemoryRouter
           initialEntries={[
-            `/${localeSegment(isLocale(globals['locale']) ? globals['locale'] : 'en-US')}/tr/t/${typeof parameters['path'] === 'string' ? parameters['path'] : 'getting-settled/first-week'}`,
+            `/${localeSegment(isLocale(globals['locale']) ? globals['locale'] : 'en-US')}/TR/tasks/${typeof parameters['path'] === 'string' ? parameters['path'] : 'getting-settled/first-week'}`,
           ]}
         >
           <ShellProvider>
             <AppShell header={<Header />}>
               <Routes>
-                <Route path=":locale/:country" element={<CountryRoute />}>
-                  <Route path="t/:goal" element={<TaskHub />} />
-                  <Route path="t/:goal/:category" element={<Story />} />
+                <Route path=":reader/:country" element={<CountryRoute />}>
+                  <Route path="tasks/:goal" element={<TaskHub />} />
+                  <Route path="tasks/:goal/:category" element={<Story />} />
                 </Route>
               </Routes>
             </AppShell>
@@ -54,7 +54,7 @@ export const Default: Story = {
     await expect(crumbs.getAllByRole('link')).toHaveLength(1)
 
     // Where to start, and it leads to that guide.
-    await expect(canvas.getByRole('link', { name: /Start here/ })).toHaveAttribute('href', '/en/tr/g/sim-card')
+    await expect(canvas.getByRole('link', { name: /Start here/ })).toHaveAttribute('href', '/en/TR/guides/sim-card')
 
     // Six guides, each with its reading time.
     const list = canvas.getByRole('heading', { level: 2, name: /What do you need help with/ }).parentElement

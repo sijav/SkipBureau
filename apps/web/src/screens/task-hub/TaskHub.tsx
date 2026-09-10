@@ -1,15 +1,15 @@
 import { msg } from '@lingui/core/macro'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { Box, Button, Divider, Stack, Typography, useTheme } from '@mui/material'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useQuery } from 'urql'
 import { useCountry, withCountry } from 'src/core/country'
 import { TaskHubQuery } from 'src/core/graphql'
 import { formatMonth, useLocale } from 'src/core/i18n'
-import { paths } from 'src/core/router'
+import { paths, useJourney } from 'src/core/router'
 import type { SourceState } from 'src/core/theme'
 import { AskResultRow } from 'src/shared/ask-result-row'
-import { ContextControl } from 'src/shared/context-control'
+import { YourDetails } from 'src/shared/context-control'
 import { InfoPanel } from 'src/shared/info-panel'
 import { Page } from 'src/shared/page'
 import { Section } from 'src/shared/section'
@@ -43,6 +43,7 @@ export const TaskHub = () => {
   const { t, i18n } = useLingui()
   const { locale } = useLocale()
   const { country, name } = useCountry()
+  const journey = useJourney()
   const { goal = '' } = useParams()
 
   const [{ data, fetching, error }, refetch] = useQuery({ query: TaskHubQuery, variables: { country, slug: goal, locale } })
@@ -64,7 +65,7 @@ export const TaskHub = () => {
   const topic = (area: (typeof hub.areas)[number]) => (
     <TopicItem
       key={area.slug}
-      to={paths.categoryHub(locale, country, hub.slug, area.slug)}
+      to={paths.categoryHub(journey, hub.slug, area.slug)}
       kind={area.kind ? i18n._(KIND[area.kind]) : undefined}
       title={<bdi>{area.title}</bdi>}
       description={area.description ? <bdi>{area.description}</bdi> : undefined}
@@ -90,11 +91,11 @@ export const TaskHub = () => {
             <Typography variant="caption" sx={{ color: tokens.textSecondary }}>
               <Trans>What we know about you</Trans>
             </Typography>
-            <ContextControl />
+            <YourDetails />
           </Box>
         </Stack>
 
-        <GuidedSetup />
+        <GuidedSetup to={paths.setup(journey, hub.slug)} />
 
         <Box component="section" sx={{ display: 'flex', flexDirection: 'column', gap: '16px', paddingTop: '48px', paddingBottom: '24px' }}>
           <Stack spacing="5px">
@@ -123,7 +124,7 @@ export const TaskHub = () => {
               <Trans>Your nationality, residence status and plans can each change which of these areas apply to you, and in what order.</Trans>
             )}
           </InfoPanel>
-          <Button variant="secondary">
+          <Button component={Link} to={paths.setup(journey, hub.slug)} variant="secondary">
             <Trans>Start guided setup</Trans>
           </Button>
         </Stack>
@@ -146,7 +147,7 @@ export const TaskHub = () => {
                       kind="guide"
                       title={<bdi>{guide.title}</bdi>}
                       detail={<Trans>Reading · verified {verified}</Trans>}
-                      to={paths.guide(locale, country, guide.slug)}
+                      to={paths.guide(journey, guide.slug)}
                     />
                   )
                 })}

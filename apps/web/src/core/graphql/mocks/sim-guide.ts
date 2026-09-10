@@ -6,6 +6,8 @@ export const simGuide = {
   slug: 'sim-card',
   title: 'Get a SIM Card or eSIM',
   description: 'Compare mobile operators and understand what documents you need.',
+  intro:
+    'Get a Turkish mobile number and mobile data using a physical SIM or eSIM. Here’s what to prepare, which option may suit you, and what to check before choosing a plan.',
   quickAnswer:
     'You can get a physical SIM or, if your phone supports it, an eSIM from a Turkish mobile operator. As a foreign customer you will usually need to show a valid identity document in store. If you brought your phone from abroad, check the separate IMEI registration rules before relying on it long-term.',
   verifiedAt: '2026-09-08',

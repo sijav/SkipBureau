@@ -7,7 +7,7 @@ import { Breadcrumb } from './Breadcrumb'
 const meta = {
   title: 'Shared/Breadcrumb',
   component: Breadcrumb,
-  args: { trail: [{ label: <Trans>Home</Trans>, to: '/en/tr' }, { label: <Trans>Getting Settled</Trans> }] },
+  args: { trail: [{ label: <Trans>Home</Trans>, to: '/en/TR' }, { label: <Trans>Getting Settled</Trans> }] },
   decorators: [(Story) => <MemoryRouter>{Story()}</MemoryRouter>],
 } satisfies Meta<typeof Breadcrumb>
 
@@ -18,13 +18,13 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   play: async ({ canvasElement }) => {
     const nav = within(await within(canvasElement).findByRole('navigation', { name: /Breadcrumb/ }))
-    await expect(nav.getByRole('link', { name: /Home/ })).toHaveAttribute('href', '/en/tr')
+    await expect(nav.getByRole('link', { name: /Home/ })).toHaveAttribute('href', '/en/TR')
     await expect(nav.getByText(/Getting Settled/)).toHaveAttribute('aria-current', 'page')
   },
 }
 
 export const ThreeDeep: Story = {
   args: {
-    trail: [{ label: <Trans>Home</Trans>, to: '/en/tr' }, { label: <Trans>Start a business</Trans>, to: '/en/tr/t/start-a-business' }, { label: <Trans>Register your company</Trans> }],
+    trail: [{ label: <Trans>Home</Trans>, to: '/en/TR' }, { label: <Trans>Start a business</Trans>, to: '/en/TR/tasks/start-a-business' }, { label: <Trans>Register your company</Trans> }],
   },
 }

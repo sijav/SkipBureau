@@ -5,7 +5,7 @@ import { useQuery } from 'urql'
 import { useCountry, withCountry } from 'src/core/country'
 import { HomeQuery } from 'src/core/graphql'
 import { useLocale } from 'src/core/i18n'
-import { paths } from 'src/core/router'
+import { paths, useJourney } from 'src/core/router'
 import { useAsk } from 'src/shared/ask-panel'
 import { AskResultRow } from 'src/shared/ask-result-row'
 import { Page } from 'src/shared/page'
@@ -27,6 +27,7 @@ export const Home = () => {
   const { tokens, layout } = useTheme()
   const { locale } = useLocale()
   const { country, name } = useCountry()
+  const journey = useJourney()
   const [question, setQuestion] = useState('')
   const ask = useAsk({ question, onQuestion: setQuestion })
   const [askField, setAskField] = useState<HTMLDivElement | null>(null)
@@ -47,7 +48,6 @@ export const Home = () => {
         name={name}
         question={question}
         onQuestion={setQuestion}
-        onAsk={() => undefined}
         bindings={ask.bindings}
         examples={questions.slice(0, 3).map((entry) => entry.question)}
         askRef={setAskField}
@@ -67,7 +67,7 @@ export const Home = () => {
                   key={task.slug}
                   title={<bdi>{withCountry(task.title, name)}</bdi>}
                   description={task.subtitle ? <bdi>{withCountry(task.subtitle, name)}</bdi> : null}
-                  to={paths.taskHub(locale, country, task.slug)}
+                  to={paths.taskHub(journey, task.slug)}
                   comingSoon={!open.has(task.slug)}
                 />
               ))}
@@ -87,7 +87,7 @@ export const Home = () => {
                   kind="quickAnswer"
                   title={<bdi>{entry.question}</bdi>}
                   detail={<bdi>{entry.answer}</bdi>}
-                  to={entry.guideSlug ? paths.guide(locale, country, entry.guideSlug) : undefined}
+                  to={entry.guideSlug ? paths.guide(journey, entry.guideSlug) : undefined}
                 />
               ))}
             </Box>

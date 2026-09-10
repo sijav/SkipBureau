@@ -6,7 +6,7 @@ import { useMutation } from 'urql'
 import { useCountry } from 'src/core/country'
 import { SuggestUpdateMutation } from 'src/core/graphql'
 import { useLocale } from 'src/core/i18n'
-import { paths } from 'src/core/router'
+import { paths, useJourney } from 'src/core/router'
 import { radius, spacing } from 'src/core/theme'
 import { TextInput } from 'src/shared/text-input'
 import { Guide } from 'src/screens/guide'
@@ -35,6 +35,7 @@ const SuggestDialog = () => {
   const { t } = useLingui()
   const { locale } = useLocale()
   const { country } = useCountry()
+  const journey = useJourney()
   const { guide = '' } = useParams()
   const navigate = useNavigate()
   const title = useId()
@@ -46,7 +47,7 @@ const SuggestDialog = () => {
   const [sent, setSent] = useState(false)
   const [{ fetching }, send] = useMutation(SuggestUpdateMutation)
 
-  const back = () => void navigate(paths.guide(locale, country, guide))
+  const back = () => void navigate(paths.guide(journey, guide))
 
   const submit = async (event: FormEvent) => {
     event.preventDefault()
@@ -119,7 +120,6 @@ const SuggestDialog = () => {
             label={<Trans>What changed?</Trans>}
             placeholder={t`Describe what changed`}
             multiline
-            minRows={4}
             required
             value={change}
             onChange={(event) => setChange(event.target.value)}

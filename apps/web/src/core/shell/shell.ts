@@ -19,7 +19,9 @@ export type Shell = {
   country: CountryCode | null
   /** Its name in the reader's language, for Ask's results above the route. */
   countryName: string | null
-  setCountry: (country: CountryCode | null, name?: string | null) => void
+  /** Where the reader comes from, as the address says, for links and the context control above the route. */
+  origin: string | null
+  setCountry: (country: CountryCode | null, name?: string | null, origin?: string | null) => void
 }
 
 export const ShellContext = createContext<Shell>({
@@ -27,6 +29,7 @@ export const ShellContext = createContext<Shell>({
   setPageOwnsAsk: () => undefined,
   country: null,
   countryName: null,
+  origin: null,
   setCountry: () => undefined,
 })
 

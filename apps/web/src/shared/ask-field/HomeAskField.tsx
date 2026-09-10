@@ -10,7 +10,8 @@ export type HomeAskFieldProps = {
   placeholder?: string | undefined
   value: string
   onChange: (value: string) => void
-  onAsk: (question: string) => void
+  /** Called on Ask, besides the panel's own handling, where the page wants to know. */
+  onAsk?: ((question: string) => void) | undefined
   /** The Ask panel this field opens, where the page has one. */
   bindings?: AskBindings | undefined
 }
@@ -27,7 +28,7 @@ export const HomeAskField = ({ label, placeholder, value, onChange, onAsk, bindi
       onSubmit={(event) => {
         event.preventDefault()
         bindings?.onAsk(value)
-        onAsk(value)
+        onAsk?.(value)
       }}
     >
       <InputBase

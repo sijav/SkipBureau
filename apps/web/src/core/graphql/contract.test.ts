@@ -136,6 +136,7 @@ test('the generated types carry the fields the documents select', () => {
         slug: 'x',
         title: 'X',
         description: null,
+        intro: null,
         quickAnswer: null,
         verifiedAt: '2026-01-01',
         locale: 'en-US',

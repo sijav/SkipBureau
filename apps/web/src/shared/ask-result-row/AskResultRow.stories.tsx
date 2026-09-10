@@ -48,10 +48,10 @@ export const Default: Story = {
 
 /** With one, the whole row is the link. */
 export const Linked: Story = {
-  args: { to: '/en/tr/g/register-your-address' },
+  args: { to: '/en/TR/guides/register-your-address' },
   play: async ({ canvasElement }) => {
     const link = await within(canvasElement).findByRole('link', { name: /Can foreigners own a Turkish company/ })
-    await expect(link).toHaveAttribute('href', '/en/tr/g/register-your-address')
+    await expect(link).toHaveAttribute('href', '/en/TR/guides/register-your-address')
     await userEvent.tab()
     await expect(link).toHaveFocus()
     await expect(window.getComputedStyle(link).outlineWidth).toBe('2px')
@@ -92,4 +92,4 @@ export const Kinds: Story = {
 }
 
 // Hover for LOOKING at: storybook/test's userEvent never applies :hover.
-export const Hover: Story = { tags: ['!test'], args: { to: '/en/tr/g/register-your-address' }, parameters: { pseudo: { hover: true } } }
+export const Hover: Story = { tags: ['!test'], args: { to: '/en/TR/guides/register-your-address' }, parameters: { pseudo: { hover: true } } }

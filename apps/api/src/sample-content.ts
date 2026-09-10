@@ -596,6 +596,7 @@ const fillGuideDetail = async (prisma: PrismaClient, countryCode: string, seed: 
     const existing = await prisma.guideText.findUnique({ where })
     if (!existing) continue
     const fill = emptyOf(existing, {
+      intro: inLocale(seed.intro, language),
       quickAnswer: inLocale(seed.quickAnswer, language),
       cost: inLocale(seed.cost, language),
       time: inLocale(seed.time, language),

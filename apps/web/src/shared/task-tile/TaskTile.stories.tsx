@@ -9,7 +9,7 @@ const meta = {
   title: 'Shared/TaskTile',
   component: TaskTile,
   args: {
-    to: '/en/tr/t/start-a-business',
+    to: '/en/TR/tasks/start-a-business',
     title: <Trans>Start a business</Trans>,
     description: <Trans>Company types, registration and first obligations</Trans>,
   },
@@ -29,7 +29,7 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   play: async ({ canvasElement }) => {
     const link = await within(canvasElement).findByRole('link', { name: /Start a business/ })
-    await expect(link).toHaveAttribute('href', '/en/tr/t/start-a-business')
+    await expect(link).toHaveAttribute('href', '/en/TR/tasks/start-a-business')
     await expect(link.querySelectorAll('a, button')).toHaveLength(0)
   },
 }

@@ -171,7 +171,7 @@ export const dark = {
 // letter while Latin text keeps the design's face. Loaded in fonts.ts.
 export const fonts = {
   ui: '"Archivo", "Vazirmatn", system-ui, -apple-system, "Segoe UI", sans-serif',
-  reading: '"Source Serif 4", "Vazirmatn", Georgia, "Times New Roman", serif',
+  reading: '"Source Serif 4 Variable", "Vazirmatn", Georgia, "Times New Roman", serif',
   data: '"IBM Plex Mono", ui-monospace, "Cascadia Mono", monospace',
 } as const
 
@@ -192,8 +192,8 @@ export const type = {
   label: { size: 14, line: 20, weight: 600, family: fonts.ui, tracking: '0.006em' },
   // 1.2 PERCENT in Figma's Label Small, 0.144px at 12px.
   labelSmall: { size: 12, line: 16, weight: 600, family: fonts.ui, tracking: '0.012em' },
-  // 8 PERCENT in Figma's Metadata style, 0.88px at 11px. The 0.06em face()
-  // gives every uppercase style was a guess; this is the measured value.
+  // 8 PERCENT in Figma's Metadata style, 0.88px at 11px. A style with no
+  // tracking here is set at 0, as every other style in the file is.
   metadata: { size: 11, line: 14, weight: 500, family: fonts.data, uppercase: true, tracking: '0.08em' },
   monoData: { size: 13, line: 20, weight: 400, family: fonts.data },
 } as const

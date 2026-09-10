@@ -22,7 +22,7 @@ const meta = {
     // The header's Ask asks the API, so the story has a client, and the mocked network.
     (Story, { parameters }) => (
       <GraphQLProvider>
-        <MemoryRouter initialEntries={['/en/tr']}>
+        <MemoryRouter initialEntries={['/en/TR']}>
           <ShellProvider>
             <OwnsAsk owns={parameters['pageOwnsAsk'] === true} />
             {Story()}

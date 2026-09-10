@@ -6,20 +6,20 @@ import { AppTheme } from 'src/core/theme'
 import { ShellProvider } from 'src/core/shell'
 import { AppShell } from 'src/shared/app-shell'
 import { Header } from 'src/shared/header'
-import { aliasedLocale, localeFromSegment } from './paths'
+import { readerFromSegment } from './paths'
 
 /**
  * Reads the language out of the URL and puts the whole app inside it.
  *
  * It sits above the route table rather than inside it so that Not Found, and
  * an address whose country is wrong, still render in a working theme and a
- * language the reader probably asked for. Both URL forms are accepted here;
- * canonicalising the long one is `CountryRoute`'s job.
+ * language the reader probably asked for. Any casing is accepted here;
+ * canonicalising it is `CountryRoute`'s job.
  */
 export const LocaleShell = ({ children }: { children: ReactNode }) => {
   const { pathname } = useLocation()
   const segment = pathname.split('/')[1] ?? ''
-  const locale = localeFromSegment(segment) ?? aliasedLocale(segment) ?? defaultLocale
+  const locale = readerFromSegment(segment)?.locale ?? defaultLocale
 
   return (
     <GraphQLProvider>
