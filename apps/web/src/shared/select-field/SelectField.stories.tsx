@@ -60,14 +60,14 @@ export const Default: Story = {
     const canvas = within(canvasElement)
     // The design's rule: a select always carries its own label, because a
     // placeholder standing in for one is gone the moment a value is chosen.
-    const select = await canvas.findByRole('combobox', { name: /City in Turkey|شهری در ترکیه/ })
-    await expect(select).toHaveTextContent(/Istanbul|استانبول/)
+    const select = await canvas.findByRole('combobox', { name: /City in Turkey/ })
+    await expect(select).toHaveTextContent(/Istanbul/)
 
     await userEvent.click(select)
     // The menu renders in a portal, outside the canvas.
-    await userEvent.click(await within(window.document.body).findByRole('option', { name: /Ankara|آنکارا/ }))
+    await userEvent.click(await within(window.document.body).findByRole('option', { name: /Ankara/ }))
     await expect(args.onChange).toHaveBeenCalledWith('ankara')
-    await expect(select).toHaveTextContent(/Ankara|آنکارا/)
+    await expect(select).toHaveTextContent(/Ankara/)
   },
 }
 
@@ -105,7 +105,7 @@ export const States: Story = {
     }
 
     // An empty, disabled select shows its placeholder, never a blank field.
-    await expect(await canvas.findByTestId('disabled')).toHaveTextContent(/Select a city|یک شهر انتخاب کنید/)
+    await expect(await canvas.findByTestId('disabled')).toHaveTextContent(/Select a city/)
   },
 }
 

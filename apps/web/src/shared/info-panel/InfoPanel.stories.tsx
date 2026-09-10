@@ -103,7 +103,7 @@ export const Kinds: Story = {
   play: async ({ canvasElement, globals }) => {
     const canvas = within(canvasElement)
     const tokens = tokensFor(globals['mode'])
-    const rtl = globals['direction'] === 'fa-IR'
+    const rtl = globals['direction'] === 'rtl'
 
     for (const kind of PANEL_KINDS) {
       const want = PANEL_PAINT[kind]
@@ -128,17 +128,14 @@ export const Kinds: Story = {
         const eyebrowStyle = window.getComputedStyle(eyebrow)
         await expect(asHex(eyebrowStyle.color)).toBe(tokens[want.eyebrow].toLowerCase())
         await expect(eyebrowStyle.textTransform).toBe('uppercase')
-        // Persian: no tracking, which would pull a cursive script's joins apart,
-        // and the UI face, because a mono stack has no Persian letters and fell
-        // through to a monospaced Arabic face. English keeps the design's 8%.
-        await expect(eyebrowStyle.letterSpacing).toBe(rtl ? 'normal' : '0.88px')
-        await expect(eyebrowStyle.fontFamily).toMatch(rtl ? /^"?Archivo/ : /^"?IBM Plex Mono/)
+        await expect(eyebrowStyle.letterSpacing).toBe('0.88px')
+        await expect(eyebrowStyle.fontFamily).toMatch(/^"?IBM Plex Mono/)
       }
       if (body) await expect(asHex(window.getComputedStyle(body).color)).toBe(tokens[want.body].toLowerCase())
       if (source) {
         const sourceStyle = window.getComputedStyle(source)
         await expect(asHex(sourceStyle.color)).toBe(tokens[want.meta].toLowerCase())
-        await expect(sourceStyle.fontFamily).toMatch(rtl ? /^"?Archivo/ : /^"?IBM Plex Mono/)
+        await expect(sourceStyle.fontFamily).toMatch(/^"?IBM Plex Mono/)
       }
     }
   },

@@ -55,7 +55,7 @@ type Story = StoryObj<typeof meta>
 /** Typing reaches the handler. */
 export const Default: Story = {
   play: async ({ args, canvasElement }) => {
-    const input = await within(canvasElement).findByRole('textbox', { name: /Passport number|شمارهٔ گذرنامه/ })
+    const input = await within(canvasElement).findByRole('textbox', { name: /Passport number/ })
     await userEvent.type(input, 'U1')
     await expect(args.onChange).toHaveBeenCalled()
   },
@@ -107,7 +107,7 @@ export const States: Story = {
     const input = error.querySelector('input')
     await expect(input).toHaveAttribute('aria-invalid', 'true')
     await expect(error.querySelectorAll('.MuiFormHelperText-root')).toHaveLength(1)
-    await expect(error).not.toHaveTextContent(/As written in your passport|همان‌طور که در گذرنامه/)
+    await expect(error).not.toHaveTextContent(/As written in your passport/)
   },
 }
 

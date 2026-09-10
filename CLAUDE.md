@@ -7,6 +7,33 @@ authority. **A direct instruction from the owner wins**, and where two
 instructions conflict, **the later one wins**. If a file here contradicts what
 the owner said, the file is wrong. Fix the file.
 
+## The owner's orders of 2026-09-10, which outrank everything below
+
+> "UI has already been created so your FIRST job is to CREATE THE DAMN THING
+> so we can see it and then change it if something goes wrong design wise"
+
+> "you don't add gate for anything yet ... you just create and publish ...
+> after finish we might (only might) [add] any gates or whatever"
+
+> "The base language is english and that is it, any additional language goes
+> to the lingui po file, and unless you want to test lingui it make zero sense
+> to test Farsi"
+
+So, until the owner says otherwise:
+
+- **Build the screens from Figma and publish them.** The design exists; seeing
+  it running is the point. Design corrections come after he has looked.
+- **No new gates, checks or test apparatus.** Nothing that blocks, scores or
+  refuses. Build, verify it runs, publish.
+- **No test is written for any language.** English is the base; every other
+  language is a lingui catalog, and testing one is testing lingui. The owner:
+  "RTL is for Indian, Arabian etc too and this project is going to be multi
+  language, are you going to add test for all those languages?" So the story
+  matrix is light/dark x ltr/rtl in English, and language is only a Storybook
+  toolbar for looking.
+- **Roasting and filing findings wait** until the product is built, then only
+  if he asks.
+
 **Never invent a gate the owner did not ask for.** No score thresholds, no
 mutation testing, no verification apparatus, no rule that refuses to let work
 close. If a check seems necessary, say so in the reply and let the owner decide.

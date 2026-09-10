@@ -463,7 +463,8 @@ or icon, so it is a determinate progressbar drawn in pieces.
 | steps | 8 high, 4 between, equal widths, radius 1 | 36.44 each at 360; done `accent`, current `border-strong`, remaining `surface-subtle` |
 | bar | 6 high, radius 1 | fill `accent`, remainder `surface-subtle` |
 
-**An open question for the owner:** in light mode the remaining segments are
+**Kept as designed by the owner's decision, 2026-09-10, to revisit in Figma.**
+In light mode the remaining segments are
 `1.05` against the page, the current `1.54`, and done `2.47`. The count is in
 the label at `5.42`, so no reader loses it, but the design's aim, that a reader
 sees nine things, is not met, and no token swap fixes it without making a

@@ -38,7 +38,7 @@ type Story = StoryObj<typeof meta>
 /** A button, named by the question and the answer, and it opens the editor. */
 export const Default: Story = {
   play: async ({ args, canvasElement }) => {
-    const chip = await within(canvasElement).findByRole('button', { name: /Nationality\s*Iranian|ملیت\s*ایرانی/i })
+    const chip = await within(canvasElement).findByRole('button', { name: /Nationality\s*Iranian/i })
     await userEvent.click(chip)
     await expect(args.onClick).toHaveBeenCalledOnce()
   },
@@ -72,7 +72,7 @@ export const States: Story = {
     }
 
     // Unset says what to do, not just that something is missing.
-    await expect(await canvas.findByTestId('unset')).toHaveTextContent(/Add to sharpen answers|برای پاسخ دقیق‌تر اضافه کنید/)
+    await expect(await canvas.findByTestId('unset')).toHaveTextContent(/Add to sharpen answers/)
   },
 }
 

@@ -20,10 +20,10 @@ export const Default: Story = {
     const canvas = within(canvasElement)
 
     // Either language, because the toolbar drives which one renders.
-    await expect(await canvas.findByRole('heading', { level: 1 })).toHaveTextContent(/does not exist|وجود ندارد/)
+    await expect(await canvas.findByRole('heading', { level: 1 })).toHaveTextContent(/does not exist/)
 
     // It has to say WHY, or a reader cannot tell a typo from a place we have
     // not covered yet, and those need different next steps.
-    await expect(await canvas.findByText(/does not cover yet|پوشش نمی‌دهد/)).toBeVisible()
+    await expect(await canvas.findByText(/does not cover yet/)).toBeVisible()
   },
 }

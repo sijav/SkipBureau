@@ -14,12 +14,6 @@ const tokensFor = (mode: unknown): ColourTokens => {
   return isDark ? dark : light
 }
 
-/**
- * Per direction, not /English|Persian/: in fa-IR the count must be Persian,
- * digits included, so a missing translation or unlocalised number fails here
- * instead of passing on the English fallback.
- */
-const expectedLabel = (direction: unknown) => (direction === 'fa-IR' ? /۳ از ۹/ : /^3 of 9 steps completed$/)
 
 const meta = {
   title: 'Shared/ProgressIndicator',
@@ -42,7 +36,7 @@ export const Steps: Story = {
     const bar = await canvas.findByRole('progressbar')
     await expect(bar).toHaveAttribute('aria-valuenow', '3')
     await expect(bar).toHaveAttribute('aria-valuemax', '9')
-    await expect(bar).toHaveAccessibleName(expectedLabel(globals['direction']))
+    await expect(bar).toHaveAccessibleName('3 of 9 steps completed')
 
     const pieces = Array.from(bar.children)
     await expect(pieces).toHaveLength(9)
@@ -64,7 +58,7 @@ export const Bar: Story = {
     const tokens = tokensFor(globals['mode'])
 
     const bar = await canvas.findByRole('progressbar')
-    await expect(bar).toHaveAccessibleName(expectedLabel(globals['direction']))
+    await expect(bar).toHaveAccessibleName('3 of 9 steps completed')
     await expect(window.getComputedStyle(bar).height).toBe('6px')
     await expect(asHex(window.getComputedStyle(bar).backgroundColor)).toBe(tokens[PROGRESS_PAINT.remaining].toLowerCase())
 

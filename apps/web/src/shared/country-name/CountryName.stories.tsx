@@ -45,7 +45,7 @@ export const Unnamed: Story = {
   ],
   play: async ({ canvasElement }) => {
     await expect(await within(canvasElement).findByTestId('country-name')).toHaveTextContent(
-      /Unnamed country|کشور بی‌نام/,
+      /Unnamed country/,
     )
   },
 }

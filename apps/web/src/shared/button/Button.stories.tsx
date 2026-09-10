@@ -42,7 +42,7 @@ type Story = StoryObj<typeof meta>
 /** Driven by the Controls panel. Clicking has to reach the handler. */
 export const Default: Story = {
   play: async ({ args, canvasElement }) => {
-    await userEvent.click(await within(canvasElement).findByRole('button', { name: /Start this process|این فرایند را شروع کنید/ }))
+    await userEvent.click(await within(canvasElement).findByRole('button', { name: /Start this process/ }))
     await expect(args.onClick).toHaveBeenCalledOnce()
   },
 }

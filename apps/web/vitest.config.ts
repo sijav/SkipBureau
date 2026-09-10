@@ -10,13 +10,14 @@ const alias = { src: join(here, 'src') }
 
 const lingui = () => react({ plugins: [['@lingui/swc-plugin', {}]] })
 
-// The four the design has to hold in. `direction` carries the LOCALE, because
-// that is what the toolbar global is called and what preview.tsx reads.
+// Mode x direction, in the base language. Direction is not a language: RTL
+// is shared by many, and the product is multi-language, so nothing is tested
+// per language. The owner, 2026-09-10.
 const COMBINATIONS = [
-  { mode: 'light', direction: 'en-US' },
-  { mode: 'light', direction: 'fa-IR' },
-  { mode: 'dark', direction: 'en-US' },
-  { mode: 'dark', direction: 'fa-IR' },
+  { mode: 'light', direction: 'ltr' },
+  { mode: 'light', direction: 'rtl' },
+  { mode: 'dark', direction: 'ltr' },
+  { mode: 'dark', direction: 'rtl' },
 ] as const
 
 export default defineConfig({

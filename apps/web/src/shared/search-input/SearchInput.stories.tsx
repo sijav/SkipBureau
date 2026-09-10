@@ -51,7 +51,7 @@ export const Default: Story = {
     // No visible label in the design, so the name comes from `label`; a
     // placeholder is not a name, and it is gone once typing starts.
     await expect(await canvas.findByRole('search')).toBeInTheDocument()
-    const box = await canvas.findByRole('searchbox', { name: /Search the guides|جست‌وجو در راهنماها/ })
+    const box = await canvas.findByRole('searchbox', { name: /Search the guides/ })
 
     await userEvent.type(box, 'residence permit{Enter}')
     await expect(args.onSubmit).toHaveBeenCalledWith('residence permit')

@@ -56,8 +56,9 @@ export type Token = keyof ColourTokens
  * `Button.js`: a contained control takes its background from
  * `palette[color].main`, and from `palette[color].dark` inside a
  * `@media (hover: hover)` block. OUR Button no longer uses it: since SB-035 it
- * has its own four variants, and `contained` is removed from its type. Its ACTIVE state changes the shadow, not the
- * fill, so there is no third background. Coloured `Fab` follows the same
+ * has its own four variants, and `contained` is removed from its type. On MUI's contained control the
+ * ACTIVE state changes the shadow, not the fill; OUR Button does paint its
+ * pressed fills, from button.ts, declared below with a button binding. Coloured `Fab` follows the same
  * contract. Filled `Chip` does NOT, it composites its hover. Filled `Alert`
  * does not either: it paints `dark` in dark mode and takes its text from
  * `getContrastText(main)` rather than `contrastText`. Each of those needs its
@@ -257,7 +258,7 @@ export const EXEMPT: readonly { pair: string; because: string }[] = [
   {
     pair: "a progress track's segments and bar against the page",
     because:
-      "A JUDGMENT, NOT A PASS, put to the owner on 2026-09-10. The information is safe: the label states the count at 5.42, and the progressbar announces three of nine, so no reader loses it (1.4.1). But the design's own aim, that a reader SEES there are nine things, is not met in light: remaining segments are 1.05 against the page, the current one 1.54, and even done ones, accent, are 2.47. Dark clears more, 8.58 for done, but remaining is still 1.23. No token swap fixes it without inverting the order, a remaining segment darker than a done one, so it is a design question, not a quiet fix.",
+      "KEPT AS DESIGNED BY THE OWNER'S DECISION, 2026-09-10, to revisit in Figma. The information is safe: the label states the count at 5.42, and the progressbar announces three of nine, so no reader loses it (1.4.1). But the design's own aim, that a reader SEES there are nine things, is not met in light: remaining segments are 1.05 against the page, the current one 1.54, and even done ones, accent, are 2.47. Dark clears more, 8.58 for done, but remaining is still 1.23. No token swap fixes it without inverting the order, a remaining segment darker than a done one, so it is a design question, not a quiet fix.",
   },
   {
     pair: "a context chip's stroke, set, hovered or the unset amber dash",

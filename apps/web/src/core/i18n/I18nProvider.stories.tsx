@@ -83,7 +83,7 @@ export const CatalogFailed: Story = {
   args: { locale: 'fa-IR', load: alwaysFails },
   play: async ({ canvasElement, globals }) => {
     const canvas = within(canvasElement)
-    const live = globals['direction'] === 'fa-IR' ? 'fa-IR' : 'en-US'
+    const live = globals['locale'] === 'fa-IR' ? 'fa-IR' : 'en-US'
 
     // Not blank: lingui renders nothing at all until some catalog is active,
     // and a cold start that fails used to leave a permanently empty page.

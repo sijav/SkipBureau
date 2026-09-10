@@ -21,12 +21,12 @@ export const Default: Story = {
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement)
 
-    await expect(await canvas.findByRole('heading', { level: 1 })).toHaveTextContent(/could not load this|نتوانست/)
+    await expect(await canvas.findByRole('heading', { level: 1 })).toHaveTextContent(/could not load this/)
 
     // The retry has to DO something. A button that says "Try again" and is
     // wired to nothing is worse than no button, because the reader spends
     // their patience on it.
-    await userEvent.click(await canvas.findByRole('button', { name: /Try again|تلاش دوباره/ }))
+    await userEvent.click(await canvas.findByRole('button', { name: /Try again/ }))
     await expect(args.onRetry).toHaveBeenCalledOnce()
   },
 }

@@ -2,7 +2,7 @@ import type { Preview } from '@storybook/react-vite'
 import type { RequestHandler } from 'msw'
 import { applyHandlers } from './msw'
 import type { ReactElement } from 'react'
-import { I18nProvider, isLocale, loadCatalog, locales } from 'src/core/i18n'
+import { I18nProvider, isLocale, loadCatalog, locales, type Locale } from 'src/core/i18n'
 import { AppTheme, type ModeChoice } from 'src/core/theme'
 
 /**
@@ -12,11 +12,14 @@ import { AppTheme, type ModeChoice } from 'src/core/theme'
  * The mode and direction toolbars let a person switch between the four
  * combinations the design has to hold in: en-US and fa-IR, light and dark.
  *
- * They are also the test matrix. `vitest.config.ts` runs every story four
- * times, once per combination, through `storybookTest({ initialGlobals })`, so
- * a story that only holds in the default globals fails in the other three.
- * That was proven by planting an assertion of light and ltr, which failed in
- * exactly light-fa-IR, dark-en-US and dark-fa-IR.
+ * The test matrix is MODE x DIRECTION, in the base language. `vitest.config.ts`
+ * runs every story as light/dark x ltr/rtl through `storybookTest({ initialGlobals })`.
+ * Direction is its own global, not a language: right-to-left is shared by
+ * Arabic, Urdu, Hebrew and more, and the product is multi-language, so no test
+ * is written per language. The owner, 2026-09-10.
+ *
+ * Language is a separate toolbar for LOOKING at a catalog; it defaults to the
+ * base language, and `auto` direction follows the chosen language's own.
  */
 const preview: Preview = {
   // Every story's first frame used to wait on a dynamic catalog import, because
@@ -62,15 +65,29 @@ const preview: Preview = {
         dynamicTitle: true,
       },
     },
-    direction: {
-      description: 'Language and reading direction',
+    locale: {
+      description: 'Language, for looking at a catalog',
       defaultValue: 'en-US',
+      toolbar: {
+        title: 'Language',
+        icon: 'globe',
+        items: [
+          { value: 'en-US', title: 'English' },
+          { value: 'fa-IR', title: 'Persian' },
+        ],
+        dynamicTitle: true,
+      },
+    },
+    direction: {
+      description: 'Reading direction, independent of language',
+      defaultValue: 'auto',
       toolbar: {
         title: 'Direction',
         icon: 'transfer',
         items: [
-          { value: 'en-US', title: 'en-US, left to right' },
-          { value: 'fa-IR', title: 'fa-IR, right to left' },
+          { value: 'auto', title: 'Follow the language' },
+          { value: 'ltr', title: 'Left to right' },
+          { value: 'rtl', title: 'Right to left' },
         ],
         dynamicTitle: true,
       },
@@ -82,11 +99,14 @@ const preview: Preview = {
       // falls back to following the operating system.
       const choices = ['system', 'light', 'dark'] as const
       const mode: ModeChoice = choices.find((value) => value === context.globals.mode) ?? 'system'
-      const locale = context.globals.direction === 'fa-IR' ? 'fa-IR' : 'en-US'
+      const requested = context.globals['locale']
+      const locale: Locale = typeof requested === 'string' && isLocale(requested) ? requested : 'en-US'
+      const chosen = context.globals['direction']
+      const direction = chosen === 'ltr' || chosen === 'rtl' ? chosen : locales[locale].dir
 
       return (
         <I18nProvider locale={locale}>
-          <AppTheme mode={mode} direction={locale === 'fa-IR' ? 'rtl' : 'ltr'}>
+          <AppTheme mode={mode} direction={direction}>
             <Story />
           </AppTheme>
         </I18nProvider>

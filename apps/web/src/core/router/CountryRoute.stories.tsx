@@ -59,7 +59,7 @@ export const NotCovered: Story = {
     // The server answered, and the answer was no. That is a place we do not
     // cover, and the reader should look elsewhere.
     await expect(await within(canvasElement).findByRole('heading', { level: 1 })).toHaveTextContent(
-      /does not exist|وجود ندارد/,
+      /does not exist/,
     )
   },
 }
@@ -70,7 +70,7 @@ export const ApiIsDown: Story = {
     // The server did not answer at all. Same absence of data, entirely
     // different fact, and the reader can act on this one by waiting.
     await expect(await within(canvasElement).findByRole('heading', { level: 1 })).toHaveTextContent(
-      /could not load this|نتوانست/,
+      /could not load this/,
     )
   },
 }
@@ -96,9 +96,9 @@ export const Recovers: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
 
-    await expect(await canvas.findByRole('heading', { level: 1 })).toHaveTextContent(/could not load this|نتوانست/)
+    await expect(await canvas.findByRole('heading', { level: 1 })).toHaveTextContent(/could not load this/)
 
-    await userEvent.click(await canvas.findByRole('button', { name: /Try again|تلاش دوباره/ }))
+    await userEvent.click(await canvas.findByRole('button', { name: /Try again/ }))
 
     await expect(await canvas.findByTestId('country-name')).toHaveTextContent('Turkey')
   },
