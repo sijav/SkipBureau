@@ -14,6 +14,10 @@ const PORT = Number(process.env.PORT ?? 4000)
 const origins = (): string[] => [
   'http://localhost:5173',
   'http://localhost:6016',
+  // The published site. Listed here as well as reachable through
+  // CORS_ORIGINS, so a deployment that forgets the variable still serves the
+  // one origin this API exists for.
+  'https://sijav.github.io',
   ...(process.env.CORS_ORIGINS ?? '')
     .split(',')
     .map((origin) => origin.trim())

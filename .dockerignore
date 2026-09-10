@@ -1,0 +1,17 @@
+# Everything the image does not need, and some things it must never contain.
+node_modules
+**/node_modules
+**/dist
+**/coverage
+**/storybook-static
+**/playwright-report
+**/test-results
+apps/api/.contract
+apps/web/src/locales/*.mjs
+
+# State and history. .claude carries the board and roast session ids, .git the
+# whole history: neither belongs in a published container image.
+.claude
+.git
+.github
+**/*.md
