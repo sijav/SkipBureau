@@ -78,6 +78,11 @@ export type ColourTokens = Record<keyof typeof light, string>
 /**
  * **Dark is derived, not transcribed. There is no dark mode in the Figma file.**
  *
+ * It has since been MEASURED. Every pair the product renders clears its target
+ * in both modes, and `contrast.test.ts` fails on any that stops doing so. An
+ * earlier version of this comment still told the reader that measuring was a
+ * future task after the task had done it.
+ *
  * So this is reasoning, and it is written down rather than buried:
  *
  * - The paper scale inverts into near-black greens that keep the warmth of the
@@ -95,9 +100,13 @@ export type ColourTokens = Record<keyof typeof light, string>
  * - The subtle fills become dark tints of their hue rather than pale ones, or
  *   they glow.
  *
- * Every pair here still needs measuring against a contrast target, which is
- * its own task. Until then, treat these as a considered starting point and not
- * as transcription: the difference matters and DESIGN.md says the same.
+ * Measured, not just considered. `contrast.ts` declares every pair the product
+ * renders and `contrast.test.ts` fails on any that misses, in both modes. Two
+ * values here moved to make that true: `textOnDanger` is ink rather than white,
+ * because dark LIGHTENS the semantic fills and white on a light red is the
+ * wrong way round, and `dangerPressed` was lifted until ink cleared 4.5 on it.
+ * Still derived rather than transcribed, which is a different claim and the one
+ * DESIGN.md makes.
  */
 export const dark = {
   background: '#121714',

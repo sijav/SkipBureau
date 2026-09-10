@@ -38,18 +38,30 @@ test('the contrast ratio is the WCAG one, checked against values with known answ
   assert.equal(contrastRatio('#1D2421', '#F8FAF8'), contrastRatio('#F8FAF8', '#1D2421'))
 })
 
-test('the palette hands MUI the token that was measured, not a neighbour', () => {
-  // The gap this closes: `warning.contrastText` was `warningText`, which is
-  // for text on the SUBTLE fill and measures 2.82 on the amber itself. The
-  // inventory above declares `textOnWarning`, so if the theme quietly points
-  // somewhere else the declared pair is measuring something nobody renders.
+test('every rendered pair is bound to the palette slot that renders it', () => {
+  // Two gaps, one test, and it is driven by DECLARED rather than by a
+  // hand written list that can drift from it in the same way the inventory
+  // drifted from the components.
+  //
+  // First: `warning.contrastText` was `warningText`, which is for text on the
+  // SUBTLE fill and measures 2.82 on the amber itself.
+  //
+  // Second, and the reason for SB-116: the inventory measured `accentHover`
+  // and called it the hovered state, while MUI paints a contained hover from
+  // `palette.primary.dark`, which is `accentPressed`. Measuring a token
+  // nothing paints is a green run that means nothing.
+  const bound = DECLARED.filter((pair) => pair.from)
+  assert.ok(bound.length > 0, 'no pair claims to be rendered from the palette, so this test checks nothing')
+
   for (const [mode, tokens] of MODES) {
     const { palette } = appTheme(mode, 'ltr')
 
-    assert.equal(palette.primary.contrastText, tokens.textOnAccent, `${mode} primary`)
-    assert.equal(palette.warning.contrastText, tokens.textOnWarning, `${mode} warning`)
-    assert.equal(palette.error.contrastText, tokens.textOnDanger, `${mode} error`)
-    assert.equal(palette.success.contrastText, tokens.textOnAccent, `${mode} success`)
+    for (const { role, fore, back, from } of bound) {
+      if (!from) continue
+
+      assert.equal(palette[from.entry][from.fill], tokens[back], `${mode}: ${role} is painted from ${from.entry}.${from.fill}`)
+      assert.equal(palette[from.entry].contrastText, tokens[fore], `${mode}: ${role} takes its text from ${from.entry}.contrastText`)
+    }
   }
 })
 

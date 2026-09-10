@@ -57,7 +57,16 @@ export const appTheme = (mode: Mode, direction: Direction): Theme => {
       // fill; on the amber itself it measures 2.82 in light and 1.19 in dark.
       warning: { main: tokens.warning, light: tokens.warningSubtle, dark: tokens.warningPressed, contrastText: tokens.textOnWarning },
       error: { main: tokens.danger, light: tokens.dangerSubtle, dark: tokens.dangerPressed, contrastText: tokens.textOnDanger },
-      success: { main: tokens.success, contrastText: tokens.textOnAccent },
+      // All four slots, deliberately. MUI's augmentColor derives whichever of
+      // main, light, dark and contrastText it is not given, so an entry with
+      // only two of them gets a hover fill this repository never chose and the
+      // contrast inventory never measured.
+      success: {
+        main: tokens.success,
+        light: tokens.accentSubtle,
+        dark: tokens.accentPressed,
+        contrastText: tokens.textOnAccent,
+      },
     },
     typography: {
       fontFamily: type.body.family,

@@ -295,8 +295,8 @@ is not the same as measured.
 | `danger` | `#E05252` red/700 | `#C94343` red/800 | White on red/700 is `3.82:1`. One step down the ramp and it is `4.81`, and the indicator against the page improves at the same time. |
 | `danger-hover` | `#C94343` red/800 | `#AE3636` red/900 | Follows `danger` down so the states stay in order. |
 | `danger-pressed` | `#AE3636` red/900 | `#8E2A2A` red/950 | The same. |
-| `accent-hover` | `#329C76` mint/800 | `#38A67F` mint/750 | Ink on mint/900 is `3.11:1`, so the light accent ramp cannot reach that far down and stay readable. The ramp moves up a step and gains mint/750 so there are still three distinct states: `6.10`, `5.22`, `4.64`. |
-| `accent-pressed` | `#277C5E` mint/900 | `#329C76` mint/800 | The same. |
+| `accent-hover` | `#329C76` mint/800 | `#38A67F` mint/750 | Moved with `accent-pressed` below, to keep the design's three distinct steps intact. **Nothing renders it yet**, so it is exempt from measurement: MUI paints a contained hover from `palette.primary.dark`, which is `accent-pressed`. An earlier version of this row claimed a rendered three step sequence of `6.10`, `5.22`, `4.64`, and that was wrong. |
+| `accent-pressed` | `#277C5E` mint/900 | `#329C76` mint/800 | **This is the fill a reader's cursor actually produces**, because MUI takes a contained button's hover from `palette.primary.dark`. Ink on mint/900 is `3.11:1`. At mint/800 it is `4.64`. So the rendered sequence is `6.10` then `4.64`, two states, not three. |
 | `text-on-danger`, dark only | `#FFFFFF` | `#1D2421` ink/900 | Dark lightens the semantic fills, so white on them is the wrong way round: `3.05:1` on the dark danger fill. Ink is what dark already does for `text-on-accent`, for exactly this reason. |
 | `danger-pressed`, dark only | derived `#E05252` | `#E86262` | With ink as the label, the darkest red in the dark ramp measured `4.14`. Lifted until it clears, keeping it darker than the base fill. |
 
