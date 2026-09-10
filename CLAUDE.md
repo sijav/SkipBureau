@@ -247,27 +247,30 @@ So: **scan every object reachable from every ref, not the checkout.** The
   a credential in a scratch repository and requires a finding. A scanner that
   has quietly stopped working reports exactly what a clean repository reports.
 
-### If one is actually exposed, the order is the whole answer
+### If one is actually exposed
 
-**Revoke or rotate the credential FIRST.** It is the only step that makes the
-secret worthless, and every other step is slower than whoever is already
-reading a public repository. Rotate before revoking where something would break
-otherwise, which is GitHub's own carve out; the point is that the credential
-stops working, not which of the two verbs gets there.
+**Revoke or rotate it first.** Always, before anything else, because it is the
+only step that makes the secret worthless and everything else is slower than
+whoever is already reading a public repository.
 
-**Then rewrite the history.** That is containment and tidying, not remediation.
+**Then ask whether anything is still at risk. Usually nothing is, and then you
+stop.** GitHub says so plainly: where rotation mitigates it, rewriting history
+is unnecessary and disruptive. If sensitive exposure does remain, coordinate a
+rewrite for that. It changes every affected commit id, so it is not something
+other people catch up with automatically: old clones and forks can put the data
+straight back, and anything pinned to those ids breaks.
 
-**Then contact GitHub Support, where it applies.** They can remove cached views
-and references and run a server side collection, through the support portal and
-not through any API. They say plainly they will help only where rotation cannot
-mitigate the risk, so it is a fallback and not the normal next step.
+**Support comes after the rewrite, not instead of it.** Once your own refs no
+longer carry the data and the forks have been dealt with, ask GitHub Support,
+through the portal, to purge what you cannot reach yourself: pull request
+references and cached views. They decide, and they help only where rotation
+could not have mitigated it.
 
-**A force push is not remediation, and this repository contains a demonstration
-that can be misread as one.** SB-068 dropped its planted commits with one. That
-was sufficient there for exactly one reason: the planted sentinel was
-deliberately not a secret. A force push moves a ref. It does not revoke
-anything, and it does not reach a fork, a clone, or a cache. Nobody but the
-owner of a fork can clean that fork.
+**A force push is not any of this, and this repository contains one that can be
+misread as remediation.** SB-068 dropped its planted commits that way. That was
+sufficient there for exactly one reason: the planted sentinel was deliberately
+not a secret. A force push moves a ref. It revokes nothing and it reaches no
+fork, clone or cache.
 
 **Be honest about what this is.** It runs after GitHub has accepted the push,
 so it does not prevent publication. GitHub's push protection is the pre-push
