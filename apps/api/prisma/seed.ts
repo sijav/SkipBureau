@@ -1,5 +1,6 @@
 import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient } from '../src/generated/prisma/client.js'
+import { seedContent } from './seed-content.js'
 
 /**
  * Illustrative, not verified.
@@ -224,6 +225,8 @@ export const seed = async (prisma = client()): Promise<void> => {
       },
     })
   }
+
+  await seedContent(prisma)
 }
 
 if (process.argv[1]?.endsWith('seed.ts') || process.argv[1]?.endsWith('seed.js')) {

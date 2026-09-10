@@ -1,5 +1,7 @@
-// The shape that makes a move between two countries a computable diff.
-// The reasoning lives in DESIGN.md, under "Comparing two countries".
+// The shape that makes a move between two countries a computable diff, and the
+// guides a person reads. The reasoning for the first lives in DESIGN.md under
+// "Comparing two countries", and for the second in the SB-008 plan beside this
+// file.
 
 generator client {
   provider = "prisma-client"
@@ -14,10 +16,12 @@ datasource db {
 /// subject. Adding a second must need no code change, which is why this is a
 /// table rather than an enum.
 model Country {
-  code      String        @id @db.VarChar(2)
-  name      String
-  createdAt DateTime      @default(now())
-  rules     RuleVersion[]
+  code       String        @id @db.VarChar(2)
+  name       String
+  createdAt  DateTime      @default(now())
+  rules      RuleVersion[]
+  categories Category[]
+  guides     Guide[]
 }
 
 enum ObligationKind {
@@ -38,11 +42,12 @@ enum ObligationKind {
 /// national requirements are the same obligation is editorial work, not
 /// something a schema can infer.
 model Obligation {
-  id       String           @id @default(cuid())
-  slug     String           @unique
+  id       String            @id @default(cuid())
+  slug     String            @unique
   kind     ObligationKind
   texts    ObligationText[]
   versions RuleVersion[]
+  guides   GuideObligation[]
 }
 
 model ObligationText {
@@ -60,23 +65,23 @@ model ObligationText {
 /// A change is a NEW row, never an edit. That is what lets the same machinery
 /// answer "what changed here since I arrived" and what makes `verifiedAt` mean
 /// something: a date on an edited row records when someone looked, not what
-/// they found. A migration adds the exclusion constraint that enforces it,
-/// because Prisma cannot express one.
+/// they found. A migration adds the triggers that enforce it, because Prisma
+/// cannot express them.
 model RuleVersion {
-  id           String                @id @default(cuid())
-  countryCode  String                @db.VarChar(2)
+  id           String                 @id @default(cuid())
+  countryCode  String                 @db.VarChar(2)
   obligationId String
   /// Half open: valid when validFrom <= at < validTo. `null` means in force.
-  validFrom    DateTime              @db.Date
-  validTo      DateTime?             @db.Date
+  validFrom    DateTime               @db.Date
+  validTo      DateTime?              @db.Date
   sourceUrl    String
   sourceName   String
   /// Required. It is the only visible signal that this is current, which is
   /// the thing this product is actually selling.
-  verifiedAt   DateTime              @db.Date
-  createdAt    DateTime              @default(now())
-  country      Country               @relation(fields: [countryCode], references: [code], onDelete: Cascade)
-  obligation   Obligation            @relation(fields: [obligationId], references: [id], onDelete: Cascade)
+  verifiedAt   DateTime               @db.Date
+  createdAt    DateTime               @default(now())
+  country      Country                @relation(fields: [countryCode], references: [code], onDelete: Cascade)
+  obligation   Obligation             @relation(fields: [obligationId], references: [id], onDelete: Cascade)
   criteria     EligibilityCriterion[]
   facts        RuleFact[]
   texts        RuleText[]
@@ -164,4 +169,221 @@ model NationalityGroupMember {
   group       NationalityGroup @relation(fields: [groupCode], references: [code], onDelete: Cascade)
 
   @@index([nationality, groupCode])
+}
+
+// ---------------------------------------------------------------------------
+// The content side: the guides a person reads.
+// ---------------------------------------------------------------------------
+
+/// One of the twelve goals on Home. GLOBAL, with no country: "get a residence
+/// permit" is the same intention everywhere, and duplicating it per country
+/// because its children differ is the trap this model exists to avoid.
+model Task {
+  id         String     @id @default(cuid())
+  slug       String     @unique
+  position   Int
+  texts      TaskText[]
+  categories Category[]
+}
+
+model TaskText {
+  taskId   String
+  locale   String  @db.VarChar(5)
+  title    String
+  /// The clarifier line. The design archived an alternative for lacking one.
+  subtitle String?
+  task     Task    @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  @@id([taskId, locale])
+}
+
+/// The layer between a task tile and a guide. Country-specific, because the
+/// category hub is a checklist of that country's actual steps.
+model Category {
+  id          String         @id @default(cuid())
+  countryCode String         @db.VarChar(2)
+  taskId      String
+  slug        String
+  position    Int
+  country     Country        @relation(fields: [countryCode], references: [code], onDelete: Cascade)
+  task        Task           @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  texts       CategoryText[]
+  guides      Guide[]
+
+  @@unique([countryCode, slug])
+  @@index([countryCode, taskId])
+}
+
+model CategoryText {
+  categoryId  String
+  locale      String   @db.VarChar(5)
+  title       String
+  description String?
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([categoryId, locale])
+}
+
+/// Structural, country-scoped and language-neutral ON PURPOSE.
+///
+/// Every reader-facing field is in `GuideText`, so an absent
+/// `(guideId, locale)` row means "not translated" while a present row with a
+/// null column means "deliberately empty". Putting the title here would make
+/// those two indistinguishable, and telling them apart is the whole of SB-049.
+model Guide {
+  id                String            @id @default(cuid())
+  countryCode       String            @db.VarChar(2)
+  categoryId        String?
+  slug              String
+  /// Required. The design prints it in the header, the sources section and the
+  /// footer note, so a guide that cannot say when it was checked has nothing
+  /// to put there. It is a fact about the content, not about a language.
+  verifiedAt        DateTime          @db.Date
+  /// Both of these are content, not layout, in the design's own words.
+  showDisclaimer    Boolean           @default(false)
+  showSuggestUpdate Boolean           @default(true)
+  createdAt         DateTime          @default(now())
+  country           Country           @relation(fields: [countryCode], references: [code], onDelete: Cascade)
+  category          Category?         @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  texts             GuideText[]
+  sections          GuideSection[]
+  options           GuideOption[]
+  sources           GuideSource[]
+  obligations       GuideObligation[]
+  relatedTo         RelatedGuide[]    @relation("guideRelatedFrom")
+  relatedFrom       RelatedGuide[]    @relation("guideRelatedTo")
+
+  @@unique([countryCode, slug])
+}
+
+model GuideText {
+  guideId     String
+  locale      String  @db.VarChar(5)
+  title       String
+  description String?
+  /// Rendered third on the page, before any of the detail.
+  quickAnswer String?
+  cost        String?
+  time        String?
+  guide       Guide   @relation(fields: [guideId], references: [id], onDelete: Cascade)
+
+  @@id([guideId, locale])
+}
+
+/// The seven sections the design draws, in the order it draws them.
+///
+/// An enum rather than a free-form key: these are presentation semantics and
+/// the template has to know where each one goes. A new section is a design
+/// change and deserves a migration. The flexibility is that a section can be
+/// absent.
+enum SectionKind {
+  whatYouNeed
+  yourOptions
+  howToDoIt
+  whereToDoIt
+  importantToKnow
+  whatToCheck
+  commonProblems
+}
+
+model GuideSection {
+  id       String             @id @default(cuid())
+  guideId  String
+  kind     SectionKind
+  position Int
+  guide    Guide              @relation(fields: [guideId], references: [id], onDelete: Cascade)
+  texts    GuideSectionText[]
+  steps    GuideStep[]
+
+  /// One of each kind per guide. The template renders a section, not a list of
+  /// sections that happen to share a name.
+  @@unique([guideId, kind])
+}
+
+model GuideSectionText {
+  sectionId String
+  locale    String       @db.VarChar(5)
+  title     String?
+  body      String?
+  section   GuideSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+
+  @@id([sectionId, locale])
+}
+
+model GuideStep {
+  id        String          @id @default(cuid())
+  sectionId String
+  position  Int
+  section   GuideSection    @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  texts     GuideStepText[]
+
+  @@unique([sectionId, position])
+}
+
+model GuideStepText {
+  stepId String
+  locale String    @db.VarChar(5)
+  title  String
+  body   String?
+  step   GuideStep @relation(fields: [stepId], references: [id], onDelete: Cascade)
+
+  @@id([stepId, locale])
+}
+
+/// `Your options` is REMOVED where there is no meaningful choice, not hidden.
+/// Zero rows is that removal.
+model GuideOption {
+  id       String            @id @default(cuid())
+  guideId  String
+  position Int
+  guide    Guide             @relation(fields: [guideId], references: [id], onDelete: Cascade)
+  texts    GuideOptionText[]
+}
+
+model GuideOptionText {
+  optionId String
+  locale   String      @db.VarChar(5)
+  title    String
+  body     String?
+  option   GuideOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
+
+  @@id([optionId, locale])
+}
+
+/// Each source carries its own verified date: the design gives the citation
+/// card a date of its own rather than inheriting the guide's.
+model GuideSource {
+  id         String   @id @default(cuid())
+  guideId    String
+  url        String
+  name       String
+  verifiedAt DateTime @db.Date
+  position   Int
+  guide      Guide    @relation(fields: [guideId], references: [id], onDelete: Cascade)
+}
+
+/// Explicit, with a position, because an implicit many-to-many hides the join
+/// table and this needs ordering.
+///
+/// This is also what stops a guide restating a deadline in prose: the query
+/// returns the linked obligations' current facts as structured data, so the
+/// number has somewhere better to live than a sentence that will go stale.
+model GuideObligation {
+  guideId      String
+  obligationId String
+  position     Int
+  guide        Guide      @relation(fields: [guideId], references: [id], onDelete: Cascade)
+  obligation   Obligation @relation(fields: [obligationId], references: [id], onDelete: Cascade)
+
+  @@id([guideId, obligationId])
+}
+
+model RelatedGuide {
+  fromGuideId String
+  toGuideId   String
+  position    Int
+  fromGuide   Guide  @relation("guideRelatedFrom", fields: [fromGuideId], references: [id], onDelete: Cascade)
+  toGuide     Guide  @relation("guideRelatedTo", fields: [toGuideId], references: [id], onDelete: Cascade)
+
+  @@id([fromGuideId, toGuideId])
 }

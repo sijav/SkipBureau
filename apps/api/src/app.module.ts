@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
 import { join } from 'node:path'
 import { CountryModule } from './country/country.module.js'
+import { GuideModule } from './guide/guide.module.js'
 import { HealthModule } from './health/health.module.js'
 import { PrismaModule } from './prisma/prisma.module.js'
 import { RulesModule } from './rules/rules.module.js'
@@ -21,6 +22,7 @@ import { RulesModule } from './rules/rules.module.js'
     PrismaModule,
     HealthModule,
     CountryModule,
+    GuideModule,
     RulesModule,
   ],
 })

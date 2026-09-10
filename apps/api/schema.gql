@@ -2,6 +2,15 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type CategoryView {
+  countryCode: String!
+  description: String
+  position: Int!
+  slug: String!
+  taskSlug: String!
+  title: String!
+}
+
 type Country {
   """ISO 3166-1 alpha-2, lowercased, as it appears in a URL."""
   code: String!
@@ -26,7 +35,71 @@ type FactDifference {
   to: RuleFactValue
 }
 
+type GuideObligationFact {
+  currency: String
+  key: String!
+  numericValue: String
+  operator: String!
+  textValue: String
+  unit: String
+}
+
+"""An obligation this guide explains, with its current facts."""
+type GuideObligationView {
+  facts: [GuideObligationFact!]!
+  slug: String!
+  title: String
+}
+
+type GuideSectionView {
+  body: String
+  kind: SectionKind!
+  position: Int!
+  steps: [GuideStepView!]!
+  title: String
+}
+
+type GuideSourceView {
+  name: String!
+  url: String!
+  verifiedAt: String!
+}
+
+type GuideStepView {
+  body: String
+  position: Int!
+  title: String!
+}
+
+type GuideView {
+  cost: String
+  countryCode: String!
+  description: String
+
+  """
+  The locale this content is actually in, which may not be the one asked for.
+  """
+  locale: String!
+  obligations: [GuideObligationView!]!
+  options: [String!]!
+  quickAnswer: String
+  sections: [GuideSectionView!]!
+  showDisclaimer: Boolean!
+  showSuggestUpdate: Boolean!
+  slug: String!
+  sources: [GuideSourceView!]!
+  time: String
+  title: String!
+
+  """True when the requested language had no content and another was used."""
+  translationMissing: Boolean!
+  verifiedAt: String!
+}
+
 type Query {
+  """The categories one country has, between a goal and a guide."""
+  categories(country: String!, locale: String = "en-US"): [CategoryView!]!
+
   """What changed in one country between two dates, for this person."""
   changes(country: String!, nationality: String, since: String!, situation: String, until: String!): [DiffEntry!]!
 
@@ -36,11 +109,20 @@ type Query {
   """One country, or null where we do not cover it."""
   country(code: String!): Country
 
+  """One guide, or null where we do not have it."""
+  guide(country: String!, locale: String = "en-US", slug: String!): GuideView
+
+  """Every guide in one country."""
+  guides(country: String!, locale: String = "en-US"): [GuideView!]!
+
   """True when the API is answering. Nothing more is promised."""
   health: Boolean!
 
   """What changes for this person on moving between two countries."""
   move(at: String, from: String!, nationality: String, situation: String, to: String!): [DiffEntry!]!
+
+  """The twelve goals. Global: the same intention in every country."""
+  tasks(locale: String = "en-US"): [TaskView!]!
 }
 
 type ResolvedRule {
@@ -56,6 +138,24 @@ type RuleFactValue {
   operator: String!
   textValue: String
   unit: String
+}
+
+"""The seven sections the design draws, in its order."""
+enum SectionKind {
+  commonProblems
+  howToDoIt
+  importantToKnow
+  whatToCheck
+  whatYouNeed
+  whereToDoIt
+  yourOptions
+}
+
+type TaskView {
+  position: Int!
+  slug: String!
+  subtitle: String
+  title: String!
 }
 
 """
