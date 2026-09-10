@@ -10,6 +10,8 @@ export const TOPIC_PAINT = {
   rest: 'surface',
   hover: 'accentSubtle',
   pressed: 'accentSubtleHover',
+  // The Coming soon tile's recessed ground, for a row that leads nowhere yet.
+  unavailable: 'surfaceSubtle',
   rule: 'border',
   title: 'textPrimary',
   description: 'textSecondary',
@@ -23,11 +25,12 @@ const RULE = 1
 const NUDGE = 2
 
 // Figma draws the rule inside the row's bottom padding, which keeps a row 82
-// high, 100 with a kind. Lengths are strings because sx multiplies numbers.
-export const topicStyle = (tokens: ColourTokens) => {
+// high, 100 with a kind. A row that leads nowhere yet takes the Coming soon
+// tile's recessed ground and no states. Lengths are strings because sx
+// multiplies numbers.
+export const topicStyle = (tokens: ColourTokens, interactive: boolean) => {
   const active = { paddingInlineEnd: `${spacing.md - NUDGE}px`, '& .topic-arrow': { color: tokens[TOPIC_PAINT.arrowActive] } }
-
-  return {
+  const frame = {
     display: 'flex',
     alignItems: 'flex-start',
     gap: `${spacing.md}px`,
@@ -36,6 +39,12 @@ export const topicStyle = (tokens: ColourTokens) => {
     borderBottom: `${RULE}px solid ${tokens[TOPIC_PAINT.rule]}`,
     textAlign: 'start',
     textDecoration: 'none',
+  }
+
+  if (!interactive) return { ...frame, backgroundColor: tokens[TOPIC_PAINT.unavailable], color: tokens[TOPIC_PAINT.description] }
+
+  return {
+    ...frame,
     backgroundColor: tokens[TOPIC_PAINT.rest],
     color: tokens[TOPIC_PAINT.title],
     '@media (hover: hover)': { '&:hover': { backgroundColor: tokens[TOPIC_PAINT.hover], ...active } },

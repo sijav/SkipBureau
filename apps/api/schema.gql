@@ -3,6 +3,32 @@
 # ------------------------------------------------------
 
 """
+Figma 133:523: one area of a goal, its guides and a checklist. Its copy may say {country}.
+"""
+type CategoryHubView {
+  askPrompt: String
+  checklist: [String!]!
+  description: String
+
+  """
+  How many areas the goal has in this country. With one, the goal opens this hub directly.
+  """
+  goalAreas: Int!
+  goalSlug: String!
+  goalTitle: String!
+  guides: [HubSubtopicView!]!
+
+  """The most recent check of any of its guides."""
+  lastReviewed: String
+  locale: String!
+  related: [RelatedGoalView!]!
+  slug: String!
+  start: HubStartView
+  title: String!
+  translationMissing: Boolean!
+}
+
+"""
 What kind of area this is, where it differs from a setup step done once. Null for an ordinary step.
 """
 enum CategoryKind {
@@ -135,6 +161,21 @@ type HubSourceView {
   verifiedAt: String!
 }
 
+type HubStartView {
+  guideSlug: String!
+
+  """Why this is where to start."""
+  reason: String
+  title: String!
+}
+
+type HubSubtopicView {
+  description: String
+  readingMinutes: Int
+  slug: String!
+  title: String!
+}
+
 """
 Whether this obligation has one answer for everyone, or needs to know who is asking.
 """
@@ -146,6 +187,9 @@ enum ObligationResolution {
 type Query {
   """The categories one country has, between a goal and a guide."""
   categories(country: String!, locale: String = "en-US"): [CategoryView!]!
+
+  """One area of a goal in one country, or null where it does not exist."""
+  categoryHub(country: String!, goal: String!, locale: String = "en-US", slug: String!): CategoryHubView
 
   """What changed in one country between two dates, for this person."""
   changes(country: String!, nationality: String, since: String!, situation: String, until: String!): [DiffEntry!]!
@@ -197,6 +241,14 @@ type QuestionView {
 
   """True when the requested language had no content and another was used."""
   translationMissing: Boolean!
+}
+
+type RelatedGoalView {
+  """Whether the goal has anything in this country yet."""
+  open: Boolean!
+  slug: String!
+  subtitle: String
+  title: String!
 }
 
 type ResolvedRule {

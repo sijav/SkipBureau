@@ -17,6 +17,10 @@ msgstr ""
 msgid "{done} of {total, plural, one {# step completed} other {# steps completed}}"
 msgstr "{done} of {total, plural, one {# step completed} other {# steps completed}}"
 
+#: src/screens/category-hub/CategoryHub.tsx
+msgid "{minutes} min read"
+msgstr "{minutes} min read"
+
 #: src/shared/page/Page.stories.tsx
 msgid "A column, not a width"
 msgstr "A column, not a width"
@@ -57,6 +61,10 @@ msgstr "Antalya"
 msgid "Appointment slots in Istanbul are usually released early in the morning and taken within the hour. Applicants report better luck checking daily than waiting for a convenient date."
 msgstr "Appointment slots in Istanbul are usually released early in the morning and taken within the hour. Applicants report better luck checking daily than waiting for a convenient date."
 
+#: src/shared/checklist-line/ChecklistLine.stories.tsx
+msgid "Arrange home internet"
+msgstr "Arrange home internet"
+
 #: src/shared/text-input/TextInput.stories.tsx
 msgid "As written in your passport, no spaces"
 msgstr "As written in your passport, no spaces"
@@ -70,6 +78,15 @@ msgstr "Ask"
 #: src/shared/search-input/SearchInput.stories.tsx
 msgid "Ask a question or describe what you’re trying to do…"
 msgstr "Ask a question or describe what you’re trying to do…"
+
+#. placeholder {0}: hub.title
+#: src/screens/category-hub/CategoryHub.tsx
+msgid "Ask about {0}"
+msgstr "Ask about {0}"
+
+#: src/screens/category-hub/CategoryHub.tsx
+msgid "Ask about this and find the most relevant guide."
+msgstr "Ask about this and find the most relevant guide."
 
 #: src/screens/home/HomeHero.tsx
 #: src/shared/header/Header.tsx
@@ -91,6 +108,10 @@ msgstr "Available once you confirm your nationality"
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Blocked"
 msgstr "Blocked"
+
+#: src/shared/breadcrumb/Breadcrumb.tsx
+msgid "Breadcrumb"
+msgstr "Breadcrumb"
 
 #: src/shared/ask-result-row/AskResultRow.stories.tsx
 msgid "Can foreigners own a Turkish company?"
@@ -128,7 +149,9 @@ msgstr "City in Turkey"
 msgid "Clear, step-by-step guidance for living, studying, working and doing business in {name}."
 msgstr "Clear, step-by-step guidance for living, studying, working and doing business in {name}."
 
+#: src/screens/category-hub/CategoryHub.tsx
 #: src/shared/task-tile/TaskTile.tsx
+#: src/shared/topic-item/TopicItem.stories.tsx
 msgid "Coming soon"
 msgstr "Coming soon"
 
@@ -149,6 +172,10 @@ msgstr "Completed"
 msgid "Content"
 msgstr "Content"
 
+#: src/screens/category-hub/CategoryHub.tsx
+msgid "Content shown here is sample material for design review."
+msgstr "Content shown here is sample material for design review."
+
 #: src/screens/task-hub/TaskHub.tsx
 #: src/shared/topic-item/TopicItem.stories.tsx
 msgid "Decision"
@@ -166,6 +193,7 @@ msgstr "Descriptions on this page are sample content for design review. They del
 msgid "Due in 12 days"
 msgstr "Due in 12 days"
 
+#: src/screens/category-hub/CategoryHub.tsx
 #: src/screens/home/Home.tsx
 msgid "Every guide shows when it was last verified and links to the official source"
 msgstr "Every guide shows when it was last verified and links to the official source"
@@ -181,6 +209,14 @@ msgstr "Figures, timings and requirements shown throughout this design are sampl
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "From applicant reports, not an official rule"
 msgstr "From applicant reports, not an official rule"
+
+#: src/shared/breadcrumb/Breadcrumb.stories.tsx
+msgid "Getting Settled"
+msgstr "Getting Settled"
+
+#: src/screens/category-hub/CategoryHub.tsx
+msgid "Getting started checklist"
+msgstr "Getting started checklist"
 
 #: src/shared/ask-result-row/AskResultRow.tsx
 msgid "Guide"
@@ -198,6 +234,11 @@ msgstr "Guided setup works this out with you"
 #: src/shared/header/Header.tsx
 msgid "Guides"
 msgstr "Guides"
+
+#: src/screens/category-hub/CategoryHub.tsx
+#: src/shared/breadcrumb/Breadcrumb.stories.tsx
+msgid "Home"
+msgstr "Home"
 
 #: src/screens/task-hub/GuidedSetup.tsx
 msgid "How it works"
@@ -234,6 +275,10 @@ msgstr "Last checked {day}"
 #: src/shared/source-card/SourceCard.tsx
 msgid "Last reachable {day}"
 msgstr "Last reachable {day}"
+
+#: src/screens/category-hub/CategoryHub.tsx
+msgid "Last reviewed: {reviewed}"
+msgstr "Last reviewed: {reviewed}"
 
 #. placeholder {0}: formatMonth(latest, locale, 'long')
 #: src/screens/task-hub/TaskHub.tsx
@@ -340,9 +385,18 @@ msgstr "Reading · verified Aug 2026"
 msgid "Recent"
 msgstr "Recent"
 
+#: src/screens/category-hub/RecommendedStart.tsx
+msgid "Recommended starting point"
+msgstr "Recommended starting point"
+
+#: src/shared/breadcrumb/Breadcrumb.stories.tsx
 #: src/shared/topic-item/TopicItem.stories.tsx
 msgid "Register your company"
 msgstr "Register your company"
+
+#: src/screens/category-hub/CategoryHub.tsx
+msgid "Related guides"
+msgstr "Related guides"
 
 #: src/shared/text-input/TextInput.stories.tsx
 msgid "Remove the dash, this field takes letters and numbers only"
@@ -385,6 +439,7 @@ msgstr "SkipBureau could not load this"
 msgid "Something on our side did not answer. The page exists, we just could not reach it. Trying again usually works."
 msgstr "Something on our side did not answer. The page exists, we just could not reach it. Trying again usually works."
 
+#: src/shared/breadcrumb/Breadcrumb.stories.tsx
 #: src/shared/task-tile/TaskTile.stories.tsx
 msgid "Start a business"
 msgstr "Start a business"
@@ -398,9 +453,17 @@ msgstr "Start a business in Turkey"
 msgid "Start guided setup"
 msgstr "Start guided setup"
 
+#: src/screens/category-hub/RecommendedStart.tsx
+msgid "Start here"
+msgstr "Start here"
+
 #: src/shared/button/Button.stories.tsx
 msgid "Start this process"
 msgstr "Start this process"
+
+#: src/screens/category-hub/CategoryHub.tsx
+msgid "Still have a question?"
+msgstr "Still have a question?"
 
 #: src/shared/ask-result-row/AskResultRow.tsx
 msgid "Task"
@@ -494,6 +557,10 @@ msgstr "Warning"
 msgid "We have not verified this process for Antalya. The steps below are correct for Istanbul, Ankara and Izmir; local document requirements may differ."
 msgstr "We have not verified this process for Antalya. The steps below are correct for Istanbul, Ankara and Izmir; local document requirements may differ."
 
+#: src/screens/category-hub/CategoryHub.tsx
+msgid "What do you need help with?"
+msgstr "What do you need help with?"
+
 #: src/screens/home/HomeHero.tsx
 msgid "What do you need to do in {name}?"
 msgstr "What do you need to do in {name}?"
@@ -525,6 +592,10 @@ msgstr "Whether your diploma needs an apostille or consular legalization depends
 #: src/shared/ask-result-row/AskResultRow.stories.tsx
 msgid "Yes, no residence permit is required to own shares"
 msgstr "Yes, no residence permit is required to own shares"
+
+#: src/screens/category-hub/CategoryHub.tsx
+msgid "You can use this checklist as a simple guide. Your progress is not saved."
+msgstr "You can use this checklist as a simple guide. Your progress is not saved."
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "You do not need an agent for this step"

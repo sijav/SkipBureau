@@ -111,3 +111,42 @@ export const taskHub = {
   ].map(([slug = '', title = '', verifiedAt = '']) => ({ slug, title, verifiedAt })),
   sources: [{ url: 'https://ticaret.gov.tr/', name: 'Ministry of Trade · Trade Registry', publisher: 'Republic of Türkiye', verifiedAt: '2026-08-24' }],
 }
+
+/** Getting Settled in Turkey, as the API's sample content has it: Figma 133:690. */
+export const categoryHub = {
+  slug: 'first-week',
+  title: 'Getting Settled',
+  description: 'Essential services to help you start everyday life in Turkey.',
+  askPrompt: 'Ask about getting settled in Turkey and find the most relevant guide.',
+  locale: 'en-US',
+  translationMissing: false,
+  goalSlug: 'getting-settled',
+  goalTitle: 'Getting Settled',
+  goalAreas: 1,
+  lastReviewed: '2026-09-10',
+  start: {
+    guideSlug: 'sim-card',
+    title: 'Get a SIM Card or eSIM',
+    reason: 'Get connected first so you can use banking, transport, delivery and government services more easily.',
+  },
+  guides: [
+    ['sim-card', 'Get a SIM Card or eSIM', 'Compare mobile operators and understand what documents you need.', 4],
+    ['register-your-phone', 'Register Your Foreign Phone / IMEI', 'Understand when an imported phone needs to be registered in Turkey.', 3],
+    ['home-internet', 'Set Up Home Internet', 'Check infrastructure, compare providers and understand internet contracts.', 5],
+    ['utilities', 'Connect Electricity, Water and Gas', 'Learn how to start or transfer utility subscriptions for your home.', 4],
+    ['turkish-address', 'Understand Your Turkish Address', 'Learn how Turkish addresses are structured and where your official address is used.', 3],
+    ['essential-apps', 'Essential Apps and Services', 'Find useful apps for transport, banking, delivery and everyday services.', 4],
+  ].map(([slug, title, description, readingMinutes]) => ({ slug, title, description, readingMinutes })),
+  checklist: [
+    'Get a SIM Card or eSIM',
+    'Check whether your phone needs IMEI registration',
+    'Arrange home internet',
+    'Connect or transfer utility services',
+    'Confirm your correct Turkish address',
+    'Install essential local apps',
+  ],
+  related: [
+    { slug: 'renting-a-home', title: 'Renting a Home', subtitle: 'Contracts, deposits and utility responsibilities.', open: false },
+    { slug: 'start-a-business', title: 'Start a business', subtitle: 'Company types, registration and first obligations', open: true },
+  ],
+}

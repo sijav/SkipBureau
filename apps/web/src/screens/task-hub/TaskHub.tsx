@@ -15,6 +15,7 @@ import { Page } from 'src/shared/page'
 import { Section } from 'src/shared/section'
 import { SourceCard } from 'src/shared/source-card'
 import { TopicItem } from 'src/shared/topic-item'
+import { CategoryHub } from 'src/screens/category-hub'
 import { NotFound } from 'src/screens/NotFound'
 import { Unreachable } from 'src/screens/Unreachable'
 import { GuidedSetup } from './GuidedSetup'
@@ -51,6 +52,9 @@ export const TaskHub = () => {
   const hub = data?.taskHub
   // A goal this country has nothing under is Coming soon on Home, not a page.
   if (!hub) return <NotFound />
+  // One area and nothing of its own to say: the goal opens that area's hub.
+  const [only] = hub.areas
+  if (hub.areas.length === 1 && only && !hub.heading) return <CategoryHub goal={hub.slug} category={only.slug} />
 
   const fill = (text: string) => withCountry(text, name)
   const areas = hub.areas.filter((area) => area.kind !== 'alternativeRoute')

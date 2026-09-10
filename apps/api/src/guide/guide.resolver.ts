@@ -1,5 +1,5 @@
 import { Args, Query, Resolver } from '@nestjs/graphql'
-import { CategoryView, GuideView, QuestionView, TaskHubView, TaskView } from './guide.model.js'
+import { CategoryHubView, CategoryView, GuideView, QuestionView, TaskHubView, TaskView } from './guide.model.js'
 import { GuideService } from './guide.service.js'
 
 const LOCALE = { type: () => String, nullable: true, defaultValue: 'en-US' } as const
@@ -28,6 +28,16 @@ export class GuideResolver {
     @Args('locale', LOCALE) locale: string,
   ): Promise<TaskHubView | null> {
     return this.content.taskHub(country, slug, locale)
+  }
+
+  @Query(() => CategoryHubView, { nullable: true, description: 'One area of a goal in one country, or null where it does not exist.' })
+  async categoryHub(
+    @Args('country', { type: () => String }) country: string,
+    @Args('goal', { type: () => String }) goal: string,
+    @Args('slug', { type: () => String }) slug: string,
+    @Args('locale', LOCALE) locale: string,
+  ): Promise<CategoryHubView | null> {
+    return this.content.categoryHub(country, goal, slug, locale)
   }
 
   @Query(() => [QuestionView], { description: 'Common questions in one country, each with its short answer.' })

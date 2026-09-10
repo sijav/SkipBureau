@@ -17,6 +17,10 @@ msgstr ""
 msgid "{done} of {total, plural, one {# step completed} other {# steps completed}}"
 msgstr "{done} از {total, plural, one {# مرحله انجام شده} other {# مرحله انجام شده}}"
 
+#: src/screens/category-hub/CategoryHub.tsx
+msgid "{minutes} min read"
+msgstr "{minutes} دقیقه مطالعه"
+
 #: src/shared/page/Page.stories.tsx
 msgid "A column, not a width"
 msgstr "یک ستون، نه یک عرض"
@@ -57,6 +61,10 @@ msgstr "آنتالیا"
 msgid "Appointment slots in Istanbul are usually released early in the morning and taken within the hour. Applicants report better luck checking daily than waiting for a convenient date."
 msgstr "نوبت‌های استانبول معمولاً صبح زود باز می‌شوند و در کمتر از یک ساعت پر می‌شوند. متقاضیان می‌گویند سر زدن هر روزه بهتر از منتظر ماندن برای تاریخی مناسب جواب می‌دهد."
 
+#: src/shared/checklist-line/ChecklistLine.stories.tsx
+msgid "Arrange home internet"
+msgstr "ترتیب دادن اینترنت خانگی"
+
 #: src/shared/text-input/TextInput.stories.tsx
 msgid "As written in your passport, no spaces"
 msgstr "همان‌طور که در گذرنامه نوشته شده، بدون فاصله"
@@ -70,6 +78,15 @@ msgstr "بپرس"
 #: src/shared/search-input/SearchInput.stories.tsx
 msgid "Ask a question or describe what you’re trying to do…"
 msgstr "سؤالی بپرسید یا بگویید چه کاری می‌خواهید انجام دهید…"
+
+#. placeholder {0}: hub.title
+#: src/screens/category-hub/CategoryHub.tsx
+msgid "Ask about {0}"
+msgstr "درباره {0} بپرسید"
+
+#: src/screens/category-hub/CategoryHub.tsx
+msgid "Ask about this and find the most relevant guide."
+msgstr "درباره این موضوع بپرسید و مرتبط‌ترین راهنما را پیدا کنید."
 
 #: src/screens/home/HomeHero.tsx
 #: src/shared/header/Header.tsx
@@ -91,6 +108,10 @@ msgstr "پس از تأیید ملیت شما در دسترس است"
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Blocked"
 msgstr "مسدود"
+
+#: src/shared/breadcrumb/Breadcrumb.tsx
+msgid "Breadcrumb"
+msgstr "مسیر صفحه"
 
 #: src/shared/ask-result-row/AskResultRow.stories.tsx
 msgid "Can foreigners own a Turkish company?"
@@ -128,7 +149,9 @@ msgstr "شهری در ترکیه"
 msgid "Clear, step-by-step guidance for living, studying, working and doing business in {name}."
 msgstr "راهنمای روشن و گام‌به‌گام برای زندگی، تحصیل، کار و کسب‌وکار در {name}."
 
+#: src/screens/category-hub/CategoryHub.tsx
 #: src/shared/task-tile/TaskTile.tsx
+#: src/shared/topic-item/TopicItem.stories.tsx
 msgid "Coming soon"
 msgstr "به‌زودی"
 
@@ -149,6 +172,10 @@ msgstr "انجام‌شده"
 msgid "Content"
 msgstr "محتوا"
 
+#: src/screens/category-hub/CategoryHub.tsx
+msgid "Content shown here is sample material for design review."
+msgstr "محتوای این صفحه نمونه‌ای برای بازبینی طرح است."
+
 #: src/screens/task-hub/TaskHub.tsx
 #: src/shared/topic-item/TopicItem.stories.tsx
 msgid "Decision"
@@ -166,6 +193,7 @@ msgstr "توضیحات این صفحه محتوای نمونه برای بازب
 msgid "Due in 12 days"
 msgstr "۱۲ روز تا موعد"
 
+#: src/screens/category-hub/CategoryHub.tsx
 #: src/screens/home/Home.tsx
 msgid "Every guide shows when it was last verified and links to the official source"
 msgstr "هر راهنما تاریخ آخرین بررسی را نشان می‌دهد و به منبع رسمی پیوند دارد"
@@ -181,6 +209,14 @@ msgstr "ارقام، زمان‌بندی‌ها و الزاماتی که در س
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "From applicant reports, not an official rule"
 msgstr "از گزارش متقاضیان، نه یک قاعدهٔ رسمی"
+
+#: src/shared/breadcrumb/Breadcrumb.stories.tsx
+msgid "Getting Settled"
+msgstr "استقرار اولیه"
+
+#: src/screens/category-hub/CategoryHub.tsx
+msgid "Getting started checklist"
+msgstr "فهرست کارهای شروع"
 
 #: src/shared/ask-result-row/AskResultRow.tsx
 msgid "Guide"
@@ -198,6 +234,11 @@ msgstr "راه‌اندازی راهنمایی‌شده این را همراه �
 #: src/shared/header/Header.tsx
 msgid "Guides"
 msgstr "راهنماها"
+
+#: src/screens/category-hub/CategoryHub.tsx
+#: src/shared/breadcrumb/Breadcrumb.stories.tsx
+msgid "Home"
+msgstr "خانه"
 
 #: src/screens/task-hub/GuidedSetup.tsx
 msgid "How it works"
@@ -234,6 +275,10 @@ msgstr "آخرین بررسی {day}"
 #: src/shared/source-card/SourceCard.tsx
 msgid "Last reachable {day}"
 msgstr "آخرین دسترسی {day}"
+
+#: src/screens/category-hub/CategoryHub.tsx
+msgid "Last reviewed: {reviewed}"
+msgstr "آخرین بازبینی: {reviewed}"
 
 #. placeholder {0}: formatMonth(latest, locale, 'long')
 #: src/screens/task-hub/TaskHub.tsx
@@ -340,9 +385,18 @@ msgstr "مطالعه · بررسی‌شده در اوت ۲۰۲۶"
 msgid "Recent"
 msgstr "اخیر"
 
+#: src/screens/category-hub/RecommendedStart.tsx
+msgid "Recommended starting point"
+msgstr "نقطه شروع پیشنهادی"
+
+#: src/shared/breadcrumb/Breadcrumb.stories.tsx
 #: src/shared/topic-item/TopicItem.stories.tsx
 msgid "Register your company"
 msgstr "ثبت شرکت"
+
+#: src/screens/category-hub/CategoryHub.tsx
+msgid "Related guides"
+msgstr "راهنماهای مرتبط"
 
 #: src/shared/text-input/TextInput.stories.tsx
 msgid "Remove the dash, this field takes letters and numbers only"
@@ -385,6 +439,7 @@ msgstr "SkipBureau نتوانست این را بارگذاری کند"
 msgid "Something on our side did not answer. The page exists, we just could not reach it. Trying again usually works."
 msgstr "چیزی در سمت ما پاسخ نداد. صفحه وجود دارد، فقط نتوانستیم به آن برسیم. معمولا تلاش دوباره جواب می‌دهد."
 
+#: src/shared/breadcrumb/Breadcrumb.stories.tsx
 #: src/shared/task-tile/TaskTile.stories.tsx
 msgid "Start a business"
 msgstr "راه‌اندازی کسب‌وکار"
@@ -398,9 +453,17 @@ msgstr "راه‌اندازی کسب‌وکار در ترکیه"
 msgid "Start guided setup"
 msgstr "شروع راه‌اندازی راهنمایی‌شده"
 
+#: src/screens/category-hub/RecommendedStart.tsx
+msgid "Start here"
+msgstr "از اینجا شروع کنید"
+
 #: src/shared/button/Button.stories.tsx
 msgid "Start this process"
 msgstr "این فرایند را شروع کنید"
+
+#: src/screens/category-hub/CategoryHub.tsx
+msgid "Still have a question?"
+msgstr "هنوز پرسشی دارید؟"
 
 #: src/shared/ask-result-row/AskResultRow.tsx
 msgid "Task"
@@ -494,6 +557,10 @@ msgstr "هشدار"
 msgid "We have not verified this process for Antalya. The steps below are correct for Istanbul, Ankara and Izmir; local document requirements may differ."
 msgstr "این روند را برای آنتالیا تأیید نکرده‌ایم. مراحل زیر برای استانبول، آنکارا و ازمیر درست است؛ مدارک لازم در هر شهر ممکن است فرق کند."
 
+#: src/screens/category-hub/CategoryHub.tsx
+msgid "What do you need help with?"
+msgstr "در چه کاری به کمک نیاز دارید؟"
+
 #: src/screens/home/HomeHero.tsx
 msgid "What do you need to do in {name}?"
 msgstr "در {name} چه کاری باید انجام دهید؟"
@@ -525,6 +592,10 @@ msgstr "اینکه مدرک تحصیلی شما آپوستیل لازم دارد
 #: src/shared/ask-result-row/AskResultRow.stories.tsx
 msgid "Yes, no residence permit is required to own shares"
 msgstr "بله، برای مالکیت سهام اجازه اقامت لازم نیست"
+
+#: src/screens/category-hub/CategoryHub.tsx
+msgid "You can use this checklist as a simple guide. Your progress is not saved."
+msgstr "می‌توانید از این فهرست به‌عنوان راهنمایی ساده استفاده کنید. پیشرفت شما ذخیره نمی‌شود."
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "You do not need an agent for this step"

@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/react/macro'
 import { Box, Divider, Stack, Typography, useTheme } from '@mui/material'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { useQuery } from 'urql'
 import { useCountry, withCountry } from 'src/core/country'
 import { HomeQuery } from 'src/core/graphql'
@@ -27,8 +27,8 @@ export const Home = () => {
   const { locale } = useLocale()
   const { country, name } = useCountry()
   const [question, setQuestion] = useState('')
-  const askRef = useRef<HTMLDivElement>(null)
-  useOwnsAsk(askRef, layout.headerHeight)
+  const [askField, setAskField] = useState<HTMLDivElement | null>(null)
+  useOwnsAsk(askField, layout.headerHeight)
 
   const [{ data, error }, refetch] = useQuery({ query: HomeQuery, variables: { country, locale } })
 
@@ -48,7 +48,7 @@ export const Home = () => {
         // The ask panel, Figma 46:659, is not built yet.
         onAsk={() => undefined}
         examples={questions.slice(0, 3).map((entry) => entry.question)}
-        askRef={askRef}
+        askRef={setAskField}
       />
 
       {data && data.tasks.length > 0 && (

@@ -105,7 +105,9 @@ export const Header = ({ onAsk }: { onAsk?: (question: string) => void }) => {
           {!pageOwnsAsk && (
             <Box
               component="form"
-              aria-label={t`Ask Skipbureau`}
+              // Unnamed, so not a landmark: the page's own Ask is the one, and
+              // two forms of the same name confuse a landmark list. The field
+              // inside keeps its name.
               sx={{ flex: 1, minWidth: 0 }}
               onSubmit={(event) => {
                 event.preventDefault()

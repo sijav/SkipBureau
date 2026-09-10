@@ -1,3 +1,4 @@
+export { CategoryHub } from './category-hub'
 export { Home } from './home'
 export { TaskHub } from './task-hub'
 export { NotFound } from './NotFound'

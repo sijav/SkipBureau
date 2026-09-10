@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../prisma/prisma.service.js'
 import { generalVersionAt } from '../rules/selection.js'
-import type { CategoryView, GuideView, HubSourceView, QuestionView, TaskHubView, TaskView } from './guide.model.js'
+import type { CategoryHubView, CategoryView, GuideView, HubSourceView, QuestionView, TaskHubView, TaskView } from './guide.model.js'
 import { CategoryKind, ObligationResolution, SectionKind } from './guide.model.js'
 
 const FALLBACK = 'en-US'
@@ -50,7 +50,7 @@ export class GuideService {
           orderBy: { position: 'asc' },
           include: {
             texts: true,
-            guides: { orderBy: { createdAt: 'asc' }, include: { texts: true, sources: { orderBy: { position: 'asc' } } } },
+            guides: { orderBy: [{ position: 'asc' }, { createdAt: 'asc' }], include: { texts: true, sources: { orderBy: { position: 'asc' } } } },
           },
         },
       },
@@ -97,6 +97,62 @@ export class GuideService {
       areas,
       guides,
       sources: [...sources.values()],
+    }
+  }
+
+  /**
+   * One area of a goal in one country, Figma 133:523. Null where the area does
+   * not exist there, or belongs to another goal than the address says.
+   */
+  async categoryHub(countryCode: string, goal: string, slug: string, locale: string): Promise<CategoryHubView | null> {
+    const row = await this.prisma.category.findUnique({
+      where: { countryCode_slug: { countryCode, slug } },
+      include: {
+        texts: true,
+        task: { include: { texts: true, categories: { where: { countryCode }, select: { id: true } } } },
+        guides: { orderBy: [{ position: 'asc' }, { createdAt: 'asc' }], include: { texts: true } },
+        startGuide: { include: { texts: true } },
+        checklist: { orderBy: { position: 'asc' }, include: { texts: true } },
+        related: {
+          orderBy: { position: 'asc' },
+          include: { task: { include: { texts: true, categories: { where: { countryCode }, select: { id: true } } } } },
+        },
+      },
+    })
+    if (!row || row.task.slug !== goal) return null
+
+    const { text, missing } = pick(row.texts, locale)
+    const { text: goalText } = pick(row.task.texts, locale)
+    if (!text || !goalText) return null
+
+    const guides = row.guides.flatMap((guide) => {
+      const { text: reading } = pick(guide.texts, locale)
+      return reading ? [{ slug: guide.slug, title: reading.title, description: reading.description, readingMinutes: guide.readingMinutes }] : []
+    })
+    const reviewed = row.guides.reduce<Date | null>((newest, guide) => (!newest || guide.verifiedAt > newest ? guide.verifiedAt : newest), null)
+    const startText = row.startGuide ? pick(row.startGuide.texts, locale).text : null
+
+    return {
+      slug: row.slug,
+      title: text.title,
+      description: text.description,
+      askPrompt: text.askPrompt,
+      locale: text.locale,
+      translationMissing: missing,
+      goalSlug: row.task.slug,
+      goalTitle: goalText.title,
+      goalAreas: row.task.categories.length,
+      lastReviewed: reviewed ? date(reviewed) : null,
+      start: row.startGuide && startText ? { guideSlug: row.startGuide.slug, title: startText.title, reason: text.startReason } : null,
+      guides,
+      checklist: row.checklist.flatMap((item) => {
+        const { text: line } = pick(item.texts, locale)
+        return line ? [line.label] : []
+      }),
+      related: row.related.flatMap(({ task }) => {
+        const { text: other } = pick(task.texts, locale)
+        return other ? [{ slug: task.slug, title: other.title, subtitle: other.subtitle, open: task.categories.length > 0 }] : []
+      }),
     }
   }
 

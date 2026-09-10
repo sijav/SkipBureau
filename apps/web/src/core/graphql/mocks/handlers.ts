@@ -1,6 +1,6 @@
 import { graphql, HttpResponse } from 'msw'
 import { endpoint } from 'src/core/graphql'
-import { categories, countries, guide, persianNames, questions, taskHub, tasks, untranslatedGuide } from './fixtures'
+import { categories, categoryHub, countries, guide, persianNames, questions, taskHub, tasks, untranslatedGuide } from './fixtures'
 
 /**
  * The network, faked at the network.
@@ -37,9 +37,27 @@ export const handlers = [
     return HttpResponse.json({ data: { country: match ? { ...match, name } : null } })
   }),
 
+  // Getting Settled has one area, so its goal opens that area's hub directly.
+  api.query('CategoryHub', ({ variables }) =>
+    HttpResponse.json({
+      data: { categoryHub: variables['country'] === 'tr' && variables['goal'] === 'getting-settled' && variables['slug'] === 'first-week' ? categoryHub : null },
+    }),
+  ),
+
   // Only the hub the sample content has; any other goal is Coming soon.
   api.query('TaskHub', ({ variables }) =>
-    HttpResponse.json({ data: { taskHub: variables['country'] === 'tr' && variables['slug'] === 'start-a-business' ? taskHub : null } }),
+    HttpResponse.json({
+      data: {
+        taskHub:
+          variables['country'] !== 'tr'
+            ? null
+            : variables['slug'] === 'start-a-business'
+              ? taskHub
+              : variables['slug'] === 'getting-settled'
+                ? { ...taskHub, slug: 'getting-settled', title: 'Getting Settled', heading: null, areas: [{ slug: 'first-week', position: 0, kind: null, title: 'Getting Settled', description: null }], guides: [], sources: [] }
+                : null,
+      },
+    }),
   ),
 
   api.query('Guide', ({ variables }) => {

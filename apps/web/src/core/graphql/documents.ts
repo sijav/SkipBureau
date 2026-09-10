@@ -107,3 +107,38 @@ export const TaskHubQuery = graphql(`
     }
   }
 `)
+
+export const CategoryHubQuery = graphql(`
+  query CategoryHub($country: String!, $goal: String!, $slug: String!, $locale: String) {
+    categoryHub(country: $country, goal: $goal, slug: $slug, locale: $locale) {
+      slug
+      title
+      description
+      askPrompt
+      locale
+      translationMissing
+      goalSlug
+      goalTitle
+      goalAreas
+      lastReviewed
+      start {
+        guideSlug
+        title
+        reason
+      }
+      guides {
+        slug
+        title
+        description
+        readingMinutes
+      }
+      checklist
+      related {
+        slug
+        title
+        subtitle
+        open
+      }
+    }
+  }
+`)

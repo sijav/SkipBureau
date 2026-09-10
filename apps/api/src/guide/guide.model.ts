@@ -186,3 +186,49 @@ export class TaskHubView {
   @Field(() => [HubSourceView], { description: 'The official sources behind those guides, each once.' })
   sources!: readonly HubSourceView[]
 }
+
+@ObjectType()
+export class HubStartView {
+  @Field(() => String) guideSlug!: string
+  @Field(() => String) title!: string
+  @Field(() => String, { nullable: true, description: 'Why this is where to start.' }) reason!: string | null
+}
+
+@ObjectType()
+export class HubSubtopicView {
+  @Field(() => String) slug!: string
+  @Field(() => String) title!: string
+  @Field(() => String, { nullable: true }) description!: string | null
+  @Field(() => Int, { nullable: true }) readingMinutes!: number | null
+}
+
+@ObjectType()
+export class RelatedGoalView {
+  @Field(() => String) slug!: string
+  @Field(() => String) title!: string
+  @Field(() => String, { nullable: true }) subtitle!: string | null
+  @Field(() => Boolean, { description: 'Whether the goal has anything in this country yet.' }) open!: boolean
+}
+
+@ObjectType({ description: 'Figma 133:523: one area of a goal, its guides and a checklist. Its copy may say {country}.' })
+export class CategoryHubView {
+  @Field(() => String) slug!: string
+  @Field(() => String) title!: string
+  @Field(() => String, { nullable: true }) description!: string | null
+  @Field(() => String, { nullable: true }) askPrompt!: string | null
+  @Field(() => String) locale!: string
+  @Field(() => Boolean) translationMissing!: boolean
+  @Field(() => String) goalSlug!: string
+  @Field(() => String) goalTitle!: string
+
+  @Field(() => Int, { description: 'How many areas the goal has in this country. With one, the goal opens this hub directly.' })
+  goalAreas!: number
+
+  @Field(() => String, { nullable: true, description: 'The most recent check of any of its guides.' })
+  lastReviewed!: string | null
+
+  @Field(() => HubStartView, { nullable: true }) start!: HubStartView | null
+  @Field(() => [HubSubtopicView]) guides!: readonly HubSubtopicView[]
+  @Field(() => [String]) checklist!: readonly string[]
+  @Field(() => [RelatedGoalView]) related!: readonly RelatedGoalView[]
+}

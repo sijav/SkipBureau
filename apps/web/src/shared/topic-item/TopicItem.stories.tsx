@@ -61,3 +61,13 @@ export const Focus: Story = {
 // For LOOKING at: synthetic events never apply :hover or :active.
 export const Hover: Story = { tags: ['!test'], parameters: { pseudo: { hover: true } } }
 export const Pressed: Story = { tags: ['!test'], parameters: { pseudo: { active: true } } }
+
+/** Leading nowhere yet: recessed, no arrow, not a link. */
+export const Unavailable: Story = {
+  args: { to: undefined, kind: <Trans>Coming soon</Trans> },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.queryByRole('link')).toBeNull()
+    await expect(await canvas.findByText(/Coming soon/)).toBeVisible()
+  },
+}

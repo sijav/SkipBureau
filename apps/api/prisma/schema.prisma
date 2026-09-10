@@ -181,11 +181,12 @@ model NationalityGroupMember {
 /// permit" is the same intention everywhere, and duplicating it per country
 /// because its children differ is the trap this model exists to avoid.
 model Task {
-  id         String     @id @default(cuid())
-  slug       String     @unique
+  id         String        @id @default(cuid())
+  slug       String        @unique
   position   Int
   texts      TaskText[]
   categories Category[]
+  relatedTo  RelatedTask[]
 }
 
 model TaskText {
@@ -218,17 +219,22 @@ enum CategoryKind {
 }
 
 model Category {
-  id          String         @id @default(cuid())
-  countryCode String         @db.VarChar(2)
-  taskId      String
-  slug        String
-  position    Int
+  id           String          @id @default(cuid())
+  countryCode  String          @db.VarChar(2)
+  taskId       String
+  slug         String
+  position     Int
   /// Null for an ordinary setup step, which carries no label.
-  kind        CategoryKind?
-  country     Country        @relation(fields: [countryCode], references: [code], onDelete: Cascade)
-  task        Task           @relation(fields: [taskId], references: [id], onDelete: Cascade)
-  texts       CategoryText[]
-  guides      Guide[]
+  kind         CategoryKind?
+  /// The category hub's recommended starting point, Figma 133:729.
+  startGuideId String?
+  startGuide   Guide?          @relation("categoryStart", fields: [startGuideId], references: [id], onDelete: SetNull)
+  checklist    ChecklistItem[]
+  related      RelatedTask[]
+  country      Country         @relation(fields: [countryCode], references: [code], onDelete: Cascade)
+  task         Task            @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  texts        CategoryText[]
+  guides       Guide[]
 
   @@unique([countryCode, slug])
   @@index([countryCode, taskId])
@@ -239,6 +245,10 @@ model CategoryText {
   locale      String   @db.VarChar(5)
   title       String
   description String?
+  /// Why the recommended guide is where to start.
+  startReason String?
+  /// The line above the hub's Ask field. May say {country}.
+  askPrompt   String?
   category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   @@id([categoryId, locale])
@@ -265,6 +275,11 @@ model Guide {
   createdAt         DateTime          @default(now())
   country           Country           @relation(fields: [countryCode], references: [code], onDelete: Cascade)
   category          Category?         @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  /// Its place among its category's guides.
+  position          Int               @default(0)
+  /// "4 min read" on a category hub. Editorial, not computed from the text.
+  readingMinutes    Int?
+  startOf           Category[]        @relation("categoryStart")
   texts             GuideText[]
   sections          GuideSection[]
   options           GuideOption[]
@@ -447,4 +462,36 @@ model CountryText {
   country     Country @relation(fields: [countryCode], references: [code], onDelete: Cascade)
 
   @@id([countryCode, locale])
+}
+
+/// A category hub's checklist line, Figma 132:537. Ticking it is a reading aid
+/// and is never stored, so this is only the line.
+model ChecklistItem {
+  id         String              @id @default(cuid())
+  categoryId String
+  position   Int
+  category   Category            @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  texts      ChecklistItemText[]
+
+  @@unique([categoryId, position])
+}
+
+model ChecklistItemText {
+  itemId String
+  locale String        @db.VarChar(5)
+  label  String
+  item   ChecklistItem @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@id([itemId, locale])
+}
+
+/// Goals a category hub points on to, its Related guides, Figma 133:803.
+model RelatedTask {
+  categoryId String
+  taskId     String
+  position   Int
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  task       Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  @@id([categoryId, taskId])
 }

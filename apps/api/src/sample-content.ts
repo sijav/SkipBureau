@@ -100,6 +100,8 @@ type GuideSeed = {
   category: string
   obligation?: string
   verifiedAt?: Date
+  position?: number
+  readingMinutes?: number
   en: GuideText
   fa?: GuideText
   sections: { kind: 'whatYouNeed' | 'howToDoIt' | 'whereToDoIt' | 'importantToKnow'; en: string; fa?: string; steps?: { en: string; fa?: string }[] }[]
@@ -107,7 +109,51 @@ type GuideSeed = {
   sources: { url: string; name: string; publisher?: string }[]
 }
 
-type CategorySeed = { slug: string; task: string; position: number; kind?: Kind | null; en: string; fa: string; enDesc?: string; faDesc?: string }
+type Both = { en: string; fa: string }
+
+type CategorySeed = {
+  slug: string
+  task: string
+  position: number
+  kind?: Kind | null
+  en: string
+  fa: string
+  enDesc?: string
+  faDesc?: string
+  /** A title this sample content used to give it, replaced where it is still exactly that. */
+  was?: Both
+  /** The category hub's recommended guide, by slug, and why to start there. */
+  start?: string
+  startReason?: Both
+  askPrompt?: Both
+  checklist?: Both[]
+  /** Goals it points on to, by slug. */
+  related?: string[]
+}
+
+// Getting Settled's category hub, Figma 133:690.
+const SETTLED_GUIDES: [slug: string, minutes: number, en: string, fa: string, enDesc: string, faDesc: string][] = [
+  ['sim-card', 4, 'Get a SIM Card or eSIM', 'تهیه سیم‌کارت یا eSIM', 'Compare mobile operators and understand what documents you need.', 'اپراتورهای تلفن همراه را مقایسه کنید و بدانید چه مدارکی لازم دارید.'],
+  ['register-your-phone', 3, 'Register Your Foreign Phone / IMEI', 'ثبت گوشی خارجی / IMEI', 'Understand when an imported phone needs to be registered in Turkey.', 'بدانید چه زمانی گوشی واردشده باید در ترکیه ثبت شود.'],
+  ['home-internet', 5, 'Set Up Home Internet', 'راه‌اندازی اینترنت خانگی', 'Check infrastructure, compare providers and understand internet contracts.', 'زیرساخت را بررسی کنید، ارائه‌دهندگان را مقایسه کنید و قراردادهای اینترنت را بشناسید.'],
+  ['utilities', 4, 'Connect Electricity, Water and Gas', 'اتصال برق، آب و گاز', 'Learn how to start or transfer utility subscriptions for your home.', 'یاد بگیرید اشتراک خدمات خانه را چگونه آغاز یا منتقل کنید.'],
+  ['turkish-address', 3, 'Understand Your Turkish Address', 'آشنایی با نشانی ترکیه‌ای', 'Learn how Turkish addresses are structured and where your official address is used.', 'یاد بگیرید نشانی‌های ترکیه چه ساختاری دارند و نشانی رسمی شما کجا به کار می‌رود.'],
+  ['essential-apps', 4, 'Essential Apps and Services', 'برنامه‌ها و خدمات ضروری', 'Find useful apps for transport, banking, delivery and everyday services.', 'برنامه‌های کاربردی برای حمل‌ونقل، بانک، خرید و خدمات روزمره را پیدا کنید.'],
+]
+
+const SETTLED_CHECKLIST: Both[] = [
+  { en: 'Get a SIM Card or eSIM', fa: 'تهیه سیم‌کارت یا eSIM' },
+  { en: 'Check whether your phone needs IMEI registration', fa: 'بررسی اینکه آیا گوشی شما به ثبت IMEI نیاز دارد' },
+  { en: 'Arrange home internet', fa: 'ترتیب دادن اینترنت خانگی' },
+  { en: 'Connect or transfer utility services', fa: 'اتصال یا انتقال خدمات شهری' },
+  { en: 'Confirm your correct Turkish address', fa: 'اطمینان از درستی نشانی ترکیه‌ای خود' },
+  { en: 'Install essential local apps', fa: 'نصب برنامه‌های محلی ضروری' },
+]
+
+// The old sample title of the one Getting Settled category each country has.
+const WAS_FIRST_WEEK = { en: 'Your first week', fa: 'هفته اول شما' }
+
+const CATEGORY_TEXT_FILLS = ['startReason', 'askPrompt'] as const
 
 const HUB_FIELDS = ['heading', 'intro', 'areasIntro', 'dependsNote', 'otherRoutesIntro'] as const
 type HubCopy = Record<(typeof HUB_FIELDS)[number], string>
@@ -127,7 +173,27 @@ const COUNTRIES: CountrySeed[] = [
   {
     code: 'tr',
     categories: [
-      { slug: 'first-week', task: 'getting-settled', position: 0, en: 'Your first week', fa: 'هفته اول شما' },
+      {
+        slug: 'first-week',
+        task: 'getting-settled',
+        position: 0,
+        en: 'Getting Settled',
+        fa: 'استقرار اولیه',
+        enDesc: 'Essential services to help you start everyday life in Turkey.',
+        faDesc: 'خدمات ضروری برای شروع زندگی روزمره در ترکیه.',
+        was: WAS_FIRST_WEEK,
+        start: 'sim-card',
+        startReason: {
+          en: 'Get connected first so you can use banking, transport, delivery and government services more easily.',
+          fa: 'اول به تلفن و اینترنت وصل شوید تا بانک، حمل‌ونقل، خرید اینترنتی و خدمات دولتی را راحت‌تر به کار ببرید.',
+        },
+        askPrompt: {
+          en: 'Ask about getting settled in Turkey and find the most relevant guide.',
+          fa: 'درباره استقرار در ترکیه بپرسید و مرتبط‌ترین راهنما را پیدا کنید.',
+        },
+        checklist: SETTLED_CHECKLIST,
+        related: ['renting-a-home', 'banking-and-money', 'health-and-insurance'],
+      },
       ...BUSINESS.map(([slug, kind, en, fa, enDesc, faDesc], position) => ({ slug, task: 'start-a-business', position, kind, en, fa, enDesc, faDesc })),
     ],
     // Home's Common questions, Figma 60:742.
@@ -191,6 +257,17 @@ const COUNTRIES: CountrySeed[] = [
         ],
         sources: [{ url: 'https://www.nvi.gov.tr/', name: 'Nufus ve Vatandaslik Isleri Genel Mudurlugu' }],
       },
+      ...SETTLED_GUIDES.map(([slug, minutes, en, fa, enDesc, faDesc], index) => ({
+        slug,
+        category: 'first-week',
+        position: index + 1,
+        readingMinutes: minutes,
+        verifiedAt: new Date('2026-09-08'),
+        en: { title: en, description: enDesc },
+        fa: { title: fa, description: faDesc },
+        sections: [],
+        sources: index < 2 ? [{ url: 'https://www.btk.gov.tr/', name: 'Information and Communication Technologies Authority', publisher: 'Republic of Türkiye' }] : [],
+      })),
       ...BUSINESS_GUIDES.map(([slug, category, en, fa, verified]) => ({
         slug,
         category,
@@ -205,7 +282,16 @@ const COUNTRIES: CountrySeed[] = [
   {
     code: 'de',
     categories: [
-      { slug: 'first-week', task: 'getting-settled', position: 0, en: 'Your first week', fa: 'هفته اول شما' },
+      {
+        slug: 'first-week',
+        task: 'getting-settled',
+        position: 0,
+        en: 'Getting Settled',
+        fa: 'استقرار اولیه',
+        enDesc: 'Essential services to help you start everyday life in Germany.',
+        faDesc: 'خدمات ضروری برای شروع زندگی روزمره در آلمان.',
+        was: WAS_FIRST_WEEK,
+      },
     ],
     guides: [
       {
@@ -277,15 +363,27 @@ export const seedContent = async (prisma: PrismaClient): Promise<void> => {
       // Kinds came after the categories did; fill one that is still empty.
       if (row.kind === null && category.kind) await prisma.category.update({ where: { id: row.id }, data: { kind: category.kind } })
 
-      for (const [locale, title, description] of [
-        ['en-US', category.en, category.enDesc ?? null],
-        ['fa-IR', category.fa, category.faDesc ?? null],
+      for (const [locale, title, description, was, extra] of [
+        ['en-US', category.en, category.enDesc ?? null, category.was?.en, { startReason: category.startReason?.en, askPrompt: category.askPrompt?.en }],
+        ['fa-IR', category.fa, category.faDesc ?? null, category.was?.fa, { startReason: category.startReason?.fa, askPrompt: category.askPrompt?.fa }],
       ] as const) {
-        await prisma.categoryText.upsert({
-          where: { categoryId_locale: { categoryId: row.id, locale } },
-          update: {},
-          create: { categoryId: row.id, locale, title, description },
-        })
+        const where = { categoryId_locale: { categoryId: row.id, locale } }
+        const existing = await prisma.categoryText.findUnique({ where })
+        if (!existing) {
+          await prisma.categoryText.create({ data: { categoryId: row.id, locale, title, description, startReason: extra.startReason ?? null, askPrompt: extra.askPrompt ?? null } })
+          continue
+        }
+
+        // Fill-only: a column still empty, and a title still exactly what this
+        // sample content used to give it. Never anything an editor wrote.
+        const data: { title?: string; description?: string; startReason?: string; askPrompt?: string } = {}
+        if (was !== undefined && existing.title === was) data.title = title
+        if (existing.description === null && description !== null) data.description = description
+        for (const field of CATEGORY_TEXT_FILLS) {
+          const value = extra[field]
+          if (existing[field] === null && value) data[field] = value
+        }
+        if (Object.keys(data).length > 0) await prisma.categoryText.update({ where, data })
       }
     }
 
@@ -300,7 +398,14 @@ export const seedContent = async (prisma: PrismaClient): Promise<void> => {
       if (existing) continue
 
       const row = await prisma.guide.create({
-        data: { countryCode: country.code, categoryId: category.id, slug: guide.slug, verifiedAt: guide.verifiedAt ?? VERIFIED },
+        data: {
+          countryCode: country.code,
+          categoryId: category.id,
+          slug: guide.slug,
+          verifiedAt: guide.verifiedAt ?? VERIFIED,
+          position: guide.position ?? 0,
+          readingMinutes: guide.readingMinutes ?? null,
+        },
       })
 
       const texts: [string, GuideSeed['en']][] = [['en-US', guide.en]]
@@ -379,6 +484,44 @@ export const seedContent = async (prisma: PrismaClient): Promise<void> => {
             update: {},
             create: { guideId: row.id, obligationId: obligation.id, position: 0 },
           })
+        }
+      }
+    }
+
+    // After the guides: a category's recommended one, its checklist and the
+    // goals it points on to. Each only where there is none yet.
+    for (const category of country.categories) {
+      const row = await prisma.category.findUniqueOrThrow({
+        where: { countryCode_slug: { countryCode: country.code, slug: category.slug } },
+        include: { checklist: true, related: true },
+      })
+
+      if (category.start && row.startGuideId === null) {
+        const start = await prisma.guide.findUnique({ where: { countryCode_slug: { countryCode: country.code, slug: category.start } } })
+        if (start) await prisma.category.update({ where: { id: row.id }, data: { startGuideId: start.id } })
+      }
+
+      if (category.checklist && row.checklist.length === 0) {
+        for (const [position, line] of category.checklist.entries()) {
+          await prisma.checklistItem.create({
+            data: {
+              categoryId: row.id,
+              position,
+              texts: {
+                create: [
+                  { locale: 'en-US', label: line.en },
+                  { locale: 'fa-IR', label: line.fa },
+                ],
+              },
+            },
+          })
+        }
+      }
+
+      if (category.related && row.related.length === 0) {
+        for (const [position, slug] of category.related.entries()) {
+          const task = await prisma.task.findUnique({ where: { slug } })
+          if (task) await prisma.relatedTask.create({ data: { categoryId: row.id, taskId: task.id, position } })
         }
       }
     }
