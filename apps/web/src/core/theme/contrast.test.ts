@@ -1,6 +1,7 @@
 import { strict as assert } from 'node:assert'
 import { test } from 'vitest'
-import { DECLARED, EXEMPT, contrastRatio } from './contrast'
+import { buttonRoot, buttonVariants } from './button'
+import { DECLARED, EXEMPT, contrastRatio, type Token } from './contrast'
 import { appTheme } from './theme'
 import { dark, light } from './tokens'
 
@@ -8,6 +9,9 @@ const MODES = [
   ['light', light],
   ['dark', dark],
 ] as const
+
+/** What a control with no fill of its own can sit on. */
+const GROUNDS: readonly Token[] = ['background', 'surface']
 
 test('every declared pair meets its contrast target, in both modes', () => {
   const missed: string[] = []
@@ -78,10 +82,47 @@ test('every pair is bound to the slot that paints it', () => {
           assert.equal(palette.text[painted.fore], tokens[fore], `${mode}: ${role} is text.${painted.fore}`)
           break
 
+        case 'button': {
+          const emitted = buttonVariants(tokens).find((entry) => entry.props.variant === painted.variant)
+          assert.ok(emitted, `${mode}: no ${painted.variant} button variant is emitted`)
+          const { style } = emitted
+          const fill =
+            painted.state === 'rest'
+              ? style.backgroundColor
+              : painted.state === 'hover'
+                ? style['@media (hover: hover)']['&:hover'].backgroundColor
+                : style['&:active'].backgroundColor
+
+          // Ghost at rest paints nothing, so its label sits on whatever ground
+          // it is placed on, and the declaration has to name one.
+          if (fill === 'transparent') assert.ok(GROUNDS.includes(back), `${mode}: ${role} has no fill of its own, so it is declared on a ground`)
+          else assert.equal(fill, tokens[back], `${mode}: ${role} is the ${painted.variant} ${painted.state} fill`)
+
+          assert.equal(style.color, tokens[fore], `${mode}: ${role} is the ${painted.variant} label colour`)
+          break
+        }
+
+        case 'focus':
+          assert.equal(buttonRoot(tokens)['&.Mui-focusVisible'].outlineColor, tokens[fore], `${mode}: ${role} is the focus outline colour`)
+          assert.ok(GROUNDS.includes(back), `${mode}: ${role} is measured against a ground`)
+          break
+
         default:
           assertNever(painted)
       }
     }
+  }
+})
+
+/**
+ * The bindings above read button.ts. This proves that is what MUI is actually
+ * given, so the inventory cannot be checked against a table the theme has
+ * stopped using.
+ */
+test('the theme hands MUI exactly the button styles the inventory is checked against', () => {
+  for (const [mode, tokens] of MODES) {
+    const root = appTheme(mode, 'ltr').components?.MuiButton?.styleOverrides?.root
+    assert.deepEqual(root, { ...buttonRoot(tokens), variants: buttonVariants(tokens) }, `${mode}: MuiButton's root styles drifted from button.ts`)
   }
 })
 

@@ -46,8 +46,13 @@ export const light = {
   accent: primitives.mint[700],
   accentSubtle: primitives.mint[100],
   accentSubtleHover: primitives.mint[150],
-  accentHover: primitives.mint[750],
-  accentPressed: primitives.mint[800],
+  // Figma's own variables, restored in SB-035. They had been moved one step
+  // down the ramp to rescue MUI's contained button, which hovered to
+  // accentPressed with ink on it (3.11). Figma's Button never puts text on
+  // accentPressed, it is only the press stroke, so the rescue lost its reason
+  // the day the Button started following the design. DESIGN.md has the history.
+  accentHover: primitives.mint[800],
+  accentPressed: primitives.mint[900],
   accentText: primitives.mint[950],
   textOnAccent: primitives.ink[900],
   success: primitives.mint[700],
@@ -65,8 +70,13 @@ export const light = {
 
   danger: primitives.red[800],
   dangerSubtle: primitives.red[100],
-  dangerHover: primitives.red[900],
-  dangerPressed: primitives.red[950],
+  // Restored to Figma's variables for the same reason. `danger` itself stays
+  // one step down: it is MUI's error.main, which colours error TEXT on light
+  // grounds, and the design's red/700 misses 4.5 there. Figma's Destructive
+  // button rests on dangerHover, never on danger, which is why the two can now
+  // share a value without the button losing a state.
+  dangerHover: primitives.red[800],
+  dangerPressed: primitives.red[900],
   dangerBorder: primitives.red[300],
   dangerText: primitives.red[900],
   dangerDeep: primitives.red[950],
@@ -171,7 +181,9 @@ export const type = {
   body: { size: 16, line: 26, weight: 400, family: fonts.reading },
   bodySmall: { size: 14, line: 22, weight: 400, family: fonts.reading },
   uiText: { size: 14, line: 20, weight: 400, family: fonts.ui },
-  label: { size: 14, line: 20, weight: 600, family: fonts.ui },
+  // Figma's Label style tracks at 0.6 PERCENT, which get_design_context
+  // reports as 0.084px at 14px. In em so it scales with the size.
+  label: { size: 14, line: 20, weight: 600, family: fonts.ui, tracking: '0.006em' },
   labelSmall: { size: 12, line: 16, weight: 600, family: fonts.ui },
   metadata: { size: 11, line: 14, weight: 500, family: fonts.data, uppercase: true },
   monoData: { size: 13, line: 20, weight: 400, family: fonts.data },

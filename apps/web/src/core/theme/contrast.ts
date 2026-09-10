@@ -1,3 +1,4 @@
+import type { ButtonVariant } from './button'
 import type { ColourTokens } from './tokens'
 
 /**
@@ -49,10 +50,11 @@ export type Token = keyof ColourTokens
  * Where MUI paints a pair. Required, and a union, so a declaration cannot
  * decline to say.
  *
- * `palette` is the filled control family, read out of `@mui/material` 9.4's
- * `Button.js`: a contained button takes its background from
+ * `palette` is MUI's filled control family, read out of `@mui/material` 9.4's
+ * `Button.js`: a contained control takes its background from
  * `palette[color].main`, and from `palette[color].dark` inside a
- * `@media (hover: hover)` block. Its ACTIVE state changes the shadow, not the
+ * `@media (hover: hover)` block. OUR Button no longer uses it: since SB-035 it
+ * has its own four variants, and `contained` is removed from its type. Its ACTIVE state changes the shadow, not the
  * fill, so there is no third background. Coloured `Fab` follows the same
  * contract. Filled `Chip` does NOT, it composites its hover. Filled `Alert`
  * does not either: it paints `dark` in dark mode and takes its text from
@@ -77,6 +79,12 @@ export type Token = keyof ColourTokens
 export type Painted =
   | { by: 'palette'; entry: 'primary' | 'error' | 'warning' | 'success'; fill: 'main' | 'dark' }
   | { by: 'text'; fore: 'primary' | 'secondary'; back: 'default' | 'paper' }
+  // `button` is the style button.ts emits for one variant in one state. A
+  // variant with no fill of its own, Ghost at rest, is declared on a GROUND,
+  // because the ground is what its label sits on.
+  | { by: 'button'; variant: ButtonVariant; state: 'rest' | 'hover' | 'pressed' }
+  // `focus` is the keyboard focus outline every button carries, against a ground.
+  | { by: 'focus' }
 
 export type Declared = {
   /** What a reader is actually looking at. Reads as a sentence in a failure. */
@@ -101,17 +109,39 @@ export const DECLARED: readonly Declared[] = [
   { role: 'secondary text on the page', fore: 'textSecondary', back: 'background', target: 4.5, painted: { by: 'text', fore: 'secondary', back: 'default' } },
   { role: 'secondary text on a card', fore: 'textSecondary', back: 'surface', target: 4.5, painted: { by: 'text', fore: 'secondary', back: 'paper' } },
 
-  { role: 'a primary button label', fore: 'textOnAccent', back: 'accent', target: 4.5, painted: { by: 'palette', entry: 'primary', fill: 'main' } },
-  { role: 'a primary button label, hovered', fore: 'textOnAccent', back: 'accentPressed', target: 4.5, painted: { by: 'palette', entry: 'primary', fill: 'dark' } },
+  { role: 'a label on a primary fill', fore: 'textOnAccent', back: 'accent', target: 4.5, painted: { by: 'palette', entry: 'primary', fill: 'main' } },
+  { role: 'a label on a primary fill, hovered', fore: 'textOnAccent', back: 'accentHover', target: 4.5, painted: { by: 'palette', entry: 'primary', fill: 'dark' } },
 
   { role: 'a label on a success fill', fore: 'textOnAccent', back: 'success', target: 4.5, painted: { by: 'palette', entry: 'success', fill: 'main' } },
-  { role: 'a label on a success fill, hovered', fore: 'textOnAccent', back: 'accentPressed', target: 4.5, painted: { by: 'palette', entry: 'success', fill: 'dark' } },
+  { role: 'a label on a success fill, hovered', fore: 'textOnAccent', back: 'accentHover', target: 4.5, painted: { by: 'palette', entry: 'success', fill: 'dark' } },
 
-  { role: 'a destructive button label', fore: 'textOnDanger', back: 'danger', target: 4.5, painted: { by: 'palette', entry: 'error', fill: 'main' } },
-  { role: 'a destructive button label, hovered', fore: 'textOnDanger', back: 'dangerPressed', target: 4.5, painted: { by: 'palette', entry: 'error', fill: 'dark' } },
+  { role: 'a label on a danger fill', fore: 'textOnDanger', back: 'danger', target: 4.5, painted: { by: 'palette', entry: 'error', fill: 'main' } },
+  { role: 'a label on a danger fill, hovered', fore: 'textOnDanger', back: 'dangerPressed', target: 4.5, painted: { by: 'palette', entry: 'error', fill: 'dark' } },
 
   { role: 'a label on a warning fill', fore: 'textOnWarning', back: 'warning', target: 4.5, painted: { by: 'palette', entry: 'warning', fill: 'main' } },
   { role: 'a label on a warning fill, hovered', fore: 'textOnWarning', back: 'warningPressed', target: 4.5, painted: { by: 'palette', entry: 'warning', fill: 'dark' } },
+
+  // Figma 11:44, every style in every state a pointer can put it in.
+  { role: 'a primary button label', fore: 'textOnAccent', back: 'accent', target: 4.5, painted: { by: 'button', variant: 'primary', state: 'rest' } },
+  { role: 'a primary button label, hovered', fore: 'textOnAccent', back: 'accentHover', target: 4.5, painted: { by: 'button', variant: 'primary', state: 'hover' } },
+  { role: 'a primary button label, pressed', fore: 'textOnAccent', back: 'accentHover', target: 4.5, painted: { by: 'button', variant: 'primary', state: 'pressed' } },
+
+  { role: 'a secondary button label', fore: 'textPrimary', back: 'surface', target: 4.5, painted: { by: 'button', variant: 'secondary', state: 'rest' } },
+  { role: 'a secondary button label, hovered', fore: 'textPrimary', back: 'surfaceSubtle', target: 4.5, painted: { by: 'button', variant: 'secondary', state: 'hover' } },
+  { role: 'a secondary button label, pressed', fore: 'textPrimary', back: 'surfaceSubtle', target: 4.5, painted: { by: 'button', variant: 'secondary', state: 'pressed' } },
+
+  { role: 'a ghost button label on the page', fore: 'accentText', back: 'background', target: 4.5, painted: { by: 'button', variant: 'ghost', state: 'rest' } },
+  { role: 'a ghost button label on a card', fore: 'accentText', back: 'surface', target: 4.5, painted: { by: 'button', variant: 'ghost', state: 'rest' } },
+  { role: 'a ghost button label, hovered', fore: 'accentText', back: 'accentSubtle', target: 4.5, painted: { by: 'button', variant: 'ghost', state: 'hover' } },
+  { role: 'a ghost button label, pressed', fore: 'accentText', back: 'accentSubtleHover', target: 4.5, painted: { by: 'button', variant: 'ghost', state: 'pressed' } },
+
+  { role: 'a destructive button label', fore: 'textOnDanger', back: 'dangerHover', target: 4.5, painted: { by: 'button', variant: 'destructive', state: 'rest' } },
+  { role: 'a destructive button label, hovered', fore: 'textOnDanger', back: 'dangerPressed', target: 4.5, painted: { by: 'button', variant: 'destructive', state: 'hover' } },
+  { role: 'a destructive button label, pressed', fore: 'textOnDanger', back: 'dangerDeep', target: 4.5, painted: { by: 'button', variant: 'destructive', state: 'pressed' } },
+
+  // Non-text, so 3:1, against the ground it meets at its outer edge.
+  { role: 'a focused button outline on the page', fore: 'accentText', back: 'background', target: 3, painted: { by: 'focus' } },
+  { role: 'a focused button outline on a card', fore: 'accentText', back: 'surface', target: 3, painted: { by: 'focus' } },
 ]
 
 /**
@@ -133,14 +163,14 @@ export const EXEMPT: readonly { pair: string; because: string }[] = [
       'They are fills that carry text on top, never a standalone indicator. The thing that must be seen on its own, the focus ring, is accentText, which measures 6.11. This is already recorded in DESIGN.md and was the reason accentText exists.',
   },
   {
-    pair: 'accentHover, warningHover and dangerHover against anything',
+    pair: 'warningHover against anything',
     because:
-      'No component paints them. MUI takes a contained fill from main and its hover from dark, which are the pressed tokens, so these three are mapped nowhere. They stay because they are real values in the Figma table and the design means them as a third step; they are not measured until something renders one.',
+      'No component paints it. accentHover and dangerHover used to be listed here too, and since SB-035 the Button paints both, because Figma 11:44 hovers Primary to accentHover and rests Destructive on dangerHover; they are declared above. warningHover waits for a warning control that hovers.',
   },
   {
-    pair: 'accentText on the page, on a card, and inside an accent tag',
+    pair: 'accentText inside an accent tag',
     because:
-      'Reached only through theme.tokens, and no ordinary component consumes theme.tokens: its one consumer today is the token swatch story. They were declared with a tokens binding until SB-121, and that binding proved a token equals itself, because both sides come from tokens.ts. They pass at 6.11, 6.41 and 5.66, and they get a real binding when a link or a focus ring actually paints one.',
+      'No tag exists yet. accentText on the page and on a card were listed here until SB-035, when the ghost button label and the focus outline started painting them; both are declared above with a button binding. The tag half gets its binding when the tag is built.',
   },
   {
     pair: 'text inside a warning notice, and inside a danger notice',
@@ -148,18 +178,23 @@ export const EXEMPT: readonly { pair: string; because: string }[] = [
       'Same reason: theme.tokens only, and there is no notice component yet. A filled MUI Alert would NOT be this pair anyway, because it takes its text from getContrastText(main) rather than from a token we chose, which is a mismatch to declare deliberately when an Alert is first used.',
   },
   {
-    pair: 'anything on surfaceSubtle',
+    pair: 'surfaceSubtle under anything but a secondary button',
     because:
-      'surfaceSubtle has no MUI palette slot and no call site, so there is no paint path to bind it to and a declaration would have to invent one. It measures 14.39 and 5.17 against the two text tokens, so nothing is being hidden by leaving it here.',
+      'The secondary button hovers and presses to it, which is declared above. The disabled button fill is surfaceSubtle too, under textTertiary, which WCAG 1.4.3 exempts as an inactive control. Nothing else paints it yet.',
   },
   {
-    pair: 'the outlined and text button variants',
+    pair: "MUI's contained, outlined and text button variants",
     because:
-      'Both composite alpha(main, opacity) over whatever sits behind them, so their contrast is not two token lookups and cannot be declared without knowing every backing surface. Nothing uses either variant yet. When something does, declare the finite set of surfaces it may sit on and measure the composited result.',
+      'Removed from the Button type in SB-035, so no call site can render one. The design has four styles by meaning, and those are declared above. Outlined and text also composited alpha(main, opacity) over their background, which is why they could never be two token lookups.',
   },
   {
     pair: 'borderStrong, warningBorder and dangerBorder against their grounds',
     because:
-      'WCAG 1.4.11 asks 3:1 of a boundary only where the boundary is what identifies the control or carries the information. No component consumes these yet, so which of those they are is not yet a fact. Classify each when something renders it, rather than guessing now and encoding the guess as a target.',
+      "WCAG 1.4.11 asks 3:1 of a boundary only where the boundary is what identifies the control. borderStrong is now rendered, as the secondary button's stroke, and it is not that: a button with a text label is identified by its label, which Understanding 1.4.11 says in terms, so the stroke is decoration and is not held to 3:1. warningBorder and dangerBorder are still unrendered; classify each when something draws it.",
+  },
+  {
+    pair: "the focus outline against a button's own fill",
+    because:
+      'The outline is drawn inside the button, as Figma draws its 2px focus stroke, so its inner edge meets the fill: accentText on accent measures 2.47 in light. Its outer edge meets the page, which is the adjacency 1.4.11 asks about, and that is declared above at 3:1. The stricter same-pixel change of 2.4.13 is AAA, and moving the outline outward would change the design, so that is a decision for the owner, not a quiet fix.',
   },
 ]

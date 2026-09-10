@@ -16,3 +16,38 @@ declare module '@mui/material/styles' {
     layout?: typeof layout
   }
 }
+
+/**
+ * The design's four button styles, by meaning, and nothing else.
+ *
+ * `text`, `outlined` and `contained` are removed so a call site cannot reach a
+ * look the design never drew. `color` and `size` are removed because they do
+ * nothing to these variants: MUI's colour and size rules only match its own
+ * variant names, so `color="error"` would compile and silently stay green. The
+ * design also says one size only in v1.
+ */
+declare module '@mui/material/Button' {
+  interface ButtonPropsVariantOverrides {
+    primary: true
+    secondary: true
+    ghost: true
+    destructive: true
+    text: false
+    outlined: false
+    contained: false
+  }
+  interface ButtonPropsColorOverrides {
+    inherit: false
+    primary: false
+    secondary: false
+    success: false
+    error: false
+    info: false
+    warning: false
+  }
+  interface ButtonPropsSizeOverrides {
+    small: false
+    medium: false
+    large: false
+  }
+}

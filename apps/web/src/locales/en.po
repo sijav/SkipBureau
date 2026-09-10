@@ -37,6 +37,10 @@ msgstr "SkipBureau could not load this"
 msgid "Something on our side did not answer. The page exists, we just could not reach it. Trying again usually works."
 msgstr "Something on our side did not answer. The page exists, we just could not reach it. Trying again usually works."
 
+#: src/shared/button/Button.stories.tsx
+msgid "Start this process"
+msgstr "Start this process"
+
 #: src/screens/NotFound.tsx
 msgid "The address may be mistyped, or it may point at a country or a guide SkipBureau does not cover yet."
 msgstr "The address may be mistyped, or it may point at a country or a guide SkipBureau does not cover yet."

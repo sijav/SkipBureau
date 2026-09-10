@@ -35,7 +35,7 @@ export const Unreachable = ({ onRetry }: UnreachableProps) => (
             works.
           </Trans>
         </Typography>
-        <Button variant="contained" onClick={onRetry}>
+        <Button variant="primary" onClick={onRetry}>
           <Trans>Try again</Trans>
         </Button>
       </Stack>

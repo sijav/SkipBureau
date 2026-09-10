@@ -2,7 +2,12 @@ import type { StorybookConfig } from '@storybook/react-vite'
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(ts|tsx)'],
-  addons: ['@storybook/addon-docs', '@storybook/addon-a11y', '@storybook/addon-vitest'],
+  // pseudo-states renders :hover, :active and :focus-visible as classes, so a
+  // story can hold a button in its pressed state. storybook/test's userEvent
+  // cannot: it dispatches synthetic events, and a planted probe showed neither
+  // :hover nor :active applies from those, so a "Hover" story built on it
+  // would have axe checking the resting colours.
+  addons: ['@storybook/addon-docs', '@storybook/addon-a11y', '@storybook/addon-vitest', 'storybook-addon-pseudo-states'],
   framework: { name: '@storybook/react-vite', options: {} },
 
   // Explicit, not inherited. The Vite builder may copy `public/` on its own,

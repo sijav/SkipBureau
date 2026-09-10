@@ -37,6 +37,10 @@ msgstr "SkipBureau نتوانست این را بارگذاری کند"
 msgid "Something on our side did not answer. The page exists, we just could not reach it. Trying again usually works."
 msgstr "چیزی در سمت ما پاسخ نداد. صفحه وجود دارد، فقط نتوانستیم به آن برسیم. معمولا تلاش دوباره جواب می‌دهد."
 
+#: src/shared/button/Button.stories.tsx
+msgid "Start this process"
+msgstr "این فرایند را شروع کنید"
+
 #: src/screens/NotFound.tsx
 msgid "The address may be mistyped, or it may point at a country or a guide SkipBureau does not cover yet."
 msgstr "ممکن است نشانی اشتباه تایپ شده باشد، یا به کشور یا راهنمایی اشاره کند که SkipBureau هنوز پوشش نمی‌دهد."

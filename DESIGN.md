@@ -296,18 +296,53 @@ is not the same as measured.
 |---|---|---|---|
 | `text-on-warning` | did not exist | `#1D2421` ink/900 | The theme was handing MUI `warning-text` as the label colour for an amber fill. That is `2.82:1` in light and `1.19:1` in dark. `warning-text` is for text on the SUBTLE fill, where it measures `5.12`, and the two are not interchangeable. |
 | `danger` | `#E05252` red/700 | `#C94343` red/800 | White on red/700 is `3.82:1`. One step down the ramp and it is `4.81`, and the indicator against the page improves at the same time. |
-| `danger-hover` | `#C94343` red/800 | `#AE3636` red/900 | Follows `danger` down so the states stay in order. |
-| `danger-pressed` | `#AE3636` red/900 | `#8E2A2A` red/950 | The same. |
-| `accent-hover` | `#329C76` mint/800 | `#38A67F` mint/750 | Moved with `accent-pressed` below, to keep the design's three distinct steps intact. **Nothing renders it yet**, so it is exempt from measurement: MUI paints a contained hover from `palette.primary.dark`, which is `accent-pressed`. An earlier version of this row claimed a rendered three step sequence of `6.10`, `5.22`, `4.64`, and that was wrong. |
-| `accent-pressed` | `#277C5E` mint/900 | `#329C76` mint/800 | **This is the fill a reader's cursor actually produces**, because MUI takes a contained button's hover from `palette.primary.dark`. Ink on mint/900 is `3.11:1`. At mint/800 it is `4.64`. So the rendered sequence is `6.10` then `4.64`, two states, not three. |
+| `danger-hover` | `#C94343` red/800 | `#C94343` red/800, **restored** | Was moved to red/900 to follow `danger` down. Restored in SB-035: see below. |
+| `danger-pressed` | `#AE3636` red/900 | `#AE3636` red/900, **restored** | The same. |
+| `accent-hover` | `#329C76` mint/800 | `#329C76` mint/800, **restored** | Was moved to mint/750 alongside `accent-pressed`. Restored in SB-035. |
+| `accent-pressed` | `#277C5E` mint/900 | `#277C5E` mint/900, **restored** | Was moved to mint/800 because MUI's contained button hovered to `palette.primary.dark`, which was `accent-pressed`, putting ink on mint/900 at `3.11:1`. Restored in SB-035. |
 | `text-on-danger`, dark only | `#FFFFFF` | `#1D2421` ink/900 | Dark lightens the semantic fills, so white on them is the wrong way round: `3.05:1` on the dark danger fill. Ink is what dark already does for `text-on-accent`, for exactly this reason. |
 | `danger-pressed`, dark only | derived `#E05252` | `#E86262` | With ink as the label, the darkest red in the dark ramp measured `4.14`. Lifted until it clears, keeping it darker than the base fill. |
+
+**The four restorations, 2026-09-10 (SB-035).** Every one of those four
+moves rescued the same thing: MUI's contained button, which painted its hover
+from `palette.primary.dark` and its error fill from `palette.error.main`. The
+Button now follows Figma 11:44 exactly, and the design never puts a label where
+those rescues were aimed. Primary rests on `accent` (ink at `6.10`) and hovers
+and presses to `accent-hover` (`4.64`); `accent-pressed` is only the press
+STROKE. Destructive rests on `danger-hover` (white at `4.81`), hovers to
+`danger-pressed` and presses to `danger-deep`, so it never puts white on
+`danger` at all. With those paint paths the design's own values clear every
+target, so the departures had no reason left, and keeping them made the Button
+render one step darker than Figma on hover and press. `danger` keeps its move,
+because it is MUI's `error.main`, which colours error TEXT on light grounds.
+`palette.primary.dark` and `success.dark` now point at `accent-hover`, since
+MUI's `dark` slot is a filled control's hover.
+
+**Button, node 11:44**, read with `get_design_context`, one size only:
+
+| | value | note |
+|---|---|---|
+| height | 40 | every style and state, including focus |
+| padding | 10 vertical, 16 horizontal | 10 is off the 8px scale; it is the Button's own value |
+| radius | `radius-sm`, 4 | |
+| label | Archivo SemiBold 14/20, tracking 0.6% | 0.6 PERCENT, 0.084px at 14px, not 0.6px |
+| strokes | inside the frame | a 1px border on every style, transparent where there is none, and 9/15 padding |
+| focus | 2px `accent-text`, inside | an outline offset inward, so focusing moves nothing |
+
+| style | label | rest | hover | pressed | disabled |
+|---|---|---|---|---|---|
+| Primary | `text-on-accent` | `accent` | `accent-hover` | `accent-hover` + `accent-pressed` stroke | `surface-subtle`, `text-tertiary` |
+| Secondary | `text-primary` | `surface` + `border-strong` stroke | `surface-subtle` | `surface-subtle` + `text-secondary` stroke | `surface-subtle` + `border` stroke, `text-tertiary` |
+| Ghost | `accent-text` | none | `accent-subtle` | `accent-subtle-hover` | none, `text-tertiary` |
+| Destructive | `text-on-danger` | `danger-hover` | `danger-pressed` | `danger-deep` | `surface-subtle`, `text-tertiary` |
 
 Three pairs are deliberately NOT measured, and `contrast.ts` records why in
 code so the reasons travel with the values: `text-tertiary`, which is the
 theme's disabled text and so outside 1.4.3; `accent`, `success` and `warning`
 against the page, which are fills carrying text rather than standalone
-indicators; and the three border tokens, which no component consumes yet, so
+indicators; and the three border tokens, of which only `border-strong` is rendered, as
+the secondary button's stroke, and a labelled button is identified by its
+label rather than its stroke; the other two no component consumes yet, so
 whether 1.4.11 applies to them is not yet a fact to encode.
 
 ## Typography

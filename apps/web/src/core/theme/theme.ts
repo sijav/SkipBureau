@@ -1,4 +1,5 @@
 import { createTheme, type Theme } from '@mui/material'
+import { buttonRoot, buttonVariants } from './button'
 import { dark, layout, light, radius, spacing, type } from './tokens'
 
 export type Mode = 'light' | 'dark'
@@ -17,6 +18,7 @@ const face = (style: (typeof type)[keyof typeof type]) => ({
   lineHeight: `${style.line}px`,
   fontWeight: style.weight,
   ...('uppercase' in style && style.uppercase ? { textTransform: 'uppercase' as const, letterSpacing: '0.06em' } : {}),
+  ...('tracking' in style ? { letterSpacing: style.tracking } : {}),
 })
 
 /**
@@ -47,10 +49,13 @@ export const appTheme = (mode: Mode, direction: Direction): Theme => {
       background: { default: tokens.background, paper: tokens.surface },
       text: { primary: tokens.textPrimary, secondary: tokens.textSecondary, disabled: tokens.textTertiary },
       divider: tokens.border,
+      // MUI paints a filled control's HOVER from `dark`, so `dark` is the
+      // design's hover step, accentHover, not accentPressed: the design only
+      // ever uses accentPressed as a stroke.
       primary: {
         main: tokens.accent,
         light: tokens.accentSubtle,
-        dark: tokens.accentPressed,
+        dark: tokens.accentHover,
         contrastText: tokens.textOnAccent,
       },
       // `textOnWarning`, NOT `warningText`. The latter is for text on the SUBTLE
@@ -64,7 +69,7 @@ export const appTheme = (mode: Mode, direction: Direction): Theme => {
       success: {
         main: tokens.success,
         light: tokens.accentSubtle,
-        dark: tokens.accentPressed,
+        dark: tokens.accentHover,
         contrastText: tokens.textOnAccent,
       },
     },
@@ -82,9 +87,14 @@ export const appTheme = (mode: Mode, direction: Direction): Theme => {
       overline: face(type.labelSmall),
     },
     components: {
-      // The design has no pill radius and says why. A button that rounds itself
-      // would reintroduce it one component at a time.
-      MuiButton: { styleOverrides: { root: { borderRadius: radius.sm } }, defaultProps: { disableElevation: true } },
+      // The four styles of Figma 11:44, from button.ts. Secondary is the default
+      // because it is the one that claims nothing: Primary is "the one action
+      // this screen exists for", so it should always be asked for by name. No
+      // ripple, because the design marks a press with a fill, not a splash.
+      MuiButton: {
+        defaultProps: { variant: 'secondary', disableRipple: true },
+        styleOverrides: { root: { ...buttonRoot(tokens), variants: buttonVariants(tokens) } },
+      },
       MuiPaper: { defaultProps: { elevation: 0 }, styleOverrides: { root: { backgroundImage: 'none' } } },
     },
   })
