@@ -199,3 +199,26 @@ broke, because IBM Plex Mono has no Persian letters and the browser fell through
 to a monospaced Arabic face. `face()` now sets every mono style in the UI stack
 in Persian and tracks nothing in Persian. The story asserts both treatments in
 their own combinations. No test had caught it: axe does not judge letterforms.
+
+## Text input (4 of 8)
+
+**Axe found a real problem in the design, and it was precise about it.** The
+disabled field's helper is `text-tertiary` at 3.34 on the light page. Axe
+skipped the disabled label and value, which WCAG exempts, and failed only the
+helper, which is not part of the inactive control: it is the line that says how
+to enable the field. It takes the ordinary helper colour; DESIGN.md records it
+as a measured departure. Planted a regression, the error text reverted to
+MUI's red `danger`, and both the contrast binding and axe failed it at 3.64.
+
+**The boundary is recorded as a judgment, not claimed as a pass.** The field's
+stroke is 1.54 on the page and its fill 1.05, so the stroke is what locates a
+filled field, under the 3:1 of 1.4.11. Changing how every input looks is the
+owner's decision, so it is asked, not done.
+
+**The composition follows the plan roast's warning.** The states live on
+OutlinedInput, FormLabel and FormHelperText, not TextField, and the label sits
+above the field because MUI's outlined TextField would float it into a notch.
+MUI's own defaults were overridden where the design disagrees: it thickens a
+focused outline to 2px, turns the label primary on focus and red on error,
+fades the placeholder, and paints disabled text through
+-webkit-text-fill-color.

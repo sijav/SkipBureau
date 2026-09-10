@@ -1,6 +1,7 @@
 import { strict as assert } from 'node:assert'
 import { test } from 'vitest'
 import { buttonRoot, buttonVariants } from './button'
+import { formHelperTextOverrides, formLabelOverrides, outlinedInputOverrides } from './input'
 import { PANEL_PAINT, panelStyle } from './panel'
 import { TAG_PAINT, tagStyle } from './tag'
 import { DECLARED, EXEMPT, contrastRatio, type Token } from './contrast'
@@ -113,6 +114,50 @@ test('every pair is bound to the slot that paints it', () => {
           const style = tagStyle(tokens, TAG_PAINT[painted.status])
           assert.equal(style.backgroundColor, tokens[back], `${mode}: ${role} is the ${painted.status} fill`)
           assert.equal(style.color, tokens[fore], `${mode}: ${role} is the ${painted.status} label colour`)
+          break
+        }
+
+        case 'field': {
+          // The overrides as the theme builds them; typography does not change a colour.
+          const field = outlinedInputOverrides(tokens, {})
+          const label = formLabelOverrides(tokens, {})
+          const helper = formHelperTextOverrides(tokens, {})
+          const onPage = () => assert.ok(GROUNDS.includes(back), `${mode}: ${role} sits on the page, so it is declared on a ground`)
+          // Destructured so the exhaustive default narrows the part, not the whole binding.
+          const { part } = painted
+
+          switch (part) {
+            case 'label':
+              assert.equal(label.root.color, tokens[fore], `${mode}: ${role} colour`)
+              onPage()
+              break
+            case 'value':
+              assert.equal(field.root.color, tokens[fore], `${mode}: ${role} colour`)
+              assert.equal(field.root.backgroundColor, tokens[back], `${mode}: ${role} sits on the field fill`)
+              break
+            case 'placeholder':
+              assert.equal(field.input['&::placeholder'].color, tokens[fore], `${mode}: ${role} colour`)
+              assert.equal(field.root.backgroundColor, tokens[back], `${mode}: ${role} sits on the field fill`)
+              break
+            case 'helper':
+              assert.equal(helper.root.color, tokens[fore], `${mode}: ${role} colour`)
+              onPage()
+              break
+            case 'error':
+              assert.equal(helper.root['&.Mui-error'].color, tokens[fore], `${mode}: ${role} colour`)
+              onPage()
+              break
+            case 'disabledHelper':
+              assert.equal(helper.root['&.Mui-disabled'].color, tokens[fore], `${mode}: ${role} colour`)
+              onPage()
+              break
+            case 'focusRing':
+              assert.ok(field.root['&.Mui-focused'].boxShadow.startsWith(`0 0 0 4px ${tokens[fore]}`), `${mode}: ${role} is the outer ring`)
+              onPage()
+              break
+            default:
+              assertNever(part)
+          }
           break
         }
 

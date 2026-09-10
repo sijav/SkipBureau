@@ -29,6 +29,14 @@ msgstr "درخواست اقامت دانشجویی باید ظرف یک ماه �
 msgid "Appointment slots in Istanbul are usually released early in the morning and taken within the hour. Applicants report better luck checking daily than waiting for a convenient date."
 msgstr "نوبت‌های استانبول معمولاً صبح زود باز می‌شوند و در کمتر از یک ساعت پر می‌شوند. متقاضیان می‌گویند سر زدن هر روزه بهتر از منتظر ماندن برای تاریخی مناسب جواب می‌دهد."
 
+#: src/shared/text-input/TextInput.stories.tsx
+msgid "As written in your passport, no spaces"
+msgstr "همان‌طور که در گذرنامه نوشته شده، بدون فاصله"
+
+#: src/shared/text-input/TextInput.stories.tsx
+msgid "Available once you confirm your nationality"
+msgstr "پس از تأیید ملیت شما در دسترس است"
+
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Blocked"
 msgstr "مسدود"
@@ -81,6 +89,10 @@ msgstr "رسمی"
 msgid "Official information"
 msgstr "اطلاعات رسمی"
 
+#: src/shared/text-input/TextInput.stories.tsx
+msgid "Passport number"
+msgstr "شمارهٔ گذرنامه"
+
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Practical advice"
 msgstr "توصیهٔ عملی"
@@ -88,6 +100,10 @@ msgstr "توصیهٔ عملی"
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Presidency of Migration Management · verified August 2026"
 msgstr "ریاست مدیریت مهاجرت · تأییدشده در اوت ۲۰۲۶"
+
+#: src/shared/text-input/TextInput.stories.tsx
+msgid "Remove the dash, this field takes letters and numbers only"
+msgstr "خط تیره را حذف کنید، این فیلد فقط حرف و عدد می‌پذیرد"
 
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Scam risk"

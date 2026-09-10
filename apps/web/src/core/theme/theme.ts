@@ -1,5 +1,6 @@
 import { createTheme, type Theme } from '@mui/material'
 import { buttonRoot, buttonVariants } from './button'
+import { formHelperTextOverrides, formLabelOverrides, outlinedInputOverrides } from './input'
 import { dark, fonts, layout, light, radius, spacing, type } from './tokens'
 
 export type Mode = 'light' | 'dark'
@@ -116,6 +117,11 @@ export const appTheme = (mode: Mode, direction: Direction): Theme => {
       MuiPaper: { defaultProps: { elevation: 0 }, styleOverrides: { root: { backgroundImage: 'none' } } },
       // A custom variant has no element of its own; a source line is a paragraph.
       MuiTypography: { defaultProps: { variantMapping: { monoData: 'p' } } },
+      // The text input of Figma 16:32, composed from these three because the
+      // design's label sits above the field, not in MUI's notch. input.ts.
+      MuiOutlinedInput: { styleOverrides: outlinedInputOverrides(tokens, face(type.uiText)) },
+      MuiFormLabel: { styleOverrides: formLabelOverrides(tokens, face(type.label)) },
+      MuiFormHelperText: { styleOverrides: formHelperTextOverrides(tokens, face(type.bodySmall)) },
     },
   })
 }

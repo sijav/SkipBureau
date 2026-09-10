@@ -300,6 +300,7 @@ is not the same as measured.
 | `danger-pressed` | `#AE3636` red/900 | `#AE3636` red/900, **restored** | The same. |
 | `accent-hover` | `#329C76` mint/800 | `#329C76` mint/800, **restored** | Was moved to mint/750 alongside `accent-pressed`. Restored in SB-035. |
 | `accent-pressed` | `#277C5E` mint/900 | `#277C5E` mint/900, **restored** | Was moved to mint/800 because MUI's contained button hovered to `palette.primary.dark`, which was `accent-pressed`, putting ink on mint/900 at `3.11:1`. Restored in SB-035. |
+| a disabled input's helper | `text-tertiary` | `text-secondary` | SB-035. `3.34:1` on the light page, and axe failed it. The disabled field's label and value are exempt as parts of an inactive control; this line is not, because it tells the reader how to enable the field. The ordinary helper colour is the smallest move that clears 4.5. |
 | `text-on-danger`, dark only | `#FFFFFF` | `#1D2421` ink/900 | Dark lightens the semantic fills, so white on them is the wrong way round: `3.05:1` on the dark danger fill. Ink is what dark already does for `text-on-accent`, for exactly this reason. |
 | `danger-pressed`, dark only | derived `#E05252` | `#E86262` | With ink as the label, the darkest red in the dark ramp measured `4.14`. Lifted until it clears, keeping it darker than the base fill. |
 
@@ -382,6 +383,31 @@ a `note`, not MUI's Alert, whose `role="alert"` is announced on render:
 | coverage gap | `text-secondary` | `surface-subtle` | `border-strong`, dashed |
 
 Body is `text-primary` and the source line `text-secondary` in every kind.
+
+**Text input, node 16:32**, composed from FormControl, FormLabel,
+OutlinedInput and FormHelperText, because the label sits ABOVE the field:
+
+| | value | note |
+|---|---|---|
+| label | Archivo SemiBold 14/20, `text-primary` | stays `text-primary` on focus and error, where MUI would recolour it |
+| gap | 8 | label to field, field to helper |
+| field | 40 high, value inset 10/16, radius 4 | the stroke is inside, as MUI's fieldset outline already is |
+| value | Archivo 14/20, `text-primary` | placeholder `text-secondary`, opaque, not MUI's faded currentColor |
+| helper | Source Serif 4 14/22, `text-secondary` | the error REPLACES it, in `danger-text` |
+| focus | 1px `accent` stroke and a 4px `accent-text` ring | MUI would thicken the stroke to 2px |
+
+| state | fill | stroke |
+|---|---|---|
+| rest, filled | `surface` | `border-strong` |
+| hover | `surface` | `text-secondary` |
+| focus | `surface` | `accent` |
+| error | `surface` | `danger` |
+| disabled | `surface-subtle` | `border` |
+
+**An open question for the owner:** the rest stroke, `border-strong`, measures
+`1.54:1` against the page, and the field's white fill is `1.05`, so the stroke is
+what shows where a filled field is. WCAG 1.4.11 asks 3:1 of such a boundary. It
+is the design's own value and stays as drawn until the owner decides.
 
 Three pairs are deliberately NOT measured, and `contrast.ts` records why in
 code so the reasons travel with the values: `text-tertiary`, which is the

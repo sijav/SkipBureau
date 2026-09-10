@@ -29,6 +29,14 @@ msgstr "A student residence permit application must be submitted within one mont
 msgid "Appointment slots in Istanbul are usually released early in the morning and taken within the hour. Applicants report better luck checking daily than waiting for a convenient date."
 msgstr "Appointment slots in Istanbul are usually released early in the morning and taken within the hour. Applicants report better luck checking daily than waiting for a convenient date."
 
+#: src/shared/text-input/TextInput.stories.tsx
+msgid "As written in your passport, no spaces"
+msgstr "As written in your passport, no spaces"
+
+#: src/shared/text-input/TextInput.stories.tsx
+msgid "Available once you confirm your nationality"
+msgstr "Available once you confirm your nationality"
+
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Blocked"
 msgstr "Blocked"
@@ -81,6 +89,10 @@ msgstr "Official"
 msgid "Official information"
 msgstr "Official information"
 
+#: src/shared/text-input/TextInput.stories.tsx
+msgid "Passport number"
+msgstr "Passport number"
+
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Practical advice"
 msgstr "Practical advice"
@@ -88,6 +100,10 @@ msgstr "Practical advice"
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Presidency of Migration Management · verified August 2026"
 msgstr "Presidency of Migration Management · verified August 2026"
+
+#: src/shared/text-input/TextInput.stories.tsx
+msgid "Remove the dash, this field takes letters and numbers only"
+msgstr "Remove the dash, this field takes letters and numbers only"
 
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Scam risk"
