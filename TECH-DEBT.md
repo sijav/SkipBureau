@@ -5,6 +5,12 @@ is, what causes it, what would fix it, and the check that says it can go. A
 suppressed warning with no record is a decision nobody can revisit, and the
 reason is the first thing lost.
 
+**And an invariant the code relies on that the database does not enforce.**
+That is not a suppression, and the board is where the work to close it lives,
+but this file is what someone reading the code opens, and a promise the system
+does not keep has to be findable there. Every such entry names the card that
+owns it.
+
 Deliberate scope cuts are not debt. They go in the board with their reason.
 
 ---
@@ -70,26 +76,55 @@ that skips prop union values without a shape-based pattern.
 
 ---
 
-## A fact can still be added to a rule version that was already closed
 
-**What.** `rule_fact_history_is_immutable` fires on UPDATE and DELETE only.
-Nothing already written to a closed `RuleVersion` can be changed or removed,
-and the version row itself is fully immutable once closed, but a NEW `RuleFact`
-can be inserted against one.
+## Rule history is not append-only, and the triggers cover less than they read as
 
-**Why.** Recording history has to stay possible. A version imported already
-closed, a past rule someone is backfilling, writes its facts after the version
-row, so a blanket INSERT rule made the past unrecordable rather than immutable.
-The first version of the trigger did exactly that and the boundary test caught
-it. Telling "written while creating it" from "added later" needs a transaction
-check, and `createdAt` cannot serve as one: Prisma 7 generates that default on
-the client, so it never equals `transaction_timestamp()`.
+**Owner: SB-081.**
 
-**What it costs.** Someone with write access to the database could add a fact to
-a historical version and change what the past appears to have said. Nothing
-already recorded can be altered, which is the property the verified dates rest
-on.
+**What is enforced.** `20260909232307_rule_history_is_append_only` creates three
+triggers. Two of them, on `RuleVersion` and `RuleFact`, raise on UPDATE and
+DELETE **only when `validTo` is not null**. The third refuses two versions of
+the same obligation, country and scope overlapping in time.
 
-**The check that says it can go.** An editorial publish workflow, SB-011, that
-owns writes and refuses to touch a closed version, or a database-generated
-`createdAt` that a trigger can compare against `transaction_timestamp()`.
+So the guarantee is exactly this and no more: **a closed version row, and a fact
+already on a closed version, cannot be updated or deleted by ordinary DML.**
+
+**What is not enforced.** Every one of these changes what a query about a past
+date returns.
+
+- **An OPEN version is not protected at all.** The trigger only fires once
+  `validTo` is set, so until a version is closed a writer can edit or delete
+  it, change its facts, rewrite its source, move its `verifiedAt`, or backdate
+  `validTo`. An open version covering 2020 to now is most of the history. This
+  is the largest gap and it is the one the first version of this entry missed.
+- **`EligibilityCriterion` on a closed version**, insert, update or delete.
+  Editing one rewrites who the rule applied to; deleting one widens it to
+  everybody; inserting one narrows a formerly general rule. The overlap trigger
+  fires on the version row and has already run, so editing criteria afterwards
+  can leave two versions with identical scope in force at once.
+- **`RuleText` on a closed version**, insert, update or delete. Inserting a
+  locale changes what a past reader in that locale would have been shown.
+- **Inserting a `RuleFact`** onto a closed version. Recording history has to
+  stay possible, and telling "written while creating it" from "added later"
+  needs a transaction check that `createdAt` cannot provide, because Prisma 7
+  generates that default on the client rather than in the database.
+- **`NationalityGroupMember` and `NationalityGroup`**, entirely. When a country
+  joined or left a group can be changed, so a question about 2020 answers
+  differently afterwards.
+- **`Obligation` and `ObligationText`**, entirely, for the same reason at one
+  remove.
+- **`TRUNCATE ... CASCADE`**, which does not fire ON DELETE triggers at all.
+  Ordinary foreign-key cascade is *not* a bypass, because PostgreSQL runs it as
+  normal child-table UPDATE and DELETE and the triggers fire. TRUNCATE is
+  different, and there is no role or privilege setup here to put it out of
+  reach, so it is listed rather than assumed away.
+
+**What it costs.** The product tells a reader what a rule said on a date, and
+every verified date it prints rests on that being true. Today it is true for
+one row type in one state.
+
+**The check that says it can go.** SB-081 closes the gaps and this entry is
+removed only when a mutation test proves each one refused: an open version, a
+criterion, a text, a fact insert, a group membership, and an obligation.
+
+---

@@ -166,9 +166,17 @@ two countries.
 Nationality group membership is dated too, or a question about 2020 is answered
 with today's groups.
 
-That append-only rule is enforced in the database, in
-`20260909232307_rule_history_is_append_only`, not left as a comment nobody
-checks. What it does not yet cover is in TECH-DEBT.md.
+**That rule is how the content is written. It is not, yet, what the database
+guarantees.** `20260909232307_rule_history_is_append_only` enforces exactly
+this much: **a closed version row, and a fact already on a closed version,
+cannot be updated or deleted by ordinary DML.** A third trigger refuses two
+versions of the same obligation, country and scope from being in force at once.
+
+Everything else is still editable, including an **open** version, which is most
+of the history, and dated group membership, which is not immutable despite
+being dated. TECH-DEBT.md lists every gap and names SB-081 as the card that
+closes them. Until then, do not read a verified date as a promise about what a
+past query returns.
 
 ---
 
