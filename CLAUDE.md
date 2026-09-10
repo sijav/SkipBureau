@@ -84,6 +84,25 @@ a component, `apps/web/src/core/<area>/` for a core one. Never `.claude/`,
 never a `plans/` folder. It is committed with the work, so the folder carries
 the reasoning next to the result.
 
+Two rules that only show up the first time you try it, both learned in KarNama
+on 2026-09-10 and both at a cost:
+
+- **A task title is not a filename.** Strip what the filesystem refuses,
+  `< > : " / \ | ? *`, and trailing dots and spaces, which Windows mangles
+  without telling you. Shortening a long title is fine; the **id** is the part
+  that must be exact, because that is what ties the file to the task. The very
+  first plan written under this rule had four illegal characters in its title.
+- **The plan STAYS when the task closes.** It is committed with the work and
+  left there. That is the whole reason it lives in that folder. If a plan reads
+  as stale beside the code, correct the plan rather than remove the record. In
+  KarNama this was left unstated, then guessed at the other way on the argument
+  that version control held every copy; it did not, the plans directory was in
+  `.gitignore`, and two plan files were deleted. One is gone for good. **Check
+  that the fallback you are relying on actually exists before you rely on it**:
+  `git check-ignore -v <path>`, `git ls-files --error-unmatch <path>` and
+  `git cat-file -e HEAD:<path>` each answer it in one command, and any of them
+  would have stopped that deletion.
+
 Then have it checked by the `plan` roast, which runs with web search, and
 **wait for that one**: the point is that it lands before the time is spent.
 Every time the plan file is touched it is checked again.
