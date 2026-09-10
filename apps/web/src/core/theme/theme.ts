@@ -53,7 +53,9 @@ export const appTheme = (mode: Mode, direction: Direction): Theme => {
         dark: tokens.accentPressed,
         contrastText: tokens.textOnAccent,
       },
-      warning: { main: tokens.warning, light: tokens.warningSubtle, dark: tokens.warningPressed, contrastText: tokens.warningText },
+      // `textOnWarning`, NOT `warningText`. The latter is for text on the SUBTLE
+      // fill; on the amber itself it measures 2.82 in light and 1.19 in dark.
+      warning: { main: tokens.warning, light: tokens.warningSubtle, dark: tokens.warningPressed, contrastText: tokens.textOnWarning },
       error: { main: tokens.danger, light: tokens.dangerSubtle, dark: tokens.dangerPressed, contrastText: tokens.textOnDanger },
       success: { main: tokens.success, contrastText: tokens.textOnAccent },
     },

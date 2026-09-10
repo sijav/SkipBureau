@@ -16,7 +16,7 @@ export const primitives = {
   paper: { base: '#F8FAF8', white: '#FFFFFF', sunk: '#F1F5F2' },
   ink: { 900: '#1D2421', 600: '#5F6964', 400: '#828B86' },
   rule: { 300: '#DDE5E0', 500: '#C4CEC8' },
-  mint: { 100: '#E3F5EE', 150: '#D3EEE4', 700: '#3EB489', 800: '#329C76', 900: '#277C5E', 950: '#1F6B50' },
+  mint: { 100: '#E3F5EE', 150: '#D3EEE4', 700: '#3EB489', 750: '#38A67F', 800: '#329C76', 900: '#277C5E', 950: '#1F6B50' },
   orange: { 100: '#FFF3DC', 300: '#F6D18B', 700: '#F2A93B', 800: '#DD9226', 900: '#C77B17', 950: '#96590B' },
   red: { 100: '#FDEAEA', 300: '#F3B8B8', 700: '#E05252', 800: '#C94343', 900: '#AE3636', 950: '#8E2A2A' },
 } as const
@@ -46,8 +46,8 @@ export const light = {
   accent: primitives.mint[700],
   accentSubtle: primitives.mint[100],
   accentSubtleHover: primitives.mint[150],
-  accentHover: primitives.mint[800],
-  accentPressed: primitives.mint[900],
+  accentHover: primitives.mint[750],
+  accentPressed: primitives.mint[800],
   accentText: primitives.mint[950],
   textOnAccent: primitives.ink[900],
   success: primitives.mint[700],
@@ -58,11 +58,15 @@ export const light = {
   warningPressed: primitives.orange[900],
   warningBorder: primitives.orange[300],
   warningText: primitives.orange[950],
+  // Ink, not the deep orange. `warningText` is for text on the SUBTLE fill;
+  // on the amber fill itself it measures 2.82, which is what the theme was
+  // handing MUI as warning.contrastText.
+  textOnWarning: primitives.ink[900],
 
-  danger: primitives.red[700],
+  danger: primitives.red[800],
   dangerSubtle: primitives.red[100],
-  dangerHover: primitives.red[800],
-  dangerPressed: primitives.red[900],
+  dangerHover: primitives.red[900],
+  dangerPressed: primitives.red[950],
   dangerBorder: primitives.red[300],
   dangerText: primitives.red[900],
   dangerDeep: primitives.red[950],
@@ -122,15 +126,16 @@ export const dark = {
   warningPressed: '#F2A93B',
   warningBorder: '#5C441A',
   warningText: '#F8CE86',
+  textOnWarning: primitives.ink[900],
 
   danger: '#EC6B6B',
   dangerSubtle: '#3A1D1D',
   dangerHover: '#F08484',
-  dangerPressed: '#E05252',
+  dangerPressed: '#E86262',
   dangerBorder: '#5C2A2A',
   dangerText: '#F09B9B',
   dangerDeep: '#F3B8B8',
-  textOnDanger: primitives.paper.white,
+  textOnDanger: primitives.ink[900],
 } as const satisfies ColourTokens
 
 /**

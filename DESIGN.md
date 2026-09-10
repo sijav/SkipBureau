@@ -277,6 +277,36 @@ and focus rings on light backgrounds.
 Dark mode is not in the Figma file. It has to be derived from these tokens and
 checked for contrast, not invented per component.
 
+### Where the shipped palette departs from this table, and why
+
+The table above is what Figma says. Everything here is what the app actually
+ships, with the measurement that forced it. SB-025 measured all 21 pairs the
+product renders, in both modes, and `contrast.test.ts` now fails on any that
+misses. **These are measured departures, not preferences, and each one is the
+smallest move that clears the target.**
+
+The surprise, for the record: dark, which was derived by eye, passed 22 of 26
+candidate pairs. Light, transcribed from Figma, missed 13. Drawn to look right
+is not the same as measured.
+
+| token | Figma | shipped | why |
+|---|---|---|---|
+| `text-on-warning` | did not exist | `#1D2421` ink/900 | The theme was handing MUI `warning-text` as the label colour for an amber fill. That is `2.82:1` in light and `1.19:1` in dark. `warning-text` is for text on the SUBTLE fill, where it measures `5.12`, and the two are not interchangeable. |
+| `danger` | `#E05252` red/700 | `#C94343` red/800 | White on red/700 is `3.82:1`. One step down the ramp and it is `4.81`, and the indicator against the page improves at the same time. |
+| `danger-hover` | `#C94343` red/800 | `#AE3636` red/900 | Follows `danger` down so the states stay in order. |
+| `danger-pressed` | `#AE3636` red/900 | `#8E2A2A` red/950 | The same. |
+| `accent-hover` | `#329C76` mint/800 | `#38A67F` mint/750 | Ink on mint/900 is `3.11:1`, so the light accent ramp cannot reach that far down and stay readable. The ramp moves up a step and gains mint/750 so there are still three distinct states: `6.10`, `5.22`, `4.64`. |
+| `accent-pressed` | `#277C5E` mint/900 | `#329C76` mint/800 | The same. |
+| `text-on-danger`, dark only | `#FFFFFF` | `#1D2421` ink/900 | Dark lightens the semantic fills, so white on them is the wrong way round: `3.05:1` on the dark danger fill. Ink is what dark already does for `text-on-accent`, for exactly this reason. |
+| `danger-pressed`, dark only | derived `#E05252` | `#E86262` | With ink as the label, the darkest red in the dark ramp measured `4.14`. Lifted until it clears, keeping it darker than the base fill. |
+
+Three pairs are deliberately NOT measured, and `contrast.ts` records why in
+code so the reasons travel with the values: `text-tertiary`, which is the
+theme's disabled text and so outside 1.4.3; `accent`, `success` and `warning`
+against the page, which are fills carrying text rather than standalone
+indicators; and the three border tokens, which no component consumes yet, so
+whether 1.4.11 applies to them is not yet a fact to encode.
+
 ## Typography
 
 Three typefaces, three jobs. Archivo runs the interface: navigation, buttons,
