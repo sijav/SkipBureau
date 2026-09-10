@@ -7,7 +7,7 @@ import tseslint from 'typescript-eslint'
 // interface text. Everything else it enforces, no escape hatches and zero
 // warnings, applies the same.
 export default tseslint.config(
-  { ignores: ['dist', 'src/generated', 'prisma/migrations'] },
+  { ignores: ['dist', 'src/generated', 'prisma/migrations', '.contract'] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {

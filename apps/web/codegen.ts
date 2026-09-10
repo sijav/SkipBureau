@@ -7,9 +7,19 @@ import type { CodegenConfig } from '@graphql-codegen/cli'
  * `lint:tsc` re-emits it first. Reading a committed copy would mean a field
  * renamed on the server changes nothing here, which is the whole failure this
  * exists to prevent.
+ *
+ * Both paths can be overridden by the environment, and the defaults are the
+ * real ones, so every ordinary invocation is unchanged. `contract.test.ts`
+ * points them at a throwaway copy of the API source: it has to rename a field
+ * and watch this fail, and it must do that without writing a single tracked
+ * file, because no cleanup written in JavaScript survives the process being
+ * killed.
  */
+const schema = process.env['SKIPBUREAU_SCHEMA'] ?? '../api/schema.gql'
+const generated = process.env['SKIPBUREAU_GENERATED'] ?? './src/core/graphql/generated/'
+
 const config: CodegenConfig = {
-  schema: '../api/schema.gql',
+  schema,
   // Operations live in `.ts` as `graphql(...)` calls. The client preset keys
   // its typed-document map on statically discoverable operations, and one it
   // cannot find degrades to `unknown` rather than failing, which would be a
@@ -17,7 +27,7 @@ const config: CodegenConfig = {
   documents: ['src/**/*.{ts,tsx}', '!src/core/graphql/generated/**'],
   ignoreNoDocuments: false,
   generates: {
-    './src/core/graphql/generated/': {
+    [generated]: {
       preset: 'client',
       config: {
         // NOT documentMode: 'string'. That emits TypedDocumentString, a String
