@@ -125,7 +125,8 @@ export const Ask: Story = {
 
     await userEvent.type(field, 'company')
     await expect(await page.findByText(/Results for “company”/)).toBeVisible()
-    await expect(page.getByRole('link', { name: /Start a business/ })).toHaveAttribute('href', '/en/tr/t/start-a-business')
+    const panel = within(page.getByRole('dialog', { name: /What Ask found/ }))
+    await expect(await panel.findByRole('link', { name: /Start a business/ })).toHaveAttribute('href', '/en/tr/t/start-a-business')
 
     await userEvent.keyboard('{Escape}')
     await expect(field).toHaveAttribute('aria-expanded', 'false')

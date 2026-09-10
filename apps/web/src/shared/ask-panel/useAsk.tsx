@@ -68,7 +68,7 @@ export const useAsk = ({ question, onQuestion }: { question: string; onQuestion:
   const id = useId()
   const text = useDeferredValue(question.trim())
 
-  const [{ data }] = useQuery({ query: AskQuery, variables: { country: country ?? '', text, locale }, pause: !open || !country })
+  const [{ data, fetching }] = useQuery({ query: AskQuery, variables: { country: country ?? '', text, locale }, pause: !open || !country })
 
   // A click anywhere but the field or its panel puts the panel away.
   useEffect(() => {
@@ -149,7 +149,8 @@ export const useAsk = ({ question, onQuestion }: { question: string; onQuestion:
   ]
 
   const groups: AskPanelGroup[] = text
-    ? [{ label: <Trans>Results for “{text}”</Trans>, rows: rows.length > 0 ? rows : <NothingFound /> }]
+    ? // Nothing found is said only once the answer is in, never while it is on its way.
+      [{ label: <Trans>Results for “{text}”</Trans>, rows: rows.length > 0 ? rows : fetching ? null : <NothingFound /> }]
     : [
         ...(recent.length > 0
           ? [
