@@ -1,4 +1,5 @@
 import { PrismaPg } from '@prisma/adapter-pg'
+import { databaseUrl } from './database-url.js'
 import { PrismaClient } from './generated/prisma/client.js'
 
 /**
@@ -30,10 +31,7 @@ const COUNTRIES = [
 ]
 
 const bootstrap = async (): Promise<void> => {
-  const url = process.env['DATABASE_URL']
-  if (!url) throw new Error('DATABASE_URL is not set, so there is nothing to bootstrap')
-
-  const prisma = new PrismaClient({ adapter: new PrismaPg({ connectionString: url }) })
+  const prisma = new PrismaClient({ adapter: new PrismaPg({ connectionString: databaseUrl() }) })
 
   try {
     const { count } = await prisma.country.createMany({ data: COUNTRIES, skipDuplicates: true })
