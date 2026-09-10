@@ -452,6 +452,23 @@ editable:
 | unset | `surface`, 1px dashed `warning`, the invitation in `warning-text` | the dash stays on hover |
 | focus | the button's 2px `accent-text` outline, inward | the design draws none; the system's is used |
 
+**Progress indicator, node 17:45.** Steps is the default; bar is for aggregate
+dashboards only. Steps is not MUI's Stepper: its segments carry no number, label
+or icon, so it is a determinate progressbar drawn in pieces.
+
+| | value | note |
+|---|---|---|
+| label | IBM Plex Mono 13/20, `text-secondary` | Mono Data; the count in the reader's own digits, a plural |
+| gap | 8 | label to track |
+| steps | 8 high, 4 between, equal widths, radius 1 | 36.44 each at 360; done `accent`, current `border-strong`, remaining `surface-subtle` |
+| bar | 6 high, radius 1 | fill `accent`, remainder `surface-subtle` |
+
+**An open question for the owner:** in light mode the remaining segments are
+`1.05` against the page, the current `1.54`, and done `2.47`. The count is in
+the label at `5.42`, so no reader loses it, but the design's aim, that a reader
+sees nine things, is not met, and no token swap fixes it without making a
+remaining segment darker than a done one.
+
 Three pairs are deliberately NOT measured, and `contrast.ts` records why in
 code so the reasons travel with the values: `text-tertiary`, which is the
 theme's disabled text and so outside 1.4.3; `accent`, `success` and `warning`

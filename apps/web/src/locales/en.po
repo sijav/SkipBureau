@@ -13,6 +13,10 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/shared/progress-indicator/ProgressIndicator.tsx
+msgid "{done} of {total, plural, one {# step completed} other {# steps completed}}"
+msgstr "{done} of {total, plural, one {# step completed} other {# steps completed}}"
+
 #: src/shared/page/Page.stories.tsx
 msgid "A column, not a width"
 msgstr "A column, not a width"

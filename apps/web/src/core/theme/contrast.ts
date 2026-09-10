@@ -99,6 +99,8 @@ export type Painted =
   | { by: 'chip'; set: boolean; hovered: boolean; part: 'key' | 'value' }
   // `chipFocus` is the chip's keyboard focus outline, against the page.
   | { by: 'chipFocus' }
+  // `progressLabel` is the count above a progress track, on the page.
+  | { by: 'progressLabel' }
 
 export type Declared = {
   /** What a reader is actually looking at. Reads as a sentence in a failure. */
@@ -219,6 +221,9 @@ export const DECLARED: readonly Declared[] = [
   { role: "an unset context chip's invitation", fore: 'warningText', back: 'surface', target: 4.5, painted: { by: 'chip', set: false, hovered: false, part: 'value' } },
   { role: "an unset context chip's invitation, hovered", fore: 'warningText', back: 'surfaceSubtle', target: 4.5, painted: { by: 'chip', set: false, hovered: true, part: 'value' } },
   { role: 'a focused context chip on the page', fore: 'accentText', back: 'background', target: 3, painted: { by: 'chipFocus' } },
+
+  // Figma 17:45. The label states the count, which is what carries it.
+  { role: 'the count above a progress track', fore: 'textSecondary', back: 'background', target: 4.5, painted: { by: 'progressLabel' } },
 ]
 
 /**
@@ -248,6 +253,11 @@ export const EXEMPT: readonly { pair: string; because: string }[] = [
     pair: "a text input's hover, error and disabled strokes",
     because:
       "State cues, not what identifies the field: the resting boundary does that and is declared above at 3:1, by the owner's decision of 2026-09-10, after border-strong measured 1.54. Hover steps darker to text-secondary, the error stroke is danger at 3.64 and says nothing the error text does not say in words, and a disabled field is an inactive control under 1.4.3.",
+  },
+  {
+    pair: "a progress track's segments and bar against the page",
+    because:
+      "A JUDGMENT, NOT A PASS, put to the owner on 2026-09-10. The information is safe: the label states the count at 5.42, and the progressbar announces three of nine, so no reader loses it (1.4.1). But the design's own aim, that a reader SEES there are nine things, is not met in light: remaining segments are 1.05 against the page, the current one 1.54, and even done ones, accent, are 2.47. Dark clears more, 8.58 for done, but remaining is still 1.23. No token swap fixes it without inverting the order, a remaining segment darker than a done one, so it is a design question, not a quiet fix.",
   },
   {
     pair: "a context chip's stroke, set, hovered or the unset amber dash",

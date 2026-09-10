@@ -4,6 +4,7 @@ import { buttonRoot, buttonVariants } from './button'
 import { CHIP_PAINT, chipStyle } from './chip'
 import { formHelperTextOverrides, formLabelOverrides, outlinedInputOverrides, selectOverrides } from './input'
 import { PANEL_PAINT, panelStyle } from './panel'
+import { PROGRESS_PAINT } from './progress'
 import { SEARCH_PAINT, searchStyle } from './search'
 import { TAG_PAINT, tagStyle } from './tag'
 import { DECLARED, EXEMPT, contrastRatio, type Token } from './contrast'
@@ -219,6 +220,11 @@ test('every pair is bound to the slot that paints it', () => {
         case 'chipFocus':
           assert.ok(chipStyle(tokens, true)['&.Mui-focusVisible'].outline.endsWith(tokens[fore]), `${mode}: ${role} is the focus outline`)
           assert.ok(GROUNDS.includes(back), `${mode}: ${role} is measured against a ground`)
+          break
+
+        case 'progressLabel':
+          assert.equal(tokens[PROGRESS_PAINT.label], tokens[fore], `${mode}: ${role} colour`)
+          assert.ok(GROUNDS.includes(back), `${mode}: ${role} sits on the page`)
           break
 
         case 'panel': {

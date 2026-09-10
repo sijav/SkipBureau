@@ -276,3 +276,22 @@ Button's inward outline rather than inventing a second focus style.
 **Set or unset follows from the value.** No `state` prop: an answer makes it
 quiet, no answer makes it amber and dashed with its invitation, which is the
 design's meaning, and the dash survives hover.
+
+## Progress indicator (8 of 8)
+
+**The plan roast's open question, answered by the node: not a Stepper.** It
+asked whether Steps is a true sequence of numbered steps. 17:28's segments
+carry no number, label or icon; it is a determinate progressbar drawn in
+pieces, named by its label, valued as three of nine. A Stepper would announce a
+wizard. Bar is MUI's LinearProgress.
+
+**Its story is the first to assert per direction.** The count must read in
+Persian digits in fa-IR, ۳ از ۹, both numbers through the locale. Emptying the
+Persian translation failed both fa-IR stories and passed en-US: the pattern
+SB-144 proposes for every story, shown to catch what /English|Persian/ lets
+through.
+
+**The track does not do what the design says it is for, in light mode.**
+Remaining segments are 1.05 against the page. The count is always in the label,
+so nothing is lost, but seeing nine things is the design's stated reason for
+Steps. Recorded as a judgment, put to the owner.
