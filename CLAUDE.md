@@ -224,6 +224,32 @@ never edit live content. An admin panel moderates them. No end-user accounts.
 - Ships to `https://github.com/sijav/SkipBureau` with `gh`. Web on GitHub Pages,
   API and database on free tiers only. Fly.io has no free tier.
 
+### Before publishing: the tree is not the history
+
+**A scan of the working tree answers a different question from the one that
+matters.** A secret added in one commit and deleted in the next is gone from
+the tree and still in the object database, fetchable by anyone, for ever. The
+first push here carried 23 commits and was checked by scanning the tree. The
+history turned out to be clean, which is luck, not a process.
+
+So: **scan every object reachable from every ref, not the checkout.** The
+`secrets` job in `ci.yml` does it on every push, with gitleaks over
+`--log-opts=--all`, and it does two things that are easy to leave out:
+
+- **`fetch-depth: 0`.** `actions/checkout` clones one commit by default, and a
+  history scanner pointed at a shallow clone reports clean fast. The check that
+  cannot fail is worse than no check.
+- **It proves the scanner detects before believing that it did not.** It plants
+  a credential in a scratch repository and requires a finding. A scanner that
+  has quietly stopped working reports exactly what a clean repository reports.
+
+**Be honest about what this is.** It runs after GitHub has accepted the push,
+so it does not prevent publication. GitHub's push protection is the pre-push
+control and it is enabled on this repository. This is the backstop: it covers
+what push protection's partner patterns do not, and it turns the branch red
+before a merge, a release or a deploy. If you need something stopped *before*
+it leaves the machine, that is a local hook, and nobody has asked for one.
+
 ## What is taken from `D:\Kar\Gandom\daramadname`
 
 The owner named that repository as the model for this one. Its working agreement

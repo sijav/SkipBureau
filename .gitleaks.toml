@@ -1,0 +1,28 @@
+title = "SkipBureau"
+
+# Everything gitleaks ships, plus one rule of ours.
+[extend]
+useDefault = true
+
+# A sentinel, so the history scan can be PROVED rather than trusted.
+#
+# The check this repository needs is "a secret added in one commit and deleted
+# in the next is still found". Proving that on GitHub means pushing a branch
+# whose history carries something the scanner objects to, and this repository
+# has push protection enabled, so anything shaped like a real provider token is
+# refused at push time and never reaches CI at all.
+#
+# This rule is the way out. It matches a string that exists nowhere in the
+# world except a SkipBureau test, so GitHub has no reason to block it and the
+# scanner has every reason to catch it. The separate probe step in the workflow
+# is what proves the REAL rules still work; this one proves the traversal and
+# the failure wiring.
+#
+# It cannot match its own definition below: the regex requires 24 alphanumeric
+# characters immediately after the underscore, and what follows it here is a
+# bracket.
+[[rules]]
+id = "skipbureau-planted-sentinel"
+description = "A SkipBureau test sentinel. If this fires outside a deliberate test, someone copied a fixture into real code."
+regex = '''SKIPBUREAU_PLANTED_SECRET_[A-Za-z0-9]{24,}'''
+tags = ["fixture", "skipbureau"]
