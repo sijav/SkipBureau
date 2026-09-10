@@ -8,7 +8,7 @@ earlier commit that is absent from the tip.
 Before the first push to the public repository I scanned the **working tree**
 for credentials. The push carried 23 commits. A secret added in commit two and
 deleted in commit three is not in the working tree and is still in the object
-database, fetchable by anyone, for ever. I have since scanned every blob
+database, reachable through refs, cached views, forks and clones anyone already took. An earlier version of this said 'fetchable by anyone, for ever', which overstates it: long enough and outside your control is the true and sufficient version. SB-120 corrected the rule, and the remedy it omitted is revoke or rotate FIRST. I have since scanned every blob
 reachable from every ref and the history is clean, so nothing is exposed. That
 is luck plus a later correction, not a process.
 

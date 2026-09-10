@@ -228,9 +228,13 @@ never edit live content. An admin panel moderates them. No end-user accounts.
 
 **A scan of the working tree answers a different question from the one that
 matters.** A secret added in one commit and deleted in the next is gone from
-the tree and still in the object database, fetchable by anyone, for ever. The
-first push here carried 23 commits and was checked by scanning the tree. The
-history turned out to be clean, which is luck, not a process.
+the tree and still in the object database. It stays reachable through refs,
+through cached commit views, through pull requests that referenced it, and
+through every fork and clone anyone already took. Not literally for ever, which
+an earlier version of this said: long enough, and outside your control, which
+is the part that matters. The first push here carried 23 commits and was
+checked by scanning the tree. The history turned out clean, which is luck, not
+a process.
 
 So: **scan every object reachable from every ref, not the checkout.** The
 `secrets` job in `ci.yml` does it on every push, with gitleaks over
@@ -242,6 +246,28 @@ So: **scan every object reachable from every ref, not the checkout.** The
 - **It proves the scanner detects before believing that it did not.** It plants
   a credential in a scratch repository and requires a finding. A scanner that
   has quietly stopped working reports exactly what a clean repository reports.
+
+### If one is actually exposed, the order is the whole answer
+
+**Revoke or rotate the credential FIRST.** It is the only step that makes the
+secret worthless, and every other step is slower than whoever is already
+reading a public repository. Rotate before revoking where something would break
+otherwise, which is GitHub's own carve out; the point is that the credential
+stops working, not which of the two verbs gets there.
+
+**Then rewrite the history.** That is containment and tidying, not remediation.
+
+**Then contact GitHub Support, where it applies.** They can remove cached views
+and references and run a server side collection, through the support portal and
+not through any API. They say plainly they will help only where rotation cannot
+mitigate the risk, so it is a fallback and not the normal next step.
+
+**A force push is not remediation, and this repository contains a demonstration
+that can be misread as one.** SB-068 dropped its planted commits with one. That
+was sufficient there for exactly one reason: the planted sentinel was
+deliberately not a secret. A force push moves a ref. It does not revoke
+anything, and it does not reach a fork, a clone, or a cache. Nobody but the
+owner of a fork can clean that fork.
 
 **Be honest about what this is.** It runs after GitHub has accepted the push,
 so it does not prevent publication. GitHub's push protection is the pre-push
