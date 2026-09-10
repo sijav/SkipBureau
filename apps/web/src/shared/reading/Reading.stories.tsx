@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro'
-import Typography from '@mui/material/Typography'
+import { Typography } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { expect, within } from 'storybook/test'
 import { Reading } from './Reading'

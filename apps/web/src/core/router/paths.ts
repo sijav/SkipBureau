@@ -1,5 +1,5 @@
-import { looksLikeCountry, type CountryCode } from '../country/countries'
-import { isLocale, locales, type Locale } from '../i18n/locales'
+import { looksLikeCountry, type CountryCode } from 'src/core/country'
+import { isLocale, locales, type Locale } from 'src/core/i18n'
 
 /**
  * Every URL in the app is built here, never assembled at a call site.

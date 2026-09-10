@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/react/macro'
-import Stack from '@mui/material/Stack'
-import Typography from '@mui/material/Typography'
+import { Stack, Typography } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { expect, within } from 'storybook/test'
 import { I18nProvider } from './I18nProvider'

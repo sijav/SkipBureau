@@ -12,8 +12,10 @@ const STORAGE_KEY = 'skipbureau.locale'
 export const negotiateLocale = (): Locale => {
   const stored = remembered()
   if (stored) return stored
-  if (typeof navigator === 'undefined') return defaultLocale
-  return nearestLocale(navigator.languages ?? [navigator.language])
+  // `window`, not `navigator`: the question is whether there is a browser at
+  // all, which is what prerendering for search engines will ask.
+  if (typeof window === 'undefined') return defaultLocale
+  return nearestLocale(window.navigator.languages ?? [window.navigator.language])
 }
 
 export const remembered = (): Locale | null => {

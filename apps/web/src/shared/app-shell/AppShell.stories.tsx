@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/react/macro'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
+import { Box, Typography } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { expect, within } from 'storybook/test'
 import { Page } from 'src/shared/page'

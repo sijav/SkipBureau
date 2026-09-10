@@ -1,8 +1,7 @@
 import createCache from '@emotion/cache'
 import { CacheProvider } from '@emotion/react'
-import CssBaseline from '@mui/material/CssBaseline'
+import { CssBaseline, ThemeProvider } from '@mui/material'
 import rtlPlugin from '@mui/stylis-plugin-rtl'
-import { ThemeProvider } from '@mui/material/styles'
 import { useEffect, useMemo, type ReactNode } from 'react'
 import { prefixer } from 'stylis'
 import { appTheme, type Direction, type Mode, type ModeChoice } from './theme'
@@ -48,7 +47,7 @@ export const AppTheme = ({ children, mode = 'system', direction = 'ltr' }: AppTh
   const theme = useMemo(() => appTheme(resolved, direction), [resolved, direction])
 
   useEffect(() => {
-    document.documentElement.dir = direction
+    window.document.documentElement.dir = direction
   }, [direction])
 
   return (

@@ -1,7 +1,5 @@
 import { Trans } from '@lingui/react/macro'
-import Button from '@mui/material/Button'
-import Stack from '@mui/material/Stack'
-import Typography from '@mui/material/Typography'
+import { Button, Stack, Typography } from '@mui/material'
 import { Page } from 'src/shared/page'
 import { Reading } from 'src/shared/reading'
 

@@ -3,7 +3,7 @@ import { readdirSync, readFileSync, statSync } from 'node:fs'
 import { dirname, join, relative } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { test } from 'vitest'
-import { layout } from '../core/theme/tokens'
+import { layout } from 'src/core/theme'
 
 const SRC = join(dirname(fileURLToPath(import.meta.url)), '..')
 

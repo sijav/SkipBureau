@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro'
-import Typography from '@mui/material/Typography'
+import { Typography } from '@mui/material'
 import { useCountry } from 'src/core/country'
 
 export type CountryNameProps = {

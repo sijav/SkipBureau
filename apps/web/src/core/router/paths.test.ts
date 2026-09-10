@@ -1,7 +1,7 @@
 import { strict as assert } from 'node:assert'
 import { test } from 'vitest'
-import { validated } from '../country/countries'
-import { locales, type Locale } from '../i18n/locales'
+import { validated } from 'src/core/country'
+import { locales, type Locale } from 'src/core/i18n'
 import { aliasedLocale, countryFromSegment, localeFromSegment, localeSegment, paths, samePageIn } from './paths'
 
 test('a URL carries the short public form of a language, not the lingui tag', () => {

@@ -1,7 +1,5 @@
 import { Trans } from '@lingui/react/macro'
-import Box from '@mui/material/Box'
-import Stack from '@mui/material/Stack'
-import Typography from '@mui/material/Typography'
+import { Box, Stack, Typography } from '@mui/material'
 import { useParams } from 'react-router-dom'
 import { useCountry } from 'src/core/country'
 import { useLocale } from 'src/core/i18n'

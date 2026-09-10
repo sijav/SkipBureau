@@ -1,8 +1,5 @@
 import { Trans } from '@lingui/react/macro'
-import Box from '@mui/material/Box'
-import Stack from '@mui/material/Stack'
-import Typography from '@mui/material/Typography'
-import { useTheme } from '@mui/material/styles'
+import { Box, Stack, Typography, useTheme } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { expect, within } from 'storybook/test'
 import { Page } from './Page'
@@ -46,7 +43,7 @@ export const Content: Story = {
     const ruler = await within(canvasElement).findByTestId('ruler')
     // The cap holds, and nothing spills past the viewport.
     await expect(ruler.getBoundingClientRect().width).toBeLessThanOrEqual(1280)
-    await expect(document.documentElement.scrollWidth).toBeLessThanOrEqual(document.documentElement.clientWidth)
+    await expect(window.document.documentElement.scrollWidth).toBeLessThanOrEqual(window.document.documentElement.clientWidth)
   },
 }
 

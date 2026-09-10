@@ -1,7 +1,4 @@
-import Box from '@mui/material/Box'
-import Stack from '@mui/material/Stack'
-import Typography from '@mui/material/Typography'
-import { useTheme } from '@mui/material/styles'
+import { Box, Stack, Typography, useTheme } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { light, radius, spacing, type } from './tokens'
 

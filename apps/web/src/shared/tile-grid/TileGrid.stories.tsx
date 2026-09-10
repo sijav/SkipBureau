@@ -1,5 +1,4 @@
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
+import { Box, Typography } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { expect, within } from 'storybook/test'
 import { TileGrid } from './TileGrid'
@@ -34,7 +33,7 @@ export const Twelve: Story = {
     // Every tile has to be able to shrink. `minmax(0, 1fr)` rather than `1fr`
     // is what stops a long word inside one from widening the whole column.
     for (const tile of tiles) {
-      await expect(tile.getBoundingClientRect().right).toBeLessThanOrEqual(document.documentElement.clientWidth + 1)
+      await expect(tile.getBoundingClientRect().right).toBeLessThanOrEqual(window.document.documentElement.clientWidth + 1)
     }
   },
 }

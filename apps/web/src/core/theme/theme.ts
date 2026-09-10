@@ -1,4 +1,4 @@
-import { createTheme, type Theme } from '@mui/material/styles'
+import { createTheme, type Theme } from '@mui/material'
 import { dark, layout, light, radius, spacing, type } from './tokens'
 
 export type Mode = 'light' | 'dark'

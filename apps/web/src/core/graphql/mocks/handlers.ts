@@ -1,5 +1,5 @@
 import { graphql, HttpResponse } from 'msw'
-import { endpoint } from '../client'
+import { endpoint } from 'src/core/graphql'
 import { countries, guide, tasks, untranslatedGuide } from './fixtures'
 
 /**

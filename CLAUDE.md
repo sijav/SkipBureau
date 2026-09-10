@@ -303,6 +303,32 @@ Rules he stated once do not need stating again, so they apply here.
   imports target the barrel, never a file inside it. No relative parent imports,
   absolute `src/...` always. Never import from `'.'`.
 - **MUI from the top-level barrel only**, `import { Button } from '@mui/material'`.
+  Enforced by `no-restricted-imports`.
+
+  **MUI 9's own guide says the opposite**, and this is the exception with the
+  reason attached. It marks `import Button from '@mui/material/Button'`
+  preferred and warns that barrel imports cause "significantly slower startup
+  and rebuild times". The owner, 2026-09-10, when shown that: _"if it is not
+  apply to our stack then get back to my rule which made much more sense"_, and
+  then _"you can measure it, so you can apply why this way we find it better"_.
+
+  So it was measured on this repository, dependency cache cleared before each
+  run:
+
+  | | dev cold start | vite reported | production build |
+  |---|---|---|---|
+  | barrel, run 1 | 1995ms | 266ms | 6140ms |
+  | barrel, run 2 | 2093ms | 271ms | 5813ms |
+  | path imports | 2104ms | 280ms | 5761ms |
+
+  **No difference beyond noise**: the barrel's own two builds vary by 327ms,
+  which is wider than the gap to the path form. The warning is aimed at
+  bundlers that walk the barrel's whole graph on every rebuild. Vite
+  pre-bundles dependencies with esbuild into one cached chunk, which is the
+  same mitigation Next ships as `optimizePackageImports`, so the cost never
+  arrives here.
+
+  **If the bundler ever changes, measure again before keeping this rule.**
 - **Browser globals through `window.*`**, so they stay mockable and greppable.
 - **Prettier**: single quotes, no semicolons, width 140, organize-imports.
 - **Story first, then the component.** His note there: _"that was supposed to be

@@ -67,7 +67,7 @@ export const I18nProvider = ({ children, locale: wanted, load = loadCatalog }: I
   }, [wanted, load])
 
   useEffect(() => {
-    if (active) document.documentElement.lang = active
+    if (active) window.document.documentElement.lang = active
   }, [active])
 
   // Only before ANY catalog has activated. A later switch keeps rendering the
