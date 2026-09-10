@@ -138,8 +138,32 @@ So, per task, once, in this order:
 4. When it returns, roast the roast. Judge each finding against the code:
    **real** (reproduce it, name the input), **wrong** (say what the reviewer
    misread, never silently drop it), or **out of scope**.
-5. **Every finding that survives becomes a new task on the board**, all nine
-   fields filled.
+5. **Every finding that survives becomes a CHILD of the task it came out of**,
+   all nine fields filled, filed with `todo add --parent-task <that task>`.
+
+   The owner, 2026-09-10:
+
+   > "when a task is done, we assume it got roasted and some to-dos are added
+   > right? but they need to be added as a subtask of that thing ... when a
+   > child task is done and there's no other remaining child task for that
+   > parent, the parent task + all the done child tasks should get roasted"
+
+   `--parent-task` is **provenance**: this exists because that task was roasted.
+   `--parent` is a **blocker**: this cannot start until that finishes. They are
+   different, and filing a finding as a blocker makes its parent look
+   unstartable when the parent is usually already `done`. **One level**: a child
+   never gets children of its own.
+
+   **When the LAST open child of a parent closes, roast the parent together
+   with all its children** on what was done for the whole task rather than for
+   the last piece. What that round finds becomes a new child, and it repeats
+   until a round finds nothing. `todo move <id> done` prints which case you are
+   in, so it is not something to remember.
+
+   That is not the re-roasting the owner killed. That was one unit roasted over
+   and over to push a number up, with no end. This asks a different question,
+   once per completed generation: now that everything this turned up is
+   finished, is the whole thing right?
 6. Then one of two things, and nothing else:
    - **It blocks the task you are building right now** → revert what you did on
      that task, put it back to `backlog`, and take `todo next`, which will
