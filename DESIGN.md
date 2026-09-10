@@ -280,9 +280,12 @@ checked for contrast, not invented per component.
 ### Where the shipped palette departs from this table, and why
 
 The table above is what Figma says. Everything here is what the app actually
-ships, with the measurement that forced it. SB-025 measured all 21 pairs the
-product renders, in both modes, and `contrast.test.ts` now fails on any that
-misses. **These are measured departures, not preferences, and each one is the
+ships, with the measurement that forced it. SB-025 measured every pair the
+product renders, in both modes, and `contrast.test.ts` fails on any that
+misses. SB-121 then made the binding required and moved the pairs nothing
+paints yet into a recorded exemption list, so the inventory is twelve entries
+rather than twenty one: the colours did not change, the claim about what
+renders them got honest. **These are measured departures, not preferences, and each one is the
 smallest move that clears the target.**
 
 The surprise, for the record: dark, which was derived by eye, passed 22 of 26

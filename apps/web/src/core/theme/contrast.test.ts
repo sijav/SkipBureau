@@ -38,29 +38,49 @@ test('the contrast ratio is the WCAG one, checked against values with known answ
   assert.equal(contrastRatio('#1D2421', '#F8FAF8'), contrastRatio('#F8FAF8', '#1D2421'))
 })
 
-test('every rendered pair is bound to the palette slot that renders it', () => {
-  // Two gaps, one test, and it is driven by DECLARED rather than by a
-  // hand written list that can drift from it in the same way the inventory
-  // drifted from the components.
-  //
-  // First: `warning.contrastText` was `warningText`, which is for text on the
-  // SUBTLE fill and measures 2.82 on the amber itself.
-  //
-  // Second, and the reason for SB-116: the inventory measured `accentHover`
-  // and called it the hovered state, while MUI paints a contained hover from
-  // `palette.primary.dark`, which is `accentPressed`. Measuring a token
-  // nothing paints is a green run that means nothing.
-  const bound = DECLARED.filter((pair) => pair.from)
-  assert.ok(bound.length > 0, 'no pair claims to be rendered from the palette, so this test checks nothing')
+/**
+ * Adding a variant to `Painted` without handling it below is a TYPE error, not
+ * a silently skipped case. A plain switch is not exhaustive just because its
+ * discriminant is a union: `noFallthroughCasesInSwitch` only catches accidental
+ * fallthrough, so a new variant would compile and quietly check nothing, which
+ * is this file's own history.
+ */
+const assertNever = (value: never): never => {
+  throw new Error(`unhandled paint source: ${JSON.stringify(value)}`)
+}
 
+test('every pair is bound to the slot that paints it', () => {
+  // No filter. `painted` is required, so there is nothing to skip: a pair that
+  // declined to say where it was painted used to be contrast tested, never
+  // bound, and green.
   for (const [mode, tokens] of MODES) {
     const { palette } = appTheme(mode, 'ltr')
 
-    for (const { role, fore, back, from } of bound) {
-      if (!from) continue
+    for (const { role, fore, back, painted } of DECLARED) {
+      switch (painted.by) {
+        case 'palette':
+          // The gap this closes: warning.contrastText was warningText, which is
+          // for text on the SUBTLE fill and measures 2.82 on the amber itself.
+          assert.equal(
+            palette[painted.entry][painted.fill],
+            tokens[back],
+            `${mode}: ${role} is painted from ${painted.entry}.${painted.fill}`,
+          )
+          assert.equal(
+            palette[painted.entry].contrastText,
+            tokens[fore],
+            `${mode}: ${role} takes its text from ${painted.entry}.contrastText`,
+          )
+          break
 
-      assert.equal(palette[from.entry][from.fill], tokens[back], `${mode}: ${role} is painted from ${from.entry}.${from.fill}`)
-      assert.equal(palette[from.entry].contrastText, tokens[fore], `${mode}: ${role} takes its text from ${from.entry}.contrastText`)
+        case 'text':
+          assert.equal(palette.background[painted.back], tokens[back], `${mode}: ${role} sits on background.${painted.back}`)
+          assert.equal(palette.text[painted.fore], tokens[fore], `${mode}: ${role} is text.${painted.fore}`)
+          break
+
+        default:
+          assertNever(painted)
+      }
     }
   }
 })
