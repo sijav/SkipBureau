@@ -33,13 +33,21 @@ msgstr "درخواست اقامت دانشجویی باید ظرف یک ماه �
 msgid "Add to sharpen answers"
 msgstr "برای پاسخ دقیق‌تر اضافه کنید"
 
-#: src/shared/header/Header.tsx
+#: src/shared/context-control/ContextControl.tsx
 msgid "Add your details"
 msgstr "مشخصات خود را وارد کنید"
+
+#: src/screens/task-hub/TaskHub.tsx
+msgid "Alternative route"
+msgstr "مسیر جایگزین"
 
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Ankara"
 msgstr "آنکارا"
+
+#: src/screens/task-hub/GuidedSetup.tsx
+msgid "Answer a few questions and we’ll build a roadmap for your situation."
+msgstr "به چند پرسش پاسخ دهید تا نقشه راهی متناسب با موقعیت شما بسازیم."
 
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Antalya"
@@ -104,6 +112,14 @@ msgstr "پیش از گرفتن نوبت بررسی کنید"
 msgid "Check before you pay"
 msgstr "پیش از پرداخت بررسی کنید"
 
+#: src/shared/source-card/SourceCard.tsx
+msgid "Checked this month"
+msgstr "این ماه بررسی شده"
+
+#: src/shared/topic-item/TopicItem.stories.tsx
+msgid "Choose a company type"
+msgstr "انتخاب نوع شرکت"
+
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "City in Turkey"
 msgstr "شهری در ترکیه"
@@ -133,9 +149,18 @@ msgstr "انجام‌شده"
 msgid "Content"
 msgstr "محتوا"
 
+#: src/screens/task-hub/TaskHub.tsx
+#: src/shared/topic-item/TopicItem.stories.tsx
+msgid "Decision"
+msgstr "تصمیم"
+
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Depends on nationality"
 msgstr "بسته به ملیت"
+
+#: src/screens/task-hub/TaskHub.tsx
+msgid "Descriptions on this page are sample content for design review. They deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
+msgstr "توضیحات این صفحه محتوای نمونه برای بازبینی طرح هستند. عمدا از هزینه‌ها، آستانه‌ها و قواعد واجد شرایط بودن پرهیز می‌کنند؛ این‌ها در راه‌اندازی راهنمایی‌شده و بر پایه منابع تأییدشده تعیین می‌شوند."
 
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Due in 12 days"
@@ -165,13 +190,26 @@ msgstr "راهنما"
 msgid "Guided process · 9 steps"
 msgstr "فرایند راهنمایی‌شده · ۹ گام"
 
+#: src/screens/task-hub/TaskHub.tsx
+msgid "Guided setup works this out with you"
+msgstr "راه‌اندازی راهنمایی‌شده این را همراه شما مشخص می‌کند"
+
+#: src/screens/task-hub/TaskHub.tsx
 #: src/shared/header/Header.tsx
 msgid "Guides"
 msgstr "راهنماها"
 
+#: src/screens/task-hub/GuidedSetup.tsx
+msgid "How it works"
+msgstr "چگونه کار می‌کند"
+
 #: src/shared/ask-result-row/AskResultRow.stories.tsx
 msgid "How to register a company"
 msgstr "چگونه شرکت ثبت کنیم"
+
+#: src/screens/task-hub/TaskHub.tsx
+msgid "If it applies to you"
+msgstr "اگر برای شما صدق کند"
 
 #: src/shared/context-chip/ContextChip.stories.tsx
 msgid "Iranian"
@@ -189,6 +227,19 @@ msgstr "ازمیر"
 msgid "Language"
 msgstr "زبان"
 
+#: src/shared/source-card/SourceCard.tsx
+msgid "Last checked {day}"
+msgstr "آخرین بررسی {day}"
+
+#: src/shared/source-card/SourceCard.tsx
+msgid "Last reachable {day}"
+msgstr "آخرین دسترسی {day}"
+
+#. placeholder {0}: formatMonth(latest, locale, 'long')
+#: src/screens/task-hub/TaskHub.tsx
+msgid "Last verified {0}"
+msgstr "آخرین تأیید {0}"
+
 #: src/shared/header/Header.tsx
 msgid "Main"
 msgstr "اصلی"
@@ -205,6 +256,14 @@ msgstr "هیچ واسطه‌ای نمی‌تواند سریع‌تر از سام
 msgid "Not built yet"
 msgstr "هنوز ساخته نشده"
 
+#: src/shared/source-card/SourceCard.tsx
+msgid "Not re-checked since {month}"
+msgstr "از {month} دوباره بررسی نشده"
+
+#: src/screens/task-hub/GuidedSetup.tsx
+msgid "Not sure where to start?"
+msgstr "نمی‌دانید از کجا شروع کنید؟"
+
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Not yet verified"
 msgstr "هنوز تأیید نشده"
@@ -216,6 +275,30 @@ msgstr "رسمی"
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Official information"
 msgstr "اطلاعات رسمی"
+
+#: src/shared/source-card/SourceCard.tsx
+msgid "Official page did not respond"
+msgstr "صفحه رسمی پاسخ نداد"
+
+#: src/shared/source-card/SourceCard.tsx
+msgid "Official page unavailable"
+msgstr "صفحه رسمی در دسترس نیست"
+
+#: src/shared/source-card/SourceCard.tsx
+msgid "Official source"
+msgstr "منبع رسمی"
+
+#: src/screens/task-hub/TaskHub.tsx
+msgid "Ongoing"
+msgstr "مستمر"
+
+#: src/screens/task-hub/TaskHub.tsx
+msgid "Or explore the areas involved yourself."
+msgstr "یا حوزه‌های مربوط را خودتان بررسی کنید."
+
+#: src/screens/task-hub/TaskHub.tsx
+msgid "Other routes"
+msgstr "مسیرهای دیگر"
 
 #: src/shared/text-input/TextInput.stories.tsx
 msgid "Passport number"
@@ -237,6 +320,18 @@ msgstr "ریاست مدیریت مهاجرت · تأییدشده در اوت ۲�
 msgid "Quick answer"
 msgstr "پاسخ کوتاه"
 
+#: src/shared/source-card/SourceCard.tsx
+msgid "Re-verification in progress"
+msgstr "بازبینی دوباره در جریان است"
+
+#: src/screens/task-hub/TaskHub.tsx
+msgid "Read about a topic before you deal with it. Guides explain how something works; the areas above are things you may need to do."
+msgstr "پیش از رسیدگی به هر موضوع درباره آن بخوانید. راهنماها توضیح می‌دهند چیزی چگونه کار می‌کند؛ حوزه‌های بالا کارهایی هستند که شاید لازم باشد انجام دهید."
+
+#: src/screens/task-hub/TaskHub.tsx
+msgid "Reading · verified {verified}"
+msgstr "مطالعه · بررسی‌شده در {verified}"
+
 #: src/shared/ask-result-row/AskResultRow.stories.tsx
 msgid "Reading · verified Aug 2026"
 msgstr "مطالعه · بررسی‌شده در اوت ۲۰۲۶"
@@ -244,6 +339,10 @@ msgstr "مطالعه · بررسی‌شده در اوت ۲۰۲۶"
 #: src/shared/ask-result-row/AskResultRow.tsx
 msgid "Recent"
 msgstr "اخیر"
+
+#: src/shared/topic-item/TopicItem.stories.tsx
+msgid "Register your company"
+msgstr "ثبت شرکت"
 
 #: src/shared/text-input/TextInput.stories.tsx
 msgid "Remove the dash, this field takes letters and numbers only"
@@ -260,6 +359,10 @@ msgstr "جست‌وجو در راهنماها"
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Select a city"
 msgstr "یک شهر انتخاب کنید"
+
+#: src/screens/task-hub/TaskHub.tsx
+msgid "Separate routes some people look into."
+msgstr "مسیرهای جداگانه‌ای که برخی بررسی می‌کنند."
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Set your nationality to resolve this"
@@ -290,6 +393,11 @@ msgstr "راه‌اندازی کسب‌وکار"
 msgid "Start a business in Turkey"
 msgstr "راه‌اندازی کسب‌وکار در ترکیه"
 
+#: src/screens/task-hub/GuidedSetup.tsx
+#: src/screens/task-hub/TaskHub.tsx
+msgid "Start guided setup"
+msgstr "شروع راه‌اندازی راهنمایی‌شده"
+
 #: src/shared/button/Button.stories.tsx
 msgid "Start this process"
 msgstr "این فرایند را شروع کنید"
@@ -297,6 +405,10 @@ msgstr "این فرایند را شروع کنید"
 #: src/shared/ask-result-row/AskResultRow.tsx
 msgid "Task"
 msgstr "کار"
+
+#: src/screens/task-hub/TaskHub.tsx
+msgid "Task hub"
+msgstr "مرکز کار"
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Tell us if you have done this in Antalya"
@@ -310,6 +422,10 @@ msgstr "ممکن است نشانی اشتباه تایپ شده باشد، یا 
 msgid "The address resolved, which is what this page is here to show."
 msgstr "نشانی درست تشخیص داده شد؛ همین چیزی است که این صفحه برای نشان دادنش اینجاست."
 
+#: src/shared/source-card/SourceCard.tsx
+msgid "The institution’s own wording — not Skipbureau advice"
+msgstr "عبارات خود نهاد، نه توصیه Skipbureau"
+
 #: src/shared/app-shell/AppShell.stories.tsx
 msgid "The page goes here"
 msgstr "صفحه اینجا قرار می‌گیرد"
@@ -317,6 +433,10 @@ msgstr "صفحه اینجا قرار می‌گیرد"
 #: src/shared/reading/Reading.stories.tsx
 msgid "The reading measure is 720. The design gives a reason for that one number and for no other, so it is the only width here that is about how text reads rather than about how a screen is divided."
 msgstr "عرض خوانش ۷۲۰ است. طراحی فقط برای همین یک عدد دلیل آورده، پس تنها عرضی است که به خوانایی متن مربوط می‌شود، نه به تقسیم‌بندی صفحه."
+
+#: src/screens/task-hub/TaskHub.tsx
+msgid "These are the areas most people deal with. They are deliberately not numbered, because the order that applies to you depends on your situation."
+msgstr "این‌ها حوزه‌هایی هستند که بیشتر افراد با آن‌ها سروکار دارند. عمدا شماره‌گذاری نشده‌اند، چون ترتیبی که برای شما صدق می‌کند به موقعیت شما بستگی دارد."
 
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "This depends on your situation"
@@ -334,6 +454,14 @@ msgstr "امتحان کنید"
 msgid "Try again"
 msgstr "تلاش دوباره"
 
+#: src/shared/topic-item/TopicItem.stories.tsx
+msgid "Understand the main company structures and which situations they are commonly used for."
+msgstr "با ساختارهای اصلی شرکت و موقعیت‌هایی که معمولا برای آن‌ها به کار می‌روند آشنا شوید."
+
+#: src/shared/topic-item/TopicItem.stories.tsx
+msgid "Understand the registration process and what needs to be prepared."
+msgstr "با روند ثبت و آنچه باید آماده شود آشنا شوید."
+
 #: src/shared/country-name/CountryName.tsx
 #~ msgid "Unknown country"
 #~ msgstr "کشور ناشناخته"
@@ -342,9 +470,17 @@ msgstr "تلاش دوباره"
 msgid "Unnamed country"
 msgstr "کشور بی‌نام"
 
+#: src/shared/source-card/SourceCard.tsx
+msgid "Verified against this source"
+msgstr "با این منبع تطبیق داده شده"
+
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Verified Aug 2026"
 msgstr "تأییدشده، اوت ۲۰۲۶"
+
+#: src/shared/source-card/SourceCard.tsx
+msgid "Visit official source"
+msgstr "رفتن به منبع رسمی"
 
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Waiting on institution"
@@ -374,6 +510,14 @@ msgstr "می‌خواهید چه کار کنید؟"
 msgid "What documents do I need for student residence?"
 msgstr "برای اقامت دانشجویی به چه مدارکی نیاز دارم؟"
 
+#: src/screens/task-hub/TaskHub.tsx
+msgid "What we know about you"
+msgstr "آنچه درباره شما می‌دانیم"
+
+#: src/screens/task-hub/TaskHub.tsx
+msgid "What you’ll need to think about"
+msgstr "آنچه باید به آن فکر کنید"
+
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Whether your diploma needs an apostille or consular legalization depends on your country of issue. We cannot show one answer here until you tell us your nationality."
 msgstr "اینکه مدرک تحصیلی شما آپوستیل لازم دارد یا تأیید کنسولی، به کشور صادرکنندهٔ آن بستگی دارد. تا ملیت خود را به ما نگویید، نمی‌توانیم اینجا یک پاسخ نشان دهیم."
@@ -385,6 +529,10 @@ msgstr "بله، برای مالکیت سهام اجازه اقامت لازم �
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "You do not need an agent for this step"
 msgstr "برای این مرحله به واسطه نیازی ندارید"
+
+#: src/screens/task-hub/TaskHub.tsx
+msgid "Your nationality, residence status and plans can each change which of these areas apply to you, and in what order."
+msgstr "ملیت، وضعیت اقامت و برنامه‌های شما هر کدام می‌تواند تعیین کند کدام یک از این حوزه‌ها و به چه ترتیبی برای شما صدق می‌کنند."
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Your passport must stay valid for at least 60 days beyond the end of the permit you are requesting. Applications are refused on this alone more often than on any other single reason."

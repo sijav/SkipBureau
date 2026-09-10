@@ -77,3 +77,37 @@ export const guide = {
 
 /** The same guide asked for in Persian, which this one does not have. */
 export const untranslatedGuide = { ...guide, locale: 'en-US', translationMissing: true }
+
+/** Start a business in Turkey, as the API's sample content has it: Figma 81:523. */
+export const taskHub = {
+  slug: 'start-a-business',
+  title: 'Start a business',
+  heading: 'Start a business in {country}',
+  intro: 'Understand the main decisions, registrations and ongoing responsibilities involved in setting up a business in {country}.',
+  areasIntro: 'These are the areas most founders deal with. They are deliberately not numbered — the order that applies to you depends on your situation.',
+  dependsNote:
+    'Your nationality, residence status, company structure, and whether you plan to work in the company or hire staff can each change which of these areas apply and in what order.',
+  otherRoutesIntro: 'Not part of company registration. These are separate routes some founders look into.',
+  locale: 'en-US',
+  translationMissing: false,
+  areas: [
+    ['choose-a-company-type', 'decision', 'Choose a company type', 'Understand the main company structures and which situations they are commonly used for.'],
+    ['register-your-company', null, 'Register your company', 'Understand the registration process and what needs to be prepared.'],
+    ['get-a-business-address', null, 'Get a business address', 'Understand address requirements and what options may be available.'],
+    ['get-your-tax-setup-ready', null, 'Get your tax setup ready', 'Understand tax registration and the first administrative obligations.'],
+    ['open-a-business-bank-account', null, 'Open a business bank account', 'Understand when a business account is needed and what may be requested.'],
+    ['work-in-your-own-company', 'ifItApplies', 'Work in your own company', 'Understand when founders may need separate permission to work.'],
+    ['hire-employees', 'ifItApplies', 'Hire employees', 'Understand the basics of employing Turkish or foreign staff.'],
+    ['set-up-accounting-and-invoicing', 'ongoing', 'Set up accounting & invoicing', 'Understand ongoing accounting, invoicing and reporting responsibilities.'],
+    ['startup-and-tech-visa-programmes', 'alternativeRoute', 'Startup and tech visa programmes', 'For founders exploring startup-specific immigration routes.'],
+  ].map(([slug = '', kind = null, title = '', description = ''], position) => ({ slug, position, kind, title, description })),
+  guides: [
+    ['company-types', 'Company types in Turkey', '2026-08-24'],
+    ['how-company-registration-works', 'How company registration works', '2026-08-24'],
+    ['business-addresses-explained', 'Business addresses explained', '2026-07-15'],
+    ['working-in-your-own-company', 'Working in your own company as a foreign founder', '2026-08-24'],
+    ['hiring-foreign-employees', 'Hiring foreign employees', '2026-08-24'],
+    ['accounting-basics', 'Accounting basics for new companies', '2026-07-15'],
+  ].map(([slug = '', title = '', verifiedAt = '']) => ({ slug, title, verifiedAt })),
+  sources: [{ url: 'https://ticaret.gov.tr/', name: 'Ministry of Trade · Trade Registry', publisher: 'Republic of Türkiye', verifiedAt: '2026-08-24' }],
+}

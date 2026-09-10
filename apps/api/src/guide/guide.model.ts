@@ -126,3 +126,63 @@ export class QuestionView {
   @Field(() => Boolean, { description: 'True when the requested language had no content and another was used.' })
   translationMissing!: boolean
 }
+
+export enum CategoryKind {
+  decision = 'decision',
+  ifItApplies = 'ifItApplies',
+  ongoing = 'ongoing',
+  alternativeRoute = 'alternativeRoute',
+}
+
+registerEnumType(CategoryKind, {
+  name: 'CategoryKind',
+  description: 'What kind of area this is, where it differs from a setup step done once. Null for an ordinary step.',
+})
+
+@ObjectType({ description: 'An area of a task hub: one of the things a goal involves.' })
+export class HubAreaView {
+  @Field(() => String) slug!: string
+  @Field(() => Int) position!: number
+  @Field(() => CategoryKind, { nullable: true }) kind!: CategoryKind | null
+  @Field(() => String) title!: string
+  @Field(() => String, { nullable: true }) description!: string | null
+}
+
+@ObjectType()
+export class HubGuideView {
+  @Field(() => String) slug!: string
+  @Field(() => String) title!: string
+  @Field(() => String) verifiedAt!: string
+}
+
+@ObjectType()
+export class HubSourceView {
+  @Field(() => String) url!: string
+  @Field(() => String) name!: string
+  @Field(() => String, { nullable: true }) publisher!: string | null
+  @Field(() => String) verifiedAt!: string
+}
+
+@ObjectType({ description: 'Figma 81:523: what a goal involves in one country. Its copy may say {country}.' })
+export class TaskHubView {
+  @Field(() => String) slug!: string
+  @Field(() => String) title!: string
+  @Field(() => String, { nullable: true }) heading!: string | null
+  @Field(() => String, { nullable: true }) intro!: string | null
+  @Field(() => String, { nullable: true }) areasIntro!: string | null
+  @Field(() => String, { nullable: true }) dependsNote!: string | null
+  @Field(() => String, { nullable: true }) otherRoutesIntro!: string | null
+
+  @Field(() => String, { description: 'The locale this content is actually in, which may not be the one asked for.' })
+  locale!: string
+
+  @Field(() => Boolean, { description: 'True when the requested language had no content and another was used.' })
+  translationMissing!: boolean
+
+  @Field(() => [HubAreaView]) areas!: readonly HubAreaView[]
+  @Field(() => [HubGuideView], { description: 'Guides under any of the areas, for reading before doing.' })
+  guides!: readonly HubGuideView[]
+
+  @Field(() => [HubSourceView], { description: 'The official sources behind those guides, each once.' })
+  sources!: readonly HubSourceView[]
+}

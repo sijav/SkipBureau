@@ -33,13 +33,21 @@ msgstr "A student residence permit application must be submitted within one mont
 msgid "Add to sharpen answers"
 msgstr "Add to sharpen answers"
 
-#: src/shared/header/Header.tsx
+#: src/shared/context-control/ContextControl.tsx
 msgid "Add your details"
 msgstr "Add your details"
+
+#: src/screens/task-hub/TaskHub.tsx
+msgid "Alternative route"
+msgstr "Alternative route"
 
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Ankara"
 msgstr "Ankara"
+
+#: src/screens/task-hub/GuidedSetup.tsx
+msgid "Answer a few questions and we’ll build a roadmap for your situation."
+msgstr "Answer a few questions and we’ll build a roadmap for your situation."
 
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Antalya"
@@ -104,6 +112,14 @@ msgstr "Check before booking your appointment"
 msgid "Check before you pay"
 msgstr "Check before you pay"
 
+#: src/shared/source-card/SourceCard.tsx
+msgid "Checked this month"
+msgstr "Checked this month"
+
+#: src/shared/topic-item/TopicItem.stories.tsx
+msgid "Choose a company type"
+msgstr "Choose a company type"
+
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "City in Turkey"
 msgstr "City in Turkey"
@@ -133,9 +149,18 @@ msgstr "Completed"
 msgid "Content"
 msgstr "Content"
 
+#: src/screens/task-hub/TaskHub.tsx
+#: src/shared/topic-item/TopicItem.stories.tsx
+msgid "Decision"
+msgstr "Decision"
+
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Depends on nationality"
 msgstr "Depends on nationality"
+
+#: src/screens/task-hub/TaskHub.tsx
+msgid "Descriptions on this page are sample content for design review. They deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
+msgstr "Descriptions on this page are sample content for design review. They deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
 
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Due in 12 days"
@@ -165,13 +190,26 @@ msgstr "Guide"
 msgid "Guided process · 9 steps"
 msgstr "Guided process · 9 steps"
 
+#: src/screens/task-hub/TaskHub.tsx
+msgid "Guided setup works this out with you"
+msgstr "Guided setup works this out with you"
+
+#: src/screens/task-hub/TaskHub.tsx
 #: src/shared/header/Header.tsx
 msgid "Guides"
 msgstr "Guides"
 
+#: src/screens/task-hub/GuidedSetup.tsx
+msgid "How it works"
+msgstr "How it works"
+
 #: src/shared/ask-result-row/AskResultRow.stories.tsx
 msgid "How to register a company"
 msgstr "How to register a company"
+
+#: src/screens/task-hub/TaskHub.tsx
+msgid "If it applies to you"
+msgstr "If it applies to you"
 
 #: src/shared/context-chip/ContextChip.stories.tsx
 msgid "Iranian"
@@ -189,6 +227,19 @@ msgstr "Izmir"
 msgid "Language"
 msgstr "Language"
 
+#: src/shared/source-card/SourceCard.tsx
+msgid "Last checked {day}"
+msgstr "Last checked {day}"
+
+#: src/shared/source-card/SourceCard.tsx
+msgid "Last reachable {day}"
+msgstr "Last reachable {day}"
+
+#. placeholder {0}: formatMonth(latest, locale, 'long')
+#: src/screens/task-hub/TaskHub.tsx
+msgid "Last verified {0}"
+msgstr "Last verified {0}"
+
 #: src/shared/header/Header.tsx
 msgid "Main"
 msgstr "Main"
@@ -205,6 +256,14 @@ msgstr "No agent can get an appointment faster than the official system, and nob
 msgid "Not built yet"
 msgstr "Not built yet"
 
+#: src/shared/source-card/SourceCard.tsx
+msgid "Not re-checked since {month}"
+msgstr "Not re-checked since {month}"
+
+#: src/screens/task-hub/GuidedSetup.tsx
+msgid "Not sure where to start?"
+msgstr "Not sure where to start?"
+
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Not yet verified"
 msgstr "Not yet verified"
@@ -216,6 +275,30 @@ msgstr "Official"
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Official information"
 msgstr "Official information"
+
+#: src/shared/source-card/SourceCard.tsx
+msgid "Official page did not respond"
+msgstr "Official page did not respond"
+
+#: src/shared/source-card/SourceCard.tsx
+msgid "Official page unavailable"
+msgstr "Official page unavailable"
+
+#: src/shared/source-card/SourceCard.tsx
+msgid "Official source"
+msgstr "Official source"
+
+#: src/screens/task-hub/TaskHub.tsx
+msgid "Ongoing"
+msgstr "Ongoing"
+
+#: src/screens/task-hub/TaskHub.tsx
+msgid "Or explore the areas involved yourself."
+msgstr "Or explore the areas involved yourself."
+
+#: src/screens/task-hub/TaskHub.tsx
+msgid "Other routes"
+msgstr "Other routes"
 
 #: src/shared/text-input/TextInput.stories.tsx
 msgid "Passport number"
@@ -237,6 +320,18 @@ msgstr "Presidency of Migration Management · verified August 2026"
 msgid "Quick answer"
 msgstr "Quick answer"
 
+#: src/shared/source-card/SourceCard.tsx
+msgid "Re-verification in progress"
+msgstr "Re-verification in progress"
+
+#: src/screens/task-hub/TaskHub.tsx
+msgid "Read about a topic before you deal with it. Guides explain how something works; the areas above are things you may need to do."
+msgstr "Read about a topic before you deal with it. Guides explain how something works; the areas above are things you may need to do."
+
+#: src/screens/task-hub/TaskHub.tsx
+msgid "Reading · verified {verified}"
+msgstr "Reading · verified {verified}"
+
 #: src/shared/ask-result-row/AskResultRow.stories.tsx
 msgid "Reading · verified Aug 2026"
 msgstr "Reading · verified Aug 2026"
@@ -244,6 +339,10 @@ msgstr "Reading · verified Aug 2026"
 #: src/shared/ask-result-row/AskResultRow.tsx
 msgid "Recent"
 msgstr "Recent"
+
+#: src/shared/topic-item/TopicItem.stories.tsx
+msgid "Register your company"
+msgstr "Register your company"
 
 #: src/shared/text-input/TextInput.stories.tsx
 msgid "Remove the dash, this field takes letters and numbers only"
@@ -260,6 +359,10 @@ msgstr "Search the guides"
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Select a city"
 msgstr "Select a city"
+
+#: src/screens/task-hub/TaskHub.tsx
+msgid "Separate routes some people look into."
+msgstr "Separate routes some people look into."
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Set your nationality to resolve this"
@@ -290,6 +393,11 @@ msgstr "Start a business"
 msgid "Start a business in Turkey"
 msgstr "Start a business in Turkey"
 
+#: src/screens/task-hub/GuidedSetup.tsx
+#: src/screens/task-hub/TaskHub.tsx
+msgid "Start guided setup"
+msgstr "Start guided setup"
+
 #: src/shared/button/Button.stories.tsx
 msgid "Start this process"
 msgstr "Start this process"
@@ -297,6 +405,10 @@ msgstr "Start this process"
 #: src/shared/ask-result-row/AskResultRow.tsx
 msgid "Task"
 msgstr "Task"
+
+#: src/screens/task-hub/TaskHub.tsx
+msgid "Task hub"
+msgstr "Task hub"
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Tell us if you have done this in Antalya"
@@ -310,6 +422,10 @@ msgstr "The address may be mistyped, or it may point at a country or a guide Ski
 msgid "The address resolved, which is what this page is here to show."
 msgstr "The address resolved, which is what this page is here to show."
 
+#: src/shared/source-card/SourceCard.tsx
+msgid "The institution’s own wording — not Skipbureau advice"
+msgstr "The institution’s own wording — not Skipbureau advice"
+
 #: src/shared/app-shell/AppShell.stories.tsx
 msgid "The page goes here"
 msgstr "The page goes here"
@@ -317,6 +433,10 @@ msgstr "The page goes here"
 #: src/shared/reading/Reading.stories.tsx
 msgid "The reading measure is 720. The design gives a reason for that one number and for no other, so it is the only width here that is about how text reads rather than about how a screen is divided."
 msgstr "The reading measure is 720. The design gives a reason for that one number and for no other, so it is the only width here that is about how text reads rather than about how a screen is divided."
+
+#: src/screens/task-hub/TaskHub.tsx
+msgid "These are the areas most people deal with. They are deliberately not numbered, because the order that applies to you depends on your situation."
+msgstr "These are the areas most people deal with. They are deliberately not numbered, because the order that applies to you depends on your situation."
 
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "This depends on your situation"
@@ -334,6 +454,14 @@ msgstr "Try"
 msgid "Try again"
 msgstr "Try again"
 
+#: src/shared/topic-item/TopicItem.stories.tsx
+msgid "Understand the main company structures and which situations they are commonly used for."
+msgstr "Understand the main company structures and which situations they are commonly used for."
+
+#: src/shared/topic-item/TopicItem.stories.tsx
+msgid "Understand the registration process and what needs to be prepared."
+msgstr "Understand the registration process and what needs to be prepared."
+
 #: src/shared/country-name/CountryName.tsx
 #~ msgid "Unknown country"
 #~ msgstr "Unknown country"
@@ -342,9 +470,17 @@ msgstr "Try again"
 msgid "Unnamed country"
 msgstr "Unnamed country"
 
+#: src/shared/source-card/SourceCard.tsx
+msgid "Verified against this source"
+msgstr "Verified against this source"
+
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Verified Aug 2026"
 msgstr "Verified Aug 2026"
+
+#: src/shared/source-card/SourceCard.tsx
+msgid "Visit official source"
+msgstr "Visit official source"
 
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Waiting on institution"
@@ -374,6 +510,14 @@ msgstr "What do you want to do?"
 msgid "What documents do I need for student residence?"
 msgstr "What documents do I need for student residence?"
 
+#: src/screens/task-hub/TaskHub.tsx
+msgid "What we know about you"
+msgstr "What we know about you"
+
+#: src/screens/task-hub/TaskHub.tsx
+msgid "What you’ll need to think about"
+msgstr "What you’ll need to think about"
+
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Whether your diploma needs an apostille or consular legalization depends on your country of issue. We cannot show one answer here until you tell us your nationality."
 msgstr "Whether your diploma needs an apostille or consular legalization depends on your country of issue. We cannot show one answer here until you tell us your nationality."
@@ -385,6 +529,10 @@ msgstr "Yes, no residence permit is required to own shares"
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "You do not need an agent for this step"
 msgstr "You do not need an agent for this step"
+
+#: src/screens/task-hub/TaskHub.tsx
+msgid "Your nationality, residence status and plans can each change which of these areas apply to you, and in what order."
+msgstr "Your nationality, residence status and plans can each change which of these areas apply to you, and in what order."
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Your passport must stay valid for at least 60 days beyond the end of the permit you are requesting. Applications are refused on this alone more often than on any other single reason."

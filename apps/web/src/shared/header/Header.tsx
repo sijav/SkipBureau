@@ -1,11 +1,12 @@
 import { Trans, useLingui } from '@lingui/react/macro'
-import { Box, ButtonBase, InputBase, Typography, useTheme } from '@mui/material'
+import { Box, InputBase, Typography, useTheme } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { useLocale } from 'src/core/i18n'
 import { paths } from 'src/core/router'
 import { useShell } from 'src/core/shell'
-import { HeaderGlyph, SmallChevron } from './icons'
+import { ContextControl } from 'src/shared/context-control'
+import { HeaderGlyph } from './icons'
 import { LanguageControl } from './LanguageControl'
 
 /** Scrolled a little past the top: the header drops 68 to 60 and its rule strengthens, no shadow, no blur. */
@@ -136,25 +137,7 @@ export const Header = ({ onAsk }: { onAsk?: (question: string) => void }) => {
         </Box>
 
         <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0 }}>
-          {/* States what Skipbureau knows. No context is a dashed neutral
-              invitation, not an amber error, per the design. */}
-          <ButtonBase
-            disableRipple
-            sx={{
-              gap: '5px',
-              padding: '6px 7px',
-              border: `1px dashed ${tokens.border}`,
-              borderRadius: '2px',
-              backgroundColor: tokens.surface,
-              color: tokens.textSecondary,
-              '&.Mui-focusVisible': { outline: `2px solid ${tokens.accentText}`, outlineOffset: '-2px' },
-            }}
-          >
-            <Typography component="span" variant="overline">
-              <Trans>Add your details</Trans>
-            </Typography>
-            <SmallChevron aria-hidden sx={{ width: '14px', height: '14px' }} />
-          </ButtonBase>
+          <ContextControl />
           <LanguageControl />
         </Box>
       </Box>

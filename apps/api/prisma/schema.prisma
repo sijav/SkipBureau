@@ -189,24 +189,42 @@ model Task {
 }
 
 model TaskText {
-  taskId   String
-  locale   String  @db.VarChar(5)
-  title    String
+  taskId           String
+  locale           String  @db.VarChar(5)
+  title            String
   /// The clarifier line. The design archived an alternative for lacking one.
-  subtitle String?
-  task     Task    @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  subtitle         String?
+  /// The task hub's own copy, Figma 81:523. Each may say {country}; each is
+  /// optional, and the hub falls back to general wording without it.
+  heading          String?
+  intro            String?
+  areasIntro       String?
+  dependsNote      String?
+  otherRoutesIntro String?
+  task             Task    @relation(fields: [taskId], references: [id], onDelete: Cascade)
 
   @@id([taskId, locale])
 }
 
 /// The layer between a task tile and a guide. Country-specific, because the
 /// category hub is a checklist of that country's actual steps.
+/// What kind of area a category is, where that differs from a setup step done
+/// once. The design labels only those: labelling everything would be noise.
+enum CategoryKind {
+  decision
+  ifItApplies
+  ongoing
+  alternativeRoute
+}
+
 model Category {
   id          String         @id @default(cuid())
   countryCode String         @db.VarChar(2)
   taskId      String
   slug        String
   position    Int
+  /// Null for an ordinary setup step, which carries no label.
+  kind        CategoryKind?
   country     Country        @relation(fields: [countryCode], references: [code], onDelete: Cascade)
   task        Task           @relation(fields: [taskId], references: [id], onDelete: Cascade)
   texts       CategoryText[]
@@ -359,7 +377,10 @@ model GuideSource {
   id         String   @id @default(cuid())
   guideId    String
   url        String
+  /// The institution, "Ministry of Trade · Trade Registry".
   name       String
+  /// Who stands behind it, "Republic of Türkiye". The citation card's first line.
+  publisher  String?
   verifiedAt DateTime @db.Date
   position   Int
   guide      Guide    @relation(fields: [guideId], references: [id], onDelete: Cascade)

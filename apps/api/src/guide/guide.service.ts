@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../prisma/prisma.service.js'
 import { generalVersionAt } from '../rules/selection.js'
-import type { CategoryView, GuideView, QuestionView, TaskView } from './guide.model.js'
-import { ObligationResolution, SectionKind } from './guide.model.js'
+import type { CategoryView, GuideView, HubSourceView, QuestionView, TaskHubView, TaskView } from './guide.model.js'
+import { CategoryKind, ObligationResolution, SectionKind } from './guide.model.js'
 
 const FALLBACK = 'en-US'
 
@@ -33,6 +33,71 @@ export class GuideService {
       if (!text) return []
       return [{ slug: row.slug, position: row.position, title: text.title, subtitle: text.subtitle }]
     })
+  }
+
+  /**
+   * What one goal involves in one country, Figma 81:523. Null where the
+   * country has no area under the goal: that goal is Coming soon there, and
+   * there is no hub to show.
+   */
+  async taskHub(countryCode: string, slug: string, locale: string): Promise<TaskHubView | null> {
+    const task = await this.prisma.task.findUnique({
+      where: { slug },
+      include: {
+        texts: true,
+        categories: {
+          where: { countryCode },
+          orderBy: { position: 'asc' },
+          include: {
+            texts: true,
+            guides: { orderBy: { createdAt: 'asc' }, include: { texts: true, sources: { orderBy: { position: 'asc' } } } },
+          },
+        },
+      },
+    })
+    if (!task || task.categories.length === 0) return null
+
+    const { text, missing } = pick(task.texts, locale)
+    if (!text) return null
+
+    const areas = task.categories.flatMap((category) => {
+      const { text: area } = pick(category.texts, locale)
+      if (!area) return []
+      const kind = category.kind ? CategoryKind[category.kind] : null
+      return [{ slug: category.slug, position: category.position, kind, title: area.title, description: area.description }]
+    })
+
+    const guides = task.categories.flatMap((category) =>
+      category.guides.flatMap((guide) => {
+        const { text: reading } = pick(guide.texts, locale)
+        return reading ? [{ slug: guide.slug, title: reading.title, verifiedAt: date(guide.verifiedAt) }] : []
+      }),
+    )
+
+    // One card per institution, with the most recent check of it.
+    const sources = new Map<string, HubSourceView>()
+    for (const source of task.categories.flatMap((category) => category.guides.flatMap((guide) => guide.sources))) {
+      const verifiedAt = date(source.verifiedAt)
+      const seen = sources.get(source.url)
+      if (!seen || verifiedAt > seen.verifiedAt) {
+        sources.set(source.url, { url: source.url, name: source.name, publisher: source.publisher, verifiedAt })
+      }
+    }
+
+    return {
+      slug: task.slug,
+      title: text.title,
+      heading: text.heading,
+      intro: text.intro,
+      areasIntro: text.areasIntro,
+      dependsNote: text.dependsNote,
+      otherRoutesIntro: text.otherRoutesIntro,
+      locale: text.locale,
+      translationMissing: missing,
+      areas,
+      guides,
+      sources: [...sources.values()],
+    }
   }
 
   async questions(countryCode: string, locale: string): Promise<QuestionView[]> {

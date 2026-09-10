@@ -2,6 +2,16 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""
+What kind of area this is, where it differs from a setup step done once. Null for an ordinary step.
+"""
+enum CategoryKind {
+  alternativeRoute
+  decision
+  ifItApplies
+  ongoing
+}
+
 type CategoryView {
   countryCode: String!
   description: String
@@ -103,6 +113,28 @@ type GuideView {
   verifiedAt: String!
 }
 
+"""An area of a task hub: one of the things a goal involves."""
+type HubAreaView {
+  description: String
+  kind: CategoryKind
+  position: Int!
+  slug: String!
+  title: String!
+}
+
+type HubGuideView {
+  slug: String!
+  title: String!
+  verifiedAt: String!
+}
+
+type HubSourceView {
+  name: String!
+  publisher: String
+  url: String!
+  verifiedAt: String!
+}
+
 """
 Whether this obligation has one answer for everyone, or needs to know who is asking.
 """
@@ -138,6 +170,11 @@ type Query {
 
   """Common questions in one country, each with its short answer."""
   questions(country: String!, locale: String = "en-US"): [QuestionView!]!
+
+  """
+  What one goal involves in one country, or null where it is Coming soon.
+  """
+  taskHub(country: String!, locale: String = "en-US", slug: String!): TaskHubView
 
   """The twelve goals. Global: the same intention in every country."""
   tasks(locale: String = "en-US"): [TaskView!]!
@@ -186,6 +223,34 @@ enum SectionKind {
   whatYouNeed
   whereToDoIt
   yourOptions
+}
+
+"""
+Figma 81:523: what a goal involves in one country. Its copy may say {country}.
+"""
+type TaskHubView {
+  areas: [HubAreaView!]!
+  areasIntro: String
+  dependsNote: String
+
+  """Guides under any of the areas, for reading before doing."""
+  guides: [HubGuideView!]!
+  heading: String
+  intro: String
+
+  """
+  The locale this content is actually in, which may not be the one asked for.
+  """
+  locale: String!
+  otherRoutesIntro: String
+  slug: String!
+
+  """The official sources behind those guides, each once."""
+  sources: [HubSourceView!]!
+  title: String!
+
+  """True when the requested language had no content and another was used."""
+  translationMissing: Boolean!
 }
 
 type TaskView {

@@ -1,6 +1,6 @@
 import { graphql, HttpResponse } from 'msw'
 import { endpoint } from 'src/core/graphql'
-import { categories, countries, guide, persianNames, questions, tasks, untranslatedGuide } from './fixtures'
+import { categories, countries, guide, persianNames, questions, taskHub, tasks, untranslatedGuide } from './fixtures'
 
 /**
  * The network, faked at the network.
@@ -36,6 +36,11 @@ export const handlers = [
     const name = match && variables['locale'] === 'fa-IR' ? (persianNames[match.code] ?? match.name) : match?.name
     return HttpResponse.json({ data: { country: match ? { ...match, name } : null } })
   }),
+
+  // Only the hub the sample content has; any other goal is Coming soon.
+  api.query('TaskHub', ({ variables }) =>
+    HttpResponse.json({ data: { taskHub: variables['country'] === 'tr' && variables['slug'] === 'start-a-business' ? taskHub : null } }),
+  ),
 
   api.query('Guide', ({ variables }) => {
     if (variables.country !== 'tr' || variables.slug !== 'register-your-address') {

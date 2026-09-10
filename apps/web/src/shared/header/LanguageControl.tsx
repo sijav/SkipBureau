@@ -4,7 +4,7 @@ import { useId, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { isLocale, locales, useLocale, type Locale } from 'src/core/i18n'
 import { samePageIn } from 'src/core/router'
-import { SmallChevron } from './icons'
+import { SmallChevron } from 'src/shared/context-control'
 
 /**
  * In the header's profile slot, which is free because the product has no

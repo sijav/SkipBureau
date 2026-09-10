@@ -74,3 +74,36 @@ export const HomeQuery = graphql(`
     }
   }
 `)
+
+export const TaskHubQuery = graphql(`
+  query TaskHub($country: String!, $slug: String!, $locale: String) {
+    taskHub(country: $country, slug: $slug, locale: $locale) {
+      slug
+      title
+      heading
+      intro
+      areasIntro
+      dependsNote
+      otherRoutesIntro
+      locale
+      translationMissing
+      areas {
+        slug
+        kind
+        title
+        description
+      }
+      guides {
+        slug
+        title
+        verifiedAt
+      }
+      sources {
+        url
+        name
+        publisher
+        verifiedAt
+      }
+    }
+  }
+`)

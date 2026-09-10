@@ -33,7 +33,30 @@ const TASKS = [
   { slug: 'study', en: 'Study in {country}', fa: 'تحصیل در {country}', enSub: 'Applications, diploma recognition and student documents', faSub: 'درخواست پذیرش، ارزشیابی مدرک و مدارک دانشجویی' },
   { slug: 'work', en: 'Work in {country}', fa: 'کار در {country}', enSub: 'Work permits, contracts and social security', faSub: 'مجوز کار، قرارداد و تأمین اجتماعی' },
   { slug: 'hire-someone', en: 'Hire someone', fa: 'استخدام نیرو', enSub: 'Hiring local and foreign employees', faSub: 'استخدام نیروی محلی و خارجی' },
-  { slug: 'start-a-business', en: 'Start a business', fa: 'راه‌اندازی کسب‌وکار', enSub: 'Company types, registration and first obligations', faSub: 'انواع شرکت، ثبت و نخستین تعهدات' },
+  {
+    slug: 'start-a-business',
+    en: 'Start a business',
+    fa: 'راه‌اندازی کسب‌وکار',
+    enSub: 'Company types, registration and first obligations',
+    faSub: 'انواع شرکت، ثبت و نخستین تعهدات',
+    // The task hub's copy, Figma 81:566, 81:585, 81:647 and 81:692.
+    hub: {
+      en: {
+        heading: 'Start a business in {country}',
+        intro: 'Understand the main decisions, registrations and ongoing responsibilities involved in setting up a business in {country}.',
+        areasIntro: 'These are the areas most founders deal with. They are deliberately not numbered — the order that applies to you depends on your situation.',
+        dependsNote: 'Your nationality, residence status, company structure, and whether you plan to work in the company or hire staff can each change which of these areas apply and in what order.',
+        otherRoutesIntro: 'Not part of company registration. These are separate routes some founders look into.',
+      },
+      fa: {
+        heading: 'راه‌اندازی کسب‌وکار در {country}',
+        intro: 'با تصمیم‌های اصلی، ثبت‌ها و مسئولیت‌های مستمری که راه‌اندازی کسب‌وکار در {country} در بر دارد آشنا شوید.',
+        areasIntro: 'این‌ها حوزه‌هایی هستند که بیشتر بنیان‌گذاران با آن‌ها سروکار دارند. عمدا شماره‌گذاری نشده‌اند، چون ترتیبی که برای شما صدق می‌کند به موقعیت شما بستگی دارد.',
+        dependsNote: 'ملیت، وضعیت اقامت، ساختار شرکت، و اینکه قصد دارید در شرکت کار کنید یا نیرو استخدام کنید، هر کدام می‌تواند تعیین کند کدام حوزه‌ها و به چه ترتیبی برای شما صدق می‌کنند.',
+        otherRoutesIntro: 'بخشی از ثبت شرکت نیستند. این‌ها مسیرهای جداگانه‌ای هستند که برخی بنیان‌گذاران بررسی می‌کنند.',
+      },
+    },
+  },
   { slug: 'banking-and-money', en: 'Banking & money', fa: 'بانک و پول', enSub: 'Tax numbers, bank accounts and moving money', faSub: 'شماره مالیاتی، حساب بانکی و انتقال پول' },
   { slug: 'taxes', en: 'Taxes', fa: 'مالیات', enSub: 'What you may owe, when and how filing works', faSub: 'چه مالیاتی ممکن است بدهکار باشید، کی، و اظهارنامه چگونه است' },
   { slug: 'renting-a-home', en: 'Renting a Home', fa: 'اجاره خانه', enSub: 'Contracts, deposits and utility responsibilities.', faSub: 'قرارداد، ودیعه و مسئولیت قبوض.' },
@@ -42,30 +65,52 @@ const TASKS = [
   { slug: 'family', en: 'Family', fa: 'خانواده', enSub: 'Family residence, marriage, births and schooling', faSub: 'اقامت خانوادگی، ازدواج، تولد و مدرسه' },
 ].map((task, position) => ({ ...task, position }))
 
-// The eight areas of the Task hub design, Figma 81:589, for Start a business.
-const BUSINESS: [slug: string, en: string, fa: string, enDesc: string, faDesc: string][] = [
-  ['choose-a-company-type', 'Choose a company type', 'انتخاب نوع شرکت', 'Understand the main company structures and which situations they are commonly used for.', 'با ساختارهای اصلی شرکت و موقعیت‌هایی که معمولا برای آن‌ها به کار می‌روند آشنا شوید.'],
-  ['register-your-company', 'Register your company', 'ثبت شرکت', 'Understand the registration process and what needs to be prepared.', 'با روند ثبت و آنچه باید آماده شود آشنا شوید.'],
-  ['get-a-business-address', 'Get a business address', 'تهیه نشانی تجاری', 'Understand address requirements and what options may be available.', 'با الزامات نشانی و گزینه‌های احتمالی آشنا شوید.'],
-  ['get-your-tax-setup-ready', 'Get your tax setup ready', 'آماده‌سازی امور مالیاتی', 'Understand tax registration and the first administrative obligations.', 'با ثبت مالیاتی و نخستین تعهدات اداری آشنا شوید.'],
-  ['open-a-business-bank-account', 'Open a business bank account', 'افتتاح حساب بانکی تجاری', 'Understand when a business account is needed and what may be requested.', 'بدانید چه زمانی حساب تجاری لازم است و چه مدارکی ممکن است خواسته شود.'],
-  ['work-in-your-own-company', 'Work in your own company', 'کار در شرکت خودتان', 'Understand when founders may need separate permission to work.', 'بدانید بنیان‌گذاران چه زمانی ممکن است به مجوز کار جداگانه نیاز داشته باشند.'],
-  ['hire-employees', 'Hire employees', 'استخدام کارمند', 'Understand the basics of employing Turkish or foreign staff.', 'با اصول استخدام نیروی ترک یا خارجی آشنا شوید.'],
-  ['set-up-accounting-and-invoicing', 'Set up accounting & invoicing', 'راه‌اندازی حسابداری و صدور فاکتور', 'Understand ongoing accounting, invoicing and reporting responsibilities.', 'با مسئولیت‌های مستمر حسابداری، صدور فاکتور و گزارش‌دهی آشنا شوید.'],
+type Kind = 'decision' | 'ifItApplies' | 'ongoing' | 'alternativeRoute'
+
+// The eight areas of the Task hub design, Figma 81:589, for Start a business,
+// and the one other route, 81:695. A kind only where the design labels one.
+const BUSINESS: [slug: string, kind: Kind | null, en: string, fa: string, enDesc: string, faDesc: string][] = [
+  ['choose-a-company-type', 'decision', 'Choose a company type', 'انتخاب نوع شرکت', 'Understand the main company structures and which situations they are commonly used for.', 'با ساختارهای اصلی شرکت و موقعیت‌هایی که معمولا برای آن‌ها به کار می‌روند آشنا شوید.'],
+  ['register-your-company', null, 'Register your company', 'ثبت شرکت', 'Understand the registration process and what needs to be prepared.', 'با روند ثبت و آنچه باید آماده شود آشنا شوید.'],
+  ['get-a-business-address', null, 'Get a business address', 'تهیه نشانی تجاری', 'Understand address requirements and what options may be available.', 'با الزامات نشانی و گزینه‌های احتمالی آشنا شوید.'],
+  ['get-your-tax-setup-ready', null, 'Get your tax setup ready', 'آماده‌سازی امور مالیاتی', 'Understand tax registration and the first administrative obligations.', 'با ثبت مالیاتی و نخستین تعهدات اداری آشنا شوید.'],
+  ['open-a-business-bank-account', null, 'Open a business bank account', 'افتتاح حساب بانکی تجاری', 'Understand when a business account is needed and what may be requested.', 'بدانید چه زمانی حساب تجاری لازم است و چه مدارکی ممکن است خواسته شود.'],
+  ['work-in-your-own-company', 'ifItApplies', 'Work in your own company', 'کار در شرکت خودتان', 'Understand when founders may need separate permission to work.', 'بدانید بنیان‌گذاران چه زمانی ممکن است به مجوز کار جداگانه نیاز داشته باشند.'],
+  ['hire-employees', 'ifItApplies', 'Hire employees', 'استخدام کارمند', 'Understand the basics of employing Turkish or foreign staff.', 'با اصول استخدام نیروی ترک یا خارجی آشنا شوید.'],
+  ['set-up-accounting-and-invoicing', 'ongoing', 'Set up accounting & invoicing', 'راه‌اندازی حسابداری و صدور فاکتور', 'Understand ongoing accounting, invoicing and reporting responsibilities.', 'با مسئولیت‌های مستمر حسابداری، صدور فاکتور و گزارش‌دهی آشنا شوید.'],
+  ['startup-and-tech-visa-programmes', 'alternativeRoute', 'Startup and tech visa programmes', 'برنامه‌های ویزای استارتاپ و فناوری', 'For founders exploring startup-specific immigration routes.', 'برای بنیان‌گذارانی که مسیرهای مهاجرتی ویژه استارتاپ را بررسی می‌کنند.'],
 ]
+
+// The six guides of the Task hub design, Figma 81:659: titles and dates only.
+// Their one source is the institution the design's citation card names.
+const TRADE_REGISTRY = { url: 'https://ticaret.gov.tr/', name: 'Ministry of Trade · Trade Registry', publisher: 'Republic of Türkiye' }
+const BUSINESS_GUIDES: [slug: string, category: string, en: string, fa: string, verified: string][] = [
+  ['company-types', 'choose-a-company-type', 'Company types in Turkey', 'انواع شرکت در ترکیه', '2026-08-24'],
+  ['how-company-registration-works', 'register-your-company', 'How company registration works', 'روند ثبت شرکت چگونه است', '2026-08-24'],
+  ['business-addresses-explained', 'get-a-business-address', 'Business addresses explained', 'توضیح نشانی تجاری', '2026-07-15'],
+  ['working-in-your-own-company', 'work-in-your-own-company', 'Working in your own company as a foreign founder', 'کار در شرکت خودتان به‌عنوان بنیان‌گذار خارجی', '2026-08-24'],
+  ['hiring-foreign-employees', 'hire-employees', 'Hiring foreign employees', 'استخدام کارمند خارجی', '2026-08-24'],
+  ['accounting-basics', 'set-up-accounting-and-invoicing', 'Accounting basics for new companies', 'مبانی حسابداری برای شرکت‌های تازه‌تأسیس', '2026-07-15'],
+]
+
+type GuideText = { title: string; description?: string; quickAnswer?: string; cost?: string; time?: string }
 
 type GuideSeed = {
   slug: string
   category: string
   obligation?: string
-  en: { title: string; description: string; quickAnswer: string; cost?: string; time?: string }
-  fa?: { title: string; description: string; quickAnswer: string; cost?: string; time?: string }
+  verifiedAt?: Date
+  en: GuideText
+  fa?: GuideText
   sections: { kind: 'whatYouNeed' | 'howToDoIt' | 'whereToDoIt' | 'importantToKnow'; en: string; fa?: string; steps?: { en: string; fa?: string }[] }[]
   options?: { en: string; fa?: string }[]
-  sources: { url: string; name: string }[]
+  sources: { url: string; name: string; publisher?: string }[]
 }
 
-type CategorySeed = { slug: string; task: string; position: number; en: string; fa: string; enDesc?: string; faDesc?: string }
+type CategorySeed = { slug: string; task: string; position: number; kind?: Kind | null; en: string; fa: string; enDesc?: string; faDesc?: string }
+
+const HUB_FIELDS = ['heading', 'intro', 'areasIntro', 'dependsNote', 'otherRoutesIntro'] as const
+type HubCopy = Record<(typeof HUB_FIELDS)[number], string>
 
 type QuestionText = { question: string; answer: string }
 
@@ -83,7 +128,7 @@ const COUNTRIES: CountrySeed[] = [
     code: 'tr',
     categories: [
       { slug: 'first-week', task: 'getting-settled', position: 0, en: 'Your first week', fa: 'هفته اول شما' },
-      ...BUSINESS.map(([slug, en, fa, enDesc, faDesc], position) => ({ slug, task: 'start-a-business', position, en, fa, enDesc, faDesc })),
+      ...BUSINESS.map(([slug, kind, en, fa, enDesc, faDesc], position) => ({ slug, task: 'start-a-business', position, kind, en, fa, enDesc, faDesc })),
     ],
     // Home's Common questions, Figma 60:742.
     questions: [
@@ -146,6 +191,15 @@ const COUNTRIES: CountrySeed[] = [
         ],
         sources: [{ url: 'https://www.nvi.gov.tr/', name: 'Nufus ve Vatandaslik Isleri Genel Mudurlugu' }],
       },
+      ...BUSINESS_GUIDES.map(([slug, category, en, fa, verified]) => ({
+        slug,
+        category,
+        verifiedAt: new Date(verified),
+        en: { title: en },
+        fa: { title: fa },
+        sections: [],
+        sources: [TRADE_REGISTRY],
+      })),
     ],
   },
   {
@@ -192,15 +246,23 @@ export const seedContent = async (prisma: PrismaClient): Promise<void> => {
       create: { slug: task.slug, position: task.position },
     })
 
-    for (const [locale, title, subtitle] of [
-      ['en-US', task.en, task.enSub],
-      ['fa-IR', task.fa, task.faSub],
+    for (const [locale, title, subtitle, hub] of [
+      ['en-US', task.en, task.enSub, 'hub' in task ? task.hub.en : null],
+      ['fa-IR', task.fa, task.faSub, 'hub' in task ? task.hub.fa : null],
     ] as const) {
-      await prisma.taskText.upsert({
-        where: { taskId_locale: { taskId: row.id, locale } },
-        update: {},
-        create: { taskId: row.id, locale, title, subtitle },
-      })
+      const where = { taskId_locale: { taskId: row.id, locale } }
+      const existing = await prisma.taskText.findUnique({ where })
+      if (!existing) {
+        await prisma.taskText.create({ data: { taskId: row.id, locale, title, subtitle, ...hub } })
+        continue
+      }
+
+      // The hub's copy came after the goals did, so a row that exists may
+      // still have it empty. Fill-only means empty columns too, never a
+      // column an editor has written.
+      const missing: Partial<HubCopy> = {}
+      for (const field of HUB_FIELDS) if (hub && existing[field] === null) missing[field] = hub[field]
+      if (Object.keys(missing).length > 0) await prisma.taskText.update({ where, data: missing })
     }
   }
 
@@ -210,8 +272,10 @@ export const seedContent = async (prisma: PrismaClient): Promise<void> => {
       const row = await prisma.category.upsert({
         where: { countryCode_slug: { countryCode: country.code, slug: category.slug } },
         update: {},
-        create: { countryCode: country.code, taskId: task.id, slug: category.slug, position: category.position },
+        create: { countryCode: country.code, taskId: task.id, slug: category.slug, position: category.position, kind: category.kind ?? null },
       })
+      // Kinds came after the categories did; fill one that is still empty.
+      if (row.kind === null && category.kind) await prisma.category.update({ where: { id: row.id }, data: { kind: category.kind } })
 
       for (const [locale, title, description] of [
         ['en-US', category.en, category.enDesc ?? null],
@@ -236,7 +300,7 @@ export const seedContent = async (prisma: PrismaClient): Promise<void> => {
       if (existing) continue
 
       const row = await prisma.guide.create({
-        data: { countryCode: country.code, categoryId: category.id, slug: guide.slug, verifiedAt: VERIFIED },
+        data: { countryCode: country.code, categoryId: category.id, slug: guide.slug, verifiedAt: guide.verifiedAt ?? VERIFIED },
       })
 
       const texts: [string, GuideSeed['en']][] = [['en-US', guide.en]]
@@ -250,8 +314,8 @@ export const seedContent = async (prisma: PrismaClient): Promise<void> => {
             guideId: row.id,
             locale,
             title: text.title,
-            description: text.description,
-            quickAnswer: text.quickAnswer,
+            description: text.description ?? null,
+            quickAnswer: text.quickAnswer ?? null,
             cost: text.cost ?? null,
             time: text.time ?? null,
           },
@@ -303,7 +367,7 @@ export const seedContent = async (prisma: PrismaClient): Promise<void> => {
 
       for (const [position, source] of guide.sources.entries()) {
         await prisma.guideSource.create({
-          data: { guideId: row.id, url: source.url, name: source.name, verifiedAt: VERIFIED, position },
+          data: { guideId: row.id, url: source.url, name: source.name, publisher: source.publisher ?? null, verifiedAt: guide.verifiedAt ?? VERIFIED, position },
         })
       }
 
