@@ -119,14 +119,30 @@ the same schema without it. So the tracked file flips depending on which ran
 last. That is not this task, and it is the reason this task must not lean on
 "regeneration is byte identical" for its cleanliness.
 
-## The step I am least sure of now
+## Corrected after the plan check, and after the task roast
 
-**Whether codegen's failure signature survives being pointed at a scratch
-schema.** The current assertions match `Lifecycle script `codegen` failed` and
-`no files were generated`, which are npm's and codegen's own words when run
-through `npm run codegen`. Driving codegen with `SKIPBUREAU_SCHEMA` set is
-still `npm run codegen`, so the wrapper text should be identical, but the
-second string is codegen's summary and I am matching a message rather than an
-exit reason. If the wording moves, the test passes for the wrong reason: it
-would see a failure and accept it without checking it came from the document no
-longer matching the schema.
+Two things in the draft above were wrong and are recorded rather than quietly
+edited out.
+
+**The failure assertion.** The draft matched npm's `Lifecycle script codegen
+failed` and codegen's `no files were generated`, which is matching prose. The
+plan check pointed out that the CLI here is **7.4.0**, not 6, and that vitest
+sets `NODE_ENV=test`, under which it picks a silent renderer that swallows the
+validation error entirely. With `NODE_ENV` overridden and `--verbose` the real
+message reaches the pipe, so the test asserts the validator's own words,
+`Cannot query field "code" on type "Country"`, and asserts the scratch output
+directory is **empty** rather than matching prose about no files.
+
+**"The real typecheck only reads."** True of the tracked files this task was
+about, and it hides a hole the task roast found: the baseline typechecks the
+app against the **committed** generated types, not the ones it just generated
+into the scratch directory. A scalar changed on the server, `String` to `Int`,
+still validates the document and so still passes, where the old in-place
+version caught it. That is **SB-113**, and it is a real narrowing of what this
+test proves, traded for the cleanliness this card asked for.
+
+The same roast said the baseline typecheck can dirty the tracked
+`tsbuildinfo` files. It does not: `tsc -b --noEmit` writes no build info, which
+I checked by invalidating the project with a real content change and watching
+only the source file move. The tracked `tsbuildinfo` is a real problem on its
+own and it is SB-109.
