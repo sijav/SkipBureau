@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
-import { NotFound } from 'src/screens/NotFound'
-import { Placeholder } from 'src/screens/Placeholder'
+import { NotFound, Placeholder } from 'src/screens'
 import { CountryRoute } from './CountryRoute'
 import { RootRedirect } from './RootRedirect'
 

@@ -203,8 +203,16 @@ never edit live content. An admin panel moderates them. No end-user accounts.
 
 ## How it is built
 
-- React, TypeScript, MUI, Storybook, Playwright, 100% coverage, component first,
-  following the conventions of `D:\Kar\Gandom\daramadname`.
+- React, TypeScript, MUI, Storybook, Playwright, component first, following the
+  conventions of `D:\Kar\Gandom\daramadname`.
+- **Coverage is the standard, and it is not met yet.** This said "100%
+  coverage" as though it were a fact. Measured on 2026-09-10 it is **66% of
+  statements and 49% of branches**. The whole routing layer, `CountryRoute`,
+  `LocaleShell`, `AppRoutes` and `RootRedirect`, is at zero, as are all three
+  screens and the GraphQL client, because those are proved by Playwright
+  against the running app and Playwright is not what the coverage run measures.
+  That is a real gap and it is SB-112. Do not write "100%" here again until the
+  number says so.
 - **GraphQL against a NestJS server**, not React Query against local data.
 - **Components with their Storybook first, then screens.**
 - **Match the Figma design exactly**, every component, measured from the node

@@ -2,8 +2,7 @@ import { Navigate, Outlet, useLocation, useParams } from 'react-router-dom'
 import { useQuery } from 'urql'
 import { CountryProvider, looksLikeCountry, validated } from 'src/core/country'
 import { CountryQuery } from 'src/core/graphql'
-import { NotFound } from 'src/screens/NotFound'
-import { Unreachable } from 'src/screens/Unreachable'
+import { NotFound, Unreachable } from 'src/screens'
 import { aliasedLocale, localeFromSegment, samePageIn } from './paths'
 
 /**
@@ -31,7 +30,7 @@ export const CountryRoute = () => {
   // and it means a typo does not become a request.
   const shaped = !alias && Boolean(localeFromSegment(locale)) && looksLikeCountry(country)
 
-  const [{ data, fetching, error }] = useQuery({
+  const [{ data, fetching, error }, refetch] = useQuery({
     query: CountryQuery,
     variables: { code: country },
     pause: !shaped,
@@ -49,7 +48,10 @@ export const CountryRoute = () => {
   // the reader can retry; the other is ours to fix and they should look
   // elsewhere. Telling them the second when the first happened sends them away
   // for good.
-  if (error) return <Unreachable />
+  // Retried in place rather than by reloading the document: the reader keeps
+  // their language, their scroll and the rest of the app, and one failed query
+  // does not cost a full boot.
+  if (error) return <Unreachable onRetry={() => refetch({ requestPolicy: 'network-only' })} />
   if (!data?.country) return <NotFound />
 
   return (
