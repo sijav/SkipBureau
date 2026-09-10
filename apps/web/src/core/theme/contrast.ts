@@ -1,4 +1,5 @@
 import type { ButtonVariant } from './button'
+import type { PanelKind } from './panel'
 import type { TagStatus } from './tag'
 import type { ColourTokens } from './tokens'
 
@@ -88,6 +89,8 @@ export type Painted =
   | { by: 'focus' }
   // `tag` is the fill and label tag.ts emits for one status.
   | { by: 'tag'; status: TagStatus }
+  // `panel` is one text part of one information panel, on that panel's fill.
+  | { by: 'panel'; kind: PanelKind; part: 'eyebrow' | 'body' | 'meta' }
 
 export type Declared = {
   /** What a reader is actually looking at. Reads as a sentence in a failure. */
@@ -154,6 +157,26 @@ export const DECLARED: readonly Declared[] = [
   { role: 'a blocked tag label', fore: 'dangerText', back: 'dangerSubtle', target: 4.5, painted: { by: 'tag', status: 'blocked' } },
   { role: 'a waiting tag label', fore: 'textSecondary', back: 'surfaceSubtle', target: 4.5, painted: { by: 'tag', status: 'waiting' } },
   { role: 'a completed tag label', fore: 'textSecondary', back: 'surface', target: 4.5, painted: { by: 'tag', status: 'completed' } },
+
+  // Figma 14:26: the eyebrow, the body and the source line of every kind.
+  { role: 'an official information panel, its eyebrow', fore: 'accentText', back: 'accentSubtle', target: 4.5, painted: { by: 'panel', kind: 'officialInformation', part: 'eyebrow' } },
+  { role: 'an official information panel, its body', fore: 'textPrimary', back: 'accentSubtle', target: 4.5, painted: { by: 'panel', kind: 'officialInformation', part: 'body' } },
+  { role: 'an official information panel, its source line', fore: 'textSecondary', back: 'accentSubtle', target: 4.5, painted: { by: 'panel', kind: 'officialInformation', part: 'meta' } },
+  { role: 'a practical advice panel, its eyebrow', fore: 'textSecondary', back: 'surface', target: 4.5, painted: { by: 'panel', kind: 'practicalAdvice', part: 'eyebrow' } },
+  { role: 'a practical advice panel, its body', fore: 'textPrimary', back: 'surface', target: 4.5, painted: { by: 'panel', kind: 'practicalAdvice', part: 'body' } },
+  { role: 'a practical advice panel, its source line', fore: 'textSecondary', back: 'surface', target: 4.5, painted: { by: 'panel', kind: 'practicalAdvice', part: 'meta' } },
+  { role: 'a warning panel, its eyebrow', fore: 'warningText', back: 'warningSubtle', target: 4.5, painted: { by: 'panel', kind: 'warning', part: 'eyebrow' } },
+  { role: 'a warning panel, its body', fore: 'textPrimary', back: 'warningSubtle', target: 4.5, painted: { by: 'panel', kind: 'warning', part: 'body' } },
+  { role: 'a warning panel, its source line', fore: 'textSecondary', back: 'warningSubtle', target: 4.5, painted: { by: 'panel', kind: 'warning', part: 'meta' } },
+  { role: 'a scam warning panel, its eyebrow', fore: 'dangerText', back: 'dangerSubtle', target: 4.5, painted: { by: 'panel', kind: 'scamWarning', part: 'eyebrow' } },
+  { role: 'a scam warning panel, its body', fore: 'textPrimary', back: 'dangerSubtle', target: 4.5, painted: { by: 'panel', kind: 'scamWarning', part: 'body' } },
+  { role: 'a scam warning panel, its source line', fore: 'textSecondary', back: 'dangerSubtle', target: 4.5, painted: { by: 'panel', kind: 'scamWarning', part: 'meta' } },
+  { role: 'a legal uncertainty panel, its eyebrow', fore: 'warningText', back: 'surface', target: 4.5, painted: { by: 'panel', kind: 'legalUncertainty', part: 'eyebrow' } },
+  { role: 'a legal uncertainty panel, its body', fore: 'textPrimary', back: 'surface', target: 4.5, painted: { by: 'panel', kind: 'legalUncertainty', part: 'body' } },
+  { role: 'a legal uncertainty panel, its source line', fore: 'textSecondary', back: 'surface', target: 4.5, painted: { by: 'panel', kind: 'legalUncertainty', part: 'meta' } },
+  { role: 'a coverage gap panel, its eyebrow', fore: 'textSecondary', back: 'surfaceSubtle', target: 4.5, painted: { by: 'panel', kind: 'coverageGap', part: 'eyebrow' } },
+  { role: 'a coverage gap panel, its body', fore: 'textPrimary', back: 'surfaceSubtle', target: 4.5, painted: { by: 'panel', kind: 'coverageGap', part: 'body' } },
+  { role: 'a coverage gap panel, its source line', fore: 'textSecondary', back: 'surfaceSubtle', target: 4.5, painted: { by: 'panel', kind: 'coverageGap', part: 'meta' } },
 ]
 
 /**
@@ -178,6 +201,11 @@ export const EXEMPT: readonly { pair: string; because: string }[] = [
     pair: 'warningHover against anything',
     because:
       'No component paints it. accentHover and dangerHover used to be listed here too, and since SB-035 the Button paints both, because Figma 11:44 hovers Primary to accentHover and rests Destructive on dangerHover; they are declared above. warningHover waits for a warning control that hovers.',
+  },
+  {
+    pair: "an information panel's bar and stroke, solid or dashed",
+    because:
+      'A supplementary cue. The design says dashed means incomplete, so a reader can see the edge of what we know without reading a word, and the eyebrow says the same thing in words: Not yet verified, This depends on your situation. The meaning never rests on the stroke alone (1.4.1), so it is not what identifies the panel (1.4.11).',
   },
   {
     pair: "a status tag's mark and stroke",

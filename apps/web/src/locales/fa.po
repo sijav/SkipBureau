@@ -21,6 +21,14 @@ msgstr "یک ستون، نه یک عرض"
 #~ msgid "A step-by-step guide to bureaucracy abroad, for travellers and expats. Nothing is built yet: this page exists to prove the scaffold runs."
 #~ msgstr "یک راهنمای گام‌به‌گام برای کارهای اداری در خارج از کشور، برای مسافران و مهاجران. هنوز چیزی ساخته نشده: این صفحه فقط نشان می‌دهد که ساختار پروژه کار می‌کند."
 
+#: src/shared/info-panel/InfoPanel.stories.tsx
+msgid "A student residence permit application must be submitted within one month of arrival, and the appointment is booked through the official e-ikamet system."
+msgstr "درخواست اقامت دانشجویی باید ظرف یک ماه پس از ورود ثبت شود، و وقت آن از طریق سامانهٔ رسمی e-ikamet گرفته می‌شود."
+
+#: src/shared/info-panel/InfoPanel.stories.tsx
+msgid "Appointment slots in Istanbul are usually released early in the morning and taken within the hour. Applicants report better luck checking daily than waiting for a convenient date."
+msgstr "نوبت‌های استانبول معمولاً صبح زود باز می‌شوند و در کمتر از یک ساعت پر می‌شوند. متقاضیان می‌گویند سر زدن هر روزه بهتر از منتظر ماندن برای تاریخی مناسب جواب می‌دهد."
+
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Blocked"
 msgstr "مسدود"
@@ -28,6 +36,10 @@ msgstr "مسدود"
 #: src/shared/page/Page.stories.tsx
 msgid "Cap"
 msgstr "سقف"
+
+#: src/shared/info-panel/InfoPanel.stories.tsx
+msgid "Check before booking your appointment"
+msgstr "پیش از گرفتن نوبت بررسی کنید"
 
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Check before you pay"
@@ -45,13 +57,45 @@ msgstr "بسته به ملیت"
 msgid "Due in 12 days"
 msgstr "۱۲ روز تا موعد"
 
+#: src/shared/info-panel/InfoPanel.stories.tsx
+msgid "From applicant reports, not an official rule"
+msgstr "از گزارش متقاضیان، نه یک قاعدهٔ رسمی"
+
+#: src/shared/info-panel/InfoPanel.stories.tsx
+msgid "No agent can get an appointment faster than the official system, and nobody can guarantee approval. Paying for a “guaranteed” slot buys you nothing you cannot do yourself for free."
+msgstr "هیچ واسطه‌ای نمی‌تواند سریع‌تر از سامانهٔ رسمی نوبت بگیرد، و هیچ‌کس نمی‌تواند تأیید را تضمین کند. پول دادن برای نوبتِ «تضمینی» چیزی به شما نمی‌دهد که خودتان رایگان نتوانید انجامش دهید."
+
 #: src/screens/Placeholder.tsx
 msgid "Not built yet"
 msgstr "هنوز ساخته نشده"
 
+#: src/shared/info-panel/InfoPanel.tsx
+msgid "Not yet verified"
+msgstr "هنوز تأیید نشده"
+
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Official"
 msgstr "رسمی"
+
+#: src/shared/info-panel/InfoPanel.tsx
+msgid "Official information"
+msgstr "اطلاعات رسمی"
+
+#: src/shared/info-panel/InfoPanel.tsx
+msgid "Practical advice"
+msgstr "توصیهٔ عملی"
+
+#: src/shared/info-panel/InfoPanel.stories.tsx
+msgid "Presidency of Migration Management · verified August 2026"
+msgstr "ریاست مدیریت مهاجرت · تأییدشده در اوت ۲۰۲۶"
+
+#: src/shared/info-panel/InfoPanel.tsx
+msgid "Scam risk"
+msgstr "خطر کلاهبرداری"
+
+#: src/shared/info-panel/InfoPanel.stories.tsx
+msgid "Set your nationality to resolve this"
+msgstr "برای روشن شدن این مورد، ملیت خود را تعیین کنید"
 
 #: src/screens/Unreachable.tsx
 msgid "SkipBureau could not load this"
@@ -64,6 +108,10 @@ msgstr "چیزی در سمت ما پاسخ نداد. صفحه وجود دارد�
 #: src/shared/button/Button.stories.tsx
 msgid "Start this process"
 msgstr "این فرایند را شروع کنید"
+
+#: src/shared/info-panel/InfoPanel.stories.tsx
+msgid "Tell us if you have done this in Antalya"
+msgstr "اگر این کار را در آنتالیا انجام داده‌اید، به ما بگویید"
 
 #: src/screens/NotFound.tsx
 msgid "The address may be mistyped, or it may point at a country or a guide SkipBureau does not cover yet."
@@ -80,6 +128,10 @@ msgstr "صفحه اینجا قرار می‌گیرد"
 #: src/shared/reading/Reading.stories.tsx
 msgid "The reading measure is 720. The design gives a reason for that one number and for no other, so it is the only width here that is about how text reads rather than about how a screen is divided."
 msgstr "عرض خوانش ۷۲۰ است. طراحی فقط برای همین یک عدد دلیل آورده، پس تنها عرضی است که به خوانایی متن مربوط می‌شود، نه به تقسیم‌بندی صفحه."
+
+#: src/shared/info-panel/InfoPanel.tsx
+msgid "This depends on your situation"
+msgstr "این به وضعیت شما بستگی دارد"
 
 #: src/screens/NotFound.tsx
 msgid "This page does not exist"
@@ -105,6 +157,26 @@ msgstr "تأییدشده، اوت ۲۰۲۶"
 msgid "Waiting on institution"
 msgstr "در انتظار نهاد"
 
+#: src/shared/info-panel/InfoPanel.tsx
+msgid "Warning"
+msgstr "هشدار"
+
+#: src/shared/info-panel/InfoPanel.stories.tsx
+msgid "We have not verified this process for Antalya. The steps below are correct for Istanbul, Ankara and Izmir; local document requirements may differ."
+msgstr "این روند را برای آنتالیا تأیید نکرده‌ایم. مراحل زیر برای استانبول، آنکارا و ازمیر درست است؛ مدارک لازم در هر شهر ممکن است فرق کند."
+
 #: src/core/i18n/I18nProvider.stories.tsx
 msgid "What do you need to do?"
 msgstr "چه کاری باید انجام دهید؟"
+
+#: src/shared/info-panel/InfoPanel.stories.tsx
+msgid "Whether your diploma needs an apostille or consular legalization depends on your country of issue. We cannot show one answer here until you tell us your nationality."
+msgstr "اینکه مدرک تحصیلی شما آپوستیل لازم دارد یا تأیید کنسولی، به کشور صادرکنندهٔ آن بستگی دارد. تا ملیت خود را به ما نگویید، نمی‌توانیم اینجا یک پاسخ نشان دهیم."
+
+#: src/shared/info-panel/InfoPanel.stories.tsx
+msgid "You do not need an agent for this step"
+msgstr "برای این مرحله به واسطه نیازی ندارید"
+
+#: src/shared/info-panel/InfoPanel.stories.tsx
+msgid "Your passport must stay valid for at least 60 days beyond the end of the permit you are requesting. Applications are refused on this alone more often than on any other single reason."
+msgstr "گذرنامهٔ شما باید دست‌کم ۶۰ روز پس از پایان اقامتی که درخواست می‌کنید اعتبار داشته باشد. درخواست‌ها بیش از هر دلیل دیگری تنها به همین خاطر رد می‌شوند."

@@ -162,3 +162,40 @@ Button transitions its background over 250ms, so every hover and pressed
 reading looked like a bug until `document.visibilityState` said `hidden`.
 Measure states with transitions switched off, or not at all. Two false
 diagnoses and one reverted fix came from missing this.
+
+## Status tag and information panel (2 and 3 of 8)
+
+**The plan said Alert would be MUI's Alert with overrides. It is not, and should
+not be.** MUI's Alert renders `role="alert"`, an assertive live region, so a
+guide page with five panels would interrupt a screen reader five times on load;
+and its four severities cannot express six kinds, two of them dashed. The panel
+is layout primitives with `role="note"`, named by its eyebrow. The plan's rule
+was never "use MUI's Alert", it was "do not hand-roll what MUI does correctly",
+and here MUI's default is the incorrect part.
+
+**The design's rules went into the types, not the docs.** The tag has no colour
+prop. The panel's eyebrow is fixed per kind, and `meta` is required for official
+information and practical advice, because the design says those two always name
+where they came from. Storybook's inference collapses that union to `never`, so
+the panel's story uses a harness taking only `kind`.
+
+**Three theme bugs, each latent until a component used the style:** MUI's
+overline is uppercase and createTheme merges into it, so Label Small rendered in
+capitals; Metadata tracked at a guessed 0.06em against Figma's 8%; and Mono Data
+had no Typography variant at all.
+
+**sx multiplies bare numbers.** A tag with `gap: 4` would have been 32px. Every
+length passed through sx is a string with its unit.
+
+**danger restored to Figma's red/700**, with the tag as the first thing to paint
+it. Every token the first three primitives use now matches the file's
+variables; the other five are compared as each is built.
+
+**Persian was unreadable in the mono styles, and only looking showed it.** The
+panel's eyebrow and source line in fa-IR had their letters pulled apart. Two
+causes, measured apart: the eyebrow carried the 8% tracking, which breaks a
+cursive script's joins, and the source line, with no tracking at all, still
+broke, because IBM Plex Mono has no Persian letters and the browser fell through
+to a monospaced Arabic face. `face()` now sets every mono style in the UI stack
+in Persian and tracks nothing in Persian. The story asserts both treatments in
+their own combinations. No test had caught it: axe does not judge letterforms.

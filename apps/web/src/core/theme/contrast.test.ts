@@ -1,6 +1,7 @@
 import { strict as assert } from 'node:assert'
 import { test } from 'vitest'
 import { buttonRoot, buttonVariants } from './button'
+import { PANEL_PAINT, panelStyle } from './panel'
 import { TAG_PAINT, tagStyle } from './tag'
 import { DECLARED, EXEMPT, contrastRatio, type Token } from './contrast'
 import { appTheme } from './theme'
@@ -112,6 +113,16 @@ test('every pair is bound to the slot that paints it', () => {
           const style = tagStyle(tokens, TAG_PAINT[painted.status])
           assert.equal(style.backgroundColor, tokens[back], `${mode}: ${role} is the ${painted.status} fill`)
           assert.equal(style.color, tokens[fore], `${mode}: ${role} is the ${painted.status} label colour`)
+          break
+        }
+
+        case 'panel': {
+          const paint = PANEL_PAINT[painted.kind]
+          const style = panelStyle(tokens, paint)
+          assert.equal(style.backgroundColor, tokens[back], `${mode}: ${role} sits on the ${painted.kind} fill`)
+          // The body inherits the panel's own colour; the other two set theirs.
+          const colour = painted.part === 'body' ? style.color : tokens[paint[painted.part]]
+          assert.equal(colour, tokens[fore], `${mode}: ${role} is the ${painted.kind} ${painted.part} colour`)
           break
         }
 

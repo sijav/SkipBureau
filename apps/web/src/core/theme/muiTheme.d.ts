@@ -51,3 +51,18 @@ declare module '@mui/material/Button' {
     large: false
   }
 }
+
+/** Figma's Mono Data text style, as a Typography variant of its own. */
+declare module '@mui/material/styles' {
+  interface TypographyVariants {
+    monoData: import('react').CSSProperties
+  }
+  interface TypographyVariantsOptions {
+    monoData?: import('react').CSSProperties
+  }
+}
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    monoData: true
+  }
+}

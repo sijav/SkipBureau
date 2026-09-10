@@ -187,7 +187,9 @@ export const type = {
   label: { size: 14, line: 20, weight: 600, family: fonts.ui, tracking: '0.006em' },
   // 1.2 PERCENT in Figma's Label Small, 0.144px at 12px.
   labelSmall: { size: 12, line: 16, weight: 600, family: fonts.ui, tracking: '0.012em' },
-  metadata: { size: 11, line: 14, weight: 500, family: fonts.data, uppercase: true },
+  // 8 PERCENT in Figma's Metadata style, 0.88px at 11px. The 0.06em face()
+  // gives every uppercase style was a guess; this is the measured value.
+  metadata: { size: 11, line: 14, weight: 500, family: fonts.data, uppercase: true, tracking: '0.08em' },
   monoData: { size: 13, line: 20, weight: 400, family: fonts.data },
 } as const
 

@@ -358,6 +358,31 @@ own node, and axe fails any story that does not.
 | waiting | `text-secondary` | `surface-subtle` | `border-strong` | `border-strong` |
 | completed | `text-secondary` | `surface` | `border` | `accent` |
 
+**Information panel, node 14:26** (Figma: "Alert / Information panel"). Built as
+a `note`, not MUI's Alert, whose `role="alert"` is announced on render:
+
+| | value | note |
+|---|---|---|
+| padding | 16 | the strokes are INSIDE and not counted: text sits 16 from the outer edge, bar included |
+| gap | 8 | between eyebrow, body and source line |
+| bar | 3px on the reading-start side | mirrored to the right in fa-IR |
+| stroke | 1px elsewhere, solid, or dashed when incomplete | |
+| radius | `radius-xs`, 2 | |
+| eyebrow | IBM Plex Mono Medium 11/14, uppercase, tracking 8% | Metadata; was 0.06em in the theme, now the measured 0.08em |
+| body | Source Serif 4 14/22 | Body Small |
+| source line | IBM Plex Mono 13/20 | Mono Data, now a Typography variant of its own |
+
+| kind | eyebrow | fill | stroke |
+|---|---|---|---|
+| official information | `accent-text` | `accent-subtle` | `accent` |
+| practical advice | `text-secondary` | `surface` | `border-strong` |
+| warning | `warning-text` | `warning-subtle` | `warning` |
+| scam warning | `danger-text` | `danger-subtle` | `danger` |
+| legal uncertainty | `warning-text` | `surface` | `warning`, dashed |
+| coverage gap | `text-secondary` | `surface-subtle` | `border-strong`, dashed |
+
+Body is `text-primary` and the source line `text-secondary` in every kind.
+
 Three pairs are deliberately NOT measured, and `contrast.ts` records why in
 code so the reasons travel with the values: `text-tertiary`, which is the
 theme's disabled text and so outside 1.4.3; `accent`, `success` and `warning`

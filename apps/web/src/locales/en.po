@@ -21,6 +21,14 @@ msgstr "A column, not a width"
 #~ msgid "A step-by-step guide to bureaucracy abroad, for travellers and expats. Nothing is built yet: this page exists to prove the scaffold runs."
 #~ msgstr "A step-by-step guide to bureaucracy abroad, for travellers and expats. Nothing is built yet: this page exists to prove the scaffold runs."
 
+#: src/shared/info-panel/InfoPanel.stories.tsx
+msgid "A student residence permit application must be submitted within one month of arrival, and the appointment is booked through the official e-ikamet system."
+msgstr "A student residence permit application must be submitted within one month of arrival, and the appointment is booked through the official e-ikamet system."
+
+#: src/shared/info-panel/InfoPanel.stories.tsx
+msgid "Appointment slots in Istanbul are usually released early in the morning and taken within the hour. Applicants report better luck checking daily than waiting for a convenient date."
+msgstr "Appointment slots in Istanbul are usually released early in the morning and taken within the hour. Applicants report better luck checking daily than waiting for a convenient date."
+
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Blocked"
 msgstr "Blocked"
@@ -28,6 +36,10 @@ msgstr "Blocked"
 #: src/shared/page/Page.stories.tsx
 msgid "Cap"
 msgstr "Cap"
+
+#: src/shared/info-panel/InfoPanel.stories.tsx
+msgid "Check before booking your appointment"
+msgstr "Check before booking your appointment"
 
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Check before you pay"
@@ -45,13 +57,45 @@ msgstr "Depends on nationality"
 msgid "Due in 12 days"
 msgstr "Due in 12 days"
 
+#: src/shared/info-panel/InfoPanel.stories.tsx
+msgid "From applicant reports, not an official rule"
+msgstr "From applicant reports, not an official rule"
+
+#: src/shared/info-panel/InfoPanel.stories.tsx
+msgid "No agent can get an appointment faster than the official system, and nobody can guarantee approval. Paying for a “guaranteed” slot buys you nothing you cannot do yourself for free."
+msgstr "No agent can get an appointment faster than the official system, and nobody can guarantee approval. Paying for a “guaranteed” slot buys you nothing you cannot do yourself for free."
+
 #: src/screens/Placeholder.tsx
 msgid "Not built yet"
 msgstr "Not built yet"
 
+#: src/shared/info-panel/InfoPanel.tsx
+msgid "Not yet verified"
+msgstr "Not yet verified"
+
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Official"
 msgstr "Official"
+
+#: src/shared/info-panel/InfoPanel.tsx
+msgid "Official information"
+msgstr "Official information"
+
+#: src/shared/info-panel/InfoPanel.tsx
+msgid "Practical advice"
+msgstr "Practical advice"
+
+#: src/shared/info-panel/InfoPanel.stories.tsx
+msgid "Presidency of Migration Management · verified August 2026"
+msgstr "Presidency of Migration Management · verified August 2026"
+
+#: src/shared/info-panel/InfoPanel.tsx
+msgid "Scam risk"
+msgstr "Scam risk"
+
+#: src/shared/info-panel/InfoPanel.stories.tsx
+msgid "Set your nationality to resolve this"
+msgstr "Set your nationality to resolve this"
 
 #: src/screens/Unreachable.tsx
 msgid "SkipBureau could not load this"
@@ -64,6 +108,10 @@ msgstr "Something on our side did not answer. The page exists, we just could not
 #: src/shared/button/Button.stories.tsx
 msgid "Start this process"
 msgstr "Start this process"
+
+#: src/shared/info-panel/InfoPanel.stories.tsx
+msgid "Tell us if you have done this in Antalya"
+msgstr "Tell us if you have done this in Antalya"
 
 #: src/screens/NotFound.tsx
 msgid "The address may be mistyped, or it may point at a country or a guide SkipBureau does not cover yet."
@@ -80,6 +128,10 @@ msgstr "The page goes here"
 #: src/shared/reading/Reading.stories.tsx
 msgid "The reading measure is 720. The design gives a reason for that one number and for no other, so it is the only width here that is about how text reads rather than about how a screen is divided."
 msgstr "The reading measure is 720. The design gives a reason for that one number and for no other, so it is the only width here that is about how text reads rather than about how a screen is divided."
+
+#: src/shared/info-panel/InfoPanel.tsx
+msgid "This depends on your situation"
+msgstr "This depends on your situation"
 
 #: src/screens/NotFound.tsx
 msgid "This page does not exist"
@@ -105,6 +157,26 @@ msgstr "Verified Aug 2026"
 msgid "Waiting on institution"
 msgstr "Waiting on institution"
 
+#: src/shared/info-panel/InfoPanel.tsx
+msgid "Warning"
+msgstr "Warning"
+
+#: src/shared/info-panel/InfoPanel.stories.tsx
+msgid "We have not verified this process for Antalya. The steps below are correct for Istanbul, Ankara and Izmir; local document requirements may differ."
+msgstr "We have not verified this process for Antalya. The steps below are correct for Istanbul, Ankara and Izmir; local document requirements may differ."
+
 #: src/core/i18n/I18nProvider.stories.tsx
 msgid "What do you need to do?"
 msgstr "What do you need to do?"
+
+#: src/shared/info-panel/InfoPanel.stories.tsx
+msgid "Whether your diploma needs an apostille or consular legalization depends on your country of issue. We cannot show one answer here until you tell us your nationality."
+msgstr "Whether your diploma needs an apostille or consular legalization depends on your country of issue. We cannot show one answer here until you tell us your nationality."
+
+#: src/shared/info-panel/InfoPanel.stories.tsx
+msgid "You do not need an agent for this step"
+msgstr "You do not need an agent for this step"
+
+#: src/shared/info-panel/InfoPanel.stories.tsx
+msgid "Your passport must stay valid for at least 60 days beyond the end of the permit you are requesting. Applications are refused on this alone more often than on any other single reason."
+msgstr "Your passport must stay valid for at least 60 days beyond the end of the permit you are requesting. Applications are refused on this alone more often than on any other single reason."

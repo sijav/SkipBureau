@@ -1,6 +1,6 @@
 import { createTheme, type Theme } from '@mui/material'
 import { buttonRoot, buttonVariants } from './button'
-import { dark, layout, light, radius, spacing, type } from './tokens'
+import { dark, fonts, layout, light, radius, spacing, type } from './tokens'
 
 export type Mode = 'light' | 'dark'
 export type Direction = 'ltr' | 'rtl'
@@ -23,6 +23,17 @@ const face = (style: (typeof type)[keyof typeof type]) => ({
   textTransform: 'uppercase' in style && style.uppercase ? ('uppercase' as const) : ('none' as const),
   ...('uppercase' in style && style.uppercase ? { letterSpacing: '0.06em' } : {}),
   ...('tracking' in style ? { letterSpacing: style.tracking } : {}),
+  // Persian is a cursive script with no monospaced tradition. IBM Plex Mono
+  // has no Persian letters, so the browser fell through to a monospaced Arabic
+  // face with each letter in its own cell, and tracking pulls the joins apart.
+  // Seen in the information panel's eyebrow and source line in fa-IR. So in
+  // Persian the mono styles set in the UI stack, where the owner's choice of
+  // Persian face goes (SB-143), and nothing is tracked.
+  ...(style.family === fonts.data
+    ? { '&:lang(fa)': { fontFamily: fonts.ui, letterSpacing: 0 } }
+    : 'tracking' in style
+      ? { '&:lang(fa)': { letterSpacing: 0 } }
+      : {}),
 })
 
 /**
@@ -89,6 +100,9 @@ export const appTheme = (mode: Mode, direction: Direction): Theme => {
       button: { ...face(type.label), textTransform: 'none' },
       caption: face(type.metadata),
       overline: face(type.labelSmall),
+      // Figma's Mono Data, which MUI has no variant for: sources, dates and
+      // references set in IBM Plex Mono. Typed in muiTheme.d.ts.
+      monoData: face(type.monoData),
     },
     components: {
       // The four styles of Figma 11:44, from button.ts. Secondary is the default
@@ -100,6 +114,8 @@ export const appTheme = (mode: Mode, direction: Direction): Theme => {
         styleOverrides: { root: { ...buttonRoot(tokens), variants: buttonVariants(tokens) } },
       },
       MuiPaper: { defaultProps: { elevation: 0 }, styleOverrides: { root: { backgroundImage: 'none' } } },
+      // A custom variant has no element of its own; a source line is a paragraph.
+      MuiTypography: { defaultProps: { variantMapping: { monoData: 'p' } } },
     },
   })
 }
