@@ -1,6 +1,7 @@
 import { strict as assert } from 'node:assert'
 import { test } from 'vitest'
 import { buttonRoot, buttonVariants } from './button'
+import { TAG_PAINT, tagStyle } from './tag'
 import { DECLARED, EXEMPT, contrastRatio, type Token } from './contrast'
 import { appTheme } from './theme'
 import { dark, light } from './tokens'
@@ -106,6 +107,13 @@ test('every pair is bound to the slot that paints it', () => {
           assert.equal(buttonRoot(tokens)['&.Mui-focusVisible'].outlineColor, tokens[fore], `${mode}: ${role} is the focus outline colour`)
           assert.ok(GROUNDS.includes(back), `${mode}: ${role} is measured against a ground`)
           break
+
+        case 'tag': {
+          const style = tagStyle(tokens, TAG_PAINT[painted.status])
+          assert.equal(style.backgroundColor, tokens[back], `${mode}: ${role} is the ${painted.status} fill`)
+          assert.equal(style.color, tokens[fore], `${mode}: ${role} is the ${painted.status} label colour`)
+          break
+        }
 
         default:
           assertNever(painted)

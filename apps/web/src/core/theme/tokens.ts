@@ -68,13 +68,14 @@ export const light = {
   // handing MUI as warning.contrastText.
   textOnWarning: primitives.ink[900],
 
-  danger: primitives.red[800],
+  // Figma's red/700, restored in SB-035 when the status tag became the first
+  // thing to paint danger itself, as Blocked's stroke and mark. It had been
+  // moved to red/800 for white text on a danger FILL (3.82), and nothing draws
+  // one: Figma's Destructive button rests on dangerHover. As an indicator it
+  // clears 3:1 on the page (3.64) and on dangerSubtle (3.30).
+  danger: primitives.red[700],
   dangerSubtle: primitives.red[100],
-  // Restored to Figma's variables for the same reason. `danger` itself stays
-  // one step down: it is MUI's error.main, which colours error TEXT on light
-  // grounds, and the design's red/700 misses 4.5 there. Figma's Destructive
-  // button rests on dangerHover, never on danger, which is why the two can now
-  // share a value without the button losing a state.
+  // Restored to Figma's variables for the same reason.
   dangerHover: primitives.red[800],
   dangerPressed: primitives.red[900],
   dangerBorder: primitives.red[300],
@@ -184,7 +185,8 @@ export const type = {
   // Figma's Label style tracks at 0.6 PERCENT, which get_design_context
   // reports as 0.084px at 14px. In em so it scales with the size.
   label: { size: 14, line: 20, weight: 600, family: fonts.ui, tracking: '0.006em' },
-  labelSmall: { size: 12, line: 16, weight: 600, family: fonts.ui },
+  // 1.2 PERCENT in Figma's Label Small, 0.144px at 12px.
+  labelSmall: { size: 12, line: 16, weight: 600, family: fonts.ui, tracking: '0.012em' },
   metadata: { size: 11, line: 14, weight: 500, family: fonts.data, uppercase: true },
   monoData: { size: 13, line: 20, weight: 400, family: fonts.data },
 } as const

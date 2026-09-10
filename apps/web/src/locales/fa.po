@@ -21,13 +21,37 @@ msgstr "یک ستون، نه یک عرض"
 #~ msgid "A step-by-step guide to bureaucracy abroad, for travellers and expats. Nothing is built yet: this page exists to prove the scaffold runs."
 #~ msgstr "یک راهنمای گام‌به‌گام برای کارهای اداری در خارج از کشور، برای مسافران و مهاجران. هنوز چیزی ساخته نشده: این صفحه فقط نشان می‌دهد که ساختار پروژه کار می‌کند."
 
+#: src/shared/status-tag/StatusTag.stories.tsx
+msgid "Blocked"
+msgstr "مسدود"
+
 #: src/shared/page/Page.stories.tsx
 msgid "Cap"
 msgstr "سقف"
 
+#: src/shared/status-tag/StatusTag.stories.tsx
+msgid "Check before you pay"
+msgstr "پیش از پرداخت بررسی کنید"
+
+#: src/shared/status-tag/StatusTag.stories.tsx
+msgid "Completed"
+msgstr "انجام‌شده"
+
+#: src/shared/status-tag/StatusTag.stories.tsx
+msgid "Depends on nationality"
+msgstr "بسته به ملیت"
+
+#: src/shared/status-tag/StatusTag.stories.tsx
+msgid "Due in 12 days"
+msgstr "۱۲ روز تا موعد"
+
 #: src/screens/Placeholder.tsx
 msgid "Not built yet"
 msgstr "هنوز ساخته نشده"
+
+#: src/shared/status-tag/StatusTag.stories.tsx
+msgid "Official"
+msgstr "رسمی"
 
 #: src/screens/Unreachable.tsx
 msgid "SkipBureau could not load this"
@@ -72,6 +96,14 @@ msgstr "تلاش دوباره"
 #: src/shared/country-name/CountryName.tsx
 msgid "Unnamed country"
 msgstr "کشور بی‌نام"
+
+#: src/shared/status-tag/StatusTag.stories.tsx
+msgid "Verified Aug 2026"
+msgstr "تأییدشده، اوت ۲۰۲۶"
+
+#: src/shared/status-tag/StatusTag.stories.tsx
+msgid "Waiting on institution"
+msgstr "در انتظار نهاد"
 
 #: src/core/i18n/I18nProvider.stories.tsx
 msgid "What do you need to do?"

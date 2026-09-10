@@ -295,7 +295,7 @@ is not the same as measured.
 | token | Figma | shipped | why |
 |---|---|---|---|
 | `text-on-warning` | did not exist | `#1D2421` ink/900 | The theme was handing MUI `warning-text` as the label colour for an amber fill. That is `2.82:1` in light and `1.19:1` in dark. `warning-text` is for text on the SUBTLE fill, where it measures `5.12`, and the two are not interchangeable. |
-| `danger` | `#E05252` red/700 | `#C94343` red/800 | White on red/700 is `3.82:1`. One step down the ramp and it is `4.81`, and the indicator against the page improves at the same time. |
+| `danger` | `#E05252` red/700 | `#E05252` red/700, **restored** | Was moved to red/800 for white on a danger fill, `3.82:1`. Restored in SB-035 when the status tag became the first thing to paint `danger` itself: nothing draws a danger fill with a label on it, because the Destructive button rests on `danger-hover`. As an indicator it clears 3:1 on the page (`3.64`) and on `danger-subtle` (`3.30`). |
 | `danger-hover` | `#C94343` red/800 | `#C94343` red/800, **restored** | Was moved to red/900 to follow `danger` down. Restored in SB-035: see below. |
 | `danger-pressed` | `#AE3636` red/900 | `#AE3636` red/900, **restored** | The same. |
 | `accent-hover` | `#329C76` mint/800 | `#329C76` mint/800, **restored** | Was moved to mint/750 alongside `accent-pressed`. Restored in SB-035. |
@@ -313,10 +313,12 @@ STROKE. Destructive rests on `danger-hover` (white at `4.81`), hovers to
 `danger-pressed` and presses to `danger-deep`, so it never puts white on
 `danger` at all. With those paint paths the design's own values clear every
 target, so the departures had no reason left, and keeping them made the Button
-render one step darker than Figma on hover and press. `danger` keeps its move,
-because it is MUI's `error.main`, which colours error TEXT on light grounds.
-`palette.primary.dark` and `success.dark` now point at `accent-hover`, since
-MUI's `dark` slot is a filled control's hover.
+render one step darker than Figma on hover and press. `danger` followed with
+the status tag, above. `palette.primary.dark` and `success.dark` now point at
+`accent-hover`, since MUI's `dark` slot is a filled control's hover. MUI's
+default error TEXT reads `error.main`, which is now `3.82` on white, so no
+component may leave it at that default: the Input takes its error text from its
+own node, and axe fails any story that does not.
 
 **Button, node 11:44**, read with `get_design_context`, one size only:
 
@@ -335,6 +337,26 @@ MUI's `dark` slot is a filled control's hover.
 | Secondary | `text-primary` | `surface` + `border-strong` stroke | `surface-subtle` | `surface-subtle` + `text-secondary` stroke | `surface-subtle` + `border` stroke, `text-tertiary` |
 | Ghost | `accent-text` | none | `accent-subtle` | `accent-subtle-hover` | none, `text-tertiary` |
 | Destructive | `text-on-danger` | `danger-hover` | `danger-pressed` | `danger-deep` | `surface-subtle`, `text-tertiary` |
+
+**Status tag, node 13:26**, one size:
+
+| | value | note |
+|---|---|---|
+| height | 24 | 1 + 3 + 16 + 3 + 1, the stroke inside |
+| padding | 4 vertical, 8 horizontal | `spacing-xs`, `spacing-sm` |
+| gap | 4 | between the mark and the label |
+| radius | `radius-xs`, 2 | |
+| label | Archivo SemiBold 12/16, tracking 1.2% | Label Small, sentence case: MUI's overline default is capitals, overridden |
+| mark | 6 x 6, radius 1 | decoration, optional |
+
+| status | label | fill | stroke | mark |
+|---|---|---|---|---|
+| official | `accent-text` | `accent-subtle` | `accent` | `accent` |
+| verified | `accent-text` | `surface` | `accent` | `accent` |
+| needs context, deadline, warning | `warning-text` | `warning-subtle` | `warning` | `warning` |
+| blocked | `danger-text` | `danger-subtle` | `danger` | `danger` |
+| waiting | `text-secondary` | `surface-subtle` | `border-strong` | `border-strong` |
+| completed | `text-secondary` | `surface` | `border` | `accent` |
 
 Three pairs are deliberately NOT measured, and `contrast.ts` records why in
 code so the reasons travel with the values: `text-tertiary`, which is the

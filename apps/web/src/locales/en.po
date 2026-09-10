@@ -21,13 +21,37 @@ msgstr "A column, not a width"
 #~ msgid "A step-by-step guide to bureaucracy abroad, for travellers and expats. Nothing is built yet: this page exists to prove the scaffold runs."
 #~ msgstr "A step-by-step guide to bureaucracy abroad, for travellers and expats. Nothing is built yet: this page exists to prove the scaffold runs."
 
+#: src/shared/status-tag/StatusTag.stories.tsx
+msgid "Blocked"
+msgstr "Blocked"
+
 #: src/shared/page/Page.stories.tsx
 msgid "Cap"
 msgstr "Cap"
 
+#: src/shared/status-tag/StatusTag.stories.tsx
+msgid "Check before you pay"
+msgstr "Check before you pay"
+
+#: src/shared/status-tag/StatusTag.stories.tsx
+msgid "Completed"
+msgstr "Completed"
+
+#: src/shared/status-tag/StatusTag.stories.tsx
+msgid "Depends on nationality"
+msgstr "Depends on nationality"
+
+#: src/shared/status-tag/StatusTag.stories.tsx
+msgid "Due in 12 days"
+msgstr "Due in 12 days"
+
 #: src/screens/Placeholder.tsx
 msgid "Not built yet"
 msgstr "Not built yet"
+
+#: src/shared/status-tag/StatusTag.stories.tsx
+msgid "Official"
+msgstr "Official"
 
 #: src/screens/Unreachable.tsx
 msgid "SkipBureau could not load this"
@@ -72,6 +96,14 @@ msgstr "Try again"
 #: src/shared/country-name/CountryName.tsx
 msgid "Unnamed country"
 msgstr "Unnamed country"
+
+#: src/shared/status-tag/StatusTag.stories.tsx
+msgid "Verified Aug 2026"
+msgstr "Verified Aug 2026"
+
+#: src/shared/status-tag/StatusTag.stories.tsx
+msgid "Waiting on institution"
+msgstr "Waiting on institution"
 
 #: src/core/i18n/I18nProvider.stories.tsx
 msgid "What do you need to do?"

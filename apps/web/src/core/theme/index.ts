@@ -1,6 +1,7 @@
 export { DECLARED, EXEMPT, contrastRatio, luminance, type Declared, type Token } from './contrast'
 export { AppTheme, type AppThemeProps } from './AppTheme'
 export { BUTTON_PAINT, BUTTON_VARIANTS, type ButtonFill, type ButtonPaint, type ButtonVariant } from './button'
+export { TAG_PAINT, TAG_STATUSES, markStyle, tagStyle, type TagPaint, type TagStatus } from './tag'
 export { appTheme, type Direction, type Mode, type ModeChoice } from './theme'
 export { onSystemModeChange, systemMode } from './systemMode'
 export { useSystemMode } from './useSystemMode'

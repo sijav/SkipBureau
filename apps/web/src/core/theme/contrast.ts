@@ -1,4 +1,5 @@
 import type { ButtonVariant } from './button'
+import type { TagStatus } from './tag'
 import type { ColourTokens } from './tokens'
 
 /**
@@ -85,6 +86,8 @@ export type Painted =
   | { by: 'button'; variant: ButtonVariant; state: 'rest' | 'hover' | 'pressed' }
   // `focus` is the keyboard focus outline every button carries, against a ground.
   | { by: 'focus' }
+  // `tag` is the fill and label tag.ts emits for one status.
+  | { by: 'tag'; status: TagStatus }
 
 export type Declared = {
   /** What a reader is actually looking at. Reads as a sentence in a failure. */
@@ -115,8 +118,6 @@ export const DECLARED: readonly Declared[] = [
   { role: 'a label on a success fill', fore: 'textOnAccent', back: 'success', target: 4.5, painted: { by: 'palette', entry: 'success', fill: 'main' } },
   { role: 'a label on a success fill, hovered', fore: 'textOnAccent', back: 'accentHover', target: 4.5, painted: { by: 'palette', entry: 'success', fill: 'dark' } },
 
-  { role: 'a label on a danger fill', fore: 'textOnDanger', back: 'danger', target: 4.5, painted: { by: 'palette', entry: 'error', fill: 'main' } },
-  { role: 'a label on a danger fill, hovered', fore: 'textOnDanger', back: 'dangerPressed', target: 4.5, painted: { by: 'palette', entry: 'error', fill: 'dark' } },
 
   { role: 'a label on a warning fill', fore: 'textOnWarning', back: 'warning', target: 4.5, painted: { by: 'palette', entry: 'warning', fill: 'main' } },
   { role: 'a label on a warning fill, hovered', fore: 'textOnWarning', back: 'warningPressed', target: 4.5, painted: { by: 'palette', entry: 'warning', fill: 'dark' } },
@@ -142,6 +143,17 @@ export const DECLARED: readonly Declared[] = [
   // Non-text, so 3:1, against the ground it meets at its outer edge.
   { role: 'a focused button outline on the page', fore: 'accentText', back: 'background', target: 3, painted: { by: 'focus' } },
   { role: 'a focused button outline on a card', fore: 'accentText', back: 'surface', target: 3, painted: { by: 'focus' } },
+
+  // Figma 13:26. Every status, including the three that share amber, so each
+  // one is bound to what tag.ts actually paints for it.
+  { role: 'an official tag label', fore: 'accentText', back: 'accentSubtle', target: 4.5, painted: { by: 'tag', status: 'official' } },
+  { role: 'a verified tag label', fore: 'accentText', back: 'surface', target: 4.5, painted: { by: 'tag', status: 'verified' } },
+  { role: 'a needs-context tag label', fore: 'warningText', back: 'warningSubtle', target: 4.5, painted: { by: 'tag', status: 'needsContext' } },
+  { role: 'a deadline tag label', fore: 'warningText', back: 'warningSubtle', target: 4.5, painted: { by: 'tag', status: 'deadline' } },
+  { role: 'a warning tag label', fore: 'warningText', back: 'warningSubtle', target: 4.5, painted: { by: 'tag', status: 'warning' } },
+  { role: 'a blocked tag label', fore: 'dangerText', back: 'dangerSubtle', target: 4.5, painted: { by: 'tag', status: 'blocked' } },
+  { role: 'a waiting tag label', fore: 'textSecondary', back: 'surfaceSubtle', target: 4.5, painted: { by: 'tag', status: 'waiting' } },
+  { role: 'a completed tag label', fore: 'textSecondary', back: 'surface', target: 4.5, painted: { by: 'tag', status: 'completed' } },
 ]
 
 /**
@@ -168,9 +180,14 @@ export const EXEMPT: readonly { pair: string; because: string }[] = [
       'No component paints it. accentHover and dangerHover used to be listed here too, and since SB-035 the Button paints both, because Figma 11:44 hovers Primary to accentHover and rests Destructive on dangerHover; they are declared above. warningHover waits for a warning control that hovers.',
   },
   {
-    pair: 'accentText inside an accent tag',
+    pair: "a status tag's mark and stroke",
     because:
-      'No tag exists yet. accentText on the page and on a card were listed here until SB-035, when the ghost button label and the focus outline started painting them; both are declared above with a button binding. The tag half gets its binding when the tag is built.',
+      'Decoration. Every tag says its status in words, so colour is never the only signal (1.4.1) and neither shape is what identifies it (1.4.11). They still clear 3:1 where it is easy to check: Blocked, the lowest, has danger on dangerSubtle at 3.30. The labels are declared above.',
+  },
+  {
+    pair: 'white on danger, and on dangerPressed as its hover, the filled error control',
+    because:
+      "Nothing renders one. They were declared against MUI's palette.error until SB-035, and restoring danger to Figma's red/700 makes white on it 3.82, which is exactly why Figma's Destructive button rests on danger-hover instead, where white measures 4.81. A filled MUI error control, a Chip or a Badge, would have to be declared, and would fail, on the day one is used.",
   },
   {
     pair: 'text inside a warning notice, and inside a danger notice',

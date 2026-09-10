@@ -130,3 +130,35 @@ The related risk is `Tag/Status`: eight variants that differ only by meaning,
 which is exactly the shape that tempts a colour prop. The design names them by
 meaning, so the API has to as well, or the next person passes `color="orange"`
 and the semantic mapping is gone.
+
+## What building the Button found (1 of 8)
+
+**axe never ran.** Every story carried `a11y: { test: 'error' }` and the check
+did not exist: `.storybook/vitest.setup.ts` supplied annotations by hand, which
+since Storybook 10.3 stops addon-vitest provisioning the ADDON annotations.
+Proven by a planted nameless button that passed, then failed in all four
+projects once the setup file was gone. Every contrast claim above this line was
+made before that, and was unenforced when made.
+
+**A synthetic hover is not a hover.** `storybook/test`'s `userEvent` dispatches
+DOM events and a probe showed neither `:hover` nor `:active` applies. So hover
+and pressed are proven where they can be, in `contrast.test.ts` against what
+the theme emits in both modes, and shown for looking at through
+`storybook-addon-pseudo-states`, tagged `!test`, never claimed as tested.
+
+**The tracking is 0.6 percent, not 0.6px.** `get_design_context` reports it as
+0.084px at 14px. The plan above said 0.6px, seven times too much.
+
+**Four tokens had drifted one step from Figma**, moved to rescue MUI's
+contained button. Restored; see DESIGN.md. Found only because a planted defect
+printed a colour that was not in the node.
+
+**The typefaces are never loaded.** SB-143. The label is 4px narrower than the
+node because it renders in Segoe UI.
+
+**The browser pane can be hidden, and then it runs no frames.** CSS transitions
+never advance, so `getComputedStyle` returns a transition's START value. MUI's
+Button transitions its background over 250ms, so every hover and pressed
+reading looked like a bug until `document.visibilityState` said `hidden`.
+Measure states with transitions switched off, or not at all. Two false
+diagnoses and one reverted fix came from missing this.

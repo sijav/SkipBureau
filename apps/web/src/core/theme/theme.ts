@@ -17,7 +17,11 @@ const face = (style: (typeof type)[keyof typeof type]) => ({
   fontSize: style.size,
   lineHeight: `${style.line}px`,
   fontWeight: style.weight,
-  ...('uppercase' in style && style.uppercase ? { textTransform: 'uppercase' as const, letterSpacing: '0.06em' } : {}),
+  // Explicit either way. createTheme MERGES these into MUI's defaults, and
+  // MUI's overline is uppercase, so Label Small rendered in capitals while the
+  // design's tags are sentence case.
+  textTransform: 'uppercase' in style && style.uppercase ? ('uppercase' as const) : ('none' as const),
+  ...('uppercase' in style && style.uppercase ? { letterSpacing: '0.06em' } : {}),
   ...('tracking' in style ? { letterSpacing: style.tracking } : {}),
 })
 
