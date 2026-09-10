@@ -1,6 +1,6 @@
 import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient } from '../src/generated/prisma/client.js'
-import { seedContent } from './seed-content.js'
+import { seedContent } from '../src/sample-content.js'
 
 /**
  * Illustrative, not verified.

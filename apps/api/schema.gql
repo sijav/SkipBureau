@@ -14,6 +14,8 @@ type CategoryView {
 type Country {
   """ISO 3166-1 alpha-2, lowercased, as it appears in a URL."""
   code: String!
+
+  """In the language asked for where there is one, else the canonical name."""
   name: String!
 }
 
@@ -117,10 +119,10 @@ type Query {
   changes(country: String!, nationality: String, since: String!, situation: String, until: String!): [DiffEntry!]!
 
   """Every country SkipBureau covers."""
-  countries: [Country!]!
+  countries(locale: String = "en-US"): [Country!]!
 
   """One country, or null where we do not cover it."""
-  country(code: String!): Country
+  country(code: String!, locale: String = "en-US"): Country
 
   """One guide, or null where we do not have it."""
   guide(country: String!, locale: String = "en-US", slug: String!): GuideView
@@ -134,8 +136,30 @@ type Query {
   """What changes for this person on moving between two countries."""
   move(at: String, from: String!, nationality: String, situation: String, to: String!): [DiffEntry!]!
 
+  """Common questions in one country, each with its short answer."""
+  questions(country: String!, locale: String = "en-US"): [QuestionView!]!
+
   """The twelve goals. Global: the same intention in every country."""
   tasks(locale: String = "en-US"): [TaskView!]!
+}
+
+"""A common question and its short answer, for one country."""
+type QuestionView {
+  answer: String!
+
+  """The guide that explains the answer in full, where there is one."""
+  guideSlug: String
+
+  """
+  The locale this content is actually in, which may not be the one asked for.
+  """
+  locale: String!
+  position: Int!
+  question: String!
+  slug: String!
+
+  """True when the requested language had no content and another was used."""
+  translationMissing: Boolean!
 }
 
 type ResolvedRule {

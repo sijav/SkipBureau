@@ -1,0 +1,357 @@
+import { PrismaPg } from '@prisma/adapter-pg'
+import { databaseUrl } from './database-url.js'
+import { PrismaClient } from './generated/prisma/client.js'
+
+/**
+ * Sample content, illustrative and not verified, mostly the design's own
+ * sample copy. The design prints its own caveat on Home: figures, timings and
+ * requirements are sample content for review, not verified legal information.
+ *
+ * The owner's order of 2026-09-10 is to build the screens and publish them so
+ * they can be seen, and the database behind the deployment is a test one. So
+ * the entrypoint runs this on every start. Before a real launch it comes out of
+ * the entrypoint, which is one line; see PHASE-NEXT.md.
+ *
+ * FILL-ONLY: it creates what is missing and never overwrites a row that
+ * exists, so an editor's change survives a restart, and it can run on every
+ * start at all.
+ *
+ * It keeps the thing that is easy to get wrong: **one task shared between two
+ * countries**, with country-specific categories, guides and sources hanging
+ * off it. `{country}` in a task's text is the country's name, filled in by the
+ * reader's app in the reader's language, because the task itself is global.
+ */
+
+const VERIFIED = new Date('2026-09-10')
+
+// The twelve goals of Home, Figma 67:1261, in its order and with its copy.
+// Where the design names Turkey the text says {country}, and "Hiring Turkish
+// and foreign employees" says local, because this row is the same everywhere.
+const TASKS = [
+  { slug: 'getting-settled', en: 'Getting Settled', fa: 'استقرار اولیه', enSub: 'Essential services to help you start everyday life in {country}.', faSub: 'خدمات ضروری برای شروع زندگی روزمره در {country}.' },
+  { slug: 'get-a-residence-permit', en: 'Get a residence permit', fa: 'دریافت اجازه اقامت', enSub: 'Short-term, student, family and work permits', faSub: 'اقامت کوتاه‌مدت، دانشجویی، خانوادگی و کاری' },
+  { slug: 'study', en: 'Study in {country}', fa: 'تحصیل در {country}', enSub: 'Applications, diploma recognition and student documents', faSub: 'درخواست پذیرش، ارزشیابی مدرک و مدارک دانشجویی' },
+  { slug: 'work', en: 'Work in {country}', fa: 'کار در {country}', enSub: 'Work permits, contracts and social security', faSub: 'مجوز کار، قرارداد و تأمین اجتماعی' },
+  { slug: 'hire-someone', en: 'Hire someone', fa: 'استخدام نیرو', enSub: 'Hiring local and foreign employees', faSub: 'استخدام نیروی محلی و خارجی' },
+  { slug: 'start-a-business', en: 'Start a business', fa: 'راه‌اندازی کسب‌وکار', enSub: 'Company types, registration and first obligations', faSub: 'انواع شرکت، ثبت و نخستین تعهدات' },
+  { slug: 'banking-and-money', en: 'Banking & money', fa: 'بانک و پول', enSub: 'Tax numbers, bank accounts and moving money', faSub: 'شماره مالیاتی، حساب بانکی و انتقال پول' },
+  { slug: 'taxes', en: 'Taxes', fa: 'مالیات', enSub: 'What you may owe, when and how filing works', faSub: 'چه مالیاتی ممکن است بدهکار باشید، کی، و اظهارنامه چگونه است' },
+  { slug: 'renting-a-home', en: 'Renting a Home', fa: 'اجاره خانه', enSub: 'Contracts, deposits and utility responsibilities.', faSub: 'قرارداد، ودیعه و مسئولیت قبوض.' },
+  { slug: 'transportation', en: 'Transportation', fa: 'حمل‌ونقل', enSub: 'Driving licences, vehicles and getting around.', faSub: 'گواهی‌نامه رانندگی، خودرو و رفت‌وآمد.' },
+  { slug: 'health-and-insurance', en: 'Health & Insurance', fa: 'سلامت و بیمه', enSub: 'Public and private coverage and how to use it', faSub: 'پوشش دولتی و خصوصی و نحوه استفاده از آن' },
+  { slug: 'family', en: 'Family', fa: 'خانواده', enSub: 'Family residence, marriage, births and schooling', faSub: 'اقامت خانوادگی، ازدواج، تولد و مدرسه' },
+].map((task, position) => ({ ...task, position }))
+
+// The eight areas of the Task hub design, Figma 81:589, for Start a business.
+const BUSINESS: [slug: string, en: string, fa: string, enDesc: string, faDesc: string][] = [
+  ['choose-a-company-type', 'Choose a company type', 'انتخاب نوع شرکت', 'Understand the main company structures and which situations they are commonly used for.', 'با ساختارهای اصلی شرکت و موقعیت‌هایی که معمولا برای آن‌ها به کار می‌روند آشنا شوید.'],
+  ['register-your-company', 'Register your company', 'ثبت شرکت', 'Understand the registration process and what needs to be prepared.', 'با روند ثبت و آنچه باید آماده شود آشنا شوید.'],
+  ['get-a-business-address', 'Get a business address', 'تهیه نشانی تجاری', 'Understand address requirements and what options may be available.', 'با الزامات نشانی و گزینه‌های احتمالی آشنا شوید.'],
+  ['get-your-tax-setup-ready', 'Get your tax setup ready', 'آماده‌سازی امور مالیاتی', 'Understand tax registration and the first administrative obligations.', 'با ثبت مالیاتی و نخستین تعهدات اداری آشنا شوید.'],
+  ['open-a-business-bank-account', 'Open a business bank account', 'افتتاح حساب بانکی تجاری', 'Understand when a business account is needed and what may be requested.', 'بدانید چه زمانی حساب تجاری لازم است و چه مدارکی ممکن است خواسته شود.'],
+  ['work-in-your-own-company', 'Work in your own company', 'کار در شرکت خودتان', 'Understand when founders may need separate permission to work.', 'بدانید بنیان‌گذاران چه زمانی ممکن است به مجوز کار جداگانه نیاز داشته باشند.'],
+  ['hire-employees', 'Hire employees', 'استخدام کارمند', 'Understand the basics of employing Turkish or foreign staff.', 'با اصول استخدام نیروی ترک یا خارجی آشنا شوید.'],
+  ['set-up-accounting-and-invoicing', 'Set up accounting & invoicing', 'راه‌اندازی حسابداری و صدور فاکتور', 'Understand ongoing accounting, invoicing and reporting responsibilities.', 'با مسئولیت‌های مستمر حسابداری، صدور فاکتور و گزارش‌دهی آشنا شوید.'],
+]
+
+type GuideSeed = {
+  slug: string
+  category: string
+  obligation?: string
+  en: { title: string; description: string; quickAnswer: string; cost?: string; time?: string }
+  fa?: { title: string; description: string; quickAnswer: string; cost?: string; time?: string }
+  sections: { kind: 'whatYouNeed' | 'howToDoIt' | 'whereToDoIt' | 'importantToKnow'; en: string; fa?: string; steps?: { en: string; fa?: string }[] }[]
+  options?: { en: string; fa?: string }[]
+  sources: { url: string; name: string }[]
+}
+
+type CategorySeed = { slug: string; task: string; position: number; en: string; fa: string; enDesc?: string; faDesc?: string }
+
+type QuestionText = { question: string; answer: string }
+
+type QuestionSeed = { slug: string; guide?: string; en: QuestionText; fa?: QuestionText }
+
+type CountrySeed = {
+  code: string
+  categories: CategorySeed[]
+  guides: GuideSeed[]
+  questions?: QuestionSeed[]
+}
+
+const COUNTRIES: CountrySeed[] = [
+  {
+    code: 'tr',
+    categories: [
+      { slug: 'first-week', task: 'getting-settled', position: 0, en: 'Your first week', fa: 'هفته اول شما' },
+      ...BUSINESS.map(([slug, en, fa, enDesc, faDesc], position) => ({ slug, task: 'start-a-business', position, en, fa, enDesc, faDesc })),
+    ],
+    // Home's Common questions, Figma 60:742.
+    questions: [
+      {
+        slug: 'company-without-residence',
+        en: { question: 'Can I start a company without a residence permit?', answer: 'Yes — ownership and residence are separate. You can own 100% of a Turkish company.' },
+        fa: { question: 'آیا بدون اجازه اقامت می‌توانم شرکت ثبت کنم؟', answer: 'بله، مالکیت و اقامت از هم جدا هستند. می‌توانید مالک صددرصد یک شرکت ترکیه‌ای باشید.' },
+      },
+      {
+        slug: 'student-residence-documents',
+        en: { question: 'What documents do I need for student residence?', answer: 'Nine documents. Three of them change depending on your nationality.' },
+        fa: { question: 'برای اقامت دانشجویی به چه مدارکی نیاز دارم؟', answer: 'نه مدرک. سه مورد از آن‌ها بسته به ملیت شما تغییر می‌کند.' },
+      },
+      {
+        slug: 'hire-an-iranian-employee',
+        en: { question: 'Can my Turkish company hire an Iranian employee?', answer: 'Yes, subject to employment-ratio and salary conditions on the company.' },
+        fa: { question: 'آیا شرکت ترکیه‌ای من می‌تواند کارمند ایرانی استخدام کند؟', answer: 'بله، به شرط رعایت نسبت استخدام و شرایط حقوق از سوی شرکت.' },
+      },
+      {
+        slug: 'residence-by-buying-a-house',
+        en: { question: 'Can I get residence if I buy a house?', answer: 'Buying property does not grant residence by itself, but it can support a short-term permit.' },
+        fa: { question: 'آیا با خرید خانه می‌توانم اقامت بگیرم؟', answer: 'خرید ملک به‌تنهایی اقامت نمی‌دهد، اما می‌تواند پشتوانه اقامت کوتاه‌مدت باشد.' },
+      },
+    ],
+    guides: [
+      {
+        slug: 'register-your-address',
+        category: 'first-week',
+        obligation: 'register-your-address',
+        en: {
+          title: 'Register your address',
+          description: 'What address registration in Turkey involves, and where it is done.',
+          quickAnswer: 'Go to the district population directorate once you have somewhere to live. Take your passport and your rental contract.',
+          cost: 'Free',
+          time: 'One appointment, usually under an hour',
+        },
+        fa: {
+          title: 'ثبت نشانی محل سکونت',
+          description: 'ثبت نشانی در ترکیه شامل چیست و کجا انجام می‌شود.',
+          quickAnswer: 'پس از پیدا کردن محل سکونت به اداره نفوس منطقه بروید. گذرنامه و قرارداد اجاره را همراه ببرید.',
+          cost: 'رایگان',
+          time: 'یک نوبت، معمولا کمتر از یک ساعت',
+        },
+        sections: [
+          {
+            kind: 'whatYouNeed',
+            en: 'Your passport, your rental contract, and the tax number you got first.',
+            fa: 'گذرنامه، قرارداد اجاره، و شماره مالیاتی که پیش‌تر گرفته‌اید.',
+          },
+          {
+            kind: 'howToDoIt',
+            en: 'Book an appointment, then attend in person.',
+            fa: 'ابتدا نوبت بگیرید، سپس حضوری مراجعه کنید.',
+            steps: [
+              { en: 'Get a tax number first, because everything else asks for it.', fa: 'ابتدا شماره مالیاتی بگیرید، چون بقیه کارها آن را می‌خواهند.' },
+              { en: 'Book an appointment online.', fa: 'به صورت آنلاین نوبت بگیرید.' },
+              { en: 'Attend with your documents.', fa: 'با مدارک خود حاضر شوید.' },
+            ],
+          },
+        ],
+        sources: [{ url: 'https://www.nvi.gov.tr/', name: 'Nufus ve Vatandaslik Isleri Genel Mudurlugu' }],
+      },
+    ],
+  },
+  {
+    code: 'de',
+    categories: [
+      { slug: 'first-week', task: 'getting-settled', position: 0, en: 'Your first week', fa: 'هفته اول شما' },
+    ],
+    guides: [
+      {
+        slug: 'anmeldung',
+        category: 'first-week',
+        obligation: 'register-your-address',
+        en: {
+          title: 'Register your address',
+          description: 'The Anmeldung, which almost everything else in Germany depends on.',
+          quickAnswer: 'Book a Buergeramt appointment and bring the confirmation your landlord signs. Without this you cannot open a bank account or get a tax id.',
+          cost: 'Free',
+          time: 'One appointment, but the wait for it can be weeks',
+        },
+        // Deliberately English only. A Persian reader must be told this exists
+        // in English rather than shown a blank page, which is SB-049.
+        sections: [
+          {
+            kind: 'whatYouNeed',
+            en: 'Your passport, and a Wohnungsgeberbestaetigung signed by whoever provides the flat.',
+          },
+          {
+            kind: 'importantToKnow',
+            en: 'Appointments are scarce. Book before you have moved if you can.',
+          },
+        ],
+        options: [{ en: 'Book online at any Buergeramt in the city, not only your own district.' }],
+        sources: [{ url: 'https://www.berlin.de/einwohnermeldeamt/', name: 'Berlin Einwohnermeldeamt' }],
+      },
+    ],
+  },
+]
+
+export const seedContent = async (prisma: PrismaClient): Promise<void> => {
+  for (const task of TASKS) {
+    const row = await prisma.task.upsert({
+      where: { slug: task.slug },
+      update: {},
+      create: { slug: task.slug, position: task.position },
+    })
+
+    for (const [locale, title, subtitle] of [
+      ['en-US', task.en, task.enSub],
+      ['fa-IR', task.fa, task.faSub],
+    ] as const) {
+      await prisma.taskText.upsert({
+        where: { taskId_locale: { taskId: row.id, locale } },
+        update: {},
+        create: { taskId: row.id, locale, title, subtitle },
+      })
+    }
+  }
+
+  for (const country of COUNTRIES) {
+    for (const category of country.categories) {
+      const task = await prisma.task.findUniqueOrThrow({ where: { slug: category.task } })
+      const row = await prisma.category.upsert({
+        where: { countryCode_slug: { countryCode: country.code, slug: category.slug } },
+        update: {},
+        create: { countryCode: country.code, taskId: task.id, slug: category.slug, position: category.position },
+      })
+
+      for (const [locale, title, description] of [
+        ['en-US', category.en, category.enDesc ?? null],
+        ['fa-IR', category.fa, category.faDesc ?? null],
+      ] as const) {
+        await prisma.categoryText.upsert({
+          where: { categoryId_locale: { categoryId: row.id, locale } },
+          update: {},
+          create: { categoryId: row.id, locale, title, description },
+        })
+      }
+    }
+
+    for (const guide of country.guides) {
+      const category = await prisma.category.findUniqueOrThrow({
+        where: { countryCode_slug: { countryCode: country.code, slug: guide.category } },
+      })
+
+      // A guide that exists is left alone whole: its options and sources have
+      // no natural key, so filling them in again would duplicate them.
+      const existing = await prisma.guide.findUnique({ where: { countryCode_slug: { countryCode: country.code, slug: guide.slug } } })
+      if (existing) continue
+
+      const row = await prisma.guide.create({
+        data: { countryCode: country.code, categoryId: category.id, slug: guide.slug, verifiedAt: VERIFIED },
+      })
+
+      const texts: [string, GuideSeed['en']][] = [['en-US', guide.en]]
+      if (guide.fa) texts.push(['fa-IR', guide.fa])
+
+      for (const [locale, text] of texts) {
+        await prisma.guideText.upsert({
+          where: { guideId_locale: { guideId: row.id, locale } },
+          update: {},
+          create: {
+            guideId: row.id,
+            locale,
+            title: text.title,
+            description: text.description,
+            quickAnswer: text.quickAnswer,
+            cost: text.cost ?? null,
+            time: text.time ?? null,
+          },
+        })
+      }
+
+      for (const [position, section] of guide.sections.entries()) {
+        const sectionRow = await prisma.guideSection.upsert({
+          where: { guideId_kind: { guideId: row.id, kind: section.kind } },
+          update: {},
+          create: { guideId: row.id, kind: section.kind, position },
+        })
+
+        const bodies: [string, string][] = [['en-US', section.en]]
+        if (section.fa) bodies.push(['fa-IR', section.fa])
+
+        for (const [locale, body] of bodies) {
+          await prisma.guideSectionText.upsert({
+            where: { sectionId_locale: { sectionId: sectionRow.id, locale } },
+            update: {},
+            create: { sectionId: sectionRow.id, locale, body },
+          })
+        }
+
+        for (const [stepPosition, step] of (section.steps ?? []).entries()) {
+          const stepRow = await prisma.guideStep.upsert({
+            where: { sectionId_position: { sectionId: sectionRow.id, position: stepPosition } },
+            update: {},
+            create: { sectionId: sectionRow.id, position: stepPosition },
+          })
+
+          const titles: [string, string][] = [['en-US', step.en]]
+          if (step.fa) titles.push(['fa-IR', step.fa])
+
+          for (const [locale, title] of titles) {
+            await prisma.guideStepText.upsert({
+              where: { stepId_locale: { stepId: stepRow.id, locale } },
+              update: {},
+              create: { stepId: stepRow.id, locale, title },
+            })
+          }
+        }
+      }
+
+      for (const [position, option] of (guide.options ?? []).entries()) {
+        const optionRow = await prisma.guideOption.create({ data: { guideId: row.id, position } })
+        await prisma.guideOptionText.create({ data: { optionId: optionRow.id, locale: 'en-US', title: option.en } })
+      }
+
+      for (const [position, source] of guide.sources.entries()) {
+        await prisma.guideSource.create({
+          data: { guideId: row.id, url: source.url, name: source.name, verifiedAt: VERIFIED, position },
+        })
+      }
+
+      if (guide.obligation) {
+        const obligation = await prisma.obligation.findUnique({ where: { slug: guide.obligation } })
+        if (obligation) {
+          await prisma.guideObligation.upsert({
+            where: { guideId_obligationId: { guideId: row.id, obligationId: obligation.id } },
+            update: {},
+            create: { guideId: row.id, obligationId: obligation.id, position: 0 },
+          })
+        }
+      }
+    }
+
+    // After the guides, so a question can point at one.
+    for (const [position, question] of (country.questions ?? []).entries()) {
+      const guide = question.guide
+        ? await prisma.guide.findUnique({ where: { countryCode_slug: { countryCode: country.code, slug: question.guide } } })
+        : null
+      const row = await prisma.question.upsert({
+        where: { countryCode_slug: { countryCode: country.code, slug: question.slug } },
+        update: {},
+        create: { countryCode: country.code, slug: question.slug, position, guideId: guide?.id ?? null },
+      })
+
+      const texts: [string, QuestionText][] = [['en-US', question.en]]
+      if (question.fa) texts.push(['fa-IR', question.fa])
+
+      for (const [locale, text] of texts) {
+        await prisma.questionText.upsert({
+          where: { questionId_locale: { questionId: row.id, locale } },
+          update: {},
+          create: { questionId: row.id, locale, question: text.question, answer: text.answer },
+        })
+      }
+    }
+  }
+}
+
+const main = async (): Promise<void> => {
+  const prisma = new PrismaClient({ adapter: new PrismaPg({ connectionString: databaseUrl() }) })
+  try {
+    await seedContent(prisma)
+    console.log('sample content: filled in whatever was missing')
+  } finally {
+    await prisma.$disconnect()
+  }
+}
+
+if (process.argv[1]?.includes('sample-content')) void main()

@@ -22,6 +22,8 @@ model Country {
   rules      RuleVersion[]
   categories Category[]
   guides     Guide[]
+  questions  Question[]
+  texts      CountryText[]
 }
 
 enum ObligationKind {
@@ -252,6 +254,7 @@ model Guide {
   obligations       GuideObligation[]
   relatedTo         RelatedGuide[]    @relation("guideRelatedFrom")
   relatedFrom       RelatedGuide[]    @relation("guideRelatedTo")
+  questions         Question[]
 
   @@unique([countryCode, slug])
 }
@@ -386,4 +389,41 @@ model RelatedGuide {
   toGuide     Guide  @relation("guideRelatedTo", fields: [toGuideId], references: [id], onDelete: Cascade)
 
   @@id([fromGuideId, toGuideId])
+}
+
+/// A common question and its short answer, Home's "Common questions". Country
+/// specific, because the answer is. It may point at the guide that explains
+/// the answer in full.
+model Question {
+  id          String         @id @default(cuid())
+  countryCode String         @db.VarChar(2)
+  slug        String
+  position    Int
+  guideId     String?
+  country     Country        @relation(fields: [countryCode], references: [code], onDelete: Cascade)
+  guide       Guide?         @relation(fields: [guideId], references: [id], onDelete: SetNull)
+  texts       QuestionText[]
+
+  @@unique([countryCode, slug])
+}
+
+model QuestionText {
+  questionId String
+  locale     String   @db.VarChar(5)
+  question   String
+  answer     String
+  owner      Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@id([questionId, locale])
+}
+
+/// A country's name in one language. `Country.name` is the canonical name and
+/// the fallback where a language has none.
+model CountryText {
+  countryCode String  @db.VarChar(2)
+  locale      String  @db.VarChar(5)
+  name        String
+  country     Country @relation(fields: [countryCode], references: [code], onDelete: Cascade)
+
+  @@id([countryCode, locale])
 }

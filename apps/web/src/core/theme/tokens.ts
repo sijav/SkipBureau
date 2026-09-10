@@ -175,9 +175,11 @@ export const fonts = {
 /** Size and line height in px, exactly as the design lists them. */
 export const type = {
   display: { size: 44, line: 48, weight: 700, family: fonts.ui },
-  h1: { size: 32, line: 38, weight: 700, family: fonts.ui },
-  h2: { size: 24, line: 30, weight: 600, family: fonts.ui },
-  h3: { size: 18, line: 24, weight: 600, family: fonts.ui },
+  // Figma tracks the headings tighter as they grow: H1 -1.2 PERCENT, H2 -0.6,
+  // H3 -0.3, which get_design_context reports as -0.384px, -0.144px, -0.054px.
+  h1: { size: 32, line: 38, weight: 700, family: fonts.ui, tracking: '-0.012em' },
+  h2: { size: 24, line: 30, weight: 600, family: fonts.ui, tracking: '-0.006em' },
+  h3: { size: 18, line: 24, weight: 600, family: fonts.ui, tracking: '-0.003em' },
   bodyLarge: { size: 18, line: 29, weight: 400, family: fonts.reading },
   body: { size: 16, line: 26, weight: 400, family: fonts.reading },
   bodySmall: { size: 14, line: 22, weight: 400, family: fonts.reading },
@@ -219,4 +221,6 @@ export const layout = {
   columnWidth: 860,
   readingWidth: 720,
   panelWidth: 640,
+  // Home's ask field and its trust note, Figma 60:632 and 60:766.
+  askWidth: 760,
 } as const

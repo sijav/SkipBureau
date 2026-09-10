@@ -33,6 +33,10 @@ msgstr "A student residence permit application must be submitted within one mont
 msgid "Add to sharpen answers"
 msgstr "Add to sharpen answers"
 
+#: src/shared/header/Header.tsx
+msgid "Add your details"
+msgstr "Add your details"
+
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Ankara"
 msgstr "Ankara"
@@ -49,9 +53,28 @@ msgstr "Appointment slots in Istanbul are usually released early in the morning 
 msgid "As written in your passport, no spaces"
 msgstr "As written in your passport, no spaces"
 
+#: src/shared/ask-field/HomeAskField.tsx
+msgid "Ask"
+msgstr "Ask"
+
+#: src/screens/home/HomeHero.tsx
+#: src/shared/ask-field/HomeAskField.stories.tsx
 #: src/shared/search-input/SearchInput.stories.tsx
 msgid "Ask a question or describe what you’re trying to do…"
 msgstr "Ask a question or describe what you’re trying to do…"
+
+#: src/screens/home/HomeHero.tsx
+#: src/shared/header/Header.tsx
+msgid "Ask Skipbureau"
+msgstr "Ask Skipbureau"
+
+#: src/shared/ask-field/HomeAskField.stories.tsx
+msgid "Ask SkipBureau"
+msgstr "Ask SkipBureau"
+
+#: src/shared/header/Header.tsx
+msgid "Ask Skipbureau…"
+msgstr "Ask Skipbureau…"
 
 #: src/shared/text-input/TextInput.stories.tsx
 msgid "Available once you confirm your nationality"
@@ -60,6 +83,10 @@ msgstr "Available once you confirm your nationality"
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Blocked"
 msgstr "Blocked"
+
+#: src/shared/ask-result-row/AskResultRow.stories.tsx
+msgid "Can foreigners own a Turkish company?"
+msgstr "Can foreigners own a Turkish company?"
 
 #: src/shared/search-input/SearchInput.stories.tsx
 msgid "Can my Turkish company hire an Iranian employee?"
@@ -81,9 +108,30 @@ msgstr "Check before you pay"
 msgid "City in Turkey"
 msgstr "City in Turkey"
 
+#: src/screens/home/HomeHero.tsx
+msgid "Clear, step-by-step guidance for living, studying, working and doing business in {name}."
+msgstr "Clear, step-by-step guidance for living, studying, working and doing business in {name}."
+
+#: src/shared/task-tile/TaskTile.tsx
+msgid "Coming soon"
+msgstr "Coming soon"
+
+#: src/screens/home/Home.tsx
+#: src/shared/section/Section.stories.tsx
+msgid "Common questions"
+msgstr "Common questions"
+
+#: src/shared/task-tile/TaskTile.stories.tsx
+msgid "Company types, registration and first obligations"
+msgstr "Company types, registration and first obligations"
+
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Completed"
 msgstr "Completed"
+
+#: src/shared/section/Section.stories.tsx
+msgid "Content"
+msgstr "Content"
 
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Depends on nationality"
@@ -93,9 +141,37 @@ msgstr "Depends on nationality"
 msgid "Due in 12 days"
 msgstr "Due in 12 days"
 
+#: src/screens/home/Home.tsx
+msgid "Every guide shows when it was last verified and links to the official source"
+msgstr "Every guide shows when it was last verified and links to the official source"
+
+#: src/shared/header/Header.tsx
+msgid "Explore"
+msgstr "Explore"
+
+#: src/screens/home/Home.tsx
+msgid "Figures, timings and requirements shown throughout this design are sample content for review, not verified legal information."
+msgstr "Figures, timings and requirements shown throughout this design are sample content for review, not verified legal information."
+
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "From applicant reports, not an official rule"
 msgstr "From applicant reports, not an official rule"
+
+#: src/shared/ask-result-row/AskResultRow.tsx
+msgid "Guide"
+msgstr "Guide"
+
+#: src/shared/ask-result-row/AskResultRow.stories.tsx
+msgid "Guided process · 9 steps"
+msgstr "Guided process · 9 steps"
+
+#: src/shared/header/Header.tsx
+msgid "Guides"
+msgstr "Guides"
+
+#: src/shared/ask-result-row/AskResultRow.stories.tsx
+msgid "How to register a company"
+msgstr "How to register a company"
 
 #: src/shared/context-chip/ContextChip.stories.tsx
 msgid "Iranian"
@@ -108,6 +184,14 @@ msgstr "Istanbul"
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Izmir"
 msgstr "Izmir"
+
+#: src/shared/header/LanguageControl.tsx
+msgid "Language"
+msgstr "Language"
+
+#: src/shared/header/Header.tsx
+msgid "Main"
+msgstr "Main"
 
 #: src/shared/context-chip/ContextChip.stories.tsx
 msgid "Nationality"
@@ -137,6 +221,10 @@ msgstr "Official information"
 msgid "Passport number"
 msgstr "Passport number"
 
+#: src/screens/home/Home.tsx
+msgid "Pick a goal. Each one opens a guided process built for your nationality, city and status."
+msgstr "Pick a goal. Each one opens a guided process built for your nationality, city and status."
+
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Practical advice"
 msgstr "Practical advice"
@@ -144,6 +232,18 @@ msgstr "Practical advice"
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Presidency of Migration Management · verified August 2026"
 msgstr "Presidency of Migration Management · verified August 2026"
+
+#: src/shared/ask-result-row/AskResultRow.tsx
+msgid "Quick answer"
+msgstr "Quick answer"
+
+#: src/shared/ask-result-row/AskResultRow.stories.tsx
+msgid "Reading · verified Aug 2026"
+msgstr "Reading · verified Aug 2026"
+
+#: src/shared/ask-result-row/AskResultRow.tsx
+msgid "Recent"
+msgstr "Recent"
 
 #: src/shared/text-input/TextInput.stories.tsx
 msgid "Remove the dash, this field takes letters and numbers only"
@@ -165,6 +265,15 @@ msgstr "Select a city"
 msgid "Set your nationality to resolve this"
 msgstr "Set your nationality to resolve this"
 
+#: src/screens/home/Home.tsx
+#: src/shared/section/Section.stories.tsx
+msgid "Short answers with the conditions that actually change them."
+msgstr "Short answers with the conditions that actually change them."
+
+#: src/shared/header/Header.tsx
+msgid "Skipbureau"
+msgstr "Skipbureau"
+
 #: src/screens/Unreachable.tsx
 msgid "SkipBureau could not load this"
 msgstr "SkipBureau could not load this"
@@ -173,9 +282,21 @@ msgstr "SkipBureau could not load this"
 msgid "Something on our side did not answer. The page exists, we just could not reach it. Trying again usually works."
 msgstr "Something on our side did not answer. The page exists, we just could not reach it. Trying again usually works."
 
+#: src/shared/task-tile/TaskTile.stories.tsx
+msgid "Start a business"
+msgstr "Start a business"
+
+#: src/shared/ask-result-row/AskResultRow.stories.tsx
+msgid "Start a business in Turkey"
+msgstr "Start a business in Turkey"
+
 #: src/shared/button/Button.stories.tsx
 msgid "Start this process"
 msgstr "Start this process"
+
+#: src/shared/ask-result-row/AskResultRow.tsx
+msgid "Task"
+msgstr "Task"
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Tell us if you have done this in Antalya"
@@ -205,6 +326,10 @@ msgstr "This depends on your situation"
 msgid "This page does not exist"
 msgstr "This page does not exist"
 
+#: src/screens/home/HomeHero.tsx
+msgid "Try"
+msgstr "Try"
+
 #: src/screens/Unreachable.tsx
 msgid "Try again"
 msgstr "Try again"
@@ -233,13 +358,29 @@ msgstr "Warning"
 msgid "We have not verified this process for Antalya. The steps below are correct for Istanbul, Ankara and Izmir; local document requirements may differ."
 msgstr "We have not verified this process for Antalya. The steps below are correct for Istanbul, Ankara and Izmir; local document requirements may differ."
 
+#: src/screens/home/HomeHero.tsx
+msgid "What do you need to do in {name}?"
+msgstr "What do you need to do in {name}?"
+
 #: src/core/i18n/I18nProvider.stories.tsx
 msgid "What do you need to do?"
 msgstr "What do you need to do?"
 
+#: src/screens/home/Home.tsx
+msgid "What do you want to do?"
+msgstr "What do you want to do?"
+
+#: src/shared/ask-result-row/AskResultRow.stories.tsx
+msgid "What documents do I need for student residence?"
+msgstr "What documents do I need for student residence?"
+
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Whether your diploma needs an apostille or consular legalization depends on your country of issue. We cannot show one answer here until you tell us your nationality."
 msgstr "Whether your diploma needs an apostille or consular legalization depends on your country of issue. We cannot show one answer here until you tell us your nationality."
+
+#: src/shared/ask-result-row/AskResultRow.stories.tsx
+msgid "Yes, no residence permit is required to own shares"
+msgstr "Yes, no residence permit is required to own shares"
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "You do not need an agent for this step"

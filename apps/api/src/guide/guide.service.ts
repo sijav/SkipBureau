@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../prisma/prisma.service.js'
 import { generalVersionAt } from '../rules/selection.js'
-import type { CategoryView, GuideView, TaskView } from './guide.model.js'
+import type { CategoryView, GuideView, QuestionView, TaskView } from './guide.model.js'
 import { ObligationResolution, SectionKind } from './guide.model.js'
 
 const FALLBACK = 'en-US'
@@ -32,6 +32,30 @@ export class GuideService {
       const { text } = pick(row.texts, locale)
       if (!text) return []
       return [{ slug: row.slug, position: row.position, title: text.title, subtitle: text.subtitle }]
+    })
+  }
+
+  async questions(countryCode: string, locale: string): Promise<QuestionView[]> {
+    const rows = await this.prisma.question.findMany({
+      where: { countryCode },
+      orderBy: { position: 'asc' },
+      include: { texts: true, guide: { select: { slug: true } } },
+    })
+
+    return rows.flatMap((row) => {
+      const { text, missing } = pick(row.texts, locale)
+      if (!text) return []
+      return [
+        {
+          slug: row.slug,
+          position: row.position,
+          question: text.question,
+          answer: text.answer,
+          guideSlug: row.guide?.slug ?? null,
+          locale: text.locale,
+          translationMissing: missing,
+        },
+      ]
     })
   }
 

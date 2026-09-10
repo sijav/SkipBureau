@@ -1,17 +1,14 @@
 import { Route, Routes } from 'react-router-dom'
-import { NotFound, Placeholder } from 'src/screens'
+import { Home, NotFound, Placeholder } from 'src/screens'
 import { CountryRoute } from './CountryRoute'
 import { RootRedirect } from './RootRedirect'
 
-/**
- * Every screen is a placeholder. The routes are the deliverable here; the
- * screens are SB-041 to SB-045 and wait on the responsive foundation.
- */
+/** Home is built, SB-041; the rest are placeholders until SB-042 to SB-045 land. */
 export const AppRoutes = () => (
   <Routes>
     <Route path="/" element={<RootRedirect />} />
     <Route path=":locale/:country" element={<CountryRoute />}>
-      <Route index element={<Placeholder route="home" />} />
+      <Route index element={<Home />} />
       <Route path="t/:goal" element={<Placeholder route="task-hub" />} />
       <Route path="t/:goal/:category" element={<Placeholder route="category-hub" />} />
       <Route path="g/:guide" element={<Placeholder route="guide" />} />

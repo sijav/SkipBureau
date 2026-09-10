@@ -17,11 +17,16 @@ node dist/recover-migrations.js
 echo "applying migrations"
 npx prisma migrate deploy
 
-# Countries only. NOT prisma/seed.ts, which says in its own first line that it
-# is illustrative and unverified and must not reach a reader. Compiled, so this
-# needs no TypeScript loader at runtime.
+# Countries. Compiled, so this needs no TypeScript loader at runtime.
 echo "bootstrapping reference data"
 node dist/bootstrap.js
+
+# Sample content, so the screens can be seen: the owner's order of 2026-09-10,
+# on a database the owner calls test-only. Fill-only, so it is safe on every
+# start. Remove this line before a real launch; see PHASE-NEXT.md. NOT the
+# rules in prisma/seed.ts, whose history is append-only and would duplicate.
+echo "filling in sample content"
+node dist/sample-content.js
 
 echo "starting the API on port ${PORT:-4000}"
 exec node dist/main.js

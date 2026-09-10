@@ -109,3 +109,20 @@ export class CategoryView {
   @Field(() => String) title!: string
   @Field(() => String, { nullable: true }) description!: string | null
 }
+
+@ObjectType({ description: 'A common question and its short answer, for one country.' })
+export class QuestionView {
+  @Field(() => String) slug!: string
+  @Field(() => Int) position!: number
+  @Field(() => String) question!: string
+  @Field(() => String) answer!: string
+
+  @Field(() => String, { nullable: true, description: 'The guide that explains the answer in full, where there is one.' })
+  guideSlug!: string | null
+
+  @Field(() => String, { description: 'The locale this content is actually in, which may not be the one asked for.' })
+  locale!: string
+
+  @Field(() => Boolean, { description: 'True when the requested language had no content and another was used.' })
+  translationMissing!: boolean
+}

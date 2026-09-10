@@ -44,10 +44,33 @@ export const GuideQuery = graphql(`
 `)
 
 export const CountryQuery = graphql(`
-  query Country($code: String!) {
-    country(code: $code) {
+  query Country($code: String!, $locale: String) {
+    country(code: $code, locale: $locale) {
       code
       name
+    }
+  }
+`)
+
+// Home in one request: the twelve goals, which of them this country has
+// content for, and its common questions.
+export const HomeQuery = graphql(`
+  query Home($country: String!, $locale: String) {
+    tasks(locale: $locale) {
+      slug
+      title
+      subtitle
+      position
+    }
+    categories(country: $country, locale: $locale) {
+      slug
+      taskSlug
+    }
+    questions(country: $country, locale: $locale) {
+      slug
+      question
+      answer
+      guideSlug
     }
   }
 `)

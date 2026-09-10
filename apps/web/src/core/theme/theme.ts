@@ -102,8 +102,10 @@ export const appTheme = (mode: Mode, direction: Direction): Theme => {
       button: { ...face(type.label), textTransform: 'none' },
       caption: face(type.metadata),
       overline: face(type.labelSmall),
-      // Figma's Mono Data, which MUI has no variant for: sources, dates and
-      // references set in IBM Plex Mono. Typed in muiTheme.d.ts.
+      // Figma's UI Text and Mono Data, which MUI has no variants for: Archivo
+      // at 14/20 for navigation and short interface copy, and IBM Plex Mono for
+      // sources, dates and references. Typed in muiTheme.d.ts.
+      uiText: face(type.uiText),
       monoData: face(type.monoData),
     },
     components: {
@@ -117,7 +119,9 @@ export const appTheme = (mode: Mode, direction: Direction): Theme => {
       },
       MuiPaper: { defaultProps: { elevation: 0 }, styleOverrides: { root: { backgroundImage: 'none' } } },
       // A custom variant has no element of its own; a source line is a paragraph.
-      MuiTypography: { defaultProps: { variantMapping: { monoData: 'p' } } },
+      // subtitle1 is Body Large, a paragraph, where MUI would make it an h6 and
+      // put a heading in the outline that is not one.
+      MuiTypography: { defaultProps: { variantMapping: { uiText: 'p', monoData: 'p', subtitle1: 'p' } } },
       // The text input of Figma 16:32, composed from these three because the
       // design's label sits above the field, not in MUI's notch. input.ts.
       MuiOutlinedInput: { styleOverrides: outlinedInputOverrides(tokens, face(type.uiText)) },

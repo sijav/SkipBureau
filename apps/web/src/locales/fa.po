@@ -33,6 +33,10 @@ msgstr "درخواست اقامت دانشجویی باید ظرف یک ماه �
 msgid "Add to sharpen answers"
 msgstr "برای پاسخ دقیق‌تر اضافه کنید"
 
+#: src/shared/header/Header.tsx
+msgid "Add your details"
+msgstr "مشخصات خود را وارد کنید"
+
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Ankara"
 msgstr "آنکارا"
@@ -49,9 +53,28 @@ msgstr "نوبت‌های استانبول معمولاً صبح زود باز �
 msgid "As written in your passport, no spaces"
 msgstr "همان‌طور که در گذرنامه نوشته شده، بدون فاصله"
 
+#: src/shared/ask-field/HomeAskField.tsx
+msgid "Ask"
+msgstr "بپرس"
+
+#: src/screens/home/HomeHero.tsx
+#: src/shared/ask-field/HomeAskField.stories.tsx
 #: src/shared/search-input/SearchInput.stories.tsx
 msgid "Ask a question or describe what you’re trying to do…"
 msgstr "سؤالی بپرسید یا بگویید چه کاری می‌خواهید انجام دهید…"
+
+#: src/screens/home/HomeHero.tsx
+#: src/shared/header/Header.tsx
+msgid "Ask Skipbureau"
+msgstr "از Skipbureau بپرسید"
+
+#: src/shared/ask-field/HomeAskField.stories.tsx
+msgid "Ask SkipBureau"
+msgstr "از SkipBureau بپرسید"
+
+#: src/shared/header/Header.tsx
+msgid "Ask Skipbureau…"
+msgstr "از Skipbureau بپرسید…"
 
 #: src/shared/text-input/TextInput.stories.tsx
 msgid "Available once you confirm your nationality"
@@ -60,6 +83,10 @@ msgstr "پس از تأیید ملیت شما در دسترس است"
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Blocked"
 msgstr "مسدود"
+
+#: src/shared/ask-result-row/AskResultRow.stories.tsx
+msgid "Can foreigners own a Turkish company?"
+msgstr "آیا خارجی‌ها می‌توانند مالک شرکت ترکیه‌ای باشند؟"
 
 #: src/shared/search-input/SearchInput.stories.tsx
 msgid "Can my Turkish company hire an Iranian employee?"
@@ -81,9 +108,30 @@ msgstr "پیش از پرداخت بررسی کنید"
 msgid "City in Turkey"
 msgstr "شهری در ترکیه"
 
+#: src/screens/home/HomeHero.tsx
+msgid "Clear, step-by-step guidance for living, studying, working and doing business in {name}."
+msgstr "راهنمای روشن و گام‌به‌گام برای زندگی، تحصیل، کار و کسب‌وکار در {name}."
+
+#: src/shared/task-tile/TaskTile.tsx
+msgid "Coming soon"
+msgstr "به‌زودی"
+
+#: src/screens/home/Home.tsx
+#: src/shared/section/Section.stories.tsx
+msgid "Common questions"
+msgstr "پرسش‌های رایج"
+
+#: src/shared/task-tile/TaskTile.stories.tsx
+msgid "Company types, registration and first obligations"
+msgstr "انواع شرکت، ثبت و نخستین تعهدات"
+
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Completed"
 msgstr "انجام‌شده"
+
+#: src/shared/section/Section.stories.tsx
+msgid "Content"
+msgstr "محتوا"
 
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Depends on nationality"
@@ -93,9 +141,37 @@ msgstr "بسته به ملیت"
 msgid "Due in 12 days"
 msgstr "۱۲ روز تا موعد"
 
+#: src/screens/home/Home.tsx
+msgid "Every guide shows when it was last verified and links to the official source"
+msgstr "هر راهنما تاریخ آخرین بررسی را نشان می‌دهد و به منبع رسمی پیوند دارد"
+
+#: src/shared/header/Header.tsx
+msgid "Explore"
+msgstr "کاوش"
+
+#: src/screens/home/Home.tsx
+msgid "Figures, timings and requirements shown throughout this design are sample content for review, not verified legal information."
+msgstr "ارقام، زمان‌بندی‌ها و الزاماتی که در سراسر این طرح نشان داده شده‌اند محتوای نمونه برای بازبینی هستند، نه اطلاعات حقوقی تأییدشده."
+
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "From applicant reports, not an official rule"
 msgstr "از گزارش متقاضیان، نه یک قاعدهٔ رسمی"
+
+#: src/shared/ask-result-row/AskResultRow.tsx
+msgid "Guide"
+msgstr "راهنما"
+
+#: src/shared/ask-result-row/AskResultRow.stories.tsx
+msgid "Guided process · 9 steps"
+msgstr "فرایند راهنمایی‌شده · ۹ گام"
+
+#: src/shared/header/Header.tsx
+msgid "Guides"
+msgstr "راهنماها"
+
+#: src/shared/ask-result-row/AskResultRow.stories.tsx
+msgid "How to register a company"
+msgstr "چگونه شرکت ثبت کنیم"
 
 #: src/shared/context-chip/ContextChip.stories.tsx
 msgid "Iranian"
@@ -108,6 +184,14 @@ msgstr "استانبول"
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Izmir"
 msgstr "ازمیر"
+
+#: src/shared/header/LanguageControl.tsx
+msgid "Language"
+msgstr "زبان"
+
+#: src/shared/header/Header.tsx
+msgid "Main"
+msgstr "اصلی"
 
 #: src/shared/context-chip/ContextChip.stories.tsx
 msgid "Nationality"
@@ -137,6 +221,10 @@ msgstr "اطلاعات رسمی"
 msgid "Passport number"
 msgstr "شمارهٔ گذرنامه"
 
+#: src/screens/home/Home.tsx
+msgid "Pick a goal. Each one opens a guided process built for your nationality, city and status."
+msgstr "یک هدف انتخاب کنید. هر کدام فرایندی راهنمایی‌شده را باز می‌کند که برای ملیت، شهر و وضعیت شما ساخته شده است."
+
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Practical advice"
 msgstr "توصیهٔ عملی"
@@ -144,6 +232,18 @@ msgstr "توصیهٔ عملی"
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Presidency of Migration Management · verified August 2026"
 msgstr "ریاست مدیریت مهاجرت · تأییدشده در اوت ۲۰۲۶"
+
+#: src/shared/ask-result-row/AskResultRow.tsx
+msgid "Quick answer"
+msgstr "پاسخ کوتاه"
+
+#: src/shared/ask-result-row/AskResultRow.stories.tsx
+msgid "Reading · verified Aug 2026"
+msgstr "مطالعه · بررسی‌شده در اوت ۲۰۲۶"
+
+#: src/shared/ask-result-row/AskResultRow.tsx
+msgid "Recent"
+msgstr "اخیر"
 
 #: src/shared/text-input/TextInput.stories.tsx
 msgid "Remove the dash, this field takes letters and numbers only"
@@ -165,6 +265,15 @@ msgstr "یک شهر انتخاب کنید"
 msgid "Set your nationality to resolve this"
 msgstr "برای روشن شدن این مورد، ملیت خود را تعیین کنید"
 
+#: src/screens/home/Home.tsx
+#: src/shared/section/Section.stories.tsx
+msgid "Short answers with the conditions that actually change them."
+msgstr "پاسخ‌های کوتاه، همراه با شرایطی که واقعا آن‌ها را تغییر می‌دهند."
+
+#: src/shared/header/Header.tsx
+msgid "Skipbureau"
+msgstr "Skipbureau"
+
 #: src/screens/Unreachable.tsx
 msgid "SkipBureau could not load this"
 msgstr "SkipBureau نتوانست این را بارگذاری کند"
@@ -173,9 +282,21 @@ msgstr "SkipBureau نتوانست این را بارگذاری کند"
 msgid "Something on our side did not answer. The page exists, we just could not reach it. Trying again usually works."
 msgstr "چیزی در سمت ما پاسخ نداد. صفحه وجود دارد، فقط نتوانستیم به آن برسیم. معمولا تلاش دوباره جواب می‌دهد."
 
+#: src/shared/task-tile/TaskTile.stories.tsx
+msgid "Start a business"
+msgstr "راه‌اندازی کسب‌وکار"
+
+#: src/shared/ask-result-row/AskResultRow.stories.tsx
+msgid "Start a business in Turkey"
+msgstr "راه‌اندازی کسب‌وکار در ترکیه"
+
 #: src/shared/button/Button.stories.tsx
 msgid "Start this process"
 msgstr "این فرایند را شروع کنید"
+
+#: src/shared/ask-result-row/AskResultRow.tsx
+msgid "Task"
+msgstr "کار"
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Tell us if you have done this in Antalya"
@@ -205,6 +326,10 @@ msgstr "این به وضعیت شما بستگی دارد"
 msgid "This page does not exist"
 msgstr "این صفحه وجود ندارد"
 
+#: src/screens/home/HomeHero.tsx
+msgid "Try"
+msgstr "امتحان کنید"
+
 #: src/screens/Unreachable.tsx
 msgid "Try again"
 msgstr "تلاش دوباره"
@@ -233,13 +358,29 @@ msgstr "هشدار"
 msgid "We have not verified this process for Antalya. The steps below are correct for Istanbul, Ankara and Izmir; local document requirements may differ."
 msgstr "این روند را برای آنتالیا تأیید نکرده‌ایم. مراحل زیر برای استانبول، آنکارا و ازمیر درست است؛ مدارک لازم در هر شهر ممکن است فرق کند."
 
+#: src/screens/home/HomeHero.tsx
+msgid "What do you need to do in {name}?"
+msgstr "در {name} چه کاری باید انجام دهید؟"
+
 #: src/core/i18n/I18nProvider.stories.tsx
 msgid "What do you need to do?"
 msgstr "چه کاری باید انجام دهید؟"
 
+#: src/screens/home/Home.tsx
+msgid "What do you want to do?"
+msgstr "می‌خواهید چه کار کنید؟"
+
+#: src/shared/ask-result-row/AskResultRow.stories.tsx
+msgid "What documents do I need for student residence?"
+msgstr "برای اقامت دانشجویی به چه مدارکی نیاز دارم؟"
+
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Whether your diploma needs an apostille or consular legalization depends on your country of issue. We cannot show one answer here until you tell us your nationality."
 msgstr "اینکه مدرک تحصیلی شما آپوستیل لازم دارد یا تأیید کنسولی، به کشور صادرکنندهٔ آن بستگی دارد. تا ملیت خود را به ما نگویید، نمی‌توانیم اینجا یک پاسخ نشان دهیم."
+
+#: src/shared/ask-result-row/AskResultRow.stories.tsx
+msgid "Yes, no residence permit is required to own shares"
+msgstr "بله، برای مالکیت سهام اجازه اقامت لازم نیست"
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "You do not need an agent for this step"

@@ -1,6 +1,6 @@
 import { graphql, HttpResponse } from 'msw'
 import { endpoint } from 'src/core/graphql'
-import { countries, guide, tasks, untranslatedGuide } from './fixtures'
+import { categories, countries, guide, persianNames, questions, tasks, untranslatedGuide } from './fixtures'
 
 /**
  * The network, faked at the network.
@@ -22,11 +22,19 @@ export const handlers = [
 
   api.query('Tasks', () => HttpResponse.json({ data: { tasks } })),
 
+  // Keyed on the country: another country answers with the goals, which are
+  // global, and none of Turkey's content.
+  api.query('Home', ({ variables }) => {
+    const ours = variables['country'] === 'tr'
+    return HttpResponse.json({ data: { tasks, categories: ours ? categories : [], questions: ours ? questions : [] } })
+  }),
+
   // Keyed on the variable, so asking for a country we do not have answers
   // null rather than handing back the one we do.
   api.query('Country', ({ variables }) => {
     const match = countries.find((country) => country.code === variables['code'])
-    return HttpResponse.json({ data: { country: match ?? null } })
+    const name = match && variables['locale'] === 'fa-IR' ? (persianNames[match.code] ?? match.name) : match?.name
+    return HttpResponse.json({ data: { country: match ? { ...match, name } : null } })
   }),
 
   api.query('Guide', ({ variables }) => {
@@ -45,6 +53,7 @@ export const emptyHandlers = [
   api.query('Country', () => HttpResponse.json({ data: { country: null } })),
   api.query('Countries', () => HttpResponse.json({ data: { countries: [] } })),
   api.query('Tasks', () => HttpResponse.json({ data: { tasks: [] } })),
+  api.query('Home', () => HttpResponse.json({ data: { tasks: [], categories: [], questions: [] } })),
   api.query('Guide', () => HttpResponse.json({ data: { guide: null } })),
 ]
 
@@ -52,4 +61,5 @@ export const emptyHandlers = [
 export const failingHandlers = [
   api.query('Country', () => HttpResponse.json({ errors: [{ message: 'the API is unreachable' }] }, { status: 500 })),
   api.query('Countries', () => HttpResponse.json({ errors: [{ message: 'the API is unreachable' }] }, { status: 500 })),
+  api.query('Home', () => HttpResponse.json({ errors: [{ message: 'the API is unreachable' }] }, { status: 500 })),
 ]

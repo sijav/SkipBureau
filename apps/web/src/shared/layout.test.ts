@@ -76,6 +76,6 @@ test('every layout width is a number the design actually states', () => {
       .filter(([name]) => name.toLowerCase().includes('width'))
       .map(([, value]) => value)
       .sort((a, b) => b - a),
-    [1280, 1080, 860, 720, 640],
+    [1280, 1080, 860, 760, 720, 640],
   )
 })

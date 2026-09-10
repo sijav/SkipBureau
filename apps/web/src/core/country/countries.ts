@@ -25,3 +25,10 @@ export const defaultCountry = 'tr'
 
 /** A country segment is two letters. Whether it EXISTS is the API's answer. */
 export const looksLikeCountry = (value: string): boolean => /^[a-z]{2}$/.test(value)
+
+/**
+ * Content with the country's name put in. A goal is global, so its text says
+ * `{country}` where the design names Turkey, and the reader's app fills in the
+ * name it was given in the reader's language.
+ */
+export const withCountry = (text: string, name: string): string => text.replaceAll('{country}', name)

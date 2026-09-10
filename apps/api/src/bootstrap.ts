@@ -30,12 +30,23 @@ const COUNTRIES = [
   { code: 'de', name: 'Germany' },
 ]
 
+// Each country's name per language. Fill-only, like the rest: an editor's
+// correction survives a restart.
+const NAMES = [
+  { countryCode: 'tr', locale: 'en-US', name: 'Turkey' },
+  { countryCode: 'tr', locale: 'fa-IR', name: 'ترکیه' },
+  { countryCode: 'de', locale: 'en-US', name: 'Germany' },
+  { countryCode: 'de', locale: 'fa-IR', name: 'آلمان' },
+]
+
 const bootstrap = async (): Promise<void> => {
   const prisma = new PrismaClient({ adapter: new PrismaPg({ connectionString: databaseUrl() }) })
 
   try {
     const { count } = await prisma.country.createMany({ data: COUNTRIES, skipDuplicates: true })
     console.log(`bootstrap: ${count} country row(s) added, ${COUNTRIES.length - count} already present`)
+    const names = await prisma.countryText.createMany({ data: NAMES, skipDuplicates: true })
+    console.log(`bootstrap: ${names.count} country name(s) added`)
   } finally {
     await prisma.$disconnect()
   }

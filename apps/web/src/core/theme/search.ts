@@ -47,3 +47,21 @@ export const searchStyle = (tokens: ColourTokens, text: CSSObject) => ({
     '&::-webkit-search-cancel-button': { WebkitAppearance: 'none' },
   },
 })
+
+/**
+ * The home ask field of Figma 58:538, the Homepage's primary tool: 64 tall,
+ * 24 in at the start, 8 at the end where its Ask button sits, 14 between. A
+ * question box, not site search, so it carries a submit button, and nothing
+ * sits beside it. Focus is the same inward 2px accent-text stroke as search.
+ */
+export const ASK_PAINT = { glyph: 'textSecondary', glyphFocused: 'textPrimary' } as const satisfies Record<string, keyof ColourTokens>
+
+export const askStyle = (tokens: ColourTokens, text: CSSObject) => ({
+  ...searchStyle(tokens, text),
+  height: '64px',
+  gap: '14px',
+  paddingLeft: `${spacing.lg - STROKE}px`,
+  paddingRight: `${spacing.sm - STROKE}px`,
+  '& .ask-glyph': { color: tokens[ASK_PAINT.glyph] },
+  '&.Mui-focused .ask-glyph': { color: tokens[ASK_PAINT.glyphFocused] },
+})

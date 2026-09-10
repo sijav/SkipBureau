@@ -89,5 +89,5 @@ test('the schema is emitted for the web app to generate from', async () => {
   const sdl = readFileSync(join(API, 'schema.gql'), 'utf8')
 
   expect(sdl).toContain('type Country')
-  expect(sdl).toContain('country(code: String!): Country')
+  expect(sdl).toContain('country(code: String!, locale: String = "en-US"): Country')
 })

@@ -1,7 +1,9 @@
+import { useEffect } from 'react'
 import { Navigate, Outlet, useLocation, useParams } from 'react-router-dom'
 import { useQuery } from 'urql'
 import { CountryProvider, looksLikeCountry, validated } from 'src/core/country'
 import { CountryQuery } from 'src/core/graphql'
+import { useShell } from 'src/core/shell'
 import { NotFound, Unreachable } from 'src/screens'
 import { aliasedLocale, localeFromSegment, samePageIn } from './paths'
 
@@ -32,10 +34,21 @@ export const CountryRoute = () => {
 
   const [{ data, fetching, error }, refetch] = useQuery({
     query: CountryQuery,
-    variables: { code: country },
+    // The locale too: the country's name comes back in the reader's language.
+    variables: { code: country, locale: localeFromSegment(locale) ?? undefined },
     pause: !shaped,
     requestPolicy: 'network-only',
   })
+
+  // The header sits above this route, so the confirmed country is published
+  // to the shell rather than handed down; it links only to a country the
+  // database has answered for.
+  const { setCountry } = useShell()
+  const confirmed = data?.country?.code
+  useEffect(() => {
+    setCountry(confirmed ? validated(confirmed) : null)
+    return () => setCountry(null)
+  }, [confirmed, setCountry])
 
   if (alias) return <Navigate replace to={samePageIn(location, alias)} />
   if (!localeFromSegment(locale) || !looksLikeCountry(country)) return <NotFound />
