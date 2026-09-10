@@ -1,3 +1,5 @@
+import { simGuide } from './sim-guide'
+
 /**
  * The data stories and tests render from.
  *
@@ -65,14 +67,21 @@ export const questions = [
 ]
 
 export const guide = {
+  ...simGuide,
   slug: 'register-your-address',
   title: 'Register your address',
+  description: 'What address registration in Turkey involves, and where it is done.',
   quickAnswer:
     'Go to the district population directorate once you have somewhere to live. Take your passport and your rental contract.',
   verifiedAt: '2026-09-10',
-  locale: 'en-US',
-  translationMissing: false,
-  sources: [{ url: 'https://www.nvi.gov.tr/', name: 'Nufus ve Vatandaslik Isleri Genel Mudurlugu', verifiedAt: '2026-09-10' }],
+  showDisclaimer: false,
+  cost: 'Free',
+  time: 'One appointment, usually under an hour',
+  costNote: null,
+  options: [],
+  related: [],
+  sections: [],
+  sources: [{ url: 'https://www.nvi.gov.tr/', name: 'Nufus ve Vatandaslik Isleri Genel Mudurlugu', publisher: null, official: true, note: null, verifiedAt: '2026-09-10' }],
 }
 
 /** The same guide asked for in Persian, which this one does not have. */
@@ -150,3 +159,5 @@ export const categoryHub = {
     { slug: 'start-a-business', title: 'Start a business', subtitle: 'Company types, registration and first obligations', open: true },
   ],
 }
+
+export { simGuide }

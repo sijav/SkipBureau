@@ -152,6 +152,7 @@ export const CategoryHub = (props: CategoryHubProps) => {
                 key={other.slug}
                 // A goal with nothing in this country yet is the tile's Coming soon.
                 to={other.open ? paths.taskHub(locale, country, other.slug) : undefined}
+                unavailable={!other.open}
                 kind={other.open ? undefined : <Trans>Coming soon</Trans>}
                 title={<bdi>{fill(other.title)}</bdi>}
                 description={other.subtitle ? <bdi>{fill(other.subtitle)}</bdi> : undefined}

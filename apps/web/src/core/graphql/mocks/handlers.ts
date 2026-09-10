@@ -1,6 +1,6 @@
 import { graphql, HttpResponse } from 'msw'
 import { endpoint } from 'src/core/graphql'
-import { categories, categoryHub, countries, guide, persianNames, questions, taskHub, tasks, untranslatedGuide } from './fixtures'
+import { categories, categoryHub, countries, guide, persianNames, questions, simGuide, taskHub, tasks, untranslatedGuide } from './fixtures'
 
 /**
  * The network, faked at the network.
@@ -60,14 +60,17 @@ export const handlers = [
     }),
   ),
 
+  // Asked for in Persian, each answers in English and says so, which is the
+  // state a reader of a guide not yet translated sees.
   api.query('Guide', ({ variables }) => {
-    if (variables.country !== 'tr' || variables.slug !== 'register-your-address') {
-      return HttpResponse.json({ data: { guide: null } })
+    const persian = variables.locale === 'fa-IR'
+    if (variables.country === 'tr' && variables.slug === 'sim-card') {
+      return HttpResponse.json({ data: { guide: persian ? { ...simGuide, translationMissing: true } : simGuide } })
     }
-
-    return HttpResponse.json({
-      data: { guide: variables.locale === 'fa-IR' ? untranslatedGuide : guide },
-    })
+    if (variables.country === 'tr' && variables.slug === 'register-your-address') {
+      return HttpResponse.json({ data: { guide: persian ? untranslatedGuide : guide } })
+    }
+    return HttpResponse.json({ data: { guide: null } })
   }),
 ]
 

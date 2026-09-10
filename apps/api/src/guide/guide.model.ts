@@ -1,6 +1,7 @@
 import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql'
 
 export enum SectionKind {
+  beforeYouStart = 'beforeYouStart',
   whatYouNeed = 'whatYouNeed',
   yourOptions = 'yourOptions',
   howToDoIt = 'howToDoIt',
@@ -10,13 +11,22 @@ export enum SectionKind {
   commonProblems = 'commonProblems',
 }
 
-registerEnumType(SectionKind, { name: 'SectionKind', description: 'The seven sections the design draws, in its order.' })
+registerEnumType(SectionKind, { name: 'SectionKind', description: 'The sections the design draws. Each renders its own way.' })
 
 @ObjectType()
 export class GuideStepView {
   @Field(() => Int) position!: number
   @Field(() => String) title!: string
   @Field(() => String, { nullable: true }) body!: string | null
+  @Field(() => String, { nullable: true, description: "A step's own caution or pointer." }) note!: string | null
+  @Field(() => String, { nullable: true, description: 'A row label, "In person" or "Online".' }) label!: string | null
+}
+
+@ObjectType()
+export class GuideLinkView {
+  @Field(() => String) slug!: string
+  @Field(() => String) title!: string
+  @Field(() => String, { nullable: true }) description!: string | null
 }
 
 @ObjectType()
@@ -25,7 +35,20 @@ export class GuideSectionView {
   @Field(() => Int) position!: number
   @Field(() => String, { nullable: true }) title!: string | null
   @Field(() => String, { nullable: true }) body!: string | null
+  @Field(() => String, { nullable: true }) note!: string | null
+  @Field(() => String, { nullable: true }) callout!: string | null
+  @Field(() => String, { nullable: true }) calloutBody!: string | null
+  @Field(() => String, { nullable: true }) calloutSource!: string | null
+  @Field(() => GuideLinkView, { nullable: true, description: 'A guide this section points on to.' }) link!: GuideLinkView | null
   @Field(() => [GuideStepView]) steps!: readonly GuideStepView[]
+}
+
+@ObjectType()
+export class GuideOptionView {
+  @Field(() => String) title!: string
+  @Field(() => String, { nullable: true }) body!: string | null
+  @Field(() => String, { nullable: true }) bestFor!: string | null
+  @Field(() => String, { nullable: true }) caveat!: string | null
 }
 
 @ObjectType()
@@ -33,6 +56,18 @@ export class GuideSourceView {
   @Field(() => String) url!: string
   @Field(() => String) name!: string
   @Field(() => String) verifiedAt!: string
+  @Field(() => String, { nullable: true }) publisher!: string | null
+  @Field(() => Boolean, { description: "False for an operator's or a company's own page." }) official!: boolean
+  @Field(() => String, { nullable: true, description: 'What this source is the source for.' }) note!: string | null
+}
+
+@ObjectType({ description: 'Where a guide sits: its area, and the goal the area belongs to.' })
+export class GuidePlaceView {
+  @Field(() => String) categorySlug!: string
+  @Field(() => String) categoryTitle!: string
+  @Field(() => String) goalSlug!: string
+  @Field(() => String) goalTitle!: string
+  @Field(() => Int, { description: 'How many areas the goal has in this country.' }) goalAreas!: number
 }
 
 export enum ObligationResolution {
@@ -86,8 +121,12 @@ export class GuideView {
   @Field(() => String, { nullable: true }) quickAnswer!: string | null
   @Field(() => String, { nullable: true }) cost!: string | null
   @Field(() => String, { nullable: true }) time!: string | null
+  @Field(() => String, { nullable: true }) deadlines!: string | null
+  @Field(() => String, { nullable: true }) costNote!: string | null
+  @Field(() => GuidePlaceView, { nullable: true }) place!: GuidePlaceView | null
   @Field(() => [GuideSectionView]) sections!: readonly GuideSectionView[]
-  @Field(() => [String]) options!: readonly string[]
+  @Field(() => [GuideOptionView]) options!: readonly GuideOptionView[]
+  @Field(() => [GuideLinkView]) related!: readonly GuideLinkView[]
   @Field(() => [GuideSourceView]) sources!: readonly GuideSourceView[]
   @Field(() => [GuideObligationView]) obligations!: readonly GuideObligationView[]
 }

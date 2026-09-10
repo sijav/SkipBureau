@@ -33,6 +33,14 @@ msgstr "یک ستون، نه یک عرض"
 msgid "A student residence permit application must be submitted within one month of arrival, and the appointment is booked through the official e-ikamet system."
 msgstr "درخواست اقامت دانشجویی باید ظرف یک ماه پس از ورود ثبت شود، و وقت آن از طریق سامانهٔ رسمی e-ikamet گرفته می‌شود."
 
+#: src/shared/step-row/StepRow.stories.tsx
+msgid "A working SIM does not mean a registered device."
+msgstr "سیم‌کارتی که کار می‌کند به معنای دستگاه ثبت‌شده نیست."
+
+#: src/shared/step-row/StepRow.stories.tsx
+msgid "Activate and test it"
+msgstr "فعال‌سازی و آزمایش"
+
 #: src/shared/context-chip/ContextChip.stories.tsx
 msgid "Add to sharpen answers"
 msgstr "برای پاسخ دقیق‌تر اضافه کنید"
@@ -105,6 +113,14 @@ msgstr "از Skipbureau بپرسید…"
 msgid "Available once you confirm your nationality"
 msgstr "پس از تأیید ملیت شما در دسترس است"
 
+#: src/screens/guide/GuideSection.tsx
+msgid "Before you start"
+msgstr "پیش از شروع"
+
+#: src/screens/guide/GuideSection.tsx
+msgid "Best for"
+msgstr "مناسب برای"
+
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Blocked"
 msgstr "مسدود"
@@ -133,6 +149,10 @@ msgstr "پیش از گرفتن نوبت بررسی کنید"
 msgid "Check before you pay"
 msgstr "پیش از پرداخت بررسی کنید"
 
+#: src/shared/step-row/StepRow.stories.tsx
+msgid "Check mobile data, calls, SMS and your new number before you leave the store."
+msgstr "پیش از ترک فروشگاه، اینترنت همراه، تماس، پیامک و شماره جدیدتان را بررسی کنید."
+
 #: src/shared/source-card/SourceCard.tsx
 msgid "Checked this month"
 msgstr "این ماه بررسی شده"
@@ -155,6 +175,10 @@ msgstr "راهنمای روشن و گام‌به‌گام برای زندگی، 
 msgid "Coming soon"
 msgstr "به‌زودی"
 
+#: src/screens/guide/GuideSection.tsx
+msgid "Common problems"
+msgstr "مشکلات رایج"
+
 #: src/screens/home/Home.tsx
 #: src/shared/section/Section.stories.tsx
 msgid "Common questions"
@@ -175,6 +199,10 @@ msgstr "محتوا"
 #: src/screens/category-hub/CategoryHub.tsx
 msgid "Content shown here is sample material for design review."
 msgstr "محتوای این صفحه نمونه‌ای برای بازبینی طرح است."
+
+#: src/screens/guide/Guide.tsx
+msgid "Cost and time"
+msgstr "هزینه و زمان"
 
 #: src/screens/task-hub/TaskHub.tsx
 #: src/shared/topic-item/TopicItem.stories.tsx
@@ -206,6 +234,10 @@ msgstr "کاوش"
 msgid "Figures, timings and requirements shown throughout this design are sample content for review, not verified legal information."
 msgstr "ارقام، زمان‌بندی‌ها و الزاماتی که در سراسر این طرح نشان داده شده‌اند محتوای نمونه برای بازبینی هستند، نه اطلاعات حقوقی تأییدشده."
 
+#: src/shared/information-disclaimer/InformationDisclaimer.tsx
+msgid "For general information only"
+msgstr "فقط برای اطلاع عمومی"
+
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "From applicant reports, not an official rule"
 msgstr "از گزارش متقاضیان، نه یک قاعدهٔ رسمی"
@@ -218,6 +250,7 @@ msgstr "استقرار اولیه"
 msgid "Getting started checklist"
 msgstr "فهرست کارهای شروع"
 
+#: src/screens/guide/Guide.tsx
 #: src/shared/ask-result-row/AskResultRow.tsx
 msgid "Guide"
 msgstr "راهنما"
@@ -236,6 +269,7 @@ msgid "Guides"
 msgstr "راهنماها"
 
 #: src/screens/category-hub/CategoryHub.tsx
+#: src/screens/guide/Guide.tsx
 #: src/shared/breadcrumb/Breadcrumb.stories.tsx
 msgid "Home"
 msgstr "خانه"
@@ -244,6 +278,10 @@ msgstr "خانه"
 msgid "How it works"
 msgstr "چگونه کار می‌کند"
 
+#: src/screens/guide/GuideSection.tsx
+msgid "How to do it"
+msgstr "چگونه انجام دهید"
+
 #: src/shared/ask-result-row/AskResultRow.stories.tsx
 msgid "How to register a company"
 msgstr "چگونه شرکت ثبت کنیم"
@@ -251,6 +289,14 @@ msgstr "چگونه شرکت ثبت کنیم"
 #: src/screens/task-hub/TaskHub.tsx
 msgid "If it applies to you"
 msgstr "اگر برای شما صدق کند"
+
+#: src/screens/guide/Guide.tsx
+msgid "If you know this information is outdated or incorrect, let us know. We review submissions before updating the guide."
+msgstr "اگر می‌دانید این اطلاعات قدیمی یا نادرست است، به ما خبر دهید. پیش از به‌روزرسانی راهنما، پیشنهادها را بررسی می‌کنیم."
+
+#: src/screens/guide/GuideSection.tsx
+msgid "Important to know"
+msgstr "دانستنی‌های مهم"
 
 #: src/shared/context-chip/ContextChip.stories.tsx
 msgid "Iranian"
@@ -263,6 +309,11 @@ msgstr "استانبول"
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Izmir"
 msgstr "ازمیر"
+
+#: src/screens/guide/Guide.tsx
+#: src/shared/fact-strip/FactStrip.stories.tsx
+msgid "Key deadlines"
+msgstr "مهلت‌های مهم"
 
 #: src/shared/header/LanguageControl.tsx
 msgid "Language"
@@ -285,6 +336,10 @@ msgstr "آخرین بازبینی: {reviewed}"
 msgid "Last verified {0}"
 msgstr "آخرین تأیید {0}"
 
+#: src/screens/guide/Guide.tsx
+msgid "Last verified: {verified}"
+msgstr "آخرین تأیید: {verified}"
+
 #: src/shared/header/Header.tsx
 msgid "Main"
 msgstr "اصلی"
@@ -300,6 +355,10 @@ msgstr "هیچ واسطه‌ای نمی‌تواند سریع‌تر از سام
 #: src/screens/Placeholder.tsx
 msgid "Not built yet"
 msgstr "هنوز ساخته نشده"
+
+#: src/screens/guide/Guide.tsx
+msgid "Not in your language yet"
+msgstr "هنوز به زبان شما نیست"
 
 #: src/shared/source-card/SourceCard.tsx
 msgid "Not re-checked since {month}"
@@ -333,9 +392,17 @@ msgstr "صفحه رسمی در دسترس نیست"
 msgid "Official source"
 msgstr "منبع رسمی"
 
+#: src/screens/guide/Guide.tsx
+msgid "Official sources"
+msgstr "منابع رسمی"
+
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Ongoing"
 msgstr "مستمر"
+
+#: src/shared/source-card/SourceCard.tsx
+msgid "Operator source"
+msgstr "منبع اپراتور"
 
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Or explore the areas involved yourself."
@@ -361,6 +428,7 @@ msgstr "توصیهٔ عملی"
 msgid "Presidency of Migration Management · verified August 2026"
 msgstr "ریاست مدیریت مهاجرت · تأییدشده در اوت ۲۰۲۶"
 
+#: src/screens/guide/Guide.tsx
 #: src/shared/ask-result-row/AskResultRow.tsx
 msgid "Quick answer"
 msgstr "پاسخ کوتاه"
@@ -395,6 +463,7 @@ msgid "Register your company"
 msgstr "ثبت شرکت"
 
 #: src/screens/category-hub/CategoryHub.tsx
+#: src/screens/guide/Guide.tsx
 msgid "Related guides"
 msgstr "راهنماهای مرتبط"
 
@@ -418,6 +487,10 @@ msgstr "یک شهر انتخاب کنید"
 msgid "Separate routes some people look into."
 msgstr "مسیرهای جداگانه‌ای که برخی بررسی می‌کنند."
 
+#: src/shared/fact-strip/FactStrip.stories.tsx
+msgid "Set once the structure is chosen"
+msgstr "پس از انتخاب ساختار تعیین می‌شود"
+
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Set your nationality to resolve this"
 msgstr "برای روشن شدن این مورد، ملیت خود را تعیین کنید"
@@ -435,9 +508,21 @@ msgstr "Skipbureau"
 msgid "SkipBureau could not load this"
 msgstr "SkipBureau نتوانست این را بارگذاری کند"
 
+#: src/shared/information-disclaimer/InformationDisclaimer.tsx
+msgid "Skipbureau explains everyday processes in {country}. Information can change and should not be treated as legal or professional advice. Check the linked official sources before making important decisions."
+msgstr "Skipbureau روندهای روزمره در {country} را توضیح می‌دهد. اطلاعات ممکن است تغییر کند و نباید آن را مشاوره حقوقی یا حرفه‌ای دانست. پیش از تصمیم‌های مهم، منابع رسمی پیوندداده‌شده را بررسی کنید."
+
+#: src/screens/guide/Guide.tsx
+msgid "Something changed?"
+msgstr "چیزی تغییر کرده است؟"
+
 #: src/screens/Unreachable.tsx
 msgid "Something on our side did not answer. The page exists, we just could not reach it. Trying again usually works."
 msgstr "چیزی در سمت ما پاسخ نداد. صفحه وجود دارد، فقط نتوانستیم به آن برسیم. معمولا تلاش دوباره جواب می‌دهد."
+
+#: src/screens/guide/Guide.tsx
+msgid "Sources are listed above with the date we last checked them. Tell us if something here no longer matches what you found."
+msgstr "منابع همراه با تاریخ آخرین بررسی در بالا آمده‌اند. اگر چیزی در اینجا دیگر با آنچه یافته‌اید مطابقت ندارد، به ما بگویید."
 
 #: src/shared/breadcrumb/Breadcrumb.stories.tsx
 #: src/shared/task-tile/TaskTile.stories.tsx
@@ -464,6 +549,10 @@ msgstr "این فرایند را شروع کنید"
 #: src/screens/category-hub/CategoryHub.tsx
 msgid "Still have a question?"
 msgstr "هنوز پرسشی دارید؟"
+
+#: src/screens/guide/Guide.tsx
+msgid "Suggest an update"
+msgstr "پیشنهاد به‌روزرسانی"
 
 #: src/shared/ask-result-row/AskResultRow.tsx
 msgid "Task"
@@ -505,6 +594,11 @@ msgstr "این‌ها حوزه‌هایی هستند که بیشتر افراد 
 msgid "This depends on your situation"
 msgstr "این به وضعیت شما بستگی دارد"
 
+#. placeholder {0}: locales[language].label
+#: src/screens/guide/Guide.tsx
+msgid "This guide has not been translated yet, so it is shown in {0}."
+msgstr "این راهنما هنوز ترجمه نشده است، بنابراین به {0} نمایش داده می‌شود."
+
 #: src/screens/NotFound.tsx
 msgid "This page does not exist"
 msgstr "این صفحه وجود ندارد"
@@ -516,6 +610,16 @@ msgstr "امتحان کنید"
 #: src/screens/Unreachable.tsx
 msgid "Try again"
 msgstr "تلاش دوباره"
+
+#: src/screens/guide/Guide.tsx
+#: src/shared/fact-strip/FactStrip.stories.tsx
+msgid "Typical cost"
+msgstr "هزینه معمول"
+
+#: src/screens/guide/Guide.tsx
+#: src/shared/fact-strip/FactStrip.stories.tsx
+msgid "Typical setup time"
+msgstr "زمان معمول انجام"
 
 #: src/shared/topic-item/TopicItem.stories.tsx
 msgid "Understand the main company structures and which situations they are commonly used for."
@@ -532,6 +636,18 @@ msgstr "با روند ثبت و آنچه باید آماده شود آشنا ش�
 #: src/shared/country-name/CountryName.tsx
 msgid "Unnamed country"
 msgstr "کشور بی‌نام"
+
+#: src/shared/fact-strip/FactStrip.stories.tsx
+msgid "Usually a short visit in store"
+msgstr "معمولا یک مراجعه کوتاه به فروشگاه"
+
+#: src/shared/fact-strip/FactStrip.stories.tsx
+msgid "Varies by company type and situation"
+msgstr "بسته به نوع شرکت و موقعیت متفاوت است"
+
+#: src/shared/fact-strip/FactStrip.stories.tsx
+msgid "Varies by operator, plan, SIM type and campaign"
+msgstr "بسته به اپراتور، طرح، نوع سیم‌کارت و جشنواره متفاوت است"
 
 #: src/shared/source-card/SourceCard.tsx
 msgid "Verified against this source"
@@ -577,13 +693,25 @@ msgstr "می‌خواهید چه کار کنید؟"
 msgid "What documents do I need for student residence?"
 msgstr "برای اقامت دانشجویی به چه مدارکی نیاز دارم؟"
 
+#: src/screens/guide/GuideSection.tsx
+msgid "What to check"
+msgstr "چه چیزهایی را بررسی کنید"
+
 #: src/screens/task-hub/TaskHub.tsx
 msgid "What we know about you"
 msgstr "آنچه درباره شما می‌دانیم"
 
+#: src/screens/guide/GuideSection.tsx
+msgid "What you need"
+msgstr "آنچه لازم دارید"
+
 #: src/screens/task-hub/TaskHub.tsx
 msgid "What you’ll need to think about"
 msgstr "آنچه باید به آن فکر کنید"
+
+#: src/screens/guide/GuideSection.tsx
+msgid "Where to do it"
+msgstr "کجا انجام دهید"
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Whether your diploma needs an apostille or consular legalization depends on your country of issue. We cannot show one answer here until you tell us your nationality."
@@ -604,6 +732,10 @@ msgstr "برای این مرحله به واسطه نیازی ندارید"
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Your nationality, residence status and plans can each change which of these areas apply to you, and in what order."
 msgstr "ملیت، وضعیت اقامت و برنامه‌های شما هر کدام می‌تواند تعیین کند کدام یک از این حوزه‌ها و به چه ترتیبی برای شما صدق می‌کنند."
+
+#: src/screens/guide/GuideSection.tsx
+msgid "Your options"
+msgstr "گزینه‌های شما"
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Your passport must stay valid for at least 60 days beyond the end of the permit you are requesting. Applications are refused on this alone more often than on any other single reason."

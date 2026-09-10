@@ -9,11 +9,13 @@ export type TopicItemProps = {
   description?: ReactNode | undefined
   /** Only where the area differs from a setup step done once: Decision, Ongoing. */
   kind?: ReactNode | undefined
-  /** Where it leads. Without one the row is recessed, has no arrow and is not a link, like a Coming soon tile. */
+  /** Where it leads. Without one the row is not a link and has no arrow. */
   to?: string | undefined
+  /** Leads nowhere yet: recessed, like a Coming soon tile. */
+  unavailable?: boolean | undefined
 }
 
-export const TopicItem = ({ title, description, kind, to }: TopicItemProps) => {
+export const TopicItem = ({ title, description, kind, to, unavailable = false }: TopicItemProps) => {
   const { tokens } = useTheme()
 
   const content = (
@@ -34,10 +36,10 @@ export const TopicItem = ({ title, description, kind, to }: TopicItemProps) => {
     </Stack>
   )
 
-  if (!to) return <Box sx={topicStyle(tokens, false)}>{content}</Box>
+  if (!to) return <Box sx={topicStyle(tokens, unavailable ? 'unavailable' : 'plain')}>{content}</Box>
 
   return (
-    <ButtonBase component={Link} to={to} disableRipple sx={topicStyle(tokens, true)}>
+    <ButtonBase component={Link} to={to} disableRipple sx={topicStyle(tokens, 'link')}>
       {content}
       <ArrowIcon
         className="topic-arrow"

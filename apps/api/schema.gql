@@ -73,6 +73,12 @@ type FactDifference {
   to: RuleFactValue
 }
 
+type GuideLinkView {
+  description: String
+  slug: String!
+  title: String!
+}
+
 type GuideObligationFact {
   currency: String
   key: String!
@@ -94,9 +100,34 @@ type GuideObligationView {
   title: String
 }
 
+type GuideOptionView {
+  bestFor: String
+  body: String
+  caveat: String
+  title: String!
+}
+
+"""Where a guide sits: its area, and the goal the area belongs to."""
+type GuidePlaceView {
+  categorySlug: String!
+  categoryTitle: String!
+
+  """How many areas the goal has in this country."""
+  goalAreas: Int!
+  goalSlug: String!
+  goalTitle: String!
+}
+
 type GuideSectionView {
   body: String
+  callout: String
+  calloutBody: String
+  calloutSource: String
   kind: SectionKind!
+
+  """A guide this section points on to."""
+  link: GuideLinkView
+  note: String
   position: Int!
   steps: [GuideStepView!]!
   title: String
@@ -104,19 +135,34 @@ type GuideSectionView {
 
 type GuideSourceView {
   name: String!
+
+  """What this source is the source for."""
+  note: String
+
+  """False for an operator's or a company's own page."""
+  official: Boolean!
+  publisher: String
   url: String!
   verifiedAt: String!
 }
 
 type GuideStepView {
   body: String
+
+  """A row label, "In person" or "Online"."""
+  label: String
+
+  """A step's own caution or pointer."""
+  note: String
   position: Int!
   title: String!
 }
 
 type GuideView {
   cost: String
+  costNote: String
   countryCode: String!
+  deadlines: String
   description: String
 
   """
@@ -124,8 +170,10 @@ type GuideView {
   """
   locale: String!
   obligations: [GuideObligationView!]!
-  options: [String!]!
+  options: [GuideOptionView!]!
+  place: GuidePlaceView
   quickAnswer: String
+  related: [GuideLinkView!]!
   sections: [GuideSectionView!]!
   showDisclaimer: Boolean!
   showSuggestUpdate: Boolean!
@@ -266,8 +314,9 @@ type RuleFactValue {
   unit: String
 }
 
-"""The seven sections the design draws, in its order."""
+"""The sections the design draws. Each renders its own way."""
 enum SectionKind {
+  beforeYouStart
   commonProblems
   howToDoIt
   importantToKnow

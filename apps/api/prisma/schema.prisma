@@ -280,6 +280,7 @@ model Guide {
   /// "4 min read" on a category hub. Editorial, not computed from the text.
   readingMinutes    Int?
   startOf           Category[]        @relation("categoryStart")
+  linkedFrom        GuideSection[]    @relation("sectionLink")
   texts             GuideText[]
   sections          GuideSection[]
   options           GuideOption[]
@@ -301,6 +302,10 @@ model GuideText {
   quickAnswer String?
   cost        String?
   time        String?
+  /// The fact strip's third column, shown only where there is one.
+  deadlines   String?
+  /// Under the fact strip: why there are no figures, where there are none.
+  costNote    String?
   guide       Guide   @relation(fields: [guideId], references: [id], onDelete: Cascade)
 
   @@id([guideId, locale])
@@ -313,6 +318,7 @@ model GuideText {
 /// change and deserves a migration. The flexibility is that a section can be
 /// absent.
 enum SectionKind {
+  beforeYouStart
   whatYouNeed
   yourOptions
   howToDoIt
@@ -323,13 +329,16 @@ enum SectionKind {
 }
 
 model GuideSection {
-  id       String             @id @default(cuid())
-  guideId  String
-  kind     SectionKind
-  position Int
-  guide    Guide              @relation(fields: [guideId], references: [id], onDelete: Cascade)
-  texts    GuideSectionText[]
-  steps    GuideStep[]
+  id          String             @id @default(cuid())
+  guideId     String
+  kind        SectionKind
+  position    Int
+  /// A guide this section points on to, under its callout.
+  linkGuideId String?
+  linkGuide   Guide?             @relation("sectionLink", fields: [linkGuideId], references: [id], onDelete: SetNull)
+  guide       Guide              @relation(fields: [guideId], references: [id], onDelete: Cascade)
+  texts       GuideSectionText[]
+  steps       GuideStep[]
 
   /// One of each kind per guide. The template renders a section, not a list of
   /// sections that happen to share a name.
@@ -337,11 +346,17 @@ model GuideSection {
 }
 
 model GuideSectionText {
-  sectionId String
-  locale    String       @db.VarChar(5)
-  title     String?
-  body      String?
-  section   GuideSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  sectionId     String
+  locale        String       @db.VarChar(5)
+  title         String?
+  body          String?
+  /// The small print under a section, "Check the operator's current terms".
+  note          String?
+  /// A section's callout panel, Figma 179:1112: its own title and source line.
+  callout       String?
+  calloutBody   String?
+  calloutSource String?
+  section       GuideSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
 
   @@id([sectionId, locale])
 }
@@ -361,6 +376,10 @@ model GuideStepText {
   locale String    @db.VarChar(5)
   title  String
   body   String?
+  /// A step's own caution or pointer, Figma 142:529.
+  note   String?
+  /// A row's small label, "In person" or "Online".
+  label  String?
   step   GuideStep @relation(fields: [stepId], references: [id], onDelete: Cascade)
 
   @@id([stepId, locale])
@@ -381,6 +400,9 @@ model GuideOptionText {
   locale   String      @db.VarChar(5)
   title    String
   body     String?
+  bestFor  String?
+  /// A condition that may rule the option out, in the warning register.
+  caveat   String?
   option   GuideOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
 
   @@id([optionId, locale])
@@ -396,6 +418,11 @@ model GuideSource {
   name       String
   /// Who stands behind it, "Republic of Türkiye". The citation card's first line.
   publisher  String?
+  /// False for an operator's or a company's own page, which the card labels
+  /// as such rather than as an official source.
+  official   Boolean  @default(true)
+  /// What this source is the source for. The card's closing line.
+  note       String?
   verifiedAt DateTime @db.Date
   position   Int
   guide      Guide    @relation(fields: [guideId], references: [id], onDelete: Cascade)

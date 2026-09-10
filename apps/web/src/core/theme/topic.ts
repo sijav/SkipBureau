@@ -25,10 +25,10 @@ const RULE = 1
 const NUDGE = 2
 
 // Figma draws the rule inside the row's bottom padding, which keeps a row 82
-// high, 100 with a kind. A row that leads nowhere yet takes the Coming soon
-// tile's recessed ground and no states. Lengths are strings because sx
-// multiplies numbers.
-export const topicStyle = (tokens: ColourTokens, interactive: boolean) => {
+// high, 100 with a kind. A plain row, a place rather than a page, has the
+// rest look and no states; one that leads nowhere yet takes the Coming soon
+// tile's recessed ground. Lengths are strings because sx multiplies numbers.
+export const topicStyle = (tokens: ColourTokens, role: 'link' | 'plain' | 'unavailable') => {
   const active = { paddingInlineEnd: `${spacing.md - NUDGE}px`, '& .topic-arrow': { color: tokens[TOPIC_PAINT.arrowActive] } }
   const frame = {
     display: 'flex',
@@ -41,7 +41,8 @@ export const topicStyle = (tokens: ColourTokens, interactive: boolean) => {
     textDecoration: 'none',
   }
 
-  if (!interactive) return { ...frame, backgroundColor: tokens[TOPIC_PAINT.unavailable], color: tokens[TOPIC_PAINT.description] }
+  if (role === 'unavailable') return { ...frame, backgroundColor: tokens[TOPIC_PAINT.unavailable], color: tokens[TOPIC_PAINT.description] }
+  if (role === 'plain') return { ...frame, backgroundColor: tokens[TOPIC_PAINT.rest], color: tokens[TOPIC_PAINT.title] }
 
   return {
     ...frame,

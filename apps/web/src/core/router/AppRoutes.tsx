@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router-dom'
-import { CategoryHub, Home, NotFound, Placeholder, TaskHub } from 'src/screens'
+import { CategoryHub, Guide, Home, NotFound, Placeholder, TaskHub } from 'src/screens'
 import { CountryRoute } from './CountryRoute'
 import { RootRedirect } from './RootRedirect'
 
-/** Home and the two hubs are built, SB-041 to SB-043; the guide and suggest screens are placeholders until SB-044 and SB-045. */
+/** Home, the two hubs and the guide are built, SB-041 to SB-044; suggesting an update is a placeholder until SB-045. */
 export const AppRoutes = () => (
   <Routes>
     <Route path="/" element={<RootRedirect />} />
@@ -11,7 +11,7 @@ export const AppRoutes = () => (
       <Route index element={<Home />} />
       <Route path="t/:goal" element={<TaskHub />} />
       <Route path="t/:goal/:category" element={<CategoryHub />} />
-      <Route path="g/:guide" element={<Placeholder route="guide" />} />
+      <Route path="g/:guide" element={<Guide />} />
       <Route path="g/:guide/suggest" element={<Placeholder route="suggest" />} />
     </Route>
     <Route path="*" element={<NotFound />} />

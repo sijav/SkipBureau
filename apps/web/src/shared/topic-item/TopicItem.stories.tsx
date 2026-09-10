@@ -64,7 +64,7 @@ export const Pressed: Story = { tags: ['!test'], parameters: { pseudo: { active:
 
 /** Leading nowhere yet: recessed, no arrow, not a link. */
 export const Unavailable: Story = {
-  args: { to: undefined, kind: <Trans>Coming soon</Trans> },
+  args: { to: undefined, unavailable: true, kind: <Trans>Coming soon</Trans> },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     await expect(canvas.queryByRole('link')).toBeNull()

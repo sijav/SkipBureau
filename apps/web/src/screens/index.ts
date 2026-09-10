@@ -1,4 +1,5 @@
 export { CategoryHub } from './category-hub'
+export { Guide } from './guide'
 export { Home } from './home'
 export { TaskHub } from './task-hub'
 export { NotFound } from './NotFound'

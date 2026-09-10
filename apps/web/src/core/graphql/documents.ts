@@ -30,14 +30,64 @@ export const GuideQuery = graphql(`
     guide(country: $country, slug: $slug, locale: $locale) {
       slug
       title
+      description
       quickAnswer
       verifiedAt
       locale
       translationMissing
+      showDisclaimer
+      showSuggestUpdate
+      cost
+      time
+      deadlines
+      costNote
+      place {
+        categorySlug
+        categoryTitle
+        goalSlug
+        goalTitle
+        goalAreas
+      }
+      sections {
+        kind
+        position
+        title
+        body
+        note
+        callout
+        calloutBody
+        calloutSource
+        link {
+          slug
+          title
+          description
+        }
+        steps {
+          position
+          title
+          body
+          note
+          label
+        }
+      }
+      options {
+        title
+        body
+        bestFor
+        caveat
+      }
       sources {
         url
         name
+        publisher
+        official
+        note
         verifiedAt
+      }
+      related {
+        slug
+        title
+        description
       }
     }
   }

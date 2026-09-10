@@ -20,6 +20,34 @@ const pick = <T extends { locale: string }>(texts: readonly T[], locale: string)
 
 const date = (value: Date): string => value.toISOString().slice(0, 10)
 
+type Texted<T> = { texts: T[] }
+
+/** Another guide as a link: its slug, title and one line. */
+const linkOf = (guide: { slug: string } & Texted<{ locale: string; title: string; description: string | null }>, locale: string) => {
+  const { text } = pick(guide.texts, locale)
+  return text ? { slug: guide.slug, title: text.title, description: text.description } : null
+}
+
+/** Where a guide sits, for its breadcrumb and its meta line. */
+const placeOf = (
+  category:
+    | ({ slug: string; task: { slug: string; categories: { id: string }[] } & Texted<{ locale: string; title: string }> } & Texted<{ locale: string; title: string }>)
+    | null,
+  locale: string,
+) => {
+  if (!category) return null
+  const area = pick(category.texts, locale).text
+  const goal = pick(category.task.texts, locale).text
+  if (!area || !goal) return null
+  return {
+    categorySlug: category.slug,
+    categoryTitle: area.title,
+    goalSlug: category.task.slug,
+    goalTitle: goal.title,
+    goalAreas: category.task.categories.length,
+  }
+}
+
 @Injectable()
 export class GuideService {
   constructor(private readonly prisma: PrismaService) {}
@@ -217,7 +245,12 @@ export class GuideService {
         texts: true,
         sources: { orderBy: { position: 'asc' } },
         options: { orderBy: { position: 'asc' }, include: { texts: true } },
-        sections: { orderBy: { position: 'asc' }, include: { texts: true, steps: { orderBy: { position: 'asc' }, include: { texts: true } } } },
+        sections: {
+          orderBy: { position: 'asc' },
+          include: { texts: true, linkGuide: { include: { texts: true } }, steps: { orderBy: { position: 'asc' }, include: { texts: true } } },
+        },
+        category: { include: { texts: true, task: { include: { texts: true, categories: { where: { countryCode }, select: { id: true } } } } } },
+        relatedTo: { orderBy: { position: 'asc' }, include: { toGuide: { include: { texts: true } } } },
         obligations: {
           orderBy: { position: 'asc' },
           include: {
@@ -258,27 +291,46 @@ export class GuideService {
       quickAnswer: text.quickAnswer,
       cost: text.cost,
       time: text.time,
+      deadlines: text.deadlines,
+      costNote: text.costNote,
+      place: placeOf(row.category, locale),
       sections: row.sections.flatMap((section) => {
         const picked = pick(section.texts, locale)
         return [
           {
-            kind: section.kind as SectionKind,
+            kind: SectionKind[section.kind],
             position: section.position,
             title: picked.text?.title ?? null,
             body: picked.text?.body ?? null,
+            note: picked.text?.note ?? null,
+            callout: picked.text?.callout ?? null,
+            calloutBody: picked.text?.calloutBody ?? null,
+            calloutSource: picked.text?.calloutSource ?? null,
+            link: section.linkGuide ? linkOf(section.linkGuide, locale) : null,
             steps: section.steps.flatMap((step) => {
               const stepText = pick(step.texts, locale).text
               if (!stepText) return []
-              return [{ position: step.position, title: stepText.title, body: stepText.body }]
+              return [{ position: step.position, title: stepText.title, body: stepText.body, note: stepText.note, label: stepText.label }]
             }),
           },
         ]
       }),
       options: row.options.flatMap((option) => {
         const optionText = pick(option.texts, locale).text
-        return optionText ? [optionText.title] : []
+        return optionText ? [{ title: optionText.title, body: optionText.body, bestFor: optionText.bestFor, caveat: optionText.caveat }] : []
       }),
-      sources: row.sources.map((source) => ({ url: source.url, name: source.name, verifiedAt: date(source.verifiedAt) })),
+      related: row.relatedTo.flatMap(({ toGuide }) => {
+        const link = linkOf(toGuide, locale)
+        return link ? [link] : []
+      }),
+      sources: row.sources.map((source) => ({
+        url: source.url,
+        name: source.name,
+        verifiedAt: date(source.verifiedAt),
+        publisher: source.publisher,
+        official: source.official,
+        note: source.note,
+      })),
       // Rendered from the linked rule rather than retyped into the prose, which
       // is the only thing that stops the two drifting apart.
       obligations: row.obligations.map((link) => {

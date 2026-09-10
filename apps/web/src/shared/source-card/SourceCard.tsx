@@ -14,13 +14,17 @@ export type SourceCardProps = {
   url: string
   /** When it was last checked, or last reachable when it is unavailable. As the API sends it, "2026-08-24". */
   checkedAt: string
+  /** False for an operator's or a company's own page, which the card says. */
+  official?: boolean | undefined
+  /** What this source is the source for, in place of the standing closing line. */
+  note?: ReactNode | undefined
   'data-testid'?: string | undefined
 }
 
 const GLYPH = { verified: CheckGlyph, recent: CheckGlyph, older: RingGlyph, unavailable: DashGlyph, pending: DotsGlyph } satisfies Record<SourceState, unknown>
 
 /** Figma 30:84: who published it, when we last checked, whether it is verified, in that order. */
-export const SourceCard = ({ state, publisher, institution, url, checkedAt, 'data-testid': testId }: SourceCardProps) => {
+export const SourceCard = ({ state, publisher, institution, url, checkedAt, official = true, note, 'data-testid': testId }: SourceCardProps) => {
   const { tokens } = useTheme()
   const { t } = useLingui()
   const { locale } = useLocale()
@@ -40,7 +44,7 @@ export const SourceCard = ({ state, publisher, institution, url, checkedAt, 'dat
   return (
     <Box data-testid={testId} sx={sourceCardStyle(tokens, state)}>
       <Typography variant="caption" className="source-eyebrow" sx={{ color: tokens[paint.signal] }}>
-        <Trans>Official source</Trans>
+        {official ? <Trans>Official source</Trans> : <Trans>Operator source</Trans>}
       </Typography>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1px' }}>
         {publisher && (
@@ -90,7 +94,7 @@ export const SourceCard = ({ state, publisher, institution, url, checkedAt, 'dat
         </Box>
       )}
       <Typography variant="caption" sx={{ color: tokens[SOURCE_TEXT.footer] }}>
-        <Trans>The institution’s own wording — not Skipbureau advice</Trans>
+        {note ?? <Trans>The institution’s own wording — not Skipbureau advice</Trans>}
       </Typography>
     </Box>
   )

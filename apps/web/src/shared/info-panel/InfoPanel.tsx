@@ -23,9 +23,15 @@ type Unsourced = { kind: Exclude<PanelKind, Sourced['kind']>; meta?: ReactNode }
 export type InfoPanelProps = Omit<ComponentPropsWithoutRef<'aside'>, 'children' | 'color' | 'role'> &
   (Sourced | Unsourced) & {
     children: ReactNode
+    /**
+     * The panel's own title in place of its register's name, as the guide's
+     * callouts have, Figma 179:1112. The kind still decides every colour, so a
+     * title cannot make one register look like another.
+     */
+    heading?: ReactNode | undefined
   }
 
-export const InfoPanel = ({ kind, meta, children, ...rest }: InfoPanelProps) => {
+export const InfoPanel = ({ kind, meta, heading, children, ...rest }: InfoPanelProps) => {
   const { tokens } = useTheme()
   const { t } = useLingui()
   const eyebrow = useId()
@@ -36,7 +42,7 @@ export const InfoPanel = ({ kind, meta, children, ...rest }: InfoPanelProps) => 
     // is announced the moment it renders.
     <Box {...rest} role="note" aria-labelledby={eyebrow} sx={panelStyle(tokens, paint)}>
       <Typography id={eyebrow} variant="caption" sx={{ color: tokens[paint.eyebrow] }}>
-        {t(EYEBROW[kind])}
+        {heading ?? t(EYEBROW[kind])}
       </Typography>
       <Typography variant="body2">{children}</Typography>
       {meta && (
