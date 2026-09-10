@@ -41,6 +41,10 @@ msgstr "نوبت‌های استانبول معمولاً صبح زود باز �
 msgid "As written in your passport, no spaces"
 msgstr "همان‌طور که در گذرنامه نوشته شده، بدون فاصله"
 
+#: src/shared/search-input/SearchInput.stories.tsx
+msgid "Ask a question or describe what you’re trying to do…"
+msgstr "سؤالی بپرسید یا بگویید چه کاری می‌خواهید انجام دهید…"
+
 #: src/shared/text-input/TextInput.stories.tsx
 msgid "Available once you confirm your nationality"
 msgstr "پس از تأیید ملیت شما در دسترس است"
@@ -48,6 +52,10 @@ msgstr "پس از تأیید ملیت شما در دسترس است"
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Blocked"
 msgstr "مسدود"
+
+#: src/shared/search-input/SearchInput.stories.tsx
+msgid "Can my Turkish company hire an Iranian employee?"
+msgstr "آیا شرکت ترکیه‌ای من می‌تواند کارمند ایرانی استخدام کند؟"
 
 #: src/shared/page/Page.stories.tsx
 msgid "Cap"
@@ -128,6 +136,10 @@ msgstr "خط تیره را حذف کنید، این فیلد فقط حرف و ع
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Scam risk"
 msgstr "خطر کلاهبرداری"
+
+#: src/shared/search-input/SearchInput.stories.tsx
+msgid "Search the guides"
+msgstr "جست‌وجو در راهنماها"
 
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Select a city"

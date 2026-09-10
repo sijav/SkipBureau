@@ -3,6 +3,7 @@ import { test } from 'vitest'
 import { buttonRoot, buttonVariants } from './button'
 import { formHelperTextOverrides, formLabelOverrides, outlinedInputOverrides, selectOverrides } from './input'
 import { PANEL_PAINT, panelStyle } from './panel'
+import { SEARCH_PAINT, searchStyle } from './search'
 import { TAG_PAINT, tagStyle } from './tag'
 import { DECLARED, EXEMPT, contrastRatio, type Token } from './contrast'
 import { appTheme } from './theme'
@@ -163,6 +164,40 @@ test('every pair is bound to the slot that paints it', () => {
               assert.equal(field.root['& .MuiOutlinedInput-notchedOutline'].borderColor, tokens[fore], `${mode}: ${role} is the resting stroke`)
               // An edge has two sides: the page, or the field's own fill.
               assert.ok(GROUNDS.includes(back) || tokens[back] === field.root.backgroundColor, `${mode}: ${role} is measured against a side of the edge`)
+              break
+            default:
+              assertNever(part)
+          }
+          break
+        }
+
+        case 'search': {
+          const style = searchStyle(tokens, {})
+          const { part } = painted
+          const onFill = () => assert.equal(style.backgroundColor, tokens[back], `${mode}: ${role} sits on the search fill`)
+
+          switch (part) {
+            case 'placeholder':
+              assert.equal(style['& .MuiInputBase-input']['&::placeholder'].color, tokens[fore], `${mode}: ${role} colour`)
+              onFill()
+              break
+            case 'value':
+              assert.equal(style.color, tokens[fore], `${mode}: ${role} colour`)
+              onFill()
+              break
+            case 'icon':
+            case 'iconFilled':
+              // The component reads these two from the table by whether there is a value.
+              assert.equal(tokens[SEARCH_PAINT[part]], tokens[fore], `${mode}: ${role} colour`)
+              onFill()
+              break
+            case 'boundary':
+              assert.ok(style.border.endsWith(tokens[fore]), `${mode}: ${role} is the resting stroke`)
+              assert.ok(GROUNDS.includes(back), `${mode}: ${role} is measured against a side of the edge`)
+              break
+            case 'focusStroke':
+              assert.ok(style['&.Mui-focused'].outline.endsWith(tokens[fore]), `${mode}: ${role} is the focus outline`)
+              assert.ok(GROUNDS.includes(back), `${mode}: ${role} is measured against a ground`)
               break
             default:
               assertNever(part)

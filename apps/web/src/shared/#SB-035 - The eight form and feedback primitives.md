@@ -238,3 +238,21 @@ in fa-IR.
 **An exact assertion caught a quarter pixel.** MUI's select display has a
 `min-height` of 1.4375em, 20.125px at 14px, which made the field 40.125 tall. A
 tolerance would have hidden it; the story's exact `40px` did not.
+
+## Search input (6 of 8)
+
+**Axe refused two unnamed search landmarks on one page, and it was right.** The
+first story put the empty and filled states side by side; landmark-unique
+failed in all four combinations. A page has one primary search, so each state
+became its own story, and the landmark is named by the field's `label`, which
+is required because the design shows no label and a placeholder is not a name.
+
+**The owner's text-field decision applied here without asking again.** He chose
+a 3:1 resting stroke for the text field, on the ground that a faint stroke is
+all that locates a filled field. The search box is the primary text field, with
+the same white fill on the same page, so the same reason holds exactly; it is
+flagged to him in the next report rather than decided silently.
+
+**Built on InputBase, not OutlinedInput.** The design's search focuses with a
+2px stroke and no ring, is 56 tall and serif; the OutlinedInput overrides carry
+the form field's look, and bending them would have been fighting the theme.

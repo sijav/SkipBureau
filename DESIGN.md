@@ -426,6 +426,19 @@ plus a chevron. No helper line.
 
 The open menu is not in the design, so it takes the theme's defaults.
 
+**Search input, node 17:17**, the product's primary entry point. Built on MUI's
+bare InputBase, since OutlinedInput carries the form field's look:
+
+| | value | note |
+|---|---|---|
+| height | 56 | |
+| padding | 16 at the start, 8 at the end | strokes inside; mirrored in fa-IR |
+| icon | 18 x 18, the exported shapes verbatim | `text-tertiary` empty, `text-secondary` with a question in it, as the two exports |
+| text | Source Serif 4 18/29, Body Large | serif on purpose: "it invites a sentence, not a keyword" |
+| stroke | 1px `text-tertiary` | the owner's text-field decision, applied: the design's `border-strong` is 1.54 on the page |
+| focus | 2px `accent-text`, inward, no ring | an outline over the 1px border, so focusing moves nothing |
+| name | `label`, required, invisible | names the field and its search landmark; a placeholder is not a name |
+
 Three pairs are deliberately NOT measured, and `contrast.ts` records why in
 code so the reasons travel with the values: `text-tertiary`, which is the
 theme's disabled text and so outside 1.4.3; `accent`, `success` and `warning`

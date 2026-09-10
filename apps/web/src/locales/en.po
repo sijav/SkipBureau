@@ -41,6 +41,10 @@ msgstr "Appointment slots in Istanbul are usually released early in the morning 
 msgid "As written in your passport, no spaces"
 msgstr "As written in your passport, no spaces"
 
+#: src/shared/search-input/SearchInput.stories.tsx
+msgid "Ask a question or describe what you’re trying to do…"
+msgstr "Ask a question or describe what you’re trying to do…"
+
 #: src/shared/text-input/TextInput.stories.tsx
 msgid "Available once you confirm your nationality"
 msgstr "Available once you confirm your nationality"
@@ -48,6 +52,10 @@ msgstr "Available once you confirm your nationality"
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Blocked"
 msgstr "Blocked"
+
+#: src/shared/search-input/SearchInput.stories.tsx
+msgid "Can my Turkish company hire an Iranian employee?"
+msgstr "Can my Turkish company hire an Iranian employee?"
 
 #: src/shared/page/Page.stories.tsx
 msgid "Cap"
@@ -128,6 +136,10 @@ msgstr "Remove the dash, this field takes letters and numbers only"
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Scam risk"
 msgstr "Scam risk"
+
+#: src/shared/search-input/SearchInput.stories.tsx
+msgid "Search the guides"
+msgstr "Search the guides"
 
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Select a city"

@@ -93,6 +93,8 @@ export type Painted =
   | { by: 'panel'; kind: PanelKind; part: 'eyebrow' | 'body' | 'meta' }
   // `field` is one part of the text input, read from input.ts's overrides.
   | { by: 'field'; part: 'label' | 'value' | 'placeholder' | 'helper' | 'error' | 'disabledHelper' | 'focusRing' | 'boundary' | 'chevron' }
+  // `search` is one part of the search field, read from search.ts.
+  | { by: 'search'; part: 'placeholder' | 'value' | 'icon' | 'iconFilled' | 'boundary' | 'focusStroke' }
 
 export type Declared = {
   /** What a reader is actually looking at. Reads as a sentence in a failure. */
@@ -195,6 +197,15 @@ export const DECLARED: readonly Declared[] = [
   // Figma 16:53. The select's only addition to the field: the affordance that
   // says it opens a list. Non-text, so 3:1. Disabled, it is an inactive control.
   { role: "a select's chevron", fore: 'textSecondary', back: 'surface', target: 3, painted: { by: 'field', part: 'chevron' } },
+
+  // Figma 17:17, the product's primary entry point.
+  { role: 'the search placeholder', fore: 'textSecondary', back: 'surface', target: 4.5, painted: { by: 'search', part: 'placeholder' } },
+  { role: 'a question typed into search', fore: 'textPrimary', back: 'surface', target: 4.5, painted: { by: 'search', part: 'value' } },
+  { role: 'the search icon, empty', fore: 'textTertiary', back: 'surface', target: 3, painted: { by: 'search', part: 'icon' } },
+  { role: 'the search icon, with a question in the box', fore: 'textSecondary', back: 'surface', target: 3, painted: { by: 'search', part: 'iconFilled' } },
+  { role: "the search field's boundary against the page", fore: 'textTertiary', back: 'background', target: 3, painted: { by: 'search', part: 'boundary' } },
+  { role: "the search field's boundary against its own fill", fore: 'textTertiary', back: 'surface', target: 3, painted: { by: 'search', part: 'boundary' } },
+  { role: 'the focused search stroke on the page', fore: 'accentText', back: 'background', target: 3, painted: { by: 'search', part: 'focusStroke' } },
 ]
 
 /**
