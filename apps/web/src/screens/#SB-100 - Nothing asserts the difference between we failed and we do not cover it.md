@@ -61,7 +61,10 @@ other survives rewording and still catches literal unification.
 cannot click that: a full page reload inside the Storybook iframe is not an
 assertion, it is a crash.
 
-So the retry becomes a prop, `onRetry`. The plan check was sharp about the
+So the retry becomes a prop, `onRetry`, and it is **required with no
+default**, which is a step further than this plan first proposed. A default
+that reloads is an untested code path and hides a policy decision that only the
+caller can make. The plan check was sharp about the
 condition on that: a prop added only to dodge `location.reload` in a test is
 test-shaping, and it earns its keep **only if the route passes a real one
 now**. So it does. `useQuery` returns `reexecuteQuery` as its second tuple
@@ -86,7 +89,7 @@ exist in `src/core/graphql/mocks` and that no story has ever used, which is why
 |---|---|---|
 | `Found` | `handlers` | the country resolves and the child route renders |
 | `NotCovered` | `emptyHandlers` | a null answer reaches `NotFound` |
-| `Unreachable` | `failingHandlers` | an errored request reaches `Unreachable` |
+| `ApiIsDown` | `failingHandlers` | an errored request reaches `Unreachable` |
 | `Recovers` | a story-local handler that fails **once**, then the real ones | clicking Try again re-executes and the country appears |
 
 `Recovers` is the one that ties it together: it proves the error path, the
@@ -97,7 +100,7 @@ an API.
 
 | file | change |
 |---|---|
-| `src/screens/Unreachable.tsx` | `onRetry` prop, defaulting to the reload |
+| `src/screens/Unreachable.tsx` | `onRetry` prop, REQUIRED, no default |
 | `src/screens/Unreachable.stories.tsx` | new |
 | `src/screens/NotFound.stories.tsx` | new |
 | `src/screens/index.ts` | new barrel, since the folder now has more than one export |
@@ -124,3 +127,11 @@ saying the same thing, that this card is about.
 
 Coverage for both files should go from 0 to covered, which is the second,
 measurable half of the proof.
+
+## Corrected after the task roast
+
+The roast passed the work and caught three stale sentences here, fixed above:
+the prop is required rather than defaulted to a reload, the failed-route story
+is exported as `ApiIsDown` rather than `Unreachable`, and the reload is gone
+from the route entirely rather than kept as a fallback. Behaviour was right;
+this file was describing an earlier draft of it.
