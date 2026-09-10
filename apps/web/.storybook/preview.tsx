@@ -1,5 +1,7 @@
 import CssBaseline from '@mui/material/CssBaseline'
 import type { Preview } from '@storybook/react-vite'
+import type { RequestHandler } from 'msw'
+import { applyHandlers } from './msw'
 import type { ReactElement } from 'react'
 import { I18nProvider } from 'src/core/i18n'
 import { AppTheme } from 'src/core/theme'
@@ -17,6 +19,13 @@ import { AppTheme } from 'src/core/theme'
  * and the first version of this comment implied otherwise.
  */
 const preview: Preview = {
+  // Handlers come from the story, through parameters.msw.handlers, and are
+  // reset between stories so one cannot leak into the next.
+  beforeEach: async ({ parameters }) => {
+    const msw = parameters['msw'] as { handlers?: readonly RequestHandler[] } | undefined
+    await applyHandlers(msw?.handlers)
+  },
+
   parameters: {
     controls: { matchers: { color: /(background|color)$/i, date: /Date$/i } },
     a11y: { test: 'error' },

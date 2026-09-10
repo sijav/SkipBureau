@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography'
 import { useParams } from 'react-router-dom'
 import { useCountry } from 'src/core/country'
 import { useLocale } from 'src/core/i18n'
+import { CountryName } from 'src/shared/country-name'
 import { Page } from 'src/shared/page'
 import { Reading } from 'src/shared/reading'
 
@@ -43,6 +44,7 @@ export const Placeholder = ({ route }: PlaceholderProps) => {
           <Typography>
             <Trans>The address resolved, which is what this page is here to show.</Trans>
           </Typography>
+          <CountryName variant="body1" />
           <Box component="dl" sx={{ display: 'grid', gridTemplateColumns: 'max-content 1fr', gap: 1, m: 0 }}>
             {resolved.map(([name, value]) => (
               <Box key={name} sx={{ display: 'contents' }}>

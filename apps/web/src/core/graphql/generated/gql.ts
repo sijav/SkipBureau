@@ -1,7 +1,6 @@
 /* eslint-disable */
 import * as types from './graphql';
-
-
+import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 
 /**
  * Map of all GraphQL operations in the project.
@@ -27,18 +26,33 @@ const documents: Documents = {
 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ *
+ *
+ * @example
+ * ```ts
+ * const query = graphql(`query GetUser($id: ID!) { user(id: $id) { name } }`);
+ * ```
+ *
+ * The query argument is unknown!
+ * Please regenerate the types.
  */
-export function graphql(source: "\n  query Countries {\n    countries {\n      code\n      name\n    }\n  }\n"): typeof import('./graphql').CountriesDocument;
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "\n  query Tasks($locale: String) {\n    tasks(locale: $locale) {\n      slug\n      title\n      subtitle\n      position\n    }\n  }\n"): typeof import('./graphql').TasksDocument;
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "\n  query Guide($country: String!, $slug: String!, $locale: String) {\n    guide(country: $country, slug: $slug, locale: $locale) {\n      slug\n      title\n      quickAnswer\n      verifiedAt\n      locale\n      translationMissing\n      sources {\n        url\n        name\n        verifiedAt\n      }\n    }\n  }\n"): typeof import('./graphql').GuideDocument;
+export function graphql(source: string): unknown;
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query Countries {\n    countries {\n      code\n      name\n    }\n  }\n"): (typeof documents)["\n  query Countries {\n    countries {\n      code\n      name\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query Tasks($locale: String) {\n    tasks(locale: $locale) {\n      slug\n      title\n      subtitle\n      position\n    }\n  }\n"): (typeof documents)["\n  query Tasks($locale: String) {\n    tasks(locale: $locale) {\n      slug\n      title\n      subtitle\n      position\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query Guide($country: String!, $slug: String!, $locale: String) {\n    guide(country: $country, slug: $slug, locale: $locale) {\n      slug\n      title\n      quickAnswer\n      verifiedAt\n      locale\n      translationMissing\n      sources {\n        url\n        name\n        verifiedAt\n      }\n    }\n  }\n"): (typeof documents)["\n  query Guide($country: String!, $slug: String!, $locale: String) {\n    guide(country: $country, slug: $slug, locale: $locale) {\n      slug\n      title\n      quickAnswer\n      verifiedAt\n      locale\n      translationMissing\n      sources {\n        url\n        name\n        verifiedAt\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
 }
+
+export type DocumentType<TDocumentNode extends DocumentNode<any, any>> = TDocumentNode extends DocumentNode<  infer TType,  any>  ? TType  : never;

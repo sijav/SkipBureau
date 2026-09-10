@@ -49,6 +49,10 @@ msgstr "عرض خوانش ۷۲۰ است. طراحی فقط برای همین ی�
 msgid "This page does not exist"
 msgstr "این صفحه وجود ندارد"
 
+#: src/shared/country-name/CountryName.tsx
+msgid "Unknown country"
+msgstr "کشور ناشناخته"
+
 #: src/core/i18n/I18nProvider.stories.tsx
 msgid "What do you need to do?"
 msgstr "چه کاری باید انجام دهید؟"

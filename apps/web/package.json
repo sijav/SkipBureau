@@ -44,7 +44,8 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-router-dom": "^7.18.1",
-    "stylis": "4.2.0"
+    "stylis": "4.2.0",
+    "urql": "^5.0.4"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -73,6 +74,7 @@
     "eslint-plugin-react-refresh": "^0.5.3",
     "eslint-plugin-storybook": "^10.5.0",
     "globals": "^17.7.0",
+    "msw": "^2.15.0",
     "playwright": "^1.61.1",
     "prettier": "^3.9.5",
     "storybook": "^10.5.0",
@@ -80,5 +82,10 @@
     "typescript-eslint": "^8.64.0",
     "vite": "^8.1.4",
     "vitest": "^4.1.10"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }

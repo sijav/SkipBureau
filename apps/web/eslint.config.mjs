@@ -18,6 +18,9 @@ export default tseslint.config(
       // Written by `lingui compile`. They already carry their own
       // eslint-disable, which this config then reported as unused.
       'src/locales/*.mjs',
+      // Written by graphql-codegen. It carries its own eslint-disable, which
+      // this config then reported as unused.
+      'src/core/graphql/generated/**',
     ],
   },
   js.configs.recommended,

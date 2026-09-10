@@ -20,9 +20,10 @@ const config: CodegenConfig = {
     './src/core/graphql/generated/': {
       preset: 'client',
       config: {
-        // A clean checkout must typecheck without running codegen, so the
-        // output is committed and has to be readable as source.
-        documentMode: 'string',
+        // NOT documentMode: 'string'. That emits TypedDocumentString, a String
+        // subclass, and urql's DocumentInput does not accept one. The default
+        // emits a TypedDocumentNode, which urql takes directly and which is the
+        // whole point of generating them.
         // The app compiles with verbatimModuleSyntax, so generated code has to
         // say 'import type' where it means a type. Without this the generated
         // files fail the very typecheck they exist to make meaningful.

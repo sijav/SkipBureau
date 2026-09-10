@@ -49,6 +49,10 @@ msgstr "The reading measure is 720. The design gives a reason for that one numbe
 msgid "This page does not exist"
 msgstr "This page does not exist"
 
+#: src/shared/country-name/CountryName.tsx
+msgid "Unknown country"
+msgstr "Unknown country"
+
 #: src/core/i18n/I18nProvider.stories.tsx
 msgid "What do you need to do?"
 msgstr "What do you need to do?"
