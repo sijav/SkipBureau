@@ -44,7 +44,8 @@ export const Default: Story = {
     const canvas = within(canvasElement)
 
     // The country the route confirmed, by name, in the heading.
-    await expect(await canvas.findByRole('heading', { level: 1, name: /Turkey/ })).toBeVisible()
+    // The country's request stands before the page; 1s is tight on a loaded CI runner.
+    await expect(await canvas.findByRole('heading', { level: 1, name: /Turkey/ }, { timeout: 5000 })).toBeVisible()
 
     // Twelve goals; the two with content are links, the other ten Coming soon.
     const goals = await canvas.findByRole('heading', { level: 2, name: /What do you want to do/ })
@@ -71,7 +72,7 @@ export const OneAsk: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     // Home first: before it renders, the header's is the only field there is.
-    await canvas.findByRole('heading', { level: 1 })
+    await canvas.findByRole('heading', { level: 1 }, { timeout: 5000 })
     const fields = await canvas.findAllByRole('textbox', { name: /Ask Skipbureau/ })
     await expect(fields).toHaveLength(1)
     const [field] = fields
@@ -87,7 +88,7 @@ export const NothingYet: Story = {
   parameters: { at: 'de' },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    await expect(await canvas.findByRole('heading', { level: 1, name: /Germany/ })).toBeVisible()
+    await expect(await canvas.findByRole('heading', { level: 1, name: /Germany/ }, { timeout: 5000 })).toBeVisible()
     await expect(await canvas.findAllByText(/Coming soon/)).toHaveLength(12)
     await expect(canvas.queryByRole('heading', { name: /Common questions/ })).toBeNull()
   },
@@ -102,7 +103,7 @@ export const Unreachable: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    await expect(await within(canvasElement).findByRole('button', { name: /Try again/ })).toBeVisible()
+    await expect(await within(canvasElement).findByRole('button', { name: /Try again/ }, { timeout: 5000 })).toBeVisible()
   },
 }
 

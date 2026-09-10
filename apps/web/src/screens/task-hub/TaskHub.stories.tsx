@@ -45,8 +45,10 @@ export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
 
-    // The goal's own heading, naming the country it is being read in.
-    await expect(await canvas.findByRole('heading', { level: 1, name: /Start a business in Turkey/ })).toBeVisible()
+    // The goal's own heading, naming the country it is being read in. Two
+    // requests stand before it, the country and then the hub, one after the
+    // other, which is more than the 1s default on a loaded CI runner.
+    await expect(await canvas.findByRole('heading', { level: 1, name: /Start a business in Turkey/ }, { timeout: 5000 })).toBeVisible()
 
     // Eight areas under the heading, the four with a kind labelled, each a link
     // to its category hub.
@@ -74,6 +76,6 @@ export const Default: Story = {
 export const ComingSoon: Story = {
   parameters: { goal: 'taxes' },
   play: async ({ canvasElement }) => {
-    await expect(await within(canvasElement).findByRole('heading', { level: 1, name: /not/i })).toBeVisible()
+    await expect(await within(canvasElement).findByRole('heading', { level: 1, name: /not/i }, { timeout: 5000 })).toBeVisible()
   },
 }
