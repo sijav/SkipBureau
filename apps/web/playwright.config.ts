@@ -11,6 +11,7 @@ import { defineConfig, devices } from '@playwright/test'
 
 const BASE = '/SkipBureau/'
 const PAGES_PORT = 5190
+const API_PORT = 4500
 
 export default defineConfig({
   testDir: './e2e',
@@ -33,7 +34,17 @@ export default defineConfig({
   ],
   webServer: [
     {
+      // A real API, so a test can insert a row and browse it. Storybook and
+      // MSW prove the component; only this can prove the data.
+      command: 'npm run build -w @skipbureau/api && node e2e/api-server.mjs',
+      url: `http://localhost:${API_PORT}/graphql?query=%7Bhealth%7D`,
+      reuseExistingServer: !process.env.CI,
+      timeout: 240_000,
+      env: { E2E_API_PORT: String(API_PORT), E2E_WEB_PORT: '5173' },
+    },
+    {
       command: 'npm run dev',
+      env: { VITE_GRAPHQL_URL: `http://localhost:${API_PORT}/graphql` },
       url: 'http://localhost:5173',
       reuseExistingServer: !process.env.CI,
       timeout: 120_000,
@@ -44,7 +55,14 @@ export default defineConfig({
       url: `http://localhost:${PAGES_PORT}${BASE}`,
       reuseExistingServer: !process.env.CI,
       timeout: 180_000,
-      env: { SKIPBUREAU_BASE: BASE, PAGES_PORT: String(PAGES_PORT) },
+      // The API url too: the country guard asks the API before a page
+      // renders, so a build that does not know where the API is renders Not
+      // Found for every country.
+      env: {
+        SKIPBUREAU_BASE: BASE,
+        PAGES_PORT: String(PAGES_PORT),
+        VITE_GRAPHQL_URL: `http://localhost:${API_PORT}/graphql`,
+      },
     },
   ],
 })

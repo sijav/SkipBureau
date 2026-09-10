@@ -1,5 +1,6 @@
 import { strict as assert } from 'node:assert'
 import { test } from 'vitest'
+import { validated } from '../country/countries'
 import { locales, type Locale } from '../i18n/locales'
 import { aliasedLocale, countryFromSegment, localeFromSegment, localeSegment, paths, samePageIn } from './paths'
 
@@ -37,18 +38,27 @@ test('the lingui tag is accepted only as an alias to redirect from', () => {
   assert.equal(aliasedLocale('en'), null)
 })
 
-test('a country segment is refused the same way', () => {
+test('a country segment is checked for SHAPE here, and for existence by the API', () => {
+  // This deliberately stopped being a membership test. It used to consult a
+  // hardcoded table of one country, which is why adding a country to the
+  // database did not make its URL work. Two letters is all a URL can tell you;
+  // whether that country exists is a question only the database answers, and
+  // `CountryRoute` asks it.
   assert.equal(countryFromSegment('tr'), 'tr')
-  assert.equal(countryFromSegment('de'), null)
+  assert.equal(countryFromSegment('de'), 'de', 'a country we have not seen before is still shaped like one')
+
   assert.equal(countryFromSegment(''), null)
+  assert.equal(countryFromSegment('turkey'), null)
+  assert.equal(countryFromSegment('TR'), null, 'the URL form is lowercase')
+  assert.equal(countryFromSegment('t1'), null)
 })
 
 test('every path carries the language and the country it was read in', () => {
-  assert.equal(paths.home('fa-IR', 'tr'), '/fa/tr')
-  assert.equal(paths.taskHub('fa-IR', 'tr', 'start-a-business'), '/fa/tr/t/start-a-business')
-  assert.equal(paths.categoryHub('en-US', 'tr', 'getting-settled', 'residence'), '/en/tr/t/getting-settled/residence')
-  assert.equal(paths.guide('en-US', 'tr', 'get-a-sim-card'), '/en/tr/g/get-a-sim-card')
-  assert.equal(paths.suggest('en-US', 'tr', 'get-a-sim-card'), '/en/tr/g/get-a-sim-card/suggest')
+  assert.equal(paths.home('fa-IR', validated('tr')), '/fa/tr')
+  assert.equal(paths.taskHub('fa-IR', validated('tr'), 'start-a-business'), '/fa/tr/t/start-a-business')
+  assert.equal(paths.categoryHub('en-US', validated('tr'), 'getting-settled', 'residence'), '/en/tr/t/getting-settled/residence')
+  assert.equal(paths.guide('en-US', validated('tr'), 'get-a-sim-card'), '/en/tr/g/get-a-sim-card')
+  assert.equal(paths.suggest('en-US', validated('tr'), 'get-a-sim-card'), '/en/tr/g/get-a-sim-card/suggest')
 })
 
 test('switching language keeps the reader on the page they were reading', () => {

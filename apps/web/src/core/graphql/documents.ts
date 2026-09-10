@@ -42,3 +42,12 @@ export const GuideQuery = graphql(`
     }
   }
 `)
+
+export const CountryQuery = graphql(`
+  query Country($code: String!) {
+    country(code: $code) {
+      code
+      name
+    }
+  }
+`)

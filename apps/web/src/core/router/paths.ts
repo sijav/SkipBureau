@@ -1,4 +1,4 @@
-import { isCountry, type Country } from '../country/countries'
+import { looksLikeCountry, type CountryCode } from '../country/countries'
 import { isLocale, locales, type Locale } from '../i18n/locales'
 
 /**
@@ -22,18 +22,23 @@ export const localeFromSegment = (segment: string): Locale | null =>
  */
 export const aliasedLocale = (segment: string): Locale | null => (isLocale(segment) ? segment : null)
 
-export const countryFromSegment = (segment: string): Country | null => (isCountry(segment) ? segment : null)
+/**
+ * Shape only. Whether the country EXISTS is a database answer, and the route
+ * guard is what asks it. This cannot know, and pretending it could is exactly
+ * what the hardcoded table was doing.
+ */
+export const countryFromSegment = (segment: string): string | null => (looksLikeCountry(segment) ? segment : null)
 
 /** The prefix every page below the root sits under. */
-const at = (locale: Locale, country: Country) => `/${localeSegment(locale)}/${country}`
+const at = (locale: Locale, country: CountryCode) => `/${localeSegment(locale)}/${country}`
 
 export const paths = {
-  home: (locale: Locale, country: Country) => at(locale, country),
-  taskHub: (locale: Locale, country: Country, goal: string) => `${at(locale, country)}/t/${goal}`,
-  categoryHub: (locale: Locale, country: Country, goal: string, category: string) =>
+  home: (locale: Locale, country: CountryCode) => at(locale, country),
+  taskHub: (locale: Locale, country: CountryCode, goal: string) => `${at(locale, country)}/t/${goal}`,
+  categoryHub: (locale: Locale, country: CountryCode, goal: string, category: string) =>
     `${at(locale, country)}/t/${goal}/${category}`,
-  guide: (locale: Locale, country: Country, guide: string) => `${at(locale, country)}/g/${guide}`,
-  suggest: (locale: Locale, country: Country, guide: string) => `${at(locale, country)}/g/${guide}/suggest`,
+  guide: (locale: Locale, country: CountryCode, guide: string) => `${at(locale, country)}/g/${guide}`,
+  suggest: (locale: Locale, country: CountryCode, guide: string) => `${at(locale, country)}/g/${guide}/suggest`,
 } as const
 
 export type Place = { pathname: string; search?: string; hash?: string }

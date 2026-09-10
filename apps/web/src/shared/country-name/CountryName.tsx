@@ -1,29 +1,26 @@
 import { Trans } from '@lingui/react/macro'
-import Skeleton from '@mui/material/Skeleton'
 import Typography from '@mui/material/Typography'
-import { useQuery } from 'urql'
 import { useCountry } from 'src/core/country'
-import { CountriesQuery } from 'src/core/graphql'
 
 export type CountryNameProps = {
   /** How prominent this is. The header wants small, a heading wants large. */
   variant?: 'body2' | 'body1' | 'h6'
 }
 
+/**
+ * The country the reader is in, named.
+ *
+ * It does not fetch. `CountryRoute` has already confirmed the country exists
+ * and put its name in context, so a second request here would ask the same
+ * question twice and could answer it differently.
+ */
 export const CountryName = ({ variant = 'body2' }: CountryNameProps) => {
-  const { country } = useCountry()
-  const [{ data, fetching, error }] = useQuery({ query: CountriesQuery })
+  const { name } = useCountry()
 
-  if (fetching) return <Skeleton variant="text" width={80} data-testid="country-name-loading" />
-
-  const name = data?.countries.find((each) => each.code === country)?.name
-
-  // A country we cannot name is not worth guessing at: the code is what the
-  // URL already says, and showing it is honest where inventing a name is not.
-  if (error || !name) {
+  if (!name) {
     return (
       <Typography variant={variant} data-testid="country-name" sx={{ color: 'text.secondary' }}>
-        <Trans>Unknown country</Trans>
+        <Trans>Unnamed country</Trans>
       </Typography>
     )
   }

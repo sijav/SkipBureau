@@ -29,6 +29,14 @@ msgstr "Cap"
 msgid "Not built yet"
 msgstr "Not built yet"
 
+#: src/screens/Unreachable.tsx
+msgid "SkipBureau could not load this"
+msgstr "SkipBureau could not load this"
+
+#: src/screens/Unreachable.tsx
+msgid "Something on our side did not answer. The page exists, we just could not reach it. Trying again usually works."
+msgstr "Something on our side did not answer. The page exists, we just could not reach it. Trying again usually works."
+
 #: src/screens/NotFound.tsx
 msgid "The address may be mistyped, or it may point at a country or a guide SkipBureau does not cover yet."
 msgstr "The address may be mistyped, or it may point at a country or a guide SkipBureau does not cover yet."
@@ -49,9 +57,17 @@ msgstr "The reading measure is 720. The design gives a reason for that one numbe
 msgid "This page does not exist"
 msgstr "This page does not exist"
 
+#: src/screens/Unreachable.tsx
+msgid "Try again"
+msgstr "Try again"
+
 #: src/shared/country-name/CountryName.tsx
-msgid "Unknown country"
-msgstr "Unknown country"
+#~ msgid "Unknown country"
+#~ msgstr "Unknown country"
+
+#: src/shared/country-name/CountryName.tsx
+msgid "Unnamed country"
+msgstr "Unnamed country"
 
 #: src/core/i18n/I18nProvider.stories.tsx
 msgid "What do you need to do?"

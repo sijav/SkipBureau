@@ -1,9 +1,11 @@
 import { createContext, use } from 'react'
-import type { Country } from './countries'
+import type { CountryCode } from './countries'
 
 export type CountryContext = {
-  /** The country whose rules the page is showing. Comes from the URL. */
-  country: Country
+  /** The country whose rules the page is showing. Confirmed by the API. */
+  country: CountryCode
+  /** Its name in the reader's language, where the API had one. */
+  name: string
 }
 
 /**

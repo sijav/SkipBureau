@@ -29,6 +29,14 @@ msgstr "سقف"
 msgid "Not built yet"
 msgstr "هنوز ساخته نشده"
 
+#: src/screens/Unreachable.tsx
+msgid "SkipBureau could not load this"
+msgstr "SkipBureau نتوانست این را بارگذاری کند"
+
+#: src/screens/Unreachable.tsx
+msgid "Something on our side did not answer. The page exists, we just could not reach it. Trying again usually works."
+msgstr "چیزی در سمت ما پاسخ نداد. صفحه وجود دارد، فقط نتوانستیم به آن برسیم. معمولا تلاش دوباره جواب می‌دهد."
+
 #: src/screens/NotFound.tsx
 msgid "The address may be mistyped, or it may point at a country or a guide SkipBureau does not cover yet."
 msgstr "ممکن است نشانی اشتباه تایپ شده باشد، یا به کشور یا راهنمایی اشاره کند که SkipBureau هنوز پوشش نمی‌دهد."
@@ -49,9 +57,17 @@ msgstr "عرض خوانش ۷۲۰ است. طراحی فقط برای همین ی�
 msgid "This page does not exist"
 msgstr "این صفحه وجود ندارد"
 
+#: src/screens/Unreachable.tsx
+msgid "Try again"
+msgstr "تلاش دوباره"
+
 #: src/shared/country-name/CountryName.tsx
-msgid "Unknown country"
-msgstr "کشور ناشناخته"
+#~ msgid "Unknown country"
+#~ msgstr "کشور ناشناخته"
+
+#: src/shared/country-name/CountryName.tsx
+msgid "Unnamed country"
+msgstr "کشور بی‌نام"
 
 #: src/core/i18n/I18nProvider.stories.tsx
 msgid "What do you need to do?"
