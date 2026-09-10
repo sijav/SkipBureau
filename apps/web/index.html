@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Before any script runs, #root is empty and the browser paints its own
+         canvas. Without this a reader who asked their machine for dark gets a
+         white flash on every cold load. It cannot apply our background, only
+         let the user agent pick a matching one. -->
+    <meta name="color-scheme" content="light dark" />
     <title>SkipBureau</title>
   </head>
   <body>

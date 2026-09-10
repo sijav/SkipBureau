@@ -1,6 +1,6 @@
 ---
 active: true
-iteration: 10
+iteration: 11
 max_iterations: 0
 completion_promise: "SKIPBUREAU-DONE"
 started_at: "2026-09-09T22:50:00Z"
@@ -148,8 +148,18 @@ close. If a check seems necessary, say so in the reply and let them decide.
    A task that is `done` is a task that works. Nothing is closed on the
    expectation that it works, and nothing waits for a roast to find out.
 
+   **How much of the gate you run depends on whether the task has a parent**, the
+   owner's rule of 2026-09-10: a task with **no parent** closes on the **full
+   suite**; a **CHILD** closes on the **tests for the files it changed**, plus
+   lint and the type checker where it touched. A child is one slice of a parent
+   and the whole gate runs again when the parent closes. It is a rule about cost,
+   not rigour: the same checks run, once, where they mean something. If you
+   cannot tell which tests cover what you changed, run more rather than guess.
+
+
 5. **THEN move it to `done`, and only then fire the roast, in the background.**
 
+   <!-- roast-order -->
    ```bash
    todo move <id> done          # FIRST. The task is finished and proven.
    python ~/.claude/skills/roast/roast.py task --title ... --did ... --ask ... &
@@ -173,6 +183,13 @@ close. If a check seems necessary, say so in the reply and let them decide.
    Its output is evidence, not a verdict. Reproduce each finding, or say what it
    misread, and never silently drop one. **Every finding that survives becomes
    its own board entry with all nine fields.**
+
+   **A finding is a CHILD of the task it came out of**, filed with
+   `todo add --parent-task <that task>`, never as a loose card. One level: a
+   child never gets children. **When the LAST open child of a parent closes,
+   roast the parent together with all of its children**, on what was done for
+   the whole task rather than the last piece. What that round finds becomes a
+   new child, and it repeats until a round finds nothing.
 
    Then exactly one of two things happens.
 

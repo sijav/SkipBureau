@@ -4,6 +4,13 @@ import { dark, layout, light, radius, spacing, type } from './tokens'
 export type Mode = 'light' | 'dark'
 export type Direction = 'ltr' | 'rtl'
 
+/**
+ * What a caller may ASK for, which is a superset of what the theme is built
+ * from. `system` is a deferral, not a palette: it is resolved to a `Mode`
+ * before `appTheme` ever sees it.
+ */
+export type ModeChoice = Mode | 'system'
+
 const face = (style: (typeof type)[keyof typeof type]) => ({
   fontFamily: style.family,
   fontSize: style.size,

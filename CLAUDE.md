@@ -285,6 +285,16 @@ Rules he stated once do not need stating again, so they apply here.
   passing, build succeeding, and then **actually look at it running**, in all
   four combinations of language and colour scheme. A computed style is not
   proof.
+- **How much of that gate you run depends on whether the task has a parent.**
+  The owner, 2026-09-10: _"you only do full suit test whenever a task without
+  parent is done, otherwise you only run the test for the files you change"_.
+  So a task with **no parent** closes on the **full suite**; a **child** closes
+  on the **tests covering the files it changed**, plus lint and the type checker
+  over what it touched. A child is one slice of a parent, and the whole gate
+  runs again when the parent closes and gets its completion roast. It is a rule
+  about cost, not about rigour: the same checks still run, once, where they mean
+  something. If you cannot tell which tests cover what you changed, run more
+  rather than guess.
 - **Do not verify by inference.** Test the thing in front of you, not a thing
   like it. And when a check comes back empty, confirm it can find a case you
   plant by hand: two scripted sweeps on that project reported clean while

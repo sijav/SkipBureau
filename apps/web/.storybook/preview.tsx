@@ -1,10 +1,9 @@
-import CssBaseline from '@mui/material/CssBaseline'
 import type { Preview } from '@storybook/react-vite'
 import type { RequestHandler } from 'msw'
 import { applyHandlers } from './msw'
 import type { ReactElement } from 'react'
 import { I18nProvider } from 'src/core/i18n'
-import { AppTheme } from 'src/core/theme'
+import { AppTheme, type ModeChoice } from 'src/core/theme'
 
 /**
  * Every story renders inside the real app theme, so a story cannot look right
@@ -32,12 +31,13 @@ const preview: Preview = {
   },
   globalTypes: {
     mode: {
-      description: 'Light or dark',
-      defaultValue: 'light',
+      description: 'Follow the operating system, or pin one',
+      defaultValue: 'system',
       toolbar: {
         title: 'Mode',
         icon: 'sun',
         items: [
+          { value: 'system', title: 'System' },
           { value: 'light', title: 'Light' },
           { value: 'dark', title: 'Dark' },
         ],
@@ -60,13 +60,15 @@ const preview: Preview = {
   },
   decorators: [
     (Story, context): ReactElement => {
-      const mode = context.globals.mode === 'dark' ? 'dark' : 'light'
+      // Narrowed by lookup rather than by a cast: an unknown toolbar value
+      // falls back to following the operating system.
+      const choices = ['system', 'light', 'dark'] as const
+      const mode: ModeChoice = choices.find((value) => value === context.globals.mode) ?? 'system'
       const locale = context.globals.direction === 'fa-IR' ? 'fa-IR' : 'en-US'
 
       return (
         <I18nProvider locale={locale}>
           <AppTheme mode={mode} direction={locale === 'fa-IR' ? 'rtl' : 'ltr'}>
-            <CssBaseline />
             <Story />
           </AppTheme>
         </I18nProvider>

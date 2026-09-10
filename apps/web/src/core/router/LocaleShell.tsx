@@ -1,4 +1,3 @@
-import CssBaseline from '@mui/material/CssBaseline'
 import type { ReactNode } from 'react'
 import { useLocation } from 'react-router-dom'
 import { I18nProvider, defaultLocale, locales } from 'src/core/i18n'
@@ -24,7 +23,6 @@ export const LocaleShell = ({ children }: { children: ReactNode }) => {
     <GraphQLProvider>
       <I18nProvider locale={locale}>
         <AppTheme direction={locales[locale].dir}>
-          <CssBaseline />
           <AppShell>{children}</AppShell>
         </AppTheme>
       </I18nProvider>
