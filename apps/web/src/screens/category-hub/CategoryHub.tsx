@@ -91,7 +91,8 @@ export const CategoryHub = (props: CategoryHubProps) => {
       )}
 
       <Box sx={{ display: 'flex', flexDirection: { xs: 'column', lg: 'row' }, alignItems: 'flex-start', gap: '48px', paddingTop: '48px' }}>
-        <Stack spacing="14px" sx={{ flex: '1 1 840px', minWidth: 0, maxWidth: '840px', width: '100%' }}>
+        {/* The list fills; the checklist keeps the 392 Figma fixes it at. Stacked, both are their content. */}
+        <Stack spacing="14px" sx={{ flex: { lg: '1 1 0' }, minWidth: 0, width: '100%' }}>
           <Typography variant="h3" component="h2">
             <Trans>What do you need help with?</Trans>
           </Typography>
@@ -116,9 +117,9 @@ export const CategoryHub = (props: CategoryHubProps) => {
             component="section"
             aria-label={t`Getting started checklist`}
             sx={{
-              flex: '0 1 392px',
+              flex: { lg: '0 0 392px' },
               width: '100%',
-              maxWidth: '392px',
+              maxWidth: { xs: 'none', sm: '392px' },
               display: 'flex',
               flexDirection: 'column',
               gap: '12px',

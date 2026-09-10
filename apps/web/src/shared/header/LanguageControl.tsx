@@ -33,10 +33,10 @@ export const LanguageControl = () => {
         aria-controls={anchor ? menuId : undefined}
         onClick={(event) => setAnchor(event.currentTarget)}
         sx={{
-          height: '34px',
-          minWidth: '54px',
+          // The profile control's 34 high, from 8 above and below a 16 line and
+          // the stroke inside, so the label sets the width, not a number.
           gap: '8px',
-          padding: '4px 7px 4px 9px',
+          padding: '8px 7px 8px 9px',
           border: `1px solid ${tokens.border}`,
           borderRadius: '2px',
           backgroundColor: tokens.surface,

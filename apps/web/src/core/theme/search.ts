@@ -28,8 +28,10 @@ const FOCUS_STROKE = 2
 // back from the padding, and focus is an outline laid inward over it, so the
 // 2px focus stroke moves nothing. Lengths are strings because this goes
 // through sx, which multiplies bare numbers.
+// The design's 56 comes from padding around the text's line, not from a
+// height, so the field is its content and its padding like Figma's auto layout.
 export const searchStyle = (tokens: ColourTokens, text: CSSObject) => ({
-  height: `${HEIGHT}px`,
+  paddingBlock: `calc((${HEIGHT - 2 * STROKE}px - ${String(text['lineHeight'])}) / 2)`,
   gap: `${spacing.sm}px`,
   paddingLeft: `${spacing.md - STROKE}px`,
   paddingRight: `${spacing.sm - STROKE}px`,
@@ -56,9 +58,13 @@ export const searchStyle = (tokens: ColourTokens, text: CSSObject) => ({
  */
 export const ASK_PAINT = { glyph: 'textSecondary', glyphFocused: 'textPrimary' } as const satisfies Record<string, keyof ColourTokens>
 
+// 64 tall from padding around the Ask button, the tallest thing in it at 40.
+const ASK_HEIGHT = 64
+const ASK_BUTTON = 40
+
 export const askStyle = (tokens: ColourTokens, text: CSSObject) => ({
   ...searchStyle(tokens, text),
-  height: '64px',
+  paddingBlock: `${(ASK_HEIGHT - 2 * STROKE - ASK_BUTTON) / 2}px`,
   gap: '14px',
   paddingLeft: `${spacing.lg - STROKE}px`,
   paddingRight: `${spacing.sm - STROKE}px`,

@@ -101,7 +101,8 @@ export const GuideSection = ({ section, options, content, guidePath }: GuideSect
                 )}
                 {option.bestFor && (
                   <Box sx={{ display: 'flex', gap: '8px', paddingTop: '4px' }}>
-                    <Typography variant="caption" sx={{ width: '64px', flexShrink: 0, color: tokens.textSecondary }}>
+                    {/* Figma's 64 column, as a floor: a longer label, as in Persian, takes more. */}
+                    <Typography variant="caption" sx={{ minWidth: '64px', flexShrink: 0, color: tokens.textSecondary }}>
                       <Trans>Best for</Trans>
                     </Typography>
                     <Typography variant="body2" sx={{ flex: '1 0 0', minWidth: 0 }}>
