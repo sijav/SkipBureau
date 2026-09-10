@@ -54,6 +54,13 @@ export default defineConfig({
       // same story file is run four times and the a11y addon, set to error,
       // checks contrast in each.
       //
+      // There is deliberately NO setupFiles here. There was one, calling
+      // setProjectAnnotations([preview]) by hand, and since Storybook 10.3 a
+      // hand-written call makes addon-vitest skip provisioning the ADDON
+      // annotations. The a11y addon's check lives in those, so axe never ran:
+      // a button with no accessible name, planted on purpose, passed. Left to
+      // itself the plugin provisions the preview and every addon's annotations.
+      //
       // The return type is declared because an object returned from a callback
       // is not contextually typed: without it `browser: 'chromium'` widens to
       // string and `tsc -b` rejects the config, which a plain `tsc --noEmit`
@@ -69,7 +76,6 @@ export default defineConfig({
             provider: playwright(),
             instances: [{ browser: 'chromium' }],
           },
-          setupFiles: [join(here, '.storybook', 'vitest.setup.ts')],
         },
       })),
     ],
