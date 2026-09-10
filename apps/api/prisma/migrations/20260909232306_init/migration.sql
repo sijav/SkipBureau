@@ -1,5 +1,13 @@
--- CreateSchema
-CREATE SCHEMA IF NOT EXISTS "public";
+-- No CreateSchema.
+--
+-- Prisma generated `CREATE SCHEMA IF NOT EXISTS "public"` here. It requires
+-- CREATE on the DATABASE, which a managed Postgres add-on user does not have,
+-- and IF NOT EXISTS does not save it: Postgres checks the permission before it
+-- decides the statement is a no-op. `public` always exists, so the line asks
+-- for a privilege we will never be granted in order to do nothing.
+--
+-- It failed the first deploy with 42501, permission denied for database, and
+-- then every restart with P3009, because a failed migration blocks the rest.
 
 -- CreateEnum
 CREATE TYPE "ObligationKind" AS ENUM ('document', 'registration', 'permit', 'deadline', 'fee', 'tax', 'insurance');

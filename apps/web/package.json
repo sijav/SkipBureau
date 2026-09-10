@@ -14,6 +14,7 @@
     "lint:tsc": "npm run contract && npm run typecheck",
     "storybook": "storybook dev -p 6016 --ci",
     "build-storybook": "storybook build",
+    "prebuild-storybook": "npm run i18n:compile",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:unit": "vitest run --project unit",

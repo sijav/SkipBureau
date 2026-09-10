@@ -190,10 +190,33 @@ jobs:
         env:
           SKIPBUREAU_BASE: /SkipBureau/
           VITE_GRAPHQL_URL: ${{ vars.GRAPHQL_URL }}
+      # Storybook, under a subpath beside the app. The owner asked for it, and
+      # it is the only way anyone but me sees the component work: every
+      # component here is built story first, and the measured palette and the
+      # four language and colour combinations are visible there and nowhere
+      # else.
+      - name: Build Storybook
+        run: npm run build-storybook -w @skipbureau/web
+        env:
+          STORYBOOK_BASE: /SkipBureau/storybook/
+
+      # One artifact: the app at the root, Storybook inside storybook/. They
+      # cannot collide, because Storybook is entirely within its own folder.
+      - name: Assemble the site
+        run: |
+          set -euo pipefail
+          mkdir -p site/storybook
+          cp -r apps/web/dist/. site/
+          cp -r apps/web/storybook-static/. site/storybook/
+          if [ ! -f site/storybook/mockServiceWorker.js ]; then
+            echo "::error::the MSW worker is missing, so every story would fail to register one and the page would still return 200"
+            exit 1
+          fi
+
 
       - uses: actions/upload-pages-artifact@v5
         with:
-          path: apps/web/dist
+          path: site
 
       - id: deploy
         uses: actions/deploy-pages@v5

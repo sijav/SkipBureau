@@ -30,6 +30,12 @@ export const startWorker = async (): Promise<SetupWorker> => {
 
   await worker.start({
     quiet: true,
+    // MSW defaults this to `/mockServiceWorker.js`, which is relative to the
+    // DOMAIN root and not to Vite's base. Deployed under /SkipBureau/storybook/
+    // it would ask sijav.github.io for a file that is not there, every story
+    // would fail to register a worker, and the page would still return 200.
+    // BASE_URL is whatever `base` was built with, so this follows it.
+    serviceWorker: { url: `${import.meta.env.BASE_URL}mockServiceWorker.js` },
     // An unhandled request is an error, not a pass-through. A story that
     // quietly reached the real API would pass on the machine that had one
     // running and fail everywhere else.
