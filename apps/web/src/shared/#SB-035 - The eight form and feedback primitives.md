@@ -256,3 +256,23 @@ flagged to him in the next report rather than decided silently.
 **Built on InputBase, not OutlinedInput.** The design's search focuses with a
 2px stroke and no ring, is 56 tall and serif; the OutlinedInput overrides carry
 the form field's look, and bending them would have been fighting the theme.
+
+## Context chip (7 of 8)
+
+**A green run that was green for the wrong reason.** A translation script
+failed and left the chip's three Persian messages empty, and every story still
+passed in both Persian projects: each asserts /English|Persian/, and in fa-IR
+the English fallback matched the English half. Caught by the script's own
+error, not by any test. Nothing in the suite or CI notices an empty Persian
+translation, which leaves the owner's "Persian is a full peer" unchecked; the
+fix is a gate, so it is SB-144, a proposal for him to decide, not a rule
+invented here.
+
+**It is a button.** The design calls it persistent and always editable, and it
+has a hover state, so it is built on ButtonBase, which brings keyboard
+activation and focus-visible. The design draws no focus; the chip uses the
+Button's inward outline rather than inventing a second focus style.
+
+**Set or unset follows from the value.** No `state` prop: an answer makes it
+quiet, no answer makes it amber and dashed with its invitation, which is the
+design's meaning, and the dash survives hover.

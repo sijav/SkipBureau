@@ -95,6 +95,10 @@ export type Painted =
   | { by: 'field'; part: 'label' | 'value' | 'placeholder' | 'helper' | 'error' | 'disabledHelper' | 'focusRing' | 'boundary' | 'chevron' }
   // `search` is one part of the search field, read from search.ts.
   | { by: 'search'; part: 'placeholder' | 'value' | 'icon' | 'iconFilled' | 'boundary' | 'focusStroke' }
+  // `chip` is the key or the value of a context chip, set or unset, at rest or hovered.
+  | { by: 'chip'; set: boolean; hovered: boolean; part: 'key' | 'value' }
+  // `chipFocus` is the chip's keyboard focus outline, against the page.
+  | { by: 'chipFocus' }
 
 export type Declared = {
   /** What a reader is actually looking at. Reads as a sentence in a failure. */
@@ -206,6 +210,15 @@ export const DECLARED: readonly Declared[] = [
   { role: "the search field's boundary against the page", fore: 'textTertiary', back: 'background', target: 3, painted: { by: 'search', part: 'boundary' } },
   { role: "the search field's boundary against its own fill", fore: 'textTertiary', back: 'surface', target: 3, painted: { by: 'search', part: 'boundary' } },
   { role: 'the focused search stroke on the page', fore: 'accentText', back: 'background', target: 3, painted: { by: 'search', part: 'focusStroke' } },
+
+  // Figma 17:27. The key is 11px mono capitals, the value 12px: both 4.5.
+  { role: "a context chip's name", fore: 'textSecondary', back: 'surface', target: 4.5, painted: { by: 'chip', set: true, hovered: false, part: 'key' } },
+  { role: "a context chip's name, hovered", fore: 'textSecondary', back: 'surfaceSubtle', target: 4.5, painted: { by: 'chip', set: true, hovered: true, part: 'key' } },
+  { role: "a context chip's answer", fore: 'textPrimary', back: 'surface', target: 4.5, painted: { by: 'chip', set: true, hovered: false, part: 'value' } },
+  { role: "a context chip's answer, hovered", fore: 'textPrimary', back: 'surfaceSubtle', target: 4.5, painted: { by: 'chip', set: true, hovered: true, part: 'value' } },
+  { role: "an unset context chip's invitation", fore: 'warningText', back: 'surface', target: 4.5, painted: { by: 'chip', set: false, hovered: false, part: 'value' } },
+  { role: "an unset context chip's invitation, hovered", fore: 'warningText', back: 'surfaceSubtle', target: 4.5, painted: { by: 'chip', set: false, hovered: true, part: 'value' } },
+  { role: 'a focused context chip on the page', fore: 'accentText', back: 'background', target: 3, painted: { by: 'chipFocus' } },
 ]
 
 /**
@@ -235,6 +248,11 @@ export const EXEMPT: readonly { pair: string; because: string }[] = [
     pair: "a text input's hover, error and disabled strokes",
     because:
       "State cues, not what identifies the field: the resting boundary does that and is declared above at 3:1, by the owner's decision of 2026-09-10, after border-strong measured 1.54. Hover steps darker to text-secondary, the error stroke is danger at 3.64 and says nothing the error text does not say in words, and a disabled field is an inactive control under 1.4.3.",
+  },
+  {
+    pair: "a context chip's stroke, set, hovered or the unset amber dash",
+    because:
+      "The chip is a button whose words identify it, the way Understanding 1.4.11 treats a labelled button, so its stroke is decoration there. The unset dash is the design's signal that an answer may be wrong for this reader, and the chip says the same in words, Add to sharpen answers, so the meaning never rests on the stroke (1.4.1).",
   },
   {
     pair: "an information panel's bar and stroke, solid or dashed",

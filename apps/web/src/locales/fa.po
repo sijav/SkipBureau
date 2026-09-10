@@ -25,6 +25,10 @@ msgstr "یک ستون، نه یک عرض"
 msgid "A student residence permit application must be submitted within one month of arrival, and the appointment is booked through the official e-ikamet system."
 msgstr "درخواست اقامت دانشجویی باید ظرف یک ماه پس از ورود ثبت شود، و وقت آن از طریق سامانهٔ رسمی e-ikamet گرفته می‌شود."
 
+#: src/shared/context-chip/ContextChip.stories.tsx
+msgid "Add to sharpen answers"
+msgstr "برای پاسخ دقیق‌تر اضافه کنید"
+
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Ankara"
 msgstr "آنکارا"
@@ -89,6 +93,10 @@ msgstr "۱۲ روز تا موعد"
 msgid "From applicant reports, not an official rule"
 msgstr "از گزارش متقاضیان، نه یک قاعدهٔ رسمی"
 
+#: src/shared/context-chip/ContextChip.stories.tsx
+msgid "Iranian"
+msgstr "ایرانی"
+
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Istanbul"
 msgstr "استانبول"
@@ -96,6 +104,10 @@ msgstr "استانبول"
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Izmir"
 msgstr "ازمیر"
+
+#: src/shared/context-chip/ContextChip.stories.tsx
+msgid "Nationality"
+msgstr "ملیت"
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "No agent can get an appointment faster than the official system, and nobody can guarantee approval. Paying for a “guaranteed” slot buys you nothing you cannot do yourself for free."

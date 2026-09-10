@@ -439,6 +439,19 @@ bare InputBase, since OutlinedInput carries the form field's look:
 | focus | 2px `accent-text`, inward, no ring | an outline over the 1px border, so focusing moves nothing |
 | name | `label`, required, invisible | names the field and its search landmark; a placeholder is not a name |
 
+**Context chip, node 17:27**, a button, because the design says it is always
+editable:
+
+| | value | note |
+|---|---|---|
+| height | 26 | 1 + 4 + 16 + 4 + 1, the stroke inside |
+| padding | 5 vertical, 8 horizontal | gap 4 |
+| name | Metadata, IBM Plex Mono Medium 11/14, capitals, 8% | the interface face, untracked, in Persian |
+| answer | Label Small, Archivo SemiBold 12/16 | |
+| set | `surface`, 1px `border` | hover `surface-subtle`, `border-strong` |
+| unset | `surface`, 1px dashed `warning`, the invitation in `warning-text` | the dash stays on hover |
+| focus | the button's 2px `accent-text` outline, inward | the design draws none; the system's is used |
+
 Three pairs are deliberately NOT measured, and `contrast.ts` records why in
 code so the reasons travel with the values: `text-tertiary`, which is the
 theme's disabled text and so outside 1.4.3; `accent`, `success` and `warning`

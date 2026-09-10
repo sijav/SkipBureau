@@ -1,6 +1,7 @@
 import { strict as assert } from 'node:assert'
 import { test } from 'vitest'
 import { buttonRoot, buttonVariants } from './button'
+import { CHIP_PAINT, chipStyle } from './chip'
 import { formHelperTextOverrides, formLabelOverrides, outlinedInputOverrides, selectOverrides } from './input'
 import { PANEL_PAINT, panelStyle } from './panel'
 import { SEARCH_PAINT, searchStyle } from './search'
@@ -204,6 +205,21 @@ test('every pair is bound to the slot that paints it', () => {
           }
           break
         }
+
+        case 'chip': {
+          const style = chipStyle(tokens, painted.set)
+          const fill = painted.hovered ? style['@media (hover: hover)']['&:hover'].backgroundColor : style.backgroundColor
+          assert.equal(fill, tokens[back], `${mode}: ${role} sits on the chip's fill`)
+          // The value is the chip's own colour; the key sets its own from the table.
+          const colour = painted.part === 'value' ? style.color : tokens[CHIP_PAINT[painted.set ? 'set' : 'unset'].key]
+          assert.equal(colour, tokens[fore], `${mode}: ${role} colour`)
+          break
+        }
+
+        case 'chipFocus':
+          assert.ok(chipStyle(tokens, true)['&.Mui-focusVisible'].outline.endsWith(tokens[fore]), `${mode}: ${role} is the focus outline`)
+          assert.ok(GROUNDS.includes(back), `${mode}: ${role} is measured against a ground`)
+          break
 
         case 'panel': {
           const paint = PANEL_PAINT[painted.kind]
