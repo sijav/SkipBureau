@@ -9,6 +9,7 @@ import { formatMonth, useLocale } from 'src/core/i18n'
 import { paths } from 'src/core/router'
 import { radius, spacing } from 'src/core/theme'
 import { HomeAskField } from 'src/shared/ask-field'
+import { useAsk } from 'src/shared/ask-panel'
 import { Breadcrumb } from 'src/shared/breadcrumb'
 import { ChecklistLine } from 'src/shared/checklist-line'
 import { Page } from 'src/shared/page'
@@ -38,6 +39,7 @@ export const CategoryHub = (props: CategoryHubProps) => {
   const goal = props.goal ?? params['goal'] ?? ''
   const slug = props.category ?? params['category'] ?? ''
   const [question, setQuestion] = useState('')
+  const ask = useAsk({ question, onQuestion: setQuestion })
   const [askField, setAskField] = useState<HTMLDivElement | null>(null)
   // One Ask at a time: while this page's field is on screen, the header's steps aside.
   useOwnsAsk(askField, layout.headerHeight, false)
@@ -170,8 +172,15 @@ export const CategoryHub = (props: CategoryHubProps) => {
           {hub.askPrompt ? <bdi>{fill(hub.askPrompt)}</bdi> : <Trans>Ask about this and find the most relevant guide.</Trans>}
         </Typography>
         <Box ref={setAskField} sx={{ maxWidth: layout.panelWidth }}>
-          {/* The ask panel, Figma 46:659, is not built yet. */}
-          <HomeAskField label={t`Ask about ${hub.title}`} placeholder={t`What do you need help with?`} value={question} onChange={setQuestion} onAsk={() => undefined} />
+          <HomeAskField
+            label={t`Ask about ${hub.title}`}
+            placeholder={t`What do you need help with?`}
+            value={question}
+            onChange={setQuestion}
+            onAsk={() => undefined}
+            bindings={ask.bindings}
+          />
+          {ask.panel}
         </Box>
       </Stack>
 

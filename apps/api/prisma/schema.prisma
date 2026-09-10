@@ -281,6 +281,7 @@ model Guide {
   readingMinutes    Int?
   startOf           Category[]        @relation("categoryStart")
   linkedFrom        GuideSection[]    @relation("sectionLink")
+  proposals         Proposal[]
   texts             GuideText[]
   sections          GuideSection[]
   options           GuideOption[]
@@ -521,4 +522,28 @@ model RelatedTask {
   task       Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
 
   @@id([categoryId, taskId])
+}
+
+enum ProposalStatus {
+  pending
+  accepted
+  rejected
+}
+
+/// A visitor's suggested change to a guide, Figma 145:959. Stored for an editor
+/// to review; it never edits the guide. No account: the email is optional,
+/// used only to follow up, and never published.
+model Proposal {
+  id        String         @id @default(cuid())
+  guideId   String
+  /// The language the visitor was reading the guide in.
+  locale    String         @db.VarChar(5)
+  change    String
+  source    String?
+  email     String?
+  status    ProposalStatus @default(pending)
+  createdAt DateTime       @default(now())
+  guide     Guide          @relation(fields: [guideId], references: [id], onDelete: Cascade)
+
+  @@index([status, createdAt])
 }

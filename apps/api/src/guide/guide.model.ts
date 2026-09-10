@@ -271,3 +271,25 @@ export class CategoryHubView {
   @Field(() => [String]) checklist!: readonly string[]
   @Field(() => [RelatedGoalView]) related!: readonly RelatedGoalView[]
 }
+
+@ObjectType()
+export class AskTaskView {
+  @Field(() => String) slug!: string
+  @Field(() => String) title!: string
+  @Field(() => String, { nullable: true }) subtitle!: string | null
+  @Field(() => Boolean, { description: 'Whether the goal has anything in this country yet.' }) open!: boolean
+}
+
+@ObjectType()
+export class AskGuideView {
+  @Field(() => String) slug!: string
+  @Field(() => String) title!: string
+  @Field(() => String) verifiedAt!: string
+}
+
+@ObjectType({ description: 'What Ask found, grouped by what each thing is, Figma 46:659.' })
+export class AskView {
+  @Field(() => [AskTaskView]) tasks!: readonly AskTaskView[]
+  @Field(() => [AskGuideView]) guides!: readonly AskGuideView[]
+  @Field(() => [QuestionView]) answers!: readonly QuestionView[]
+}

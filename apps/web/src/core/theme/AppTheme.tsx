@@ -4,6 +4,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material'
 import rtlPlugin from '@mui/stylis-plugin-rtl'
 import { useEffect, useMemo, type ReactNode } from 'react'
 import { prefixer } from 'stylis'
+import './fonts'
 import { appTheme, type Direction, type Mode, type ModeChoice } from './theme'
 import { useSystemMode } from './useSystemMode'
 

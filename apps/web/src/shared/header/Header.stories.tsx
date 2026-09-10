@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { useEffect } from 'react'
 import { MemoryRouter } from 'react-router-dom'
+import { GraphQLProvider } from 'src/core/graphql'
+import { handlers } from 'src/core/graphql/mocks'
 import { ShellProvider, useShell } from 'src/core/shell'
 import { expect, within } from 'storybook/test'
 import { Header } from './Header'
@@ -15,15 +17,18 @@ const OwnsAsk = ({ owns }: { owns: boolean }) => {
 const meta = {
   title: 'Shared/Header',
   component: Header,
-  parameters: { layout: 'fullscreen' },
+  parameters: { layout: 'fullscreen', msw: { handlers } },
   decorators: [
+    // The header's Ask asks the API, so the story has a client, and the mocked network.
     (Story, { parameters }) => (
-      <MemoryRouter initialEntries={['/en/tr']}>
-        <ShellProvider>
-          <OwnsAsk owns={parameters['pageOwnsAsk'] === true} />
-          {Story()}
-        </ShellProvider>
-      </MemoryRouter>
+      <GraphQLProvider>
+        <MemoryRouter initialEntries={['/en/tr']}>
+          <ShellProvider>
+            <OwnsAsk owns={parameters['pageOwnsAsk'] === true} />
+            {Story()}
+          </ShellProvider>
+        </MemoryRouter>
+      </GraphQLProvider>
     ),
   ],
 } satisfies Meta<typeof Header>
@@ -37,7 +42,7 @@ export const Default: Story = {
     const canvas = within(canvasElement)
     await expect(await canvas.findByRole('banner')).toBeInTheDocument()
     await expect(await canvas.findByRole('navigation', { name: /Main/ })).toBeInTheDocument()
-    await expect(await canvas.findByRole('textbox', { name: /Ask Skipbureau/ })).toBeInTheDocument()
+    await expect(await canvas.findByRole('combobox', { name: /Ask Skipbureau/ })).toBeInTheDocument()
     await expect(await canvas.findByRole('button', { name: /Language/ })).toBeInTheDocument()
   },
 }
@@ -46,6 +51,6 @@ export const Default: Story = {
 export const PageOwnsAsk: Story = {
   parameters: { pageOwnsAsk: true },
   play: async ({ canvasElement }) => {
-    await expect(within(canvasElement).queryByRole('textbox')).toBeNull()
+    await expect(within(canvasElement).queryByRole('combobox')).toBeNull()
   },
 }

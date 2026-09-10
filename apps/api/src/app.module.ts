@@ -6,6 +6,7 @@ import { CountryModule } from './country/country.module.js'
 import { GuideModule } from './guide/guide.module.js'
 import { HealthModule } from './health/health.module.js'
 import { PrismaModule } from './prisma/prisma.module.js'
+import { ProposalModule } from './proposal/proposal.module.js'
 import { RulesModule } from './rules/rules.module.js'
 
 // Code first: the SDL is generated from the decorated classes and written to
@@ -23,6 +24,7 @@ import { RulesModule } from './rules/rules.module.js'
     HealthModule,
     CountryModule,
     GuideModule,
+    ProposalModule,
     RulesModule,
   ],
 })

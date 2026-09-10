@@ -5,6 +5,7 @@ import { Link, NavLink } from 'react-router-dom'
 import { useLocale } from 'src/core/i18n'
 import { paths } from 'src/core/router'
 import { useShell } from 'src/core/shell'
+import { useAsk } from 'src/shared/ask-panel'
 import { ContextControl } from 'src/shared/context-control'
 import { HeaderGlyph } from './icons'
 import { LanguageControl } from './LanguageControl'
@@ -34,6 +35,8 @@ export const Header = ({ onAsk }: { onAsk?: (question: string) => void }) => {
   const { pageOwnsAsk, country } = useShell()
   const scrolled = useScrolled()
   const [question, setQuestion] = useState('')
+  const { bindings: ask, panel } = useAsk({ question, onQuestion: setQuestion })
+  const { anchorRef, events: askEvents, input: askInput } = ask
 
   // Only a country the route confirmed; before one is known, the root decides.
   // No country is hardcoded here.
@@ -108,18 +111,21 @@ export const Header = ({ onAsk }: { onAsk?: (question: string) => void }) => {
               // Unnamed, so not a landmark: the page's own Ask is the one, and
               // two forms of the same name confuse a landmark list. The field
               // inside keeps its name.
+              ref={anchorRef}
               sx={{ flex: 1, minWidth: 0 }}
               onSubmit={(event) => {
                 event.preventDefault()
+                ask.onAsk(question)
                 onAsk?.(question)
               }}
             >
               <InputBase
+                {...askEvents}
                 fullWidth
                 value={question}
                 onChange={(event) => setQuestion(event.target.value)}
                 placeholder={t`Ask Skipbureau…`}
-                slotProps={{ input: { 'aria-label': t`Ask Skipbureau` } }}
+                slotProps={{ input: { 'aria-label': t`Ask Skipbureau`, ...askInput } }}
                 startAdornment={<HeaderGlyph aria-hidden sx={{ width: '16px', height: '16px', flexShrink: 0, color: tokens.textSecondary }} />}
                 sx={{
                   ...typography.uiText,
@@ -134,6 +140,7 @@ export const Header = ({ onAsk }: { onAsk?: (question: string) => void }) => {
                   '& .MuiInputBase-input': { padding: 0, '&::placeholder': { color: tokens.textSecondary, opacity: 1 } },
                 }}
               />
+              {panel}
             </Box>
           )}
         </Box>

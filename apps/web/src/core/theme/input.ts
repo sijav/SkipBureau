@@ -57,6 +57,8 @@ const focusRing = (tokens: ColourTokens) => `0 0 0 4px ${tokens[FIELD_TEXT.focus
 
 const OUTLINE = '.MuiOutlinedInput-notchedOutline'
 
+const TEXTAREA = { height: 112, padY: 12 }
+
 /**
  * Order matters and is deliberate: rest, hover, focus, error, disabled. The
  * selectors are equally specific, so the later wins: a hovered field that is
@@ -77,6 +79,15 @@ export const outlinedInputOverrides = (tokens: ColourTokens, value: CSSObject) =
     [`&.Mui-error ${OUTLINE}`]: { borderColor: tokens[FIELD_PAINT.error.stroke] },
     '&.Mui-disabled': { backgroundColor: tokens[FIELD_PAINT.disabled.fill] },
     [`&.Mui-disabled ${OUTLINE}`]: { borderColor: tokens[FIELD_PAINT.disabled.stroke] },
+    // A textarea takes its padding itself, below, not from the root.
+    '&.MuiInputBase-multiline': { padding: 0, alignItems: 'flex-start' },
+  },
+  // The textarea of Figma 142:542: 112 high, 12 above and below the text. The
+  // minimum wins over the rows MUI sizes it to, and the field grows past it.
+  inputMultiline: {
+    padding: `${TEXTAREA.padY}px ${spacing.md}px`,
+    height: 'auto',
+    minHeight: `${TEXTAREA.height - 2 * TEXTAREA.padY}px`,
   },
   input: {
     // The fieldset that draws the outline is absolutely positioned inside the

@@ -113,6 +113,10 @@ msgstr "Ask Skipbureau…"
 msgid "Available once you confirm your nationality"
 msgstr "Available once you confirm your nationality"
 
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "Back to the guide"
+msgstr "Back to the guide"
+
 #: src/screens/guide/GuideSection.tsx
 msgid "Before you start"
 msgstr "Before you start"
@@ -137,6 +141,10 @@ msgstr "Can foreigners own a Turkish company?"
 msgid "Can my Turkish company hire an Iranian employee?"
 msgstr "Can my Turkish company hire an Iranian employee?"
 
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "Cancel"
+msgstr "Cancel"
+
 #: src/shared/page/Page.stories.tsx
 msgid "Cap"
 msgstr "Cap"
@@ -152,6 +160,10 @@ msgstr "Check before you pay"
 #: src/shared/step-row/StepRow.stories.tsx
 msgid "Check mobile data, calls, SMS and your new number before you leave the store."
 msgstr "Check mobile data, calls, SMS and your new number before you leave the store."
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "Check the address: it needs an @ and a domain, like you@example.com."
+msgstr "Check the address: it needs an @ and a domain, like you@example.com."
 
 #: src/shared/source-card/SourceCard.tsx
 msgid "Checked this month"
@@ -212,6 +224,14 @@ msgstr "Decision"
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Depends on nationality"
 msgstr "Depends on nationality"
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "Describe what changed"
+msgstr "Describe what changed"
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "Describe what changed, even in one sentence."
+msgstr "Describe what changed, even in one sentence."
 
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Descriptions on this page are sample content for design review. They deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
@@ -306,6 +326,10 @@ msgstr "Iranian"
 msgid "Istanbul"
 msgstr "Istanbul"
 
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "It was not sent. Check your connection and try again."
+msgstr "It was not sent. Check your connection and try again."
+
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Izmir"
 msgstr "Izmir"
@@ -348,13 +372,17 @@ msgstr "Main"
 msgid "Nationality"
 msgstr "Nationality"
 
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "No account needed"
+msgstr "No account needed"
+
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "No agent can get an appointment faster than the official system, and nobody can guarantee approval. Paying for a “guaranteed” slot buys you nothing you cannot do yourself for free."
 msgstr "No agent can get an appointment faster than the official system, and nobody can guarantee approval. Paying for a “guaranteed” slot buys you nothing you cannot do yourself for free."
 
 #: src/screens/Placeholder.tsx
-msgid "Not built yet"
-msgstr "Not built yet"
+#~ msgid "Not built yet"
+#~ msgstr "Not built yet"
 
 #: src/screens/guide/Guide.tsx
 msgid "Not in your language yet"
@@ -372,6 +400,10 @@ msgstr "Not sure where to start?"
 msgid "Not yet verified"
 msgstr "Not yet verified"
 
+#: src/shared/ask-panel/AskPanel.tsx
+msgid "Nothing matches yet. Try other words, or pick a goal on the home page."
+msgstr "Nothing matches yet. Try other words, or pick a goal on the home page."
+
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Official"
 msgstr "Official"
@@ -379,6 +411,10 @@ msgstr "Official"
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Official information"
 msgstr "Official information"
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "Official or reliable sources help us verify the change faster."
+msgstr "Official or reliable sources help us verify the change faster."
 
 #: src/shared/source-card/SourceCard.tsx
 msgid "Official page did not respond"
@@ -416,9 +452,17 @@ msgstr "Other routes"
 msgid "Passport number"
 msgstr "Passport number"
 
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "Paste a link if you have one"
+msgstr "Paste a link if you have one"
+
 #: src/screens/home/Home.tsx
 msgid "Pick a goal. Each one opens a guided process built for your nationality, city and status."
 msgstr "Pick a goal. Each one opens a guided process built for your nationality, city and status."
+
+#: src/shared/ask-panel/useAsk.tsx
+msgid "Popular right now"
+msgstr "Popular right now"
 
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Practical advice"
@@ -442,6 +486,7 @@ msgid "Read about a topic before you deal with it. Guides explain how something 
 msgstr "Read about a topic before you deal with it. Guides explain how something works; the areas above are things you may need to do."
 
 #: src/screens/task-hub/TaskHub.tsx
+#: src/shared/ask-panel/useAsk.tsx
 msgid "Reading · verified {verified}"
 msgstr "Reading · verified {verified}"
 
@@ -452,6 +497,10 @@ msgstr "Reading · verified Aug 2026"
 #: src/shared/ask-result-row/AskResultRow.tsx
 msgid "Recent"
 msgstr "Recent"
+
+#: src/shared/ask-panel/useAsk.tsx
+msgid "Recent questions"
+msgstr "Recent questions"
 
 #: src/screens/category-hub/RecommendedStart.tsx
 msgid "Recommended starting point"
@@ -471,6 +520,10 @@ msgstr "Related guides"
 msgid "Remove the dash, this field takes letters and numbers only"
 msgstr "Remove the dash, this field takes letters and numbers only"
 
+#: src/shared/ask-panel/useAsk.tsx
+msgid "Results for “{text}”"
+msgstr "Results for “{text}”"
+
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Scam risk"
 msgstr "Scam risk"
@@ -482,6 +535,10 @@ msgstr "Search the guides"
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Select a city"
 msgstr "Select a city"
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "Send suggestion"
+msgstr "Send suggestion"
 
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Separate routes some people look into."
@@ -499,6 +556,10 @@ msgstr "Set your nationality to resolve this"
 #: src/shared/section/Section.stories.tsx
 msgid "Short answers with the conditions that actually change them."
 msgstr "Short answers with the conditions that actually change them."
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "Shorten the link, or paste only the address of the page."
+msgstr "Shorten the link, or paste only the address of the page."
 
 #: src/shared/header/Header.tsx
 msgid "Skipbureau"
@@ -519,6 +580,10 @@ msgstr "Something changed?"
 #: src/screens/Unreachable.tsx
 msgid "Something on our side did not answer. The page exists, we just could not reach it. Trying again usually works."
 msgstr "Something on our side did not answer. The page exists, we just could not reach it. Trying again usually works."
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "Source or link (optional)"
+msgstr "Source or link (optional)"
 
 #: src/screens/guide/Guide.tsx
 msgid "Sources are listed above with the date we last checked them. Tell us if something here no longer matches what you found."
@@ -551,6 +616,7 @@ msgid "Still have a question?"
 msgstr "Still have a question?"
 
 #: src/screens/guide/Guide.tsx
+#: src/screens/suggest/SuggestUpdate.tsx
 msgid "Suggest an update"
 msgstr "Suggest an update"
 
@@ -566,13 +632,21 @@ msgstr "Task hub"
 msgid "Tell us if you have done this in Antalya"
 msgstr "Tell us if you have done this in Antalya"
 
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "Tell us what looks outdated, incorrect or missing."
+msgstr "Tell us what looks outdated, incorrect or missing."
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "Thank you"
+msgstr "Thank you"
+
 #: src/screens/NotFound.tsx
 msgid "The address may be mistyped, or it may point at a country or a guide SkipBureau does not cover yet."
 msgstr "The address may be mistyped, or it may point at a country or a guide SkipBureau does not cover yet."
 
 #: src/screens/Placeholder.tsx
-msgid "The address resolved, which is what this page is here to show."
-msgstr "The address resolved, which is what this page is here to show."
+#~ msgid "The address resolved, which is what this page is here to show."
+#~ msgstr "The address resolved, which is what this page is here to show."
 
 #: src/shared/source-card/SourceCard.tsx
 msgid "The institution’s own wording — not Skipbureau advice"
@@ -673,6 +747,34 @@ msgstr "Warning"
 msgid "We have not verified this process for Antalya. The steps below are correct for Istanbul, Ankara and Izmir; local document requirements may differ."
 msgstr "We have not verified this process for Antalya. The steps below are correct for Istanbul, Ankara and Izmir; local document requirements may differ."
 
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "We may contact you if we need more information. Your email will not be published."
+msgstr "We may contact you if we need more information. Your email will not be published."
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "We use your email only to review and follow up on this submission."
+msgstr "We use your email only to review and follow up on this submission."
+
+#: src/shared/ask-panel/useAsk.tsx
+msgid "We’ll ask about your nationality or city only if it changes the answer."
+msgstr "We’ll ask about your nationality or city only if it changes the answer."
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "We’ll review your suggestion before updating the guide."
+msgstr "We’ll review your suggestion before updating the guide."
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "We’ll review your suggestion before updating the guide. Submitting information does not directly change the published guide."
+msgstr "We’ll review your suggestion before updating the guide. Submitting information does not directly change the published guide."
+
+#: src/shared/ask-panel/AskPanel.tsx
+msgid "What Ask found"
+msgstr "What Ask found"
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "What changed?"
+msgstr "What changed?"
+
 #: src/screens/category-hub/CategoryHub.tsx
 msgid "What do you need help with?"
 msgstr "What do you need help with?"
@@ -728,6 +830,14 @@ msgstr "You can use this checklist as a simple guide. Your progress is not saved
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "You do not need an agent for this step"
 msgstr "You do not need an agent for this step"
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "you@example.com"
+msgstr "you@example.com"
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "Your email"
+msgstr "Your email"
 
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Your nationality, residence status and plans can each change which of these areas apply to you, and in what order."

@@ -17,13 +17,16 @@ export type Shell = {
   pageOwnsAsk: boolean
   setPageOwnsAsk: (owns: boolean) => void
   country: CountryCode | null
-  setCountry: (country: CountryCode | null) => void
+  /** Its name in the reader's language, for Ask's results above the route. */
+  countryName: string | null
+  setCountry: (country: CountryCode | null, name?: string | null) => void
 }
 
 export const ShellContext = createContext<Shell>({
   pageOwnsAsk: false,
   setPageOwnsAsk: () => undefined,
   country: null,
+  countryName: null,
   setCountry: () => undefined,
 })
 

@@ -6,6 +6,7 @@ import { useCountry, withCountry } from 'src/core/country'
 import { HomeQuery } from 'src/core/graphql'
 import { useLocale } from 'src/core/i18n'
 import { paths } from 'src/core/router'
+import { useAsk } from 'src/shared/ask-panel'
 import { AskResultRow } from 'src/shared/ask-result-row'
 import { Page } from 'src/shared/page'
 import { Section } from 'src/shared/section'
@@ -27,6 +28,7 @@ export const Home = () => {
   const { locale } = useLocale()
   const { country, name } = useCountry()
   const [question, setQuestion] = useState('')
+  const ask = useAsk({ question, onQuestion: setQuestion })
   const [askField, setAskField] = useState<HTMLDivElement | null>(null)
   useOwnsAsk(askField, layout.headerHeight)
 
@@ -45,11 +47,12 @@ export const Home = () => {
         name={name}
         question={question}
         onQuestion={setQuestion}
-        // The ask panel, Figma 46:659, is not built yet.
         onAsk={() => undefined}
+        bindings={ask.bindings}
         examples={questions.slice(0, 3).map((entry) => entry.question)}
         askRef={setAskField}
       />
+      {ask.panel}
 
       {data && data.tasks.length > 0 && (
         <>

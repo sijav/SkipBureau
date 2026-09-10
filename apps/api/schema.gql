@@ -2,6 +2,27 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type AskGuideView {
+  slug: String!
+  title: String!
+  verifiedAt: String!
+}
+
+type AskTaskView {
+  """Whether the goal has anything in this country yet."""
+  open: Boolean!
+  slug: String!
+  subtitle: String
+  title: String!
+}
+
+"""What Ask found, grouped by what each thing is, Figma 46:659."""
+type AskView {
+  answers: [QuestionView!]!
+  guides: [AskGuideView!]!
+  tasks: [AskTaskView!]!
+}
+
 """
 Figma 133:523: one area of a goal, its guides and a checklist. Its copy may say {country}.
 """
@@ -224,6 +245,13 @@ type HubSubtopicView {
   title: String!
 }
 
+type Mutation {
+  """
+  Suggest a change to a guide. Stored for review; it never edits the guide.
+  """
+  suggestUpdate(input: SuggestUpdateInput!): SuggestUpdateResult!
+}
+
 """
 Whether this obligation has one answer for everyone, or needs to know who is asking.
 """
@@ -233,6 +261,11 @@ enum ObligationResolution {
 }
 
 type Query {
+  """
+  What matches a question in one country, grouped by kind; what is popular when it is empty.
+  """
+  ask(country: String!, locale: String = "en-US", text: String!): AskView!
+
   """The categories one country has, between a goal and a guide."""
   categories(country: String!, locale: String = "en-US"): [CategoryView!]!
 
@@ -324,6 +357,32 @@ enum SectionKind {
   whatYouNeed
   whereToDoIt
   yourOptions
+}
+
+"""A suggested change to one guide, as a visitor writes it."""
+input SuggestUpdateInput {
+  """What changed. Required."""
+  change: String!
+  country: String!
+
+  """Only to follow up. Never published."""
+  email: String
+
+  """The guide, by slug."""
+  guide: String!
+
+  """The language the visitor was reading in."""
+  locale: String!
+  source: String
+}
+
+"""What became of a suggestion."""
+type SuggestUpdateResult {
+  """Which field to fix, where it was not stored: change, source or email."""
+  problem: String
+
+  """True when it was stored for review."""
+  received: Boolean!
 }
 
 """

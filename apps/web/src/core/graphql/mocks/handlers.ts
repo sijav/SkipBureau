@@ -60,6 +60,44 @@ export const handlers = [
     }),
   ),
 
+  // The server's own matching, in small: words of three letters or more, found
+  // in a title or its line. With none, what is popular.
+  api.query('Ask', ({ variables }) => {
+    const ours = variables['country'] === 'tr'
+    const words = (typeof variables['text'] === 'string' ? variables['text'] : '')
+      .toLowerCase()
+      .split(/[^\p{L}\p{N}]+/u)
+      .filter((word) => word.length >= 3)
+    const open = new Set(ours ? categories.map((category) => category.taskSlug) : [])
+    const all = {
+      tasks: tasks.map((task) => ({ slug: task.slug, title: task.title, subtitle: task.subtitle, open: open.has(task.slug) })),
+      guides: ours ? [{ slug: simGuide.slug, title: simGuide.title, verifiedAt: simGuide.verifiedAt }, ...taskHub.guides] : [],
+      answers: ours ? questions : [],
+    }
+    if (words.length === 0) {
+      return HttpResponse.json({ data: { ask: { tasks: all.tasks.filter((task) => task.open).slice(0, 1), guides: [], answers: all.answers.slice(0, 1) } } })
+    }
+    const hits = (...texts: (string | null)[]) => words.some((word) => texts.join(' ').toLowerCase().includes(word))
+    return HttpResponse.json({
+      data: {
+        ask: {
+          tasks: all.tasks.filter((task) => hits(task.title, task.subtitle)).slice(0, 3),
+          guides: all.guides.filter((guide) => hits(guide.title)).slice(0, 3),
+          answers: all.answers.filter((answer) => hits(answer.question, answer.answer)).slice(0, 3),
+        },
+      },
+    })
+  }),
+
+  // The server's own checks, so a story sees the same answer the form will.
+  api.mutation('SuggestUpdate', ({ variables }) => {
+    const input = variables['input']
+    const change = typeof input?.change === 'string' ? input.change.trim() : ''
+    const email = typeof input?.email === 'string' ? input.email.trim() : ''
+    const problem = !change ? 'change' : email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? 'email' : null
+    return HttpResponse.json({ data: { suggestUpdate: { received: problem === null, problem } } })
+  }),
+
   // Asked for in Persian, each answers in English and says so, which is the
   // state a reader of a guide not yet translated sees.
   api.query('Guide', ({ variables }) => {

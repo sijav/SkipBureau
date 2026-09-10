@@ -192,3 +192,38 @@ export const CategoryHubQuery = graphql(`
     }
   }
 `)
+
+// A suggestion is stored for review and never edits the guide.
+export const SuggestUpdateMutation = graphql(`
+  mutation SuggestUpdate($input: SuggestUpdateInput!) {
+    suggestUpdate(input: $input) {
+      received
+      problem
+    }
+  }
+`)
+
+// Ask, Figma 46:659: what matches a question, grouped by kind.
+export const AskQuery = graphql(`
+  query Ask($country: String!, $text: String!, $locale: String) {
+    ask(country: $country, text: $text, locale: $locale) {
+      tasks {
+        slug
+        title
+        subtitle
+        open
+      }
+      guides {
+        slug
+        title
+        verifiedAt
+      }
+      answers {
+        slug
+        question
+        answer
+        guideSlug
+      }
+    }
+  }
+`)

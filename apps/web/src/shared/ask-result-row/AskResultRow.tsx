@@ -9,8 +9,10 @@ export type AskResultRowProps = {
   title: ReactNode
   /** The second line. A recent search has none. */
   detail?: ReactNode | undefined
-  /** Where choosing the row goes. Without one the row is text, not a control. */
+  /** Where choosing the row goes. Without one, and without onClick, the row is text, not a control. */
   to?: string | undefined
+  /** Called on choosing it; a row with this and no destination is a button. */
+  onClick?: (() => void) | undefined
   'data-testid'?: string | undefined
 }
 
@@ -27,7 +29,7 @@ const KindLabel = ({ kind }: { kind: ResultKind }) => {
   }
 }
 
-export const AskResultRow = ({ kind, title, detail, to, 'data-testid': testId }: AskResultRowProps) => {
+export const AskResultRow = ({ kind, title, detail, to, onClick, 'data-testid': testId }: AskResultRowProps) => {
   const { tokens } = useTheme()
 
   const content = (
@@ -48,17 +50,25 @@ export const AskResultRow = ({ kind, title, detail, to, 'data-testid': testId }:
     </>
   )
 
-  if (!to) {
+  if (to) {
     return (
-      <Box data-testid={testId} sx={resultRowStyle(tokens, kind, false)}>
+      <ButtonBase component={Link} to={to} onClick={onClick} disableRipple data-testid={testId} sx={resultRowStyle(tokens, kind, true)}>
         {content}
-      </Box>
+      </ButtonBase>
+    )
+  }
+
+  if (onClick) {
+    return (
+      <ButtonBase onClick={onClick} disableRipple data-testid={testId} sx={resultRowStyle(tokens, kind, true)}>
+        {content}
+      </ButtonBase>
     )
   }
 
   return (
-    <ButtonBase component={Link} to={to} disableRipple data-testid={testId} sx={resultRowStyle(tokens, kind, true)}>
+    <Box data-testid={testId} sx={resultRowStyle(tokens, kind, false)}>
       {content}
-    </ButtonBase>
+    </Box>
   )
 }

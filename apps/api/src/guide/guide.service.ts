@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../prisma/prisma.service.js'
 import { generalVersionAt } from '../rules/selection.js'
-import type { CategoryHubView, CategoryView, GuideView, HubSourceView, QuestionView, TaskHubView, TaskView } from './guide.model.js'
+import type { AskView, CategoryHubView, CategoryView, GuideView, HubSourceView, QuestionView, TaskHubView, TaskView } from './guide.model.js'
 import { CategoryKind, ObligationResolution, SectionKind } from './guide.model.js'
 
 const FALLBACK = 'en-US'
@@ -47,6 +47,28 @@ const placeOf = (
     goalAreas: category.task.categories.length,
   }
 }
+
+// Words that match nearly everything and so tell nothing apart, and anything
+// shorter than three letters. English only for now; Persian is SB-069.
+const STOP = new Set(['the', 'and', 'for', 'can', 'how', 'what', 'who', 'when', 'where', 'why', 'with', 'want', 'need', 'get', 'have', 'does', 'from', 'into', 'your', 'you', 'are', 'was', 'will', 'this', 'that', 'there', 'about', 'which', 'should', 'would', 'could'])
+
+const wordsOf = (text: string): string[] => [
+  ...new Set(
+    text
+      .toLowerCase()
+      .normalize('NFKC')
+      .split(/[^\p{L}\p{N}]+/u)
+      .filter((word) => word.length >= 3 && !STOP.has(word)),
+  ),
+]
+
+/** How many of the question's words a text contains. Zero is no match. */
+const scoreOf = (words: readonly string[], ...texts: (string | null | undefined)[]): number => {
+  const haystack = texts.filter(Boolean).join(' ').toLowerCase()
+  return words.filter((word) => haystack.includes(word)).length
+}
+
+const EACH = 3
 
 @Injectable()
 export class GuideService {
@@ -181,6 +203,45 @@ export class GuideService {
         const { text: other } = pick(task.texts, locale)
         return other ? [{ slug: task.slug, title: other.title, subtitle: other.subtitle, open: task.categories.length > 0 }] : []
       }),
+    }
+  }
+
+  /**
+   * Ask, Figma 46:659: what matches the words of a question, grouped by what
+   * each thing is. With no words, what is popular. Matched in memory while the
+   * content is small; real search is SB-051.
+   */
+  async ask(countryCode: string, locale: string, text: string): Promise<AskView> {
+    const [tasks, categories, guides, questions] = await Promise.all([
+      this.tasks(locale),
+      this.prisma.category.findMany({ where: { countryCode }, select: { task: { select: { slug: true } } } }),
+      this.prisma.guide.findMany({ where: { countryCode }, orderBy: [{ position: 'asc' }, { createdAt: 'asc' }], include: { texts: true } }),
+      this.questions(countryCode, locale),
+    ])
+    const open = new Set(categories.map((category) => category.task.slug))
+    const withOpen = tasks.map((task) => ({ slug: task.slug, title: task.title, subtitle: task.subtitle, open: open.has(task.slug) }))
+    const readable = guides.flatMap((guide) => {
+      const { text: reading } = pick(guide.texts, locale)
+      return reading ? [{ slug: guide.slug, title: reading.title, description: reading.description, verifiedAt: date(guide.verifiedAt) }] : []
+    })
+
+    const words = wordsOf(text)
+    if (words.length === 0) {
+      return { tasks: withOpen.filter((task) => task.open).slice(0, 1), guides: [], answers: questions.slice(0, 1) }
+    }
+
+    const best = <T>(items: readonly T[], score: (item: T) => number): T[] =>
+      items
+        .map((item, index) => ({ item, index, score: score(item) }))
+        .filter((entry) => entry.score > 0)
+        .sort((a, b) => b.score - a.score || a.index - b.index)
+        .slice(0, EACH)
+        .map((entry) => entry.item)
+
+    return {
+      tasks: best(withOpen, (task) => scoreOf(words, task.title, task.subtitle)),
+      guides: best(readable, (guide) => scoreOf(words, guide.title, guide.description)).map(({ slug, title, verifiedAt }) => ({ slug, title, verifiedAt })),
+      answers: best(questions, (entry) => scoreOf(words, entry.question, entry.answer)),
     }
   }
 

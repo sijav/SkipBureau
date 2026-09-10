@@ -73,10 +73,10 @@ export const OneAsk: Story = {
     const canvas = within(canvasElement)
     // Home first: before it renders, the header's is the only field there is.
     await canvas.findByRole('heading', { level: 1 }, { timeout: 5000 })
-    const fields = await canvas.findAllByRole('textbox', { name: /Ask Skipbureau/ })
+    const fields = await canvas.findAllByRole('combobox', { name: /Ask Skipbureau/ })
     await expect(fields).toHaveLength(1)
     const [field] = fields
-    await expect(within(canvas.getByRole('banner')).queryByRole('textbox')).toBeNull()
+    await expect(within(canvas.getByRole('banner')).queryByRole('combobox')).toBeNull()
 
     await userEvent.click(await canvas.findByRole('button', { name: /student residence/ }))
     await expect(field).toHaveValue('What documents do I need for student residence?')
@@ -109,3 +109,25 @@ export const Unreachable: Story = {
 
 /** An empty server has no country at all, which the route guard answers before Home. */
 export const Empty: Story = { tags: ['!test'], parameters: { msw: { handlers: emptyHandlers } } }
+
+/** The Ask field opens its panel: what is popular first, then what matches, grouped by kind. */
+export const Ask: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await canvas.findByRole('heading', { level: 1 }, { timeout: 5000 })
+    const field = canvas.getByRole('combobox', { name: /Ask Skipbureau/ })
+    await userEvent.click(field)
+    await expect(field).toHaveAttribute('aria-expanded', 'true')
+
+    // The panel renders in a portal, outside the canvas.
+    const page = within(window.document.body)
+    await expect(await page.findByText(/Popular right now/)).toBeVisible()
+
+    await userEvent.type(field, 'company')
+    await expect(await page.findByText(/Results for “company”/)).toBeVisible()
+    await expect(page.getByRole('link', { name: /Start a business/ })).toHaveAttribute('href', '/en/tr/t/start-a-business')
+
+    await userEvent.keyboard('{Escape}')
+    await expect(field).toHaveAttribute('aria-expanded', 'false')
+  },
+}

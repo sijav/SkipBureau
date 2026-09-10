@@ -6,6 +6,7 @@ import { join } from 'node:path'
 import { CountryResolver } from './country/country.resolver.js'
 import { GuideResolver } from './guide/guide.resolver.js'
 import { HealthResolver } from './health/health.resolver.js'
+import { ProposalResolver } from './proposal/proposal.resolver.js'
 import { RulesResolver } from './rules/rules.resolver.js'
 
 // Builds the SDL from resolver metadata alone: no listener, no database, no
@@ -18,7 +19,7 @@ const emit = async (): Promise<void> => {
   await app.init()
 
   const factory = app.get(GraphQLSchemaFactory)
-  const schema = await factory.create([HealthResolver, CountryResolver, GuideResolver, RulesResolver], {
+  const schema = await factory.create([HealthResolver, CountryResolver, GuideResolver, ProposalResolver, RulesResolver], {
     skipCheck: false,
   })
 

@@ -24,3 +24,18 @@ The design's Home shows seven goals available in Turkey; the sample content has
 categories for two, Getting Settled and Start a business, so the other ten show
 Coming soon. That is the data being honest, not the tile being wrong, and it
 changes the moment an editor adds a category.
+
+## Suggestions are stored, and nothing yet reads or limits them
+
+**Decided 2026-09-10**, building Suggest an update (SB-045).
+
+`suggestUpdate` stores a visitor's suggestion as a `Proposal`, pending, and
+never edits a guide. Two things are deliberately not built yet, each on the
+board: there is no moderation screen to read and act on proposals (SB-011),
+and the endpoint has no rate limit or spam check (SB-050), only length bounds.
+Until SB-050 lands, anyone can fill the table.
+
+The design's email field carries no "(optional)", but the product brief says
+visitors propose changes anonymously, so the email is optional in the API and
+in the form. The design's Privacy Notice link is left out: there is no privacy
+notice page to link to.

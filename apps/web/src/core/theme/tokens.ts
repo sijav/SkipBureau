@@ -166,9 +166,12 @@ export const dark = {
  * marks anything that came from a record: dates, reference numbers, costs,
  * verification stamps.
  */
+// None of the three has Arabic-script letters, so Vazirmatn follows the first
+// face in the interface and reading stacks: Persian text takes it letter by
+// letter while Latin text keeps the design's face. Loaded in fonts.ts.
 export const fonts = {
-  ui: '"Archivo", system-ui, -apple-system, "Segoe UI", sans-serif',
-  reading: '"Source Serif 4", Georgia, "Times New Roman", serif',
+  ui: '"Archivo", "Vazirmatn", system-ui, -apple-system, "Segoe UI", sans-serif',
+  reading: '"Source Serif 4", "Vazirmatn", Georgia, "Times New Roman", serif',
   data: '"IBM Plex Mono", ui-monospace, "Cascadia Mono", monospace',
 } as const
 

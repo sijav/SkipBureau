@@ -69,6 +69,12 @@ export default defineConfig({
       ...COMBINATIONS.map(({ mode, direction }): TestProjectInlineConfiguration => ({
         resolve: { alias },
         plugins: [lingui(), storybookTest({ configDir: join(here, '.storybook'), initialGlobals: { mode, direction } })],
+        // Pre-bundled up front. The lockfile is part of Vite's cache key, so
+        // any install rebuilds the cache, and expect-type, which Vitest's
+        // browser client imports, was then found only after the page loaded:
+        // Vite re-bundled, reloaded the page mid-run and every file failed
+        // with "Browser connection was closed". Seen adding the font packages.
+        optimizeDeps: { include: ['expect-type'] },
         test: {
           name: `storybook:${mode}-${direction}`,
           browser: {

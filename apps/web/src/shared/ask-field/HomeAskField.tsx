@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/react/macro'
 import { Box, Button, InputBase, useTheme } from '@mui/material'
 import { askStyle } from 'src/core/theme'
+import type { AskBindings } from 'src/shared/ask-panel'
 import { AskGlyph } from './AskGlyph'
 
 export type HomeAskFieldProps = {
@@ -10,9 +11,11 @@ export type HomeAskFieldProps = {
   value: string
   onChange: (value: string) => void
   onAsk: (question: string) => void
+  /** The Ask panel this field opens, where the page has one. */
+  bindings?: AskBindings | undefined
 }
 
-export const HomeAskField = ({ label, placeholder, value, onChange, onAsk }: HomeAskFieldProps) => {
+export const HomeAskField = ({ label, placeholder, value, onChange, onAsk, bindings }: HomeAskFieldProps) => {
   const theme = useTheme()
 
   return (
@@ -20,18 +23,21 @@ export const HomeAskField = ({ label, placeholder, value, onChange, onAsk }: Hom
     <Box
       component="form"
       aria-label={label}
+      ref={bindings?.anchorRef}
       onSubmit={(event) => {
         event.preventDefault()
+        bindings?.onAsk(value)
         onAsk(value)
       }}
     >
       <InputBase
+        {...bindings?.events}
         fullWidth
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder}
         sx={askStyle(theme.tokens, theme.typography.subtitle1)}
-        slotProps={{ input: { 'aria-label': label, enterKeyHint: 'send' } }}
+        slotProps={{ input: { 'aria-label': label, enterKeyHint: 'send', ...bindings?.input } }}
         startAdornment={<AskGlyph className="ask-glyph" aria-hidden sx={{ width: '20px', height: '20px', flexShrink: 0 }} />}
         endAdornment={
           <Button type="submit" variant="primary" sx={{ flexShrink: 0 }}>

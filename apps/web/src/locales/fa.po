@@ -113,6 +113,10 @@ msgstr "از Skipbureau بپرسید…"
 msgid "Available once you confirm your nationality"
 msgstr "پس از تأیید ملیت شما در دسترس است"
 
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "Back to the guide"
+msgstr "بازگشت به راهنما"
+
 #: src/screens/guide/GuideSection.tsx
 msgid "Before you start"
 msgstr "پیش از شروع"
@@ -137,6 +141,10 @@ msgstr "آیا خارجی‌ها می‌توانند مالک شرکت ترکی�
 msgid "Can my Turkish company hire an Iranian employee?"
 msgstr "آیا شرکت ترکیه‌ای من می‌تواند کارمند ایرانی استخدام کند؟"
 
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "Cancel"
+msgstr "انصراف"
+
 #: src/shared/page/Page.stories.tsx
 msgid "Cap"
 msgstr "سقف"
@@ -152,6 +160,10 @@ msgstr "پیش از پرداخت بررسی کنید"
 #: src/shared/step-row/StepRow.stories.tsx
 msgid "Check mobile data, calls, SMS and your new number before you leave the store."
 msgstr "پیش از ترک فروشگاه، اینترنت همراه، تماس، پیامک و شماره جدیدتان را بررسی کنید."
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "Check the address: it needs an @ and a domain, like you@example.com."
+msgstr "نشانی را بررسی کنید: باید یک @ و یک دامنه داشته باشد، مانند you@example.com."
 
 #: src/shared/source-card/SourceCard.tsx
 msgid "Checked this month"
@@ -212,6 +224,14 @@ msgstr "تصمیم"
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Depends on nationality"
 msgstr "بسته به ملیت"
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "Describe what changed"
+msgstr "توضیح دهید چه چیزی تغییر کرده"
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "Describe what changed, even in one sentence."
+msgstr "توضیح دهید چه چیزی تغییر کرده، حتی در یک جمله."
 
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Descriptions on this page are sample content for design review. They deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
@@ -306,6 +326,10 @@ msgstr "ایرانی"
 msgid "Istanbul"
 msgstr "استانبول"
 
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "It was not sent. Check your connection and try again."
+msgstr "ارسال نشد. اتصال خود را بررسی کنید و دوباره تلاش کنید."
+
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Izmir"
 msgstr "ازمیر"
@@ -348,13 +372,17 @@ msgstr "اصلی"
 msgid "Nationality"
 msgstr "ملیت"
 
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "No account needed"
+msgstr "نیازی به حساب کاربری نیست"
+
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "No agent can get an appointment faster than the official system, and nobody can guarantee approval. Paying for a “guaranteed” slot buys you nothing you cannot do yourself for free."
 msgstr "هیچ واسطه‌ای نمی‌تواند سریع‌تر از سامانهٔ رسمی نوبت بگیرد، و هیچ‌کس نمی‌تواند تأیید را تضمین کند. پول دادن برای نوبتِ «تضمینی» چیزی به شما نمی‌دهد که خودتان رایگان نتوانید انجامش دهید."
 
 #: src/screens/Placeholder.tsx
-msgid "Not built yet"
-msgstr "هنوز ساخته نشده"
+#~ msgid "Not built yet"
+#~ msgstr "هنوز ساخته نشده"
 
 #: src/screens/guide/Guide.tsx
 msgid "Not in your language yet"
@@ -372,6 +400,10 @@ msgstr "نمی‌دانید از کجا شروع کنید؟"
 msgid "Not yet verified"
 msgstr "هنوز تأیید نشده"
 
+#: src/shared/ask-panel/AskPanel.tsx
+msgid "Nothing matches yet. Try other words, or pick a goal on the home page."
+msgstr "هنوز چیزی پیدا نشد. واژه‌های دیگری امتحان کنید، یا در صفحه اصلی یک هدف انتخاب کنید."
+
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Official"
 msgstr "رسمی"
@@ -379,6 +411,10 @@ msgstr "رسمی"
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Official information"
 msgstr "اطلاعات رسمی"
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "Official or reliable sources help us verify the change faster."
+msgstr "منابع رسمی یا معتبر به ما کمک می‌کنند تغییر را سریع‌تر بررسی کنیم."
 
 #: src/shared/source-card/SourceCard.tsx
 msgid "Official page did not respond"
@@ -416,9 +452,17 @@ msgstr "مسیرهای دیگر"
 msgid "Passport number"
 msgstr "شمارهٔ گذرنامه"
 
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "Paste a link if you have one"
+msgstr "اگر پیوندی دارید اینجا بگذارید"
+
 #: src/screens/home/Home.tsx
 msgid "Pick a goal. Each one opens a guided process built for your nationality, city and status."
 msgstr "یک هدف انتخاب کنید. هر کدام فرایندی راهنمایی‌شده را باز می‌کند که برای ملیت، شهر و وضعیت شما ساخته شده است."
+
+#: src/shared/ask-panel/useAsk.tsx
+msgid "Popular right now"
+msgstr "پرطرفدار در حال حاضر"
 
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Practical advice"
@@ -442,6 +486,7 @@ msgid "Read about a topic before you deal with it. Guides explain how something 
 msgstr "پیش از رسیدگی به هر موضوع درباره آن بخوانید. راهنماها توضیح می‌دهند چیزی چگونه کار می‌کند؛ حوزه‌های بالا کارهایی هستند که شاید لازم باشد انجام دهید."
 
 #: src/screens/task-hub/TaskHub.tsx
+#: src/shared/ask-panel/useAsk.tsx
 msgid "Reading · verified {verified}"
 msgstr "مطالعه · بررسی‌شده در {verified}"
 
@@ -452,6 +497,10 @@ msgstr "مطالعه · بررسی‌شده در اوت ۲۰۲۶"
 #: src/shared/ask-result-row/AskResultRow.tsx
 msgid "Recent"
 msgstr "اخیر"
+
+#: src/shared/ask-panel/useAsk.tsx
+msgid "Recent questions"
+msgstr "پرسش‌های اخیر"
 
 #: src/screens/category-hub/RecommendedStart.tsx
 msgid "Recommended starting point"
@@ -471,6 +520,10 @@ msgstr "راهنماهای مرتبط"
 msgid "Remove the dash, this field takes letters and numbers only"
 msgstr "خط تیره را حذف کنید، این فیلد فقط حرف و عدد می‌پذیرد"
 
+#: src/shared/ask-panel/useAsk.tsx
+msgid "Results for “{text}”"
+msgstr "نتایج برای «{text}»"
+
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Scam risk"
 msgstr "خطر کلاهبرداری"
@@ -482,6 +535,10 @@ msgstr "جست‌وجو در راهنماها"
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Select a city"
 msgstr "یک شهر انتخاب کنید"
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "Send suggestion"
+msgstr "ارسال پیشنهاد"
 
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Separate routes some people look into."
@@ -499,6 +556,10 @@ msgstr "برای روشن شدن این مورد، ملیت خود را تعیی
 #: src/shared/section/Section.stories.tsx
 msgid "Short answers with the conditions that actually change them."
 msgstr "پاسخ‌های کوتاه، همراه با شرایطی که واقعا آن‌ها را تغییر می‌دهند."
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "Shorten the link, or paste only the address of the page."
+msgstr "پیوند را کوتاه کنید، یا فقط نشانی صفحه را بگذارید."
 
 #: src/shared/header/Header.tsx
 msgid "Skipbureau"
@@ -519,6 +580,10 @@ msgstr "چیزی تغییر کرده است؟"
 #: src/screens/Unreachable.tsx
 msgid "Something on our side did not answer. The page exists, we just could not reach it. Trying again usually works."
 msgstr "چیزی در سمت ما پاسخ نداد. صفحه وجود دارد، فقط نتوانستیم به آن برسیم. معمولا تلاش دوباره جواب می‌دهد."
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "Source or link (optional)"
+msgstr "منبع یا پیوند (اختیاری)"
 
 #: src/screens/guide/Guide.tsx
 msgid "Sources are listed above with the date we last checked them. Tell us if something here no longer matches what you found."
@@ -551,6 +616,7 @@ msgid "Still have a question?"
 msgstr "هنوز پرسشی دارید؟"
 
 #: src/screens/guide/Guide.tsx
+#: src/screens/suggest/SuggestUpdate.tsx
 msgid "Suggest an update"
 msgstr "پیشنهاد به‌روزرسانی"
 
@@ -566,13 +632,21 @@ msgstr "مرکز کار"
 msgid "Tell us if you have done this in Antalya"
 msgstr "اگر این کار را در آنتالیا انجام داده‌اید، به ما بگویید"
 
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "Tell us what looks outdated, incorrect or missing."
+msgstr "بگویید چه چیزی قدیمی، نادرست یا ناقص به نظر می‌رسد."
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "Thank you"
+msgstr "سپاسگزاریم"
+
 #: src/screens/NotFound.tsx
 msgid "The address may be mistyped, or it may point at a country or a guide SkipBureau does not cover yet."
 msgstr "ممکن است نشانی اشتباه تایپ شده باشد، یا به کشور یا راهنمایی اشاره کند که SkipBureau هنوز پوشش نمی‌دهد."
 
 #: src/screens/Placeholder.tsx
-msgid "The address resolved, which is what this page is here to show."
-msgstr "نشانی درست تشخیص داده شد؛ همین چیزی است که این صفحه برای نشان دادنش اینجاست."
+#~ msgid "The address resolved, which is what this page is here to show."
+#~ msgstr "نشانی درست تشخیص داده شد؛ همین چیزی است که این صفحه برای نشان دادنش اینجاست."
 
 #: src/shared/source-card/SourceCard.tsx
 msgid "The institution’s own wording — not Skipbureau advice"
@@ -673,6 +747,34 @@ msgstr "هشدار"
 msgid "We have not verified this process for Antalya. The steps below are correct for Istanbul, Ankara and Izmir; local document requirements may differ."
 msgstr "این روند را برای آنتالیا تأیید نکرده‌ایم. مراحل زیر برای استانبول، آنکارا و ازمیر درست است؛ مدارک لازم در هر شهر ممکن است فرق کند."
 
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "We may contact you if we need more information. Your email will not be published."
+msgstr "اگر به اطلاعات بیشتری نیاز داشته باشیم ممکن است با شما تماس بگیریم. ایمیل شما منتشر نمی‌شود."
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "We use your email only to review and follow up on this submission."
+msgstr "از ایمیل شما فقط برای بررسی و پیگیری همین پیشنهاد استفاده می‌کنیم."
+
+#: src/shared/ask-panel/useAsk.tsx
+msgid "We’ll ask about your nationality or city only if it changes the answer."
+msgstr "فقط اگر پاسخ را تغییر دهد، درباره ملیت یا شهرتان می‌پرسیم."
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "We’ll review your suggestion before updating the guide."
+msgstr "پیش از به‌روزرسانی راهنما، پیشنهاد شما را بررسی می‌کنیم."
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "We’ll review your suggestion before updating the guide. Submitting information does not directly change the published guide."
+msgstr "پیش از به‌روزرسانی راهنما، پیشنهاد شما را بررسی می‌کنیم. ارسال اطلاعات مستقیما راهنمای منتشرشده را تغییر نمی‌دهد."
+
+#: src/shared/ask-panel/AskPanel.tsx
+msgid "What Ask found"
+msgstr "آنچه پرسش پیدا کرد"
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "What changed?"
+msgstr "چه چیزی تغییر کرده است؟"
+
 #: src/screens/category-hub/CategoryHub.tsx
 msgid "What do you need help with?"
 msgstr "در چه کاری به کمک نیاز دارید؟"
@@ -728,6 +830,14 @@ msgstr "می‌توانید از این فهرست به‌عنوان راهنم�
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "You do not need an agent for this step"
 msgstr "برای این مرحله به واسطه نیازی ندارید"
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "you@example.com"
+msgstr "you@example.com"
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "Your email"
+msgstr "ایمیل شما"
 
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Your nationality, residence status and plans can each change which of these areas apply to you, and in what order."

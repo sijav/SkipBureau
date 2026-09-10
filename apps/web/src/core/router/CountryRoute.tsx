@@ -45,10 +45,11 @@ export const CountryRoute = () => {
   // database has answered for.
   const { setCountry } = useShell()
   const confirmed = data?.country?.code
+  const confirmedName = data?.country?.name ?? null
   useEffect(() => {
-    setCountry(confirmed ? validated(confirmed) : null)
+    setCountry(confirmed ? validated(confirmed) : null, confirmedName)
     return () => setCountry(null)
-  }, [confirmed, setCountry])
+  }, [confirmed, confirmedName, setCountry])
 
   if (alias) return <Navigate replace to={samePageIn(location, alias)} />
   if (!localeFromSegment(locale) || !looksLikeCountry(country)) return <NotFound />

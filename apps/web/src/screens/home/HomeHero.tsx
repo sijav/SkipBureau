@@ -2,6 +2,7 @@ import { Trans, useLingui } from '@lingui/react/macro'
 import { Box, ButtonBase, Typography, useTheme } from '@mui/material'
 import type { Ref } from 'react'
 import { HomeAskField } from 'src/shared/ask-field'
+import type { AskBindings } from 'src/shared/ask-panel'
 
 export type HomeHeroProps = {
   /** The country's name, in the reader's language. */
@@ -12,10 +13,12 @@ export type HomeHeroProps = {
   /** Questions to try, which fill the field. */
   examples: readonly string[]
   askRef?: Ref<HTMLDivElement> | undefined
+  /** The Ask panel the field opens. */
+  bindings?: AskBindings | undefined
 }
 
 /** Figma 60:629: the heading, its line, the ask field and questions to try. */
-export const HomeHero = ({ name, question, onQuestion, onAsk, examples, askRef }: HomeHeroProps) => {
+export const HomeHero = ({ name, question, onQuestion, onAsk, examples, askRef, bindings }: HomeHeroProps) => {
   const { tokens, layout } = useTheme()
   const { t } = useLingui()
 
@@ -34,6 +37,7 @@ export const HomeHero = ({ name, question, onQuestion, onAsk, examples, askRef }
           value={question}
           onChange={onQuestion}
           onAsk={onAsk}
+          bindings={bindings}
         />
       </Box>
       {examples.length > 0 && (
