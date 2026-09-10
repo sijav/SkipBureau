@@ -12,6 +12,7 @@ export const NotFound = () => (
   <Page>
     <Reading>
       <Stack spacing={2} sx={{ py: 4 }}>
+        <Typography>A deliberate bare literal, to prove CI fails</Typography>
         <Typography variant="h4" component="h1">
           <Trans>This page does not exist</Trans>
         </Typography>

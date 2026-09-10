@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          # 24, matching the machine everything here was verified on. `engines`
+          # says >=22.12.0, which is a claim this workflow does not test; that
+          # is a deliberate choice, not an oversight. See the plan beside this
+          # file.
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      # `postinstall` in apps/web installs the Chromium BINARY. This adds the
+      # system libraries it needs, which the binary does not carry and an
+      # ubuntu-latest image does not promise to keep. No xvfb: the Storybook
+      # vitest project is headless, and xvfb is for headed Linux runs.
+      - name: Chromium system libraries
+        run: npx playwright install-deps chromium
+
+      # The generated Prisma client is NOT committed, and everything below
+      # reaches it: the SDL emitter imports the resolvers, which reach
+      # PrismaService, which imports the client. It needs no database, because
+      # prisma.config.ts defaults the url to an empty string.
+      - name: Generate the Prisma client
+        run: npm run db:generate -w @skipbureau/api
+
+      # The SDL, emitted from the Nest resolvers, then codegen over it. The web
+      # app's types come from here, so this runs before anything typechecks.
+      - name: The GraphQL contract
+        run: npm run contract -w @skipbureau/web
+
+      - name: Lint the web app
+        run: npm run lint -w @skipbureau/web
+
+      - name: Lint the API
+        run: npm run lint -w @skipbureau/api
+
+      - name: Typecheck the web app
+        run: npm run typecheck -w @skipbureau/web
+
+      - name: Typecheck the API
+        run: npm run lint:tsc -w @skipbureau/api
+
+      # `test:coverage` rather than `test`: it runs BOTH vitest projects, unit
+      # and Storybook, and prints the coverage number. There is deliberately no
+      # threshold. A number nobody agreed is a gate nobody asked for, and one
+      # set at today's figure fails on the next unrelated uncovered line, which
+      # teaches people to raise it rather than write the test. SB-112 is where
+      # that decision belongs.
+      - name: Web tests, and the coverage number
+        run: npm run test:coverage -w @skipbureau/web
+
+      # No database service. These start PGlite, Postgres compiled to
+      # WebAssembly, in process, and apply the committed migrations to it.
+      - name: API tests, against a real Postgres
+        run: npm test -w @skipbureau/api
+
+      - name: Build the web app
+        run: npm run build -w @skipbureau/web
+
+      - name: Build the API
+        run: npm run build -w @skipbureau/api
