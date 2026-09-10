@@ -16,7 +16,12 @@ export type FieldState = (typeof FIELD_STATES)[number]
 export type FieldPaint = { fill: keyof ColourTokens; stroke: keyof ColourTokens; value: keyof ColourTokens }
 
 export const FIELD_PAINT: Record<FieldState, FieldPaint> = {
-  rest: { fill: 'surface', stroke: 'borderStrong', value: 'textPrimary' },
+  // The OWNER'S DECISION, 2026-09-10: text-tertiary, not the design's
+  // border-strong. The field's white fill is 1.05 against the page, so the
+  // stroke is what shows where a filled field is, and border-strong was 1.54;
+  // WCAG 1.4.11 asks 3:1. text-tertiary is 3.34 on the page and 3.51 on the
+  // fill in light, 4.82 and 4.36 in dark, and hover still steps darker.
+  rest: { fill: 'surface', stroke: 'textTertiary', value: 'textPrimary' },
   hover: { fill: 'surface', stroke: 'textSecondary', value: 'textPrimary' },
   focus: { fill: 'surface', stroke: 'accent', value: 'textPrimary' },
   disabled: { fill: 'surfaceSubtle', stroke: 'border', value: 'textTertiary' },

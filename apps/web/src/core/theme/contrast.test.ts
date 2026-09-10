@@ -155,6 +155,11 @@ test('every pair is bound to the slot that paints it', () => {
               assert.ok(field.root['&.Mui-focused'].boxShadow.startsWith(`0 0 0 4px ${tokens[fore]}`), `${mode}: ${role} is the outer ring`)
               onPage()
               break
+            case 'boundary':
+              assert.equal(field.root['& .MuiOutlinedInput-notchedOutline'].borderColor, tokens[fore], `${mode}: ${role} is the resting stroke`)
+              // An edge has two sides: the page, or the field's own fill.
+              assert.ok(GROUNDS.includes(back) || tokens[back] === field.root.backgroundColor, `${mode}: ${role} is measured against a side of the edge`)
+              break
             default:
               assertNever(part)
           }

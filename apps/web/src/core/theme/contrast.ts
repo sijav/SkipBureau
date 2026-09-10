@@ -92,7 +92,7 @@ export type Painted =
   // `panel` is one text part of one information panel, on that panel's fill.
   | { by: 'panel'; kind: PanelKind; part: 'eyebrow' | 'body' | 'meta' }
   // `field` is one part of the text input, read from input.ts's overrides.
-  | { by: 'field'; part: 'label' | 'value' | 'placeholder' | 'helper' | 'error' | 'disabledHelper' | 'focusRing' }
+  | { by: 'field'; part: 'label' | 'value' | 'placeholder' | 'helper' | 'error' | 'disabledHelper' | 'focusRing' | 'boundary' }
 
 export type Declared = {
   /** What a reader is actually looking at. Reads as a sentence in a failure. */
@@ -189,6 +189,9 @@ export const DECLARED: readonly Declared[] = [
   { role: 'an input error, which replaces the helper', fore: 'dangerText', back: 'background', target: 4.5, painted: { by: 'field', part: 'error' } },
   { role: "a disabled input's helper, which says how to enable it", fore: 'textSecondary', back: 'background', target: 4.5, painted: { by: 'field', part: 'disabledHelper' } },
   { role: 'a focused input ring on the page', fore: 'accentText', back: 'background', target: 3, painted: { by: 'field', part: 'focusRing' } },
+  // Non-text, 3:1, on BOTH sides of the edge: the page outside, the fill inside.
+  { role: "a text input's boundary against the page", fore: 'textTertiary', back: 'background', target: 3, painted: { by: 'field', part: 'boundary' } },
+  { role: "a text input's boundary against its own fill", fore: 'textTertiary', back: 'surface', target: 3, painted: { by: 'field', part: 'boundary' } },
 ]
 
 /**
@@ -215,9 +218,9 @@ export const EXEMPT: readonly { pair: string; because: string }[] = [
       'No component paints it. accentHover and dangerHover used to be listed here too, and since SB-035 the Button paints both, because Figma 11:44 hovers Primary to accentHover and rests Destructive on dangerHover; they are declared above. warningHover waits for a warning control that hovers.',
   },
   {
-    pair: "a text input's boundary, border-strong, against the page",
+    pair: "a text input's hover, error and disabled strokes",
     because:
-      "A JUDGMENT, NOT A PASS, put to the owner on 2026-09-10. It measures 1.54 in light and 2.03 in dark, and the field's white fill is 1.05 against the page, so the stroke is what shows where the field is. WCAG 1.4.11 asks 3:1 of a boundary that identifies the control. The label above and the placeholder inside also identify it, but a filled field has no placeholder. It is the design's own value, and changing how every input looks is the owner's call, so it stays as drawn and is recorded here rather than claimed. The error stroke, danger at 3.64, and the hover stroke are state cues the helper text states in words.",
+      "State cues, not what identifies the field: the resting boundary does that and is declared above at 3:1, by the owner's decision of 2026-09-10, after border-strong measured 1.54. Hover steps darker to text-secondary, the error stroke is danger at 3.64 and says nothing the error text does not say in words, and a disabled field is an inactive control under 1.4.3.",
   },
   {
     pair: "an information panel's bar and stroke, solid or dashed",

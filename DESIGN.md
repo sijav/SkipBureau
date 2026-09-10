@@ -300,6 +300,7 @@ is not the same as measured.
 | `danger-pressed` | `#AE3636` red/900 | `#AE3636` red/900, **restored** | The same. |
 | `accent-hover` | `#329C76` mint/800 | `#329C76` mint/800, **restored** | Was moved to mint/750 alongside `accent-pressed`. Restored in SB-035. |
 | `accent-pressed` | `#277C5E` mint/900 | `#277C5E` mint/900, **restored** | Was moved to mint/800 because MUI's contained button hovered to `palette.primary.dark`, which was `accent-pressed`, putting ink on mint/900 at `3.11:1`. Restored in SB-035. |
+| a text input's resting stroke | `border-strong` | `text-tertiary` | The owner's decision, 2026-09-10. `1.54:1` against the page, with the field's fill at `1.05`, left a filled field with no visible edge; now `3.34`. |
 | a disabled input's helper | `text-tertiary` | `text-secondary` | SB-035. `3.34:1` on the light page, and axe failed it. The disabled field's label and value are exempt as parts of an inactive control; this line is not, because it tells the reader how to enable the field. The ordinary helper colour is the smallest move that clears 4.5. |
 | `text-on-danger`, dark only | `#FFFFFF` | `#1D2421` ink/900 | Dark lightens the semantic fills, so white on them is the wrong way round: `3.05:1` on the dark danger fill. Ink is what dark already does for `text-on-accent`, for exactly this reason. |
 | `danger-pressed`, dark only | derived `#E05252` | `#E86262` | With ink as the label, the darkest red in the dark ramp measured `4.14`. Lifted until it clears, keeping it darker than the base fill. |
@@ -398,16 +399,20 @@ OutlinedInput and FormHelperText, because the label sits ABOVE the field:
 
 | state | fill | stroke |
 |---|---|---|
-| rest, filled | `surface` | `border-strong` |
+| rest, filled | `surface` | `text-tertiary`, by the owner's decision below |
 | hover | `surface` | `text-secondary` |
 | focus | `surface` | `accent` |
 | error | `surface` | `danger` |
 | disabled | `surface-subtle` | `border` |
 
-**An open question for the owner:** the rest stroke, `border-strong`, measures
-`1.54:1` against the page, and the field's white fill is `1.05`, so the stroke is
-what shows where a filled field is. WCAG 1.4.11 asks 3:1 of such a boundary. It
-is the design's own value and stays as drawn until the owner decides.
+**Decided by the owner, 2026-09-10: the resting stroke is `text-tertiary`.**
+The design's `border-strong` measured `1.54:1` against the page, and the field's
+white fill is `1.05`, so the stroke is what shows where a filled field is; WCAG
+1.4.11 asks 3:1. `text-tertiary` is `3.34` on the page and `3.51` on the fill in
+light, `4.82` and `4.36` in dark, and hover still steps darker to
+`text-secondary`. **Figma follow-up, suggested not made:** set the Input
+component's Default and Filled strokes to `text-tertiary` in node 16:32, so the
+file and the code agree.
 
 Three pairs are deliberately NOT measured, and `contrast.ts` records why in
 code so the reasons travel with the values: `text-tertiary`, which is the
