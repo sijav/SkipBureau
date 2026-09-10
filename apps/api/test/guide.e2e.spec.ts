@@ -195,3 +195,110 @@ test('a guide we do not have is null, not an error', async () => {
   expect(response.body.errors).toBeUndefined()
   expect(response.body.data.guide).toBeNull()
 })
+
+test('a German guide shows German facts, never the Turkish ones', async () => {
+  // Both countries have an open version of register-your-address. Without a
+  // country filter the include returns whichever the database ordered first.
+  const response = await graphql(
+    `query G { guide(country: "de", slug: "anmeldung") { obligations { slug resolution facts { key numericValue unit textValue } } } }`,
+  )
+
+  const obligation = response.body.data.guide.obligations[0]
+  const facts = Object.fromEntries(
+    obligation.facts.map((f: { key: string; numericValue: string | null; textValue: string | null }) => [
+      f.key,
+      f.numericValue ?? f.textValue,
+    ]),
+  )
+
+  // The whole fact set, not only the one that differs, because a leak that
+  // brought the right deadline and the wrong document would pass a narrower
+  // assertion.
+  expect(obligation.resolution).toBe('general')
+  expect(facts).toEqual({ deadline: '14', requiredDocument: 'Wohnungsgeberbestaetigung' })
+})
+
+test('and the Turkish guide shows the Turkish ones, never the German document', async () => {
+  const response = await graphql(
+    `query G { guide(country: "tr", slug: "register-your-address") { obligations { resolution facts { key numericValue textValue } } } }`,
+  )
+
+  const obligation = response.body.data.guide.obligations[0]
+  const facts = Object.fromEntries(
+    obligation.facts.map((f: { key: string; numericValue: string | null; textValue: string | null }) => [
+      f.key,
+      f.numericValue ?? f.textValue,
+    ]),
+  )
+
+  expect(obligation.resolution).toBe('general')
+  expect(facts).toEqual({ deadline: '20' })
+})
+
+test('a rule that starts next year is not what the guide shows today', async () => {
+  // The fixture needs its own obligation: adding a future general version
+  // beside the current one would overlap, and this repository's own trigger
+  // refuses that. So the successor closes nothing because there is nothing to
+  // close.
+  const obligation = await prisma.obligation.create({ data: { slug: 'renew-your-permit', kind: 'permit' } })
+  const guide = await prisma.guide.findUniqueOrThrow({
+    where: { countryCode_slug: { countryCode: 'tr', slug: 'register-your-address' } },
+  })
+  await prisma.guideObligation.create({ data: { guideId: guide.id, obligationId: obligation.id, position: 1 } })
+
+  await prisma.ruleVersion.create({
+    data: {
+      countryCode: 'tr',
+      obligationId: obligation.id,
+      validFrom: new Date('2099-01-01'),
+      sourceUrl: 'https://example.gov',
+      sourceName: 'test',
+      verifiedAt: new Date('2026-09-10'),
+      facts: { create: [{ key: 'fee', numericValue: 999, currency: 'TRY' }] },
+    },
+  })
+
+  const response = await graphql(
+    `query G { guide(country: "tr", slug: "register-your-address") { obligations { slug resolution facts { key } } } }`,
+  )
+
+  const future = response.body.data.guide.obligations.find(
+    (o: { slug: string }) => o.slug === 'renew-your-permit',
+  )
+
+  expect(future.facts, 'a rule starting in 2099 was served as current').toEqual([])
+  // And it says why it is empty, rather than looking like nothing is required.
+  expect(future.resolution).toBe('contextRequired')
+})
+
+test('an obligation with only a scoped version asks for context rather than guessing', async () => {
+  // One student-only rule is not a general answer just because it is the only
+  // record. Showing it would tell a worker a student's rule, silently.
+  const obligation = await prisma.obligation.create({ data: { slug: 'student-only-thing', kind: 'registration' } })
+  const guide = await prisma.guide.findUniqueOrThrow({
+    where: { countryCode_slug: { countryCode: 'de', slug: 'anmeldung' } },
+  })
+  await prisma.guideObligation.create({ data: { guideId: guide.id, obligationId: obligation.id, position: 2 } })
+
+  await prisma.ruleVersion.create({
+    data: {
+      countryCode: 'de',
+      obligationId: obligation.id,
+      validFrom: new Date('2020-01-01'),
+      sourceUrl: 'https://example.gov',
+      sourceName: 'test',
+      verifiedAt: new Date('2026-09-10'),
+      criteria: { create: [{ dimension: 'situation', value: 'student' }] },
+      facts: { create: [{ key: 'fee', numericValue: 50, currency: 'EUR' }] },
+    },
+  })
+
+  const response = await graphql(
+    `query G { guide(country: "de", slug: "anmeldung") { obligations { slug resolution facts { key } } } }`,
+  )
+
+  const scoped = response.body.data.guide.obligations.find((o: { slug: string }) => o.slug === 'student-only-thing')
+
+  expect(scoped.resolution).toBe('contextRequired')
+  expect(scoped.facts, "a student's rule was shown as everyone's").toEqual([])
+})

@@ -1,6 +1,6 @@
 ---
 active: true
-iteration: 7
+iteration: 8
 max_iterations: 0
 completion_promise: "SKIPBUREAU-DONE"
 started_at: "2026-09-09T22:50:00Z"
@@ -74,8 +74,13 @@ close. If a check seems necessary, say so in the reply and let them decide.
 
 1. **Roast the previous iteration.** Ask of the last summary: is this really
    done, is something left over? Check against reality. Run it, read the code,
-   read `git status` and `git diff`. A false or premature "done" is repaired
-   before any new work starts. This roast is yours, not the skill.
+   read `git status` and `git diff`. This roast is yours, not the skill.
+
+   A false or premature "done" is repaired **before any new work starts, by
+   filing a card for what is actually left** — not by reopening the closed task.
+   `done` is terminal. The challenge is the valuable half of this step and it
+   stays; what it must never become is a licence to go back into something that
+   was already called finished.
 
 2. **Pick the work.** `todo next`, then `todo move <id> in_progress` before
    touching a file. The script picks, not you: highest severity, fewest points,
@@ -146,9 +151,14 @@ close. If a check seems necessary, say so in the reply and let them decide.
 5. **THEN move it to `done`, and only then fire the roast, in the background.**
 
    ```bash
+   todo move <id> done          # FIRST. The task is finished and proven.
    python ~/.claude/skills/roast/roast.py task --title ... --did ... --ask ... &
-   todo move <id> done
    ```
+
+   **That order is the rule, not a formatting choice.** These two lines were the
+   other way round, so the reviewer could read and report on work before it was
+   closed, which is the one thing this step exists to prevent. A command block
+   gets copied; the sentence above it does not. Do not tidy them back.
 
    **Do not wait for it.** Commit, `todo next`, and start building the next
    task while it runs. Waiting on a round trip to another model is how an

@@ -1,7 +1,3 @@
-# ------------------------------------------------------
-# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
-# ------------------------------------------------------
-
 type CategoryView {
   countryCode: String!
   description: String
@@ -47,6 +43,11 @@ type GuideObligationFact {
 """An obligation this guide explains, with its current facts."""
 type GuideObligationView {
   facts: [GuideObligationFact!]!
+
+  """
+  contextRequired means every version is scoped to somebody, so there is no general answer to show.
+  """
+  resolution: ObligationResolution!
   slug: String!
   title: String
 }
@@ -94,6 +95,14 @@ type GuideView {
   """True when the requested language had no content and another was used."""
   translationMissing: Boolean!
   verifiedAt: String!
+}
+
+"""
+Whether this obligation has one answer for everyone, or needs to know who is asking.
+"""
+enum ObligationResolution {
+  contextRequired
+  general
 }
 
 type Query {

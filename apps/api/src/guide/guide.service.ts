@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../prisma/prisma.service.js'
+import { generalVersionAt } from '../rules/selection.js'
 import type { CategoryView, GuideView, TaskView } from './guide.model.js'
-import { SectionKind } from './guide.model.js'
+import { ObligationResolution, SectionKind } from './guide.model.js'
 
 const FALLBACK = 'en-US'
 
@@ -64,7 +65,7 @@ export class GuideService {
    * not in Persian is shown in English and SAYS SO, rather than rendering a
    * blank page or pretending. What the reader is told about it is SB-049.
    */
-  async guide(countryCode: string, slug: string, locale: string): Promise<GuideView | null> {
+  async guide(countryCode: string, slug: string, locale: string, at = new Date()): Promise<GuideView | null> {
     const row = await this.prisma.guide.findUnique({
       where: { countryCode_slug: { countryCode, slug } },
       include: {
@@ -78,9 +79,15 @@ export class GuideService {
             obligation: {
               include: {
                 texts: true,
-                // The current version only. A guide shows what is in force, and
-                // the history is what `changes` is for.
-                versions: { where: { validTo: null }, include: { facts: true } },
+                // The version in force IN THIS COUNTRY, on this date, that
+                // applies to everyone.
+                //
+                // Without the country it returned whichever open version the
+                // database ordered first, so the German guide showed Turkey's
+                // twenty day deadline. Without the date a rule starting next
+                // year counted as current. Without `criteria: none` a rule
+                // written for students would be shown to a worker.
+                versions: { where: generalVersionAt(countryCode, at), include: { facts: true } },
               },
             },
           },
@@ -129,18 +136,26 @@ export class GuideService {
       sources: row.sources.map((source) => ({ url: source.url, name: source.name, verifiedAt: date(source.verifiedAt) })),
       // Rendered from the linked rule rather than retyped into the prose, which
       // is the only thing that stops the two drifting apart.
-      obligations: row.obligations.map((link) => ({
-        slug: link.obligation.slug,
-        title: pick(link.obligation.texts, locale).text?.title ?? null,
-        facts: (link.obligation.versions[0]?.facts ?? []).map((fact) => ({
-          key: fact.key,
-          operator: fact.operator,
-          numericValue: fact.numericValue === null ? null : fact.numericValue.toString(),
-          textValue: fact.textValue,
-          unit: fact.unit,
-          currency: fact.currency,
-        })),
-      })),
+      obligations: row.obligations.map((link) => {
+        const version = link.obligation.versions[0]
+
+        return {
+          slug: link.obligation.slug,
+          title: pick(link.obligation.texts, locale).text?.title ?? null,
+          // No general version is not the same as no requirement. Saying so
+          // sends the reader to the context control; an empty fact list would
+          // tell them this country asks nothing of them.
+          resolution: version ? ObligationResolution.general : ObligationResolution.contextRequired,
+          facts: (version?.facts ?? []).map((fact) => ({
+            key: fact.key,
+            operator: fact.operator,
+            numericValue: fact.numericValue === null ? null : fact.numericValue.toString(),
+            textValue: fact.textValue,
+            unit: fact.unit,
+            currency: fact.currency,
+          })),
+        }
+      }),
     }
   }
 

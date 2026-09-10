@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../prisma/prisma.service.js'
 import { compare, type Entry, type Fact, type Side } from './diff.js'
 import { matchesProfile, mostSpecific, type Criterion, type Profile } from './eligibility.js'
+import { inForceAt } from './selection.js'
 
 @Injectable()
 export class RulesService {
@@ -34,11 +35,7 @@ export class RulesService {
     const groups = await this.groupsAt(profile.nationality, at)
 
     const versions = await this.prisma.ruleVersion.findMany({
-      where: {
-        countryCode,
-        validFrom: { lte: at },
-        OR: [{ validTo: null }, { validTo: { gt: at } }],
-      },
+      where: { countryCode, ...inForceAt(at) },
       include: { criteria: true, facts: true, obligation: true },
     })
 

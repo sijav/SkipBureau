@@ -35,10 +35,25 @@ export class GuideSourceView {
   @Field(() => String) verifiedAt!: string
 }
 
+export enum ObligationResolution {
+  general = 'general',
+  contextRequired = 'contextRequired',
+}
+
+registerEnumType(ObligationResolution, {
+  name: 'ObligationResolution',
+  description: 'Whether this obligation has one answer for everyone, or needs to know who is asking.',
+})
+
 @ObjectType({ description: 'An obligation this guide explains, with its current facts.' })
 export class GuideObligationView {
   @Field(() => String) slug!: string
   @Field(() => String, { nullable: true }) title!: string | null
+  @Field(() => ObligationResolution, {
+    description: 'contextRequired means every version is scoped to somebody, so there is no general answer to show.',
+  })
+  resolution!: ObligationResolution
+
   @Field(() => [GuideObligationFact]) facts!: readonly GuideObligationFact[]
 }
 
