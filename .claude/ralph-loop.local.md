@@ -58,6 +58,15 @@ close. If a check seems necessary, say so in the reply and let them decide.
 - **Documentation prose lives in markdown**, never as JSDoc in a `.tsx`.
 - **Country is a dimension, not a constant.** Turkey is the first country, not
   the subject. Adding a second must need no code change.
+- **SEO is utmost, and it is a constraint on every screen, not a pass at the
+  end.** The owner, 2026-09-10. This product is found through search or it is
+  not found: nobody standing in a government office knows SkipBureau exists,
+  they type their problem into Google. So a page has to BE a page, a URL has to
+  return 200, the two languages need reciprocal `hreflang`, each guide needs
+  its own title and description in each language, guides carry `HowTo`
+  structured data, and the sitemap is generated. The verified date this product
+  already requires is the sharpest advantage it has, so it belongs in the
+  markup. See CLAUDE.md.
 - **A language control belongs in the topbar**, in the slot the profile control
   occupies, without changing the header height of 68 or 60.
 

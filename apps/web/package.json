@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix",
-    "lint:tsc": "tsc -b --noEmit",
+    "lint:tsc": "npm run contract && npm run typecheck",
     "storybook": "storybook dev -p 6016 --ci",
     "build-storybook": "storybook build",
     "test": "vitest run",
@@ -25,7 +25,11 @@
     "predev": "npm run i18n:compile",
     "prebuild": "npm run i18n:compile",
     "pretest": "npm run i18n:compile",
-    "prestorybook": "npm run i18n:compile"
+    "prestorybook": "npm run i18n:compile",
+    "schema": "npm run schema:emit -w @skipbureau/api",
+    "codegen": "graphql-codegen --config codegen.ts",
+    "contract": "npm run schema && npm run codegen",
+    "typecheck": "tsc -b --noEmit"
   },
   "dependencies": {
     "@emotion/cache": "^11.14.0",
@@ -36,6 +40,7 @@
     "@mui/material": "^9.2.0",
     "@mui/stylis-plugin-rtl": "^9.1.1",
     "@mui/system": "^9.2.0",
+    "graphql": "^16.14.2",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-router-dom": "^7.18.1",
@@ -43,6 +48,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@graphql-codegen/cli": "^7.4.0",
+    "@graphql-codegen/client-preset": "^6.1.3",
     "@lingui/cli": "^6.5.0",
     "@lingui/format-po": "^6.5.0",
     "@lingui/swc-plugin": "^6.5.1",

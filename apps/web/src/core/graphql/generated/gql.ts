@@ -1,0 +1,44 @@
+/* eslint-disable */
+import * as types from './graphql';
+
+
+
+/**
+ * Map of all GraphQL operations in the project.
+ *
+ * This map has several performance disadvantages:
+ * 1. It is not tree-shakeable, so it will include all operations in the project.
+ * 2. It is not minifiable, so the string of a GraphQL query will be multiple times inside the bundle.
+ * 3. It does not support dead code elimination, so it will add unused operations.
+ *
+ * Therefore it is highly recommended to use the babel or swc plugin for production.
+ * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
+ */
+type Documents = {
+    "\n  query Countries {\n    countries {\n      code\n      name\n    }\n  }\n": typeof types.CountriesDocument,
+    "\n  query Tasks($locale: String) {\n    tasks(locale: $locale) {\n      slug\n      title\n      subtitle\n      position\n    }\n  }\n": typeof types.TasksDocument,
+    "\n  query Guide($country: String!, $slug: String!, $locale: String) {\n    guide(country: $country, slug: $slug, locale: $locale) {\n      slug\n      title\n      quickAnswer\n      verifiedAt\n      locale\n      translationMissing\n      sources {\n        url\n        name\n        verifiedAt\n      }\n    }\n  }\n": typeof types.GuideDocument,
+};
+const documents: Documents = {
+    "\n  query Countries {\n    countries {\n      code\n      name\n    }\n  }\n": types.CountriesDocument,
+    "\n  query Tasks($locale: String) {\n    tasks(locale: $locale) {\n      slug\n      title\n      subtitle\n      position\n    }\n  }\n": types.TasksDocument,
+    "\n  query Guide($country: String!, $slug: String!, $locale: String) {\n    guide(country: $country, slug: $slug, locale: $locale) {\n      slug\n      title\n      quickAnswer\n      verifiedAt\n      locale\n      translationMissing\n      sources {\n        url\n        name\n        verifiedAt\n      }\n    }\n  }\n": types.GuideDocument,
+};
+
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query Countries {\n    countries {\n      code\n      name\n    }\n  }\n"): typeof import('./graphql').CountriesDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query Tasks($locale: String) {\n    tasks(locale: $locale) {\n      slug\n      title\n      subtitle\n      position\n    }\n  }\n"): typeof import('./graphql').TasksDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query Guide($country: String!, $slug: String!, $locale: String) {\n    guide(country: $country, slug: $slug, locale: $locale) {\n      slug\n      title\n      quickAnswer\n      verifiedAt\n      locale\n      translationMissing\n      sources {\n        url\n        name\n        verifiedAt\n      }\n    }\n  }\n"): typeof import('./graphql').GuideDocument;
+
+
+export function graphql(source: string) {
+  return (documents as any)[source] ?? {};
+}

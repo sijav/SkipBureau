@@ -27,6 +27,48 @@ Every task carries all nine fields, filled at creation, never blank:
 Picking work: **highest severity, then fewest story points, then lowest id,
 never one whose parent is unfinished.** Anything already started comes first.
 
+## Search engines are not an afterthought
+
+The owner, 2026-09-10:
+
+> "how convenient this site is to search engine, it should be fully seo
+> compatible, so that the search engine find the correct data from this website
+> and show correctly with all the good things to user, so seo is at utmost
+> importance"
+
+**This product is found through search or it is not found.** Someone standing
+in a government office does not know SkipBureau exists; they type their problem
+into Google. Every guide is a landing page for a question somebody is asking
+right now, and a guide that does not rank is a guide nobody reads.
+
+So this is a first-class constraint on every screen, not a pass at the end:
+
+- **A page must exist as a page.** Content that only appears after JavaScript
+  runs, behind a click, or under a hash fragment is content a crawler may never
+  index and can never rank properly.
+- **A URL must return 200.** This is not currently true, and it is the single
+  biggest problem the product has: GitHub Pages answers every deep link with
+  `404.html`, so a guide opens for a person and reads as **absent** to Google.
+  SB-075 has the options; SEO being utmost makes it critical rather than a
+  compromise worth living with.
+- **One canonical URL per page**, which the `/en-US/` to `/en/` redirect
+  already gives.
+- **`hreflang` between the two languages**, reciprocally. The same guide in
+  English and Persian are alternates, not duplicates, and a search engine has
+  to be told so or it picks one and buries the other.
+- **A title and a description per guide, per language**, from the content
+  rather than a template. `GuideText` already holds them.
+- **Structured data.** These are step-by-step instructions with costs, times
+  and official sources, which is what `HowTo` describes. `dateModified` comes
+  from the verified date, which this product already requires and most
+  competitors do not have.
+- **A sitemap**, covering every language and country combination, generated
+  rather than written.
+
+The verified date is the sharpest advantage here and it is already in the
+schema. A guide that can prove when it was last checked is exactly what a
+search engine wants to surface for a question about a rule that changes.
+
 ## The plan, before any task
 
 The owner, 2026-09-10, on top of the earlier plan-first rule:
