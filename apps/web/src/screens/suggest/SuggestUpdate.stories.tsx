@@ -44,7 +44,7 @@ const screen = () => within(window.document.body)
 export const Default: Story = {
   play: async () => {
     const dialog = within(await screen().findByRole('dialog', { name: /Suggest an update/ }, { timeout: 5000 }))
-    await userEvent.type(dialog.getByRole('textbox', { name: /What changed/ }), 'The 120-day figure is now 90 days.')
+    await userEvent.type(dialog.getByRole('textbox', { name: /What changed/ }), 'Now 90 days.')
     await userEvent.click(dialog.getByRole('button', { name: /Send suggestion/ }))
     await expect(await screen().findByRole('dialog', { name: /Thank you/ })).toBeVisible()
   },
