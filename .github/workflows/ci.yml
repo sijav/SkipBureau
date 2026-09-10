@@ -132,3 +132,68 @@ jobs:
 
       - name: Scan every object reachable from every ref
         run: gitleaks git --redact --exit-code 1 --log-opts=--all .
+
+  # The site, on main only, after the checks pass.
+  #
+  # Its own checkout and build: jobs do not share a filesystem, so apps/web/dist
+  # from `check` is not here. Pages was enabled by hand, on the owner's say so,
+  # because actions/configure-pages cannot bootstrap it: its `enablement` input
+  # defaults to false and turning Pages on for the first time needs authority the
+  # default GITHUB_TOKEN does not carry.
+  pages:
+    if: github.ref == 'refs/heads/main'
+    needs: [check, secrets]
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    # One deploy at a time, and never cancel one half way: an interrupted
+    # deployment leaves the site serving whichever half arrived.
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      # The generated Prisma client is not committed and the SDL emitter reaches
+      # it, the same ordering the check job needs.
+      - name: Generate the Prisma client
+        run: npm run db:generate -w @skipbureau/api
+
+      - name: The GraphQL contract
+        run: npm run contract -w @skipbureau/web
+
+      - uses: actions/configure-pages@v6
+
+      # SKIPBUREAU_BASE because the site is served from a repository subpath, not
+      # a domain root. VITE_GRAPHQL_URL is baked in at build time, so it is a
+      # repository variable rather than a commit; until SB-014 gives the API a
+      # home it is unset, and the site will honestly render "SkipBureau could not
+      # load this" rather than pretending.
+      - name: Build for Pages
+        run: npm run build -w @skipbureau/web
+        env:
+          SKIPBUREAU_BASE: /SkipBureau/
+          VITE_GRAPHQL_URL: ${{ vars.GRAPHQL_URL }}
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: apps/web/dist
+
+      - id: deploy
+        uses: actions/deploy-pages@v5

@@ -4,7 +4,11 @@ import { Client, cacheExchange, fetchExchange } from 'urql'
  * The endpoint, from the environment, because the API is a different origin in
  * every deployment and there is no sensible default that is right twice.
  */
-export const endpoint = (): string => import.meta.env.VITE_GRAPHQL_URL ?? 'http://localhost:4000/graphql'
+// `||`, not `??`. Vite bakes VITE_* in at build time, and an unset repository
+// variable arrives as an EMPTY STRING rather than undefined, which `??` would
+// happily keep: the published site would then post to '' and fail in a way
+// that looks like nothing at all.
+export const endpoint = (): string => import.meta.env.VITE_GRAPHQL_URL || 'http://localhost:4000/graphql'
 
 /**
  * A document cache, not a normalised one.
