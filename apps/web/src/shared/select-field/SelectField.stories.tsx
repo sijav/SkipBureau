@@ -72,9 +72,11 @@ export const Default: Story = {
 }
 
 /** Rest and disabled, against their tokens. */
+// Resting paint is what States measures. A real pointer left over a control
+// by an earlier story would hover it, so here nothing can be hovered.
 export const States: Story = {
   render: () => (
-    <Stack spacing={4}>
+    <Stack spacing={4} sx={{ pointerEvents: 'none' }}>
       <City testId="rest" />
       <City testId="disabled" initial="" disabled />
     </Stack>
