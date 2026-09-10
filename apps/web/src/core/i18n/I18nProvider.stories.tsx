@@ -63,20 +63,36 @@ export const Loaded: Story = {
 }
 
 /**
- * The cold start that fails. English is activated with no messages, because
- * every message id in this codebase IS its English text, so the page still
- * reads. What must never happen is nothing.
+ * A load that fails while a catalog is already live.
+ *
+ * `i18n` is a module singleton and the preview decorator activates a catalog
+ * before any story mounts, so inside Storybook something is ALWAYS live. This
+ * story therefore exercises the "keep what is already live" branch, and the
+ * promise it checks is that the provider reports the locale actually on screen
+ * rather than the one that just failed. Reporting the failed locale is what
+ * would put English text inside a right-to-left layout.
+ *
+ * It read `toHaveTextContent('en-US')` until the four-combination matrix was
+ * built, which passed only because the default toolbar direction is en-US: it
+ * was asserting the ambient locale while claiming to assert a fallback. The
+ * other branch, where NOTHING is active and an empty English catalog is
+ * activated so the page still reads, cannot be reached from a story for the
+ * same reason. That is SB-134.
  */
 export const CatalogFailed: Story = {
   args: { locale: 'fa-IR', load: alwaysFails },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, globals }) => {
     const canvas = within(canvasElement)
+    const live = globals['direction'] === 'fa-IR' ? 'fa-IR' : 'en-US'
 
-    // The page renders rather than staying blank.
-    await expect(await canvas.findByText('What do you need to do?')).toBeVisible()
+    // Not blank: lingui renders nothing at all until some catalog is active,
+    // and a cold start that fails used to leave a permanently empty page.
+    const heading = await canvas.findByRole('heading')
+    await expect(heading).toBeVisible()
+    await expect(heading).not.toBeEmptyDOMElement()
 
-    // And it does not claim to be showing Persian, because it is not. The
-    // reported locale is the one that actually activated.
-    await expect(await canvas.findByTestId('active-locale')).toHaveTextContent('en-US')
+    // The locale reported is the one whose catalog is genuinely active, which
+    // is the decorator's, never the fa-IR load that just threw.
+    await expect(await canvas.findByTestId('active-locale')).toHaveTextContent(live)
   },
 }

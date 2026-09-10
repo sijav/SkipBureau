@@ -2,15 +2,9 @@ import { i18n } from '@lingui/core'
 import { I18nProvider as LinguiProvider } from '@lingui/react'
 import { useEffect, useState, type ReactNode } from 'react'
 import { activateCatalog, type Messages } from './activateCatalog'
+import { loadCatalog } from './loadCatalog'
 import { Context } from './localeContext'
-import { defaultLocale, isLocale, locales, type Locale } from './locales'
-
-// The COMPILED catalog, not the `.po`. A `.po` is not JavaScript, so importing
-// one is parsed as source and throws, which rendered a blank page once already.
-const loadCatalog = async (locale: Locale): Promise<Messages> => {
-  const module: { messages: Messages } = await import(`../../locales/${locales[locale].catalog}.mjs`)
-  return module.messages
-}
+import { defaultLocale, isLocale, type Locale } from './locales'
 
 export type I18nProviderProps = {
   children: ReactNode

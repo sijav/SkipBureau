@@ -10,6 +10,15 @@ const alias = { src: join(here, 'src') }
 
 const lingui = () => react({ plugins: [['@lingui/swc-plugin', {}]] })
 
+// The four the design has to hold in. `direction` carries the LOCALE, because
+// that is what the toolbar global is called and what preview.tsx reads.
+const COMBINATIONS = [
+  { mode: 'light', direction: 'en-US' },
+  { mode: 'light', direction: 'fa-IR' },
+  { mode: 'dark', direction: 'en-US' },
+  { mode: 'dark', direction: 'fa-IR' },
+] as const
+
 export default defineConfig({
   resolve: { alias },
   test: {
@@ -32,14 +41,23 @@ export default defineConfig({
           include: ['src/**/*.test.ts'],
         },
       },
-      {
-        // Every story runs as a test in a real browser. A component whose story
-        // renders is a component that has been seen, which a jsdom assertion
-        // does not give you.
+      // EVERY story, in all FOUR combinations the design has to hold in.
+      //
+      // There used to be one storybook project, and preview.tsx said so
+      // plainly: the toolbars are "a review aid, not a test matrix. Vitest
+      // runs each story once, with the default globals below, so nothing here
+      // automatically checks the other three." Meanwhile SB-035 carried an
+      // exit condition promising light, dark, ltr and rtl. One of those was a
+      // lie and it was not the comment.
+      //
+      // initialGlobals sets the toolbar values for the whole project, so the
+      // same story file is run four times and the a11y addon, set to error,
+      // checks contrast in each.
+      ...COMBINATIONS.map(({ mode, direction }) => ({
         resolve: { alias },
-        plugins: [lingui(), storybookTest({ configDir: join(here, '.storybook') })],
+        plugins: [lingui(), storybookTest({ configDir: join(here, '.storybook'), initialGlobals: { mode, direction } })],
         test: {
-          name: 'storybook',
+          name: `storybook:${mode}-${direction}`,
           browser: {
             enabled: true,
             headless: true,
@@ -48,7 +66,7 @@ export default defineConfig({
           },
           setupFiles: [join(here, '.storybook', 'vitest.setup.ts')],
         },
-      },
+      })),
     ],
   },
 })
