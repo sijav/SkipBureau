@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react-swc'
 import { playwright } from '@vitest/browser-playwright'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { defineConfig } from 'vitest/config'
+import { defineConfig, type TestProjectInlineConfiguration } from 'vitest/config'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const alias = { src: join(here, 'src') }
@@ -53,7 +53,12 @@ export default defineConfig({
       // initialGlobals sets the toolbar values for the whole project, so the
       // same story file is run four times and the a11y addon, set to error,
       // checks contrast in each.
-      ...COMBINATIONS.map(({ mode, direction }) => ({
+      //
+      // The return type is declared because an object returned from a callback
+      // is not contextually typed: without it `browser: 'chromium'` widens to
+      // string and `tsc -b` rejects the config, which a plain `tsc --noEmit`
+      // never sees because this file sits in the node project.
+      ...COMBINATIONS.map(({ mode, direction }): TestProjectInlineConfiguration => ({
         resolve: { alias },
         plugins: [lingui(), storybookTest({ configDir: join(here, '.storybook'), initialGlobals: { mode, direction } })],
         test: {
