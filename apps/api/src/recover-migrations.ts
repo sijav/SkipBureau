@@ -24,7 +24,8 @@ import { databaseUrl } from './database-url.js'
  * halfway and leave objects standing. So this refuses unless both are true:
  *
  *   - no migration has ever finished, and
- *   - the schema holds no tables or enums of ours
+ *   - the schema holds no tables, views or enums of ours, where anything an
+ *     extension owns is not ours
  *
  * which together mean the database is untouched and "rolled back" is simply
  * the truth. Anything else is a database with history or contents, where the
@@ -100,20 +101,32 @@ export const inspect = async (client: Client, schema: string): Promise<Inspectio
     `SELECT migration_name FROM ${HISTORY} WHERE finished_at IS NULL AND rolled_back_at IS NULL ORDER BY started_at`
   )
   const { rows: applied } = await client.query<{ count: string }>(`SELECT count(*)::text AS count FROM ${HISTORY} WHERE finished_at IS NOT NULL`)
-  const { rows: tables } = await client.query<{ name: string }>(
-    'SELECT table_name AS name FROM information_schema.tables WHERE table_schema = $1 AND table_name <> $2 ORDER BY table_name',
+  // Objects an EXTENSION owns are not ours and are excluded, through the same
+  // pg_depend marker pg_dump uses to skip them. A managed Postgres installs its
+  // monitoring into public: Northflank's add-on ships pg_stat_statements and
+  // pg_stat_kcache views there, and the first version of this counted them as
+  // leftovers of our migration and refused on a database that was untouched.
+  // No migration here creates an extension, so an extension member can never
+  // be something our failed migration left behind.
+  const { rows: relations } = await client.query<{ name: string }>(
+    `SELECT c.relname AS name FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
+     WHERE n.nspname = $1 AND c.relkind IN ('r', 'p', 'v', 'm', 'f') AND c.relname <> $2
+       AND NOT EXISTS (SELECT 1 FROM pg_depend d WHERE d.classid = 'pg_class'::regclass AND d.objid = c.oid AND d.deptype = 'e')
+     ORDER BY c.relname`,
     [schema, HISTORY]
   )
   const { rows: enums } = await client.query<{ name: string }>(
     `SELECT t.typname AS name FROM pg_type t JOIN pg_namespace n ON n.oid = t.typnamespace
-     WHERE n.nspname = $1 AND t.typtype = 'e' ORDER BY t.typname`,
+     WHERE n.nspname = $1 AND t.typtype = 'e'
+       AND NOT EXISTS (SELECT 1 FROM pg_depend d WHERE d.classid = 'pg_type'::regclass AND d.objid = t.oid AND d.deptype = 'e')
+     ORDER BY t.typname`,
     [schema]
   )
 
   return {
     failed: failed.map((row) => row.migration_name),
     applied: Number(applied[0]?.count ?? 0),
-    leftovers: [...tables, ...enums].map((row) => row.name),
+    leftovers: [...relations, ...enums].map((row) => row.name),
   }
 }
 

@@ -133,3 +133,30 @@ migrations, bootstrapped the countries and answered
 `Access-Control-Allow-Origin: https://sijav.github.io` on the preflight. A
 restart was a no-op. Both refusal paths were checked by planting a case: a
 failed migration on a database with history, and one that left an enum behind.
+
+### The refusal that was right by its rules and wrong about the world
+
+The first deploy of the recovery ran, and refused:
+
+    recover: standing aside, 1 failed migration(s), and the schema still holds
+    4 object(s) (pg_stat_kcache, pg_stat_kcache_detail, pg_stat_statements,
+    pg_stat_statements_info)
+
+None of those are ours. Northflank's add-on installs the `pg_stat_statements`
+and `pg_stat_kcache` monitoring extensions into `public`, and their views
+counted as leftovers. A local Postgres has no such extensions, which is why
+four local runs never showed it.
+
+The gate now excludes anything an extension owns, through the `pg_depend`
+entry with `deptype = 'e'`, which is how `pg_dump` decides the same thing. No
+migration here runs `CREATE EXTENSION`, so an extension member can never be
+something a failed migration of ours left behind.
+
+Loosening a safety check is only acceptable if it still catches the real
+case, so both directions were run with the monitoring views present: an
+untouched database is resolved, and a half-applied one with an enum and a view
+of ours is refused naming exactly `OurView, ObligationKind` and nothing else,
+with the failed row left alone. The final image was then run against TLS with a
+self-signed certificate, `pg_stat_statements` in public, a role without CREATE
+and the planted failure, at 256MB and 0.1 CPU, and it served Turkey and
+Germany after about sixty seconds.
