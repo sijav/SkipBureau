@@ -25,6 +25,14 @@ msgstr "یک ستون، نه یک عرض"
 msgid "A student residence permit application must be submitted within one month of arrival, and the appointment is booked through the official e-ikamet system."
 msgstr "درخواست اقامت دانشجویی باید ظرف یک ماه پس از ورود ثبت شود، و وقت آن از طریق سامانهٔ رسمی e-ikamet گرفته می‌شود."
 
+#: src/shared/select-field/SelectField.stories.tsx
+msgid "Ankara"
+msgstr "آنکارا"
+
+#: src/shared/select-field/SelectField.stories.tsx
+msgid "Antalya"
+msgstr "آنتالیا"
+
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Appointment slots in Istanbul are usually released early in the morning and taken within the hour. Applicants report better luck checking daily than waiting for a convenient date."
 msgstr "نوبت‌های استانبول معمولاً صبح زود باز می‌شوند و در کمتر از یک ساعت پر می‌شوند. متقاضیان می‌گویند سر زدن هر روزه بهتر از منتظر ماندن برای تاریخی مناسب جواب می‌دهد."
@@ -53,6 +61,10 @@ msgstr "پیش از گرفتن نوبت بررسی کنید"
 msgid "Check before you pay"
 msgstr "پیش از پرداخت بررسی کنید"
 
+#: src/shared/select-field/SelectField.stories.tsx
+msgid "City in Turkey"
+msgstr "شهری در ترکیه"
+
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Completed"
 msgstr "انجام‌شده"
@@ -68,6 +80,14 @@ msgstr "۱۲ روز تا موعد"
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "From applicant reports, not an official rule"
 msgstr "از گزارش متقاضیان، نه یک قاعدهٔ رسمی"
+
+#: src/shared/select-field/SelectField.stories.tsx
+msgid "Istanbul"
+msgstr "استانبول"
+
+#: src/shared/select-field/SelectField.stories.tsx
+msgid "Izmir"
+msgstr "ازمیر"
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "No agent can get an appointment faster than the official system, and nobody can guarantee approval. Paying for a “guaranteed” slot buys you nothing you cannot do yourself for free."
@@ -108,6 +128,10 @@ msgstr "خط تیره را حذف کنید، این فیلد فقط حرف و ع
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Scam risk"
 msgstr "خطر کلاهبرداری"
+
+#: src/shared/select-field/SelectField.stories.tsx
+msgid "Select a city"
+msgstr "یک شهر انتخاب کنید"
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Set your nationality to resolve this"

@@ -414,6 +414,18 @@ light, `4.82` and `4.36` in dark, and hover still steps darker to
 component's Default and Filled strokes to `text-tertiary` in node 16:32, so the
 file and the code agree.
 
+**Select, node 16:53**: the text input's field, fill, strokes and focus ring,
+plus a chevron. No helper line.
+
+| | value | note |
+|---|---|---|
+| chevron box | 9 x 6, 16 from the end | the reserve for it is 16 + 9 + 8 = 33, where MUI reserves 32 |
+| chevron | the exported 7.79 x 4.5 triangle, verbatim | offset 0.60 and turned 180 degrees by transforms; `currentColor`, from `text-secondary`, disabled `text-tertiary` |
+| height | 40 | MUI's select floor is 1.4375em, 20.125px at 14px, overridden |
+| label | required | the design: a placeholder standing in for a label is gone once a value is chosen |
+
+The open menu is not in the design, so it takes the theme's defaults.
+
 Three pairs are deliberately NOT measured, and `contrast.ts` records why in
 code so the reasons travel with the values: `text-tertiary`, which is the
 theme's disabled text and so outside 1.4.3; `accent`, `success` and `warning`

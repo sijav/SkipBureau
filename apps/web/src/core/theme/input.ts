@@ -112,3 +112,27 @@ export const formHelperTextOverrides = (tokens: ColourTokens, helper: CSSObject)
     '&.Mui-disabled': { color: tokens[FIELD_TEXT.helperDisabled] },
   },
 })
+
+/** The select of Figma 16:53: the same field, and a 9 x 6 chevron 16 from the end. */
+const CHEVRON = { width: 9, height: 6, gap: spacing.sm }
+
+export const SELECT_TEXT = { chevron: 'textSecondary', chevronDisabled: 'textTertiary' } as const satisfies Record<string, keyof ColourTokens>
+
+export const selectOverrides = (tokens: ColourTokens) => ({
+  select: {
+    // MUI's 1.4375em floor is 20.125px at 14px, a hair over the 20px line, and
+    // made the field 40.125 tall. The story's exact 40px caught it.
+    minHeight: 0,
+    // MUI reserves 32px for its caret through a triple-specificity rule, so the
+    // override needs the same weight. The design's is 16 + 9 + 8.
+    '&&&': { paddingRight: `${spacing.md + CHEVRON.width + CHEVRON.gap}px` },
+  },
+  icon: {
+    width: `${CHEVRON.width}px`,
+    height: `${CHEVRON.height}px`,
+    right: `${spacing.md}px`,
+    top: `calc(50% - ${CHEVRON.height / 2}px)`,
+    color: tokens[SELECT_TEXT.chevron],
+    '&.Mui-disabled': { color: tokens[SELECT_TEXT.chevronDisabled] },
+  },
+})

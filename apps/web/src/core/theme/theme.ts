@@ -1,6 +1,7 @@
 import { createTheme, type Theme } from '@mui/material'
 import { buttonRoot, buttonVariants } from './button'
-import { formHelperTextOverrides, formLabelOverrides, outlinedInputOverrides } from './input'
+import { ChevronDown } from './ChevronDown'
+import { formHelperTextOverrides, formLabelOverrides, outlinedInputOverrides, selectOverrides } from './input'
 import { dark, fonts, layout, light, radius, spacing, type } from './tokens'
 
 export type Mode = 'light' | 'dark'
@@ -122,6 +123,8 @@ export const appTheme = (mode: Mode, direction: Direction): Theme => {
       MuiOutlinedInput: { styleOverrides: outlinedInputOverrides(tokens, face(type.uiText)) },
       MuiFormLabel: { styleOverrides: formLabelOverrides(tokens, face(type.label)) },
       MuiFormHelperText: { styleOverrides: formHelperTextOverrides(tokens, face(type.bodySmall)) },
+      // Figma 16:53. The field is MuiOutlinedInput's, above; this is the chevron.
+      MuiSelect: { defaultProps: { IconComponent: ChevronDown }, styleOverrides: selectOverrides(tokens) },
     },
   })
 }

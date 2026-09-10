@@ -1,7 +1,7 @@
 import { strict as assert } from 'node:assert'
 import { test } from 'vitest'
 import { buttonRoot, buttonVariants } from './button'
-import { formHelperTextOverrides, formLabelOverrides, outlinedInputOverrides } from './input'
+import { formHelperTextOverrides, formLabelOverrides, outlinedInputOverrides, selectOverrides } from './input'
 import { PANEL_PAINT, panelStyle } from './panel'
 import { TAG_PAINT, tagStyle } from './tag'
 import { DECLARED, EXEMPT, contrastRatio, type Token } from './contrast'
@@ -154,6 +154,10 @@ test('every pair is bound to the slot that paints it', () => {
             case 'focusRing':
               assert.ok(field.root['&.Mui-focused'].boxShadow.startsWith(`0 0 0 4px ${tokens[fore]}`), `${mode}: ${role} is the outer ring`)
               onPage()
+              break
+            case 'chevron':
+              assert.equal(selectOverrides(tokens).icon.color, tokens[fore], `${mode}: ${role} colour`)
+              assert.equal(field.root.backgroundColor, tokens[back], `${mode}: ${role} sits on the field fill`)
               break
             case 'boundary':
               assert.equal(field.root['& .MuiOutlinedInput-notchedOutline'].borderColor, tokens[fore], `${mode}: ${role} is the resting stroke`)

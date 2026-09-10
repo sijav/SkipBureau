@@ -222,3 +222,19 @@ MUI's own defaults were overridden where the design disagrees: it thickens a
 focused outline to 2px, turns the label primary on focus and red on error,
 fades the placeholder, and paints disabled text through
 -webkit-text-fill-color.
+
+## Select (5 of 8)
+
+**The icon rule and the colour rule met, and neither gave.** The exported
+chevron baked a hex into each state's SVG, and the colour-literal guard forbids
+a hex outside tokens.ts. Both exports turned out to be the same path with a
+different fill, and those two fills are exactly `text-secondary` and
+`text-tertiary`. So the path is kept verbatim, the layout's offset and rotation
+are SVG transforms rather than re-derived geometry, and the fill is
+`currentColor` from the theme. Measured rendered: box 9.00 x 6.00, triangle
+7.79 x 4.50 in the lower three quarters, 16 from the end, mirrored to the left
+in fa-IR.
+
+**An exact assertion caught a quarter pixel.** MUI's select display has a
+`min-height` of 1.4375em, 20.125px at 14px, which made the field 40.125 tall. A
+tolerance would have hidden it; the story's exact `40px` did not.

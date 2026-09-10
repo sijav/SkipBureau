@@ -25,6 +25,14 @@ msgstr "A column, not a width"
 msgid "A student residence permit application must be submitted within one month of arrival, and the appointment is booked through the official e-ikamet system."
 msgstr "A student residence permit application must be submitted within one month of arrival, and the appointment is booked through the official e-ikamet system."
 
+#: src/shared/select-field/SelectField.stories.tsx
+msgid "Ankara"
+msgstr "Ankara"
+
+#: src/shared/select-field/SelectField.stories.tsx
+msgid "Antalya"
+msgstr "Antalya"
+
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Appointment slots in Istanbul are usually released early in the morning and taken within the hour. Applicants report better luck checking daily than waiting for a convenient date."
 msgstr "Appointment slots in Istanbul are usually released early in the morning and taken within the hour. Applicants report better luck checking daily than waiting for a convenient date."
@@ -53,6 +61,10 @@ msgstr "Check before booking your appointment"
 msgid "Check before you pay"
 msgstr "Check before you pay"
 
+#: src/shared/select-field/SelectField.stories.tsx
+msgid "City in Turkey"
+msgstr "City in Turkey"
+
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Completed"
 msgstr "Completed"
@@ -68,6 +80,14 @@ msgstr "Due in 12 days"
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "From applicant reports, not an official rule"
 msgstr "From applicant reports, not an official rule"
+
+#: src/shared/select-field/SelectField.stories.tsx
+msgid "Istanbul"
+msgstr "Istanbul"
+
+#: src/shared/select-field/SelectField.stories.tsx
+msgid "Izmir"
+msgstr "Izmir"
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "No agent can get an appointment faster than the official system, and nobody can guarantee approval. Paying for a “guaranteed” slot buys you nothing you cannot do yourself for free."
@@ -108,6 +128,10 @@ msgstr "Remove the dash, this field takes letters and numbers only"
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Scam risk"
 msgstr "Scam risk"
+
+#: src/shared/select-field/SelectField.stories.tsx
+msgid "Select a city"
+msgstr "Select a city"
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Set your nationality to resolve this"

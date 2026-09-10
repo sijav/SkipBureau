@@ -92,7 +92,7 @@ export type Painted =
   // `panel` is one text part of one information panel, on that panel's fill.
   | { by: 'panel'; kind: PanelKind; part: 'eyebrow' | 'body' | 'meta' }
   // `field` is one part of the text input, read from input.ts's overrides.
-  | { by: 'field'; part: 'label' | 'value' | 'placeholder' | 'helper' | 'error' | 'disabledHelper' | 'focusRing' | 'boundary' }
+  | { by: 'field'; part: 'label' | 'value' | 'placeholder' | 'helper' | 'error' | 'disabledHelper' | 'focusRing' | 'boundary' | 'chevron' }
 
 export type Declared = {
   /** What a reader is actually looking at. Reads as a sentence in a failure. */
@@ -192,6 +192,9 @@ export const DECLARED: readonly Declared[] = [
   // Non-text, 3:1, on BOTH sides of the edge: the page outside, the fill inside.
   { role: "a text input's boundary against the page", fore: 'textTertiary', back: 'background', target: 3, painted: { by: 'field', part: 'boundary' } },
   { role: "a text input's boundary against its own fill", fore: 'textTertiary', back: 'surface', target: 3, painted: { by: 'field', part: 'boundary' } },
+  // Figma 16:53. The select's only addition to the field: the affordance that
+  // says it opens a list. Non-text, so 3:1. Disabled, it is an inactive control.
+  { role: "a select's chevron", fore: 'textSecondary', back: 'surface', target: 3, painted: { by: 'field', part: 'chevron' } },
 ]
 
 /**
