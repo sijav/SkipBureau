@@ -119,9 +119,11 @@ export const Ask: Story = {
     await userEvent.click(field)
     await expect(field).toHaveAttribute('aria-expanded', 'true')
 
-    // The panel renders in a portal, outside the canvas.
+    // The panel renders in a portal, outside the canvas. Its code arrives the
+    // first time it opens (SB-159), which the app does ahead of time and a
+    // story does not, so the first wait allows for that load.
     const page = within(window.document.body)
-    await expect(await page.findByText(/Popular right now/)).toBeVisible()
+    await expect(await page.findByText(/Popular right now/, undefined, { timeout: 5000 })).toBeVisible()
 
     await userEvent.type(field, 'company')
     await expect(await page.findByText(/Results for “company”/)).toBeVisible()

@@ -44,7 +44,9 @@ const run = async (server) => {
 
   let files
   try {
-    files = render(pages, readFileSync(join(dist, 'index.html'), 'utf8'), origin)
+    // Which file each module went into (SB-159), so a page can preload its own.
+    const manifest = JSON.parse(readFileSync(join(dist, '.vite', 'manifest.json'), 'utf8'))
+    files = render(pages, readFileSync(join(dist, 'index.html'), 'utf8'), origin, manifest)
   } catch (error) {
     return giveUp(reason(error))
   }

@@ -94,6 +94,17 @@ test('the file carries the page itself, and the page asks for none of it again',
   expect(errors).toEqual([])
 })
 
+test('the file asks for its screen and catalog alongside the app, not after it', async ({ request }) => {
+  // SB-159: each screen is a chunk of its own, and the guide's, with its
+  // catalog, is preloaded by the file rather than asked for once the app runs.
+  const source = await (await request.get('en/TR/guides/sim-card')).text()
+  const preloads = [...source.matchAll(/<link rel="modulepreload" crossorigin href="([^"]+)"/g)].map((match) => match[1] ?? '')
+
+  expect(preloads.some((href) => /\/assets\/guide-[\w-]+\.js$/.test(href))).toBe(true)
+  expect(preloads.some((href) => /\/assets\/en-[\w-]+\.js$/.test(href))).toBe(true)
+  for (const href of preloads) expect((await request.get(href)).status(), href).toBe(200)
+})
+
 test('without scripts, the snapshot shows in light and waits for its own palette in dark', async ({ browser, baseURL }) => {
   // The snapshot is light: a reader who prefers dark gets a dark, empty canvas
   // until the page is rendered in dark, never a flash of the light one.

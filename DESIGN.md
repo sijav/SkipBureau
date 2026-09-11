@@ -241,6 +241,17 @@ paint is the file's first paint (SB-160). The snapshot is light, the only
 palette a build can know (SB-108), so for a reader who prefers dark it stays
 hidden on a dark ground and is replaced once the page is rendered in dark.
 
+The app's script holds only what every page needs (SB-159). Each screen, and
+each of the header's popups (the language menu, the details panel, the Ask
+panel), is a chunk of its own. A page's file preloads its own screen and
+catalog next to the script, from the build's manifest, and the app waits for
+that screen before its first render, so hydration matches and no screen is
+ever empty while its code loads. Once the page is idle the other chunks load
+too, so a tap on a popup or a link finds its code already there. A screen is
+imported from its own folder, never through `src/screens`, which re-exports
+them all: one static import of that puts every screen back in the first
+script.
+
 `404.html`, a copy of the app shell, stays for everything else: a guide listed
 but not written yet, the Coming soon pages, search results, the Suggest dialog,
 an address carrying the reader's origin, and the old `/t/` and `/g/` forms.

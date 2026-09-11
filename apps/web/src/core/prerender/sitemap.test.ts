@@ -14,6 +14,7 @@ const page = (address: string, overrides: Partial<Page> = {}): Page => ({
   lastModified: null,
   sharing: [],
   body: null,
+  screen: null,
   ...overrides,
 })
 

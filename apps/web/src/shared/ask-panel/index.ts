@@ -1,2 +1,3 @@
-export { AskPanel, NothingFound, type AskPanelGroup, type AskPanelProps } from './AskPanel'
+export type { AskPanelGroup, AskPanelProps } from './AskPanel'
+export { NothingFound } from './NothingFound'
 export { useAsk, type AskBindings } from './useAsk'

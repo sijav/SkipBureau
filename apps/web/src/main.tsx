@@ -3,12 +3,36 @@ import { StrictMode } from 'react'
 import { createRoot, hydrateRoot } from 'react-dom/client'
 import { createClient } from 'src/core/graphql'
 import { loadCatalog } from 'src/core/i18n'
-import { readerFromSegment } from 'src/core/router'
+import { preloadRoute, readerFromSegment } from 'src/core/router'
 import { systemMode } from 'src/core/theme'
+import { preloadEveryPart } from 'src/shared/lazy-part'
 import { AppRoot } from './AppRoot'
 
 const root = window.document.getElementById('root')
 if (!root) throw new Error('index.html has no #root, so there is nowhere to mount')
+
+// SB-159: a deploy renames every chunk, and a page opened before it asks for
+// names that are gone. Loading the address again gets the new names. Once per
+// address, so a chunk that is really missing cannot keep reloading the page.
+const RELOADED = 'skipbureau:reloaded-for'
+window.addEventListener('vite:preloadError', () => {
+  try {
+    if (window.sessionStorage.getItem(RELOADED) === window.location.href) return
+    window.sessionStorage.setItem(RELOADED, window.location.href)
+  } catch {
+    return
+  }
+  window.location.reload()
+})
+
+// SB-159: the screen at this address, asked for now and awaited before the
+// first render, so that render has it: hydration then matches the file as it
+// did when there was one script, and a page rendered fresh never shows an
+// empty screen while its code loads. A prerendered file has already asked for
+// it, alongside the app's own script.
+const screen = preloadRoute(window.location.pathname, import.meta.env.BASE_URL).catch(() => {
+  // Its render asks again.
+})
 
 // SB-155: a prerendered page carries the results it was rendered from. With
 // those, and its catalog loaded before the first render, that render asks for
@@ -23,6 +47,8 @@ if (seed) {
     // The provider loads it again, and says so if it cannot.
   }
 }
+
+await screen
 
 const app = (
   <StrictMode>
@@ -44,3 +70,12 @@ if (seed && systemMode() === 'light') {
   }
   hydrateRoot(root, app)
 } else createRoot(root).render(app)
+
+// Everything else the app may need, once the page has what it needs and the
+// browser is idle: a tap on the language, the details or the next page then
+// finds its code already here.
+// Safari has no requestIdleCallback, so there it is the next task.
+const later = () => void preloadEveryPart()
+const whenIdle = () => (typeof window.requestIdleCallback === 'function' ? window.requestIdleCallback(later) : window.setTimeout(later, 0))
+if (window.document.readyState === 'complete') whenIdle()
+else window.addEventListener('load', whenIdle, { once: true })

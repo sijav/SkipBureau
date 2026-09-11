@@ -1,10 +1,15 @@
 import { useLingui } from '@lingui/react/macro'
-import { ButtonBase, Menu, MenuItem, Typography, useTheme } from '@mui/material'
-import { useId, useState } from 'react'
+import { ButtonBase, Typography, useTheme } from '@mui/material'
+import { Suspense, useId, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { isLocale, locales, useLocale, type Locale } from 'src/core/i18n'
+import { locales, useLocale, type Locale } from 'src/core/i18n'
 import { samePageIn } from 'src/core/router'
 import { SmallChevron } from 'src/shared/context-control'
+import { lazyPart } from 'src/shared/lazy-part'
+
+// SB-159: the menu's code, and the Popover and Modal under it, arrive the
+// first time it opens.
+const LanguageMenu = lazyPart(() => import('./LanguageMenu').then((menu) => menu.LanguageMenu))
 
 /**
  * In the header's profile slot, which is free because the product has no
@@ -17,6 +22,8 @@ export const LanguageControl = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const [anchor, setAnchor] = useState<HTMLElement | null>(null)
+  // Once opened, kept, so closing it plays the menu's own exit.
+  const [opened, setOpened] = useState(false)
   const menuId = useId()
 
   const choose = (next: Locale) => {
@@ -31,7 +38,10 @@ export const LanguageControl = () => {
         aria-label={t`Language`}
         aria-haspopup="menu"
         aria-controls={anchor ? menuId : undefined}
-        onClick={(event) => setAnchor(event.currentTarget)}
+        onClick={(event) => {
+          setAnchor(event.currentTarget)
+          setOpened(true)
+        }}
         sx={{
           // The profile control's 34 high, from 8 above and below a 16 line and
           // the stroke inside, so the label sets the width, not a number.
@@ -49,15 +59,11 @@ export const LanguageControl = () => {
         </Typography>
         <SmallChevron aria-hidden sx={{ width: '14px', height: '14px', color: tokens.textSecondary }} />
       </ButtonBase>
-      <Menu id={menuId} anchorEl={anchor} open={Boolean(anchor)} onClose={() => setAnchor(null)}>
-        {Object.keys(locales)
-          .filter(isLocale)
-          .map((option) => (
-            <MenuItem key={option} selected={option === locale} lang={option} onClick={() => choose(option)}>
-              {locales[option].label}
-            </MenuItem>
-          ))}
-      </Menu>
+      {opened && (
+        <Suspense fallback={null}>
+          <LanguageMenu id={menuId} anchor={anchor} current={locale} onChoose={choose} onClose={() => setAnchor(null)} />
+        </Suspense>
+      )}
     </>
   )
 }

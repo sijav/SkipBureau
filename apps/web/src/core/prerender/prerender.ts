@@ -29,11 +29,22 @@ export type Page = {
   sharing: readonly MetaTag[]
   /** The page itself, rendered (SB-155); null until `collect` renders it. */
   body: RenderedPage | null
+  /** The module its route's screen is built from, as Vite's manifest names it (SB-159). */
+  screen: string | null
 }
 
 export type PrerenderedFile = { file: string; content: string }
 
 type Extras = { structuredData?: readonly StructuredDatum[]; lastModified?: string | null | undefined }
+
+// The module each screen is built from (SB-159). The route decides it, not the
+// head: a goal with one area is the task hub's screen showing that area.
+const SCREEN = {
+  home: 'src/screens/home/index.ts',
+  taskHub: 'src/screens/task-hub/index.ts',
+  categoryHub: 'src/screens/category-hub/index.ts',
+  guide: 'src/screens/guide/index.ts',
+} as const
 
 const ask = async <Data, Variables extends AnyVariables>(client: Client, query: DocumentInput<Data, Variables>, variables: Variables): Promise<Data> => {
   const { data, error } = await client.query(query, variables, { requestPolicy: 'network-only' }).toPromise()
@@ -54,7 +65,7 @@ const pagesIn = async (client: Client, locale: Locale, origin: string): Promise<
   for (const { code, name } of countries) {
     // The API has just listed it, which is what `validated` records.
     const country = validated(code)
-    const add = (address: string, head: PageHeadProps, { structuredData = [], lastModified = null }: Extras = {}) =>
+    const add = (address: string, screen: string, head: PageHeadProps, { structuredData = [], lastModified = null }: Extras = {}) =>
       pages.push({
         address,
         locale,
@@ -65,12 +76,13 @@ const pagesIn = async (client: Client, locale: Locale, origin: string): Promise<
         lastModified,
         sharing: pageSharing(head, { i18n, place: name, locale, origin }),
         body: null,
+        screen,
       })
 
     const home = i18n._(msg`Home`)
 
     // The country's home has no date of its own, and gets none invented.
-    add(paths.home(at(country)), homeHead(i18n, country, name), { structuredData: homeData(locale, origin) })
+    add(paths.home(at(country)), SCREEN.home, homeHead(i18n, country, name), { structuredData: homeData(locale, origin) })
 
     // A goal is open once it has an area, which is how the home page decides.
     const { categories } = await ask(client, HomeQuery, { country, locale })
@@ -81,7 +93,7 @@ const pagesIn = async (client: Client, locale: Locale, origin: string): Promise<
       if (!only) {
         // Dated by its newest source check, as the page says it was reviewed.
         const lastModified = newest(taskHub.sources.map((source) => source.verifiedAt))
-        add(paths.taskHub(at(country), goal), taskHubHead(taskHub, country, name), {
+        add(paths.taskHub(at(country), goal), SCREEN.taskHub, taskHubHead(taskHub, country, name), {
           structuredData: taskHubData(taskHub, country, locale, origin, home, name),
           lastModified,
         })
@@ -90,7 +102,7 @@ const pagesIn = async (client: Client, locale: Locale, origin: string): Promise<
       // The goal's address shows its only area, and its head is that area's.
       const { categoryHub } = await ask(client, CategoryHubQuery, { country, goal, slug: only, locale })
       if (categoryHub) {
-        add(paths.taskHub(at(country), goal), categoryHubHead(categoryHub, country, name), {
+        add(paths.taskHub(at(country), goal), SCREEN.taskHub, categoryHubHead(categoryHub, country, name), {
           structuredData: categoryHubData(categoryHub, country, locale, origin, home, name),
           lastModified: categoryHub.lastReviewed,
         })
@@ -101,7 +113,7 @@ const pagesIn = async (client: Client, locale: Locale, origin: string): Promise<
       const { categoryHub } = await ask(client, CategoryHubQuery, { country, goal: category.taskSlug, slug: category.slug, locale })
       if (categoryHub) {
         const address = paths.categoryHub(at(country), category.taskSlug, category.slug)
-        add(address, categoryHubHead(categoryHub, country, name), {
+        add(address, SCREEN.categoryHub, categoryHubHead(categoryHub, country, name), {
           structuredData: categoryHubData(categoryHub, country, locale, origin, home, name),
           lastModified: categoryHub.lastReviewed,
         })
@@ -114,7 +126,7 @@ const pagesIn = async (client: Client, locale: Locale, origin: string): Promise<
     for (const { slug } of guides) {
       const { guide } = await ask(client, GuideQuery, { country, slug, locale })
       if (guide && isWritten(guide)) {
-        add(paths.guide(at(country), slug), guideHead(guide, country), {
+        add(paths.guide(at(country), slug), SCREEN.guide, guideHead(guide, country), {
           structuredData: guideData(guide, country, locale, origin, home),
           lastModified: guide.verifiedAt,
         })
@@ -169,6 +181,34 @@ const hoistStyles = (html: string): { styles: string[]; markup: string } => ({
   markup: html.replace(EMOTION_STYLE, ''),
 })
 
+/** Vite's manifest, as much as the prerender reads: the file each module was built into, and the files that one imports. */
+export type Manifest = Readonly<Record<string, { file: string; imports?: readonly string[]; isEntry?: boolean }>>
+
+// A module's file and every file it imports, however deep.
+const chunkFiles = (manifest: Manifest, key: string, found = new Set<string>()): Set<string> => {
+  const chunk = manifest[key]
+  if (!chunk || found.has(chunk.file)) return found
+  found.add(chunk.file)
+  for (const next of chunk.imports ?? []) chunkFiles(manifest, next, found)
+  return found
+}
+
+/**
+ * SB-159: what a page's first render needs beyond the app's own script, asked
+ * for alongside it rather than once it has run: its screen and its catalog.
+ * Whatever the entry imports, the template already preloads.
+ */
+const preloads = (manifest: Manifest, page: Page): string[] => {
+  const entry = new Set(
+    Object.keys(manifest)
+      .filter((key) => manifest[key]?.isEntry)
+      .flatMap((key) => [...chunkFiles(manifest, key)]),
+  )
+  const catalog = `src/locales/${locales[page.locale].catalog}.mjs`
+  const files = new Set([page.screen, catalog].flatMap((key) => (key ? [...chunkFiles(manifest, key)] : [])))
+  return [...files].filter((file) => !entry.has(file)).map((file) => `<link rel="modulepreload" crossorigin href="${escape(`${import.meta.env.BASE_URL}${file}`)}" />`)
+}
+
 /**
  * The built index.html filled in for each page, at `address.html`, which Pages
  * serves for `address`. Where other pages live below an address it is also a
@@ -176,7 +216,7 @@ const hoistStyles = (html: string): { styles: string[]; markup: string } => ({
  * two Pages prefers serves it. Then the sitemap of those same pages, and the
  * robots.txt that names it.
  */
-export const render = (pages: readonly Page[], template: string, origin: string): PrerenderedFile[] => {
+export const render = (pages: readonly Page[], template: string, origin: string, manifest: Manifest = {}): PrerenderedFile[] => {
   if (!HTML.test(template) || !TITLE.test(template) || !template.includes(HEAD_END) || !template.includes(ROOT)) {
     throw new Error('index.html no longer has the <html>, <title>, </head> and empty #root this fills in')
   }
@@ -184,6 +224,7 @@ export const render = (pages: readonly Page[], template: string, origin: string)
 
   const files = pages.flatMap((page) => {
     const tags = [
+      ...preloads(manifest, page),
       page.description === null ? null : `<meta name="description" content="${escape(page.description)}" data-prerendered />`,
       `<link rel="canonical" href="${escape(absolute(page.links.canonical, origin))}" data-prerendered />`,
       ...page.links.alternates.map(

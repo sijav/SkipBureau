@@ -176,8 +176,9 @@ export default tseslint.config(
             // As the wordmark writes it (Figma 43:523).
             '^Skipbureau$',
           ],
-          // Text that goes to a developer, never to a reader.
-          ignoreFunctions: ['console.*', 'Error', 'window.document.getElementById', 'window.document.head.querySelectorAll'],
+          // Text that goes to a developer, never to a reader; an event's name
+          // is machinery too, `vite:preloadError` among them.
+          ignoreFunctions: ['console.*', 'Error', 'window.document.getElementById', 'window.document.head.querySelectorAll', 'window.addEventListener'],
           ignoreNames: [
             { regex: { pattern: '^(data-|aria-controls|id|key|role|variant|component|color)' } },
             // A route pattern is an address, not something anyone reads.

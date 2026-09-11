@@ -1,6 +1,5 @@
 import { useLingui } from '@lingui/react/macro'
-import { ClickAwayListener, Popper } from '@mui/material'
-import { useId, useMemo, useState } from 'react'
+import { Suspense, useId, useMemo, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useQuery } from 'urql'
 import { REGIONS, regionName } from 'src/core/country'
@@ -8,8 +7,12 @@ import { CountriesQuery } from 'src/core/graphql'
 import { useLocale } from 'src/core/i18n'
 import { samePageFrom } from 'src/core/router'
 import { useShell } from 'src/core/shell'
+import { lazyPart } from 'src/shared/lazy-part'
 import { ContextControl } from './ContextControl'
-import { ContextPanel } from './ContextPanel'
+
+// SB-159: the panel, with the Autocomplete and Popper it is built on, arrives
+// the first time it opens.
+const ContextPopper = lazyPart(() => import('./ContextPopper').then((popper) => popper.ContextPopper))
 
 /**
  * The context control wired to the address. Where the reader says they come
@@ -47,40 +50,22 @@ export const YourDetails = () => {
         controls={id}
         onClick={() => setOpen(!open)}
       />
-      <Popper
-        open={open}
-        anchorEl={anchor}
-        placement="bottom-end"
-        modifiers={[{ name: 'offset', options: { offset: [0, 8] } }]}
-        sx={{ zIndex: 'modal' }}
-      >
-        <ClickAwayListener
-          onClickAway={(event) => {
-            // The control toggles the panel itself.
-            if (event.target instanceof Node && anchor?.contains(event.target)) return
-            setOpen(false)
-          }}
-        >
-          <div
-            onKeyDown={(event) => {
-              if (event.key !== 'Escape') return
+      {open && (
+        <Suspense fallback={null}>
+          <ContextPopper
+            anchor={anchor}
+            onClose={() => setOpen(false)}
+            id={id}
+            origin={origin && originName ? { code: origin, name: originName } : null}
+            countryName={countryName ?? ''}
+            options={options}
+            onOrigin={(code) => {
               setOpen(false)
-              anchor?.focus()
+              void navigate(samePageFrom(location, code))
             }}
-          >
-            <ContextPanel
-              id={id}
-              origin={origin && originName ? { code: origin, name: originName } : null}
-              countryName={countryName ?? ''}
-              options={options}
-              onOrigin={(code) => {
-                setOpen(false)
-                void navigate(samePageFrom(location, code))
-              }}
-            />
-          </div>
-        </ClickAwayListener>
-      </Popper>
+          />
+        </Suspense>
+      )}
     </>
   )
 }

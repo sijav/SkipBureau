@@ -52,4 +52,7 @@ export default defineConfig({
   // GitHub Pages serves the site from a repository subpath, so the built asset
   // URLs have to carry it. SB-013 sets this from CI; it is root in development.
   base: process.env.SKIPBUREAU_BASE ?? '/',
+  // Which file each module was built into, for the prerender: a page's file
+  // preloads its own screen's chunk and catalog alongside the entry (SB-159).
+  build: { manifest: true },
 })

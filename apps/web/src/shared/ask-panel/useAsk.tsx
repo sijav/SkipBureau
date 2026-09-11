@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/react/macro'
-import { useDeferredValue, useEffect, useId, useState, type KeyboardEvent, type ReactNode } from 'react'
+import { Suspense, useDeferredValue, useEffect, useId, useState, type KeyboardEvent, type ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'urql'
 import { withCountry } from 'src/core/country'
@@ -8,7 +8,12 @@ import { formatMonth, useLocale } from 'src/core/i18n'
 import { paths, useShellJourney } from 'src/core/router'
 import { useShell } from 'src/core/shell'
 import { AskResultRow } from 'src/shared/ask-result-row'
-import { AskPanel, NothingFound, type AskPanelGroup } from './AskPanel'
+import { lazyPart } from 'src/shared/lazy-part'
+import type { AskPanelGroup } from './AskPanel'
+import { NothingFound } from './NothingFound'
+
+// SB-159: the panel, and the Popper under it, arrive the first time it opens.
+const AskPanel = lazyPart(() => import('./AskPanel').then((panel) => panel.AskPanel))
 
 /** What an Ask field needs from the panel it opens: where to anchor, and its input's wiring. */
 export type AskBindings = {
@@ -176,14 +181,17 @@ export const useAsk = ({ question, onQuestion }: { question: string; onQuestion:
 
   return {
     bindings,
-    panel: (
-      <AskPanel
-        anchor={anchor}
-        open={open && groups.length > 0}
-        id={id}
-        groups={groups}
-        footer={text ? <Trans>We’ll ask about your nationality or city only if it changes the answer.</Trans> : undefined}
-      />
-    ),
+    panel:
+      open && groups.length > 0 ? (
+        <Suspense fallback={null}>
+          <AskPanel
+            anchor={anchor}
+            open
+            id={id}
+            groups={groups}
+            footer={text ? <Trans>We’ll ask about your nationality or city only if it changes the answer.</Trans> : undefined}
+          />
+        </Suspense>
+      ) : null,
   }
 }

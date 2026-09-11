@@ -4,7 +4,8 @@ import { useQuery } from 'urql'
 import { CountryProvider, validated } from 'src/core/country'
 import { CountryQuery } from 'src/core/graphql'
 import { useShell } from 'src/core/shell'
-import { NotFound, Unreachable } from 'src/screens'
+import { NotFound } from 'src/screens/NotFound'
+import { Unreachable } from 'src/screens/Unreachable'
 import { canonicalPath, countryFromSegment, readerFromSegment } from './paths'
 
 /**

@@ -35,6 +35,12 @@ export const renderPage = async ({ address, locale, origin, endpoint }: { addres
         </LocaleShell>
       </SiteProvider>
     </StaticRouter>,
+    // A finished Suspense boundary larger than this is written as a hidden
+    // block that an inline script moves into place, so that a stream can show
+    // what comes before it sooner. Here nothing streams, and a hidden block is
+    // what a crawler without scripts reads and a hydration does not match:
+    // every boundary is written where it stands (SB-159).
+    { progressiveChunkSize: Number.POSITIVE_INFINITY },
   )
 
   return { html: await new Response(prelude).text(), data: ssr.extractData() }
