@@ -63,10 +63,11 @@ jobs:
           body=$(jq -n '{buildConfiguration: {isAllowList: true, pathIgnoreRules: ["apps/api/**", "apps/web/package.json", "package.json", "package-lock.json", ".dockerignore"]}}')
           code=$(curl -sS -o response.json -w '%{http_code}' -X PATCH \
             -H "Authorization: Bearer $NF_TOKEN" -H 'Content-Type: application/json' \
-            -d "$body" "$API/projects/$PROJECT/services/$SERVICE")
+            -d "$body" "$API/projects/$PROJECT/services/combined/$SERVICE")
           if [ "$code" -ge 300 ]; then
             echo "::error::Northflank answered $code"
-            jq '{error}' response.json
+            # Its error object where the answer is JSON, else the start of the text.
+            jq '{error}' response.json 2> /dev/null || head -c 400 response.json
             exit 1
           fi
           echo "saved:"
