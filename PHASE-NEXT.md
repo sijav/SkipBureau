@@ -60,3 +60,19 @@ works, and a guide a hub lists before anyone has written it, each land on one
 Coming soon page that says what will be there and links back. In the context
 panel, the four rows after Nationality say Coming soon rather than offering an
 Add that does nothing.
+
+## An obligation's name can be edited; its history cannot
+
+**Decided 2026-09-11**, making rule history append-only throughout (SB-081).
+
+A version, its facts, texts and criteria, and a group membership are history
+once they have started, and the database refuses to change or delete them
+(`20260911200000_rule_history_is_append_only_throughout`). `Obligation`,
+`ObligationText` and a `NationalityGroup`'s name are not guarded that way: they
+name an obligation or a group, which is editorial, and not what a rule said on
+a date. The seed updates an obligation's titles by design. What would rewrite
+the past is still refused: deleting an obligation, a country or a group that
+has history cascades to rows whose triggers refuse it.
+
+**Undo it** by guarding them too, the day an obligation's `kind` or slug comes
+to change what a past answer says rather than how it is labelled.
