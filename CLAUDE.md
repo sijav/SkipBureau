@@ -256,16 +256,16 @@ never edit live content. An admin panel moderates them. No end-user accounts.
 - Content seeded from a repo file, then edited through the admin panel.
 - Ships to `https://github.com/sijav/SkipBureau` with `gh`. Web on GitHub Pages,
   API and database on free tiers only. Fly.io has no free tier.
-- **An API change deploys only if the push also bumps the API's version.**
-  Northflank builds the API only when a push changes one of nine files, and
-  none of them is the API's code (SB-136): `apps/api/package.json`,
-  `package.json`, `package-lock.json`, `.dockerignore`, `apps/web/package.json`
-  and four that do not exist. Its build-options form refuses every save with
-  "Match failed", so the list cannot be corrected there. So every push that
-  changes `apps/api` runs `npm version patch -w @skipbureau/api
-  --no-git-tag-version` in the same push, which moves both
-  `apps/api/package.json` and the lockfile. Forget it and the change is on
-  `main` and not on the live API, and nothing says so.
+- **Northflank builds the API only when a push changes what the API is built
+  from** (SB-136, SB-156): `apps/api/**`, `apps/web/package.json`,
+  `package.json`, `package-lock.json`, `.dockerignore`, in allow mode, with a
+  readiness probe on `GET /health` so a rollout costs about one failed request
+  rather than minutes. Anything else pushed leaves the API alone. If the API's
+  image ever reads a new file from outside `apps/api`, it has to be added to
+  that list or changes to it will never deploy. Northflank's own form refuses
+  to save these rules ("Match failed"), so they are set through its API by
+  `.github/workflows/northflank-path-rules.yml`, run by hand, with the owner's
+  repository secret `NORTHFLANK_TOKEN`.
 
 ### Before publishing: the tree is not the history
 
