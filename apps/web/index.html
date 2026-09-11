@@ -8,6 +8,12 @@
          white flash on every cold load. It cannot apply our background, only
          let the user agent pick a matching one. -->
     <meta name="color-scheme" content="light dark" />
+    <!-- SB-157: the wordmark's mark, what a tab, a search result and a home
+         screen show. Made by scripts/icons.mjs from the tokens. -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
     <!-- React adds a page's own title rather than adopting this one, so the
          marker is what lets the page's head take it out (SB-085). The
          prerender (SB-076) writes each page's title here. -->

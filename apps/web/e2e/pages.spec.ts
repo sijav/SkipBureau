@@ -64,6 +64,17 @@ test('the sitemap lists the guide, dated, with its other language', async ({ req
   expect(xml).toMatch(/hreflang="fa" href="[^"]*\/fa\/TR\/guides\/sim-card"/)
 })
 
+test('a page carries the mark, and every icon it links is there', async ({ request }) => {
+  // SB-157: what a tab, a search result and a home screen show.
+  const source = await (await request.get('en/TR/guides/sim-card')).text()
+  const links = [...source.matchAll(/<link rel="(?:icon|apple-touch-icon|manifest)" href="([^"]+)"/g)].map((match) => match[1] ?? '')
+
+  expect(links).toHaveLength(4)
+  for (const href of links) expect((await request.get(href)).status(), href).toBe(200)
+  expect(source).toContain('name="theme-color"')
+  expect(source).toContain('media="(prefers-color-scheme: dark)"')
+})
+
 test('an address shared before the markers were spelled out still arrives', async ({ page }) => {
   await page.goto('en/tr/g/sim-card', { waitUntil: 'load' })
 

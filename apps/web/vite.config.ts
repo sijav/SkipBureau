@@ -2,7 +2,8 @@ import react from '@vitejs/plugin-react-swc'
 import { copyFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { defineConfig, type Plugin } from 'vite'
+import { defineConfig, type HtmlTagDescriptor, type Plugin } from 'vite'
+import { dark, light } from './src/core/theme/tokens'
 
 const here = dirname(fileURLToPath(import.meta.url))
 
@@ -27,8 +28,26 @@ const pagesFallback = (): Plugin => ({
   },
 })
 
+/**
+ * SB-157: the browser's own chrome, a phone's address bar, in the page's
+ * ground, one per scheme. From the tokens rather than typed into index.html, so
+ * it follows the palette with no second copy.
+ */
+const themeColour = (): Plugin => ({
+  name: 'skipbureau-theme-colour',
+  transformIndexHtml: () =>
+    [
+      { scheme: 'light', ground: light.background },
+      { scheme: 'dark', ground: dark.background },
+    ].map(({ scheme, ground }): HtmlTagDescriptor => ({
+      tag: 'meta',
+      attrs: { name: 'theme-color', content: ground, media: `(prefers-color-scheme: ${scheme})` },
+      injectTo: 'head',
+    })),
+})
+
 export default defineConfig({
-  plugins: [lingui(), pagesFallback()],
+  plugins: [lingui(), pagesFallback(), themeColour()],
   resolve: { alias: { src: join(here, 'src') } },
   // GitHub Pages serves the site from a repository subpath, so the built asset
   // URLs have to carry it. SB-013 sets this from CI; it is root in development.
