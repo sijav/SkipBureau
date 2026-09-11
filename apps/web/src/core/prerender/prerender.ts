@@ -5,7 +5,7 @@ import { validated, type CountryCode } from 'src/core/country'
 import { CategoryHubQuery, CountriesQuery, createClient, GuideQuery, GuidesQuery, HomeQuery, TaskHubQuery } from 'src/core/graphql'
 import { isLocale, loadCatalog, locales, type Locale } from 'src/core/i18n'
 import { paths } from 'src/core/router'
-import { categoryHubHead, guideData, guideHead, homeHead, isWritten, onlyArea, taskHubHead } from 'src/screens'
+import { categoryHubData, categoryHubHead, guideData, guideHead, homeData, homeHead, isWritten, onlyArea, taskHubData, taskHubHead } from 'src/screens'
 import { documentTitle, type PageHeadProps } from 'src/shared/page-head'
 import { absolute, pageLanguages, type LanguageLinks } from 'src/shared/page-languages'
 import { JSON_LD, jsonLd, type StructuredDatum } from 'src/shared/structured-data'
@@ -59,8 +59,10 @@ const pagesIn = async (client: Client, locale: Locale, origin: string): Promise<
         lastModified,
       })
 
+    const home = i18n._(msg`Home`)
+
     // The country's home has no date of its own, and gets none invented.
-    add(paths.home(at(country)), homeHead(i18n, country, name))
+    add(paths.home(at(country)), homeHead(i18n, country, name), { structuredData: homeData(locale, origin) })
 
     // A goal is open once it has an area, which is how the home page decides.
     const { categories } = await ask(client, HomeQuery, { country, locale })
@@ -71,19 +73,30 @@ const pagesIn = async (client: Client, locale: Locale, origin: string): Promise<
       if (!only) {
         // Dated by its newest source check, as the page says it was reviewed.
         const lastModified = newest(taskHub.sources.map((source) => source.verifiedAt))
-        add(paths.taskHub(at(country), goal), taskHubHead(taskHub, country, name), { lastModified })
+        add(paths.taskHub(at(country), goal), taskHubHead(taskHub, country, name), {
+          structuredData: taskHubData(taskHub, country, locale, origin, home, name),
+          lastModified,
+        })
         continue
       }
       // The goal's address shows its only area, and its head is that area's.
       const { categoryHub } = await ask(client, CategoryHubQuery, { country, goal, slug: only, locale })
-      if (categoryHub) add(paths.taskHub(at(country), goal), categoryHubHead(categoryHub, country, name), { lastModified: categoryHub.lastReviewed })
+      if (categoryHub) {
+        add(paths.taskHub(at(country), goal), categoryHubHead(categoryHub, country, name), {
+          structuredData: categoryHubData(categoryHub, country, locale, origin, home, name),
+          lastModified: categoryHub.lastReviewed,
+        })
+      }
     }
 
     for (const category of categories) {
       const { categoryHub } = await ask(client, CategoryHubQuery, { country, goal: category.taskSlug, slug: category.slug, locale })
       if (categoryHub) {
         const address = paths.categoryHub(at(country), category.taskSlug, category.slug)
-        add(address, categoryHubHead(categoryHub, country, name), { lastModified: categoryHub.lastReviewed })
+        add(address, categoryHubHead(categoryHub, country, name), {
+          structuredData: categoryHubData(categoryHub, country, locale, origin, home, name),
+          lastModified: categoryHub.lastReviewed,
+        })
       }
     }
 
@@ -94,7 +107,7 @@ const pagesIn = async (client: Client, locale: Locale, origin: string): Promise<
       const { guide } = await ask(client, GuideQuery, { country, slug, locale })
       if (guide && isWritten(guide)) {
         add(paths.guide(at(country), slug), guideHead(guide, country), {
-          structuredData: guideData(guide, country, locale, origin, i18n._(msg`Home`)),
+          structuredData: guideData(guide, country, locale, origin, home),
           lastModified: guide.verifiedAt,
         })
       }

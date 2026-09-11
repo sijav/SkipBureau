@@ -10,11 +10,12 @@ import { useAsk } from 'src/shared/ask-panel'
 import { AskResultRow } from 'src/shared/ask-result-row'
 import { Page } from 'src/shared/page'
 import { PageHead } from 'src/shared/page-head'
+import { StructuredData } from 'src/shared/structured-data'
 import { Section } from 'src/shared/section'
 import { TaskTile } from 'src/shared/task-tile'
 import { TileGrid } from 'src/shared/tile-grid'
 import { Unreachable } from 'src/screens/Unreachable'
-import { homeHead } from './head'
+import { homeData, homeHead } from './head'
 import { HomeHero } from './HomeHero'
 import { useOwnsAsk } from './useOwnsAsk'
 
@@ -48,6 +49,7 @@ export const Home = () => {
   return (
     <Page>
       <PageHead {...homeHead(i18n, country, name)} />
+      <StructuredData data={homeData(locale, window.location.origin)} />
       <HomeHero
         name={name}
         question={question}

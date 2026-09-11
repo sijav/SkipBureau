@@ -8,7 +8,7 @@ import { expect, test } from '@playwright/test'
  */
 
 const GUIDE = 'Get a SIM Card or eSIM'
-const TITLE = `${GUIDE} in Turkey · SkipBureau`
+const TITLE = `${GUIDE} in Turkey · Skipbureau`
 
 test('a guide opens cold, left to right', async ({ page }) => {
   const response = await page.goto('en/TR/guides/sim-card', { waitUntil: 'load' })
@@ -52,6 +52,22 @@ test('a guide opens cold, right to left', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
   await expect(page).toHaveURL(/\/fa\/TR\/guides\/sim-card$/)
   await expect(page.locator('html')).toHaveAttribute('dir', 'rtl')
+})
+
+test('the home and a hub say what they are to a machine too', async ({ request }) => {
+  // SB-158: the home names the site and its publisher; an area hub its trail.
+  const blocksOf = async (address: string) => {
+    const source = await (await request.get(address)).text()
+    return [...source.matchAll(/<script type="application\/ld\+json"[^>]*>(.*?)<\/script>/gs)].map((match) => JSON.parse(match[1] ?? ''))
+  }
+
+  const home = await blocksOf('en/TR')
+  expect(home.map((block) => block['@type'])).toEqual(['WebSite', 'Organization'])
+  expect(home[1].logo).toMatch(/\/icon-512\.png$/)
+
+  const [trail] = await blocksOf('en/TR/tasks/start-a-business/register-your-company')
+  expect(trail['@type']).toBe('BreadcrumbList')
+  expect(trail.itemListElement.map((item: { position: number }) => item.position)).toEqual([1, 2, 3])
 })
 
 test('the sitemap lists the guide, dated, with its other language', async ({ request }) => {

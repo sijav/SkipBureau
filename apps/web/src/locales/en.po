@@ -34,8 +34,12 @@ msgid "{minutes} min read"
 msgstr "{minutes} min read"
 
 #: src/shared/page-head/title.ts
-msgid "{named} · SkipBureau"
-msgstr "{named} · SkipBureau"
+msgid "{named} · Skipbureau"
+msgstr "{named} · Skipbureau"
+
+#: src/shared/page-head/title.ts
+#~ msgid "{named} · SkipBureau"
+#~ msgstr "{named} · SkipBureau"
 
 #: src/shared/page-head/title.ts
 msgid "{title} in {place}"
@@ -499,8 +503,10 @@ msgstr "Health insurance renewal"
 msgid "Helps if you have held a permit before"
 msgstr "Helps if you have held a permit before"
 
+#: src/core/prerender/prerender.ts
 #: src/screens/category-hub/CategoryHub.tsx
 #: src/screens/guide/Guide.tsx
+#: src/screens/task-hub/TaskHub.tsx
 #: src/shared/breadcrumb/Breadcrumb.stories.tsx
 msgid "Home"
 msgstr "Home"

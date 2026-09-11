@@ -1,2 +1,2 @@
 export { CategoryHub, type CategoryHubProps } from './CategoryHub'
-export { categoryHubHead } from './head'
+export { categoryHubData, categoryHubHead, showsGoal } from './head'

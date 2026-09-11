@@ -14,11 +14,12 @@ import { Breadcrumb } from 'src/shared/breadcrumb'
 import { ChecklistLine } from 'src/shared/checklist-line'
 import { Page } from 'src/shared/page'
 import { PageHead } from 'src/shared/page-head'
+import { StructuredData } from 'src/shared/structured-data'
 import { TopicItem } from 'src/shared/topic-item'
 import { useOwnsAsk } from 'src/screens/home'
 import { NotFound } from 'src/screens/NotFound'
 import { Unreachable } from 'src/screens/Unreachable'
-import { categoryHubHead } from './head'
+import { categoryHubData, categoryHubHead, showsGoal } from './head'
 import { RecommendedStart } from './RecommendedStart'
 
 export type CategoryHubProps = {
@@ -56,16 +57,15 @@ export const CategoryHub = (props: CategoryHubProps) => {
 
   const fill = (text: string) => withCountry(text, name)
   const home = paths.home(journey)
-  // A goal with one area opens it directly, so the goal is not a step between.
-  const trail =
-    hub.goalAreas > 1
-      ? [{ label: <Trans>Home</Trans>, to: home }, { label: <bdi>{fill(hub.goalTitle)}</bdi>, to: paths.taskHub(journey, hub.goalSlug) }, { label: <bdi>{hub.title}</bdi> }]
-      : [{ label: <Trans>Home</Trans>, to: home }, { label: <bdi>{hub.title}</bdi> }]
+  const trail = showsGoal(hub)
+    ? [{ label: <Trans>Home</Trans>, to: home }, { label: <bdi>{fill(hub.goalTitle)}</bdi>, to: paths.taskHub(journey, hub.goalSlug) }, { label: <bdi>{hub.title}</bdi> }]
+    : [{ label: <Trans>Home</Trans>, to: home }, { label: <bdi>{hub.title}</bdi> }]
   const reviewed = hub.lastReviewed ? formatMonth(hub.lastReviewed, locale, 'long') : null
 
   return (
     <Page>
       <PageHead {...categoryHubHead(hub, country, name)} />
+      <StructuredData data={categoryHubData(hub, country, locale, window.location.origin, t`Home`, name)} />
       <Box sx={{ paddingTop: '36px' }}>
         <Breadcrumb trail={trail} />
       </Box>

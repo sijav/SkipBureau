@@ -1,4 +1,4 @@
-import type { Article, BreadcrumbList, HowTo, Organization, WithContext } from 'schema-dts'
+import type { Article, BreadcrumbList, HowTo, Organization, OrganizationLeaf, WebSite, WithContext } from 'schema-dts'
 
 /** The slice of a guide the markup needs, which the guide query already carries. */
 export type GuideForData = {
@@ -24,11 +24,19 @@ export type GuideDataContext = {
   trail: readonly Crumb[]
 }
 
-export type StructuredDatum = WithContext<Article> | WithContext<BreadcrumbList> | WithContext<HowTo>
+export type StructuredDatum = WithContext<Article> | WithContext<BreadcrumbList> | WithContext<HowTo> | WithContext<WebSite> | WithContext<OrganizationLeaf>
 
 export const JSON_LD = 'application/ld+json'
 
-const SITE_NAME = 'SkipBureau'
+/** The name as the wordmark writes it (Figma 43:523). */
+export const SITE_NAME = 'Skipbureau'
+
+/** A trail as schema.org writes one: the page's place in the site, first to last. */
+export const breadcrumbList = (trail: readonly Crumb[]): WithContext<BreadcrumbList> => ({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: trail.map((crumb, index) => ({ '@type': 'ListItem', position: index + 1, name: crumb.name, item: crumb.url })),
+})
 
 /**
  * SB-087. Article carries the verified date, which is what Google reads a
@@ -66,11 +74,7 @@ export const guideStructuredData = (guide: GuideForData, { url, site, trail }: G
       : {}),
   }
 
-  const breadcrumbs: WithContext<BreadcrumbList> = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: trail.map((crumb, index) => ({ '@type': 'ListItem', position: index + 1, name: crumb.name, item: crumb.url })),
-  }
+  const breadcrumbs = breadcrumbList(trail)
 
   if (steps.length === 0) return [article, breadcrumbs]
 

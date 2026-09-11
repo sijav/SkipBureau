@@ -1,9 +1,11 @@
 import type { I18n } from '@lingui/core'
 import { msg } from '@lingui/core/macro'
 import type { CountryCode } from 'src/core/country'
-import { locales } from 'src/core/i18n'
+import { locales, type Locale } from 'src/core/i18n'
 import { paths } from 'src/core/router'
 import type { PageHeadProps } from 'src/shared/page-head'
+import { absolute } from 'src/shared/page-languages'
+import { homeStructuredData, type StructuredDatum } from 'src/shared/structured-data'
 
 // The heading and the line under it, the same messages the hero shows.
 export const homeHead = (i18n: I18n, country: CountryCode, name: string): PageHeadProps => ({
@@ -12,3 +14,7 @@ export const homeHead = (i18n: I18n, country: CountryCode, name: string): PageHe
   path: (locale) => paths.home({ locale, origin: null, country }),
   languages: Object.keys(locales),
 })
+
+/** SB-158: the site and who publishes it, with the 512 icon (SB-157) as the logo. */
+export const homeData = (locale: Locale, origin: string): StructuredDatum[] =>
+  homeStructuredData({ site: absolute('/', origin), logo: absolute('/icon-512.png', origin), locale })

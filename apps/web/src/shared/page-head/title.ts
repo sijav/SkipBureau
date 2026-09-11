@@ -9,5 +9,6 @@ import { msg } from '@lingui/core/macro'
  */
 export const documentTitle = (i18n: I18n, title: string, place: string): string => {
   const named = title.includes(place) ? title : i18n._(msg`${title} in ${place}`)
-  return i18n._(msg`${named} · SkipBureau`)
+  // The name as the wordmark writes it (Figma 43:523).
+  return i18n._(msg`${named} · Skipbureau`)
 }

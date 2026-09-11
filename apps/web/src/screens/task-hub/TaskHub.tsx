@@ -15,12 +15,13 @@ import { Page } from 'src/shared/page'
 import { PageHead } from 'src/shared/page-head'
 import { Section } from 'src/shared/section'
 import { SourceCard } from 'src/shared/source-card'
+import { StructuredData } from 'src/shared/structured-data'
 import { TopicItem } from 'src/shared/topic-item'
 import { CategoryHub } from 'src/screens/category-hub'
 import { NotFound } from 'src/screens/NotFound'
 import { Unreachable } from 'src/screens/Unreachable'
 import { GuidedSetup } from './GuidedSetup'
-import { onlyArea, taskHubHead } from './head'
+import { onlyArea, taskHubData, taskHubHead } from './head'
 
 const KIND = {
   decision: msg`Decision`,
@@ -76,6 +77,7 @@ export const TaskHub = () => {
   return (
     <Page>
       <PageHead {...taskHubHead(hub, country, name)} />
+      <StructuredData data={taskHubData(hub, country, locale, window.location.origin, t`Home`, name)} />
       <Box sx={{ maxWidth: layout.columnWidth }}>
         <Stack spacing="14px" sx={{ paddingTop: '56px', paddingBottom: '32px' }}>
           <Typography variant="caption" sx={{ color: tokens.textSecondary }}>
