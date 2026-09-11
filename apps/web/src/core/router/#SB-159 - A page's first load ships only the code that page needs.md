@@ -109,6 +109,30 @@ the Select it brings, Menu with Popover and Modal, Popper with popper.js.
   heading. A navigation with the next screen's chunk held back two seconds
   kept the guide on screen the whole time.
 
+## Measured after
+
+Live guide, the same profile and script, light, runs two and three (the first
+after the deploy met a cold CDN and painted at 3.7 s):
+
+- scripts before `load`: 174.0 kB gzipped in 17 files, the catalog included,
+  against 209.2 kB in two; another 64 kB arrives after `load`, when idle;
+- first paint and LCP at 1.05 s, the heading still the file's node;
+- blocking time 0.85 to 1.0 s, was about 1.5 s, and the main thread is free
+  at 3.1 s, was 4.3 s. The longest task is now 0.47 s, was 1.19 s.
+
+A trace of the same load says what the long tasks left are: the browser's
+first layout of the file (0.46 s, before first paint), evaluating the modules
+(0.22 s), a React task (0.38 s), and 0.43 s of microtasks straight after it,
+which the shell's country, published from an effect after mount, explains.
+That second pass, and hydrating in a transition, is SB-161; the first layout
+is SB-162.
+
+On the deployed final build: the pages e2e passes live, 9 of 9, and every
+page the live sitemap lists, 33 of them, loads in light and dark with no
+console error or failed request, one heading and one canonical, hydrated in
+light and with its heading in the first frame in dark. The held-back
+navigation kept the guide on screen for the 1.8 s its chunk took.
+
 ## How it is checked
 
 The phone measurement again, the same way: script bytes before `load` and the
