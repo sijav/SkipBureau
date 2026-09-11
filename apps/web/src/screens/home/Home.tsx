@@ -4,11 +4,12 @@ import { useState } from 'react'
 import { useQuery } from 'urql'
 import { useCountry, withCountry } from 'src/core/country'
 import { HomeQuery } from 'src/core/graphql'
-import { useLocale } from 'src/core/i18n'
+import { locales, useLocale } from 'src/core/i18n'
 import { paths, useJourney } from 'src/core/router'
 import { useAsk } from 'src/shared/ask-panel'
 import { AskResultRow } from 'src/shared/ask-result-row'
 import { Page } from 'src/shared/page'
+import { PageLanguages } from 'src/shared/page-languages'
 import { Section } from 'src/shared/section'
 import { TaskTile } from 'src/shared/task-tile'
 import { TileGrid } from 'src/shared/tile-grid'
@@ -44,6 +45,7 @@ export const Home = () => {
 
   return (
     <Page>
+      <PageLanguages path={(each) => paths.home({ locale: each, origin: null, country })} languages={Object.keys(locales)} />
       <HomeHero
         name={name}
         question={question}

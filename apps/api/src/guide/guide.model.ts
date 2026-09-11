@@ -116,6 +116,9 @@ export class GuideView {
   @Field(() => Boolean, { description: 'True when the requested language had no content and another was used.' })
   translationMissing!: boolean
 
+  @Field(() => [String], { description: 'Every language this guide is written in, for the alternates a search engine is told about.' })
+  locales!: readonly string[]
+
   @Field(() => String) title!: string
   @Field(() => String, { nullable: true }) description!: string | null
   @Field(() => String, { nullable: true, description: 'The page’s opening paragraph; lists show the shorter description.' })

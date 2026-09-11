@@ -70,6 +70,27 @@ export const Default: Story = {
   },
 }
 
+/** SB-086: written in two languages, it names both and x-default, absolute and canonical, and its own canonical. */
+export const Alternates: Story = {
+  play: async ({ canvasElement }) => {
+    await within(canvasElement).findByRole('heading', { level: 1 }, { timeout: 5000 })
+    const alternates = [...window.document.head.querySelectorAll('link[rel="alternate"]')]
+    await expect(alternates.map((link) => link.getAttribute('hreflang'))).toEqual(['en', 'fa', 'x-default'])
+    for (const link of alternates) await expect(link.getAttribute('href')).toMatch(/^https?:\/\/[^/]+.*\/(en|fa)\/TR\/guides\/sim-card$/)
+    await expect(window.document.head.querySelector('link[rel="canonical"]')?.getAttribute('href')).toMatch(/\/en\/TR\/guides\/sim-card$/)
+  },
+}
+
+/** Written in English only, it claims no other language, and its canonical is still its own. */
+export const OneLanguage: Story = {
+  parameters: { guide: 'register-your-address' },
+  play: async ({ canvasElement }) => {
+    await within(canvasElement).findByRole('heading', { level: 1 }, { timeout: 5000 })
+    await expect(window.document.head.querySelectorAll('link[rel="alternate"]')).toHaveLength(0)
+    await expect(window.document.head.querySelector('link[rel="canonical"]')?.getAttribute('href')).toMatch(/\/en\/TR\/guides\/register-your-address$/)
+  },
+}
+
 /** A guide the country does not have is not a page. */
 export const Missing: Story = {
   parameters: { guide: 'no-such-guide' },

@@ -36,6 +36,7 @@ export const GuideQuery = graphql(`
       verifiedAt
       locale
       translationMissing
+      locales
       showDisclaimer
       showSuggestUpdate
       cost

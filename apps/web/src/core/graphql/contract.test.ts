@@ -141,6 +141,7 @@ test('the generated types carry the fields the documents select', () => {
         verifiedAt: '2026-01-01',
         locale: 'en-US',
         translationMissing: false,
+        locales: ['en-US'],
         showDisclaimer: false,
         showSuggestUpdate: true,
         cost: null,

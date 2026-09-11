@@ -406,6 +406,7 @@ export class GuideService {
       showSuggestUpdate: row.showSuggestUpdate,
       locale: text.locale,
       translationMissing: missing,
+      locales: row.texts.map((entry) => entry.locale).sort(),
       title: text.title,
       description: text.description,
       intro: text.intro,

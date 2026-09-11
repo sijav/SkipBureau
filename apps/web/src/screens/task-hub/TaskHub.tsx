@@ -5,13 +5,14 @@ import { Link, useParams } from 'react-router-dom'
 import { useQuery } from 'urql'
 import { useCountry, withCountry } from 'src/core/country'
 import { TaskHubQuery } from 'src/core/graphql'
-import { formatMonth, useLocale } from 'src/core/i18n'
+import { formatMonth, locales, useLocale } from 'src/core/i18n'
 import { paths, useJourney } from 'src/core/router'
 import type { SourceState } from 'src/core/theme'
 import { AskResultRow } from 'src/shared/ask-result-row'
 import { YourDetails } from 'src/shared/context-control'
 import { InfoPanel } from 'src/shared/info-panel'
 import { Page } from 'src/shared/page'
+import { PageLanguages } from 'src/shared/page-languages'
 import { Section } from 'src/shared/section'
 import { SourceCard } from 'src/shared/source-card'
 import { TopicItem } from 'src/shared/topic-item'
@@ -74,6 +75,7 @@ export const TaskHub = () => {
 
   return (
     <Page>
+      <PageLanguages path={(each) => paths.taskHub({ locale: each, origin: null, country }, hub.slug)} languages={Object.keys(locales)} />
       <Box sx={{ maxWidth: layout.columnWidth }}>
         <Stack spacing="14px" sx={{ paddingTop: '56px', paddingBottom: '32px' }}>
           <Typography variant="caption" sx={{ color: tokens.textSecondary }}>

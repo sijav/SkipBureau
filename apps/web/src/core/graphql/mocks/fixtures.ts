@@ -69,6 +69,8 @@ export const questions = [
 export const guide = {
   ...simGuide,
   slug: 'register-your-address',
+  // Written in English only, so it claims no other language.
+  locales: ['en-US'],
   title: 'Register your address',
   description: 'What address registration in Turkey involves, and where it is done.',
   quickAnswer:

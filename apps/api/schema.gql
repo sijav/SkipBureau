@@ -193,6 +193,11 @@ type GuideView {
   The locale this content is actually in, which may not be the one asked for.
   """
   locale: String!
+
+  """
+  Every language this guide is written in, for the alternates a search engine is told about.
+  """
+  locales: [String!]!
   obligations: [GuideObligationView!]!
   options: [GuideOptionView!]!
   place: GuidePlaceView

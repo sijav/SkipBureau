@@ -132,7 +132,7 @@ export const handlers = [
   api.query('Guide', ({ variables }) => {
     const persian = variables.locale === 'fa-IR'
     if (variables.country === 'tr' && variables.slug === 'sim-card') {
-      return HttpResponse.json({ data: { guide: persian ? { ...simGuide, translationMissing: true } : simGuide } })
+      return HttpResponse.json({ data: { guide: persian ? { ...simGuide, translationMissing: true, locales: ['en-US'] } : simGuide } })
     }
     if (variables.country === 'tr' && variables.slug === 'register-your-address') {
       return HttpResponse.json({ data: { guide: persian ? untranslatedGuide : guide } })

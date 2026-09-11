@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import { useQuery } from 'urql'
 import { useCountry, withCountry } from 'src/core/country'
 import { CategoryHubQuery } from 'src/core/graphql'
-import { formatMonth, useLocale } from 'src/core/i18n'
+import { formatMonth, locales, useLocale } from 'src/core/i18n'
 import { paths, useJourney } from 'src/core/router'
 import { radius, spacing } from 'src/core/theme'
 import { HomeAskField } from 'src/shared/ask-field'
@@ -13,6 +13,7 @@ import { useAsk } from 'src/shared/ask-panel'
 import { Breadcrumb } from 'src/shared/breadcrumb'
 import { ChecklistLine } from 'src/shared/checklist-line'
 import { Page } from 'src/shared/page'
+import { PageLanguages } from 'src/shared/page-languages'
 import { TopicItem } from 'src/shared/topic-item'
 import { useOwnsAsk } from 'src/screens/home'
 import { NotFound } from 'src/screens/NotFound'
@@ -63,6 +64,7 @@ export const CategoryHub = (props: CategoryHubProps) => {
 
   return (
     <Page>
+      <PageLanguages path={(each) => paths.categoryHub({ locale: each, origin: null, country }, goal, slug)} languages={Object.keys(locales)} />
       <Box sx={{ paddingTop: '36px' }}>
         <Breadcrumb trail={trail} />
       </Box>

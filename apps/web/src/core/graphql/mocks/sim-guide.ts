@@ -13,6 +13,7 @@ export const simGuide = {
   verifiedAt: '2026-09-08',
   locale: 'en-US',
   translationMissing: false,
+  locales: ['en-US', 'fa-IR'],
   showDisclaimer: true,
   showSuggestUpdate: true,
   cost: 'Varies by operator, plan, SIM type and campaign',
