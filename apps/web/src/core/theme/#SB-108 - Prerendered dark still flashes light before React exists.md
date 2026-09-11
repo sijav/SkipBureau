@@ -89,6 +89,21 @@ Touches `main.tsx`, `AppRoot.tsx`, `src/core/prerender`, the four files with
   with the heading the file's node in both, which is to say dark now hydrates;
   dark's first paint locally the same as light's.
 
+## Measured after
+
+Live guide, the same profile and script, three runs in dark:
+
+- first paint and LCP at 1.06 to 1.12 s, was 4.2 s; the heading on screen is
+  the file's own node, so dark hydrates now, where it was replaced;
+- blocking time 0.31 to 0.33 s and the main thread free at 2.7 to 2.8 s, the
+  same as light.
+
+The pages e2e passes live, 10 of 10, its scripts-off check finding the guide
+visible on the dark ground; all 33 pages in the live sitemap load in light and
+dark with no console error, each hydrating the file's heading; screenshots of
+the guide in dark with scripts, the Persian guide in dark without them, and
+the home in dark show the dark palette throughout.
+
 ## How it is checked
 
 The pages e2e with scripts off in dark expects the heading visible and the
