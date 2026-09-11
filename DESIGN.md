@@ -166,17 +166,28 @@ two countries.
 Nationality group membership is dated too, or a question about 2020 is answered
 with today's groups.
 
-**That rule is how the content is written. It is not, yet, what the database
-guarantees.** `20260909232307_rule_history_is_append_only` enforces exactly
-this much: **a closed version row, and a fact already on a closed version,
-cannot be updated or deleted by ordinary DML.** A third trigger refuses two
-versions of the same obligation, country and scope from being in force at once.
+**The database holds the content to that rule** (SB-081,
+`20260911200000_rule_history_is_append_only_throughout`, over the first
+migration's triggers). A version is history once it has **started**, not only
+once it has closed, because a reader of a version in force since 2020 was told
+what it says. From then on:
 
-Everything else is still editable, including an **open** version, which is most
-of the history, and dated group membership, which is not immutable despite
-being dated. TECH-DEBT.md lists every gap and names SB-081 as the card that
-closes them. Until then, do not read a verified date as a promise about what a
-past query returns.
+- the version row can only be closed, with a `validTo` no earlier than today,
+  and cannot otherwise be changed or be deleted;
+- its facts, texts and criteria cannot be added, changed, removed, or moved to
+  or from it: an update is checked against the version it leaves as well as the
+  one it joins (SB-102);
+- a group membership that has taken effect can only be closed, from today on;
+- two versions of the same obligation, country and scope cannot be in force at
+  once, checked when a version or any of its criteria is written;
+- none of these tables can be truncated, directly or by cascade.
+
+A version that has not started is a draft and can change, as long as it does
+not start in the past; a version being recorded can be given its parts in the
+same transaction, which is how one that closed years ago is recorded. An
+obligation's and a group's names stay editable, a decision in PHASE-NEXT.md.
+`apps/api/test/history.e2e.spec.ts` attempts each refusal against the database
+and reads the row back unchanged.
 
 ---
 

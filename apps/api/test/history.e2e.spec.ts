@@ -77,6 +77,11 @@ test('a closed version records with its parts, and none of them can then be chan
     data: { countryCode: 'de', obligationId: await obligationId(), validFrom: NEXT_MONTH, ...source, criteria: { create: [{ dimension: 'situation', value: 'sb081-draft' }] } },
   })
   await expect(prisma.ruleFact.update({ where: { id: fact.id }, data: { ruleVersionId: draft.id } })).rejects.toThrow(/history/)
+  // And to a version in force: the one it leaves is read, not only the one it joins.
+  const inForce = await prisma.ruleVersion.create({
+    data: { countryCode: 'de', obligationId: await obligationId(), validFrom: new Date('2020-01-01'), ...source, criteria: { create: [{ dimension: 'situation', value: 'sb081-in-force' }] } },
+  })
+  await expect(prisma.ruleFact.update({ where: { id: fact.id }, data: { ruleVersionId: inForce.id } })).rejects.toThrow(/history/)
 
   const after = await prisma.ruleVersion.findUniqueOrThrow({ where: { id: closed.id }, include: { criteria: true, texts: true, facts: true } })
   expect(after.criteria.map(({ dimension, value }) => [dimension, value])).toEqual([['situation', 'sb081-closed']])
