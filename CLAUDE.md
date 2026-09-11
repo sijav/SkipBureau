@@ -51,8 +51,26 @@ fields the owner requires, and is what `next` reads. See
 Every task carries all nine fields, filled at creation, never blank:
 **id, title, desc, why (the story), severity, points, parent, status, exit**.
 
-Picking work: **highest severity, then fewest story points, then lowest id,
-never one whose parent is unfinished.** Anything already started comes first.
+Picking work: **the current phase first**, then highest severity, then fewest
+story points, then lowest id, never one whose parent is unfinished. Anything
+already started comes first.
+
+**The phases, the owner's of 2026-09-11**, are the objectives the cards serve,
+`todo phase`:
+
+1. **MVP**, now. Deliver what we have: every screen from Figma built and
+   published, found by search, fast on a phone, and honest about what is
+   sample content.
+2. **Next**. Where the reader is, which is a city in some countries and a
+   province or state in others, and rules that change what a guide says, for
+   the countries the owner names, researched from official sources. The admin
+   panel, search, the move screen and a theme control of the reader's own are
+   here too.
+3. **Quality**. The debt, the tooling, the tests and the documents no reader
+   sees.
+
+A card filed without a phase joins the current one. Where a card belongs is a
+judgement to correct, not to defend: move it.
 
 ## Search engines are not an afterthought
 
