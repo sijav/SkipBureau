@@ -13,6 +13,11 @@ const BASE = '/SkipBureau/'
 const PAGES_PORT = 5190
 const API_PORT = 4500
 
+// The deployed site, when the pages suite is pointed at it: the proof a local
+// mimic cannot give, since only the real thing shows how Pages is configured.
+// PAGES_URL=https://sijav.github.io/SkipBureau/ npx playwright test --project pages
+const LIVE = process.env.PAGES_URL
+
 export default defineConfig({
   testDir: './e2e',
   fullyParallel: true,
@@ -29,10 +34,11 @@ export default defineConfig({
     {
       name: 'pages',
       testMatch: /pages\.spec\.ts$/,
-      use: { ...devices['Desktop Chrome'], baseURL: `http://localhost:${PAGES_PORT}${BASE}` },
+      use: { ...devices['Desktop Chrome'], baseURL: LIVE ?? `http://localhost:${PAGES_PORT}${BASE}` },
     },
   ],
-  webServer: [
+  // Against the live site there is nothing to start.
+  webServer: LIVE ? [] : [
     {
       // A real API, so a test can insert a row and browse it. Storybook and
       // MSW prove the component; only this can prove the data.
