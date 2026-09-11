@@ -34,7 +34,7 @@ const run = async (server) => {
   let pages
   for (let attempt = 1; !pages; attempt += 1) {
     try {
-      pages = await collect()
+      pages = await collect(origin)
     } catch (error) {
       if (Date.now() + pause > deadline) return giveUp(`the API did not answer in ${patience / 1000}s (${reason(error)})`)
       console.log(`prerender: attempt ${attempt} failed (${reason(error)}), again in ${pause / 1000}s`)
@@ -62,8 +62,12 @@ const server = await createServer({
   logLevel: 'warn',
   appType: 'custom',
   server: { middlewareMode: true, hmr: false, ws: false },
-  // Nothing is served to a browser, so there is nothing to pre-bundle.
+  // Nothing is served to a browser, so there is nothing to pre-bundle. And a
+  // cache of its own: this server's empty dependency list, written into the
+  // shared node_modules/.vite, is the prime suspect for the Storybook tests
+  // that then hung on a CommonJS package served unbundled.
   optimizeDeps: { noDiscovery: true, include: [] },
+  cacheDir: 'node_modules/.vite-prerender',
 })
 try {
   await run(server)

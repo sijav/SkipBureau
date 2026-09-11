@@ -1,6 +1,6 @@
 export { CategoryHub, categoryHubHead } from './category-hub'
 export { ComingSoon, GuidesSoon, SetupSoon, type ComingSoonProps } from './coming-soon'
-export { Guide, guideHead, isWritten } from './guide'
+export { Guide, guideData, guideHead, isWritten } from './guide'
 export { Home, homeHead } from './home'
 export { onlyArea, TaskHub, taskHubHead } from './task-hub'
 export { NotFound } from './NotFound'

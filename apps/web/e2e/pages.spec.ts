@@ -21,6 +21,11 @@ test('a guide opens cold, left to right', async ({ page }) => {
   expect(source).toContain(`>${TITLE}</title>`)
   expect(source).toMatch(/<meta name="description" content="[^"]+"/)
   expect(source).toMatch(/<link rel="canonical" href="[^"]*\/en\/TR\/guides\/sim-card"/)
+  // What the guide is, to a machine (SB-087): each block parses, the Article is
+  // dated by the verification, and a guide with steps is also a HowTo.
+  const blocks = [...source.matchAll(/<script type="application\/ld\+json"[^>]*>(.*?)<\/script>/gs)].map((match) => JSON.parse(match[1] ?? ''))
+  expect(blocks.map((block) => block['@type'])).toEqual(['Article', 'BreadcrumbList', 'HowTo'])
+  expect(blocks[0].dateModified).toMatch(/^\d{4}-\d{2}-\d{2}$/)
 
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(GUIDE)
   await expect(page).toHaveURL(/\/en\/TR\/guides\/sim-card$/)
@@ -33,6 +38,7 @@ test('a guide opens cold, left to right', async ({ page }) => {
   await expect(page).toHaveTitle(TITLE)
   await expect(page.locator('head [data-prerendered]')).toHaveCount(0)
   await expect(page.locator('link[rel="canonical"]')).toHaveCount(1)
+  await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(3)
 })
 
 test('a guide opens cold, right to left', async ({ page }) => {

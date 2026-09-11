@@ -1,12 +1,14 @@
 import { setupI18n, type I18n } from '@lingui/core'
+import { msg } from '@lingui/core/macro'
 import type { AnyVariables, Client, DocumentInput } from 'urql'
 import { validated, type CountryCode } from 'src/core/country'
 import { CategoryHubQuery, CountriesQuery, createClient, GuideQuery, GuidesQuery, HomeQuery, TaskHubQuery } from 'src/core/graphql'
 import { isLocale, loadCatalog, locales, type Locale } from 'src/core/i18n'
 import { paths } from 'src/core/router'
-import { categoryHubHead, guideHead, homeHead, isWritten, onlyArea, taskHubHead } from 'src/screens'
+import { categoryHubHead, guideData, guideHead, homeHead, isWritten, onlyArea, taskHubHead } from 'src/screens'
 import { documentTitle, type PageHeadProps } from 'src/shared/page-head'
 import { absolute, pageLanguages, type LanguageLinks } from 'src/shared/page-languages'
+import { JSON_LD, jsonLd, type StructuredDatum } from 'src/shared/structured-data'
 
 /** A page as its file says it: where it lives, and what its head carries. */
 export type Page = {
@@ -16,6 +18,8 @@ export type Page = {
   title: string
   description: string | null
   links: LanguageLinks
+  /** Schema.org markup, a guide's (SB-087); empty for any other page. */
+  structuredData: readonly StructuredDatum[]
 }
 
 export type PrerenderedFile = { file: string; html: string }
@@ -28,7 +32,7 @@ const ask = async <Data, Variables extends AnyVariables>(client: Client, query: 
 }
 
 /** Every page a search engine should find in one language, asked of the API the built site calls. */
-const pagesIn = async (client: Client, locale: Locale): Promise<Page[]> => {
+const pagesIn = async (client: Client, locale: Locale, origin: string): Promise<Page[]> => {
   const i18n: I18n = setupI18n({ locale, messages: { [locale]: await loadCatalog(locale) } })
   const at = (country: CountryCode) => ({ locale, origin: null, country })
   const { countries } = await ask(client, CountriesQuery, { locale })
@@ -37,13 +41,14 @@ const pagesIn = async (client: Client, locale: Locale): Promise<Page[]> => {
   for (const { code, name } of countries) {
     // The API has just listed it, which is what `validated` records.
     const country = validated(code)
-    const add = (address: string, head: PageHeadProps) =>
+    const add = (address: string, head: PageHeadProps, structuredData: readonly StructuredDatum[] = []) =>
       pages.push({
         address,
         locale,
         title: documentTitle(i18n, head.title, name),
         description: head.description ?? null,
         links: pageLanguages(head, locale),
+        structuredData,
       })
 
     add(paths.home(at(country)), homeHead(i18n, country, name))
@@ -73,18 +78,23 @@ const pagesIn = async (client: Client, locale: Locale): Promise<Page[]> => {
     const { guides } = await ask(client, GuidesQuery, { country, locale })
     for (const { slug } of guides) {
       const { guide } = await ask(client, GuideQuery, { country, slug, locale })
-      if (guide && isWritten(guide)) add(paths.guide(at(country), slug), guideHead(guide, country))
+      if (guide && isWritten(guide)) {
+        add(paths.guide(at(country), slug), guideHead(guide, country), guideData(guide, country, locale, origin, i18n._(msg`Home`)))
+      }
     }
   }
 
   return pages
 }
 
-/** Every page, in every language. One request at a time: the API runs on a tenth of a CPU. */
-export const collect = async (endpoint?: string): Promise<Page[]> => {
+/**
+ * Every page, in every language, with `origin` the site the links and markup
+ * point at. One request at a time: the API runs on a tenth of a CPU.
+ */
+export const collect = async (origin: string, endpoint?: string): Promise<Page[]> => {
   const client = createClient(endpoint)
   const pages: Page[] = []
-  for (const locale of Object.keys(locales).filter(isLocale)) pages.push(...(await pagesIn(client, locale)))
+  for (const locale of Object.keys(locales).filter(isLocale)) pages.push(...(await pagesIn(client, locale, origin)))
   return pages
 }
 
@@ -113,6 +123,7 @@ export const render = (pages: readonly Page[], template: string, origin: string)
       ...page.links.alternates.map(
         (each) => `<link rel="alternate" hreflang="${each.hreflang}" href="${escape(absolute(each.path, origin))}" data-prerendered />`,
       ),
+      ...page.structuredData.map((datum) => `<script type="${JSON_LD}" data-prerendered>${jsonLd(datum)}</script>`),
     ].filter((tag) => tag !== null)
     // Functions, not strings, as the replacements: a `$` in a title would
     // otherwise be read as a pattern.

@@ -15,12 +15,13 @@ import { InformationDisclaimer } from 'src/shared/information-disclaimer'
 import { Page } from 'src/shared/page'
 import { PageHead } from 'src/shared/page-head'
 import { SourceCard } from 'src/shared/source-card'
+import { StructuredData } from 'src/shared/structured-data'
 import { TopicItem } from 'src/shared/topic-item'
 import { ComingSoon } from 'src/screens/coming-soon'
 import { NotFound } from 'src/screens/NotFound'
 import { Unreachable } from 'src/screens/Unreachable'
 import { GuideSection, SectionFrame, type GuideData, type SectionData } from './GuideSection'
-import { guideHead, isWritten } from './head'
+import { guideArea, guideData, guideHead, isWritten } from './head'
 
 const QUARTER = 1000 * 60 * 60 * 24 * 91
 const stateOf = (verifiedAt: string): SourceState => (Date.now() - new Date(verifiedAt).getTime() <= QUARTER ? 'verified' : 'older')
@@ -57,11 +58,7 @@ export const Guide = () => {
   const verified = formatMonth(guide.verifiedAt, locale, 'long')
   const lead = guide.intro ?? guide.description
   const place = guide.place
-  const areaPath = place
-    ? place.goalAreas > 1
-      ? paths.categoryHub(journey, place.goalSlug, place.categorySlug)
-      : paths.taskHub(journey, place.goalSlug)
-    : paths.home(journey)
+  const areaPath = guideArea(place, journey)
   const guidePath = (other: string) => paths.guide(journey, other)
   const head = <PageHead {...guideHead(guide, country)} />
 
@@ -102,6 +99,7 @@ export const Guide = () => {
   return (
     <Page>
       {head}
+      <StructuredData data={guideData(guide, country, locale, window.location.origin, t`Home`)} />
       {/* Figma 143:762: a 1080 column at the page's start, not centred in it. */}
       <Box sx={{ maxWidth: layout.mainWidth }}>
         <Box sx={{ paddingTop: '40px' }}>
