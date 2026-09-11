@@ -54,7 +54,11 @@ msgid "3 of 9 steps · paused 18 Aug"
 msgstr "۳ از ۹ گام · متوقف از ۱۸ اوت"
 
 #: src/shared/process-card/ProcessCard.stories.tsx
-msgid "9 steps · 2 to 4 weeks · ₺14,000 to 22,000"
+#~ msgid "9 steps · 2 to 4 weeks · ₺14,000 to 22,000"
+#~ msgstr "۹ گام · ۲ تا ۴ هفته · ۱۴٬۰۰۰ تا ۲۲٬۰۰۰ لیر"
+
+#: src/shared/process-card/ProcessCard.stories.tsx
+msgid "9 steps · 2–4 weeks · ₺14,000–22,000"
 msgstr "۹ گام · ۲ تا ۴ هفته · ۱۴٬۰۰۰ تا ۲۲٬۰۰۰ لیر"
 
 #: src/shared/page/Page.stories.tsx

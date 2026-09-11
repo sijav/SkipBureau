@@ -23,7 +23,7 @@ const meta = {
   args: {
     to: '/en/TR/setup/start-a-business',
     title: <Trans>Start a company in Turkey</Trans>,
-    facts: <Trans>9 steps · 2 to 4 weeks · ₺14,000 to 22,000</Trans>,
+    facts: <Trans>9 steps · 2–4 weeks · ₺14,000–22,000</Trans>,
     pitch: <Trans>Answer 10 questions and get a roadmap built for your nationality and city.</Trans>,
   },
   decorators: [
@@ -38,7 +38,7 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** Cost and duration up front, then the pitch: 158 high. */
+/** Cost and duration up front, in Figma's own words, then the pitch: 158 high. */
 export const Default: Story = {
   play: async ({ canvasElement }) => {
     const card = await within(canvasElement).findByRole('link', { name: /Start a company in Turkey/ })

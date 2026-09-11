@@ -54,8 +54,12 @@ msgid "3 of 9 steps · paused 18 Aug"
 msgstr "3 of 9 steps · paused 18 Aug"
 
 #: src/shared/process-card/ProcessCard.stories.tsx
-msgid "9 steps · 2 to 4 weeks · ₺14,000 to 22,000"
-msgstr "9 steps · 2 to 4 weeks · ₺14,000 to 22,000"
+#~ msgid "9 steps · 2 to 4 weeks · ₺14,000 to 22,000"
+#~ msgstr "9 steps · 2 to 4 weeks · ₺14,000 to 22,000"
+
+#: src/shared/process-card/ProcessCard.stories.tsx
+msgid "9 steps · 2–4 weeks · ₺14,000–22,000"
+msgstr "9 steps · 2–4 weeks · ₺14,000–22,000"
 
 #: src/shared/page/Page.stories.tsx
 msgid "A column, not a width"
