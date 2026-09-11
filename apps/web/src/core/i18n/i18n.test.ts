@@ -1,6 +1,6 @@
 import { strict as assert } from 'node:assert'
 import { test } from 'vitest'
-import { defaultLocale, isLocale, locales, nearestLocale } from './locales'
+import { defaultLocale, formatDay, formatMonth, isLocale, locales, nearestLocale } from './locales'
 
 /**
  * Bare user-visible strings are caught by eslint, not from here.
@@ -49,4 +49,16 @@ test('isLocale refuses a tag we do not ship', () => {
   assert.equal(isLocale('fa-IR'), true)
   assert.equal(isLocale('de-DE'), false)
   assert.equal(isLocale(''), false)
+})
+
+test('an English date is written day first, with the month named as the design names it', () => {
+  // The order is en-GB's, "24 Aug 2026". The NAME is en-US's, because current
+  // ICU abbreviates September as "Sept" in en-GB and the design writes "Sep"
+  // (SB-151). The long form is "September" in both, and Persian keeps its own
+  // calendar, month and digits.
+  assert.equal(formatDay('2026-08-24', 'en-US'), '24 Aug 2026')
+  assert.equal(formatDay('2026-09-07', 'en-US'), '07 Sep 2026')
+  assert.equal(formatMonth('2026-09-20', 'en-US'), 'Sep 2026')
+  assert.equal(formatMonth('2026-09-20', 'en-US', 'long'), 'September 2026')
+  assert.equal(formatDay('2026-09-20', 'fa-IR'), new Intl.DateTimeFormat('fa-IR', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date('2026-09-20')))
 })

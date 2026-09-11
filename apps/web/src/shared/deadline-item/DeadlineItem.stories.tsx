@@ -59,7 +59,9 @@ export const States: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    for (const words of ['47 days', '21 days', '6 days', 'Today', '9 days late', 'Done']) {
+    // The dates as the design writes them, September included: en-GB, where
+    // the day-first order comes from, abbreviates it Sept (SB-151).
+    for (const words of ['47 days', '21 days', '6 days', 'Today', '9 days late', 'Done', '20 Sep 2026', '07 Sep 2026']) {
       await expect(await canvas.findByText(words)).toBeVisible()
     }
     for (const item of canvasElement.querySelectorAll('[data-state]')) {

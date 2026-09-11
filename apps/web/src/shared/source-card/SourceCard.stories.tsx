@@ -43,6 +43,9 @@ export const Default: Story = {
 
 /** The five states of Figma 30:84, each against its tokens. */
 export const States: Story = {
+  // A September date here, where Default has August: the month the design and
+  // en-GB disagree about (SB-151).
+  args: { checkedAt: '2026-09-07' },
   render: (args) => (
     <Stack spacing={2}>
       {SOURCE_STATES.map((state) => (
@@ -65,5 +68,8 @@ export const States: Story = {
 
     // An unavailable page is not offered as a link.
     await expect(within(await canvas.findByTestId('unavailable')).queryByRole('link')).toBeNull()
+
+    // A September check reads Sep, as the design writes it, not Sept (SB-151).
+    await expect(await canvas.findAllByText(/Last checked 07 Sep 2026/)).not.toHaveLength(0)
   },
 }
