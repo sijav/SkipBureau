@@ -1,7 +1,7 @@
 import { Trans, useLingui } from '@lingui/react/macro'
-import { alpha, Autocomplete, Box, ButtonBase, Paper, TextField, Typography, useTheme } from '@mui/material'
+import { Autocomplete, Box, ButtonBase, Paper, TextField, Typography, useTheme } from '@mui/material'
 import { useState, type ReactNode } from 'react'
-import { radius } from 'src/core/theme'
+import { radius, withOpacity } from 'src/core/theme'
 
 export type Origin = { code: string; name: string }
 
@@ -71,7 +71,7 @@ export const ContextPanel = ({ id, origin, countryName, options, onOrigin }: Con
         borderRadius: `${radius.sm}px`,
         backgroundColor: tokens.surface,
         backgroundImage: 'none',
-        filter: `drop-shadow(0 8px 12px ${alpha(tokens.textPrimary, 0.07)}) drop-shadow(0 1px 1px ${alpha(tokens.textPrimary, 0.05)})`,
+        filter: `drop-shadow(0 8px 12px ${withOpacity(tokens.textPrimary, 0.07)}) drop-shadow(0 1px 1px ${withOpacity(tokens.textPrimary, 0.05)})`,
       }}
     >
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: '4px', padding: `${PAD}px ${PAD}px 12px` }}>

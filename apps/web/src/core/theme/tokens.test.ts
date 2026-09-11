@@ -64,28 +64,47 @@ test('light and dark define exactly the same token names', () => {
   assert.deepEqual(Object.keys(dark).sort(), Object.keys(light).sort())
 })
 
+// Both schemes are in one theme since SB-108; each has its own palette.
+const scheme = (mode: 'light' | 'dark') => appTheme('ltr').colorSchemes[mode]?.palette ?? assert.fail(`the theme has no ${mode} scheme`)
+
 test('the theme exposes every token, not just the ones MUI has a slot for', () => {
-  const theme = appTheme('light', 'ltr')
+  const theme = appTheme('ltr')
   assert.deepEqual(Object.keys(theme.tokens).sort(), Object.keys(light).sort())
-  assert.equal(theme.tokens.accentText, light.accentText)
+  // A reference to the variable MUI writes for it, which each scheme fills in,
+  // falling back to light's where no scheme has.
+  assert.equal(theme.tokens.accentText, `var(--mui-palette-tokens-accentText, ${light.accentText})`)
+  assert.equal(scheme('light').tokens.accentText, light.accentText)
+  assert.equal(scheme('dark').tokens.accentText, dark.accentText)
+})
+
+test('the dark palette applies from CSS, the reader system, or a forced mode', () => {
+  // SB-108: what lets a page drawn at build time be right in dark with no
+  // script run. The app's theme puts dark's variables under the media query;
+  // Storybook's puts them under the attribute its toolbar sets.
+  const sheets = (selector?: '[data-mode="%s"]') => JSON.stringify(appTheme('ltr', selector).generateStyleSheets())
+  const surface = (hex: string) => `"--mui-palette-tokens-surface":"${hex}"`
+
+  const system = sheets()
+  assert.match(system, new RegExp(`"@media \\(prefers-color-scheme: dark\\)":\\{":root":\\{[^}]*${surface(dark.surface)}`))
+  assert.match(system, new RegExp(`":root":\\{[^}]*${surface(light.surface)}`))
+
+  const forced = sheets('[data-mode="%s"]')
+  assert.match(forced, new RegExp(`"\\[data-mode=\\\\"dark\\\\"\\]":\\{[^}]*${surface(dark.surface)}`))
 })
 
 test('a token that carries meaning keeps it across modes', () => {
   // The design reserves amber for a date or condition at stake and red for
   // stopped, refused or at risk. Dark mode lightens them; it must not reassign
   // them, or the colour stops meaning anything.
-  const lightTheme = appTheme('light', 'ltr')
-  const darkTheme = appTheme('dark', 'ltr')
-
-  assert.equal(lightTheme.palette.warning.main, light.warning)
-  assert.equal(darkTheme.palette.warning.main, dark.warning)
-  assert.equal(lightTheme.palette.error.main, light.danger)
-  assert.equal(darkTheme.palette.error.main, dark.danger)
+  assert.equal(scheme('light').warning.main, light.warning)
+  assert.equal(scheme('dark').warning.main, dark.warning)
+  assert.equal(scheme('light').error.main, light.danger)
+  assert.equal(scheme('dark').error.main, dark.danger)
 })
 
 test('ink sits on the accent, in both modes, because white does not pass on mint', () => {
-  assert.equal(appTheme('light', 'ltr').palette.primary.contrastText, light.textOnAccent)
-  assert.equal(appTheme('dark', 'ltr').palette.primary.contrastText, dark.textOnAccent)
+  assert.equal(scheme('light').primary.contrastText, light.textOnAccent)
+  assert.equal(scheme('dark').primary.contrastText, dark.textOnAccent)
 })
 
 test('there is no pill radius, because the design refuses one', () => {
@@ -95,13 +114,16 @@ test('there is no pill radius, because the design refuses one', () => {
 })
 
 test('spacing is an 8px step, so sx p:2 is 16', () => {
-  const theme = appTheme('light', 'ltr')
-  assert.equal(theme.spacing(2), '16px')
-  assert.equal(theme.spacing(0.5), '4px')
+  // A variable too, in MUI's variables mode: 2 is two steps of it, 16px in CSS.
+  const theme = appTheme('ltr')
+  assert.equal(theme.spacing(2), 'calc(2 * var(--mui-spacing, 8px))')
+  assert.equal(theme.spacing(0.5), 'calc(0.5 * var(--mui-spacing, 8px))')
+  assert.match(JSON.stringify(theme.generateStyleSheets()), /"--mui-spacing":"8px"/)
 })
 
-test('carries the mode and direction it was given', () => {
-  assert.equal(appTheme('dark', 'rtl').palette.mode, 'dark')
-  assert.equal(appTheme('dark', 'rtl').direction, 'rtl')
-  assert.equal(appTheme('light', 'ltr').direction, 'ltr')
+test('carries both schemes and the direction it was given', () => {
+  assert.equal(appTheme('rtl').colorSchemes.dark?.palette.mode, 'dark')
+  assert.equal(appTheme('rtl').colorSchemes.light?.palette.mode, 'light')
+  assert.equal(appTheme('rtl').direction, 'rtl')
+  assert.equal(appTheme('ltr').direction, 'ltr')
 })

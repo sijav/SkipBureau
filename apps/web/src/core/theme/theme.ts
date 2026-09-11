@@ -2,15 +2,14 @@ import { createTheme, type Theme } from '@mui/material'
 import { buttonRoot, buttonVariants } from './button'
 import { ChevronDown } from './ChevronDown'
 import { formHelperTextOverrides, formLabelOverrides, outlinedInputOverrides, selectOverrides } from './input'
-import { dark, fonts, layout, light, radius, spacing, type } from './tokens'
+import { dark, fonts, layout, light, radius, spacing, type, type ColourTokens } from './tokens'
 
 export type Mode = 'light' | 'dark'
 export type Direction = 'ltr' | 'rtl'
 
 /**
- * What a caller may ASK for, which is a superset of what the theme is built
- * from. `system` is a deferral, not a palette: it is resolved to a `Mode`
- * before `appTheme` ever sees it.
+ * What a caller may ASK for. `system` is a deferral, not a palette: the
+ * reader's system decides, in CSS, which of the theme's two schemes applies.
  */
 export type ModeChoice = Mode | 'system'
 
@@ -40,58 +39,85 @@ const face = (style: (typeof type)[keyof typeof type]) => ({
       : {}),
 })
 
+/** MUI's palette for one scheme, from that scheme's tokens, with the tokens themselves riding along. */
+export const paletteFor = (mode: Mode, tokens: ColourTokens) => ({
+  mode,
+  background: { default: tokens.background, paper: tokens.surface },
+  text: { primary: tokens.textPrimary, secondary: tokens.textSecondary, disabled: tokens.textTertiary },
+  divider: tokens.border,
+  // MUI paints a filled control's HOVER from `dark`, so `dark` is the
+  // design's hover step, accentHover, not accentPressed: the design only
+  // ever uses accentPressed as a stroke.
+  primary: {
+    main: tokens.accent,
+    light: tokens.accentSubtle,
+    dark: tokens.accentHover,
+    contrastText: tokens.textOnAccent,
+  },
+  // `textOnWarning`, NOT `warningText`. The latter is for text on the SUBTLE
+  // fill; on the amber itself it measures 2.82 in light and 1.19 in dark.
+  warning: { main: tokens.warning, light: tokens.warningSubtle, dark: tokens.warningPressed, contrastText: tokens.textOnWarning },
+  error: { main: tokens.danger, light: tokens.dangerSubtle, dark: tokens.dangerPressed, contrastText: tokens.textOnDanger },
+  // All four slots, deliberately. MUI's augmentColor derives whichever of
+  // main, light, dark and contrastText it is not given, so an entry with
+  // only two of them gets a hover fill this repository never chose and the
+  // contrast inventory never measured.
+  success: {
+    main: tokens.success,
+    light: tokens.accentSubtle,
+    dark: tokens.accentHover,
+    contrastText: tokens.textOnAccent,
+  },
+  // Not a palette colour MUI knows: here so MUI writes a variable for each.
+  tokens,
+})
+
 /**
- * The app theme, built from `tokens.ts`.
+ * How the dark scheme is chosen. `media` is the reader's system, from CSS
+ * alone, which is what lets a page drawn at build time be right in both
+ * schemes. Storybook passes an attribute selector, `[data-mode="%s"]`, so its
+ * toolbar can force one.
+ */
+export type SchemeSelector = 'media' | `[data-${string}="%s"]`
+
+const colorSchemes = {
+  light: { palette: paletteFor('light', light) },
+  dark: { palette: paletteFor('dark', dark) },
+}
+
+/**
+ * The app theme, built from `tokens.ts`, for both colour schemes at once.
  *
- * Two things are deliberate here.
+ * Three things are deliberate here.
+ *
+ * The palettes are CSS variables (SB-108). MUI writes light's on `:root` and
+ * dark's where the selector says, so the styles emotion writes name a
+ * variable, never a hex, and are the same in both schemes. That is what lets
+ * the build write one page that is right in both, and hydrate in both.
  *
  * The full token set hangs off `theme.tokens`, not just the handful MUI's
  * palette has slots for. MUI has no home for `warningBorder` or `accentText`,
  * and without somewhere to put them a component reaches for the hex instead,
- * which is the thing this task exists to prevent.
+ * which is the thing this task exists to prevent. Each is a reference to the
+ * variable MUI wrote for it, `var(--mui-palette-tokens-surface)`.
  *
  * Spacing is 8px so `sx={{ p: 2 }}` is 16, matching the `md` step. The 4px
  * half-step is `0.5`, and the design says it is for padding inside tags and
  * chips only, never for layout.
  */
-export const appTheme = (mode: Mode, direction: Direction): Theme => {
-  const tokens = mode === 'dark' ? dark : light
+export const appTheme = (direction: Direction, colorSchemeSelector: SchemeSelector = 'media'): Theme => {
+  // The variables' names are MUI's to choose, so they are read from a theme
+  // MUI has built, not written out here.
+  const tokens = createTheme({ cssVariables: { colorSchemeSelector }, colorSchemes }).vars.palette.tokens
 
   return createTheme({
+    cssVariables: { colorSchemeSelector },
+    colorSchemes,
     direction,
     spacing: spacing.sm,
     shape: { borderRadius: radius.md },
     tokens,
     layout,
-    palette: {
-      mode,
-      background: { default: tokens.background, paper: tokens.surface },
-      text: { primary: tokens.textPrimary, secondary: tokens.textSecondary, disabled: tokens.textTertiary },
-      divider: tokens.border,
-      // MUI paints a filled control's HOVER from `dark`, so `dark` is the
-      // design's hover step, accentHover, not accentPressed: the design only
-      // ever uses accentPressed as a stroke.
-      primary: {
-        main: tokens.accent,
-        light: tokens.accentSubtle,
-        dark: tokens.accentHover,
-        contrastText: tokens.textOnAccent,
-      },
-      // `textOnWarning`, NOT `warningText`. The latter is for text on the SUBTLE
-      // fill; on the amber itself it measures 2.82 in light and 1.19 in dark.
-      warning: { main: tokens.warning, light: tokens.warningSubtle, dark: tokens.warningPressed, contrastText: tokens.textOnWarning },
-      error: { main: tokens.danger, light: tokens.dangerSubtle, dark: tokens.dangerPressed, contrastText: tokens.textOnDanger },
-      // All four slots, deliberately. MUI's augmentColor derives whichever of
-      // main, light, dark and contrastText it is not given, so an entry with
-      // only two of them gets a hover fill this repository never chose and the
-      // contrast inventory never measured.
-      success: {
-        main: tokens.success,
-        light: tokens.accentSubtle,
-        dark: tokens.accentHover,
-        contrastText: tokens.textOnAccent,
-      },
-    },
     typography: {
       fontFamily: type.body.family,
       h1: face(type.display),
@@ -134,3 +160,10 @@ export const appTheme = (mode: Mode, direction: Direction): Theme => {
     },
   })
 }
+
+/**
+ * A colour at an opacity, as CSS works it out: the tokens are variables now
+ * (SB-108), and MUI's `alpha()` can only take a colour it can read, where
+ * `color-mix()` takes a variable.
+ */
+export const withOpacity = (colour: string, opacity: number): string => `color-mix(in srgb, ${colour} ${Math.round(opacity * 1000) / 10}%, transparent)`

@@ -64,7 +64,7 @@ test('every pair is bound to the slot that paints it', () => {
   // declined to say where it was painted used to be contrast tested, never
   // bound, and green.
   for (const [mode, tokens] of MODES) {
-    const { palette } = appTheme(mode, 'ltr')
+    const { palette } = appTheme('ltr').colorSchemes[mode] ?? assert.fail(`the theme has no ${mode} scheme`)
 
     for (const { role, fore, back, painted } of DECLARED) {
       switch (painted.by) {
@@ -250,9 +250,15 @@ test('every pair is bound to the slot that paints it', () => {
  * stopped using.
  */
 test('the theme hands MUI exactly the button styles the inventory is checked against', () => {
+  // Built from the tokens' variables since SB-108, one set of styles for both
+  // schemes; the inventory measures the hex each variable holds in each.
+  const theme = appTheme('ltr')
+  const root = theme.components?.MuiButton?.styleOverrides?.root
+  assert.deepEqual(root, { ...buttonRoot(theme.tokens), variants: buttonVariants(theme.tokens) }, "MuiButton's root styles drifted from button.ts")
+
   for (const [mode, tokens] of MODES) {
-    const root = appTheme(mode, 'ltr').components?.MuiButton?.styleOverrides?.root
-    assert.deepEqual(root, { ...buttonRoot(tokens), variants: buttonVariants(tokens) }, `${mode}: MuiButton's root styles drifted from button.ts`)
+    const scheme = theme.colorSchemes[mode] ?? assert.fail(`the theme has no ${mode} scheme`)
+    assert.deepEqual(scheme.palette.tokens, tokens, `${mode}: the variables the styles name hold another scheme's colours`)
   }
 })
 

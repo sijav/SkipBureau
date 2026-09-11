@@ -1,5 +1,5 @@
 import { Trans, useLingui } from '@lingui/react/macro'
-import { alpha, Box, Button, Dialog, Stack, Typography, useTheme } from '@mui/material'
+import { Box, Button, Dialog, Stack, Typography, useTheme } from '@mui/material'
 import { useId, useState, type FormEvent } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useMutation } from 'urql'
@@ -7,7 +7,7 @@ import { useCountry } from 'src/core/country'
 import { SuggestUpdateMutation } from 'src/core/graphql'
 import { useLocale } from 'src/core/i18n'
 import { paths, useJourney } from 'src/core/router'
-import { radius, spacing } from 'src/core/theme'
+import { radius, spacing, withOpacity } from 'src/core/theme'
 import { TextInput } from 'src/shared/text-input'
 import { Guide } from 'src/screens/guide'
 
@@ -71,7 +71,7 @@ const SuggestDialog = () => {
       onClose={back}
       aria-labelledby={title}
       slotProps={{
-        backdrop: { sx: { backgroundColor: alpha(tokens.textPrimary, 0.24) } },
+        backdrop: { sx: { backgroundColor: withOpacity(tokens.textPrimary, 0.24) } },
         paper: {
           sx: {
             width: '100%',
@@ -82,7 +82,7 @@ const SuggestDialog = () => {
             borderRadius: `${radius.sm}px`,
             backgroundColor: tokens.surface,
             backgroundImage: 'none',
-            boxShadow: `0 16px 40px -12px ${alpha(tokens.textPrimary, 0.1)}, 0 2px 4px 0 ${alpha(tokens.textPrimary, 0.06)}`,
+            boxShadow: `0 16px 40px -12px ${withOpacity(tokens.textPrimary, 0.1)}, 0 2px 4px 0 ${withOpacity(tokens.textPrimary, 0.06)}`,
           },
         },
       }}

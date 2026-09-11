@@ -1,7 +1,7 @@
 import { useLingui } from '@lingui/react/macro'
-import { alpha, Box, Divider, Paper, Popper, Typography, useTheme } from '@mui/material'
+import { Box, Divider, Paper, Popper, Typography, useTheme } from '@mui/material'
 import type { ReactNode } from 'react'
-import { radius, spacing } from 'src/core/theme'
+import { radius, spacing, withOpacity } from 'src/core/theme'
 
 export type AskPanelGroup = {
   label: ReactNode
@@ -47,7 +47,7 @@ export const AskPanel = ({ anchor, open, id, groups, footer }: AskPanelProps) =>
           borderRadius: `${radius.sm}px`,
           backgroundColor: tokens.surface,
           backgroundImage: 'none',
-          filter: `drop-shadow(0 8px 12px ${alpha(tokens.textPrimary, 0.07)}) drop-shadow(0 1px 1px ${alpha(tokens.textPrimary, 0.05)})`,
+          filter: `drop-shadow(0 8px 12px ${withOpacity(tokens.textPrimary, 0.07)}) drop-shadow(0 1px 1px ${withOpacity(tokens.textPrimary, 0.05)})`,
         }}
       >
         {groups.map((group, index) => (

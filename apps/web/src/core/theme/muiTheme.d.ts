@@ -15,6 +15,20 @@ declare module '@mui/material/styles' {
     tokens?: ColourTokens
     layout?: typeof layout
   }
+  // Each scheme's palette carries the tokens too, so MUI writes a CSS variable
+  // for every one of them in both schemes (SB-108); `theme.tokens` holds the
+  // references to those variables.
+  interface Palette {
+    tokens: ColourTokens
+  }
+  interface PaletteOptions {
+    tokens?: ColourTokens
+  }
+  // The theme is always built with CSS variables (SB-108), so its `vars` and
+  // `colorSchemes` are there, and typed as there.
+  interface CssThemeVariables {
+    enabled: true
+  }
 }
 
 /**

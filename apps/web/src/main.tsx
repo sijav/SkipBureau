@@ -4,7 +4,6 @@ import { createRoot, hydrateRoot } from 'react-dom/client'
 import { createClient } from 'src/core/graphql'
 import { loadCatalog } from 'src/core/i18n'
 import { preloadRoute, readerFromSegment } from 'src/core/router'
-import { systemMode } from 'src/core/theme'
 import { isPartLoadFailure, preloadEveryPart } from 'src/shared/lazy-part'
 import { AppRoot } from './AppRoot'
 
@@ -64,20 +63,20 @@ const mount = () => {
     </StrictMode>
   )
 
-  // SB-160: in light, React adopts the file's elements rather than drawing new
-  // ones, so the page's largest paint stays the file's. In dark the file is the
-  // light snapshot, hidden, and hydrating it under the dark palette would
-  // mismatch on every styled element, so it is replaced.
+  // SB-160: React adopts the file's elements rather than drawing new ones, so
+  // the page's largest paint stays the file's. In both schemes since SB-108:
+  // the file's styles name the palette's variables, which CSS resolves for
+  // the reader's scheme, so the markup React renders is the file's in either.
   //
-  // SB-161: either way in a transition. The default lane renders the whole
-  // page in one task, half a second on a phone, during which a tap waits; a
-  // transition's is rendered in slices, with the browser free between them,
-  // and a tap on a part not yet hydrated has React finish it first.
-  if (seed && systemMode() === 'light') {
+  // SB-161: in a transition. The default lane renders the whole page in one
+  // task, half a second on a phone, during which a tap waits; a transition's
+  // is rendered in slices, with the browser free between them, and a tap on a
+  // part not yet hydrated has React finish it first.
+  if (seed) {
     // Hydrating, React adopts the file's own <title>, <meta> and <link> where
     // they match what PageHead renders, so they are no longer leftovers for
-    // PageHead to clear. The file's JSON-LD and snapshot style keep the mark:
-    // React renders no copy of those in the head, and they still go.
+    // PageHead to clear. The file's JSON-LD keeps the mark: React renders no
+    // copy of it in the head, and it still goes.
     for (const node of window.document.head.querySelectorAll('title[data-prerendered], meta[data-prerendered], link[data-prerendered]')) {
       node.removeAttribute('data-prerendered')
     }
@@ -100,12 +99,9 @@ const mount = () => {
 }
 
 // SB-159: a prerendered page whose screen's code could not be fetched, on a
-// bad connection most likely, stays the file: readable, its links plain links.
-// A render now could not finish, and its failure would take the page away. In
-// dark too, where the light file beats an empty canvas, so the rule hiding it
-// goes. A page with no file has nothing to lose, and its render asks again.
+// bad connection most likely, stays the file: readable, in either scheme, its
+// links plain links. A render now could not finish, and its failure would
+// take the page away. A page with no file has nothing to lose, and its render
+// asks again.
 const ready = await screen
-if (seed && !ready) {
-  for (const node of window.document.head.querySelectorAll('style[data-prerendered]')) node.remove()
-  root.removeAttribute('data-snapshot')
-} else mount()
+if (!seed || ready) mount()

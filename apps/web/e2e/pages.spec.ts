@@ -119,15 +119,17 @@ test('the file asks for its screen and catalog alongside the app, not after it',
   for (const href of preloads) expect((await request.get(href)).status(), href).toBe(200)
 })
 
-test('without scripts, the snapshot shows in light and waits for its own palette in dark', async ({ browser, baseURL }) => {
-  // The snapshot is light: a reader who prefers dark gets a dark, empty canvas
-  // until the page is rendered in dark, never a flash of the light one.
+test('without scripts, the file is the page in either scheme, in its own palette', async ({ browser, baseURL }) => {
+  // SB-108: the file's styles name the palette's variables, and CSS picks the
+  // reader's scheme, so a reader who prefers dark sees the page at first paint,
+  // dark, with no script run.
+  const grounds = { light: 'rgb(248, 250, 248)', dark: 'rgb(18, 23, 20)' }
   for (const colorScheme of ['light', 'dark'] as const) {
     const context = await browser.newContext({ javaScriptEnabled: false, colorScheme, baseURL: baseURL ?? '' })
     const page = await context.newPage()
     await page.goto('fa/TR/guides/sim-card')
-    const heading = page.getByRole('heading', { level: 1 })
-    await (colorScheme === 'light' ? expect(heading).toBeVisible() : expect(heading).toBeHidden())
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+    await expect(page.locator('body')).toHaveCSS('background-color', grounds[colorScheme])
     await context.close()
   }
 })

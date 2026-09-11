@@ -235,11 +235,14 @@ alternates, made by the same functions the screens render (SB-085), so a
 crawler reads them before any script runs. The body is the page itself, rendered
 at build time with the app's own routes and shell (SB-155), with the GraphQL
 results it was rendered from beside it: the client starts from those, so its
-first render sends no request. For a reader in light, React hydrates the file,
-adopting its elements rather than drawing new ones, so the page's largest
-paint is the file's first paint (SB-160). The snapshot is light, the only
-palette a build can know (SB-108), so for a reader who prefers dark it stays
-hidden on a dark ground and is replaced once the page is rendered in dark.
+first render sends no request. React hydrates the file, adopting its elements
+rather than drawing new ones, so the page's largest paint is the file's first
+paint (SB-160), in either colour scheme: the theme's two palettes are CSS
+variables, light's on `:root` and dark's under
+`@media (prefers-color-scheme: dark)`, so every style in the file names a
+variable and CSS picks the reader's scheme, scripts or none (SB-108). The
+build cannot know a reader's scheme and no longer needs to. Storybook's
+toolbar forces one with a `data-mode` attribute instead of the media query.
 
 The app's script holds only what every page needs (SB-159). Each screen, and
 each of the header's popups (the language menu, the details panel, the Ask

@@ -5,7 +5,6 @@ import { validated, type CountryCode } from 'src/core/country'
 import { CategoryHubQuery, CountriesQuery, createClient, GuideQuery, GuidesQuery, HomeQuery, TaskHubQuery } from 'src/core/graphql'
 import { isLocale, loadCatalog, locales, type Locale } from 'src/core/i18n'
 import { paths } from 'src/core/router'
-import { dark } from 'src/core/theme'
 import { categoryHubData, categoryHubHead, guideData, guideHead, homeData, homeHead, isWritten, onlyArea, taskHubData, taskHubHead } from 'src/screens'
 import { documentTitle, pageSharing, type MetaTag, type PageHeadProps } from 'src/shared/page-head'
 import { absolute, pageLanguages, type LanguageLinks } from 'src/shared/page-languages'
@@ -158,14 +157,6 @@ const TITLE = /<title[^>]*>[^<]*<\/title>/
 const HEAD_END = '</head>'
 const ROOT = '<div id="root"></div>'
 
-// The snapshot is drawn in the light palette, the only one a build can know
-// (SB-108). A reader who prefers dark keeps an empty dark canvas until the page
-// is rendered in dark, which beats a flash of the wrong theme: the snapshot is
-// hidden, and so is the light ground its own baseline styles would paint on
-// the body (`html body` outranks the baseline's `body`). AppRoot removes the
-// mark in the same frame React replaces the snapshot.
-const SNAPSHOT_STYLE = `<style data-prerendered>@media (prefers-color-scheme: dark){#root[data-snapshot]{visibility:hidden}html body{background-color:${dark.background}}}</style>`
-
 // A value as a script's source: a `<` in any text cannot close the tag early.
 const scriptJson = (value: unknown): string => JSON.stringify(value).replaceAll('<', '\\u003c')
 
@@ -236,14 +227,13 @@ export const render = (pages: readonly Page[], template: string, origin: string,
           : `<meta name="${tag.name}" content="${escape(tag.content)}" data-prerendered />`,
       ),
       ...page.structuredData.map((datum) => `<script type="${JSON_LD}" data-prerendered>${jsonLd(datum)}</script>`),
-      page.body ? SNAPSHOT_STYLE : null,
     ].filter((tag) => tag !== null)
     // The page as it renders (SB-155), and the results it was rendered from,
     // which the client starts from so its first render asks for nothing.
     const { styles, markup } = hoistStyles(page.body?.html ?? '')
     tags.push(...styles)
     const body = page.body
-      ? `<div id="root" data-snapshot>${markup}</div>\n    <script>window.__SKIPBUREAU_DATA__=${scriptJson(page.body.data)}</script>`
+      ? `<div id="root">${markup}</div>\n    <script>window.__SKIPBUREAU_DATA__=${scriptJson(page.body.data)}</script>`
       : ROOT
     // Functions, not strings, as the replacements: a `$` in a title would
     // otherwise be read as a pattern.
