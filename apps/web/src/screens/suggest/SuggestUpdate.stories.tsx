@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
-import { expect, userEvent, within } from 'storybook/test'
+import { expect, userEvent, waitFor, within } from 'storybook/test'
 import { GraphQLProvider } from 'src/core/graphql'
 import { handlers } from 'src/core/graphql/mocks'
 import { isLocale } from 'src/core/i18n'
@@ -57,7 +57,8 @@ export const Empty: Story = {
     await userEvent.click(dialog.getByRole('button', { name: /Send suggestion/ }))
     const field = dialog.getByRole('textbox', { name: /What changed/ })
     await expect(field).toHaveAttribute('aria-invalid', 'true')
-    await expect(dialog.getByText(/even in one sentence/)).toBeVisible()
+    // Waited for, not sampled: under load the dialog is still fading in here (SB-153).
+    await waitFor(() => expect(dialog.getByText(/even in one sentence/)).toBeVisible())
   },
 }
 
