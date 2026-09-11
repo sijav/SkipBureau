@@ -41,6 +41,24 @@ anchor jump.
   confirm the text is still in the HTML, and the pages e2e, which asserts the
   guide's body in the file, is the guard.
 
+## Measured after
+
+Live guide, phone profile, three traces and three loads:
+
+- the first Layout before first paint is 239 and 268 ms, from 308 to 383 ms,
+  but a second pass of 62 to 81 ms now follows it in the same task, for the
+  sections coming into view: **the layout work in total is about what it was**,
+  which is not what this card expected;
+- first paint and LCP are 908 to 960 ms, from 988 to 1008 ms;
+- blocking time is 162 to 172 ms, from 230 to 266 ms.
+
+So the win is real but it is in first paint and in blocking time, not in the
+layout total. Scrolling a guide through on a phone profile shifts nothing, CLS
+0.0000 in both schemes, and the page's height settles from 6948 to 8047 px as
+real heights replace the placeholder, which moves a scrollbar and nothing a
+reader is reading. Every section's text is still in the live HTML, and the
+pages e2e passes against the live site, 10 of 10.
+
 ## How it is checked
 
 The same three traces against the live site afterwards, first paint from the
