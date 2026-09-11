@@ -60,6 +60,16 @@ test('the API answers', async () => {
   expect(response.body.data.health).toBe(true)
 })
 
+test('a plain GET answers too, for a readiness probe', async () => {
+  // SB-136: a probe sends no preflight header, so the GraphQL route refuses it.
+  const probe = await request(app.getHttpServer()).get('/health')
+  expect(probe.status).toBe(200)
+  expect(probe.text).toBe('ok')
+
+  const refused = await request(app.getHttpServer()).get('/graphql?query=%7Bhealth%7D')
+  expect(refused.status).toBe(400)
+})
+
 test('a country written to Postgres comes back through GraphQL', async () => {
   // Written with Prisma, read over HTTP, so both halves of the wiring are in
   // the assertion rather than only one.
