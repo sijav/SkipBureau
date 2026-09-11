@@ -62,9 +62,23 @@ nothing more.
    failures 12, success threshold 1. Twelve failures ten seconds apart is two
    minutes, the cold start measured at this CPU.
 
+## What the owner set, 2026-09-11
+
+The readiness probe as above. The path rules took two rounds: the first list
+had nine lines and no `apps/api/`, which in allow mode means a change to the
+API's own code would never build, silently. The owner corrected it to exactly
+the five lines above.
+
 ## How it is checked
 
-`GET /health` answers 200 in the API's e2e suite and on the live API after this
-deploys. The exit itself needs the two settings: a web-only push with the live
-endpoint polled every few seconds throughout, then an API push that still
-deploys.
+`GET /health` answers 200 in the API's e2e suite, and on the live API since
+e6c01a5. Then the two halves of the exit, with the live `/health` polled every
+two seconds:
+
+- **A push the API is not built from** (66ad908, the board only): 137 polls
+  over five minutes, **every one 200**. Before the rules, each push cost one to
+  three minutes of 503.
+- **A push that touches `apps/api`** (this one, which adds `Cache-Control:
+  no-store` to `/health`, a header visible from outside): it must still build
+  and deploy, which the header's arrival shows, and the probe should keep the
+  old container serving until the new one answers.

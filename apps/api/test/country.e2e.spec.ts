@@ -65,6 +65,7 @@ test('a plain GET answers too, for a readiness probe', async () => {
   const probe = await request(app.getHttpServer()).get('/health')
   expect(probe.status).toBe(200)
   expect(probe.text).toBe('ok')
+  expect(probe.headers['cache-control']).toBe('no-store')
 
   const refused = await request(app.getHttpServer()).get('/graphql?query=%7Bhealth%7D')
   expect(refused.status).toBe(400)

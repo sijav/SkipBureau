@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common'
+import { Controller, Get, Header } from '@nestjs/common'
 
 /**
  * A plain GET that a platform's readiness probe can make. The GraphQL `health`
@@ -9,6 +9,9 @@ import { Controller, Get } from '@nestjs/common'
 @Controller('health')
 export class HealthController {
   @Get()
+  // Never from a cache: an old "ok" kept by a proxy for a container that has
+  // since died is exactly what a health check exists to rule out.
+  @Header('Cache-Control', 'no-store')
   health(): string {
     return 'ok'
   }
