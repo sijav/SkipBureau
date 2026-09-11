@@ -41,6 +41,14 @@ msgstr "۱٬۲۰۰ تا ۱٬۶۰۰ لیر برای دو مدرک"
 msgid "1 question about your company type"
 msgstr "۱ پرسش درباره نوع شرکت شما"
 
+#: src/shared/saved-item/SavedItem.stories.tsx
+msgid "3 of 9 steps · paused 18 Aug"
+msgstr "۳ از ۹ گام · متوقف از ۱۸ اوت"
+
+#: src/shared/process-card/ProcessCard.stories.tsx
+msgid "9 steps · 2 to 4 weeks · ₺14,000 to 22,000"
+msgstr "۹ گام · ۲ تا ۴ هفته · ۱۴٬۰۰۰ تا ۲۲٬۰۰۰ لیر"
+
 #: src/shared/page/Page.stories.tsx
 msgid "A column, not a width"
 msgstr "یک ستون، نه یک عرض"
@@ -96,6 +104,14 @@ msgstr "مسیر جایگزین"
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Ankara"
 msgstr "آنکارا"
+
+#: src/shared/process-card/ProcessCard.stories.tsx
+msgid "Answer 10 questions and get a roadmap built for your nationality and city, including the trade registry, the tax office, the bank and the social security registration for your first employee."
+msgstr "به ۱۰ پرسش پاسخ دهید و نقشه راهی بگیرید که برای ملیت و شهر شما ساخته شده، از جمله اداره ثبت تجاری، اداره مالیات، بانک و ثبت بیمه تأمین اجتماعی نخستین کارمندتان."
+
+#: src/shared/process-card/ProcessCard.stories.tsx
+msgid "Answer 10 questions and get a roadmap built for your nationality and city."
+msgstr "به ۱۰ پرسش پاسخ دهید و نقشه راهی بگیرید که برای ملیت و شهر شما ساخته شده."
 
 #: src/screens/task-hub/GuidedSetup.tsx
 msgid "Answer a few questions and we’ll build a roadmap for your situation."
@@ -223,6 +239,10 @@ msgstr "انصراف"
 msgid "Cap"
 msgstr "سقف"
 
+#: src/shared/document-card/DocumentCard.stories.tsx
+msgid "Certificate of enrolment for the current academic year, with the stamp of the faculty"
+msgstr "گواهی ثبت‌نام برای سال تحصیلی جاری، با مهر دانشکده"
+
 #: src/shared/info-panel/InfoPanel.stories.tsx
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Check before booking your appointment"
@@ -311,6 +331,10 @@ msgstr "محتوا"
 msgid "Content shown here is sample material for design review."
 msgstr "محتوای این صفحه نمونه‌ای برای بازبینی طرح است."
 
+#: src/shared/saved-item/SavedItem.tsx
+msgid "Continue"
+msgstr "ادامه"
+
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Copies"
 msgstr "رونوشت‌ها"
@@ -344,6 +368,10 @@ msgstr "توضیح دهید چه چیزی تغییر کرده، حتی در یک
 msgid "Descriptions on this page are sample content for design review. They deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
 msgstr "توضیحات این صفحه محتوای نمونه برای بازبینی طرح هستند. عمدا از هزینه‌ها، آستانه‌ها و قواعد واجد شرایط بودن پرهیز می‌کنند؛ این‌ها در راه‌اندازی راهنمایی‌شده و بر پایه منابع تأییدشده تعیین می‌شوند."
 
+#: src/shared/saved-item/SavedItem.tsx
+msgid "Document"
+msgstr "مدرک"
+
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Documents needed"
 msgstr "مدارک لازم"
@@ -376,6 +404,14 @@ msgstr "هر راهنما تاریخ آخرین بررسی را نشان می‌
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Expired 12 Jul 2026 · must cover the full permit period"
 msgstr "منقضی در ۱۲ ژوئیه ۲۰۲۶ · باید کل دوره اقامت را پوشش دهد"
+
+#: src/shared/document-card/DocumentCard.stories.tsx
+msgid "Expires in 21 days"
+msgstr "۲۱ روز دیگر منقضی می‌شود"
+
+#: src/shared/document-card/DocumentCard.tsx
+msgid "Expiring"
+msgstr "رو به انقضا"
 
 #: src/shared/header/Header.tsx
 msgid "Explore"
@@ -411,8 +447,13 @@ msgstr "فهرست کارهای شروع"
 
 #: src/screens/guide/Guide.tsx
 #: src/shared/ask-result-row/AskResultRow.tsx
+#: src/shared/saved-item/SavedItem.tsx
 msgid "Guide"
 msgstr "راهنما"
+
+#: src/shared/process-card/ProcessCard.tsx
+msgid "Guided process"
+msgstr "روند راهنمایی‌شده"
 
 #: src/shared/ask-result-row/AskResultRow.stories.tsx
 msgid "Guided process · 9 steps"
@@ -479,6 +520,10 @@ msgstr "دانستنی‌های مهم"
 msgid "In person, it cannot be done online"
 msgstr "حضوری، به‌صورت آنلاین ممکن نیست"
 
+#: src/shared/process-card/ProcessCard.tsx
+msgid "In progress"
+msgstr "در جریان"
+
 #: src/shared/context-chip/ContextChip.stories.tsx
 msgid "Iranian"
 msgstr "ایرانی"
@@ -486,6 +531,14 @@ msgstr "ایرانی"
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Istanbul"
 msgstr "استانبول"
+
+#: src/shared/saved-item/SavedItem.stories.tsx
+msgid "Istanbul · Iranian nationality"
+msgstr "استانبول · ملیت ایرانی"
+
+#: src/shared/saved-item/SavedItem.stories.tsx
+msgid "Istanbul · Iranian nationality · a university that is not on the list of state institutions"
+msgstr "استانبول · ملیت ایرانی · دانشگاهی که در فهرست مؤسسه‌های دولتی نیست"
 
 #: src/screens/suggest/SuggestUpdate.tsx
 msgid "It was not sent. Check your connection and try again."
@@ -530,8 +583,13 @@ msgid "Main"
 msgstr "اصلی"
 
 #: src/shared/checklist-item/ChecklistItem.tsx
+#: src/shared/document-card/DocumentCard.tsx
 msgid "Missing"
 msgstr "ناموجود"
+
+#: src/shared/document-card/DocumentCard.stories.tsx
+msgid "Missing, blocks step 4"
+msgstr "ناموجود، گام ۴ را متوقف می‌کند"
 
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Must be dated within the last 30 days"
@@ -553,6 +611,10 @@ msgstr "به پاسخ شما نیاز دارد"
 #: src/shared/roadmap-step/RoadmapStep.tsx
 msgid "Next action"
 msgstr "اقدام بعدی"
+
+#: src/shared/process-card/ProcessCard.tsx
+msgid "Next: {next}"
+msgstr "بعدی: {next}"
 
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Next: register the company at the trade registry"
@@ -582,6 +644,10 @@ msgstr "هنوز به زبان شما نیست"
 msgid "Not re-checked since {month}"
 msgstr "از {month} دوباره بررسی نشده"
 
+#: src/shared/document-card/DocumentCard.tsx
+msgid "Not started"
+msgstr "آغاز نشده"
+
 #: src/screens/task-hub/GuidedSetup.tsx
 msgid "Not sure where to start?"
 msgstr "نمی‌دانید از کجا شروع کنید؟"
@@ -609,6 +675,14 @@ msgstr "هنوز چیزی پیدا نشد"
 #: src/shared/ask-panel/AskPanel.tsx
 msgid "Nothing matches yet. Try other words, or pick a goal on the home page."
 msgstr "هنوز چیزی پیدا نشد. واژه‌های دیگری امتحان کنید، یا در صفحه اصلی یک هدف انتخاب کنید."
+
+#: src/shared/document-card/DocumentCard.stories.tsx
+msgid "Obtained from your university registrar. Must be dated within the last 30 days, name the programme and its duration, and carry the stamp and signature of the faculty, not only of the international office."
+msgstr "از اداره ثبت دانشگاهتان گرفته می‌شود. باید تاریخ ۳۰ روز اخیر را داشته باشد، نام رشته و مدت آن را بیاورد، و مهر و امضای دانشکده را داشته باشد، نه فقط دفتر بین‌الملل را."
+
+#: src/shared/document-card/DocumentCard.stories.tsx
+msgid "Obtained from your university registrar. Must be dated within the last 30 days."
+msgstr "از اداره ثبت دانشگاهتان گرفته می‌شود. باید تاریخ ۳۰ روز اخیر را داشته باشد."
 
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Official"
@@ -646,6 +720,10 @@ msgstr "فهرستی از همه راهنماها، برای مرور بر اس�
 msgid "Ongoing"
 msgstr "مستمر"
 
+#: src/shared/saved-item/SavedItem.tsx
+msgid "Open"
+msgstr "باز کردن"
+
 #: src/shared/source-card/SourceCard.tsx
 msgid "Operator source"
 msgstr "منبع اپراتور"
@@ -657,6 +735,10 @@ msgstr "اختیاری"
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Or explore the areas involved yourself."
 msgstr "یا حوزه‌های مربوط را خودتان بررسی کنید."
+
+#: src/shared/document-card/DocumentCard.stories.tsx
+msgid "Original · No translation · No apostille"
+msgstr "اصل مدرک · بدون ترجمه · بدون آپوستیل"
 
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Original required"
@@ -695,6 +777,10 @@ msgstr "پرطرفدار در حال حاضر"
 msgid "Practical advice"
 msgstr "توصیهٔ عملی"
 
+#: src/shared/process-card/ProcessCard.stories.tsx
+msgid "prepare notarised passport translation"
+msgstr "ترجمه محضری گذرنامه را آماده کنید"
+
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Prepare translated and notarised documents"
 msgstr "آماده کردن مدارک ترجمه‌شده و محضری"
@@ -710,6 +796,10 @@ msgstr "ریاست مدیریت مهاجرت · تأییدشده در اوت ۲�
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Previous residence permit"
 msgstr "اقامت قبلی"
+
+#: src/shared/saved-item/SavedItem.tsx
+msgid "Process"
+msgstr "روند"
 
 #: src/screens/guide/Guide.tsx
 #: src/shared/ask-result-row/AskResultRow.tsx
@@ -739,6 +829,7 @@ msgid "Reading · verified Aug 2026"
 msgstr "مطالعه · بررسی‌شده در اوت ۲۰۲۶"
 
 #: src/shared/checklist-item/ChecklistItem.tsx
+#: src/shared/document-card/DocumentCard.tsx
 msgid "Ready"
 msgstr "آماده"
 
@@ -769,6 +860,10 @@ msgstr "ثبت شرکت"
 msgid "Related guides"
 msgstr "راهنماهای مرتبط"
 
+#: src/shared/saved-item/SavedItem.tsx
+msgid "Remove from saved"
+msgstr "حذف از ذخیره‌شده‌ها"
+
 #: src/shared/text-input/TextInput.stories.tsx
 msgid "Remove the dash, this field takes letters and numbers only"
 msgstr "خط تیره را حذف کنید، این فیلد فقط حرف و عدد می‌پذیرد"
@@ -792,6 +887,10 @@ msgstr "الزامی"
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Required at any notary (noter)"
 msgstr "در هر دفتر اسناد رسمی (noter) لازم است"
+
+#: src/shared/guide-card/GuideCard.stories.tsx
+msgid "Residence and immigration"
+msgstr "اقامت و مهاجرت"
 
 #: src/shared/deadline-item/DeadlineItem.stories.tsx
 msgid "Residence permit renewal"
@@ -896,6 +995,15 @@ msgstr "راه‌اندازی کسب‌وکار"
 msgid "Start a business in Turkey"
 msgstr "راه‌اندازی کسب‌وکار در ترکیه"
 
+#: src/shared/process-card/ProcessCard.stories.tsx
+#: src/shared/saved-item/SavedItem.stories.tsx
+msgid "Start a company in Turkey"
+msgstr "راه‌اندازی شرکت در ترکیه"
+
+#: src/shared/process-card/ProcessCard.stories.tsx
+msgid "Start a limited company in Turkey with a foreign shareholder and a local director"
+msgstr "راه‌اندازی شرکت با مسئولیت محدود در ترکیه با سهام‌دار خارجی و مدیر محلی"
+
 #: src/screens/task-hub/GuidedSetup.tsx
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Start guided setup"
@@ -915,8 +1023,22 @@ msgid "Still have a question?"
 msgstr "هنوز پرسشی دارید؟"
 
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
+#: src/shared/document-card/DocumentCard.stories.tsx
 msgid "Student certificate"
 msgstr "گواهی دانشجویی"
+
+#: src/shared/guide-card/GuideCard.stories.tsx
+#: src/shared/saved-item/SavedItem.stories.tsx
+msgid "Student residence permit"
+msgstr "اقامت دانشجویی"
+
+#: src/shared/saved-item/SavedItem.stories.tsx
+msgid "Student residence permit for a second degree, an exchange term, or a language course"
+msgstr "اقامت دانشجویی برای مدرک دوم، دوره تبادل، یا دوره زبان"
+
+#: src/shared/guide-card/GuideCard.stories.tsx
+msgid "Student residence permit for a second degree, an exchange term, or a language course at a private school"
+msgstr "اقامت دانشجویی برای مدرک دوم، دوره تبادل، یا دوره زبان در یک آموزشگاه خصوصی"
 
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Submitted 3 Sep · usually 15 to 20 days"
@@ -926,6 +1048,10 @@ msgstr "ارسال‌شده در ۳ سپتامبر · معمولا ۱۵ تا ۲�
 #: src/screens/suggest/SuggestUpdate.tsx
 msgid "Suggest an update"
 msgstr "پیشنهاد به‌روزرسانی"
+
+#: src/shared/saved-item/SavedItem.stories.tsx
+msgid "Sworn translation"
+msgstr "ترجمه رسمی"
 
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
@@ -1059,6 +1185,10 @@ msgstr "کشور بی‌نام"
 msgid "Upcoming"
 msgstr "پیش رو"
 
+#: src/shared/saved-item/SavedItem.stories.tsx
+msgid "Updated 28 Aug 2026"
+msgstr "به‌روزشده در ۲۸ اوت ۲۰۲۶"
+
 #: src/shared/fact-strip/FactStrip.stories.tsx
 msgid "Usually a short visit in store"
 msgstr "معمولا یک مراجعه کوتاه به فروشگاه"
@@ -1070,6 +1200,18 @@ msgstr "بسته به نوع شرکت و موقعیت متفاوت است"
 #: src/shared/fact-strip/FactStrip.stories.tsx
 msgid "Varies by operator, plan, SIM type and campaign"
 msgstr "بسته به اپراتور، طرح، نوع سیم‌کارت و جشنواره متفاوت است"
+
+#: src/shared/guide-card/GuideCard.tsx
+msgid "Verified {verified}"
+msgstr "تأییدشده {verified}"
+
+#: src/shared/saved-item/SavedItem.stories.tsx
+msgid "Verified 11 Aug 2026"
+msgstr "تأییدشده ۱۱ اوت ۲۰۲۶"
+
+#: src/shared/saved-item/SavedItem.stories.tsx
+msgid "Verified 24 Aug 2026"
+msgstr "تأییدشده ۲۴ اوت ۲۰۲۶"
 
 #: src/shared/source-card/SourceCard.tsx
 msgid "Verified against this source"
@@ -1137,6 +1279,10 @@ msgstr "آنچه پرسش پیدا کرد"
 msgid "What changed?"
 msgstr "چه چیزی تغییر کرده است؟"
 
+#: src/shared/saved-item/SavedItem.stories.tsx
+msgid "What counts as a sworn translator in Turkey"
+msgstr "مترجم رسمی در ترکیه یعنی چه کسی"
+
 #: src/screens/category-hub/CategoryHub.tsx
 msgid "What do you need help with?"
 msgstr "در چه کاری به کمک نیاز دارید؟"
@@ -1176,6 +1322,14 @@ msgstr "آنچه درباره شما می‌دانیم"
 #: src/screens/guide/GuideSection.tsx
 msgid "What you need"
 msgstr "آنچه لازم دارید"
+
+#: src/shared/guide-card/GuideCard.stories.tsx
+msgid "What you need, what it costs, and the two document mistakes that cause most refusals, including the translation and the insurance that has to cover the whole permit, and what to do when the university is late with the certificate."
+msgstr "آنچه لازم دارید، هزینه‌اش، و دو اشتباه مدرکی که بیشترِ ردها از آن‌هاست، از جمله ترجمه و بیمه‌ای که باید کل دوره اقامت را پوشش دهد، و اینکه اگر دانشگاه گواهی را دیر بدهد چه کنید."
+
+#: src/shared/guide-card/GuideCard.stories.tsx
+msgid "What you need, what it costs, and the two document mistakes that cause most refusals."
+msgstr "آنچه لازم دارید، هزینه‌اش، و دو اشتباه مدرکی که بیشترِ ردها از آن‌هاست."
 
 #: src/screens/task-hub/TaskHub.tsx
 msgid "What you’ll need to think about"

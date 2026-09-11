@@ -41,6 +41,14 @@ msgstr "₺1,200 to ₺1,600 for two documents"
 msgid "1 question about your company type"
 msgstr "1 question about your company type"
 
+#: src/shared/saved-item/SavedItem.stories.tsx
+msgid "3 of 9 steps · paused 18 Aug"
+msgstr "3 of 9 steps · paused 18 Aug"
+
+#: src/shared/process-card/ProcessCard.stories.tsx
+msgid "9 steps · 2 to 4 weeks · ₺14,000 to 22,000"
+msgstr "9 steps · 2 to 4 weeks · ₺14,000 to 22,000"
+
 #: src/shared/page/Page.stories.tsx
 msgid "A column, not a width"
 msgstr "A column, not a width"
@@ -96,6 +104,14 @@ msgstr "Alternative route"
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Ankara"
 msgstr "Ankara"
+
+#: src/shared/process-card/ProcessCard.stories.tsx
+msgid "Answer 10 questions and get a roadmap built for your nationality and city, including the trade registry, the tax office, the bank and the social security registration for your first employee."
+msgstr "Answer 10 questions and get a roadmap built for your nationality and city, including the trade registry, the tax office, the bank and the social security registration for your first employee."
+
+#: src/shared/process-card/ProcessCard.stories.tsx
+msgid "Answer 10 questions and get a roadmap built for your nationality and city."
+msgstr "Answer 10 questions and get a roadmap built for your nationality and city."
 
 #: src/screens/task-hub/GuidedSetup.tsx
 msgid "Answer a few questions and we’ll build a roadmap for your situation."
@@ -223,6 +239,10 @@ msgstr "Cancel"
 msgid "Cap"
 msgstr "Cap"
 
+#: src/shared/document-card/DocumentCard.stories.tsx
+msgid "Certificate of enrolment for the current academic year, with the stamp of the faculty"
+msgstr "Certificate of enrolment for the current academic year, with the stamp of the faculty"
+
 #: src/shared/info-panel/InfoPanel.stories.tsx
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Check before booking your appointment"
@@ -311,6 +331,10 @@ msgstr "Content"
 msgid "Content shown here is sample material for design review."
 msgstr "Content shown here is sample material for design review."
 
+#: src/shared/saved-item/SavedItem.tsx
+msgid "Continue"
+msgstr "Continue"
+
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Copies"
 msgstr "Copies"
@@ -344,6 +368,10 @@ msgstr "Describe what changed, even in one sentence."
 msgid "Descriptions on this page are sample content for design review. They deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
 msgstr "Descriptions on this page are sample content for design review. They deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
 
+#: src/shared/saved-item/SavedItem.tsx
+msgid "Document"
+msgstr "Document"
+
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Documents needed"
 msgstr "Documents needed"
@@ -376,6 +404,14 @@ msgstr "Every guide shows when it was last verified and links to the official so
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Expired 12 Jul 2026 · must cover the full permit period"
 msgstr "Expired 12 Jul 2026 · must cover the full permit period"
+
+#: src/shared/document-card/DocumentCard.stories.tsx
+msgid "Expires in 21 days"
+msgstr "Expires in 21 days"
+
+#: src/shared/document-card/DocumentCard.tsx
+msgid "Expiring"
+msgstr "Expiring"
 
 #: src/shared/header/Header.tsx
 msgid "Explore"
@@ -411,8 +447,13 @@ msgstr "Getting started checklist"
 
 #: src/screens/guide/Guide.tsx
 #: src/shared/ask-result-row/AskResultRow.tsx
+#: src/shared/saved-item/SavedItem.tsx
 msgid "Guide"
 msgstr "Guide"
+
+#: src/shared/process-card/ProcessCard.tsx
+msgid "Guided process"
+msgstr "Guided process"
 
 #: src/shared/ask-result-row/AskResultRow.stories.tsx
 msgid "Guided process · 9 steps"
@@ -479,6 +520,10 @@ msgstr "Important to know"
 msgid "In person, it cannot be done online"
 msgstr "In person, it cannot be done online"
 
+#: src/shared/process-card/ProcessCard.tsx
+msgid "In progress"
+msgstr "In progress"
+
 #: src/shared/context-chip/ContextChip.stories.tsx
 msgid "Iranian"
 msgstr "Iranian"
@@ -486,6 +531,14 @@ msgstr "Iranian"
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Istanbul"
 msgstr "Istanbul"
+
+#: src/shared/saved-item/SavedItem.stories.tsx
+msgid "Istanbul · Iranian nationality"
+msgstr "Istanbul · Iranian nationality"
+
+#: src/shared/saved-item/SavedItem.stories.tsx
+msgid "Istanbul · Iranian nationality · a university that is not on the list of state institutions"
+msgstr "Istanbul · Iranian nationality · a university that is not on the list of state institutions"
 
 #: src/screens/suggest/SuggestUpdate.tsx
 msgid "It was not sent. Check your connection and try again."
@@ -530,8 +583,13 @@ msgid "Main"
 msgstr "Main"
 
 #: src/shared/checklist-item/ChecklistItem.tsx
+#: src/shared/document-card/DocumentCard.tsx
 msgid "Missing"
 msgstr "Missing"
+
+#: src/shared/document-card/DocumentCard.stories.tsx
+msgid "Missing, blocks step 4"
+msgstr "Missing, blocks step 4"
 
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Must be dated within the last 30 days"
@@ -553,6 +611,10 @@ msgstr "Needs your answer"
 #: src/shared/roadmap-step/RoadmapStep.tsx
 msgid "Next action"
 msgstr "Next action"
+
+#: src/shared/process-card/ProcessCard.tsx
+msgid "Next: {next}"
+msgstr "Next: {next}"
 
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Next: register the company at the trade registry"
@@ -582,6 +644,10 @@ msgstr "Not in your language yet"
 msgid "Not re-checked since {month}"
 msgstr "Not re-checked since {month}"
 
+#: src/shared/document-card/DocumentCard.tsx
+msgid "Not started"
+msgstr "Not started"
+
 #: src/screens/task-hub/GuidedSetup.tsx
 msgid "Not sure where to start?"
 msgstr "Not sure where to start?"
@@ -609,6 +675,14 @@ msgstr "Nothing matches yet"
 #: src/shared/ask-panel/AskPanel.tsx
 msgid "Nothing matches yet. Try other words, or pick a goal on the home page."
 msgstr "Nothing matches yet. Try other words, or pick a goal on the home page."
+
+#: src/shared/document-card/DocumentCard.stories.tsx
+msgid "Obtained from your university registrar. Must be dated within the last 30 days, name the programme and its duration, and carry the stamp and signature of the faculty, not only of the international office."
+msgstr "Obtained from your university registrar. Must be dated within the last 30 days, name the programme and its duration, and carry the stamp and signature of the faculty, not only of the international office."
+
+#: src/shared/document-card/DocumentCard.stories.tsx
+msgid "Obtained from your university registrar. Must be dated within the last 30 days."
+msgstr "Obtained from your university registrar. Must be dated within the last 30 days."
 
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Official"
@@ -646,6 +720,10 @@ msgstr "One list of every guide, to browse by topic. Until it is ready, each gui
 msgid "Ongoing"
 msgstr "Ongoing"
 
+#: src/shared/saved-item/SavedItem.tsx
+msgid "Open"
+msgstr "Open"
+
 #: src/shared/source-card/SourceCard.tsx
 msgid "Operator source"
 msgstr "Operator source"
@@ -657,6 +735,10 @@ msgstr "Optional"
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Or explore the areas involved yourself."
 msgstr "Or explore the areas involved yourself."
+
+#: src/shared/document-card/DocumentCard.stories.tsx
+msgid "Original · No translation · No apostille"
+msgstr "Original · No translation · No apostille"
 
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Original required"
@@ -695,6 +777,10 @@ msgstr "Popular right now"
 msgid "Practical advice"
 msgstr "Practical advice"
 
+#: src/shared/process-card/ProcessCard.stories.tsx
+msgid "prepare notarised passport translation"
+msgstr "prepare notarised passport translation"
+
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Prepare translated and notarised documents"
 msgstr "Prepare translated and notarised documents"
@@ -710,6 +796,10 @@ msgstr "Presidency of Migration Management · verified August 2026"
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Previous residence permit"
 msgstr "Previous residence permit"
+
+#: src/shared/saved-item/SavedItem.tsx
+msgid "Process"
+msgstr "Process"
 
 #: src/screens/guide/Guide.tsx
 #: src/shared/ask-result-row/AskResultRow.tsx
@@ -739,6 +829,7 @@ msgid "Reading · verified Aug 2026"
 msgstr "Reading · verified Aug 2026"
 
 #: src/shared/checklist-item/ChecklistItem.tsx
+#: src/shared/document-card/DocumentCard.tsx
 msgid "Ready"
 msgstr "Ready"
 
@@ -769,6 +860,10 @@ msgstr "Register your company"
 msgid "Related guides"
 msgstr "Related guides"
 
+#: src/shared/saved-item/SavedItem.tsx
+msgid "Remove from saved"
+msgstr "Remove from saved"
+
 #: src/shared/text-input/TextInput.stories.tsx
 msgid "Remove the dash, this field takes letters and numbers only"
 msgstr "Remove the dash, this field takes letters and numbers only"
@@ -792,6 +887,10 @@ msgstr "Required"
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Required at any notary (noter)"
 msgstr "Required at any notary (noter)"
+
+#: src/shared/guide-card/GuideCard.stories.tsx
+msgid "Residence and immigration"
+msgstr "Residence and immigration"
 
 #: src/shared/deadline-item/DeadlineItem.stories.tsx
 msgid "Residence permit renewal"
@@ -896,6 +995,15 @@ msgstr "Start a business"
 msgid "Start a business in Turkey"
 msgstr "Start a business in Turkey"
 
+#: src/shared/process-card/ProcessCard.stories.tsx
+#: src/shared/saved-item/SavedItem.stories.tsx
+msgid "Start a company in Turkey"
+msgstr "Start a company in Turkey"
+
+#: src/shared/process-card/ProcessCard.stories.tsx
+msgid "Start a limited company in Turkey with a foreign shareholder and a local director"
+msgstr "Start a limited company in Turkey with a foreign shareholder and a local director"
+
 #: src/screens/task-hub/GuidedSetup.tsx
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Start guided setup"
@@ -915,8 +1023,22 @@ msgid "Still have a question?"
 msgstr "Still have a question?"
 
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
+#: src/shared/document-card/DocumentCard.stories.tsx
 msgid "Student certificate"
 msgstr "Student certificate"
+
+#: src/shared/guide-card/GuideCard.stories.tsx
+#: src/shared/saved-item/SavedItem.stories.tsx
+msgid "Student residence permit"
+msgstr "Student residence permit"
+
+#: src/shared/saved-item/SavedItem.stories.tsx
+msgid "Student residence permit for a second degree, an exchange term, or a language course"
+msgstr "Student residence permit for a second degree, an exchange term, or a language course"
+
+#: src/shared/guide-card/GuideCard.stories.tsx
+msgid "Student residence permit for a second degree, an exchange term, or a language course at a private school"
+msgstr "Student residence permit for a second degree, an exchange term, or a language course at a private school"
 
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Submitted 3 Sep · usually 15 to 20 days"
@@ -926,6 +1048,10 @@ msgstr "Submitted 3 Sep · usually 15 to 20 days"
 #: src/screens/suggest/SuggestUpdate.tsx
 msgid "Suggest an update"
 msgstr "Suggest an update"
+
+#: src/shared/saved-item/SavedItem.stories.tsx
+msgid "Sworn translation"
+msgstr "Sworn translation"
 
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
@@ -1059,6 +1185,10 @@ msgstr "Unnamed country"
 msgid "Upcoming"
 msgstr "Upcoming"
 
+#: src/shared/saved-item/SavedItem.stories.tsx
+msgid "Updated 28 Aug 2026"
+msgstr "Updated 28 Aug 2026"
+
 #: src/shared/fact-strip/FactStrip.stories.tsx
 msgid "Usually a short visit in store"
 msgstr "Usually a short visit in store"
@@ -1070,6 +1200,18 @@ msgstr "Varies by company type and situation"
 #: src/shared/fact-strip/FactStrip.stories.tsx
 msgid "Varies by operator, plan, SIM type and campaign"
 msgstr "Varies by operator, plan, SIM type and campaign"
+
+#: src/shared/guide-card/GuideCard.tsx
+msgid "Verified {verified}"
+msgstr "Verified {verified}"
+
+#: src/shared/saved-item/SavedItem.stories.tsx
+msgid "Verified 11 Aug 2026"
+msgstr "Verified 11 Aug 2026"
+
+#: src/shared/saved-item/SavedItem.stories.tsx
+msgid "Verified 24 Aug 2026"
+msgstr "Verified 24 Aug 2026"
 
 #: src/shared/source-card/SourceCard.tsx
 msgid "Verified against this source"
@@ -1137,6 +1279,10 @@ msgstr "What Ask found"
 msgid "What changed?"
 msgstr "What changed?"
 
+#: src/shared/saved-item/SavedItem.stories.tsx
+msgid "What counts as a sworn translator in Turkey"
+msgstr "What counts as a sworn translator in Turkey"
+
 #: src/screens/category-hub/CategoryHub.tsx
 msgid "What do you need help with?"
 msgstr "What do you need help with?"
@@ -1176,6 +1322,14 @@ msgstr "What we know about you"
 #: src/screens/guide/GuideSection.tsx
 msgid "What you need"
 msgstr "What you need"
+
+#: src/shared/guide-card/GuideCard.stories.tsx
+msgid "What you need, what it costs, and the two document mistakes that cause most refusals, including the translation and the insurance that has to cover the whole permit, and what to do when the university is late with the certificate."
+msgstr "What you need, what it costs, and the two document mistakes that cause most refusals, including the translation and the insurance that has to cover the whole permit, and what to do when the university is late with the certificate."
+
+#: src/shared/guide-card/GuideCard.stories.tsx
+msgid "What you need, what it costs, and the two document mistakes that cause most refusals."
+msgstr "What you need, what it costs, and the two document mistakes that cause most refusals."
 
 #: src/screens/task-hub/TaskHub.tsx
 msgid "What you’ll need to think about"

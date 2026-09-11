@@ -1,6 +1,7 @@
 export { DECLARED, EXEMPT, contrastRatio, luminance, type Declared, type Token } from './contrast'
 export { AppTheme, type AppThemeProps } from './AppTheme'
 export { BUTTON_PAINT, BUTTON_VARIANTS, type ButtonFill, type ButtonPaint, type ButtonVariant } from './button'
+export { DOCUMENT_PAINT, DOCUMENT_STATES, cardFrame, cardInteraction, type DocumentState } from './card'
 export { CHIP_PAINT, chipStyle, type ChipPaint } from './chip'
 export { FIELD_PAINT, FIELD_STATES, FIELD_TEXT, SELECT_TEXT, type FieldPaint, type FieldState } from './input'
 export { PANEL_KINDS, PANEL_PAINT, panelStyle, type PanelKind, type PanelPaint } from './panel'
