@@ -107,5 +107,21 @@ two seconds:
 - **A push that touches `apps/api`** (5c69ab8, which adds `Cache-Control:
   no-store` to `/health`, a header visible from outside): it must still build
   and deploy. **It did not**, for the reason above: 227 polls over ten minutes
-  all answered 200, and the header never arrived. That half of the exit is not
-  met while the nine rules stand.
+  all answered 200, and the header never arrived.
+- **The same push with the API's version bumped** (e7adb3a, `0.0.0` to
+  `0.1.0`, which moves `apps/api/package.json` and the lockfile, both on the
+  list): it built by itself, and the header arrived **151 seconds** after the
+  push. Across the rollout 49 polls answered 200 and **one timed out**, at 148
+  seconds, which is the switch from the old container to the new. Before the
+  probe the same kind of push cost 187 seconds of 503.
+
+## Where that leaves it
+
+Both halves of the exit hold, the second only through the version bump, which
+`CLAUDE.md` now requires of every push that changes `apps/api`. Nothing
+automatic catches a forgotten bump: the change sits on `main` and not on the
+live API. The real fix is to save `apps/api/**` into the rules, which needs
+Northflank's form to accept a save again, or a change through its API made by
+the owner with their own token. That is SB-156. The token the owner pasted into
+the chat was not used or stored: entering credentials on someone's behalf is
+outside what I may do, whatever the account.
