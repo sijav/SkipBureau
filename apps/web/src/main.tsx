@@ -1,5 +1,5 @@
 import { i18n } from '@lingui/core'
-import { StrictMode } from 'react'
+import { startTransition, StrictMode } from 'react'
 import { createRoot, hydrateRoot } from 'react-dom/client'
 import { createClient } from 'src/core/graphql'
 import { loadCatalog } from 'src/core/i18n'
@@ -68,6 +68,11 @@ const mount = () => {
   // ones, so the page's largest paint stays the file's. In dark the file is the
   // light snapshot, hidden, and hydrating it under the dark palette would
   // mismatch on every styled element, so it is replaced.
+  //
+  // SB-161: either way in a transition. The default lane renders the whole
+  // page in one task, half a second on a phone, during which a tap waits; a
+  // transition's is rendered in slices, with the browser free between them,
+  // and a tap on a part not yet hydrated has React finish it first.
   if (seed && systemMode() === 'light') {
     // Hydrating, React adopts the file's own <title>, <meta> and <link> where
     // they match what PageHead renders, so they are no longer leftovers for
@@ -76,8 +81,13 @@ const mount = () => {
     for (const node of window.document.head.querySelectorAll('title[data-prerendered], meta[data-prerendered], link[data-prerendered]')) {
       node.removeAttribute('data-prerendered')
     }
-    hydrateRoot(root, app, { onUncaughtError })
-  } else createRoot(root, { onUncaughtError }).render(app)
+    startTransition(() => {
+      hydrateRoot(root, app, { onUncaughtError })
+    })
+  } else {
+    const fresh = createRoot(root, { onUncaughtError })
+    startTransition(() => fresh.render(app))
+  }
 
   // Everything else the app may need, once the page has what it needs and the
   // browser is idle: a tap on the language, the details or the next page then

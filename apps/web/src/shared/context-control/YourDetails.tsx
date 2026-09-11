@@ -32,14 +32,17 @@ export const YourDetails = () => {
   // The names the product gives the countries it covers, Turkey rather than
   // Intl's Türkiye; every other country is named by Intl in the reader's language.
   const [{ data }] = useQuery({ query: CountriesQuery, variables: { locale }, pause: !open && !origin })
+  const ours = useMemo(() => new Map((data?.countries ?? []).map((row) => [row.code, row.name])), [data])
+  // Every country there is, named and sorted, only once the panel is open: on
+  // every page this header is on, building it closed cost 100 ms on a phone
+  // for a list nobody could see (SB-161).
   const options = useMemo(() => {
-    const ours = new Map((data?.countries ?? []).map((row) => [row.code, row.name]))
-    return REGIONS.map((code) => ({ code, name: ours.get(code) ?? regionName(code, locale) })).sort((a, b) =>
-      a.name.localeCompare(b.name, locale),
-    )
-  }, [data, locale])
+    if (!open) return []
+    const collator = new Intl.Collator(locale)
+    return REGIONS.map((code) => ({ code, name: ours.get(code) ?? regionName(code, locale) })).sort((a, b) => collator.compare(a.name, b.name))
+  }, [open, ours, locale])
 
-  const originName = origin ? (options.find((option) => option.code === origin)?.name ?? regionName(origin, locale)) : null
+  const originName = origin ? (ours.get(origin) ?? regionName(origin, locale)) : null
 
   return (
     <>

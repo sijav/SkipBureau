@@ -32,10 +32,24 @@ export const nearestLocale = (requested: readonly string[]): Locale => {
   return defaultLocale
 }
 
+// One formatter per locale and form: building one loads the locale's calendar
+// data, which every date on a guide did again (SB-161).
+const formatters = new Map<string, Intl.DateTimeFormat>()
+const formatter = (locale: Locale, form: 'day' | 'short' | 'long'): Intl.DateTimeFormat => {
+  const key = `${locale} ${form}`
+  const cached = formatters.get(key)
+  if (cached) return cached
+  const made = new Intl.DateTimeFormat(
+    locales[locale].dates,
+    form === 'day' ? { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' } : { month: form, year: 'numeric', timeZone: 'UTC' },
+  )
+  formatters.set(key, made)
+  return made
+}
+
 /** A calendar date from the API, "2026-08-24", as the design writes one. */
-export const formatDay = (isoDate: string, locale: Locale): string =>
-  new Intl.DateTimeFormat(locales[locale].dates, { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(isoDate))
+export const formatDay = (isoDate: string, locale: Locale): string => formatter(locale, 'day').format(new Date(isoDate))
 
 /** Its month and year, "Aug 2026", or "August 2026" long, for a line that only needs that much. */
 export const formatMonth = (isoDate: string, locale: Locale, month: 'short' | 'long' = 'short'): string =>
-  new Intl.DateTimeFormat(locales[locale].dates, { month, year: 'numeric', timeZone: 'UTC' }).format(new Date(isoDate))
+  formatter(locale, month).format(new Date(isoDate))

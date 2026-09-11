@@ -5,8 +5,7 @@ import { expect, userEvent, within } from 'storybook/test'
 import { GraphQLProvider, endpoint } from 'src/core/graphql'
 import { emptyHandlers, handlers } from 'src/core/graphql/mocks'
 import { isLocale } from 'src/core/i18n'
-import { CountryRoute, localeSegment } from 'src/core/router'
-import { ShellProvider } from 'src/core/shell'
+import { AddressShell, CountryRoute, localeSegment } from 'src/core/router'
 import { AppShell } from 'src/shared/app-shell'
 import { Header } from 'src/shared/header'
 import { Home } from './Home'
@@ -21,7 +20,7 @@ const meta = {
       <GraphQLProvider>
         {/* The address carries the language in the app, so here it follows the toolbar. */}
         <MemoryRouter initialEntries={[`/${localeSegment(isLocale(globals['locale']) ? globals['locale'] : 'en-US')}/${typeof parameters['at'] === 'string' ? parameters['at'] : 'TR'}`]}>
-          <ShellProvider>
+          <AddressShell>
             <AppShell header={<Header />}>
               <Routes>
                 <Route path=":reader/:country" element={<CountryRoute />}>
@@ -29,7 +28,7 @@ const meta = {
                 </Route>
               </Routes>
             </AppShell>
-          </ShellProvider>
+          </AddressShell>
         </MemoryRouter>
       </GraphQLProvider>
     ),

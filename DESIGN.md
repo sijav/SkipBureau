@@ -255,6 +255,14 @@ again later; a render that needs it reloads the address once, which is also
 what a deploy's renamed chunks need; and a prerendered page whose own screen
 cannot be fetched stays the file, readable, rather than a render that fails.
 
+Nothing the page's first render could know is left for after mount (SB-161),
+because whatever arrives then makes the whole app render again, on a guide
+half a second of a phone's time, and the file would be drawn without it. So
+the shell reads the country and whether the page opens owning Ask from the
+address, the language provider leaves a catalog that is already live alone,
+and the header's region list is built only when its panel opens. Hydration
+runs in a transition, in slices, with the browser free between them.
+
 `404.html`, a copy of the app shell, stays for everything else: a guide listed
 but not written yet, the Coming soon pages, search results, the Suggest dialog,
 an address carrying the reader's origin, and the old `/t/` and `/g/` forms.

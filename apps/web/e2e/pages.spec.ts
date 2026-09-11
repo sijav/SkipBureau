@@ -94,6 +94,20 @@ test('the file carries the page itself, and the page asks for none of it again',
   expect(errors).toEqual([])
 })
 
+test('the file draws the shell as the page renders it: the country known, one Ask', async ({ request }) => {
+  // SB-161: the shell reads the country and who owns Ask from the address, so
+  // the prerender has both. The header links to the country, not the site root,
+  // and the home, whose own field is on screen, has no second one in its header.
+  const guide = await (await request.get('en/TR/guides/sim-card')).text()
+  const header = guide.slice(guide.indexOf('<header'), guide.indexOf('</header>'))
+  const links = [...header.matchAll(/<a [^>]*href="([^"]+)"/g)].map((match) => match[1] ?? '')
+  expect(links.length).toBeGreaterThan(0)
+  for (const href of links) expect(href).toMatch(/\/en\/TR(\/|$)/)
+
+  const home = await (await request.get('en/TR')).text()
+  expect(home.match(/role="combobox"/g)).toHaveLength(1)
+})
+
 test('the file asks for its screen and catalog alongside the app, not after it', async ({ request }) => {
   // SB-159: each screen is a chunk of its own, and the guide's, with its
   // catalog, is preloaded by the file rather than asked for once the app runs.

@@ -27,6 +27,13 @@ export const I18nProvider = ({ children, locale: wanted, load = loadCatalog }: I
   const [active, setActive] = useState<Locale | null>(() => (i18n.locale === wanted ? wanted : null))
 
   useEffect(() => {
+    // Already live, as on a prerendered page whose catalog main.tsx loaded
+    // before the first render, and which the state above started from.
+    // Activating it again tells every translated component its language
+    // changed, and they all render again: on a guide, half a second on a
+    // phone, done at once because the page was still hydrating (SB-161).
+    if (i18n.locale === wanted) return
+
     // React runs this cleanup before the next setup, so the flag alone
     // invalidates a request the reader has moved on from.
     let current = true

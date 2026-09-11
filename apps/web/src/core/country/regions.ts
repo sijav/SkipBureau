@@ -42,10 +42,20 @@ const known = new Set(REGIONS)
 /** A code for a country someone can come from, in either case. */
 export const isRegion = (code: string): boolean => known.has(code.toLowerCase())
 
+// One per language: building one loads that language's data, and doing it for
+// each of 250 regions cost the page 90 ms on a phone (SB-161).
+const namers = new Map<string, Intl.DisplayNames>()
+const namer = (language: string): Intl.DisplayNames => {
+  const cached = namers.get(language)
+  if (cached) return cached
+  const made = new Intl.DisplayNames([language], { type: 'region' })
+  namers.set(language, made)
+  return made
+}
+
 /**
  * A country's name in the reader's language, from Intl. Where the database
  * names the country, as it does every destination, the caller prefers that:
  * Intl says Türkiye in English and the product says Turkey.
  */
-export const regionName = (code: string, language: string): string =>
-  new Intl.DisplayNames([language], { type: 'region' }).of(code.toUpperCase()) ?? code.toUpperCase()
+export const regionName = (code: string, language: string): string => namer(language).of(code.toUpperCase()) ?? code.toUpperCase()

@@ -1,3 +1,4 @@
+export { AddressShell } from './AddressShell'
 export { AppRoutes } from './AppRoutes'
 export { CountryRoute } from './CountryRoute'
 export { useJourney, useShellJourney } from './journey'

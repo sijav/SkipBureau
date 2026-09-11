@@ -4,8 +4,7 @@ import { expect, within } from 'storybook/test'
 import { GraphQLProvider } from 'src/core/graphql'
 import { handlers } from 'src/core/graphql/mocks'
 import { isLocale } from 'src/core/i18n'
-import { CountryRoute, localeSegment } from 'src/core/router'
-import { ShellProvider } from 'src/core/shell'
+import { AddressShell, CountryRoute, localeSegment } from 'src/core/router'
 import { AppShell } from 'src/shared/app-shell'
 import { Header } from 'src/shared/header'
 import { Guide } from './Guide'
@@ -21,7 +20,7 @@ const meta = {
         <MemoryRouter
           initialEntries={[`/${localeSegment(isLocale(globals['locale']) ? globals['locale'] : 'en-US')}/TR/guides/${typeof parameters['guide'] === 'string' ? parameters['guide'] : 'sim-card'}`]}
         >
-          <ShellProvider>
+          <AddressShell>
             <AppShell header={<Header />}>
               <Routes>
                 <Route path=":reader/:country" element={<CountryRoute />}>
@@ -29,7 +28,7 @@ const meta = {
                 </Route>
               </Routes>
             </AppShell>
-          </ShellProvider>
+          </AddressShell>
         </MemoryRouter>
       </GraphQLProvider>
     ),

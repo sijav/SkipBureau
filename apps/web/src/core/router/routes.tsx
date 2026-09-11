@@ -17,6 +17,11 @@ const Guide = lazyPart(() => import('src/screens/guide').then((screen) => screen
 const SuggestUpdate = lazyPart(() => import('src/screens/suggest').then((screen) => screen.SuggestUpdate))
 const SearchResults = lazyPart(() => import('src/screens/search').then((screen) => screen.SearchResults))
 
+// The routes whose screens open with their own Ask on screen, and claim it
+// (useOwnsAsk): a mark the shell reads from the address (SB-161), so the
+// prerendered page draws one Ask and not two.
+const OWNS_ASK = { ownsAsk: true }
+
 /**
  * Every screen, under the reader and the country they are going to:
  * `/en-IR/TR/guides/sim-card`. What is not built yet has a Coming soon page of
@@ -27,20 +32,23 @@ export const routes = createRoutesFromElements(
   <>
     <Route path="/" element={<RootRedirect />} />
     <Route path=":reader/:country" element={<CountryRoute />}>
-      <Route index element={<Home />} />
+      <Route index element={<Home />} handle={OWNS_ASK} />
       <Route path="tasks/:goal" element={<TaskHub />} />
       <Route path="tasks/:goal/:category" element={<CategoryHub />} />
       <Route path="setup/:goal" element={<SetupSoon />} />
       <Route path="guides" element={<GuidesSoon />} />
       <Route path="guides/:guide" element={<Guide />} />
       <Route path="guides/:guide/suggest" element={<SuggestUpdate />} />
-      <Route path="search" element={<SearchResults />} />
+      <Route path="search" element={<SearchResults />} handle={OWNS_ASK} />
       {/* The guard answers first: an old /t/ or /g/ link is moved, the rest is Not Found. */}
       <Route path="*" element={<NotFound />} />
     </Route>
     <Route path="*" element={<NotFound />} />
   </>,
 )
+
+/** Whether the screen at an address opens owning Ask. The address is the router's, without its basename. */
+export const ownsAskAt = (pathname: string): boolean => matchRoutes(routes, pathname)?.at(-1)?.route.handle === OWNS_ASK
 
 /** The code of the screen at an address, fetched before it renders, so its first render has it. */
 export const preloadRoute = (pathname: string, basename?: string) =>
