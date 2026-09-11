@@ -7,19 +7,12 @@ import { cardFrame, cardInteraction } from 'src/core/theme'
 
 export type GuideCardProps = {
   to: string
-  /** The area it belongs to, "Residence and immigration". */
   category: ReactNode
   title: ReactNode
-  /** One sentence of what the reader actually gets. */
   description?: ReactNode | undefined
-  /** When it was last verified, as the API sends one: "2026-08-24". */
   verifiedAt: string
 }
 
-/**
- * Figma 18:14, 360x154. The verified date is part of the card, not a detail on
- * the page behind it: it is the one sign a reader has that this is current.
- */
 export const GuideCard = ({ to, category, title, description, verifiedAt }: GuideCardProps) => {
   const { tokens } = useTheme()
   const { locale } = useLocale()

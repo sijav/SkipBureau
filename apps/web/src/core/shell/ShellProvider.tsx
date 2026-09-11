@@ -7,9 +7,7 @@ export type ShellPlace = { country: CountryCode; countryName: string; origin: st
 
 export type ShellProviderProps = {
   children: ReactNode
-  /** Null until the database has confirmed the address's country, and for an address without one. */
   place?: ShellPlace | null
-  /** Whether the page at this address opens with its own Ask on screen, as Home does. */
   ownsAskAtStart?: boolean
 }
 

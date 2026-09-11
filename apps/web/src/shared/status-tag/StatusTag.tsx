@@ -3,7 +3,6 @@ import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 import { TAG_PAINT, markStyle, tagStyle, type TagStatus } from 'src/core/theme'
 
 export type StatusTagProps = Omit<ComponentPropsWithoutRef<'span'>, 'children' | 'color'> & {
-  /** What the tag means. The colours follow from it; there is no colour prop. */
   status: TagStatus
   children: ReactNode
   showMark?: boolean

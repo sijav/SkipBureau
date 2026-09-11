@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 import { paths, useJourney } from 'src/core/router'
 import { ComingSoon } from './ComingSoon'
 
-/** Where Start guided setup and How it works lead until guided setup is built. */
 export const SetupSoon = () => {
   const journey = useJourney()
   const { goal = '' } = useParams()

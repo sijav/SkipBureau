@@ -3,15 +3,12 @@ import { Box, Stack, Typography, useTheme } from '@mui/material'
 import type { ReactNode } from 'react'
 
 export type StepRowProps = {
-  /** Printed as two digits, 01. */
   number: number
   title: ReactNode
   description?: ReactNode | undefined
-  /** A link or caution for this step alone, without making it a page-level alert. */
   note?: ReactNode | undefined
 }
 
-/** Figma 142:524: a numbered step, ruled above. A guide may have three or nine. */
 export const StepRow = ({ number, title, description, note }: StepRowProps) => {
   const { tokens } = useTheme()
   const { i18n } = useLingui()

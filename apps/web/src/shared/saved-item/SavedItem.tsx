@@ -10,9 +10,7 @@ export type SavedItemProps = {
   kind: SavedKind
   to: string
   title: ReactNode
-  /** What it was saved for: "Istanbul · Iranian nationality", or where a process stands. */
   context?: ReactNode | undefined
-  /** The date line: "Verified 24 Aug 2026", "Updated 28 Aug 2026". */
   dated?: ReactNode | undefined
   onRemove: () => void
 }
@@ -28,12 +26,6 @@ const Remove = (props: SvgIconProps) => (
 
 const RULE = 1
 
-/**
- * Figma 28:101, 560x88. Not a card: saved things are a ruled list, so they
- * stay quieter than anything active. Continue appears only on a process,
- * where there is progress to return to. The row is the link and removing is a
- * button beside it, so no control sits inside another.
- */
 export const SavedItem = ({ kind, to, title, context, dated, onRemove }: SavedItemProps) => {
   const { tokens } = useTheme()
   const { i18n, t } = useLingui()

@@ -2,7 +2,6 @@ import { Trans } from '@lingui/react/macro'
 import { Typography, useTheme } from '@mui/material'
 import { spacing } from 'src/core/theme'
 
-/** When a search finds nothing, the panel says so rather than closing. */
 export const NothingFound = () => {
   const { tokens } = useTheme()
   return (

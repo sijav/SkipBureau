@@ -22,12 +22,6 @@ const browserCaches = typeof window === 'undefined' ? null : makeCaches()
 
 export type AppThemeProps = {
   children: ReactNode
-  /**
-   * `system` follows the reader's operating system and is the default, so a
-   * caller that says nothing gets the mode the reader asked their machine for,
-   * from CSS alone. A named mode overrides it, which is what Storybook's
-   * toolbar does, through an attribute on `<html>`.
-   */
   mode?: ModeChoice
   direction?: Direction
 }
@@ -36,21 +30,6 @@ export type AppThemeProps = {
 const FORCED = 'mode'
 const FORCED_SELECTOR = `[data-${FORCED}="%s"]` as const
 
-/**
- * Puts the theme in place and keeps the document's `dir` in step with it.
- *
- * The document attribute matters: MUI reads `direction` for its own components,
- * but anything using plain CSS logical properties follows the DOM, and the two
- * disagreeing is how a right-to-left layout ends up half mirrored.
- *
- * `CssBaseline` lives here rather than in each caller. It was rendered twice,
- * by the router shell and by the Storybook preview, and it takes
- * `enableColorScheme`, which is what writes `color-scheme` onto `<html>` and so
- * decides whether the browser paints its own scrollbars and form controls to
- * match. Two call sites meant one of them could be left painting a white
- * scrollbar down a dark page. Applying the baseline is the job of whatever owns
- * the theme.
- */
 export const AppTheme = ({ children, mode = 'system', direction = 'ltr' }: AppThemeProps) => {
   const [caches] = useState(() => browserCaches ?? makeCaches())
   const forced = mode !== 'system'
@@ -58,6 +37,10 @@ export const AppTheme = ({ children, mode = 'system', direction = 'ltr' }: AppTh
   // which applies, the reader's system or the attribute below.
   const theme = useMemo(() => appTheme(direction, forced ? FORCED_SELECTOR : 'media'), [direction, forced])
 
+  // The document attribute matters: MUI reads `direction` for its own
+  // components, but anything using plain CSS logical properties follows the
+  // DOM, and the two disagreeing is how a right-to-left layout ends up half
+  // mirrored.
   useEffect(() => {
     window.document.documentElement.dir = direction
   }, [direction])
@@ -79,6 +62,13 @@ export const AppTheme = ({ children, mode = 'system', direction = 'ltr' }: AppTh
           hydrating, which makes React finish them in one half-second task on
           a phone (SB-108). Nothing it renders differs by scheme, CSS does. */}
       <ThemeProvider theme={theme} noSsr>
+        {/* CssBaseline lives here rather than in each caller. It was rendered
+            twice, by the router shell and by the Storybook preview, and it
+            takes `enableColorScheme`, which is what writes `color-scheme`
+            onto <html> and so decides whether the browser paints its own
+            scrollbars and form controls to match. Two call sites meant one of
+            them could be left painting a white scrollbar down a dark page.
+            Applying the baseline is the job of whatever owns the theme. */}
         <CssBaseline enableColorScheme />
         {children}
       </ThemeProvider>

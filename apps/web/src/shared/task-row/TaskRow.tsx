@@ -4,9 +4,7 @@ import { Link } from 'react-router-dom'
 import { rowInteraction } from 'src/core/theme'
 
 export type TaskRowProps = {
-  /** The goal in the reader's words. */
   title: ReactNode
-  /** One line of what the process actually covers, so the choice is made before the click. */
   description?: ReactNode | undefined
   to: string
 }
@@ -20,7 +18,6 @@ const Chevron = (props: SvgIconProps) => (
 
 const RULE = 1
 
-/** Figma 58:551, a goal gateway rather than an article card: 560x70, the whole row the target. */
 export const TaskRow = ({ title, description, to }: TaskRowProps) => {
   const { tokens } = useTheme()
 

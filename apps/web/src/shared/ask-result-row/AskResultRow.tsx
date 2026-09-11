@@ -7,11 +7,8 @@ import { RESULT_PAINT, resultRowStyle, type ResultKind } from 'src/core/theme'
 export type AskResultRowProps = {
   kind: ResultKind
   title: ReactNode
-  /** The second line. A recent search has none. */
   detail?: ReactNode | undefined
-  /** Where choosing the row goes. Without one, and without onClick, the row is text, not a control. */
   to?: string | undefined
-  /** Called on choosing it; a row with this and no destination is a button. */
   onClick?: (() => void) | undefined
   'data-testid'?: string | undefined
 }

@@ -2,7 +2,6 @@ import { SvgIcon, type SvgIconProps } from '@mui/material'
 
 // Figma 45:637's exported shapes, geometry VERBATIM, painting currentColor.
 
-/** The header ask field's 16px glyph, its own geometry, not the search icon's. */
 export const HeaderGlyph = (props: SvgIconProps) => (
   <SvgIcon viewBox="0 0 16 16" {...props}>
     <circle cx="6" cy="6" r="4.2" fill="none" stroke="currentColor" strokeWidth="1.6" />

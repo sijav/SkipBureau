@@ -6,11 +6,9 @@ import { Link } from 'react-router-dom'
 export type Crumb = { label: ReactNode; to?: string | undefined }
 
 export type BreadcrumbProps = {
-  /** From the top down. The last is the current page and is not a link. */
   trail: readonly Crumb[]
 }
 
-/** Figma 133:719: where this page sits, in the Metadata style, the way home in accent text. */
 export const Breadcrumb = ({ trail }: BreadcrumbProps) => {
   const { tokens } = useTheme()
   const { t } = useLingui()

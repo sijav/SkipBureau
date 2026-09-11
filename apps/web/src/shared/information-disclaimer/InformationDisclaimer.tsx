@@ -3,15 +3,9 @@ import { Box, Typography, useTheme } from '@mui/material'
 import { radius, spacing } from 'src/core/theme'
 
 export type InformationDisclaimerProps = {
-  /** The country the processes are in, by name, in the reader's language. */
   country: string
 }
 
-/**
- * Figma 149:988. Neutral by construction, a recessed surface with no bar and no
- * icon, so it reads as a standing note and not a warning. The design marks its
- * copy as a draft that needs legal review before production.
- */
 export const InformationDisclaimer = ({ country }: InformationDisclaimerProps) => {
   const { tokens } = useTheme()
 

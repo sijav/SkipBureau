@@ -7,11 +7,8 @@ import { ArrowIcon } from 'src/shared/task-tile'
 export type TopicItemProps = {
   title: ReactNode
   description?: ReactNode | undefined
-  /** Only where the area differs from a setup step done once: Decision, Ongoing. */
   kind?: ReactNode | undefined
-  /** Where it leads. Without one the row is not a link and has no arrow. */
   to?: string | undefined
-  /** Leads nowhere yet: recessed, like a Coming soon tile. */
   unavailable?: boolean | undefined
 }
 

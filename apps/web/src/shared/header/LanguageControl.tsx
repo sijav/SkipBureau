@@ -11,10 +11,6 @@ import { lazyPart } from 'src/shared/lazy-part'
 // first time it opens.
 const LanguageMenu = lazyPart(() => import('./LanguageMenu').then((menu) => menu.LanguageMenu))
 
-/**
- * In the header's profile slot, which is free because the product has no
- * end-user accounts, at the profile control's 54x34. Switching keeps the page.
- */
 export const LanguageControl = () => {
   const { tokens } = useTheme()
   const { t } = useLingui()

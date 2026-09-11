@@ -15,7 +15,6 @@ import { Section } from 'src/shared/section'
 import { useOwnsAsk } from 'src/screens/home'
 import { Unreachable } from 'src/screens/Unreachable'
 
-/** What was asked, from the address, so a results page can be shared and reloaded. */
 export const SearchResults = () => {
   const [params] = useSearchParams()
   const asked = (params.get('q') ?? '').trim()

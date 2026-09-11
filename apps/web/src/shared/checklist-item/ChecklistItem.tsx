@@ -10,9 +10,7 @@ export type ChecklistDetail = { label: ReactNode; value: ReactNode }
 export type ChecklistItemProps = {
   state: ChecklistState
   title: ReactNode
-  /** The one compact line under the title: "Sworn translation · Notarised · 2 copies". */
   flags?: ReactNode | undefined
-  /** Everything else, behind the row: it becomes a disclosure when there is any. */
   details?: readonly ChecklistDetail[] | undefined
 }
 
@@ -31,12 +29,6 @@ const RULE = 1
 const BOX = 18
 const BOX_STROKE = 1.5
 
-/**
- * Figma 27:218. The row stays scannable, a title, one flag line and one status
- * word, and everything else is behind it. The state is carried by the box as
- * well as the colour: dashed for Optional, a bar for Missing, a mark for
- * Expired, dots for Needs verification.
- */
 export const ChecklistItem = ({ state, title, flags, details }: ChecklistItemProps) => {
   const { tokens } = useTheme()
   const { i18n } = useLingui()

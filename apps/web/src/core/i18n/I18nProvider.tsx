@@ -8,18 +8,10 @@ import { defaultLocale, isLocale, type Locale } from './locales'
 
 export type I18nProviderProps = {
   children: ReactNode
-  /** The locale the URL names. This provider does not choose one. */
   locale: Locale
-  /** How a catalog is fetched. Overridden so a story can render the failure. */
   load?: ((locale: Locale) => Promise<Messages>) | undefined
 }
 
-/**
- * Activates a catalog and reports the one that is ACTUALLY ACTIVE.
- *
- * `AppTheme` reads its direction off that value, so reporting a locale whose
- * catalog failed would put English text inside a right-to-left layout.
- */
 export const I18nProvider = ({ children, locale: wanted, load = loadCatalog }: I18nProviderProps) => {
   // Already active when the catalog was loaded before this rendered: a page
   // rendered at build time, or a prerendered one whose catalog main.tsx loads

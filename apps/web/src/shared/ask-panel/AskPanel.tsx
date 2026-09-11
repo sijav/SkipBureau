@@ -9,22 +9,15 @@ export type AskPanelGroup = {
 }
 
 export type AskPanelProps = {
-  /** The Ask field it opens beneath. */
   anchor: HTMLElement | null
   open: boolean
   id: string
   groups: readonly AskPanelGroup[]
-  /** The contract under results, where there are results. */
   footer?: ReactNode | undefined
 }
 
 const STROKE = 1
 
-/**
- * Figma 46:659. Opens beneath the Ask field instead of taking over the screen,
- * so the reader keeps their place, and groups what it found by what each thing
- * is. At least the design's 640 wide, or the field's width where that is more.
- */
 export const AskPanel = ({ anchor, open, id, groups, footer }: AskPanelProps) => {
   const { tokens } = useTheme()
   const { t } = useLingui()

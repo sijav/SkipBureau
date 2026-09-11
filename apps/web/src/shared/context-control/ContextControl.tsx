@@ -4,21 +4,13 @@ import type { MouseEvent, ReactNode, Ref } from 'react'
 import { SmallChevron } from './SmallChevron'
 
 export type ContextControlProps = {
-  /** What SkipBureau knows, "From Iran". Nothing yet is the dashed invitation. */
   known?: ReactNode | undefined
-  /** Its panel is showing. */
   open?: boolean | undefined
   onClick?: ((event: MouseEvent<HTMLButtonElement>) => void) | undefined
-  /** The panel it opens, for aria-controls. */
   controls?: string | undefined
   ref?: Ref<HTMLButtonElement> | undefined
 }
 
-/**
- * Figma 44:542. No context is a dashed neutral invitation, not an amber error;
- * once the reader has said something it is a solid record of it; open, it
- * takes the accent ground. It states what SkipBureau knows, never a filter.
- */
 export const ContextControl = ({ known, open = false, onClick, controls, ref }: ContextControlProps) => {
   const { tokens } = useTheme()
   const said = Boolean(known)

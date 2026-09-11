@@ -3,16 +3,10 @@ import { SEARCH_PAINT, searchStyle } from 'src/core/theme'
 import { SearchIcon } from './SearchIcon'
 
 export type SearchInputProps = {
-  /**
-   * Required. The design shows no label, so this names the field for screen
-   * readers. The placeholder cannot: it is not a name, and it is gone the
-   * moment typing starts.
-   */
   label: string
   placeholder?: string | undefined
   value: string
   onChange: (value: string) => void
-  /** Enter sends the whole question. */
   onSubmit: (query: string) => void
   'data-testid'?: string | undefined
 }

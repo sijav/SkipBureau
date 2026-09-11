@@ -5,19 +5,11 @@ import { Link } from 'react-router-dom'
 import { Page } from 'src/shared/page'
 
 export type ComingSoonProps = {
-  /** What will be here, "Guided setup". */
   title: ReactNode
-  /** What it will do, in a sentence or two. */
   children?: ReactNode
-  /** Where the reader goes instead, and what that is called. */
   back: { to: string; label: ReactNode }
 }
 
-/**
- * Where everything not built yet leads, the owner's instruction of 2026-09-10:
- * a page that says what will be here, not a button that does nothing or a
- * link that quietly goes Home.
- */
 export const ComingSoon = ({ title, children, back }: ComingSoonProps) => {
   const { tokens, layout } = useTheme()
 

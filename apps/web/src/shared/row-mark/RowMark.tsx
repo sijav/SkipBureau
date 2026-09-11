@@ -3,9 +3,7 @@ import type { Mark } from 'src/core/theme'
 
 export type RowMarkProps = {
   mark: Mark
-  /** 18 in the checklist and deadline items, 20 in the roadmap step. */
   size: 18 | 20
-  /** A resolved colour; the shapes paint currentColor. */
   color: string
 }
 
@@ -54,7 +52,6 @@ const shapes = (mark: Mark, size: 18 | 20) => {
   }
 }
 
-/** A row's state marker, SB-037: a distinct shape per state, so none of them depends on colour alone. */
 export const RowMark = ({ mark, size, color }: RowMarkProps) => (
   <Box
     component="svg"

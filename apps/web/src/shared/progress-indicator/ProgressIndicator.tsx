@@ -7,7 +7,6 @@ import { PROGRESS_PAINT, PROGRESS_SIZE, segments } from 'src/core/theme'
 export type ProgressIndicatorProps = {
   completed: number
   total: number
-  /** Steps is the default; the design keeps the bar for aggregate dashboards. */
   variant?: 'steps' | 'bar' | undefined
 }
 

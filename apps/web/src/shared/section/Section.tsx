@@ -3,16 +3,12 @@ import type { ReactNode } from 'react'
 
 export type SectionProps = {
   title: ReactNode
-  /** The line under the heading, at the reading measure. */
   intro?: ReactNode | undefined
   children: ReactNode
-  /** Between the heading block and the content: 24 above a tile grid, 20 above a list, 16 in a hub's column. */
   gap?: 16 | 20 | 24 | undefined
-  /** Above and below: 56 on a full-width page, 48 in a hub's column. */
   block?: 48 | 56 | undefined
 }
 
-/** A page section of the design: 56 above and below, an H2 and its intro, then the content. Figma 60:648. */
 export const Section = ({ title, intro, children, gap = 24, block = 56 }: SectionProps) => {
   const { tokens, layout } = useTheme()
 

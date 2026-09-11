@@ -15,22 +15,14 @@ export type ProcessProgress = {
 export type ProcessCardProps = {
   to: string
   title: ReactNode
-  /** Steps, duration and cost, the two numbers a reader decides on: "9 steps · 2–4 weeks · ₺14,000–22,000". */
   facts: ReactNode
-  /** One sentence of what starting it gets the reader. */
   pitch?: ReactNode | undefined
-  /** Where a reader is, once they have started. */
   progress?: ProcessProgress | undefined
 }
 
 // The card's own track: the progress indicator's segments, drawn at 6.
 const TRACK = 6
 
-/**
- * Figma 18:40, 360x158. Cost and duration are always up front, since a reader
- * decides whether to start on those two numbers; once started, the pitch gives
- * way to where they are and the actual next action.
- */
 export const ProcessCard = ({ to, title, facts, pitch, progress }: ProcessCardProps) => {
   const { tokens } = useTheme()
   const next = progress?.next

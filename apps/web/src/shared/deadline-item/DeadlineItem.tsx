@@ -9,21 +9,13 @@ import { RowMark } from 'src/shared/row-mark'
 export type DeadlineItemProps = {
   state: DeadlineState
   title: ReactNode
-  /** The date it falls on, as the API sends one: "2026-10-15". */
   date: string
-  /** Days left, or days late when overdue. Unused on the day and once done. */
   days?: number | undefined
-  /** Where it leads, where it leads anywhere. */
   to?: string | undefined
 }
 
 const PAD = 16
 
-/**
- * Figma 28:46, 380x66. Urgency escalates in three steps, not six: neutral
- * until Due soon, amber through Today, red only once overdue, and the day
- * count does the fine-grained work so colour does not have to.
- */
 export const DeadlineItem = ({ state, title, date, days = 0, to }: DeadlineItemProps) => {
   const { tokens } = useTheme()
   const { locale } = useLocale()

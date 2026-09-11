@@ -15,14 +15,8 @@ type Problem = 'change' | 'source' | 'email' | 'unsent'
 
 const STROKE = 1
 
-/**
- * Figma 145:865: suggesting an update, over the guide it is about. What is sent
- * is stored for an editor and never edits the guide; there is no account, and
- * the email is only for following up. Closing returns to the guide.
- *
- * Two siblings, not one component: the form's state lives in the dialog, so a
- * keystroke re-renders the form and not the whole guide behind it.
- */
+// Two siblings, not one component: the form's state lives in the dialog, so a
+// keystroke re-renders the form and not the whole guide behind it.
 export const SuggestUpdate = () => (
   <>
     <Guide />

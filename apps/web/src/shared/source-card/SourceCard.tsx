@@ -7,23 +7,17 @@ import { CheckGlyph, DashGlyph, DotsGlyph, ForwardGlyph, RingGlyph } from './gly
 
 export type SourceCardProps = {
   state: SourceState
-  /** Who stands behind it, "Republic of Türkiye". */
   publisher?: ReactNode | undefined
-  /** The institution, "Ministry of Trade · Trade Registry". */
   institution: ReactNode
   url: string
-  /** When it was last checked, or last reachable when it is unavailable. As the API sends it, "2026-08-24". */
   checkedAt: string
-  /** False for an operator's or a company's own page, which the card says. */
   official?: boolean | undefined
-  /** What this source is the source for, in place of the standing closing line. */
   note?: ReactNode | undefined
   'data-testid'?: string | undefined
 }
 
 const GLYPH = { verified: CheckGlyph, recent: CheckGlyph, older: RingGlyph, unavailable: DashGlyph, pending: DotsGlyph } satisfies Record<SourceState, unknown>
 
-/** Figma 30:84: who published it, when we last checked, whether it is verified, in that order. */
 export const SourceCard = ({ state, publisher, institution, url, checkedAt, official = true, note, 'data-testid': testId }: SourceCardProps) => {
   const { tokens } = useTheme()
   const { t } = useLingui()

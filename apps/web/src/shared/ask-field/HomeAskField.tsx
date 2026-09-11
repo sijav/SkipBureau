@@ -5,14 +5,11 @@ import type { AskBindings } from 'src/shared/ask-panel'
 import { AskGlyph } from './AskGlyph'
 
 export type HomeAskFieldProps = {
-  /** Required: the design shows no label, so this names the box for screen readers. */
   label: string
   placeholder?: string | undefined
   value: string
   onChange: (value: string) => void
-  /** Called on Ask, besides the panel's own handling, where the page wants to know. */
   onAsk?: ((question: string) => void) | undefined
-  /** The Ask panel this field opens, where the page has one. */
   bindings?: AskBindings | undefined
 }
 

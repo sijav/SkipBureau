@@ -3,10 +3,6 @@ import { Stack, Typography } from '@mui/material'
 import { Page } from 'src/shared/page'
 import { Reading } from 'src/shared/reading'
 
-/**
- * Minimal on purpose. The real empty and error states are SB-046; this exists
- * so an unknown URL has somewhere to land instead of a blank page.
- */
 export const NotFound = () => (
   <Page>
     <Reading>

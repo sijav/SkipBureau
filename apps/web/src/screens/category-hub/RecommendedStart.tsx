@@ -12,7 +12,6 @@ export type RecommendedStartProps = {
 
 const BAR = 3
 
-/** Figma 133:727: the one guide to read first, on the official register's accent edge. */
 export const RecommendedStart = ({ title, reason, to }: RecommendedStartProps) => {
   const { tokens } = useTheme()
 

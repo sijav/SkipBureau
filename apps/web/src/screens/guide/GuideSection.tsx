@@ -24,10 +24,6 @@ const HEADING = {
   commonProblems: msg`Common problems`,
 } satisfies Record<Kind, unknown>
 
-/**
- * The frame every section shares, Figma 179:1031 and its siblings: 44 above,
- * an H2, then the body. Before you start is drawn 40 below the options grid.
- */
 export const SectionFrame = ({ heading, gap = 10, top = 44, children }: { heading: ReactNode; gap?: number; top?: number; children: ReactNode }) => {
   const id = useId()
   return (
@@ -76,13 +72,10 @@ const Lines = ({ items }: { items: readonly ReactNode[] }) => {
 export type GuideSectionProps = {
   section: SectionData
   options: GuideData['options']
-  /** Content from the database, marked with the language it is actually in. */
   content: (text: string) => ReactNode
-  /** Where a guide this section points on to lives. */
   guidePath: (slug: string) => string
 }
 
-/** One section of a guide, drawn the way its kind is drawn in Figma 143:734. */
 export const GuideSection = ({ section, options, content, guidePath }: GuideSectionProps) => {
   const { tokens, layout } = useTheme()
   const { i18n } = useLingui()

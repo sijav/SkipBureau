@@ -11,15 +11,12 @@ const useHydrated = (): boolean =>
     () => false,
   )
 
-/**
- * SB-087: a page's schema.org markup, one script per object. Not on the server
- * or while hydrating: the file's head already carries the same objects
- * (SB-155), and a script in the body that the file does not have is a
- * hydration mismatch (SB-160).
- */
 export const StructuredData = ({ data }: { data: readonly StructuredDatum[] }) => {
   const hydrated = useHydrated()
 
+  // Not on the server or while hydrating: the file's head already carries the
+  // same objects (SB-155), and a script in the body that the file does not
+  // have is a hydration mismatch (SB-160).
   if (!hydrated) return null
   return (
     <>

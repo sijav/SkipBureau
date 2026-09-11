@@ -342,11 +342,14 @@ Rules he stated once do not need stating again, so they apply here.
   the place for docs"_, then _"stop adding too much comments in the code instead
   of writing in the md files"_. The line: if it explains the code to whoever
   edits it, it stays as a comment. If it explains the component to whoever uses
-  it, it goes in markdown. Prose belongs in `story-docs/{en,fa}/<slug>.md`, one
-  file per language, with a test that fails until both exist.
-  **This one is not true here yet.** Every file written before 2026-09-09 opens
-  with an essay. The rule binds new code from now; the existing files are
-  SB-059.
+  it, it goes in markdown. **Here that is `<Component>.md` beside the
+  component** (SB-059): what it is, which Figma node it draws, how it behaves
+  for whoever places it, then a `## Props` list. Storybook's Docs page for the
+  component's story shows it (`.storybook/ComponentDocs.tsx`). English only,
+  and no test that checks it, per the owner's order of 2026-09-10; the
+  reference project's `story-docs/{en,fa}` and its guard are deliberately not
+  carried over. The reasoning in `src/core` about why a mechanism works as it
+  does is for editors, and stays beside the code it explains.
 - **Prose in code files is English.** Persian belongs in the catalog or in
   `story-docs/fa`.
 - **No em dashes in markdown, use commas.** His words: _"remove these AI

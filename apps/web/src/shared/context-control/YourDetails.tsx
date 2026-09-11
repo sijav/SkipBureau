@@ -14,11 +14,6 @@ import { ContextControl } from './ContextControl'
 // the first time it opens.
 const ContextPopper = lazyPart(() => import('./ContextPopper').then((popper) => popper.ContextPopper))
 
-/**
- * The context control wired to the address. Where the reader says they come
- * from becomes part of the URL, `/en-IR/TR`, so a page they share says it too,
- * and taking it back returns them to `/en/TR`.
- */
 export const YourDetails = () => {
   const { t } = useLingui()
   const { locale } = useLocale()

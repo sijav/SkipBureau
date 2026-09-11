@@ -5,18 +5,14 @@ import { HomeAskField } from 'src/shared/ask-field'
 import type { AskBindings } from 'src/shared/ask-panel'
 
 export type HomeHeroProps = {
-  /** The country's name, in the reader's language. */
   name: string
   question: string
   onQuestion: (question: string) => void
-  /** Questions to try, which fill the field. */
   examples: readonly string[]
   askRef?: Ref<HTMLDivElement> | undefined
-  /** The Ask panel the field opens. */
   bindings?: AskBindings | undefined
 }
 
-/** Figma 60:629: the heading, its line, the ask field and questions to try. */
 export const HomeHero = ({ name, question, onQuestion, examples, askRef, bindings }: HomeHeroProps) => {
   const { tokens, layout } = useTheme()
   const { t } = useLingui()

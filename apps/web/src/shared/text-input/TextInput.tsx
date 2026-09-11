@@ -4,10 +4,6 @@ import { useId, type ReactNode } from 'react'
 export type TextInputProps = Omit<OutlinedInputProps, 'error' | 'notched' | 'label' | 'size' | 'color' | 'fullWidth'> & {
   label: ReactNode
   helper?: ReactNode
-  /**
-   * How to fix the value, not that it is wrong. It REPLACES the helper, as the
-   * design says, so the reader never sees two lines competing under a field.
-   */
   error?: ReactNode
   'data-testid'?: string | undefined
 }

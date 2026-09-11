@@ -3,13 +3,9 @@ import type { ReactNode } from 'react'
 import { CHIP_PAINT, chipStyle } from 'src/core/theme'
 
 export type ContextChipProps = {
-  /** Which piece of the reader's situation this is: nationality, city, status. */
   name: ReactNode
-  /** Their answer. Without one the chip is unset: amber, dashed, and inviting. */
   value?: ReactNode
-  /** What an unset chip says instead of a value. */
   prompt: ReactNode
-  /** Always editable, per the design, so a chip is always a button. */
   onClick: () => void
   'data-testid'?: string | undefined
 }

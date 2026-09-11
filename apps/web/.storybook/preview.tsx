@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/react-vite'
 import type { RequestHandler } from 'msw'
+import { ComponentDocs } from './ComponentDocs'
 import { applyHandlers } from './msw'
 import type { ReactElement } from 'react'
 import { I18nProvider, isLocale, loadCatalog, locales, type Locale } from 'src/core/i18n'
@@ -46,9 +47,14 @@ const preview: Preview = {
     await applyHandlers(msw?.handlers)
   },
 
+  // A Docs page for every story file, showing the markdown beside the
+  // component (SB-059), which is where its prose lives now.
+  tags: ['autodocs'],
+
   parameters: {
     controls: { matchers: { color: /(background|color)$/i, date: /Date$/i } },
     a11y: { test: 'error' },
+    docs: { page: ComponentDocs },
   },
   globalTypes: {
     mode: {

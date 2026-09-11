@@ -24,16 +24,10 @@ import { categoryHubData, categoryHubHead, showsGoal } from './head'
 import { RecommendedStart } from './RecommendedStart'
 
 export type CategoryHubProps = {
-  /** Given when a goal with a single area opens it directly; otherwise read from the address. */
   goal?: string | undefined
   category?: string | undefined
 }
 
-/**
- * Figma 133:523: one area of a goal, its guides, and a checklist that is a
- * reading aid and is never saved. Database text is wrapped in <bdi>, which
- * keeps it readable when it is in another language than the page.
- */
 export const CategoryHub = (props: CategoryHubProps) => {
   const { tokens, layout } = useTheme()
   const { t } = useLingui()

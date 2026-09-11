@@ -3,7 +3,6 @@ import { useCountry } from 'src/core/country'
 import { paths, useJourney } from 'src/core/router'
 import { ComingSoon } from './ComingSoon'
 
-/** Where the header's Guides leads until there is an index of every guide. */
 export const GuidesSoon = () => {
   const journey = useJourney()
   const { name } = useCountry()

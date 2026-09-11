@@ -7,11 +7,8 @@ export type Origin = { code: string; name: string }
 
 export type ContextPanelProps = {
   id: string
-  /** Where the reader comes from, once they have said. */
   origin: Origin | null
-  /** Where they are going, for "City in Turkey". */
   countryName: string
-  /** Every country someone can come from, named in the reader's language. */
   options: readonly Origin[]
   onOrigin: (code: string | null) => void
 }
@@ -41,13 +38,6 @@ const Row = ({ label, children }: { label: ReactNode; children: ReactNode }) => 
   )
 }
 
-/**
- * Figma 47:686: a record, not a settings form. Ruled rows with mono labels and
- * no input until a row is tapped; an unanswered row says Add in the accent.
- * Only where the reader comes from can be said so far, and it goes into the
- * address; the rest say Coming soon rather than offering an Add that does
- * nothing.
- */
 export const ContextPanel = ({ id, origin, countryName, options, onOrigin }: ContextPanelProps) => {
   const { tokens } = useTheme()
   const { t } = useLingui()

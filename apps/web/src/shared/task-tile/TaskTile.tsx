@@ -7,11 +7,8 @@ import { ArrowIcon } from './ArrowIcon'
 
 export type TaskTileProps = {
   title: ReactNode
-  /** One line answering: what will I find if I open this? */
   description: ReactNode
-  /** Where the goal leads. */
   to: string
-  /** The design's unavailable state: recessed, no arrow, not a link. */
   comingSoon?: boolean | undefined
 }
 

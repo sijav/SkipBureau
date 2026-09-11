@@ -21,12 +21,6 @@ const useScrolled = () => {
   return scrolled
 }
 
-/**
- * Figma 45:637. Three destinations in the design, Explore, Guides and My
- * processes; the last is for accounts, which this product does not have. Ask
- * sits centre whenever the page does not own a large Ask of its own. The
- * profile slot, free without accounts, holds the language control.
- */
 export const Header = ({ onAsk }: { onAsk?: (question: string) => void }) => {
   const { tokens, typography } = useTheme()
   const { t } = useLingui()
