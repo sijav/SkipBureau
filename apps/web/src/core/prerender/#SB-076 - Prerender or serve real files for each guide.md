@@ -11,12 +11,25 @@ serves it with 200.
 | `/SkipBureau/storybook` | **301** to `/SkipBureau/storybook/`: a folder without its slash |
 | any address with no file | `404.html`, with status **404** |
 
-Not yet measured: an address that is **both** `X.html` and a folder `X/`.
-`/en/TR` is exactly that, because every page of Turkey lives in `en/TR/`, and a
-task hub with areas under it is the same. So both are written, `en/TR.html` and
-`en/TR/index.html`, and whichever Pages prefers serves the page. After the
-deploy the live answer for `/SkipBureau/en/TR` is read with curl, the mimic is
-set to the order Pages actually uses, and this plan records it.
+Not measured before this was built: an address that is **both** `X.html` and a
+folder `X/`. `/en/TR` is exactly that, because every page of Turkey lives in
+`en/TR/`, and a task hub with areas under it is the same. So both are written,
+`en/TR.html` and `en/TR/index.html`, and whichever Pages preferred would serve
+the page.
+
+**Measured after the deploy, 2026-09-11:**
+
+| request | answer |
+|---|---|
+| `/SkipBureau/en/TR` | **200**, no redirect: the `.html` wins over the folder |
+| `/SkipBureau/en/TR/` | **200**, from `en/TR/index.html` |
+| `/SkipBureau/en/TR/tasks/start-a-business` | **200**, the same case one level down |
+| `/SkipBureau/en/TR/guides` | **301** to `guides/`, a folder with no index, which is then `404.html` |
+| `/SkipBureau/en/TR/guides/company-types` | **404**, a guide not written yet, as intended |
+
+So the order is: the file, then `address.html`, then the folder. The mimic
+already used that order and now says it was measured. The `index.html` copies
+stay: they are what makes the slash form of an address a page too.
 
 ## Which addresses get a file
 
