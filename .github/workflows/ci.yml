@@ -184,11 +184,23 @@ jobs:
       - id: pages
         uses: actions/configure-pages@v6
 
+      # The address is baked into the build and cannot be corrected afterwards,
+      # and the client falls back to localhost, which is right on a developer's
+      # machine and wrong on the published site: every visitor would call their
+      # own machine while CI and Pages stayed green (SB-135).
+      - name: The API's address, before it is baked in
+        env:
+          GRAPHQL_URL: ${{ vars.GRAPHQL_URL }}
+        run: |
+          case "$GRAPHQL_URL" in
+            https://*) echo "building against $GRAPHQL_URL" ;;
+            '') echo "::error::The repository variable GRAPHQL_URL is empty, so the site would ask the visitor's own machine for its data. Set it to the API's https address."; exit 1 ;;
+            *) echo "::error::The repository variable GRAPHQL_URL is not an https address ($GRAPHQL_URL). A page served over https cannot call one that is not."; exit 1 ;;
+          esac
+
       # SKIPBUREAU_BASE because the site is served from a repository subpath, not
       # a domain root. VITE_GRAPHQL_URL is baked in at build time, so it is a
-      # repository variable rather than a commit; until SB-014 gives the API a
-      # home it is unset, and the site will honestly render "SkipBureau could not
-      # load this" rather than pretending.
+      # repository variable rather than a commit, checked in the step above.
       - name: Build for Pages
         run: npm run build -w @skipbureau/web
         env:
