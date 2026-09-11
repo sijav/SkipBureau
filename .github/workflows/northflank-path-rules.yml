@@ -52,7 +52,7 @@ jobs:
         run: |
           set -euo pipefail
           curl -sS --fail-with-body -H "Authorization: Bearer $NF_TOKEN" "$API/projects/$PROJECT/services/$SERVICE" \
-            | jq '.data | {serviceType, disabledCI, buildSource, buildSettings, buildConfiguration}'
+            | jq '.data | {serviceType, disabledCI, buildSource, buildSettings, buildConfiguration, status, deployedBuild: .deployment.internal}'
           # Which commits were built, so a rule can be seen working rather than inferred.
           echo "latest builds:"
           curl -sS --fail-with-body -H "Authorization: Bearer $NF_TOKEN" "$API/projects/$PROJECT/services/$SERVICE/build?per_page=5" \
