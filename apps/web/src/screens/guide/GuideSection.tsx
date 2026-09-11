@@ -27,7 +27,19 @@ const HEADING = {
 export const SectionFrame = ({ heading, gap = 10, top = 44, children }: { heading: ReactNode; gap?: number; top?: number; children: ReactNode }) => {
   const id = useId()
   return (
-    <Box component="section" aria-labelledby={id} sx={{ display: 'flex', flexDirection: 'column', gap: `${gap}px`, paddingTop: `${top}px` }}>
+    <Box
+      component="section"
+      aria-labelledby={id}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: `${gap}px`,
+        paddingTop: `${top}px`,
+        // SB-162: see Section; a guide is the longest page there is.
+        contentVisibility: 'auto',
+        containIntrinsicSize: 'auto 400px',
+      }}
+    >
       <Typography id={id} variant="h3" component="h2">
         {heading}
       </Typography>

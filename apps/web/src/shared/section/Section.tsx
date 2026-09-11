@@ -13,7 +13,19 @@ export const Section = ({ title, intro, children, gap = 24, block = 56 }: Sectio
   const { tokens, layout } = useTheme()
 
   return (
-    <Box component="section" sx={{ display: 'flex', flexDirection: 'column', gap: `${gap}px`, paddingBlock: `${block}px` }}>
+    <Box
+      component="section"
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: `${gap}px`,
+        paddingBlock: `${block}px`,
+        // SB-162: a section below the fold is not laid out until it comes
+        // near, and keeps a placeholder height until it has been.
+        contentVisibility: 'auto',
+        containIntrinsicSize: 'auto 400px',
+      }}
+    >
       <Stack spacing={0.5}>
         <Typography variant="h3" component="h2">
           {title}
