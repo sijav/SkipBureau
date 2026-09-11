@@ -157,6 +157,18 @@ const SNAPSHOT_STYLE = `<style data-prerendered>@media (prefers-color-scheme: da
 // A value as a script's source: a `<` in any text cannot close the tag early.
 const scriptJson = (value: unknown): string => JSON.stringify(value).replaceAll('<', '\\u003c')
 
+// emotion writes each style inline, just before the first element that uses
+// it. Hydration (SB-160) needs #root to hold only what the client renders, so
+// the styles move to the head, in the same order, where the client's caches
+// find them by key and register them instead of inserting them again. Not
+// marked `data-prerendered`: those are removed once the page renders, and
+// these are the page's styles.
+const EMOTION_STYLE = /<style data-emotion="[^"]*"[^>]*>[\s\S]*?<\/style>/g
+const hoistStyles = (html: string): { styles: string[]; markup: string } => ({
+  styles: html.match(EMOTION_STYLE) ?? [],
+  markup: html.replace(EMOTION_STYLE, ''),
+})
+
 /**
  * The built index.html filled in for each page, at `address.html`, which Pages
  * serves for `address`. Where other pages live below an address it is also a
@@ -187,8 +199,10 @@ export const render = (pages: readonly Page[], template: string, origin: string)
     ].filter((tag) => tag !== null)
     // The page as it renders (SB-155), and the results it was rendered from,
     // which the client starts from so its first render asks for nothing.
+    const { styles, markup } = hoistStyles(page.body?.html ?? '')
+    tags.push(...styles)
     const body = page.body
-      ? `<div id="root" data-snapshot>${page.body.html}</div>\n    <script>window.__SKIPBUREAU_DATA__=${scriptJson(page.body.data)}</script>`
+      ? `<div id="root" data-snapshot>${markup}</div>\n    <script>window.__SKIPBUREAU_DATA__=${scriptJson(page.body.data)}</script>`
       : ROOT
     // Functions, not strings, as the replacements: a `$` in a title would
     // otherwise be read as a pattern.

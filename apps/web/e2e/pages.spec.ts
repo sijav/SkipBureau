@@ -69,7 +69,16 @@ test('the file carries the page itself, and the page asks for none of it again',
   expect(body).toMatch(new RegExp(`<h1[^>]*>(?:<[^>]+>)*${GUIDE}<`))
   expect(body).toMatch(/Last verified: \w+ \d{4}/)
 
-  // Loaded with scripts on, it renders from what the file carries.
+  // Loaded with scripts on, it renders from what the file carries, and in
+  // light React adopts the file's elements rather than drawing new ones
+  // (SB-160): the heading tagged before the app's script runs is the one on
+  // screen after it.
+  await page.addInitScript(() => {
+    window.document.addEventListener('readystatechange', () => {
+      const heading = window.document.querySelector('h1')
+      if (window.document.readyState === 'interactive' && heading) heading.dataset['fromFile'] = 'yes'
+    })
+  })
   const asked: string[] = []
   const errors: string[] = []
   page.on('request', (sent) => {
@@ -80,6 +89,7 @@ test('the file carries the page itself, and the page asks for none of it again',
   })
   await page.goto('en/TR/guides/sim-card', { waitUntil: 'networkidle' })
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(GUIDE)
+  await expect(page.getByRole('heading', { level: 1 })).toHaveAttribute('data-from-file', 'yes')
   expect(asked).toEqual([])
   expect(errors).toEqual([])
 })
