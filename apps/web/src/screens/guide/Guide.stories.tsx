@@ -81,6 +81,22 @@ export const Alternates: Story = {
   },
 }
 
+/**
+ * SB-049: written only in a language the reader did not ask for, the guide is
+ * shown in the language it has, marked as that language, and says so, and its
+ * canonical is that language's address.
+ */
+export const NotYetTranslated: Story = {
+  parameters: { guide: 'written-elsewhere' },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const title = await canvas.findByRole('heading', { level: 1 }, { timeout: 5000 })
+    await expect(canvas.getByText(/Not in your language yet/)).toBeVisible()
+    await expect(title.querySelector('[lang]')?.getAttribute('lang')).toBe('fa-IR')
+    await expect(window.document.head.querySelector('link[rel="canonical"]')?.getAttribute('href')).toMatch(/[/]fa[/]TR[/]guides[/]written-elsewhere$/)
+  },
+}
+
 /** Written in English only, it claims no other language, and its canonical is still its own. */
 export const OneLanguage: Story = {
   parameters: { guide: 'register-your-address' },

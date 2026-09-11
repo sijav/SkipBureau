@@ -235,6 +235,25 @@ one, and does not work for a person searching. `e2e/pages.spec.ts` asserts both
 halves against the built site served the way Pages serves it, including the 404
 status, so nobody has to trust this paragraph.
 
+### A guide in one language, read in another
+
+Decided in SB-049. Interface text is lingui; guide content is rows, one per
+language: `GuideText`, `GuideSectionText` and the rest are keyed by the row and
+a `locale`, so a guide can exist in English before anyone writes it in Persian,
+and adding a language needs no migration. A missing row means not translated;
+a present row with empty columns means deliberately empty. Keeping those apart
+is why no reader-facing text lives on the parent table.
+
+**A reader who asks for a language the guide is not written in gets the guide
+in the language it has, and is told.** The API answers `locale`, the language
+the text is actually in, `translationMissing`, and `locales`, every language the
+guide exists in. The page marks the text with its real language, so it is read
+and pronounced correctly inside the other interface, and shows a Not yet
+verified style panel, "Not in your language yet", naming the language it is in.
+Nothing at all would send the reader away; the wrong language unannounced would
+be worse. Search engines are told the same: the page's canonical is the
+language the text is in, and it names no alternate it does not have (SB-086).
+
 ---
 
 ## Colour

@@ -137,6 +137,11 @@ export const handlers = [
     if (variables.country === 'tr' && variables.slug === 'register-your-address') {
       return HttpResponse.json({ data: { guide: persian ? untranslatedGuide : guide } })
     }
+    // Written only in the language the reader did not ask for, whichever that is.
+    if (variables.country === 'tr' && variables.slug === 'written-elsewhere') {
+      const other = persian ? 'en-US' : 'fa-IR'
+      return HttpResponse.json({ data: { guide: { ...guide, slug: 'written-elsewhere', locale: other, translationMissing: true, locales: [other] } } })
+    }
     return HttpResponse.json({ data: { guide: null } })
   }),
 ]
