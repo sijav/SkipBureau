@@ -117,11 +117,17 @@ two seconds:
 
 ## Where that leaves it
 
-Both halves of the exit hold, the second only through the version bump, which
-`CLAUDE.md` now requires of every push that changes `apps/api`. Nothing
-automatic catches a forgotten bump: the change sits on `main` and not on the
-live API. The real fix is to save `apps/api/**` into the rules, which needs
-Northflank's form to accept a save again, or a change through its API made by
-the owner with their own token. That is SB-156. The token the owner pasted into
-the chat was not used or stored: entering credentials on someone's behalf is
-outside what I may do, whatever the account.
+Both halves of the exit held that day, the second at first only through a
+version bump. The real fix followed within the hour as SB-156: the owner
+stored their own Northflank token as the repository secret `NORTHFLANK_TOKEN`,
+and `.github/workflows/northflank-path-rules.yml` wrote the five rules through
+Northflank's API (`PATCH /v1/projects/skipbureau/services/combined/buildfromgithub`),
+which accepted them where the form would not. The saved rules now read
+`apps/api/**`, `apps/web/package.json`, `package.json`, `package-lock.json`,
+`.dockerignore`, in allow mode. The token the owner had pasted into the chat
+was never used or stored: entering credentials on someone's behalf is outside
+what I may do, whatever the account, and the secret route never passes it
+through me.
+
+This paragraph is itself the check: a commit that changes only this file,
+inside `apps/api/src`, and bumps no version.
