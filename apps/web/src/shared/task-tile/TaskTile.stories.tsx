@@ -2,8 +2,20 @@ import { Trans } from '@lingui/react/macro'
 import { Stack } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { MemoryRouter } from 'react-router-dom'
+import { dark, light, type ColourTokens } from 'src/core/theme'
 import { expect, userEvent, within } from 'storybook/test'
 import { TaskTile } from './TaskTile'
+
+const tokensFor = (mode: unknown): ColourTokens => {
+  const isDark = mode === 'dark' || (mode !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+  return isDark ? dark : light
+}
+
+/** A computed colour as the token's hex, so the check names no colour of its own. */
+const asHex = (computed: string): string => {
+  const [red = 0, green = 0, blue = 0] = (computed.match(/[\d.]+/g) ?? []).map(Number)
+  return `#${[red, green, blue].map((channel) => channel.toString(16).padStart(2, '0')).join('')}`
+}
 
 const meta = {
   title: 'Shared/TaskTile',
@@ -34,13 +46,15 @@ export const Default: Story = {
   },
 }
 
+/** The row family's focus, SB-037: a 2px accent-text outline on the resting surface. */
 export const Focus: Story = {
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, globals }) => {
     const link = await within(canvasElement).findByRole('link')
     await userEvent.tab()
     await expect(link).toHaveFocus()
     await expect(link).toHaveClass('Mui-focusVisible')
     await expect(window.getComputedStyle(link).outlineWidth).toBe('2px')
+    await expect(asHex(window.getComputedStyle(link).outlineColor)).toBe(tokensFor(globals['mode']).accentText.toLowerCase())
   },
 }
 

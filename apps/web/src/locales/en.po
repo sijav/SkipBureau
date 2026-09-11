@@ -17,6 +17,14 @@ msgstr ""
 msgid "{count, plural, one {# result} other {# results}}"
 msgstr "{count, plural, one {# result} other {# results}}"
 
+#: src/shared/deadline-item/DeadlineItem.tsx
+msgid "{days, plural, one {# day late} other {# days late}}"
+msgstr "{days, plural, one {# day late} other {# days late}}"
+
+#: src/shared/deadline-item/DeadlineItem.tsx
+msgid "{days, plural, one {# day} other {# days}}"
+msgstr "{days, plural, one {# day} other {# days}}"
+
 #: src/shared/progress-indicator/ProgressIndicator.tsx
 msgid "{done} of {total, plural, one {# step completed} other {# steps completed}}"
 msgstr "{done} of {total, plural, one {# step completed} other {# steps completed}}"
@@ -25,9 +33,21 @@ msgstr "{done} of {total, plural, one {# step completed} other {# steps complete
 msgid "{minutes} min read"
 msgstr "{minutes} min read"
 
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "₺1,200 to ₺1,600 for two documents"
+msgstr "₺1,200 to ₺1,600 for two documents"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "1 question about your company type"
+msgstr "1 question about your company type"
+
 #: src/shared/page/Page.stories.tsx
 msgid "A column, not a width"
 msgstr "A column, not a width"
+
+#: src/screens/coming-soon/ComingSoon.stories.tsx
+msgid "A few questions about your situation, then only the steps that apply to you, in the order they come."
+msgstr "A few questions about your situation, then only the steps that apply to you, in the order they come."
 
 #: src/screens/coming-soon/SetupSoon.tsx
 msgid "A few questions about your situation, then only the steps that apply to you, in the order they come. Until it is ready, the overview lists every area the goal involves."
@@ -45,6 +65,10 @@ msgstr "A student residence permit application must be submitted within one mont
 msgid "A working SIM does not mean a registered device."
 msgstr "A working SIM does not mean a registered device."
 
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "About 2 days · ₺1,400 · notary"
+msgstr "About 2 days · ₺1,400 · notary"
+
 #: src/shared/step-row/StepRow.stories.tsx
 msgid "Activate and test it"
 msgstr "Activate and test it"
@@ -61,6 +85,10 @@ msgstr "Add to sharpen answers"
 msgid "Add your details"
 msgstr "Add your details"
 
+#: src/shared/deadline-item/DeadlineItem.stories.tsx
+msgid "Address registration"
+msgstr "Address registration"
+
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Alternative route"
 msgstr "Alternative route"
@@ -76,6 +104,18 @@ msgstr "Answer a few questions and we’ll build a roadmap for your situation."
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Antalya"
 msgstr "Antalya"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Any notary (noter) in Izmir"
+msgstr "Any notary (noter) in Izmir"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Applies to applicants under 18"
+msgstr "Applies to applicants under 18"
+
+#: src/shared/deadline-item/DeadlineItem.stories.tsx
+msgid "Appointment at the migration office"
+msgstr "Appointment at the migration office"
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Appointment slots in Istanbul are usually released early in the morning and taken within the hour. Applicants report better luck checking daily than waiting for a convenient date."
@@ -145,6 +185,7 @@ msgstr "Back to the guide"
 msgid "Back to the home page"
 msgstr "Back to the home page"
 
+#: src/screens/coming-soon/ComingSoon.stories.tsx
 #: src/screens/coming-soon/SetupSoon.tsx
 msgid "Back to the overview"
 msgstr "Back to the overview"
@@ -157,6 +198,7 @@ msgstr "Before you start"
 msgid "Best for"
 msgstr "Best for"
 
+#: src/shared/roadmap-step/RoadmapStep.tsx
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Blocked"
 msgstr "Blocked"
@@ -182,12 +224,17 @@ msgid "Cap"
 msgstr "Cap"
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Check before booking your appointment"
 msgstr "Check before booking your appointment"
 
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Check before you pay"
 msgstr "Check before you pay"
+
+#: src/shared/checklist-item/ChecklistItem.tsx
+msgid "Check date"
+msgstr "Check date"
 
 #: src/shared/step-row/StepRow.stories.tsx
 msgid "Check mobile data, calls, SMS and your new number before you leave the store."
@@ -243,9 +290,18 @@ msgstr "Common questions"
 msgid "Company types, registration and first obligations"
 msgstr "Company types, registration and first obligations"
 
+#: src/shared/task-row/TaskRow.stories.tsx
+msgid "Company types, registration, first obligations"
+msgstr "Company types, registration, first obligations"
+
+#: src/shared/roadmap-step/RoadmapStep.tsx
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Completed"
 msgstr "Completed"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Completed 14 Aug 2026"
+msgstr "Completed 14 Aug 2026"
 
 #: src/shared/section/Section.stories.tsx
 msgid "Content"
@@ -254,6 +310,10 @@ msgstr "Content"
 #: src/screens/category-hub/CategoryHub.tsx
 msgid "Content shown here is sample material for design review."
 msgstr "Content shown here is sample material for design review."
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Copies"
+msgstr "Copies"
 
 #: src/screens/guide/Guide.tsx
 msgid "Cost and time"
@@ -284,9 +344,25 @@ msgstr "Describe what changed, even in one sentence."
 msgid "Descriptions on this page are sample content for design review. They deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
 msgstr "Descriptions on this page are sample content for design review. They deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
 
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Documents needed"
+msgstr "Documents needed"
+
+#: src/shared/deadline-item/DeadlineItem.tsx
+msgid "Done"
+msgstr "Done"
+
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Due in 12 days"
 msgstr "Due in 12 days"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Estimated cost"
+msgstr "Estimated cost"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Estimated time"
+msgstr "Estimated time"
 
 #: src/screens/coming-soon/GuidesSoon.tsx
 msgid "Every guide for {name}"
@@ -296,6 +372,10 @@ msgstr "Every guide for {name}"
 #: src/screens/home/Home.tsx
 msgid "Every guide shows when it was last verified and links to the official source"
 msgstr "Every guide shows when it was last verified and links to the official source"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Expired 12 Jul 2026 · must cover the full permit period"
+msgstr "Expired 12 Jul 2026 · must cover the full permit period"
 
 #: src/shared/header/Header.tsx
 msgid "Explore"
@@ -308,6 +388,10 @@ msgstr "Figures, timings and requirements shown throughout this design are sampl
 #: src/shared/information-disclaimer/InformationDisclaimer.tsx
 msgid "For general information only"
 msgstr "For general information only"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Format"
+msgstr "Format"
 
 #: src/shared/context-control/YourDetails.tsx
 msgid "From {originName}"
@@ -334,6 +418,7 @@ msgstr "Guide"
 msgid "Guided process · 9 steps"
 msgstr "Guided process · 9 steps"
 
+#: src/screens/coming-soon/ComingSoon.stories.tsx
 #: src/screens/coming-soon/SetupSoon.tsx
 msgid "Guided setup"
 msgstr "Guided setup"
@@ -347,6 +432,18 @@ msgstr "Guided setup works this out with you"
 #: src/shared/header/Header.tsx
 msgid "Guides"
 msgstr "Guides"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Health insurance policy"
+msgstr "Health insurance policy"
+
+#: src/shared/deadline-item/DeadlineItem.stories.tsx
+msgid "Health insurance renewal"
+msgstr "Health insurance renewal"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Helps if you have held a permit before"
+msgstr "Helps if you have held a permit before"
 
 #: src/screens/category-hub/CategoryHub.tsx
 #: src/screens/guide/Guide.tsx
@@ -377,6 +474,10 @@ msgstr "If you know this information is outdated or incorrect, let us know. We r
 #: src/screens/guide/GuideSection.tsx
 msgid "Important to know"
 msgstr "Important to know"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "In person, it cannot be done online"
+msgstr "In person, it cannot be done online"
 
 #: src/shared/context-chip/ContextChip.stories.tsx
 msgid "Iranian"
@@ -428,10 +529,34 @@ msgstr "Last verified: {verified}"
 msgid "Main"
 msgstr "Main"
 
+#: src/shared/checklist-item/ChecklistItem.tsx
+msgid "Missing"
+msgstr "Missing"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Must be dated within the last 30 days"
+msgstr "Must be dated within the last 30 days"
+
 #: src/shared/context-chip/ContextChip.stories.tsx
 #: src/shared/context-control/ContextPanel.tsx
 msgid "Nationality"
 msgstr "Nationality"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Needs step 02 first"
+msgstr "Needs step 02 first"
+
+#: src/shared/roadmap-step/RoadmapStep.tsx
+msgid "Needs your answer"
+msgstr "Needs your answer"
+
+#: src/shared/roadmap-step/RoadmapStep.tsx
+msgid "Next action"
+msgstr "Next action"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Next: register the company at the trade registry"
+msgstr "Next: register the company at the trade registry"
 
 #: src/screens/suggest/SuggestUpdate.tsx
 msgid "No account needed"
@@ -444,6 +569,10 @@ msgstr "No agent can get an appointment faster than the official system, and nob
 #: src/screens/Placeholder.tsx
 #~ msgid "Not built yet"
 #~ msgstr "Not built yet"
+
+#: src/shared/checklist-item/ChecklistItem.tsx
+msgid "Not for you"
+msgstr "Not for you"
 
 #: src/screens/guide/Guide.tsx
 msgid "Not in your language yet"
@@ -460,6 +589,14 @@ msgstr "Not sure where to start?"
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Not yet verified"
 msgstr "Not yet verified"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Notarisation"
+msgstr "Notarisation"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Notarised · blocks the appointment step"
+msgstr "Notarised · blocks the appointment step"
 
 #: src/shared/context-control/ContextPanel.tsx
 msgid "Nothing here is required."
@@ -513,17 +650,34 @@ msgstr "Ongoing"
 msgid "Operator source"
 msgstr "Operator source"
 
+#: src/shared/checklist-item/ChecklistItem.tsx
+msgid "Optional"
+msgstr "Optional"
+
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Or explore the areas involved yourself."
 msgstr "Or explore the areas involved yourself."
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Original required"
+msgstr "Original required"
 
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Other routes"
 msgstr "Other routes"
 
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Parental consent"
+msgstr "Parental consent"
+
 #: src/shared/text-input/TextInput.stories.tsx
 msgid "Passport number"
 msgstr "Passport number"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Passport translation"
+msgstr "Passport translation"
 
 #: src/screens/suggest/SuggestUpdate.tsx
 msgid "Paste a link if you have one"
@@ -541,9 +695,21 @@ msgstr "Popular right now"
 msgid "Practical advice"
 msgstr "Practical advice"
 
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Prepare translated and notarised documents"
+msgstr "Prepare translated and notarised documents"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Presidency of Migration Management"
+msgstr "Presidency of Migration Management"
+
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Presidency of Migration Management · verified August 2026"
 msgstr "Presidency of Migration Management · verified August 2026"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Previous residence permit"
+msgstr "Previous residence permit"
 
 #: src/screens/guide/Guide.tsx
 #: src/shared/ask-result-row/AskResultRow.tsx
@@ -572,6 +738,15 @@ msgstr "Reading · verified {verified}"
 msgid "Reading · verified Aug 2026"
 msgstr "Reading · verified Aug 2026"
 
+#: src/shared/checklist-item/ChecklistItem.tsx
+msgid "Ready"
+msgstr "Ready"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Ready since 14 Aug 2026"
+msgstr "Ready since 14 Aug 2026"
+
 #: src/shared/ask-result-row/AskResultRow.tsx
 msgid "Recent"
 msgstr "Recent"
@@ -598,6 +773,30 @@ msgstr "Related guides"
 msgid "Remove the dash, this field takes letters and numbers only"
 msgstr "Remove the dash, this field takes letters and numbers only"
 
+#: src/shared/checklist-item/ChecklistItem.tsx
+msgid "Renew"
+msgstr "Renew"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Rental contract"
+msgstr "Rental contract"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Republic of Türkiye"
+msgstr "Republic of Türkiye"
+
+#: src/shared/checklist-item/ChecklistItem.tsx
+msgid "Required"
+msgstr "Required"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Required at any notary (noter)"
+msgstr "Required at any notary (noter)"
+
+#: src/shared/deadline-item/DeadlineItem.stories.tsx
+msgid "Residence permit renewal"
+msgstr "Residence permit renewal"
+
 #: src/shared/context-control/ContextPanel.tsx
 msgid "Residence status"
 msgstr "Residence status"
@@ -613,6 +812,10 @@ msgstr "Results for “{text}”"
 #: src/shared/context-control/ContextPanel.tsx
 msgid "Role"
 msgstr "Role"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Same day, about 1 hour"
+msgstr "Same day, about 1 hour"
 
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Scam risk"
@@ -684,6 +887,7 @@ msgid "Sources are listed above with the date we last checked them. Tell us if s
 msgstr "Sources are listed above with the date we last checked them. Tell us if something here no longer matches what you found."
 
 #: src/shared/breadcrumb/Breadcrumb.stories.tsx
+#: src/shared/task-row/TaskRow.stories.tsx
 #: src/shared/task-tile/TaskTile.stories.tsx
 msgid "Start a business"
 msgstr "Start a business"
@@ -702,6 +906,7 @@ msgid "Start here"
 msgstr "Start here"
 
 #: src/shared/button/Button.stories.tsx
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Start this process"
 msgstr "Start this process"
 
@@ -709,10 +914,27 @@ msgstr "Start this process"
 msgid "Still have a question?"
 msgstr "Still have a question?"
 
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Student certificate"
+msgstr "Student certificate"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Submitted 3 Sep · usually 15 to 20 days"
+msgstr "Submitted 3 Sep · usually 15 to 20 days"
+
 #: src/screens/guide/Guide.tsx
 #: src/screens/suggest/SuggestUpdate.tsx
 msgid "Suggest an update"
 msgstr "Suggest an update"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Sworn translation · Notarised · 2 copies"
+msgstr "Sworn translation · Notarised · 2 copies"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Take your passport and diploma to a sworn translator, then to any notary to have the translations certified. The notary does not need an appointment; most offices handle this the same day."
+msgstr "Take your passport and diploma to a sworn translator, then to any notary to have the translations certified. The notary does not need an appointment; most offices handle this the same day."
 
 #: src/shared/ask-result-row/AskResultRow.tsx
 msgid "Task"
@@ -725,6 +947,14 @@ msgstr "Task hub"
 #: src/screens/search/SearchResults.tsx
 msgid "Tasks"
 msgstr "Tasks"
+
+#: src/shared/deadline-item/DeadlineItem.stories.tsx
+msgid "Tax filing, Q3"
+msgstr "Tax filing, Q3"
+
+#: src/shared/deadline-item/DeadlineItem.stories.tsx
+msgid "Tax number obtained"
+msgstr "Tax number obtained"
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Tell us if you have done this in Antalya"
@@ -775,6 +1005,14 @@ msgstr "This guide has not been translated yet, so it is shown in {0}."
 msgid "This page does not exist"
 msgstr "This page does not exist"
 
+#: src/shared/deadline-item/DeadlineItem.tsx
+msgid "Today"
+msgstr "Today"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Translation"
+msgstr "Translation"
+
 #: src/screens/home/HomeHero.tsx
 msgid "Try"
 msgstr "Try"
@@ -782,6 +1020,10 @@ msgstr "Try"
 #: src/screens/Unreachable.tsx
 msgid "Try again"
 msgstr "Try again"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Turkish, by a sworn translator (yeminli tercüman)"
+msgstr "Turkish, by a sworn translator (yeminli tercüman)"
 
 #: src/shared/context-control/ContextPanel.tsx
 msgid "Type a country"
@@ -813,6 +1055,10 @@ msgstr "Understand the registration process and what needs to be prepared."
 msgid "Unnamed country"
 msgstr "Unnamed country"
 
+#: src/shared/roadmap-step/RoadmapStep.tsx
+msgid "Upcoming"
+msgstr "Upcoming"
+
 #: src/shared/fact-strip/FactStrip.stories.tsx
 msgid "Usually a short visit in store"
 msgstr "Usually a short visit in store"
@@ -837,6 +1083,7 @@ msgstr "Verified Aug 2026"
 msgid "Visit official source"
 msgstr "Visit official source"
 
+#: src/shared/roadmap-step/RoadmapStep.tsx
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Waiting on institution"
 msgstr "Waiting on institution"
@@ -918,6 +1165,10 @@ msgstr "What Skipbureau knows about you"
 msgid "What to check"
 msgstr "What to check"
 
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "What to do"
+msgstr "What to do"
+
 #: src/screens/task-hub/TaskHub.tsx
 msgid "What we know about you"
 msgstr "What we know about you"
@@ -930,6 +1181,10 @@ msgstr "What you need"
 msgid "What you’ll need to think about"
 msgstr "What you’ll need to think about"
 
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Where"
+msgstr "Where"
+
 #: src/screens/guide/GuideSection.tsx
 msgid "Where to do it"
 msgstr "Where to do it"
@@ -937,6 +1192,10 @@ msgstr "Where to do it"
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Whether your diploma needs an apostille or consular legalization depends on your country of issue. We cannot show one answer here until you tell us your nationality."
 msgstr "Whether your diploma needs an apostille or consular legalization depends on your country of issue. We cannot show one answer here until you tell us your nationality."
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Yes, bring the original and one copy"
+msgstr "Yes, bring the original and one copy"
 
 #: src/shared/ask-result-row/AskResultRow.stories.tsx
 msgid "Yes, no residence permit is required to own shares"
@@ -967,5 +1226,6 @@ msgid "Your options"
 msgstr "Your options"
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Your passport must stay valid for at least 60 days beyond the end of the permit you are requesting. Applications are refused on this alone more often than on any other single reason."
 msgstr "Your passport must stay valid for at least 60 days beyond the end of the permit you are requesting. Applications are refused on this alone more often than on any other single reason."

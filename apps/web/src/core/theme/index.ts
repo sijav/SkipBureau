@@ -6,6 +6,21 @@ export { FIELD_PAINT, FIELD_STATES, FIELD_TEXT, SELECT_TEXT, type FieldPaint, ty
 export { PANEL_KINDS, PANEL_PAINT, panelStyle, type PanelKind, type PanelPaint } from './panel'
 export { PROGRESS_PAINT, PROGRESS_SIZE, segments, type SegmentState } from './progress'
 export { RESULT_KINDS, RESULT_PAINT, resultRowStyle, type ResultKind } from './resultRow'
+export {
+  CHECKLIST_PAINT,
+  CHECKLIST_STATES,
+  DEADLINE_PAINT,
+  DEADLINE_STATES,
+  ROADMAP_PAINT,
+  ROADMAP_STATUSES,
+  frameGiveBack,
+  frameStyle,
+  rowInteraction,
+  type ChecklistState,
+  type DeadlineState,
+  type Mark,
+  type RoadmapStatus,
+} from './rows'
 export { ASK_PAINT, SEARCH_PAINT, askStyle, searchStyle } from './search'
 export { TILE_PAINT, tileStyle } from './tile'
 export { TOPIC_PAINT, topicStyle } from './topic'

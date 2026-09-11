@@ -17,6 +17,14 @@ msgstr ""
 msgid "{count, plural, one {# result} other {# results}}"
 msgstr "{count, plural, one {# نتیجه} other {# نتیجه}}"
 
+#: src/shared/deadline-item/DeadlineItem.tsx
+msgid "{days, plural, one {# day late} other {# days late}}"
+msgstr "{days, plural, one {# روز تأخیر} other {# روز تأخیر}}"
+
+#: src/shared/deadline-item/DeadlineItem.tsx
+msgid "{days, plural, one {# day} other {# days}}"
+msgstr "{days, plural, one {# روز} other {# روز}}"
+
 #: src/shared/progress-indicator/ProgressIndicator.tsx
 msgid "{done} of {total, plural, one {# step completed} other {# steps completed}}"
 msgstr "{done} از {total, plural, one {# مرحله انجام شده} other {# مرحله انجام شده}}"
@@ -25,9 +33,21 @@ msgstr "{done} از {total, plural, one {# مرحله انجام شده} other {
 msgid "{minutes} min read"
 msgstr "{minutes} دقیقه مطالعه"
 
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "₺1,200 to ₺1,600 for two documents"
+msgstr "۱٬۲۰۰ تا ۱٬۶۰۰ لیر برای دو مدرک"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "1 question about your company type"
+msgstr "۱ پرسش درباره نوع شرکت شما"
+
 #: src/shared/page/Page.stories.tsx
 msgid "A column, not a width"
 msgstr "یک ستون، نه یک عرض"
+
+#: src/screens/coming-soon/ComingSoon.stories.tsx
+msgid "A few questions about your situation, then only the steps that apply to you, in the order they come."
+msgstr "چند پرسش درباره وضعیت شما، و بعد فقط گام‌هایی که به شما مربوط است، به همان ترتیبی که پیش می‌آیند."
 
 #: src/screens/coming-soon/SetupSoon.tsx
 msgid "A few questions about your situation, then only the steps that apply to you, in the order they come. Until it is ready, the overview lists every area the goal involves."
@@ -45,6 +65,10 @@ msgstr "درخواست اقامت دانشجویی باید ظرف یک ماه �
 msgid "A working SIM does not mean a registered device."
 msgstr "سیم‌کارتی که کار می‌کند به معنای دستگاه ثبت‌شده نیست."
 
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "About 2 days · ₺1,400 · notary"
+msgstr "حدود ۲ روز · ۱٬۴۰۰ لیر · دفتر اسناد رسمی"
+
 #: src/shared/step-row/StepRow.stories.tsx
 msgid "Activate and test it"
 msgstr "فعال‌سازی و آزمایش"
@@ -61,6 +85,10 @@ msgstr "برای پاسخ دقیق‌تر اضافه کنید"
 msgid "Add your details"
 msgstr "مشخصات خود را وارد کنید"
 
+#: src/shared/deadline-item/DeadlineItem.stories.tsx
+msgid "Address registration"
+msgstr "ثبت نشانی"
+
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Alternative route"
 msgstr "مسیر جایگزین"
@@ -76,6 +104,18 @@ msgstr "به چند پرسش پاسخ دهید تا نقشه راهی متناس
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Antalya"
 msgstr "آنتالیا"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Any notary (noter) in Izmir"
+msgstr "هر دفتر اسناد رسمی (noter) در ازمیر"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Applies to applicants under 18"
+msgstr "برای متقاضیان زیر ۱۸ سال"
+
+#: src/shared/deadline-item/DeadlineItem.stories.tsx
+msgid "Appointment at the migration office"
+msgstr "نوبت در اداره مهاجرت"
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Appointment slots in Istanbul are usually released early in the morning and taken within the hour. Applicants report better luck checking daily than waiting for a convenient date."
@@ -145,6 +185,7 @@ msgstr "بازگشت به راهنما"
 msgid "Back to the home page"
 msgstr "بازگشت به خانه"
 
+#: src/screens/coming-soon/ComingSoon.stories.tsx
 #: src/screens/coming-soon/SetupSoon.tsx
 msgid "Back to the overview"
 msgstr "بازگشت به نمای کلی"
@@ -157,6 +198,7 @@ msgstr "پیش از شروع"
 msgid "Best for"
 msgstr "مناسب برای"
 
+#: src/shared/roadmap-step/RoadmapStep.tsx
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Blocked"
 msgstr "مسدود"
@@ -182,12 +224,17 @@ msgid "Cap"
 msgstr "سقف"
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Check before booking your appointment"
 msgstr "پیش از گرفتن نوبت بررسی کنید"
 
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Check before you pay"
 msgstr "پیش از پرداخت بررسی کنید"
+
+#: src/shared/checklist-item/ChecklistItem.tsx
+msgid "Check date"
+msgstr "تاریخ را بررسی کنید"
 
 #: src/shared/step-row/StepRow.stories.tsx
 msgid "Check mobile data, calls, SMS and your new number before you leave the store."
@@ -243,9 +290,18 @@ msgstr "پرسش‌های رایج"
 msgid "Company types, registration and first obligations"
 msgstr "انواع شرکت، ثبت و نخستین تعهدات"
 
+#: src/shared/task-row/TaskRow.stories.tsx
+msgid "Company types, registration, first obligations"
+msgstr "انواع شرکت، ثبت، نخستین تعهدات"
+
+#: src/shared/roadmap-step/RoadmapStep.tsx
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Completed"
 msgstr "انجام‌شده"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Completed 14 Aug 2026"
+msgstr "انجام‌شده در ۱۴ اوت ۲۰۲۶"
 
 #: src/shared/section/Section.stories.tsx
 msgid "Content"
@@ -254,6 +310,10 @@ msgstr "محتوا"
 #: src/screens/category-hub/CategoryHub.tsx
 msgid "Content shown here is sample material for design review."
 msgstr "محتوای این صفحه نمونه‌ای برای بازبینی طرح است."
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Copies"
+msgstr "رونوشت‌ها"
 
 #: src/screens/guide/Guide.tsx
 msgid "Cost and time"
@@ -284,9 +344,25 @@ msgstr "توضیح دهید چه چیزی تغییر کرده، حتی در یک
 msgid "Descriptions on this page are sample content for design review. They deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
 msgstr "توضیحات این صفحه محتوای نمونه برای بازبینی طرح هستند. عمدا از هزینه‌ها، آستانه‌ها و قواعد واجد شرایط بودن پرهیز می‌کنند؛ این‌ها در راه‌اندازی راهنمایی‌شده و بر پایه منابع تأییدشده تعیین می‌شوند."
 
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Documents needed"
+msgstr "مدارک لازم"
+
+#: src/shared/deadline-item/DeadlineItem.tsx
+msgid "Done"
+msgstr "انجام شد"
+
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Due in 12 days"
 msgstr "۱۲ روز تا موعد"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Estimated cost"
+msgstr "هزینه تقریبی"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Estimated time"
+msgstr "زمان تقریبی"
 
 #: src/screens/coming-soon/GuidesSoon.tsx
 msgid "Every guide for {name}"
@@ -296,6 +372,10 @@ msgstr "همه راهنماهای {name}"
 #: src/screens/home/Home.tsx
 msgid "Every guide shows when it was last verified and links to the official source"
 msgstr "هر راهنما تاریخ آخرین بررسی را نشان می‌دهد و به منبع رسمی پیوند دارد"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Expired 12 Jul 2026 · must cover the full permit period"
+msgstr "منقضی در ۱۲ ژوئیه ۲۰۲۶ · باید کل دوره اقامت را پوشش دهد"
 
 #: src/shared/header/Header.tsx
 msgid "Explore"
@@ -308,6 +388,10 @@ msgstr "ارقام، زمان‌بندی‌ها و الزاماتی که در س
 #: src/shared/information-disclaimer/InformationDisclaimer.tsx
 msgid "For general information only"
 msgstr "فقط برای اطلاع عمومی"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Format"
+msgstr "شیوه"
 
 #: src/shared/context-control/YourDetails.tsx
 msgid "From {originName}"
@@ -334,6 +418,7 @@ msgstr "راهنما"
 msgid "Guided process · 9 steps"
 msgstr "فرایند راهنمایی‌شده · ۹ گام"
 
+#: src/screens/coming-soon/ComingSoon.stories.tsx
 #: src/screens/coming-soon/SetupSoon.tsx
 msgid "Guided setup"
 msgstr "راه‌اندازی راهنمایی‌شده"
@@ -347,6 +432,18 @@ msgstr "راه‌اندازی راهنمایی‌شده این را همراه �
 #: src/shared/header/Header.tsx
 msgid "Guides"
 msgstr "راهنماها"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Health insurance policy"
+msgstr "بیمه‌نامه درمانی"
+
+#: src/shared/deadline-item/DeadlineItem.stories.tsx
+msgid "Health insurance renewal"
+msgstr "تمدید بیمه درمانی"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Helps if you have held a permit before"
+msgstr "اگر پیش‌تر اقامت داشته‌اید کمک می‌کند"
 
 #: src/screens/category-hub/CategoryHub.tsx
 #: src/screens/guide/Guide.tsx
@@ -377,6 +474,10 @@ msgstr "اگر می‌دانید این اطلاعات قدیمی یا نادر�
 #: src/screens/guide/GuideSection.tsx
 msgid "Important to know"
 msgstr "دانستنی‌های مهم"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "In person, it cannot be done online"
+msgstr "حضوری، به‌صورت آنلاین ممکن نیست"
 
 #: src/shared/context-chip/ContextChip.stories.tsx
 msgid "Iranian"
@@ -428,10 +529,34 @@ msgstr "آخرین تأیید: {verified}"
 msgid "Main"
 msgstr "اصلی"
 
+#: src/shared/checklist-item/ChecklistItem.tsx
+msgid "Missing"
+msgstr "ناموجود"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Must be dated within the last 30 days"
+msgstr "باید تاریخ ۳۰ روز اخیر را داشته باشد"
+
 #: src/shared/context-chip/ContextChip.stories.tsx
 #: src/shared/context-control/ContextPanel.tsx
 msgid "Nationality"
 msgstr "ملیت"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Needs step 02 first"
+msgstr "اول به گام ۰۲ نیاز دارد"
+
+#: src/shared/roadmap-step/RoadmapStep.tsx
+msgid "Needs your answer"
+msgstr "به پاسخ شما نیاز دارد"
+
+#: src/shared/roadmap-step/RoadmapStep.tsx
+msgid "Next action"
+msgstr "اقدام بعدی"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Next: register the company at the trade registry"
+msgstr "بعدی: ثبت شرکت در اداره ثبت تجاری"
 
 #: src/screens/suggest/SuggestUpdate.tsx
 msgid "No account needed"
@@ -444,6 +569,10 @@ msgstr "هیچ واسطه‌ای نمی‌تواند سریع‌تر از سام
 #: src/screens/Placeholder.tsx
 #~ msgid "Not built yet"
 #~ msgstr "هنوز ساخته نشده"
+
+#: src/shared/checklist-item/ChecklistItem.tsx
+msgid "Not for you"
+msgstr "برای شما نیست"
 
 #: src/screens/guide/Guide.tsx
 msgid "Not in your language yet"
@@ -460,6 +589,14 @@ msgstr "نمی‌دانید از کجا شروع کنید؟"
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Not yet verified"
 msgstr "هنوز تأیید نشده"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Notarisation"
+msgstr "تأیید محضری"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Notarised · blocks the appointment step"
+msgstr "محضری · گام نوبت را متوقف می‌کند"
 
 #: src/shared/context-control/ContextPanel.tsx
 msgid "Nothing here is required."
@@ -513,17 +650,34 @@ msgstr "مستمر"
 msgid "Operator source"
 msgstr "منبع اپراتور"
 
+#: src/shared/checklist-item/ChecklistItem.tsx
+msgid "Optional"
+msgstr "اختیاری"
+
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Or explore the areas involved yourself."
 msgstr "یا حوزه‌های مربوط را خودتان بررسی کنید."
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Original required"
+msgstr "اصل مدرک لازم است"
 
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Other routes"
 msgstr "مسیرهای دیگر"
 
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Parental consent"
+msgstr "رضایت والدین"
+
 #: src/shared/text-input/TextInput.stories.tsx
 msgid "Passport number"
 msgstr "شمارهٔ گذرنامه"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Passport translation"
+msgstr "ترجمه گذرنامه"
 
 #: src/screens/suggest/SuggestUpdate.tsx
 msgid "Paste a link if you have one"
@@ -541,9 +695,21 @@ msgstr "پرطرفدار در حال حاضر"
 msgid "Practical advice"
 msgstr "توصیهٔ عملی"
 
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Prepare translated and notarised documents"
+msgstr "آماده کردن مدارک ترجمه‌شده و محضری"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Presidency of Migration Management"
+msgstr "ریاست مدیریت مهاجرت"
+
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Presidency of Migration Management · verified August 2026"
 msgstr "ریاست مدیریت مهاجرت · تأییدشده در اوت ۲۰۲۶"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Previous residence permit"
+msgstr "اقامت قبلی"
 
 #: src/screens/guide/Guide.tsx
 #: src/shared/ask-result-row/AskResultRow.tsx
@@ -572,6 +738,15 @@ msgstr "مطالعه · بررسی‌شده در {verified}"
 msgid "Reading · verified Aug 2026"
 msgstr "مطالعه · بررسی‌شده در اوت ۲۰۲۶"
 
+#: src/shared/checklist-item/ChecklistItem.tsx
+msgid "Ready"
+msgstr "آماده"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Ready since 14 Aug 2026"
+msgstr "آماده از ۱۴ اوت ۲۰۲۶"
+
 #: src/shared/ask-result-row/AskResultRow.tsx
 msgid "Recent"
 msgstr "اخیر"
@@ -598,6 +773,30 @@ msgstr "راهنماهای مرتبط"
 msgid "Remove the dash, this field takes letters and numbers only"
 msgstr "خط تیره را حذف کنید، این فیلد فقط حرف و عدد می‌پذیرد"
 
+#: src/shared/checklist-item/ChecklistItem.tsx
+msgid "Renew"
+msgstr "تمدید کنید"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Rental contract"
+msgstr "قرارداد اجاره"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Republic of Türkiye"
+msgstr "جمهوری ترکیه"
+
+#: src/shared/checklist-item/ChecklistItem.tsx
+msgid "Required"
+msgstr "الزامی"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Required at any notary (noter)"
+msgstr "در هر دفتر اسناد رسمی (noter) لازم است"
+
+#: src/shared/deadline-item/DeadlineItem.stories.tsx
+msgid "Residence permit renewal"
+msgstr "تمدید اقامت"
+
 #: src/shared/context-control/ContextPanel.tsx
 msgid "Residence status"
 msgstr "وضعیت اقامت"
@@ -613,6 +812,10 @@ msgstr "نتایج برای «{text}»"
 #: src/shared/context-control/ContextPanel.tsx
 msgid "Role"
 msgstr "نقش"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Same day, about 1 hour"
+msgstr "همان روز، حدود ۱ ساعت"
 
 #: src/shared/info-panel/InfoPanel.tsx
 msgid "Scam risk"
@@ -684,6 +887,7 @@ msgid "Sources are listed above with the date we last checked them. Tell us if s
 msgstr "منابع همراه با تاریخ آخرین بررسی در بالا آمده‌اند. اگر چیزی در اینجا دیگر با آنچه یافته‌اید مطابقت ندارد، به ما بگویید."
 
 #: src/shared/breadcrumb/Breadcrumb.stories.tsx
+#: src/shared/task-row/TaskRow.stories.tsx
 #: src/shared/task-tile/TaskTile.stories.tsx
 msgid "Start a business"
 msgstr "راه‌اندازی کسب‌وکار"
@@ -702,6 +906,7 @@ msgid "Start here"
 msgstr "از اینجا شروع کنید"
 
 #: src/shared/button/Button.stories.tsx
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Start this process"
 msgstr "این فرایند را شروع کنید"
 
@@ -709,10 +914,27 @@ msgstr "این فرایند را شروع کنید"
 msgid "Still have a question?"
 msgstr "هنوز پرسشی دارید؟"
 
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Student certificate"
+msgstr "گواهی دانشجویی"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Submitted 3 Sep · usually 15 to 20 days"
+msgstr "ارسال‌شده در ۳ سپتامبر · معمولا ۱۵ تا ۲۰ روز"
+
 #: src/screens/guide/Guide.tsx
 #: src/screens/suggest/SuggestUpdate.tsx
 msgid "Suggest an update"
 msgstr "پیشنهاد به‌روزرسانی"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Sworn translation · Notarised · 2 copies"
+msgstr "ترجمه رسمی · محضری · ۲ رونوشت"
+
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Take your passport and diploma to a sworn translator, then to any notary to have the translations certified. The notary does not need an appointment; most offices handle this the same day."
+msgstr "گذرنامه و مدرک تحصیلی‌تان را نزد یک مترجم رسمی ببرید، و بعد به هر دفتر اسناد رسمی تا ترجمه‌ها تأیید شوند. دفتر اسناد رسمی نوبت نمی‌خواهد؛ بیشتر دفترها همان روز انجامش می‌دهند."
 
 #: src/shared/ask-result-row/AskResultRow.tsx
 msgid "Task"
@@ -725,6 +947,14 @@ msgstr "مرکز کار"
 #: src/screens/search/SearchResults.tsx
 msgid "Tasks"
 msgstr "کارها"
+
+#: src/shared/deadline-item/DeadlineItem.stories.tsx
+msgid "Tax filing, Q3"
+msgstr "اظهارنامه مالیاتی، فصل سوم"
+
+#: src/shared/deadline-item/DeadlineItem.stories.tsx
+msgid "Tax number obtained"
+msgstr "شماره مالیاتی دریافت شد"
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Tell us if you have done this in Antalya"
@@ -775,6 +1005,14 @@ msgstr "این راهنما هنوز ترجمه نشده است، بنابرای
 msgid "This page does not exist"
 msgstr "این صفحه وجود ندارد"
 
+#: src/shared/deadline-item/DeadlineItem.tsx
+msgid "Today"
+msgstr "امروز"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Translation"
+msgstr "ترجمه"
+
 #: src/screens/home/HomeHero.tsx
 msgid "Try"
 msgstr "امتحان کنید"
@@ -782,6 +1020,10 @@ msgstr "امتحان کنید"
 #: src/screens/Unreachable.tsx
 msgid "Try again"
 msgstr "تلاش دوباره"
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Turkish, by a sworn translator (yeminli tercüman)"
+msgstr "به ترکی، توسط مترجم رسمی (yeminli tercüman)"
 
 #: src/shared/context-control/ContextPanel.tsx
 msgid "Type a country"
@@ -813,6 +1055,10 @@ msgstr "با روند ثبت و آنچه باید آماده شود آشنا ش�
 msgid "Unnamed country"
 msgstr "کشور بی‌نام"
 
+#: src/shared/roadmap-step/RoadmapStep.tsx
+msgid "Upcoming"
+msgstr "پیش رو"
+
 #: src/shared/fact-strip/FactStrip.stories.tsx
 msgid "Usually a short visit in store"
 msgstr "معمولا یک مراجعه کوتاه به فروشگاه"
@@ -837,6 +1083,7 @@ msgstr "تأییدشده، اوت ۲۰۲۶"
 msgid "Visit official source"
 msgstr "رفتن به منبع رسمی"
 
+#: src/shared/roadmap-step/RoadmapStep.tsx
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Waiting on institution"
 msgstr "در انتظار نهاد"
@@ -918,6 +1165,10 @@ msgstr "آنچه Skipbureau درباره شما می‌داند"
 msgid "What to check"
 msgstr "چه چیزهایی را بررسی کنید"
 
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "What to do"
+msgstr "چه باید کرد"
+
 #: src/screens/task-hub/TaskHub.tsx
 msgid "What we know about you"
 msgstr "آنچه درباره شما می‌دانیم"
@@ -930,6 +1181,10 @@ msgstr "آنچه لازم دارید"
 msgid "What you’ll need to think about"
 msgstr "آنچه باید به آن فکر کنید"
 
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
+msgid "Where"
+msgstr "کجا"
+
 #: src/screens/guide/GuideSection.tsx
 msgid "Where to do it"
 msgstr "کجا انجام دهید"
@@ -937,6 +1192,10 @@ msgstr "کجا انجام دهید"
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Whether your diploma needs an apostille or consular legalization depends on your country of issue. We cannot show one answer here until you tell us your nationality."
 msgstr "اینکه مدرک تحصیلی شما آپوستیل لازم دارد یا تأیید کنسولی، به کشور صادرکنندهٔ آن بستگی دارد. تا ملیت خود را به ما نگویید، نمی‌توانیم اینجا یک پاسخ نشان دهیم."
+
+#: src/shared/checklist-item/ChecklistItem.stories.tsx
+msgid "Yes, bring the original and one copy"
+msgstr "بله، اصل و یک رونوشت را بیاورید"
 
 #: src/shared/ask-result-row/AskResultRow.stories.tsx
 msgid "Yes, no residence permit is required to own shares"
@@ -967,5 +1226,6 @@ msgid "Your options"
 msgstr "گزینه‌های شما"
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
+#: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Your passport must stay valid for at least 60 days beyond the end of the permit you are requesting. Applications are refused on this alone more often than on any other single reason."
 msgstr "گذرنامهٔ شما باید دست‌کم ۶۰ روز پس از پایان اقامتی که درخواست می‌کنید اعتبار داشته باشد. درخواست‌ها بیش از هر دلیل دیگری تنها به همین خاطر رد می‌شوند."

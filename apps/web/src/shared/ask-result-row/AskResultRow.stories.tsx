@@ -46,6 +46,18 @@ export const Default: Story = {
   },
 }
 
+/** The row family's focus, SB-037: a 2px accent-text outline on the resting surface. */
+export const Focus: Story = {
+  args: { to: '/en/TR/guides/register-your-address' },
+  play: async ({ canvasElement, globals }) => {
+    const link = await within(canvasElement).findByRole('link')
+    await userEvent.tab()
+    await expect(link).toHaveFocus()
+    await expect(window.getComputedStyle(link).outlineWidth).toBe('2px')
+    await expect(asHex(window.getComputedStyle(link).outlineColor)).toBe(tokensFor(globals['mode']).accentText.toLowerCase())
+  },
+}
+
 /** With one, the whole row is the link. */
 export const Linked: Story = {
   args: { to: '/en/TR/guides/register-your-address' },
