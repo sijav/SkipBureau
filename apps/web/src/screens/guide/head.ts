@@ -12,6 +12,7 @@ type GuideHeadData = {
   intro?: string | null | undefined
   locale: string
   locales: readonly string[]
+  verifiedAt: string
 }
 
 // Shared with the prerender (SB-076), so the file a crawler reads and the page
@@ -23,6 +24,9 @@ export const guideHead = (guide: GuideHeadData, country: CountryCode): PageHeadP
   path: (locale) => paths.guide({ locale, origin: null, country }, guide.slug),
   languages: guide.locales,
   shown: guide.locale,
+  // An article to a link preview, dated by its verification (SB-089).
+  kind: 'article',
+  modified: guide.verifiedAt,
 })
 
 type Writing = { sections: readonly unknown[]; options: readonly unknown[]; quickAnswer?: string | null | undefined }

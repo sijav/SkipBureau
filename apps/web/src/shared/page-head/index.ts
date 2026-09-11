@@ -1,2 +1,3 @@
 export { PageHead, type PageHeadProps } from './PageHead'
-export { documentTitle } from './title'
+export { pageSharing, SHARE_IMAGE, sharingTags, type MetaTag, type Sharing } from './sharing'
+export { documentTitle, pageName } from './title'

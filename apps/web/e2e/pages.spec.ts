@@ -26,6 +26,12 @@ test('a guide opens cold, left to right', async ({ page }) => {
   const blocks = [...source.matchAll(/<script type="application\/ld\+json"[^>]*>(.*?)<\/script>/gs)].map((match) => JSON.parse(match[1] ?? ''))
   expect(blocks.map((block) => block['@type'])).toEqual(['Article', 'BreadcrumbList', 'HowTo'])
   expect(blocks[0].dateModified).toMatch(/^\d{4}-\d{2}-\d{2}$/)
+  // What a link preview shows (SB-089): no preview bot runs a script.
+  expect(source).toContain(`<meta property="og:title" content="${GUIDE} in Turkey"`)
+  expect(source).toContain('<meta property="og:locale" content="en_US"')
+  expect(source).toContain('<meta property="og:locale:alternate" content="fa_IR"')
+  expect(source).toMatch(/<meta property="og:image" content="[^"]*\/og\.png"/)
+  expect(source).toContain('<meta name="twitter:card" content="summary_large_image"')
 
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(GUIDE)
   await expect(page).toHaveURL(/\/en\/TR\/guides\/sim-card$/)
@@ -48,6 +54,7 @@ test('a guide opens cold, right to left', async ({ page }) => {
   const source = (await response?.text()) ?? ''
   expect(source).toContain('dir="rtl"')
   expect(source).toMatch(/<link rel="canonical" href="[^"]*\/fa\/TR\/guides\/sim-card"/)
+  expect(source).toContain('<meta property="og:locale" content="fa_IR"')
 
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
   await expect(page).toHaveURL(/\/fa\/TR\/guides\/sim-card$/)

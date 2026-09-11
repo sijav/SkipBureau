@@ -8,7 +8,10 @@ import { msg } from '@lingui/core/macro'
  * countries' guides of the same name from being the same result.
  */
 export const documentTitle = (i18n: I18n, title: string, place: string): string => {
-  const named = title.includes(place) ? title : i18n._(msg`${title} in ${place}`)
+  const named = pageName(i18n, title, place)
   // The name as the wordmark writes it (Figma 43:523).
   return i18n._(msg`${named} · Skipbureau`)
 }
+
+/** The page's words and its country, without the site: what a link preview titles it (SB-089). */
+export const pageName = (i18n: I18n, title: string, place: string): string => (title.includes(place) ? title : i18n._(msg`${title} in ${place}`))

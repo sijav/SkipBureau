@@ -9,9 +9,10 @@ const page = (address: string, overrides: Partial<Page> = {}): Page => ({
   locale: 'en-US',
   title: 'A page',
   description: null,
-  links: { canonical: address, alternates: [] },
+  links: { canonical: address, canonicalLocale: 'en-US', available: ['en-US'], alternates: [] },
   structuredData: [],
   lastModified: null,
+  sharing: [],
   ...overrides,
 })
 
@@ -19,6 +20,8 @@ const guide = page('/en/TR/guides/sim-card', {
   lastModified: '2026-09-08',
   links: {
     canonical: '/en/TR/guides/sim-card',
+    canonicalLocale: 'en-US',
+    available: ['en-US', 'fa-IR'],
     alternates: [
       { hreflang: 'en', path: '/en/TR/guides/sim-card' },
       { hreflang: 'fa', path: '/fa/TR/guides/sim-card' },
@@ -39,7 +42,9 @@ test('a guide is listed once, with its date and every alternate', () => {
 
 test('a page whose canonical is another address is left to that address', () => {
   // A goal that opens its only area: its canonical is the area's hub.
-  const goal = page('/en/TR/tasks/getting-settled', { links: { canonical: '/en/TR/tasks/getting-settled/first-week', alternates: [] } })
+  const goal = page('/en/TR/tasks/getting-settled', {
+    links: { canonical: '/en/TR/tasks/getting-settled/first-week', canonicalLocale: 'en-US', available: ['en-US'], alternates: [] },
+  })
   expect(sitemap([goal], ORIGIN)).not.toContain('getting-settled</loc>')
 })
 

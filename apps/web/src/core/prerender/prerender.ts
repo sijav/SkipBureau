@@ -6,7 +6,7 @@ import { CategoryHubQuery, CountriesQuery, createClient, GuideQuery, GuidesQuery
 import { isLocale, loadCatalog, locales, type Locale } from 'src/core/i18n'
 import { paths } from 'src/core/router'
 import { categoryHubData, categoryHubHead, guideData, guideHead, homeData, homeHead, isWritten, onlyArea, taskHubData, taskHubHead } from 'src/screens'
-import { documentTitle, type PageHeadProps } from 'src/shared/page-head'
+import { documentTitle, pageSharing, type MetaTag, type PageHeadProps } from 'src/shared/page-head'
 import { absolute, pageLanguages, type LanguageLinks } from 'src/shared/page-languages'
 import { JSON_LD, jsonLd, type StructuredDatum } from 'src/shared/structured-data'
 import { robots, sitemap } from './sitemap'
@@ -23,6 +23,8 @@ export type Page = {
   structuredData: readonly StructuredDatum[]
   /** The page's own date, for the sitemap (SB-088); null where it has none. */
   lastModified: string | null
+  /** What a link preview reads (SB-089). */
+  sharing: readonly MetaTag[]
 }
 
 export type PrerenderedFile = { file: string; content: string }
@@ -57,6 +59,7 @@ const pagesIn = async (client: Client, locale: Locale, origin: string): Promise<
         links: pageLanguages(head, locale),
         structuredData,
         lastModified,
+        sharing: pageSharing(head, { i18n, place: name, locale, origin }),
       })
 
     const home = i18n._(msg`Home`)
@@ -153,6 +156,11 @@ export const render = (pages: readonly Page[], template: string, origin: string)
       `<link rel="canonical" href="${escape(absolute(page.links.canonical, origin))}" data-prerendered />`,
       ...page.links.alternates.map(
         (each) => `<link rel="alternate" hreflang="${each.hreflang}" href="${escape(absolute(each.path, origin))}" data-prerendered />`,
+      ),
+      ...page.sharing.map((tag) =>
+        'property' in tag
+          ? `<meta property="${tag.property}" content="${escape(tag.content)}" data-prerendered />`
+          : `<meta name="${tag.name}" content="${escape(tag.content)}" data-prerendered />`,
       ),
       ...page.structuredData.map((datum) => `<script type="${JSON_LD}" data-prerendered>${jsonLd(datum)}</script>`),
     ].filter((tag) => tag !== null)

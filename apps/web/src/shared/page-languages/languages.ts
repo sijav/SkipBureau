@@ -12,6 +12,10 @@ export type PageLanguagesProps = {
 export type LanguageLinks = {
   /** The one address the page has, relative to the site. */
   canonical: string
+  /** The language of the canonical page. */
+  canonicalLocale: Locale
+  /** Every language the page is written in. */
+  available: Locale[]
   /** One per language and x-default; none for a page in one language, which names no other. */
   alternates: { hreflang: string; path: string }[]
 }
@@ -30,11 +34,13 @@ export const pageLanguages = ({ path, languages, shown }: PageLanguagesProps, lo
   // written in, framed differently; that page is its canonical.
   const written = shown && isLocale(shown) ? shown : undefined
   const canonical = available.includes(locale) ? locale : (written ?? available[0] ?? locale)
-  if (available.length < 2) return { canonical: path(canonical), alternates: [] }
+  if (available.length < 2) return { canonical: path(canonical), canonicalLocale: canonical, available, alternates: [] }
   // x-default is the base language where the page has it.
   const fallback = available.includes(defaultLocale) ? defaultLocale : (available[0] ?? locale)
   return {
     canonical: path(canonical),
+    canonicalLocale: canonical,
+    available,
     alternates: [
       ...available.map((each) => ({ hreflang: locales[each].path, path: path(each) })),
       { hreflang: 'x-default', path: path(fallback) },
