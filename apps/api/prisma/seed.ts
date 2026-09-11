@@ -196,6 +196,12 @@ export const seed = async (prisma = client()): Promise<void> => {
   for (const rule of RULES) {
     const obligation = await prisma.obligation.findUniqueOrThrow({ where: { slug: rule.obligation } })
 
+    // Versions are append-only and a trigger refuses an overlapping one, so a
+    // second run would stop here. Each country and obligation is seeded once;
+    // after that the versions are an editor's to add, never the seed's.
+    const seeded = await prisma.ruleVersion.findFirst({ where: { countryCode: rule.country, obligationId: obligation.id }, select: { id: true } })
+    if (seeded) continue
+
     await prisma.ruleVersion.create({
       data: {
         countryCode: rule.country,
