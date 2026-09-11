@@ -12,10 +12,18 @@ import { canonicalPath, countryFromSegment, readerFromSegment } from './paths'
  * from, down.
  *
  * Which countries exist is a database answer, not a compile-time one, so this
- * asks. `network-only`: a cached answer would render a country that has since
- * been removed, and the guard would be wrong in exactly the case it exists for.
- * It runs when this route mounts or its country changes, not on every
- * navigation below it.
+ * asks. `cache-first`, and the cache is the session's alone: a stale link to a
+ * country removed since opens a new session with nothing cached, reaches the
+ * network and is Not Found, which is the case the guard exists for. What it
+ * gives up is a country removed while a reader has the site open, which they
+ * see until they reload.
+ *
+ * Not `network-only`, which it was: a prerendered page carries the answer it
+ * was built with (SB-155), urql's ssrExchange never gives that to a
+ * `network-only` query, and the guard would ask again and render nothing over
+ * a page the file already shows. Nor `cache-and-network`: urql runs a query
+ * once for the first render and again when it subscribes, and the second is a
+ * cache hit, which that policy answers with a request anyway.
  *
  * An unknown country is Not Found, never a redirect to one we do have. A stale
  * link reading `/en/ZZ/guides/residence-permit` must not silently become
@@ -40,7 +48,7 @@ export const CountryRoute = () => {
     // Two letters before asking. It costs the API nothing to refuse `/en/xyz`
     // and it means a typo does not become a request.
     pause: !reader || !code || moved,
-    requestPolicy: 'network-only',
+    requestPolicy: 'cache-first',
   })
 
   // The header sits above this route, so the confirmed country is published

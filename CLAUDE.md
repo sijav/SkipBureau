@@ -75,9 +75,11 @@ So this is a first-class constraint on every screen, not a pass at the end:
   content that appears only after scripts run is indexed later and less surely.
   Other crawlers and the link previews in chat apps mostly run no script at
   all, and content behind a click or a hash fragment is not a page to any of
-  them. So what a page is belongs in the HTML the server sends. Its title,
-  description, canonical and alternates already are (SB-076, SB-085); its body
-  is not yet (SB-155).
+  them. So what a page is belongs in the HTML the server sends, and for every
+  page that should be found it is: its title, description, canonical and
+  alternates (SB-076, SB-085), its structured data and preview tags (SB-087,
+  SB-089), and its body, rendered at build time (SB-155). A new screen gets all
+  of that only if the prerender renders it.
 - **A URL must return 200.** GitHub Pages answers an address with no file
   using `404.html` and a 404 status, so a page opens for a person and reads as
   **absent** to Google. The build writes a real file for every page that should

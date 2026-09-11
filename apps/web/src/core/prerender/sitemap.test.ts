@@ -13,6 +13,7 @@ const page = (address: string, overrides: Partial<Page> = {}): Page => ({
   structuredData: [],
   lastModified: null,
   sharing: [],
+  body: null,
   ...overrides,
 })
 

@@ -7,6 +7,7 @@ import { useCountry, withCountry } from 'src/core/country'
 import { CategoryHubQuery } from 'src/core/graphql'
 import { formatMonth, useLocale } from 'src/core/i18n'
 import { paths, useJourney } from 'src/core/router'
+import { useSiteOrigin } from 'src/core/site'
 import { radius, spacing } from 'src/core/theme'
 import { HomeAskField } from 'src/shared/ask-field'
 import { useAsk } from 'src/shared/ask-panel'
@@ -42,6 +43,7 @@ export const CategoryHub = (props: CategoryHubProps) => {
   const params = useParams()
   const goal = props.goal ?? params['goal'] ?? ''
   const slug = props.category ?? params['category'] ?? ''
+  const origin = useSiteOrigin()
   const [question, setQuestion] = useState('')
   const ask = useAsk({ question, onQuestion: setQuestion })
   const [askField, setAskField] = useState<HTMLDivElement | null>(null)
@@ -65,7 +67,7 @@ export const CategoryHub = (props: CategoryHubProps) => {
   return (
     <Page>
       <PageHead {...categoryHubHead(hub, country, name)} />
-      <StructuredData data={categoryHubData(hub, country, locale, window.location.origin, t`Home`, name)} />
+      <StructuredData data={categoryHubData(hub, country, locale, origin, t`Home`, name)} />
       <Box sx={{ paddingTop: '36px' }}>
         <Breadcrumb trail={trail} />
       </Box>

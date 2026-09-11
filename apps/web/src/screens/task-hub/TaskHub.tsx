@@ -7,6 +7,7 @@ import { useCountry, withCountry } from 'src/core/country'
 import { TaskHubQuery } from 'src/core/graphql'
 import { formatMonth, useLocale } from 'src/core/i18n'
 import { paths, useJourney } from 'src/core/router'
+import { useSiteOrigin } from 'src/core/site'
 import type { SourceState } from 'src/core/theme'
 import { AskResultRow } from 'src/shared/ask-result-row'
 import { YourDetails } from 'src/shared/context-control'
@@ -48,6 +49,7 @@ export const TaskHub = () => {
   const { country, name } = useCountry()
   const journey = useJourney()
   const { goal = '' } = useParams()
+  const origin = useSiteOrigin()
 
   const [{ data, fetching, error }, refetch] = useQuery({ query: TaskHubQuery, variables: { country, slug: goal, locale } })
 
@@ -77,7 +79,7 @@ export const TaskHub = () => {
   return (
     <Page>
       <PageHead {...taskHubHead(hub, country, name)} />
-      <StructuredData data={taskHubData(hub, country, locale, window.location.origin, t`Home`, name)} />
+      <StructuredData data={taskHubData(hub, country, locale, origin, t`Home`, name)} />
       <Box sx={{ maxWidth: layout.columnWidth }}>
         <Stack spacing="14px" sx={{ paddingTop: '56px', paddingBottom: '32px' }}>
           <Typography variant="caption" sx={{ color: tokens.textSecondary }}>

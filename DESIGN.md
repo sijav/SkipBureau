@@ -232,8 +232,13 @@ the country's home, the hub of every open goal, every area hub and every written
 guide, in every language, at `address.html`, which Pages serves for `address`
 with 200. Each carries that page's title, description, canonical link and
 alternates, made by the same functions the screens render (SB-085), so a
-crawler reads them before any script runs. The body is still the empty root;
-the content arrives from the API, and Google renders that on a 200.
+crawler reads them before any script runs. The body is the page itself, rendered
+at build time with the app's own routes and shell (SB-155), with the GraphQL
+results it was rendered from beside it: the client starts from those, so its
+first render sends no request and replaces the snapshot with the same pixels.
+The snapshot is light, the only palette a build can know (SB-108), so for a
+reader who prefers dark it stays hidden on a dark ground until the page is
+rendered in dark.
 
 `404.html`, a copy of the app shell, stays for everything else: a guide listed
 but not written yet, the Coming soon pages, search results, the Suggest dialog,

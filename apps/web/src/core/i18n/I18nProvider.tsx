@@ -21,7 +21,10 @@ export type I18nProviderProps = {
  * catalog failed would put English text inside a right-to-left layout.
  */
 export const I18nProvider = ({ children, locale: wanted, load = loadCatalog }: I18nProviderProps) => {
-  const [active, setActive] = useState<Locale | null>(null)
+  // Already active when the catalog was loaded before this rendered: a page
+  // rendered at build time, or a prerendered one whose catalog main.tsx loads
+  // first (SB-155). Rendering nothing then would clear what the file shows.
+  const [active, setActive] = useState<Locale | null>(() => (i18n.locale === wanted ? wanted : null))
 
   useEffect(() => {
     // React runs this cleanup before the next setup, so the flag alone

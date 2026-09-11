@@ -61,6 +61,42 @@ test('a guide opens cold, right to left', async ({ page }) => {
   await expect(page.locator('html')).toHaveAttribute('dir', 'rtl')
 })
 
+test('the file carries the page itself, and the page asks for none of it again', async ({ page, request }) => {
+  // SB-155: the body, not only the head, is in what the server sends.
+  const source = await (await request.get('en/TR/guides/sim-card')).text()
+  const body = source.slice(source.indexOf('<div id="root"'))
+  // The title inside its <bdi>, which marks the language the content is in.
+  expect(body).toMatch(new RegExp(`<h1[^>]*>(?:<[^>]+>)*${GUIDE}<`))
+  expect(body).toMatch(/Last verified: \w+ \d{4}/)
+
+  // Loaded with scripts on, it renders from what the file carries.
+  const asked: string[] = []
+  const errors: string[] = []
+  page.on('request', (sent) => {
+    if (sent.url().includes('graphql') && sent.method() === 'POST') asked.push(sent.postData() ?? '')
+  })
+  page.on('console', (message) => {
+    if (message.type() === 'error') errors.push(message.text())
+  })
+  await page.goto('en/TR/guides/sim-card', { waitUntil: 'networkidle' })
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(GUIDE)
+  expect(asked).toEqual([])
+  expect(errors).toEqual([])
+})
+
+test('without scripts, the snapshot shows in light and waits for its own palette in dark', async ({ browser, baseURL }) => {
+  // The snapshot is light: a reader who prefers dark gets a dark, empty canvas
+  // until the page is rendered in dark, never a flash of the light one.
+  for (const colorScheme of ['light', 'dark'] as const) {
+    const context = await browser.newContext({ javaScriptEnabled: false, colorScheme, baseURL: baseURL ?? '' })
+    const page = await context.newPage()
+    await page.goto('fa/TR/guides/sim-card')
+    const heading = page.getByRole('heading', { level: 1 })
+    await (colorScheme === 'light' ? expect(heading).toBeVisible() : expect(heading).toBeHidden())
+    await context.close()
+  }
+})
+
 test('the home and a hub say what they are to a machine too', async ({ request }) => {
   // SB-158: the home names the site and its publisher; an area hub its trail.
   const blocksOf = async (address: string) => {

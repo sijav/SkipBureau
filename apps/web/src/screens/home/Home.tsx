@@ -6,6 +6,7 @@ import { useCountry, withCountry } from 'src/core/country'
 import { HomeQuery } from 'src/core/graphql'
 import { useLocale } from 'src/core/i18n'
 import { paths, useJourney } from 'src/core/router'
+import { useSiteOrigin } from 'src/core/site'
 import { useAsk } from 'src/shared/ask-panel'
 import { AskResultRow } from 'src/shared/ask-result-row'
 import { Page } from 'src/shared/page'
@@ -33,6 +34,7 @@ export const Home = () => {
   const { country, name } = useCountry()
   const journey = useJourney()
   const [question, setQuestion] = useState('')
+  const origin = useSiteOrigin()
   const ask = useAsk({ question, onQuestion: setQuestion })
   const [askField, setAskField] = useState<HTMLDivElement | null>(null)
   useOwnsAsk(askField, layout.headerHeight)
@@ -49,7 +51,7 @@ export const Home = () => {
   return (
     <Page>
       <PageHead {...homeHead(i18n, country, name)} />
-      <StructuredData data={homeData(locale, window.location.origin)} />
+      <StructuredData data={homeData(locale, origin)} />
       <HomeHero
         name={name}
         question={question}

@@ -1,7 +1,7 @@
 export { AppRoutes } from './AppRoutes'
 export { CountryRoute } from './CountryRoute'
 export { useJourney, useShellJourney } from './journey'
-export { LocaleShell } from './LocaleShell'
+export { LocaleShell, type LocaleShellProps } from './LocaleShell'
 export {
   canonicalPath,
   countryFromSegment,

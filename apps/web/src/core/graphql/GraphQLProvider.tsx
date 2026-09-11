@@ -10,7 +10,7 @@ export type GraphQLProviderProps = {
    * would share its cache, and a story would then pass or fail depending on
    * which ran before it.
    */
-  client?: Client
+  client?: Client | undefined
 }
 
 /**

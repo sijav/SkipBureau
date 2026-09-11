@@ -2,19 +2,24 @@ import createCache from '@emotion/cache'
 import { CacheProvider } from '@emotion/react'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import rtlPlugin from '@mui/stylis-plugin-rtl'
-import { useEffect, useMemo, type ReactNode } from 'react'
+import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import { prefixer } from 'stylis'
 import './fonts'
 import { appTheme, type Direction, type Mode, type ModeChoice } from './theme'
 import { useSystemMode } from './useSystemMode'
 
-// One cache per direction, made once. Emotion keys its generated class names by
-// cache, so building a new one on every render would leak stylesheets and lose
-// the ordering that decides which rule wins.
-const caches = {
+const makeCaches = () => ({
   ltr: createCache({ key: 'sb', stylisPlugins: [prefixer] }),
   rtl: createCache({ key: 'sb-rtl', stylisPlugins: [prefixer, rtlPlugin] }),
-}
+})
+
+// In the browser, one cache per direction, made once. Emotion keys its
+// generated class names by cache, so building a new one on every render would
+// leak stylesheets and lose the ordering that decides which rule wins. At
+// build time (SB-155) every page renders in one process, and a shared cache
+// writes a style only into the first page that uses it, so there each render
+// makes its own.
+const browserCaches = typeof window === 'undefined' ? null : makeCaches()
 
 export type AppThemeProps = {
   children: ReactNode
@@ -43,6 +48,7 @@ export type AppThemeProps = {
  * the theme.
  */
 export const AppTheme = ({ children, mode = 'system', direction = 'ltr' }: AppThemeProps) => {
+  const [caches] = useState(() => browserCaches ?? makeCaches())
   const system = useSystemMode()
   const resolved: Mode = mode === 'system' ? system : mode
   const theme = useMemo(() => appTheme(resolved, direction), [resolved, direction])

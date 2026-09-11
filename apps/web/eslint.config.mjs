@@ -173,6 +173,8 @@ export default tseslint.config(
             // The product name. It is the same word in both languages, and
             // putting it in the catalogue invites someone to translate it.
             '^SkipBureau$',
+            // As the wordmark writes it (Figma 43:523).
+            '^Skipbureau$',
           ],
           // Text that goes to a developer, never to a reader.
           ignoreFunctions: ['console.*', 'Error', 'window.document.getElementById', 'window.document.head.querySelectorAll'],

@@ -7,6 +7,7 @@ import { useCountry } from 'src/core/country'
 import { GuideQuery } from 'src/core/graphql'
 import { formatMonth, isLocale, locales, useLocale } from 'src/core/i18n'
 import { paths, useJourney } from 'src/core/router'
+import { useSiteOrigin } from 'src/core/site'
 import { spacing, type SourceState } from 'src/core/theme'
 import { Breadcrumb } from 'src/shared/breadcrumb'
 import { FactStrip } from 'src/shared/fact-strip'
@@ -45,6 +46,7 @@ export const Guide = () => {
   const { country, name } = useCountry()
   const journey = useJourney()
   const { guide: slug = '' } = useParams()
+  const origin = useSiteOrigin()
 
   const [{ data, fetching, error }, refetch] = useQuery({ query: GuideQuery, variables: { country, slug, locale } })
 
@@ -99,7 +101,7 @@ export const Guide = () => {
   return (
     <Page>
       {head}
-      <StructuredData data={guideData(guide, country, locale, window.location.origin, t`Home`)} />
+      <StructuredData data={guideData(guide, country, locale, origin, t`Home`)} />
       {/* Figma 143:762: a 1080 column at the page's start, not centred in it. */}
       <Box sx={{ maxWidth: layout.mainWidth }}>
         <Box sx={{ paddingTop: '40px' }}>

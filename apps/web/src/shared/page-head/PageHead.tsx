@@ -2,6 +2,7 @@ import { useLingui } from '@lingui/react/macro'
 import { useEffect } from 'react'
 import { useCountry } from 'src/core/country'
 import { useLocale } from 'src/core/i18n'
+import { useSiteOrigin } from 'src/core/site'
 import { PageLanguages, type PageLanguagesProps } from 'src/shared/page-languages'
 import { pageSharing } from './sharing'
 import { documentTitle } from './title'
@@ -27,7 +28,8 @@ export const PageHead = (props: PageHeadProps) => {
   const { i18n } = useLingui()
   const { locale } = useLocale()
   const { name } = useCountry()
-  const sharing = pageSharing({ title, description, kind, modified, ...languages }, { i18n, place: name, locale, origin: window.location.origin })
+  const origin = useSiteOrigin()
+  const sharing = pageSharing({ title, description, kind, modified, ...languages }, { i18n, place: name, locale, origin })
 
   // What the prerender wrote (SB-076) belongs to the address the file was
   // written for. Once this page has its own, it goes, so leaving the page
@@ -35,6 +37,9 @@ export const PageHead = (props: PageHeadProps) => {
   useEffect(() => {
     for (const node of window.document.head.querySelectorAll('[data-prerendered]')) node.remove()
   }, [])
+
+  // Rendered at build time (SB-155), the page's head is the file's already.
+  if (typeof window === 'undefined') return null
 
   return (
     <>
