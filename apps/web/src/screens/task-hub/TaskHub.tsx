@@ -5,14 +5,14 @@ import { Link, useParams } from 'react-router-dom'
 import { useQuery } from 'urql'
 import { useCountry, withCountry } from 'src/core/country'
 import { TaskHubQuery } from 'src/core/graphql'
-import { formatMonth, locales, useLocale } from 'src/core/i18n'
+import { formatMonth, useLocale } from 'src/core/i18n'
 import { paths, useJourney } from 'src/core/router'
 import type { SourceState } from 'src/core/theme'
 import { AskResultRow } from 'src/shared/ask-result-row'
 import { YourDetails } from 'src/shared/context-control'
 import { InfoPanel } from 'src/shared/info-panel'
 import { Page } from 'src/shared/page'
-import { PageLanguages } from 'src/shared/page-languages'
+import { PageHead } from 'src/shared/page-head'
 import { Section } from 'src/shared/section'
 import { SourceCard } from 'src/shared/source-card'
 import { TopicItem } from 'src/shared/topic-item'
@@ -20,6 +20,7 @@ import { CategoryHub } from 'src/screens/category-hub'
 import { NotFound } from 'src/screens/NotFound'
 import { Unreachable } from 'src/screens/Unreachable'
 import { GuidedSetup } from './GuidedSetup'
+import { onlyArea, taskHubHead } from './head'
 
 const KIND = {
   decision: msg`Decision`,
@@ -54,9 +55,8 @@ export const TaskHub = () => {
   const hub = data?.taskHub
   // A goal this country has nothing under is Coming soon on Home, not a page.
   if (!hub) return <NotFound />
-  // One area and nothing of its own to say: the goal opens that area's hub.
-  const [only] = hub.areas
-  if (hub.areas.length === 1 && only && !hub.heading) return <CategoryHub goal={hub.slug} category={only.slug} />
+  const only = onlyArea(hub)
+  if (only) return <CategoryHub goal={hub.slug} category={only} />
 
   const fill = (text: string) => withCountry(text, name)
   const areas = hub.areas.filter((area) => area.kind !== 'alternativeRoute')
@@ -75,7 +75,7 @@ export const TaskHub = () => {
 
   return (
     <Page>
-      <PageLanguages path={(each) => paths.taskHub({ locale: each, origin: null, country }, hub.slug)} languages={Object.keys(locales)} />
+      <PageHead {...taskHubHead(hub, country, name)} />
       <Box sx={{ maxWidth: layout.columnWidth }}>
         <Stack spacing="14px" sx={{ paddingTop: '56px', paddingBottom: '32px' }}>
           <Typography variant="caption" sx={{ color: tokens.textSecondary }}>

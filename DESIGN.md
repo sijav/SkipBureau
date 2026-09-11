@@ -221,19 +221,33 @@ Turkey's rules. Someone would act on them.
 `/` is the only place a language is guessed, from a stored choice and then the
 browser's languages. Every address below it names its own.
 
-### What GitHub Pages costs, stated rather than hidden
+### What GitHub Pages costs, and what the build does about it
 
-Pages has no rewrite rule, so a deep link matches no file and Pages serves
-`404.html`. The build writes a copy of the app shell there, so the link opens
-the guide. **The HTTP status is still 404.** A search engine reads that as a
-page that does not exist and does not index it.
+Pages has no rewrite rule. It answers an address from a file or not at all, and
+an address with no file gets `404.html` **with a 404 status**, which a search
+engine reads as a page that does not exist.
 
-For a product whose value is being findable, that is not a small compromise, and
-it is the one thing about the hosting choice worth revisiting. It is recorded
-here rather than discovered later: the deep link works for a person who was sent
-one, and does not work for a person searching. `e2e/pages.spec.ts` asserts both
-halves against the built site served the way Pages serves it, including the 404
-status, so nobody has to trust this paragraph.
+So the build writes a file for every page a search engine should find (SB-076):
+the country's home, the hub of every open goal, every area hub and every written
+guide, in every language, at `address.html`, which Pages serves for `address`
+with 200. Each carries that page's title, description, canonical link and
+alternates, made by the same functions the screens render (SB-085), so a
+crawler reads them before any script runs. The body is still the empty root;
+the content arrives from the API, and Google renders that on a 200.
+
+`404.html`, a copy of the app shell, stays for everything else: a guide listed
+but not written yet, the Coming soon pages, search results, the Suggest dialog,
+an address carrying the reader's origin, and the old `/t/` and `/g/` forms.
+Those open for a person, with a 404 that keeps them out of search results,
+where none of them belongs.
+
+The files are a snapshot of the API at build time. A guide written in the admin
+panel gets its file at the next build and opens from `404.html` until then; the
+CI workflow can be started by hand for exactly that. **A new kind of page has
+to be added to `src/core/prerender`, or it reads as absent.**
+
+`e2e/pages.spec.ts` asserts the 200 and the head against the built site served
+the way Pages serves it, and against the live site with `PAGES_URL` set.
 
 ### A guide in one language, read in another
 

@@ -73,11 +73,12 @@ So this is a first-class constraint on every screen, not a pass at the end:
 - **A page must exist as a page.** Content that only appears after JavaScript
   runs, behind a click, or under a hash fragment is content a crawler may never
   index and can never rank properly.
-- **A URL must return 200.** This is not currently true, and it is the single
-  biggest problem the product has: GitHub Pages answers every deep link with
-  `404.html`, so a guide opens for a person and reads as **absent** to Google.
-  SB-075 has the options; SEO being utmost makes it critical rather than a
-  compromise worth living with.
+- **A URL must return 200.** GitHub Pages answers an address with no file
+  using `404.html` and a 404 status, so a page opens for a person and reads as
+  **absent** to Google. The build writes a real file for every page that should
+  be found (SB-076, `src/core/prerender`), so those answer 200; everything else
+  falls back to `404.html` on purpose. **A new kind of page must be added to the
+  prerender, or it is invisible to search.**
 - **One canonical URL per page**, which the `/en-US/` to `/en/` redirect
   already gives.
 - **`hreflang` between the two languages**, reciprocally. The same guide in

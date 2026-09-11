@@ -26,6 +26,10 @@ export const LocaleShell = ({ children }: { children: ReactNode }) => {
       <I18nProvider locale={locale}>
         <AppTheme direction={locales[locale].dir}>
           <ShellProvider>
+            {/* The site's name, for a page that has none of its own: Not Found,
+                search, Coming soon. A page's PageHead title goes in ahead of
+                it, and the first title in the document is the one shown. */}
+            <title>SkipBureau</title>
             <AppShell header={<Header />}>{children}</AppShell>
           </ShellProvider>
         </AppTheme>

@@ -8,24 +8,40 @@ import { expect, test } from '@playwright/test'
  */
 
 const GUIDE = 'Get a SIM Card or eSIM'
+const TITLE = `${GUIDE} in Turkey · SkipBureau`
 
 test('a guide opens cold, left to right', async ({ page }) => {
   const response = await page.goto('en/TR/guides/sim-card', { waitUntil: 'load' })
 
-  // The compromise, asserted rather than hidden: Pages answers with 404.html
-  // and a 404 status, and the app inside it renders the page. When SB-075
-  // lands this becomes 200, and this line is the one to change.
-  expect(response?.status()).toBe(404)
+  // A file of its own (SB-076): 200 from disk, not 404.html, and not by way of a redirect.
+  expect(response?.status()).toBe(200)
+  expect(response?.request().redirectedFrom()).toBeNull()
+  // What a crawler reads before any script runs (SB-085).
+  const source = (await response?.text()) ?? ''
+  expect(source).toContain(`>${TITLE}</title>`)
+  expect(source).toMatch(/<meta name="description" content="[^"]+"/)
+  expect(source).toMatch(/<link rel="canonical" href="[^"]*\/en\/TR\/guides\/sim-card"/)
 
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(GUIDE)
   await expect(page).toHaveURL(/\/en\/TR\/guides\/sim-card$/)
   // The locale tag, en-US: the language is what matters, not the region.
   await expect(page.locator('html')).toHaveAttribute('lang', /^en(-|$)/)
   await expect(page.locator('html')).toHaveAttribute('dir', 'ltr')
+
+  // Once the page is up, its head is React's: one title, one canonical, and
+  // nothing the file wrote left behind.
+  await expect(page).toHaveTitle(TITLE)
+  await expect(page.locator('head [data-prerendered]')).toHaveCount(0)
+  await expect(page.locator('link[rel="canonical"]')).toHaveCount(1)
 })
 
 test('a guide opens cold, right to left', async ({ page }) => {
-  await page.goto('fa/TR/guides/sim-card', { waitUntil: 'load' })
+  const response = await page.goto('fa/TR/guides/sim-card', { waitUntil: 'load' })
+
+  expect(response?.status()).toBe(200)
+  const source = (await response?.text()) ?? ''
+  expect(source).toContain('dir="rtl"')
+  expect(source).toMatch(/<link rel="canonical" href="[^"]*\/fa\/TR\/guides\/sim-card"/)
 
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
   await expect(page).toHaveURL(/\/fa\/TR\/guides\/sim-card$/)

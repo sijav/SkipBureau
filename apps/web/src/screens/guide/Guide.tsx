@@ -13,13 +13,14 @@ import { FactStrip } from 'src/shared/fact-strip'
 import { InfoPanel } from 'src/shared/info-panel'
 import { InformationDisclaimer } from 'src/shared/information-disclaimer'
 import { Page } from 'src/shared/page'
-import { PageLanguages } from 'src/shared/page-languages'
+import { PageHead } from 'src/shared/page-head'
 import { SourceCard } from 'src/shared/source-card'
 import { TopicItem } from 'src/shared/topic-item'
 import { ComingSoon } from 'src/screens/coming-soon'
 import { NotFound } from 'src/screens/NotFound'
 import { Unreachable } from 'src/screens/Unreachable'
 import { GuideSection, SectionFrame, type GuideData, type SectionData } from './GuideSection'
+import { guideHead, isWritten } from './head'
 
 const QUARTER = 1000 * 60 * 60 * 24 * 91
 const stateOf = (verifiedAt: string): SourceState => (Date.now() - new Date(verifiedAt).getTime() <= QUARTER ? 'verified' : 'older')
@@ -62,18 +63,21 @@ export const Guide = () => {
       : paths.taskHub(journey, place.goalSlug)
     : paths.home(journey)
   const guidePath = (other: string) => paths.guide(journey, other)
+  const head = <PageHead {...guideHead(guide, country)} />
 
-  // Listed on a hub, not written yet: its Coming soon page, never an empty guide.
-  if (guide.sections.length === 0 && guide.options.length === 0 && !guide.quickAnswer) {
+  if (!isWritten(guide)) {
     const categoryTitle = place?.categoryTitle ?? ''
     return (
-      <ComingSoon
-        title={content(guide.title)}
-        back={{ to: areaPath, label: place ? <Trans>Back to {categoryTitle}</Trans> : <Trans>Back to the home page</Trans> }}
-      >
-        {lead && <>{content(lead)} </>}
-        <Trans>We are still writing this guide, and checking it against official sources.</Trans>
-      </ComingSoon>
+      <>
+        {head}
+        <ComingSoon
+          title={content(guide.title)}
+          back={{ to: areaPath, label: place ? <Trans>Back to {categoryTitle}</Trans> : <Trans>Back to the home page</Trans> }}
+        >
+          {lead && <>{content(lead)} </>}
+          <Trans>We are still writing this guide, and checking it against official sources.</Trans>
+        </ComingSoon>
+      </>
     )
   }
 
@@ -97,7 +101,7 @@ export const Guide = () => {
 
   return (
     <Page>
-      <PageLanguages path={(each) => paths.guide({ locale: each, origin: null, country }, guide.slug)} languages={guide.locales} shown={guide.locale} />
+      {head}
       {/* Figma 143:762: a 1080 column at the page's start, not centred in it. */}
       <Box sx={{ maxWidth: layout.mainWidth }}>
         <Box sx={{ paddingTop: '40px' }}>

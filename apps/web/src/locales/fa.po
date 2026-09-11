@@ -33,6 +33,14 @@ msgstr "{done} از {total, plural, one {# مرحله انجام شده} other {
 msgid "{minutes} min read"
 msgstr "{minutes} دقیقه مطالعه"
 
+#: src/shared/page-head/title.ts
+msgid "{named} · SkipBureau"
+msgstr "{named} · SkipBureau"
+
+#: src/shared/page-head/title.ts
+msgid "{title} in {place}"
+msgstr "{title} در {place}"
+
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "₺1,200 to ₺1,600 for two documents"
 msgstr "۱٬۲۰۰ تا ۱٬۶۰۰ لیر برای دو مدرک"
@@ -284,6 +292,7 @@ msgstr "شهری در ترکیه"
 msgid "Clear all"
 msgstr "پاک کردن همه"
 
+#: src/screens/home/head.ts
 #: src/screens/home/HomeHero.tsx
 msgid "Clear, step-by-step guidance for living, studying, working and doing business in {name}."
 msgstr "راهنمای روشن و گام‌به‌گام برای زندگی، تحصیل، کار و کسب‌وکار در {name}."
@@ -1287,6 +1296,7 @@ msgstr "مترجم رسمی در ترکیه یعنی چه کسی"
 msgid "What do you need help with?"
 msgstr "در چه کاری به کمک نیاز دارید؟"
 
+#: src/screens/home/head.ts
 #: src/screens/home/HomeHero.tsx
 msgid "What do you need to do in {name}?"
 msgstr "در {name} چه کاری باید انجام دهید؟"

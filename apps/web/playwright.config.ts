@@ -56,16 +56,19 @@ export default defineConfig({
       timeout: 120_000,
     },
     {
-      // Built with the subpath, then served without any SPA fallback.
-      command: `npm run build && node e2e/pages-server.mjs`,
+      // Built with the subpath and prerendered as the Pages job does, then
+      // served without any SPA fallback.
+      command: `npm run build && npm run prerender && node e2e/pages-server.mjs`,
       url: `http://localhost:${PAGES_PORT}${BASE}`,
       reuseExistingServer: !process.env.CI,
-      timeout: 180_000,
+      // The prerender waits for the API above when it is still starting.
+      timeout: 360_000,
       // The API url too: the country guard asks the API before a page
       // renders, so a build that does not know where the API is renders Not
-      // Found for every country.
+      // Found for every country, and the prerender reads its pages there.
       env: {
         SKIPBUREAU_BASE: BASE,
+        SKIPBUREAU_ORIGIN: `http://localhost:${PAGES_PORT}`,
         PAGES_PORT: String(PAGES_PORT),
         VITE_GRAPHQL_URL: `http://localhost:${API_PORT}/graphql`,
       },

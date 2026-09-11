@@ -25,6 +25,16 @@ export const TasksQuery = graphql(`
   }
 `)
 
+// Every guide a country has, which the prerender (SB-076) then asks for one
+// by one, exactly as the guide page does.
+export const GuidesQuery = graphql(`
+  query Guides($country: String!, $locale: String) {
+    guides(country: $country, locale: $locale) {
+      slug
+    }
+  }
+`)
+
 export const GuideQuery = graphql(`
   query Guide($country: String!, $slug: String!, $locale: String) {
     guide(country: $country, slug: $slug, locale: $locale) {

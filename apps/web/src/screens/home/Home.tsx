@@ -1,19 +1,20 @@
-import { Trans } from '@lingui/react/macro'
+import { Trans, useLingui } from '@lingui/react/macro'
 import { Box, Divider, Stack, Typography, useTheme } from '@mui/material'
 import { useState } from 'react'
 import { useQuery } from 'urql'
 import { useCountry, withCountry } from 'src/core/country'
 import { HomeQuery } from 'src/core/graphql'
-import { locales, useLocale } from 'src/core/i18n'
+import { useLocale } from 'src/core/i18n'
 import { paths, useJourney } from 'src/core/router'
 import { useAsk } from 'src/shared/ask-panel'
 import { AskResultRow } from 'src/shared/ask-result-row'
 import { Page } from 'src/shared/page'
-import { PageLanguages } from 'src/shared/page-languages'
+import { PageHead } from 'src/shared/page-head'
 import { Section } from 'src/shared/section'
 import { TaskTile } from 'src/shared/task-tile'
 import { TileGrid } from 'src/shared/tile-grid'
 import { Unreachable } from 'src/screens/Unreachable'
+import { homeHead } from './head'
 import { HomeHero } from './HomeHero'
 import { useOwnsAsk } from './useOwnsAsk'
 
@@ -26,6 +27,7 @@ import { useOwnsAsk } from './useOwnsAsk'
  */
 export const Home = () => {
   const { tokens, layout } = useTheme()
+  const { i18n } = useLingui()
   const { locale } = useLocale()
   const { country, name } = useCountry()
   const journey = useJourney()
@@ -45,7 +47,7 @@ export const Home = () => {
 
   return (
     <Page>
-      <PageLanguages path={(each) => paths.home({ locale: each, origin: null, country })} languages={Object.keys(locales)} />
+      <PageHead {...homeHead(i18n, country, name)} />
       <HomeHero
         name={name}
         question={question}

@@ -6,6 +6,7 @@ export {
   CountriesQuery,
   CountryQuery,
   GuideQuery,
+  GuidesQuery,
   HomeQuery,
   SearchQuery,
   SuggestUpdateMutation,

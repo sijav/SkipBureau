@@ -3,6 +3,9 @@ name: CI
 on:
   push:
   pull_request:
+  # By hand, to rebuild the site when content changed and no code did: the
+  # prerendered pages (SB-076) are a snapshot of the API at build time.
+  workflow_dispatch:
 
 jobs:
   check:
@@ -178,7 +181,8 @@ jobs:
       - name: The GraphQL contract
         run: npm run contract -w @skipbureau/web
 
-      - uses: actions/configure-pages@v6
+      - id: pages
+        uses: actions/configure-pages@v6
 
       # SKIPBUREAU_BASE because the site is served from a repository subpath, not
       # a domain root. VITE_GRAPHQL_URL is baked in at build time, so it is a
@@ -189,6 +193,18 @@ jobs:
         run: npm run build -w @skipbureau/web
         env:
           SKIPBUREAU_BASE: /SkipBureau/
+          VITE_GRAPHQL_URL: ${{ vars.GRAPHQL_URL }}
+
+      # SB-076: a file for every page a search engine should find, so Pages
+      # answers 200 instead of 404.html with a 404. It reads the pages from the
+      # API the site calls, which this same push has probably just restarted
+      # (SB-136), so it waits for it; if the API never answers it warns, and
+      # the site ships exactly as it did before.
+      - name: Prerender every page
+        run: npm run prerender -w @skipbureau/web
+        env:
+          SKIPBUREAU_BASE: /SkipBureau/
+          SKIPBUREAU_ORIGIN: ${{ steps.pages.outputs.origin }}
           VITE_GRAPHQL_URL: ${{ vars.GRAPHQL_URL }}
       # Storybook, under a subpath beside the app. The owner asked for it, and
       # it is the only way anyone but me sees the component work: every

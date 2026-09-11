@@ -27,9 +27,9 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
   ...storybook.configs['flat/recommended'],
   {
-    // Config files and test harness scripts run under Node, and sit outside
-    // the app's tsconfig project graph, so no type information here.
-    files: ['*.ts', '*.mjs', 'e2e/**/*.mjs'],
+    // Config files, and the build and test harness scripts, run under Node and
+    // sit outside the app's tsconfig project graph, so no type information here.
+    files: ['*.ts', '*.mjs', 'e2e/**/*.mjs', 'scripts/**/*.mjs'],
     languageOptions: { ecmaVersion: 2022, globals: globals.node },
   },
   {
@@ -175,7 +175,7 @@ export default tseslint.config(
             '^SkipBureau$',
           ],
           // Text that goes to a developer, never to a reader.
-          ignoreFunctions: ['console.*', 'Error', 'window.document.getElementById'],
+          ignoreFunctions: ['console.*', 'Error', 'window.document.getElementById', 'window.document.head.querySelectorAll'],
           ignoreNames: [
             { regex: { pattern: '^(data-|aria-controls|id|key|role|variant|component|color)' } },
             // A route pattern is an address, not something anyone reads.

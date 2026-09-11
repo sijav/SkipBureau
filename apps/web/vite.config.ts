@@ -9,13 +9,14 @@ const here = dirname(fileURLToPath(import.meta.url))
 const lingui = () => react({ plugins: [['@lingui/swc-plugin', {}]] })
 
 /**
- * GitHub Pages has no rewrite rule, so a deep link resolves to no file and
- * Pages serves `404.html`. Shipping the app shell there is what makes a link
- * to a guide open that guide instead of a Pages error page.
+ * GitHub Pages has no rewrite rule, so an address with no file gets
+ * `404.html`. Shipping the app shell there is what makes such a link open its
+ * page instead of a Pages error page. Every page that should be found also
+ * gets a file of its own, with a 200, from `npm run prerender` (SB-076); this
+ * is for the rest. DESIGN.md says which those are.
  *
  * A build step rather than a checked-in copy, because a checked-in one drifts
- * from `index.html` silently and the first symptom is production only. See
- * DESIGN.md for what this does not fix, which is the 404 status code.
+ * from `index.html` silently and the first symptom is production only.
  */
 const pagesFallback = (): Plugin => ({
   name: 'skipbureau-pages-fallback',

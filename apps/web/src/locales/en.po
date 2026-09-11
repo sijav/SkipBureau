@@ -33,6 +33,14 @@ msgstr "{done} of {total, plural, one {# step completed} other {# steps complete
 msgid "{minutes} min read"
 msgstr "{minutes} min read"
 
+#: src/shared/page-head/title.ts
+msgid "{named} · SkipBureau"
+msgstr "{named} · SkipBureau"
+
+#: src/shared/page-head/title.ts
+msgid "{title} in {place}"
+msgstr "{title} in {place}"
+
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "₺1,200 to ₺1,600 for two documents"
 msgstr "₺1,200 to ₺1,600 for two documents"
@@ -284,6 +292,7 @@ msgstr "City in Turkey"
 msgid "Clear all"
 msgstr "Clear all"
 
+#: src/screens/home/head.ts
 #: src/screens/home/HomeHero.tsx
 msgid "Clear, step-by-step guidance for living, studying, working and doing business in {name}."
 msgstr "Clear, step-by-step guidance for living, studying, working and doing business in {name}."
@@ -1287,6 +1296,7 @@ msgstr "What counts as a sworn translator in Turkey"
 msgid "What do you need help with?"
 msgstr "What do you need help with?"
 
+#: src/screens/home/head.ts
 #: src/screens/home/HomeHero.tsx
 msgid "What do you need to do in {name}?"
 msgstr "What do you need to do in {name}?"

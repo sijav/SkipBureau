@@ -8,7 +8,10 @@
          white flash on every cold load. It cannot apply our background, only
          let the user agent pick a matching one. -->
     <meta name="color-scheme" content="light dark" />
-    <title>SkipBureau</title>
+    <!-- React adds a page's own title rather than adopting this one, so the
+         marker is what lets the page's head take it out (SB-085). The
+         prerender (SB-076) writes each page's title here. -->
+    <title data-prerendered>SkipBureau</title>
   </head>
   <body>
     <div id="root"></div>
