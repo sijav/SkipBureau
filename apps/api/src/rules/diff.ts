@@ -17,6 +17,12 @@ export type FactDifference = {
   key: string
   from: Fact | null
   to: Fact | null
+  /**
+   * False where one side has no row for the key at all. That is a gap in what
+   * was recorded, not a difference anyone checked; a side that was checked and
+   * has none of it says so with the `none` operator (SB-082).
+   */
+  known: boolean
 }
 
 /** What happens to one obligation. Lives here, in the pure module, so the
@@ -25,6 +31,8 @@ export type FactDifference = {
 export enum Verdict {
   identical = 'identical',
   changed = 'changed',
+  /** Nothing known differs, but a fact is recorded on one side only, so whether it differs is not known. */
+  unknown = 'unknown',
   newInDestination = 'newInDestination',
   endsOnLeaving = 'endsOnLeaving',
   needsReview = 'needsReview',
@@ -59,7 +67,7 @@ const differences = (from: Resolved, to: Resolved): FactDifference[] => {
       const a = before.get(key) ?? null
       const b = after.get(key) ?? null
       if (a && b && sameFact(a, b)) return []
-      return [{ key, from: a, to: b }]
+      return [{ key, from: a, to: b, known: a !== null && b !== null }]
     })
 }
 
@@ -95,13 +103,16 @@ export const compare = (origin: ReadonlyMap<string, Side>, destination: Readonly
     const after = to?.resolved ?? null
 
     if (before && after) {
-      const changed = differences(before, after)
+      const found = differences(before, after)
+      // One known difference is enough to say it changed; the gaps are still
+      // listed beside it, each saying it is one.
+      const verdict = found.some((difference) => difference.known) ? Verdict.changed : found.length ? Verdict.unknown : Verdict.identical
       return {
         obligationSlug,
-        verdict: changed.length ? Verdict.changed : Verdict.identical,
+        verdict,
         from: before,
         to: after,
-        differences: changed,
+        differences: found,
         reason: null,
       }
     }

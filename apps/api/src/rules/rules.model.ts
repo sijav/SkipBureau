@@ -30,6 +30,9 @@ export class FactDifference {
   @Field(() => String) key!: string
   @Field(() => RuleFactValue, { nullable: true }) from!: RuleFactValue | null
   @Field(() => RuleFactValue, { nullable: true }) to!: RuleFactValue | null
+
+  @Field(() => Boolean, { description: 'False where one side never recorded this fact: a gap in what we know, not a checked difference.' })
+  known!: boolean
 }
 
 @ObjectType({ description: 'One obligation, and what happens to it.' })

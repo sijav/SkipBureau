@@ -220,19 +220,20 @@ test('a German guide shows German facts, never the Turkish ones', async () => {
 
 test('and the Turkish guide shows the Turkish ones, never the German document', async () => {
   const response = await graphql(
-    `query G { guide(country: "tr", slug: "register-your-address") { obligations { resolution facts { key numericValue textValue } } } }`,
+    `query G { guide(country: "tr", slug: "register-your-address") { obligations { resolution facts { key operator numericValue textValue } } } }`,
   )
 
   const obligation = response.body.data.guide.obligations[0]
   const facts = Object.fromEntries(
-    obligation.facts.map((f: { key: string; numericValue: string | null; textValue: string | null }) => [
+    obligation.facts.map((f: { key: string; operator: string; numericValue: string | null; textValue: string | null }) => [
       f.key,
-      f.numericValue ?? f.textValue,
+      f.numericValue ?? f.textValue ?? f.operator,
     ]),
   )
 
   expect(obligation.resolution).toBe('general')
-  expect(facts).toEqual({ deadline: '20' })
+  // Turkey's own answer about the document is that it asks for none (SB-082).
+  expect(facts).toEqual({ deadline: '20', requiredDocument: 'none' })
 })
 
 test('a rule that starts next year is not what the guide shows today', async () => {

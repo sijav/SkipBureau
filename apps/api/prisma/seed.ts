@@ -25,7 +25,7 @@ const client = () =>
 
 type FactInput = {
   key: string
-  operator?: 'equals' | 'atMost' | 'atLeast' | 'within'
+  operator?: 'equals' | 'atMost' | 'atLeast' | 'within' | 'none'
   numericValue?: number
   textValue?: string
   unit?: string
@@ -58,7 +58,12 @@ const RULES: RuleInput[] = [
     obligation: 'register-your-address',
     sourceUrl: 'https://www.nvi.gov.tr/',
     sourceName: 'Nufus ve Vatandaslik Isleri Genel Mudurlugu',
-    facts: [{ key: 'deadline', operator: 'within', numericValue: 20, unit: 'days' }],
+    facts: [
+      { key: 'deadline', operator: 'within', numericValue: 20, unit: 'days' },
+      // Checked, and Turkey asks for no landlord's confirmation. Without this row
+      // the difference from Germany would be a gap, not a fact (SB-082).
+      { key: 'requiredDocument', operator: 'none' },
+    ],
     notes: {
       en: 'Address registration is made at the district population directorate after you have a place to live.',
       fa: 'ثبت نشانی پس از پیدا کردن محل سکونت، در اداره نفوس منطقه انجام می‌شود.',
@@ -84,6 +89,7 @@ const RULES: RuleInput[] = [
     sourceUrl: 'https://e-ikamet.goc.gov.tr/',
     sourceName: 'Goc Idaresi Baskanligi',
     facts: [
+      { key: 'required', operator: 'equals', textValue: 'yes' },
       { key: 'applyBefore', operator: 'atLeast', numericValue: 60, unit: 'days' },
       { key: 'fee', operator: 'equals', numericValue: 80, currency: 'USD' },
     ],
@@ -98,7 +104,13 @@ const RULES: RuleInput[] = [
     criteria: [{ dimension: 'nationalityGroup', value: 'eu' }],
     sourceUrl: 'https://www.bamf.de/',
     sourceName: 'Bundesamt fuer Migration und Fluechtlinge',
-    facts: [{ key: 'required', operator: 'equals', textValue: 'no' }],
+    // No permit, so nothing to apply for in advance and nothing to pay: said,
+    // rather than left for a comparison to read as unknown (SB-082).
+    facts: [
+      { key: 'required', operator: 'equals', textValue: 'no' },
+      { key: 'applyBefore', operator: 'none' },
+      { key: 'fee', operator: 'none' },
+    ],
     notes: {
       en: 'Freedom of movement applies, so no residence permit is needed.',
       fa: 'به دلیل آزادی تردد، اجازه اقامت لازم نیست.',

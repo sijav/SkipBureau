@@ -54,7 +54,7 @@ const MOVE = `
       obligationSlug
       verdict
       reason
-      differences { key from { numericValue unit textValue } to { numericValue unit textValue } }
+      differences { key known from { operator numericValue unit textValue } to { operator numericValue unit textValue } }
     }
   }
 `
@@ -89,11 +89,46 @@ test('a changed obligation says which fact changed, not just that it changed', a
   expect(deadline.to.numericValue).toBe('14')
   expect(deadline.from.unit).toBe('days')
 
-  // Germany also wants a document Turkey does not, which is a fact present on
-  // one side only rather than a different value.
+  // Germany also wants a document Turkey does not. Turkey records that it asks
+  // for none, so this is a checked difference and not a gap (SB-082).
   const document = entry.differences.find((d: { key: string }) => d.key === 'requiredDocument')
-  expect(document.from).toBeNull()
+  expect(document.from.operator).toBe('none')
   expect(document.to.textValue).toBe('Wohnungsgeberbestaetigung')
+  expect(document.known).toBe(true)
+})
+
+test('a fact recorded on one side only is a gap, and one recorded as none is a change', async () => {
+  // SB-082. The later version adds a fee. Where the earlier one never recorded
+  // a fee, nobody knows whether it had one; where it recorded none, it had none.
+  const obligation = await prisma.obligation.findUniqueOrThrow({ where: { slug: 'hold-health-insurance' } })
+  const common = { countryCode: 'tr', obligationId: obligation.id, sourceUrl: 'https://example.gov', sourceName: 'test', verifiedAt: new Date('2026-09-10') }
+  const deadline = { key: 'deadline', operator: 'within' as const, numericValue: 30, unit: 'days' }
+  const fee = { key: 'fee', numericValue: 100, currency: 'TRY' }
+  const earlier = { validFrom: new Date('2024-01-01'), validTo: new Date('2025-01-01') }
+  const later = { validFrom: new Date('2025-01-01') }
+  const as = (value: string) => ({ create: [{ dimension: 'situation' as const, value }] })
+
+  await prisma.ruleVersion.create({ data: { ...common, ...earlier, criteria: as('researcher'), facts: { create: [deadline] } } })
+  await prisma.ruleVersion.create({ data: { ...common, ...later, criteria: as('researcher'), facts: { create: [deadline, fee] } } })
+  await prisma.ruleVersion.create({
+    data: { ...common, ...earlier, criteria: as('au-pair'), facts: { create: [deadline, { key: 'fee', operator: 'none' }] } },
+  })
+  await prisma.ruleVersion.create({ data: { ...common, ...later, criteria: as('au-pair'), facts: { create: [deadline, fee] } } })
+
+  const changes = async (situation: string) => {
+    const query = `query C { changes(country: "tr", since: "2024-06-01", until: "2026-06-01", situation: "${situation}") { obligationSlug verdict differences { key known } } }`
+    const response = await graphql(query)
+    expect(response.body.errors, JSON.stringify(response.body.errors)).toBeUndefined()
+    return response.body.data.changes.find((e: { obligationSlug: string }) => e.obligationSlug === 'hold-health-insurance')
+  }
+
+  const gap = await changes('researcher')
+  expect(gap.verdict).toBe('unknown')
+  expect(gap.differences).toEqual([{ key: 'fee', known: false }])
+
+  const none = await changes('au-pair')
+  expect(none.verdict).toBe('changed')
+  expect(none.differences).toEqual([{ key: 'fee', known: true }])
 })
 
 test('a situation-specific rule applies only to that situation', async () => {

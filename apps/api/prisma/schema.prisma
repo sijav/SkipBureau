@@ -96,6 +96,10 @@ enum FactOperator {
   atMost
   atLeast
   within
+  /// Checked, and this country has none of it: no deadline, no fee, no such
+  /// document. A key with no row at all is never recorded, which is not the
+  /// same thing (SB-082).
+  none
 }
 
 /// The comparable part of a rule.

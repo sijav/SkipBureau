@@ -91,6 +91,11 @@ type DiffEntry {
 type FactDifference {
   from: RuleFactValue
   key: String!
+
+  """
+  False where one side never recorded this fact: a gap in what we know, not a checked difference.
+  """
+  known: Boolean!
   to: RuleFactValue
 }
 
@@ -461,4 +466,5 @@ enum Verdict {
   identical
   needsReview
   newInDestination
+  unknown
 }
