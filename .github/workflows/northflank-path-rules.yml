@@ -1,0 +1,73 @@
+name: Northflank path rules
+
+# SB-156. Northflank's build-options form refuses every save with "Match
+# failed", so the rules that decide when the API builds are set through its API.
+# By hand only. NORTHFLANK_TOKEN is the owner's own repository secret: nothing
+# here prints it, and nothing prints the service's environment, because the
+# logs of a public repository are public.
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: Write the five rules (unticked only reads)
+        type: boolean
+        default: false
+      service:
+        description: The API service's id
+        type: string
+        default: buildfromgithub
+
+permissions: {}
+
+jobs:
+  rules:
+    runs-on: ubuntu-latest
+    env:
+      NF_TOKEN: ${{ secrets.NORTHFLANK_TOKEN }}
+      API: https://api.northflank.com/v1
+      SERVICE: ${{ inputs.service }}
+    steps:
+      - name: Find the service
+        id: find
+        run: |
+          set -euo pipefail
+          nf() { curl -sS --fail-with-body -H "Authorization: Bearer $NF_TOKEN" "$@"; }
+          for project in $(nf "$API/projects" | jq -r '.data.projects[].id'); do
+            services=$(nf "$API/projects/$project/services")
+            if echo "$services" | jq -e --arg s "$SERVICE" '.data.services[] | select(.id == $s)' > /dev/null; then
+              echo "project=$project" >> "$GITHUB_OUTPUT"
+              echo "$SERVICE is in project $project"
+              exit 0
+            fi
+            echo "project $project has:"
+            echo "$services" | jq -c '.data.services[] | {id, name, serviceType}'
+          done
+          echo "::error::no service with the id $SERVICE in any project"
+          exit 1
+
+      # Named build fields only: the full response carries runtimeEnvironment.
+      - name: Read its build settings
+        env:
+          PROJECT: ${{ steps.find.outputs.project }}
+        run: |
+          set -euo pipefail
+          curl -sS --fail-with-body -H "Authorization: Bearer $NF_TOKEN" "$API/projects/$PROJECT/services/$SERVICE" \
+            | jq '.data | {serviceType, disabledCI, buildSource, buildSettings, buildConfiguration}'
+
+      - name: Write the five rules
+        if: inputs.apply
+        env:
+          PROJECT: ${{ steps.find.outputs.project }}
+        run: |
+          set -euo pipefail
+          body=$(jq -n '{buildConfiguration: {isAllowList: true, pathIgnoreRules: ["apps/api/**", "apps/web/package.json", "package.json", "package-lock.json", ".dockerignore"]}}')
+          code=$(curl -sS -o response.json -w '%{http_code}' -X PATCH \
+            -H "Authorization: Bearer $NF_TOKEN" -H 'Content-Type: application/json' \
+            -d "$body" "$API/projects/$PROJECT/services/$SERVICE")
+          if [ "$code" -ge 300 ]; then
+            echo "::error::Northflank answered $code"
+            jq '{error}' response.json
+            exit 1
+          fi
+          echo "saved:"
+          jq '.data.buildConfiguration | {isAllowList, pathIgnoreRules}' response.json
