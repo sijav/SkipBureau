@@ -1180,10 +1180,20 @@ That splits into three rules.
    SB-071 blocks it.
 
 3. **Derived is labelled derived.** Breakpoints, the collapsed header, the
-   drawer, the tile grid stepping from four columns to two to one: all of it is
-   invention, recorded as invention, the same way the dark palette is. When
-   mobile frames ever arrive they replace it wholesale rather than being
-   reconciled with it.
+   header's row wrapping below `md` so Ask takes a line of its own, the tile
+   grid stepping from four columns to two to one: all of it is invention,
+   recorded as invention, the same way the dark palette is. When mobile frames
+   ever arrive they replace it wholesale rather than being reconciled with it.
+   **There is no drawer**, which an earlier version of this list named: below
+   `sm` the header's two destinations are hidden because both already lead
+   where the wordmark does, and the width goes to Ask instead.
+
+4. **A prop that names a physical side does not follow the reading
+   direction.** The emotion cache flips physical CSS for `rtl`, so
+   `paddingLeft` in a component is mirrored for a Persian reader, but a React
+   prop like a Drawer's `anchor="left"` is not: it would open from the same
+   side in both. Nothing in the app takes one today (SB-078); anything that
+   does must read the side from the active direction.
 
 SB-071 builds the foundation, SB-072 tests it on a phone once the desktop MVP
 stands up.
