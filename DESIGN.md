@@ -250,7 +250,10 @@ ever empty while its code loads. Once the page is idle the other chunks load
 too, so a tap on a popup or a link finds its code already there. A screen is
 imported from its own folder, never through `src/screens`, which re-exports
 them all: one static import of that puts every screen back in the first
-script.
+script. When code does not arrive, a background load is simply asked for
+again later; a render that needs it reloads the address once, which is also
+what a deploy's renamed chunks need; and a prerendered page whose own screen
+cannot be fetched stays the file, readable, rather than a render that fails.
 
 `404.html`, a copy of the app shell, stays for everything else: a guide listed
 but not written yet, the Coming soon pages, search results, the Suggest dialog,

@@ -78,6 +78,29 @@ the Select it brings, Menu with Popover and Modal, Popper with popper.js.
   this change: they expect addresses and test ids from before SB-147. That is
   SB-146. Running them also rebuilds `dist` from whatever is checked out,
   which is worth knowing before measuring `dist` afterwards.
+- **A chunk that does not arrive.** Point 6 above was wrong as first built: a
+  reload on `vite:preloadError` also fired for the idle preloads, so a reader
+  whose signal dropped while reading would have had the page reloaded into
+  the browser's offline page. As built:
+  - a load that fails in the background is forgotten and asked for again when
+    something needs it;
+  - the load a render waits on keeps its failure, or React's retry of the
+    suspended render would start a fresh load every time and never see the
+    error (the unit test counts the loads; the first version made two);
+  - a render that fails for want of code reloads the address once per
+    session, from `onUncaughtError`, which also covers a deploy's renamed
+    chunks. Asking again in the same page rarely helps: Chrome keeps a failed
+    module fetch for the life of the document, dependencies included, so the
+    retry fails at once and the reload is the recovery;
+  - a prerendered page whose own screen cannot be fetched on first load stays
+    the file, readable with plain links, in dark too, and React is not
+    mounted, where a failing render would have left it blank. Before this card
+    there was one script, and a page it failed to reach simply stayed the file.
+
+  Checked in a browser against the built site: ten background chunks refused
+  and no reload; a navigation whose chunk is refused reloads once and shows
+  the hub; the guide's own chunk refused, light and dark, leaves the file on
+  screen with its heading visible and no error.
 - **A story opens a popup cold.** The app fetches the popups' code once it is
   idle; a story does not, so the Ask story's first wait allows for the load.
 - **Checked:** all 40 prerendered pages, light and dark, with no console error

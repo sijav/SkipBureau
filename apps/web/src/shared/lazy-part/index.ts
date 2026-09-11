@@ -1,1 +1,1 @@
-export { isLazyPart, lazyPart, preloadEveryPart, type LazyPart } from './lazyPart'
+export { isLazyPart, isPartLoadFailure, lazyPart, preloadEveryPart, type LazyPart } from './lazyPart'

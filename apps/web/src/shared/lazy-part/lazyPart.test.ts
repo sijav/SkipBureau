@@ -1,7 +1,8 @@
 import { createElement, Suspense } from 'react'
 import { renderToString } from 'react-dom/server'
+import { prerender } from 'react-dom/static'
 import { describe, expect, it } from 'vitest'
-import { isLazyPart, lazyPart } from './lazyPart'
+import { isLazyPart, isPartLoadFailure, lazyPart } from './lazyPart'
 
 const Greeting = ({ name }: { name: string }) => createElement('p', null, `Hello ${name}`)
 
@@ -25,10 +26,28 @@ describe('lazyPart', () => {
       return Greeting
     })
 
-    await expect(Part.preload()).rejects.toThrow('offline')
+    const failure = await Part.preload().catch((error: unknown) => error)
+    // What the app reloads for, when a render needs it: this, and not any error.
+    expect(isPartLoadFailure(failure)).toBe(true)
+    expect(isPartLoadFailure(new Error('offline'))).toBe(false)
     await Part.preload()
     expect(attempts).toBe(2)
     expect(html(createElement(Part, { name: 'Ada' }))).toContain('Hello Ada')
+  })
+
+  it('lets a render that needs it see the failure, rather than loading again and again', async () => {
+    let attempts = 0
+    const Part = lazyPart(async (): Promise<typeof Greeting> => {
+      attempts += 1
+      throw new Error('gone')
+    })
+    const seen: unknown[] = []
+
+    // A static render waits for everything, retrying what suspended.
+    await prerender(createElement(Suspense, { fallback: 'waiting' }, createElement(Part, { name: 'Ada' })), { onError: (error) => void seen.push(error) })
+
+    expect(attempts).toBe(1)
+    expect(seen.some(isPartLoadFailure)).toBe(true)
   })
 
   it('is told apart from a plain component', () => {
