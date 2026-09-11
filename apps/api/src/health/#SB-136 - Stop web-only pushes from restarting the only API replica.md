@@ -64,10 +64,36 @@ nothing more.
 
 ## What the owner set, 2026-09-11
 
-The readiness probe as above. The path rules took two rounds: the first list
-had nine lines and no `apps/api/`, which in allow mode means a change to the
-API's own code would never build, silently. The owner corrected it to exactly
-the five lines above.
+The readiness probe as above, which saved.
+
+The path rules did not go as planned. The first list the owner saved had nine
+lines and no `apps/api/`:
+
+```
+apps/api/package.json
+apps/api/package-lock.json
+apps/api/.dockerignore
+apps/web/package.json
+apps/web/package-lock.json
+apps/web/.dockerignore
+.dockerignore
+package.json
+package-lock.json
+```
+
+In allow mode that means a change to the API's own code never builds, silently,
+and so it proved: 5c69ab8, which changed `apps/api/src/health/`, was never
+built. Every attempt since to correct the list fails on **Update build
+options** with a red **"Match failed"**, whatever is entered, the box emptied
+included, after a reload and from a desktop browser too (screenshots from the
+owner, 2026-09-11). So those nine are still what is saved.
+
+Not the cause, checked against Northflank's API reference: path rules have no
+pattern at all (any text up to 260 characters), and the build context `/` and
+the Dockerfile path `/apps/api/Dockerfile` both fit the patterns that do exist.
+The Dockerfile is unchanged since it last deployed. I first blamed Northflank's
+matcher for not seeing files inside `apps/api/`; that was wrong, because that
+rule was never saved.
 
 ## How it is checked
 
@@ -78,7 +104,8 @@ two seconds:
 - **A push the API is not built from** (66ad908, the board only): 137 polls
   over five minutes, **every one 200**. Before the rules, each push cost one to
   three minutes of 503.
-- **A push that touches `apps/api`** (this one, which adds `Cache-Control:
+- **A push that touches `apps/api`** (5c69ab8, which adds `Cache-Control:
   no-store` to `/health`, a header visible from outside): it must still build
-  and deploy, which the header's arrival shows, and the probe should keep the
-  old container serving until the new one answers.
+  and deploy. **It did not**, for the reason above: 227 polls over ten minutes
+  all answered 200, and the header never arrived. That half of the exit is not
+  met while the nine rules stand.
