@@ -87,6 +87,21 @@ and `main.tsx`.
 - **The e2e checks were watched failing first**: against the live site, which
   still had the old shell, the header's links read `/SkipBureau/`.
 
+## Measured after
+
+Live guide, the same profile and script, light, three runs:
+
+- long tasks of about 190, 120, 110 and 90 ms, the longest now module
+  evaluation; blocking time 0.30 to 0.31 s, was 0.85 to 1.0 s after SB-159
+  and about 1.5 s before it; the main thread free at 2.7 s, was 3.1 s;
+- first paint and LCP 1.06 to 1.27 s, the heading still the file's node;
+- the trace has no microtask pass left: the React work is two scheduler tasks
+  of 115 and 82 ms. The 0.45 s first layout before first paint is SB-162.
+
+The pages e2e passes live, 10 of 10; all 33 pages in the live sitemap load in
+light and dark with no console error; the home's file has one Ask field, and
+the Persian guide's header links to `/fa/TR` and `/fa/TR/guides`.
+
 ## How it is checked
 
 The phone measurement and the trace, before and after. The pages e2e, with
