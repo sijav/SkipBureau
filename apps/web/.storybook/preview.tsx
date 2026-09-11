@@ -1,8 +1,7 @@
 import type { Preview } from '@storybook/react-vite'
 import type { RequestHandler } from 'msw'
-import { ComponentDocs } from './ComponentDocs'
 import { applyHandlers } from './msw'
-import type { ReactElement } from 'react'
+import { lazy, Suspense, type ReactElement } from 'react'
 import { I18nProvider, isLocale, loadCatalog, locales, type Locale } from 'src/core/i18n'
 import { AppTheme, type ModeChoice } from 'src/core/theme'
 
@@ -22,6 +21,16 @@ import { AppTheme, type ModeChoice } from 'src/core/theme'
  * Language is a separate toolbar for LOOKING at a catalog; it defaults to the
  * base language, and `auto` direction follows the chosen language's own.
  */
+// Loaded only when a Docs page opens. Imported up front, the docs UI and every
+// component's markdown came into each of the story tests, which render none
+// of it: CI's story run took 300 s instead of 206, and a one-second wait failed.
+const ComponentDocs = lazy(() => import('./ComponentDocs').then((docs) => ({ default: docs.ComponentDocs })))
+const DocsPage = () => (
+  <Suspense fallback={null}>
+    <ComponentDocs />
+  </Suspense>
+)
+
 const preview: Preview = {
   // Every story's first frame used to wait on a dynamic catalog import, because
   // the decorator's I18nProvider renders nothing until a catalog is active. Run
@@ -54,7 +63,7 @@ const preview: Preview = {
   parameters: {
     controls: { matchers: { color: /(background|color)$/i, date: /Date$/i } },
     a11y: { test: 'error' },
-    docs: { page: ComponentDocs },
+    docs: { page: DocsPage },
   },
   globalTypes: {
     mode: {

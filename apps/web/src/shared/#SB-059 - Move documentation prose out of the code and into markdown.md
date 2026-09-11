@@ -71,6 +71,12 @@ to explain the code goes back.
 - **The plans are markdown under `src/` too**, and their `#` reads as the
   start of a URL fragment in an import, which failed the Storybook build; the
   Docs page's glob leaves them out.
+- **The Docs page slowed every story test.** Imported by the preview, the
+  docs UI and all 69 markdown files loaded into each story test, which never
+  renders a Docs page: CI's story run went from 206 s to 300 s, and the
+  Suggest story's one-second wait for its Thank you dialog failed there. The
+  preview now loads the page lazily, when a Docs page opens; locally the
+  shared stories' setup time went from 198 s back to 156 s.
 - **Checked**: Storybook built with 48 Docs pages, GuideCard's showing its
   prose and its props list under the title; the extractor run again finds no
   docblock above a component or on a props type anywhere in `src`; typecheck,
