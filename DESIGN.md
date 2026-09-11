@@ -249,6 +249,17 @@ to be added to `src/core/prerender`, or it reads as absent.**
 `e2e/pages.spec.ts` asserts the 200 and the head against the built site served
 the way Pages serves it, and against the live site with `PAGES_URL` set.
 
+The same run writes `sitemap.xml` at the site's base (SB-088): every canonical
+page once, a guide dated by its verification, an area by its last review, a
+goal hub by its newest source check, the country's home undated because it has
+no date of its own, and the alternates each page's head carries. It also writes
+a `robots.txt`, which on this host is decoration: crawlers read `robots.txt`
+only at a host's root, and the root of a GitHub **project** page,
+`sijav.github.io/robots.txt`, belongs to the owner's user site. So what points
+a search engine at the sitemap is submitting it in Search Console, or a
+`robots.txt` in a `sijav.github.io` repository; the file here becomes the real
+one the day the site has a domain of its own.
+
 ### A guide in one language, read in another
 
 Decided in SB-049. Interface text is lingui; guide content is rows, one per

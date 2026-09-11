@@ -9,6 +9,7 @@ import { categoryHubHead, guideData, guideHead, homeHead, isWritten, onlyArea, t
 import { documentTitle, type PageHeadProps } from 'src/shared/page-head'
 import { absolute, pageLanguages, type LanguageLinks } from 'src/shared/page-languages'
 import { JSON_LD, jsonLd, type StructuredDatum } from 'src/shared/structured-data'
+import { robots, sitemap } from './sitemap'
 
 /** A page as its file says it: where it lives, and what its head carries. */
 export type Page = {
@@ -20,9 +21,13 @@ export type Page = {
   links: LanguageLinks
   /** Schema.org markup, a guide's (SB-087); empty for any other page. */
   structuredData: readonly StructuredDatum[]
+  /** The page's own date, for the sitemap (SB-088); null where it has none. */
+  lastModified: string | null
 }
 
-export type PrerenderedFile = { file: string; html: string }
+export type PrerenderedFile = { file: string; content: string }
+
+type Extras = { structuredData?: readonly StructuredDatum[]; lastModified?: string | null | undefined }
 
 const ask = async <Data, Variables extends AnyVariables>(client: Client, query: DocumentInput<Data, Variables>, variables: Variables): Promise<Data> => {
   const { data, error } = await client.query(query, variables, { requestPolicy: 'network-only' }).toPromise()
@@ -30,6 +35,8 @@ const ask = async <Data, Variables extends AnyVariables>(client: Client, query: 
   if (!data) throw new Error('the API answered with no data')
   return data
 }
+
+const newest = (dates: readonly string[]): string | null => dates.reduce<string | null>((latest, date) => (!latest || date > latest ? date : latest), null)
 
 /** Every page a search engine should find in one language, asked of the API the built site calls. */
 const pagesIn = async (client: Client, locale: Locale, origin: string): Promise<Page[]> => {
@@ -41,7 +48,7 @@ const pagesIn = async (client: Client, locale: Locale, origin: string): Promise<
   for (const { code, name } of countries) {
     // The API has just listed it, which is what `validated` records.
     const country = validated(code)
-    const add = (address: string, head: PageHeadProps, structuredData: readonly StructuredDatum[] = []) =>
+    const add = (address: string, head: PageHeadProps, { structuredData = [], lastModified = null }: Extras = {}) =>
       pages.push({
         address,
         locale,
@@ -49,8 +56,10 @@ const pagesIn = async (client: Client, locale: Locale, origin: string): Promise<
         description: head.description ?? null,
         links: pageLanguages(head, locale),
         structuredData,
+        lastModified,
       })
 
+    // The country's home has no date of its own, and gets none invented.
     add(paths.home(at(country)), homeHead(i18n, country, name))
 
     // A goal is open once it has an area, which is how the home page decides.
@@ -60,17 +69,22 @@ const pagesIn = async (client: Client, locale: Locale, origin: string): Promise<
       if (!taskHub) continue
       const only = onlyArea(taskHub)
       if (!only) {
-        add(paths.taskHub(at(country), goal), taskHubHead(taskHub, country, name))
+        // Dated by its newest source check, as the page says it was reviewed.
+        const lastModified = newest(taskHub.sources.map((source) => source.verifiedAt))
+        add(paths.taskHub(at(country), goal), taskHubHead(taskHub, country, name), { lastModified })
         continue
       }
       // The goal's address shows its only area, and its head is that area's.
       const { categoryHub } = await ask(client, CategoryHubQuery, { country, goal, slug: only, locale })
-      if (categoryHub) add(paths.taskHub(at(country), goal), categoryHubHead(categoryHub, country, name))
+      if (categoryHub) add(paths.taskHub(at(country), goal), categoryHubHead(categoryHub, country, name), { lastModified: categoryHub.lastReviewed })
     }
 
     for (const category of categories) {
       const { categoryHub } = await ask(client, CategoryHubQuery, { country, goal: category.taskSlug, slug: category.slug, locale })
-      if (categoryHub) add(paths.categoryHub(at(country), category.taskSlug, category.slug), categoryHubHead(categoryHub, country, name))
+      if (categoryHub) {
+        const address = paths.categoryHub(at(country), category.taskSlug, category.slug)
+        add(address, categoryHubHead(categoryHub, country, name), { lastModified: categoryHub.lastReviewed })
+      }
     }
 
     // A guide listed but not written yet is its Coming soon page, which no
@@ -79,7 +93,10 @@ const pagesIn = async (client: Client, locale: Locale, origin: string): Promise<
     for (const { slug } of guides) {
       const { guide } = await ask(client, GuideQuery, { country, slug, locale })
       if (guide && isWritten(guide)) {
-        add(paths.guide(at(country), slug), guideHead(guide, country), guideData(guide, country, locale, origin, i18n._(msg`Home`)))
+        add(paths.guide(at(country), slug), guideHead(guide, country), {
+          structuredData: guideData(guide, country, locale, origin, i18n._(msg`Home`)),
+          lastModified: guide.verifiedAt,
+        })
       }
     }
   }
@@ -108,7 +125,8 @@ const HEAD_END = '</head>'
  * The built index.html filled in for each page, at `address.html`, which Pages
  * serves for `address`. Where other pages live below an address it is also a
  * folder, so the page goes at `address/index.html` too, and whichever of the
- * two Pages prefers serves it.
+ * two Pages prefers serves it. Then the sitemap of those same pages, and the
+ * robots.txt that names it.
  */
 export const render = (pages: readonly Page[], template: string, origin: string): PrerenderedFile[] => {
   if (!HTML.test(template) || !TITLE.test(template) || !template.includes(HEAD_END)) {
@@ -116,7 +134,7 @@ export const render = (pages: readonly Page[], template: string, origin: string)
   }
   const addresses = pages.map((page) => page.address)
 
-  return pages.flatMap((page) => {
+  const files = pages.flatMap((page) => {
     const tags = [
       page.description === null ? null : `<meta name="description" content="${escape(page.description)}" data-prerendered />`,
       `<link rel="canonical" href="${escape(absolute(page.links.canonical, origin))}" data-prerendered />`,
@@ -127,7 +145,7 @@ export const render = (pages: readonly Page[], template: string, origin: string)
     ].filter((tag) => tag !== null)
     // Functions, not strings, as the replacements: a `$` in a title would
     // otherwise be read as a pattern.
-    const html = template
+    const content = template
       .replace(HTML, () => `<html lang="${page.locale}" dir="${locales[page.locale].dir}">`)
       .replace(TITLE, () => `<title data-prerendered>${escape(page.title)}</title>`)
       .replace(HEAD_END, () => `  ${tags.join('\n    ')}\n  ${HEAD_END}`)
@@ -135,9 +153,11 @@ export const render = (pages: readonly Page[], template: string, origin: string)
     const folder = addresses.some((other) => other.startsWith(`${page.address}/`))
     return folder
       ? [
-          { file: `${file}.html`, html },
-          { file: `${file}/index.html`, html },
+          { file: `${file}.html`, content },
+          { file: `${file}/index.html`, content },
         ]
-      : [{ file: `${file}.html`, html }]
+      : [{ file: `${file}.html`, content }]
   })
+
+  return [...files, { file: 'sitemap.xml', content: sitemap(pages, origin) }, { file: 'robots.txt', content: robots(origin) }]
 }

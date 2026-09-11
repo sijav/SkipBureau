@@ -54,6 +54,16 @@ test('a guide opens cold, right to left', async ({ page }) => {
   await expect(page.locator('html')).toHaveAttribute('dir', 'rtl')
 })
 
+test('the sitemap lists the guide, dated, with its other language', async ({ request }) => {
+  // SB-088: written by the build from the same pages, never by hand.
+  const response = await request.get('sitemap.xml')
+  expect(response.status()).toBe(200)
+  const xml = await response.text()
+
+  expect(xml).toMatch(/<loc>[^<]*\/en\/TR\/guides\/sim-card<\/loc>\s*<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/)
+  expect(xml).toMatch(/hreflang="fa" href="[^"]*\/fa\/TR\/guides\/sim-card"/)
+})
+
 test('an address shared before the markers were spelled out still arrives', async ({ page }) => {
   await page.goto('en/tr/g/sim-card', { waitUntil: 'load' })
 

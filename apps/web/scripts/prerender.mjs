@@ -49,10 +49,10 @@ const run = async (server) => {
     return giveUp(reason(error))
   }
 
-  for (const { file, html } of files) {
+  for (const { file, content } of files) {
     const target = join(dist, file)
     mkdirSync(dirname(target), { recursive: true })
-    writeFileSync(target, html)
+    writeFileSync(target, content)
   }
   console.log(`prerender: ${pages.length} pages in ${files.length} files, linked from ${origin}`)
 }
