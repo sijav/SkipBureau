@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { HttpResponse, graphql } from 'msw'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { expect, userEvent, waitFor, within } from 'storybook/test'
-import { GraphQLProvider } from 'src/core/graphql'
+import { GraphQLProvider, endpoint } from 'src/core/graphql'
 import { handlers } from 'src/core/graphql/mocks'
 import { isLocale } from 'src/core/i18n'
 import { AddressShell, CountryRoute, localeSegment } from 'src/core/router'
@@ -71,3 +72,39 @@ export const BadEmail: Story = {
     await expect(await dialog.findByText(/needs an @ and a domain/)).toBeVisible()
   },
 }
+
+/** Sent too fast, or too many: the reader is told to wait rather than that it broke (SB-050). */
+export const TooMany: Story = {
+  parameters: {
+    msw: {
+      handlers: [
+        graphql.link(endpoint()).mutation('SuggestUpdate', () => HttpResponse.json({ data: { suggestUpdate: { received: false, problem: 'tooMany' } } })),
+        ...handlers,
+      ],
+    },
+  },
+  play: async () => {
+    const dialog = within(await screen().findByRole('dialog', { name: /Suggest an update/ }, { timeout: 5000 }))
+    await userEvent.type(dialog.getByRole('textbox', { name: /What changed/ }), 'The fee changed.')
+    await userEvent.click(dialog.getByRole('button', { name: /Send suggestion/ }))
+    await expect(await dialog.findByRole('alert')).toHaveTextContent(/Wait a minute/)
+  },
+}
+
+/** The hidden field is hidden: nobody reading the page, with eyes or a screen reader, can reach it. */
+export const NothingHiddenIsReachable: Story = {
+  play: async () => {
+    const dialog = await screen().findByRole('dialog', { name: /Suggest an update/ }, { timeout: 5000 })
+    const inside = within(dialog)
+    // Three fields, and the trap is not one of them: it is aria-hidden, so it
+    // is not in the accessibility tree, and tabIndex -1, so tabbing past the
+    // last real field never lands on it.
+    await expect(inside.getAllByRole('textbox')).toHaveLength(3)
+
+    const trap = dialog.querySelector('input[name="website"]')
+    await expect(trap).toBeTruthy()
+    await expect(trap).toHaveAttribute('aria-hidden', 'true')
+    await expect(trap).toHaveAttribute('tabindex', '-1')
+  },
+}
+

@@ -553,4 +553,6 @@ model Proposal {
   guide     Guide          @relation(fields: [guideId], references: [id], onDelete: Cascade)
 
   @@index([status, createdAt])
+  /// SB-050 counts an hour of one guide's submissions on every submission.
+  @@index([guideId, createdAt])
 }

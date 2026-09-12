@@ -411,11 +411,16 @@ input SuggestUpdateInput {
   """The language the visitor was reading in."""
   locale: String!
   source: String
+
+  """Leave empty. A hidden field; anything in it is taken for a machine."""
+  website: String
 }
 
 """What became of a suggestion."""
 type SuggestUpdateResult {
-  """Which field to fix, where it was not stored: change, source or email."""
+  """
+  Why it was not stored: a field to fix (change, source, email), an unknown guide, tooMany when a limit was reached, or bot.
+  """
   problem: String
 
   """True when it was stored for review."""

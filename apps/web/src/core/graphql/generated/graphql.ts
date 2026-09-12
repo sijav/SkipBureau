@@ -34,6 +34,8 @@ export type SuggestUpdateInput = {
   /** The language the visitor was reading in. */
   locale: string;
   source?: string | null | undefined;
+  /** Leave empty. A hidden field; anything in it is taken for a machine. */
+  website?: string | null | undefined;
 };
 
 export type CountriesQueryVariables = Exact<{

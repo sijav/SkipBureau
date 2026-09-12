@@ -123,7 +123,12 @@ export const handlers = [
     const input = variables['input']
     const change = typeof input?.change === 'string' ? input.change.trim() : ''
     const email = typeof input?.email === 'string' ? input.email.trim() : ''
-    const problem = !change ? 'change' : email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? 'email' : null
+    // The hidden field, filled: a form-filling bot, refused (SB-050). The
+    // limits the server also applies cannot be mimicked here, since nothing in
+    // a story is a second caller; a story that needs that answer sends its own
+    // handler.
+    const website = typeof input?.website === 'string' ? input.website.trim() : ''
+    const problem = website ? 'bot' : !change ? 'change' : email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? 'email' : null
     return HttpResponse.json({ data: { suggestUpdate: { received: problem === null, problem } } })
   }),
 

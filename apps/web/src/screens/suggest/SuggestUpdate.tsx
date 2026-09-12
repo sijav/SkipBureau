@@ -11,7 +11,7 @@ import { radius, spacing, withOpacity } from 'src/core/theme'
 import { TextInput } from 'src/shared/text-input'
 import { Guide } from 'src/screens/guide'
 
-type Problem = 'change' | 'source' | 'email' | 'unsent'
+type Problem = 'change' | 'source' | 'email' | 'tooMany' | 'unsent'
 
 const STROKE = 1
 
@@ -37,6 +37,9 @@ const SuggestDialog = () => {
   const [change, setChange] = useState('')
   const [source, setSource] = useState('')
   const [email, setEmail] = useState('')
+  // The hidden field (SB-050). A person never sees it and leaves it empty; a
+  // form-filling bot fills every field it finds, and the API refuses that.
+  const [website, setWebsite] = useState('')
   const [problem, setProblem] = useState<Problem | null>(null)
   const [sent, setSent] = useState(false)
   const [{ fetching }, send] = useMutation(SuggestUpdateMutation)
@@ -49,14 +52,17 @@ const SuggestDialog = () => {
       setProblem('change')
       return
     }
-    const result = await send({ input: { country, guide, locale, change, source: source || null, email: email || null } })
+    const result = await send({ input: { country, guide, locale, change, source: source || null, email: email || null, website: website || null } })
     const answer = result.data?.suggestUpdate
     if (answer?.received) {
       setSent(true)
       return
     }
     const named = answer?.problem
-    setProblem(named === 'change' || named === 'source' || named === 'email' ? named : 'unsent')
+    // 'bot' is deliberately not shown: whatever filled the hidden field is not
+    // reading this, and naming the trap to a person who somehow tripped it
+    // tells them nothing they can act on. They see the generic failure.
+    setProblem(named === 'change' || named === 'source' || named === 'email' || named === 'tooMany' ? named : 'unsent')
   }
 
   return (
@@ -143,11 +149,32 @@ const SuggestDialog = () => {
             <Trans>We use your email only to review and follow up on this submission.</Trans>
           </Typography>
 
+          {problem === 'tooMany' && (
+            <Typography role="alert" variant="body2" sx={{ color: tokens.dangerText }}>
+              <Trans>That is a lot of suggestions at once. Wait a minute and send this one again.</Trans>
+            </Typography>
+          )}
+
           {problem === 'unsent' && (
             <Typography role="alert" variant="body2" sx={{ color: tokens.dangerText }}>
               <Trans>It was not sent. Check your connection and try again.</Trans>
             </Typography>
           )}
+
+          {/* Hidden from anyone reading the page, and from a screen reader,
+              and never focusable: only something filling fields blindly finds
+              it. It is not `display: none`, which some bots skip. */}
+          <Box
+            component="input"
+            type="text"
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden
+            value={website}
+            onChange={(event) => setWebsite(event.target.value)}
+            sx={{ position: 'absolute', width: '1px', height: '1px', padding: 0, border: 0, opacity: 0, pointerEvents: 'none', left: '-9999px' }}
+          />
 
           <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px', paddingTop: '4px', flexWrap: 'wrap' }}>
             <Typography variant="caption" sx={{ flex: '1 0 0', minWidth: 0, color: tokens.textSecondary }}>

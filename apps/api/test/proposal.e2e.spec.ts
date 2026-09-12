@@ -9,6 +9,7 @@ import request from 'supertest'
 import { afterAll, beforeAll, beforeEach, expect, test } from 'vitest'
 import { AppModule } from '../src/app.module.js'
 import { PrismaService } from '../src/prisma/prisma.service.js'
+import { LIMITS, SubmissionLimit } from '../src/proposal/submissionLimit.js'
 import { seed } from '../prisma/seed.js'
 import { startPglite } from '../scripts/pglite-server.mjs'
 
@@ -27,6 +28,7 @@ const GUIDE = { country: 'tr', guide: 'sim-card', locale: 'en-US' }
 
 let app: INestApplication
 let prisma: PrismaService
+let limit: SubmissionLimit
 let stopDatabase: () => Promise<void>
 
 beforeAll(async () => {
@@ -45,6 +47,7 @@ beforeAll(async () => {
   await app.init()
 
   prisma = app.get(PrismaService)
+  limit = app.get(SubmissionLimit)
   await seed(prisma)
 }, 180_000)
 
@@ -53,18 +56,28 @@ afterAll(async () => {
   await stopDatabase?.()
 })
 
-// Each test starts from an empty table, so a count is a statement about that
-// test rather than about the order the file happened to run in.
+// Each test starts from an empty table and a limiter that remembers nothing,
+// so a count is a statement about that test rather than about the order the
+// file happened to run in.
 beforeEach(async () => {
   await prisma.proposal.deleteMany()
+  limit.forget()
 })
 
-const graphql = (query: string, variables: Record<string, unknown> = {}) => request(app.getHttpServer()).post('/graphql').send({ query, variables })
+const graphql = (query: string, variables: Record<string, unknown> = {}, from?: string) => {
+  const call = request(app.getHttpServer()).post('/graphql')
+  // Where a test says who is asking, it says it the way the edge does: the
+  // last entry of the forwarded header is what the limiter keys on (SB-050).
+  return (from ? call.set('X-Forwarded-For', from) : call).send({ query, variables })
+}
 
 const SUGGEST = `mutation S($input: SuggestUpdateInput!) { suggestUpdate(input: $input) { received problem } }`
 
-const suggest = async (input: Record<string, unknown>) => {
-  const response = await graphql(SUGGEST, { input: { ...GUIDE, ...input } })
+// One address per caller. Without one, every test in this file would be the
+// same client and the second submission of each would be refused by the pause
+// between submissions, which is the limiter working rather than a broken test.
+const suggest = async (input: Record<string, unknown>, from = `203.0.113.${Math.floor(Math.random() * 250) + 1}`) => {
+  const response = await graphql(SUGGEST, { input: { ...GUIDE, ...input } }, from)
   expect(response.body.errors, JSON.stringify(response.body.errors)).toBeUndefined()
   return response.body.data.suggestUpdate as { received: boolean; problem: string | null }
 }
@@ -156,8 +169,60 @@ test('each refusal names the field to fix, and stores nothing', async () => {
 test('two readers correcting the same guide are two rows', async () => {
   // Nothing about a proposal is unique. A schema that collapsed these would
   // throw away the second reader's correction without telling either of them.
-  await suggest({ change: 'The office moved to the second floor.' })
-  await suggest({ change: 'The office moved to the second floor.' })
+  // Two readers, so two addresses: the same one twice is what the limiter is
+  // for, and that is the test below.
+  await suggest({ change: 'The office moved to the second floor.' }, '198.51.100.1')
+  await suggest({ change: 'The office moved to the second floor.' }, '198.51.100.2')
 
   expect(await prisma.proposal.count()).toBe(2)
 })
+
+test('a hundred submissions in a minute are refused, and a person straight afterwards is not', async () => {
+  // The card's exit condition, both halves. A limiter that stops the flood and
+  // then stops the next reader has turned spam into an outage.
+  const flood = []
+  for (let index = 0; index < 100; index += 1) flood.push(await suggest({ change: `flood ${index}` }, '203.0.113.200'))
+
+  expect(flood.filter((answer) => answer.received)).toHaveLength(1)
+  expect(new Set(flood.slice(1).map((answer) => answer.problem))).toEqual(new Set(['tooMany']))
+  expect(await prisma.proposal.count(), 'the flood reached the table').toBe(1)
+
+  expect(await suggest({ change: 'The queue number is now taken at the door.' }, '203.0.113.201')).toEqual({ received: true, problem: null })
+  expect(await prisma.proposal.count()).toBe(2)
+})
+
+test('one guide cannot be buried, and the guide beside it is untouched', async () => {
+  // Counted from the table rather than from memory, so it holds across a
+  // restart and across instances. This is what an attacker with many
+  // addresses runs into, and it protects the queue a person has to read.
+  for (let index = 0; index < LIMITS.perGuide; index += 1) {
+    expect(await suggest({ change: `correction ${index}` }, `192.0.2.${index + 1}`).then((answer) => answer.received)).toBe(true)
+  }
+
+  expect(await suggest({ change: 'one too many' }, '192.0.2.200')).toEqual({ received: false, problem: 'tooMany' })
+  expect(await prisma.proposal.count({ where: { guide: { slug: 'sim-card' } } })).toBe(LIMITS.perGuide)
+
+  // A different guide is a different queue.
+  expect(await suggest({ change: 'A real correction.', guide: 'register-your-address' }, '192.0.2.201')).toEqual({ received: true, problem: null })
+})
+
+test('a hidden field nobody sees, filled in, is taken for a machine', async () => {
+  // It stops a form-filling bot in a real browser and nothing else: anything
+  // posting to this API directly omits the field. The limits above are what
+  // stop that, and this should never be described as more.
+  expect(await suggest({ change: 'A real correction.', website: 'http://spam.example' })).toEqual({ received: false, problem: 'bot' })
+  expect(await prisma.proposal.count()).toBe(0)
+})
+
+test('a body too large is refused before anything reads it', async () => {
+  // "At the edge rather than stored": the resolver's own bound on `change`
+  // would refuse this too, but only after parsing a megabyte of JSON. This
+  // says what the HTTP layer does rather than trusting that it does anything.
+  const response = await request(app.getHttpServer())
+    .post('/graphql')
+    .send({ query: SUGGEST, variables: { input: { ...GUIDE, change: 'x'.repeat(1_000_000) } } })
+
+  expect(response.status).toBe(413)
+  expect(await prisma.proposal.count()).toBe(0)
+})
+

@@ -691,7 +691,7 @@ msgstr "Nothing here is required."
 msgid "Nothing matches yet"
 msgstr "Nothing matches yet"
 
-#: src/shared/ask-panel/AskPanel.tsx
+#: src/shared/ask-panel/NothingFound.tsx
 msgid "Nothing matches yet. Try other words, or pick a goal on the home page."
 msgstr "Nothing matches yet. Try other words, or pick a goal on the home page."
 
@@ -1112,6 +1112,10 @@ msgstr "Tell us what looks outdated, incorrect or missing."
 #: src/screens/suggest/SuggestUpdate.tsx
 msgid "Thank you"
 msgstr "Thank you"
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "That is a lot of suggestions at once. Wait a minute and send this one again."
+msgstr "That is a lot of suggestions at once. Wait a minute and send this one again."
 
 #: src/screens/NotFound.tsx
 msgid "The address may be mistyped, or it may point at a country or a guide SkipBureau does not cover yet."

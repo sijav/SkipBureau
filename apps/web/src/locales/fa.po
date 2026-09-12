@@ -691,7 +691,7 @@ msgstr "هیچ‌کدام از این‌ها الزامی نیست."
 msgid "Nothing matches yet"
 msgstr "هنوز چیزی پیدا نشد"
 
-#: src/shared/ask-panel/AskPanel.tsx
+#: src/shared/ask-panel/NothingFound.tsx
 msgid "Nothing matches yet. Try other words, or pick a goal on the home page."
 msgstr "هنوز چیزی پیدا نشد. واژه‌های دیگری امتحان کنید، یا در صفحه اصلی یک هدف انتخاب کنید."
 
@@ -1112,6 +1112,10 @@ msgstr "بگویید چه چیزی قدیمی، نادرست یا ناقص به 
 #: src/screens/suggest/SuggestUpdate.tsx
 msgid "Thank you"
 msgstr "سپاسگزاریم"
+
+#: src/screens/suggest/SuggestUpdate.tsx
+msgid "That is a lot of suggestions at once. Wait a minute and send this one again."
+msgstr "پیشنهادها در زمان کوتاهی زیاد بوده است؛ یک دقیقه صبر کنید و دوباره بفرستید."
 
 #: src/screens/NotFound.tsx
 msgid "The address may be mistyped, or it may point at a country or a guide SkipBureau does not cover yet."
