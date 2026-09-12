@@ -55,20 +55,22 @@ place of employment, not where the employee lives** (§58 SGB XI).
 
 **The weeks before your job starts.** Statutory membership through employment
 begins **when the employment begins** (§186(1)), not when you sign the contract.
-For the gap, the Foreign Office's visa guidance accepts incoming or travel
-insurance as a bridge, provided it actually covers the interval, is not
-invalidated by an exclusion for intending to live in Germany, and can be ended
-when statutory cover starts. That is visa-administration guidance; it is not
+For the gap, the Foreign Office's visa guidance says incoming or travel
+insurance **normally** suffices as a bridge, provided it actually covers the
+interval and is not invalidated by an exclusion for intending to live in
+Germany; ending the policy when statutory cover starts is **permitted, not
+required**. That is visa-administration guidance; it is not
 certification that such a product satisfies §193 VVG.
 
 **Do not carry that assumption into the permit office.** Travel insurance
 accepted for your visa is not automatically enough for the **first residence
 permit issued inside Germany**. Hamburg's guidance separates those two stages
-explicitly. Berlin and Hamburg also differ in what they accept: Berlin's leaflet
-generally wants an annual deductible of no more than **€300**, with more allowed
-after individual assessment; Hamburg refers to a **€5,000** ceiling and says a
-copy of your health card is not enough on its own, it wants a current membership
-certificate.
+explicitly. **Berlin and Hamburg publish different requirements**, which is not
+the same as verified acceptance decisions: Berlin's leaflet generally wants an
+annual deductible of no more than **€300**, with more allowed after individual
+assessment; Hamburg refers to a **€5,000** ceiling and, for statutory insurance,
+says a copy of your health card is not enough on its own, it wants a current
+membership certificate.
 
 **Being late is not automatically a bill back to your arrival.** Whether you owe
 back contributions depends on when your membership legally began; if it begins
