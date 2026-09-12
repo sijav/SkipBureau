@@ -1,0 +1,4 @@
+# What is said goes into the transcript under talk/, which is the record. These
+# are only the way a long message is handed to the script.
+*.txt
+.last-message.tmp

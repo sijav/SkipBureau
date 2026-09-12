@@ -20,12 +20,23 @@ It is closer to "a national rule, plus what your province does about it". A
 schema that made every rule provincial would invite fifty copies of one national
 deadline, each free to rot separately.
 
-## Round 1
+## What the first pass established
 
 ### 1. Address registration (adres kayıt)
 
-- A foreigner living in Turkey must report a change of residence address
-  **within 20 working days**.
+- **SETTLED, in its own conversation.** The agreed text is
+  `agreed/turkey/address-registration.md`; the argument that got there is
+  `talk/turkey/address-registration.md`. Four turns. The draft I put up for
+  sign-off had seven overclaims in it, two of which I had written as caveats,
+  and one sentence of invented colour. What follows here is the first pass's
+  version, kept only to show what it looked like before.
+  The first pass said flatly that a foreigner living in Turkey must report a
+  change of address within **20 working days**. Checked back, that is too
+  broad: the NVI instruction scopes the recorded-address process to registered
+  categories, among them holders of a residence permit of at least 90 days,
+  work permit holders and protection-status holders. It does not put a
+  20-working-day duty on someone here on a visa or a visa exemption. Nothing
+  is published until that case closes.
 - **National:** the deadline, the offence and the process. The office is the
   local population directorate; a residence-permit holder may also notify the
   provincial migration office.
@@ -115,14 +126,17 @@ deadline, each free to rot separately.
   <https://www.csgb.gov.tr/uigm/calisma-izni/calisma-izni-degerlendirme-kriterleri/>,
   <https://www.csgb.gov.tr/uigm/genel-bilgi/harc-ve-degerli-k%C3%A2git-bedelinin-odenmesi/>
 
-## Round 2, which changed two things I had assumed
+## What the second pass changed, and it changed two things I had assumed
 
 ### The order, and the dependency that was backwards
 
-1. **An address and private health insurance come first**, because the permit
+1. **An address and health COVERAGE come first**, because the permit
    application needs both: it must be filed before the visa or visa exemption
-   runs out, the insurance must cover the requested permit period **on the
+   runs out, the coverage must cover the requested permit period **on the
    application date**, and the card is posted to the address given.
+   **Coverage, not a private policy.** An earlier version of this line said
+   private insurance, which is wrong: it is one of four ways to satisfy the
+   requirement, and some applicants are exempt outright. See the third pass.
 2. **The first residence permit is applied for through e-İkamet**, giving that
    address. **A formal Address Registration System entry is NOT a prerequisite
    for a first application.** The Presidency states it is mandatory for an
@@ -158,9 +172,10 @@ Source: <https://www.goc.gov.tr/kurumlar/goc.gov.tr/Yayinlar/Brosurler/2023/09Tu
 | Short-term permit charge | **no single figure**: by nationality and duration | the same page |
 | Work permit, up to a year | TL 12,574.90 + TL 964.00 card = TL 13,538.90 | <https://www.csgb.gov.tr/uigm/genel-bilgi/harc-ve-degerli-k%C3%A2git-bedelinin-odenmesi/> |
 
-They are revalued by annual notice, **normally on 1 January**. That is what a
-guide's verified date has to outlive, and it is the answer to "when does this
-page go stale": every January, on those three pages.
+They are revalued by annual notice, **normally on 1 January**, on those three
+pages. **That is not the only way they move:** the nationality-based permit
+charge can change mid-year through reciprocity arrangements, so January is the
+floor for re-checking, not the whole of it.
 
 **The permit charge depending on nationality is a schema fact, not a
 footnote.** `EligibilityCriterion` already carries a nationality dimension, so
@@ -191,12 +206,19 @@ Sources: <https://www.goc.gov.tr/istanbul-ilindeki-yabancilarin-ikamet-izni-basv
 
 ### Where a permit holder reports an address change
 
-The population directorate **or** the provincial migration office: the NVI FAQ
-uses "veya", so it is an alternative, not a second filing. There is also a duty
-on the authority that issued the residence document to pass the change to NVI
-within 20 days, which is the office's job and not the reader's.
+**The official pages conflict and this is not settled.** The NVI FAQ uses
+"veya", the population directorate **or** the provincial migration office,
+which reads as a choice. The Presidency's general information page reads as
+though a permit holder files with the migration directorate **and** the
+population directorate. Those are two different guides for a reader, and
+picking one would be inventing certainty. It is question 3 of the address
+registration case.
 
-## Round 3, which corrected round 1 and found the table
+What is not in doubt: the authority that issued the residence document must
+pass the change to NVI within 20 days. That is the office's job, not the
+reader's.
+
+## What the third pass corrected, and where the fee table lives
 
 ### Who pays, and where the table lives
 
@@ -206,8 +228,10 @@ card fee is payable by everyone, exemption or not.**
 
 The per-nationality table itself is at
 <https://www.goc.gov.tr/kurumlar/goc.gov.tr/Kanunlar/u%CC%88lkelere_go%CC%88re_harc_miktarlari.png>
-**and it is a PNG.** There is no machine-readable table: whatever this product
-stores has to be transcribed by a person and re-checked, not scraped. The
+**and it is a PNG.** What is verified is that the official table found is an
+image; that no machine-readable version exists anywhere is a universal
+negative and was not checked. Either way, what this product stores has to be
+transcribed by a person and re-checked rather than scraped. The
 charge sits under the Law on Fees and is subject to reciprocity, so the list can
 move during a year as well as each January.
 
@@ -254,7 +278,7 @@ Sources: <https://www.goc.gov.tr/ikamet-genel-bilgiler>,
 <https://www.goc.gov.tr/ikamet-sss>,
 <https://e-ikamet.goc.gov.tr/Ikamet/IstenenBelgeler>
 
-## What round 1 left open, and went back into the same session
+## What went back into the conversation, and what is still open
 
 1. **The trigger for the 20 working days.** From entry, from the lease, from
    moving in, or from the permit? And does it bind someone still on a visa?
@@ -266,3 +290,28 @@ Sources: <https://www.goc.gov.tr/ikamet-genel-bilgiler>,
    notice is still in force.
 5. **One claim to check**: whether notifying the provincial migration office is
    an alternative, an addition, or the only route for a permit holder.
+
+## The three holes a guide would still have
+
+Named by the closing pass, in the order it would fill them, and each is its own
+rule case rather than a footnote here:
+
+1. **Entry basis and lawful stay.** Which nationalities need a visa, the
+   90-days-in-180 rule where it applies, and the deadline for a first permit
+   application. It decides whether a reader needs any of the later steps at all.
+2. **What the e-İkamet application itself changes.** The application document,
+   whether the stay stays lawful while waiting, the decision period of up to 90
+   days, and the limited exit and re-entry rule during it. A reader whose visa
+   expires while a decision is pending needs exactly this.
+3. **What follows forming a company.** Tax office activation, social security
+   registration as an employer, and any municipal workplace licence. Forming the
+   company is not permission to start trading.
+
+## How this was researched
+
+`research.py` beside this file: one conversation per rule case with
+`gpt-6-astra` at high effort, web search on, resumed rather than restarted,
+every exchange written to `talk/<country>/<rule>.md`. The owner's order of
+2026-09-12: research, roast the research, send the roast back, until both sides
+are satisfied. The conversations are the record; this file is the summary.
+
