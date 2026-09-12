@@ -122,6 +122,43 @@ The verified date is the sharpest advantage here and it is already in the
 schema. A guide that can prove when it was last checked is exactly what a
 search engine wants to surface for a question about a rule that changes.
 
+## The owner's order of 2026-09-12, on how the content is researched
+
+The MVP is finished and live, and the owner was asked what comes next. His
+answer, in full:
+
+> "Research, you should use gpt to find out about recent rules of a country"
+
+> "Why are we covering turkey? But anyways, turkey then Germany, but turkey is
+> like province based difference and Germany is like state based so you need a
+> through research with gpt with tasks and stuff so make sure to have a plan and
+> add To-Do and start doing it as research task go through gpt (with a self
+> roast process which then you will roast it the result and tell gpt that in a
+> session until satisfactory, basically you have to talk to gpt until you both
+> satisfy with the result through the same session id)"
+
+So, for every piece of guide content and every rule from here on:
+
+- **It is researched through GPT, not written from memory.** The `search` kind
+  of the roast skill, which keeps its own conversation and resumes it, is that
+  channel. A fact about what a government requires is worthless unless it was
+  checked this year, and neither model knows that without looking.
+- **One conversation per subject, resumed, never restarted.** The owner's words:
+  "through the same session id". Two roasts of the same kind cannot share a
+  conversation, so these run one at a time.
+- **Every answer is roasted and sent back in.** GPT answers, that answer is
+  judged here against what the product needs, and the judgement goes back into
+  the same session as the next question. It repeats until a round raises
+  nothing new. This is not the once-per-task roast of a finished card; it is a
+  conversation that ends when both sides are satisfied.
+- **Turkey differs by province and Germany by state.** A single national answer
+  is wrong for both, and the product's whole claim is that it tells a reader
+  what to do where they are. Every fact the research records says whether it
+  varies by region, and names the region where it does.
+- **Every fact carries an official source URL and the date it was checked.**
+  That is already what the schema demands and it is the product's one real
+  advantage over what a search engine finds.
+
 ## The plan, before any task
 
 The owner, 2026-09-10, on top of the earlier plan-first rule:
