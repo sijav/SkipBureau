@@ -7,6 +7,27 @@ memory: every line below carries the page it came from.
 
 Session `01a09371-2c9c-7e33-a46c-8bcb6e01c583`. Read 2026-09-12.
 
+## Read the agreed texts, not this file
+
+This file is what an early **batch** of questions produced, before the owner
+corrected the shape of the work on 2026-09-12. It is kept because it is where
+several things were first found, and because two of its claims were wrong in
+ways worth remembering. **It is not what gets published.**
+
+What gets published is in `agreed/turkey/`, one file per rule, each the text
+both sides accepted after the conversation in `talk/turkey/` had finished
+arguing:
+
+| rule | agreed | turns | overclaims found at sign-off |
+|---|---|---|---|
+| Address registration | `agreed/turkey/address-registration.md` | 4 | 7 |
+| Short-term residence permit | `agreed/turkey/short-term-residence-permit.md` | 3 | 9 |
+| Work permit | `agreed/turkey/work-permit.md` | 3 | 8 |
+| Company formation | `agreed/turkey/company-formation.md` | 2 | 5 |
+
+Germany's first rule is `agreed/germany/anmeldung.md`, and it is the one that
+decided the schema: see its last section.
+
 ## The headline, which decides how this is stored
 
 For all six obligations asked about, **the law is national**. What differs by
