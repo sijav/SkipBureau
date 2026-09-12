@@ -3,7 +3,7 @@ import { Suspense, useDeferredValue, useEffect, useId, useState, type KeyboardEv
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'urql'
 import { withCountry } from 'src/core/country'
-import { AskQuery } from 'src/core/graphql'
+import { AskQuery, overThePage } from 'src/core/graphql'
 import { formatMonth, useLocale } from 'src/core/i18n'
 import { paths, useShellJourney } from 'src/core/router'
 import { useShell } from 'src/core/shell'
@@ -76,7 +76,9 @@ export const useAsk = ({ question, onQuestion }: { question: string; onQuestion:
   const id = useId()
   const text = useDeferredValue(question.trim())
 
-  const [{ data, fetching }] = useQuery({ query: AskQuery, variables: { country: country ?? '', text, locale }, pause: !open || !country })
+  // `overThePage`: this opens over a page rather than being one, so it must
+  // not suspend. See the note on the constant.
+  const [{ data, fetching }] = useQuery({ query: AskQuery, variables: { country: country ?? '', text, locale }, pause: !open || !country, context: overThePage })
 
   // A click anywhere but the field or its panel puts the panel away.
   useEffect(() => {

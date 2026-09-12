@@ -177,3 +177,16 @@ test('an address shared before the markers were spelled out still arrives', asyn
   await expect(page).toHaveURL(/\/en\/TR\/guides\/sim-card$/)
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(GUIDE)
 })
+
+test('an address for a guide that does not exist reads as absent, never as a blank page', async ({ page }) => {
+  // SB-046: no file is written for a guide the country does not have, so GitHub
+  // Pages answers 404.html with a 404, which is what it should say to a
+  // crawler. For a person the app then boots, asks, is answered nothing, and
+  // says so. With the screens suspending on their data, the risk this covers is
+  // that it stops at the fallback and the reader is left looking at nothing.
+  const response = await page.goto('en/TR/guides/no-such-guide-at-all', { waitUntil: 'load' })
+
+  expect(response?.status()).toBe(404)
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(/does not exist/)
+  await expect(page.locator('header')).toBeVisible()
+})

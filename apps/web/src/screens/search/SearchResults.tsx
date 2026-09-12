@@ -1,6 +1,6 @@
 import { Plural, Trans, useLingui } from '@lingui/react/macro'
 import { Box, Button, Divider, Stack, Typography, useTheme } from '@mui/material'
-import { useState, type ReactNode } from 'react'
+import { startTransition, useState, type ReactNode } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useQuery } from 'urql'
 import { useCountry, withCountry } from 'src/core/country'
@@ -41,7 +41,7 @@ const Results = ({ asked }: { asked: string }) => {
 
   const [{ data, fetching, error }, refetch] = useQuery({ query: SearchQuery, variables: { country, text: asked, locale }, pause: !asked })
 
-  if (error) return <Unreachable onRetry={() => refetch({ requestPolicy: 'network-only' })} />
+  if (error) return <Unreachable onRetry={() => startTransition(() => refetch({ requestPolicy: 'network-only' }))} />
 
   const found = data?.search
   const tasks = found?.tasks ?? []

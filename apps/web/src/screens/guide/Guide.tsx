@@ -1,6 +1,6 @@
 import { Trans, useLingui } from '@lingui/react/macro'
 import { Box, Button, Divider, Stack, Typography, useTheme } from '@mui/material'
-import { Fragment, type ReactNode } from 'react'
+import { Fragment, startTransition, type ReactNode } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useQuery } from 'urql'
 import { useCountry } from 'src/core/country'
@@ -44,8 +44,10 @@ export const Guide = () => {
 
   const [{ data, fetching, error }, refetch] = useQuery({ query: GuideQuery, variables: { country, slug, locale } })
 
-  if (fetching) return null
-  if (error) return <Unreachable onRetry={() => refetch({ requestPolicy: 'network-only' })} />
+  // Only while a retry is in flight now (SB-046): the first render either
+  // has its data or suspends, and the page before this one stays up.
+  if (fetching && !data) return null
+  if (error) return <Unreachable onRetry={() => startTransition(() => refetch({ requestPolicy: 'network-only' }))} />
   const guide: GuideData | null | undefined = data?.guide
   if (!guide) return <NotFound />
 

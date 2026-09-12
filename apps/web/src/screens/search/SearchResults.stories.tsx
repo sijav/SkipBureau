@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { HttpResponse, graphql } from 'msw'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { expect, within } from 'storybook/test'
-import { GraphQLProvider } from 'src/core/graphql'
+import { GraphQLProvider, endpoint } from 'src/core/graphql'
 import { handlers } from 'src/core/graphql/mocks'
 import { isLocale } from 'src/core/i18n'
 import { AddressShell, CountryRoute, localeSegment } from 'src/core/router'
@@ -57,5 +58,17 @@ export const NothingFound: Story = {
     const canvas = within(canvasElement)
     await expect(await canvas.findByRole('heading', { level: 2, name: /Nothing matches yet/ }, { timeout: 5000 })).toBeVisible()
     await expect(canvas.getByRole('link', { name: /Back to the home page/ })).toHaveAttribute('href', '/en/TR')
+  },
+}
+
+/** The API is down while a question is being answered: the reader can retry. */
+export const Unreachable: Story = {
+  parameters: {
+    // The first handler that matches answers, so this screen's request fails
+    // while everything the page stands on, the country above all, still lands.
+    msw: { handlers: [graphql.link(endpoint()).query('Search', () => HttpResponse.json({ errors: [{ message: 'the API is unreachable' }] }, { status: 500 })), ...handlers] },
+  },
+  play: async ({ canvasElement }) => {
+    await expect(await within(canvasElement).findByRole('button', { name: /Try again/ }, { timeout: 5000 })).toBeVisible()
   },
 }

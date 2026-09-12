@@ -1,6 +1,6 @@
 import { Trans, useLingui } from '@lingui/react/macro'
 import { Box, Divider, Stack, Typography, useTheme } from '@mui/material'
-import { useState } from 'react'
+import { startTransition, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useQuery } from 'urql'
 import { useCountry, withCountry } from 'src/core/country'
@@ -46,8 +46,10 @@ export const CategoryHub = (props: CategoryHubProps) => {
 
   const [{ data, fetching, error }, refetch] = useQuery({ query: CategoryHubQuery, variables: { country, goal, slug, locale } })
 
-  if (fetching) return null
-  if (error) return <Unreachable onRetry={() => refetch({ requestPolicy: 'network-only' })} />
+  // Only while a retry is in flight now (SB-046): the first render either
+  // has its data or suspends, and the page before this one stays up.
+  if (fetching && !data) return null
+  if (error) return <Unreachable onRetry={() => startTransition(() => refetch({ requestPolicy: 'network-only' }))} />
   const hub = data?.categoryHub
   if (!hub) return <NotFound />
 

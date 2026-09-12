@@ -1,4 +1,4 @@
-export { createClient, endpoint, type ClientOptions } from './client'
+export { createClient, endpoint, overThePage, type ClientOptions } from './client'
 export { GraphQLProvider, type GraphQLProviderProps } from './GraphQLProvider'
 export {
   AskQuery,

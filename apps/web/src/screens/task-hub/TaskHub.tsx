@@ -1,3 +1,4 @@
+import { startTransition } from 'react'
 import { msg } from '@lingui/core/macro'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { Box, Button, Divider, Stack, Typography, useTheme } from '@mui/material'
@@ -46,8 +47,10 @@ export const TaskHub = () => {
 
   const [{ data, fetching, error }, refetch] = useQuery({ query: TaskHubQuery, variables: { country, slug: goal, locale } })
 
-  if (fetching) return null
-  if (error) return <Unreachable onRetry={() => refetch({ requestPolicy: 'network-only' })} />
+  // Only while a retry is in flight now (SB-046): the first render either
+  // has its data or suspends, and the page before this one stays up.
+  if (fetching && !data) return null
+  if (error) return <Unreachable onRetry={() => startTransition(() => refetch({ requestPolicy: 'network-only' }))} />
   const hub = data?.taskHub
   // A goal this country has nothing under is Coming soon on Home, not a page.
   if (!hub) return <NotFound />

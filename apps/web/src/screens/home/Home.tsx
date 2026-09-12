@@ -1,6 +1,6 @@
 import { Trans, useLingui } from '@lingui/react/macro'
 import { Box, Divider, Stack, Typography, useTheme } from '@mui/material'
-import { useState } from 'react'
+import { startTransition, useState } from 'react'
 import { useQuery } from 'urql'
 import { useCountry, withCountry } from 'src/core/country'
 import { HomeQuery } from 'src/core/graphql'
@@ -34,7 +34,7 @@ export const Home = () => {
 
   const [{ data, error }, refetch] = useQuery({ query: HomeQuery, variables: { country, locale } })
 
-  if (error) return <Unreachable onRetry={() => refetch({ requestPolicy: 'network-only' })} />
+  if (error) return <Unreachable onRetry={() => startTransition(() => refetch({ requestPolicy: 'network-only' }))} />
 
   // A goal is open in this country once it has anything under it; until then
   // it is the design's Coming soon, recessed and not a link.

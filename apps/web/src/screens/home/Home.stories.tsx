@@ -7,6 +7,7 @@ import { emptyHandlers, handlers } from 'src/core/graphql/mocks'
 import { isLocale } from 'src/core/i18n'
 import { AddressShell, CountryRoute, localeSegment } from 'src/core/router'
 import { AppShell } from 'src/shared/app-shell'
+import { preloadEveryPart } from 'src/shared/lazy-part'
 import { Header } from 'src/shared/header'
 import { Home } from './Home'
 
@@ -111,6 +112,12 @@ export const Empty: Story = { tags: ['!test'], parameters: { msw: { handlers: em
 
 /** The Ask field opens its panel: what is popular first, then what matches, grouped by kind. */
 export const Ask: Story = {
+  // The panel's code arrives the first time it opens (SB-159). The app fetches
+  // it while the page is idle; a story has no idle, so the import landed inside
+  // the wait for the panel and, with four browsers building at once, sometimes
+  // after it: this story failed twice in three full suite runs. Fetched here,
+  // what the wait below measures is the panel, not the bundler.
+  loaders: [() => preloadEveryPart()],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     await canvas.findByRole('heading', { level: 1 }, { timeout: 5000 })
@@ -118,9 +125,7 @@ export const Ask: Story = {
     await userEvent.click(field)
     await expect(field).toHaveAttribute('aria-expanded', 'true')
 
-    // The panel renders in a portal, outside the canvas. Its code arrives the
-    // first time it opens (SB-159), which the app does ahead of time and a
-    // story does not, so the first wait allows for that load.
+    // The panel renders in a portal, outside the canvas.
     const page = within(window.document.body)
     await expect(await page.findByText(/Popular right now/, undefined, { timeout: 5000 })).toBeVisible()
 

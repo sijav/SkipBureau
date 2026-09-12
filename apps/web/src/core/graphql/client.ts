@@ -26,6 +26,21 @@ export type ClientOptions = {
   server?: SSRExchange | undefined
 }
 
+/**
+ * The context for a query behind something that opens OVER a page, rather than
+ * being the page: the Ask panel, the country list in Your details.
+ */
+// Suspending is how a screen keeps the page a reader is on until the next one
+// is ready (SB-046). For one of these it does the opposite: the nearest
+// boundary is above the whole app, so a panel's request would hide the page it
+// opened over, and the field would lose the click that opened it. These report
+// `fetching` and draw nothing until their answer arrives.
+//
+// A module constant, not an object written at the call site: urql keeps the
+// context in the dependencies of the subscription it builds, so a fresh object
+// every render resubscribes every render.
+export const overThePage = { suspense: false } as const
+
 export const createClient = (url = endpoint(), { seed, server }: ClientOptions = {}): Client => {
   const ssr = server ?? (seed ? ssrExchange({ isClient: true, initialState: seed }) : null)
   return new Client({
@@ -38,7 +53,12 @@ export const createClient = (url = endpoint(), { seed, server }: ClientOptions =
     // `apollo-require-preflight` header, when there is a CDN to cache in.
     preferGetMethod: false,
     // React's prerender waits for a suspended query, which is how a page
-    // rendered at build time has its data in it.
-    suspense: Boolean(server),
+    // rendered at build time has its data in it. In the browser it is what
+    // keeps the page a reader is on until the next one has what it needs
+    // (SB-046): a screen renders with its data or not at all, and a
+    // navigation is a transition, so React holds the current page rather than
+    // showing an empty one. A prerendered page's queries are answered from
+    // the seed and suspend on nothing.
+    suspense: true,
   })
 }

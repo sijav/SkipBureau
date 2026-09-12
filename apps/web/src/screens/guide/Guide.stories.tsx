@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { HttpResponse, graphql } from 'msw'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
-import { expect, within } from 'storybook/test'
-import { GraphQLProvider } from 'src/core/graphql'
+import { expect, userEvent, within } from 'storybook/test'
+import { GraphQLProvider, endpoint } from 'src/core/graphql'
 import { handlers } from 'src/core/graphql/mocks'
 import { isLocale } from 'src/core/i18n'
 import { AddressShell, CountryRoute, localeSegment } from 'src/core/router'
@@ -37,6 +38,9 @@ const meta = {
 
 export default meta
 type Story = StoryObj<typeof meta>
+
+/** How many times Unreachable's guide has been asked for, so the first can fail. */
+let asked = 0
 
 export const Default: Story = {
   play: async ({ canvasElement }) => {
@@ -121,5 +125,33 @@ export const Sparse: Story = {
     const canvas = within(canvasElement)
     await expect(await canvas.findByRole('heading', { level: 1, name: /Register your address/ }, { timeout: 5000 })).toBeVisible()
     await expect(canvas.queryByText(/Best for/)).toBeNull()
+  },
+}
+
+/**
+ * The API is down after the country answered: the reader is told, and a retry
+ * that works brings the guide back rather than blanking the page (SB-046).
+ */
+export const Unreachable: Story = {
+  parameters: {
+    msw: {
+      // Fails once, then hands the request on: a resolver that returns nothing
+      // is not answering, so the next handler that matches does.
+      handlers: [
+        graphql.link(endpoint()).query('Guide', () => {
+          asked += 1
+          return asked > 1 ? undefined : HttpResponse.json({ errors: [{ message: 'the API is unreachable' }] }, { status: 500 })
+        }),
+        ...handlers,
+      ],
+    },
+  },
+  beforeEach: () => {
+    asked = 0
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await userEvent.click(await canvas.findByRole('button', { name: /Try again/ }, { timeout: 5000 }))
+    await expect(await canvas.findByRole('heading', { level: 1, name: /Get a SIM Card or eSIM/ }, { timeout: 5000 })).toBeVisible()
   },
 }

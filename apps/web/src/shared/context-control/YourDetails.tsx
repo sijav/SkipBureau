@@ -3,7 +3,7 @@ import { Suspense, useId, useMemo, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useQuery } from 'urql'
 import { REGIONS, regionName } from 'src/core/country'
-import { CountriesQuery } from 'src/core/graphql'
+import { CountriesQuery, overThePage } from 'src/core/graphql'
 import { useLocale } from 'src/core/i18n'
 import { samePageFrom } from 'src/core/router'
 import { useShell } from 'src/core/shell'
@@ -26,7 +26,9 @@ export const YourDetails = () => {
 
   // The names the product gives the countries it covers, Turkey rather than
   // Intl's Türkiye; every other country is named by Intl in the reader's language.
-  const [{ data }] = useQuery({ query: CountriesQuery, variables: { locale }, pause: !open && !origin })
+  // `overThePage`: the header asks this for a reader who already has an
+  // origin, while a page is on screen. Suspending here would blank that page.
+  const [{ data }] = useQuery({ query: CountriesQuery, variables: { locale }, pause: !open && !origin, context: overThePage })
   const ours = useMemo(() => new Map((data?.countries ?? []).map((row) => [row.code, row.name])), [data])
   // Every country there is, named and sorted, only once the panel is open: on
   // every page this header is on, building it closed cost 100 ms on a phone
