@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/react/macro'
 import { ButtonBase, Typography, useTheme } from '@mui/material'
 import type { MouseEvent, ReactNode, Ref } from 'react'
+import { tapHeight } from 'src/core/theme'
 import { SmallChevron } from './SmallChevron'
 
 export type ContextControlProps = {
@@ -27,6 +28,8 @@ export const ContextControl = ({ known, open = false, onClick, controls, ref }: 
         gap: '5px',
         // Figma's 8 and 7, the stroke inside them.
         padding: '6px 7px',
+        // A finger's 44 below md, where there is no design to match (SB-072).
+        ...tapHeight,
         border: `1px ${said || open ? 'solid' : 'dashed'} ${tokens[open ? 'accent' : 'border']}`,
         borderRadius: '2px',
         backgroundColor: tokens[open ? 'accentSubtle' : 'surface'],

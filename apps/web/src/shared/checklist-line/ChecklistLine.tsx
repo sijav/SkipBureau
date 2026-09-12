@@ -1,6 +1,6 @@
 import { Box, Typography, useTheme } from '@mui/material'
 import { useState, type ReactNode } from 'react'
-import { radius } from 'src/core/theme'
+import { radius, tapHeight } from 'src/core/theme'
 
 export type ChecklistLineProps = {
   label: ReactNode
@@ -20,6 +20,9 @@ export const ChecklistLine = ({ label, defaultChecked = false }: ChecklistLinePr
         alignItems: 'flex-start',
         gap: '12px',
         padding: '10px',
+        // A finger below md (SB-072). The whole row is the label, so this is
+        // what a tap lands on; at 40 it was four pixels short.
+        ...tapHeight,
         borderRadius: `${radius.xs}px`,
         backgroundColor: tokens.surface,
         cursor: 'pointer',

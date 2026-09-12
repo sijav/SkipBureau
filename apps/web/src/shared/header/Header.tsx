@@ -3,6 +3,7 @@ import { Box, InputBase, Typography, useTheme } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { paths, useShellJourney } from 'src/core/router'
+import { BELOW_MD, tapHeight } from 'src/core/theme'
 import { useShell } from 'src/core/shell'
 import { useAsk } from 'src/shared/ask-panel'
 import { YourDetails } from 'src/shared/context-control'
@@ -75,7 +76,16 @@ export const Header = ({ onAsk }: { onAsk?: (question: string) => void }) => {
           <Box
             component={Link}
             to={home}
-            sx={{ display: 'flex', alignItems: 'baseline', gap: '3px', textDecoration: 'none', color: tokens.textPrimary }}
+            sx={{
+              display: 'flex',
+              alignItems: 'baseline',
+              gap: '3px',
+              textDecoration: 'none',
+              color: tokens.textPrimary,
+              // Padding, not a height: the wordmark and its mark share a
+              // baseline, and a taller box would leave them at the top of it.
+              [BELOW_MD]: { paddingBlock: '10px' },
+            }}
           >
             <Typography component="span" variant="h4">
               <Trans>Skipbureau</Trans>
@@ -101,6 +111,11 @@ export const Header = ({ onAsk }: { onAsk?: (question: string) => void }) => {
                 // centred in the row like the wordmark beside it.
                 gap: '7px',
                 paddingInline: '2px',
+                // Below md the box grows to a finger, in both directions:
+                // a short word like Guides is under 44 across (SB-072). Above
+                // md the design says 29 and this is not applied.
+                paddingBlock: { xs: '8px', md: 0 },
+                minWidth: { xs: '44px', md: 0 },
                 color: tokens.textSecondary,
                 textDecoration: 'none',
                 '&::after': { content: '""', height: '2px', width: '100%', borderRadius: '1px', backgroundColor: 'transparent' },
@@ -151,6 +166,7 @@ export const Header = ({ onAsk }: { onAsk?: (question: string) => void }) => {
                 ...typography.uiText,
                 // 40 from its padding around a 20 line, strokes inside, as drawn.
                 gap: '10px',
+                ...tapHeight,
                 paddingBlock: '9px',
                 paddingInline: '15px',
                 // The owner's text-field decision: a 3:1 resting stroke.

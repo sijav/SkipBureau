@@ -15,6 +15,12 @@ import { NothingFound } from './NothingFound'
 // SB-159: the panel, and the Popper under it, arrive the first time it opens.
 const AskPanel = lazyPart(() => import('./AskPanel').then((panel) => panel.AskPanel))
 
+/**
+ * The panel's code, fetched now. The app does this while the page is idle; a
+ * story has no idle, so a story that opens the panel asks for it first.
+ */
+export const preloadAskPanel = (): Promise<unknown> => AskPanel.preload()
+
 /** What an Ask field needs from the panel it opens: where to anchor, and its input's wiring. */
 export type AskBindings = {
   anchorRef: (element: HTMLElement | null) => void

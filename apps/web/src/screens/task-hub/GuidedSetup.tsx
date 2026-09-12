@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/react/macro'
 import { Box, Button, Typography, useTheme } from '@mui/material'
 import { Link } from 'react-router-dom'
-import { radius, spacing } from 'src/core/theme'
+import { radius, spacing, tapLink } from 'src/core/theme'
 
 const STROKE = 1
 
@@ -33,6 +33,9 @@ export const GuidedSetup = ({ to }: { to: string }) => {
           to={to}
           variant="overline"
           sx={{
+            // A finger below md (SB-072); a run of text has to become a box
+            // before it can have a height.
+            ...tapLink,
             color: tokens.accentText,
             textDecoration: 'none',
             '&:hover': { textDecoration: 'underline' },

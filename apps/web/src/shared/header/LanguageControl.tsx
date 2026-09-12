@@ -4,6 +4,7 @@ import { Suspense, useId, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { locales, useLocale, type Locale } from 'src/core/i18n'
 import { samePageIn } from 'src/core/router'
+import { tapHeight } from 'src/core/theme'
 import { SmallChevron } from 'src/shared/context-control'
 import { lazyPart } from 'src/shared/lazy-part'
 
@@ -42,6 +43,8 @@ export const LanguageControl = () => {
           // The profile control's 34 high, from 8 above and below a 16 line and
           // the stroke inside, so the label sets the width, not a number.
           gap: '8px',
+          // A finger's 44 below md, where there is no design to match (SB-072).
+          ...tapHeight,
           padding: '8px 7px 8px 9px',
           border: `1px solid ${tokens.border}`,
           borderRadius: '2px',

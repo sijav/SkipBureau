@@ -7,7 +7,7 @@ import { emptyHandlers, handlers } from 'src/core/graphql/mocks'
 import { isLocale } from 'src/core/i18n'
 import { AddressShell, CountryRoute, localeSegment } from 'src/core/router'
 import { AppShell } from 'src/shared/app-shell'
-import { preloadEveryPart } from 'src/shared/lazy-part'
+import { preloadAskPanel } from 'src/shared/ask-panel'
 import { Header } from 'src/shared/header'
 import { Home } from './Home'
 
@@ -115,9 +115,13 @@ export const Ask: Story = {
   // The panel's code arrives the first time it opens (SB-159). The app fetches
   // it while the page is idle; a story has no idle, so the import landed inside
   // the wait for the panel and, with four browsers building at once, sometimes
-  // after it: this story failed twice in three full suite runs. Fetched here,
-  // what the wait below measures is the panel, not the bundler.
-  loaders: [() => preloadEveryPart()],
+  // after it: this story failed twice in three full suite runs.
+  //
+  // This panel, not every lazy part. `preloadEveryPart()` here fixed it on
+  // this machine and broke CI, where the run is instrumented for coverage:
+  // fetching every chunk in the loader took the test past its fifteen seconds
+  // before the story had rendered anything.
+  loaders: [() => preloadAskPanel()],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     await canvas.findByRole('heading', { level: 1 }, { timeout: 5000 })

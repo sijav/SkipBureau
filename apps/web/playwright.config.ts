@@ -28,12 +28,13 @@ export default defineConfig({
   projects: [
     {
       name: 'dev',
-      testIgnore: /pages\.spec\.ts$/,
+      // The built-site suites, which need the subpath and the real 404.
+      testIgnore: /(pages|phone)\.spec\.ts$/,
       use: { ...devices['Desktop Chrome'], baseURL: 'http://localhost:5173' },
     },
     {
       name: 'pages',
-      testMatch: /pages\.spec\.ts$/,
+      testMatch: /(pages|phone)\.spec\.ts$/,
       use: { ...devices['Desktop Chrome'], baseURL: LIVE ?? `http://localhost:${PAGES_PORT}${BASE}` },
     },
   ],

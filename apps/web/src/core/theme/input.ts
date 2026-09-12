@@ -1,4 +1,5 @@
 import type { CSSObject } from '@mui/material'
+import { BELOW_MD, TAP } from './touch'
 import { radius, spacing, type ColourTokens } from './tokens'
 
 /**
@@ -67,6 +68,9 @@ const TEXTAREA = { height: 112, padY: 12 }
 export const outlinedInputOverrides = (tokens: ColourTokens, value: CSSObject) => ({
   root: {
     ...value,
+    // A finger below md (SB-072). Every outlined field at once, since the rule
+    // is about the hand holding the phone rather than about any one field.
+    [BELOW_MD]: { minHeight: `${TAP}px` },
     color: tokens[FIELD_PAINT.rest.value],
     backgroundColor: tokens[FIELD_PAINT.rest.fill],
     borderRadius: radius.sm,

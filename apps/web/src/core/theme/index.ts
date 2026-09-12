@@ -24,6 +24,7 @@ export {
 } from './rows'
 export { ASK_PAINT, SEARCH_PAINT, askStyle, searchStyle } from './search'
 export { TILE_PAINT, tileStyle } from './tile'
+export { BELOW_MD, TAP, tapHeight, tapLink } from './touch'
 export { TOPIC_PAINT, topicStyle } from './topic'
 export { SOURCE_PAINT, SOURCE_STATES, SOURCE_TEXT, sourceCardStyle, type SourcePaint, type SourceState } from './source'
 export { TAG_PAINT, TAG_STATUSES, markStyle, tagStyle, type TagPaint, type TagStatus } from './tag'

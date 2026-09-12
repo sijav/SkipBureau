@@ -7,7 +7,7 @@ import { useCountry } from 'src/core/country'
 import { SuggestUpdateMutation } from 'src/core/graphql'
 import { useLocale } from 'src/core/i18n'
 import { paths, useJourney } from 'src/core/router'
-import { radius, spacing, withOpacity } from 'src/core/theme'
+import { BELOW_MD, radius, spacing, withOpacity } from 'src/core/theme'
 import { TextInput } from 'src/shared/text-input'
 import { Guide } from 'src/screens/guide'
 
@@ -177,7 +177,12 @@ const SuggestDialog = () => {
           />
 
           <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px', paddingTop: '4px', flexWrap: 'wrap' }}>
-            <Typography variant="caption" sx={{ flex: '1 0 0', minWidth: 0, color: tokens.textSecondary }}>
+            <Typography
+              variant="caption"
+              // Its own line on a phone: sharing one with two buttons at 390
+              // left it 50px for 52px of text, and the row cut it off (SB-072).
+              sx={{ flex: '1 0 0', minWidth: 0, color: tokens.textSecondary, [BELOW_MD]: { flexBasis: '100%' } }}
+            >
               <Trans>No account needed</Trans>
             </Typography>
             <Button variant="ghost" onClick={back}>

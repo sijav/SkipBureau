@@ -1,3 +1,4 @@
+import { BELOW_MD, TAP } from './touch'
 import { radius, spacing, type ColourTokens } from './tokens'
 
 /**
@@ -115,6 +116,13 @@ export const buttonVariants = (tokens: ColourTokens) =>
 export const buttonRoot = (tokens: ColourTokens) => ({
   // Hug the label as Figma does. MUI's 64px floor would widen a short one.
   minWidth: 0,
+  // Below md, a finger's 44 (SB-072). Every Button in the app at once, since
+  // the rule is about the hand holding the phone rather than about any one
+  // button. Above md the design says what the height is, and this is not
+  // applied. `TAP` lives in touch.ts; the media query is written out here
+  // because this object is styleOverrides rather than an sx callback and has
+  // no theme to ask.
+  [BELOW_MD]: { minHeight: `${TAP}px` },
   border: `${STROKE}px solid transparent`,
   padding: `${PAD_Y - STROKE}px ${spacing.md - STROKE}px`,
   borderRadius: radius.sm,

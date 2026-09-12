@@ -2,7 +2,7 @@ import { Trans, useLingui } from '@lingui/react/macro'
 import { Box, Typography, useTheme } from '@mui/material'
 import type { ReactNode } from 'react'
 import { formatDay, formatMonth, useLocale } from 'src/core/i18n'
-import { SOURCE_PAINT, SOURCE_TEXT, sourceCardStyle, type SourceState } from 'src/core/theme'
+import { SOURCE_PAINT, SOURCE_TEXT, sourceCardStyle, tapLink, type SourceState } from 'src/core/theme'
 import { CheckGlyph, DashGlyph, DotsGlyph, ForwardGlyph, RingGlyph } from './glyphs'
 
 export type SourceCardProps = {
@@ -75,6 +75,8 @@ export const SourceCard = ({ state, publisher, institution, url, checkedAt, offi
             alignItems: 'center',
             alignSelf: 'flex-start',
             gap: '6px',
+            // Below md a finger's area covers it, drawn by nothing (SB-072).
+            ...tapLink,
             color: tokens[SOURCE_TEXT.action],
             textDecoration: 'none',
             '&:hover': { textDecoration: 'underline' },

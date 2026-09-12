@@ -1,6 +1,7 @@
 import { Trans, useLingui } from '@lingui/react/macro'
 import { Box, ButtonBase, Typography, useTheme } from '@mui/material'
 import type { Ref } from 'react'
+import { tapHeight } from 'src/core/theme'
 import { HomeAskField } from 'src/shared/ask-field'
 import type { AskBindings } from 'src/shared/ask-panel'
 
@@ -46,7 +47,9 @@ export const HomeHero = ({ name, question, onQuestion, examples, askRef, binding
               onClick={() => onQuestion(example)}
               sx={{
                 // Figma draws the rule inside the 2px under the text, so the
-                // example stays 24 tall.
+                // example stays 24 tall. Below md a finger's area covers it,
+                // drawn by nothing and moving nothing (SB-072).
+                ...tapHeight,
                 paddingBottom: '1px',
                 borderBottom: `1px solid ${tokens.borderStrong}`,
                 color: tokens.textSecondary,
