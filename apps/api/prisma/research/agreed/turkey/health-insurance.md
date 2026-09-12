@@ -27,8 +27,8 @@ authorised for the relevant branch, including an authorised Turkish
 establishment of a foreign insurer. The circular allows a policy concluded with
 an insurer abroad for a residence application made **abroad**, provided it
 supplies the required minimum cover in Turkey; migration management says
-residence applications **are not yet accepted abroad**. So the travel policy you
-flew in with is unlikely to be the one your permit accepts.
+residence applications **are not yet accepted abroad**. So do not assume the travel
+policy you flew in with is the one your permit accepts.
 
 **SGK, and the year.** A foreigner with **more than a year of continuous
 residence under a residence permit** may apply for foreign-resident general
@@ -47,7 +47,9 @@ exceptions.
 **What it costs, and it is not small.** The premium is **12% of twice the gross
 minimum wage**. With the 2026 minimum wage of ₺33,030 that is a base of ₺66,060
 and a premium of **₺7,927.20 a month**. Those last two figures were calculated
-here from the official rate and the official wage, not read from a page.
+here from the official rate and the official wage; the same calculation also
+appears in a copy of an SGK circular hosted by an accountants' chamber, which we
+could not verify on SGK's own host.
 
 **If you get a job, this changes.** Employment insurance starts on the day you
 start work (Law 5510, Art 7). Being insured from day one is not the same as
@@ -56,12 +58,16 @@ of contributions in the preceding year, though it waives that when you move
 between categories or from being a dependant. Somebody posted to Turkey under a
 social security agreement may stay insured in their home country instead.
 
-**Emergency care is not free.** Under the 2025 regulation covering visitors,
-emergency services and emergency transport are **chargeable**. You will be
-treated unconditionally and without delay, and billed afterwards. The exception
-is a **traffic accident**, where SGK pays and you cannot be charged personally.
-For a residence permit holder without SGK, a state hospital charges under the
-public tariff.
+**Emergency care is not automatically free to an uninsured foreign visitor.**
+Under the 2025 regulation covering visitors, emergency services and emergency
+transport are **chargeable**. The regulation requires treatment to be provided
+unconditionally and without delay, with collection afterwards; that is a legal
+duty on the provider, not a guarantee of how a given hospital behaves. The
+exception is a **traffic accident**, where SGK pays under the applicable
+legislation and the patient cannot be charged personally. For a residence permit
+holder without SGK, an official state-hospital pricing page says services are
+charged under the public tariff; that page does not resolve every emergency
+exemption for settled residents, and we did not verify them.
 
 **By province.** The verified legal rules are national, with no provincial
 variation. We could not verify whether office procedures or additional document
@@ -70,17 +76,6 @@ public hospitals receive more favourable minimum coverage terms than non-listed
 public hospitals, and provider network status affects the required coverage
 terms.
 
-## What this means for the schema
-
-**A fifth shape, and it is not regional at all.** Annex 1 names **twenty
-specific hospitals** whose coverage tier differs, prescribed nationally. The
-answer to "what will this cost me" depends on the *institution*, not the place.
-A model with country, region and nothing else cannot express it, and neither can
-one that assumes a distinction must be geographic.
-
-**And a number that is a formula.** ₺7,927.20 is 12% of twice a minimum wage
-that changes every January. Storing the figure would be storing something that
-is wrong four months from now; storing the rule and the dated wage is not.
 
 ## Sources
 

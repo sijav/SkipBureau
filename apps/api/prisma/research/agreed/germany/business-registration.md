@@ -46,8 +46,10 @@ weeks ago, and fine proceedings may be initiated after more than six months.
 These are possible enforcement measures, not extensions of the deadline.
 
 **There is no uniform federal registration fee.** In these three examples the
-fees come from **Land** ordinances; the examples do not establish who fixes the
-amount everywhere in Germany.
+fees come from **Land** ordinances, and each concerns **an individual registering
+a sole business**; other legal forms and additional representatives can change
+the charge. The examples do not establish who fixes the amount everywhere in
+Germany.
 
 | City | Fee | Set by |
 |---|---|---|
@@ -58,19 +60,29 @@ amount everywhere in Germany.
 Whether you can do it online depends on the responsible authority, and sometimes
 on your legal form; Berlin lists forms for which there is no online route.
 
-**What registering sets off.** Your notification is transmitted to the tax
-office, the chambers, the accident insurers, the employment agency, customs, the
-immigration authority and others. Transmission is not the same as somebody
-contacting you, and it does not complete your separate obligations.
+**What registering sets off.** Your notification is transmitted, within
+statutory purpose limits and subject to a recipient waiving regular
+transmission, to the tax office, the chambers, **DGUV for forwarding to the
+responsible accident insurer**, the employment agency, customs, the immigration
+authority and others. Transmission is not the same as somebody contacting you,
+and it does not complete every separate obligation. It does complete one:
+DGUV says the Gewerbeanmeldung **satisfies the business-notification obligation
+to the statutory accident insurer**; otherwise that notification is due within
+one week.
 
 **Chamber membership** is normally compulsory for an ordinary commercial business
-and there is no general opt-out, **but the contribution can be nothing.** If you
-are not in the commercial register and your trade income is no more than
-**€5,200** you are exempt. A qualifying founder pays no basic contribution and no
-levy in the opening year and the year after, and no levy in years three and four,
-provided trade income is no more than **€25,000**, and provided you had no
-business or self-employed income in the previous five years and no holding above
-ten per cent. **These are profit tests, not turnover tests.** One chamber's 2026
+and there is no general opt-out, **but the contribution can be nothing.** For
+**IHK contributions**: an eligible individual or partnership not in the
+commercial register is exempt where trade income, or the relevant business
+profit, is no more than **€5,200**. A qualifying non-register **individual** pays
+no basic contribution and no levy in the opening year and the year after, and no
+levy in years three and four, provided trade income or profit is no more than
+**€25,000**, provided they had no income from agriculture or forestry, a
+commercial business or self-employment in the preceding **five financial years**,
+and no direct or indirect corporate holding above ten per cent in that period.
+**These are profit tests, not turnover tests**, and §3 IHKG permits a chamber to
+lower the exemption thresholds under a specified condition, so check its annual
+rules. One chamber's 2026
 rates charge a non-register business with €10,000 of profit **€35** a year, or
 nothing with founder relief.
 
@@ -84,9 +96,9 @@ keep another residence purpose. We would not tell you that the trade office will
 refuse your registration without that authorisation, because we could not verify
 it.
 
-**The tax questionnaire, which nobody tells you about.** Do not wait for the tax
-office to send you anything. Within **one month** of starting you must submit the
-*Fragebogen zur steuerlichen Erfassung* electronically through ELSTER (§138 AO);
+**The tax questionnaire.** Do not wait for the tax office to send you anything.
+Within **one month** of starting you must submit the *Fragebogen zur steuerlichen
+Erfassung* electronically, normally through ELSTER (§138 AO);
 a hardship exception is available on application. Registering the Gewerbe does
 not replace it. The tax office then communicates your **Steuernummer in
 writing**. We could not verify how long that takes.
@@ -104,21 +116,6 @@ including any other applicable exemption. The exemption applies automatically an
 you can waive it, but a waiver binds you for **at least five calendar years**.
 Simply using the exemption does not impose that five-year commitment.
 
-## What this means for the schema
-
-**A fourth distinction, and the sharpest one yet: who SETS a rule is not who
-ADMINISTERS it.** Cologne's €26 is NRW's tariff, collected by the city. A model
-that recorded "Cologne charges €26" would be storing the collector as though it
-were the author, and would not know that every NRW city charges the same.
-
-So a regional rule needs **the level it belongs to**, not merely the place a
-reader happens to be standing. Together with Saxony's place-of-employment
-trigger, SB-168 now has two reasons why a bare "region" column is not enough.
-
-**And this case has two classifications for one activity**, decided by two
-authorities who need not agree. Nothing in the schema models "two bodies
-classify the same fact differently", and this is the first rule that needs it.
-Filed rather than guessed at.
 
 ## Sources
 

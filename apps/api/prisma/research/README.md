@@ -36,12 +36,16 @@ finding, not a gap to fill in later with something that sounds better.
 | `turkey/work-permit` | 3 | 8 |
 | `turkey/company-formation` | 2 | 5 |
 | `turkey/tax-number` | 2 | 7 |
+| `turkey/health-insurance` | 2 | 5 |
 | `germany/anmeldung` | 3 | 6 |
 | `germany/residence-permit` | 2 | 5 |
 | `germany/health-insurance` | 2 | 11 |
+| `germany/business-registration` | 2 | 11 |
 
-Not yet done: Germany's business registration, and whatever the owner names
-next.
+All six obligations, both countries. Every one then passed the fixed-point
+check above.
+
+Not yet done: whatever countries the owner names next.
 
 ## What the sign-off turn is for, and why it is not optional
 
@@ -58,6 +62,33 @@ It has never once come back empty. It has caught, among others:
 - caveats that were themselves overclaims: "not published" where the truth was
   "we could not find a copy", and "it is not a national rule" where the truth
   was "we could not verify a national rule".
+
+## The fixed-point pass, which is where the exit condition lives
+
+A sign-off turn is not the end. After its corrections are applied, the text goes
+back **one more time** with a single question: is there anything left that
+claims more than the evidence supports? A one-line "no" is the answer being
+asked for, and it is accepted.
+
+**Run first over ten finished documents, only one came back clean.** The rest
+split into two kinds, and both were mine:
+
+- **Corrections that never reached the page.** I had written the agreed text
+  from the sign-off list and simply missed some: four in Turkish health cover,
+  seven in German business registration, two in German health insurance. The
+  research was right and the transcription was not, and nothing but this pass
+  would have caught it.
+- **My own commentary about our schema**, sitting inside the agreed document.
+  The other side objected to "Turkey's third rule case in a row" and "nothing in
+  the schema models this", and it was right to: nothing in that conversation
+  established either. They were mine to assert.
+
+So `agreed/` now holds **only what was agreed**, and the conclusions drawn from
+it live in `schema-notes.md`. After the corrections were applied and the
+commentary moved, all ten came back clean.
+
+**Do not skip this because the sign-off already happened.** The sign-off checks
+the research. This checks whether the research survived contact with me.
 
 ## What it has changed about the product
 

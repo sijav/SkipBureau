@@ -90,17 +90,6 @@ applying for a work permit.
 is **12,574.90 lira**, plus **964 lira** for the card. The tariff distinguishes
 independent, permanent and temporary-protection permits.
 
-## What this means for the schema
-
-**National throughout, with no regional variation found anywhere in this case**:
-the criteria, the fees, the reserved professions and the ten-day provision are
-all national. Turkey's second rule case in a row with nothing for a province to
-hold, which is why Germany, not Turkey, decided SB-168.
-
-**The salary rule is a computation, not a constant**, and the minimum wage it
-rests on changes every January. Storing the five multipliers and a dated minimum
-wage is right; storing five lira figures would be a guide that goes wrong on 1
-January without anybody touching it.
 
 ## Sources
 

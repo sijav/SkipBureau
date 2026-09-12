@@ -90,20 +90,6 @@ differs is which funds you can join, since some depend on where you live or work
 city's immigration office accepts as evidence; and the Saxon care-insurance
 split.
 
-## What this means for the schema, and it is a third shape
-
-Until this case, every regional difference found was a **region attaching its own
-charge to a national duty**: Hamburg's €16, Istanbul's and Antalya's chamber
-tariffs. Saxony is not that. It is a **federal rule that itself carries a
-regional variant**, written into federal law.
-
-And the trigger is **where the employment is, not where the reader lives**. A
-region dimension keyed only on residence would return the wrong contribution for
-somebody living in Brandenburg and working in Dresden.
-
-So a rule's region needs to say **what kind of connection it is**: where you
-live, where you work, or where the transaction happens. SB-168 should not assume
-residence.
 
 ## Sources
 

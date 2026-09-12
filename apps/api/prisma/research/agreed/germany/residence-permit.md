@@ -80,21 +80,6 @@ of the qualifying title is initiated and must be recorded on the certificate.
 Re-entry requires the appropriate valid travel documents. An application receipt
 is not the same document as a Fiktionsbescheinigung that is valid for travel.
 
-## What this means for the schema
-
-**The fee is federal here**, unlike the Anmeldung, where Hamburg charges its own
-€16. So "Germany is a state-based country" is too coarse to be a storage rule:
-**some rules are federal and some are regional, in the same country, for the
-same reader.** The dimension has to be decided per rule, not per country, which
-is another argument for SB-168 storing a region on the rule rather than
-partitioning the country.
-
-**One thing Berlin has that has no home in the schema yet:** the
-*Verfahrenshinweise* (VAB), an administrative-policy layer that is neither
-federal law nor an office's habit, published as interpretations and guidance for
-exercising discretion. Its existence is verified; the current PDF could not be
-read, so what it changes is **not** verified. If a later case shows it changes
-outcomes, it is a third kind of thing and the schema will have to say so.
 
 ## Sources
 

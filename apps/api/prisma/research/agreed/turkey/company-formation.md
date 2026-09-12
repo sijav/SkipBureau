@@ -88,17 +88,6 @@ whose previous-year assets **do not exceed** 115,209,000 lira and net sales **do
 not exceed** 230,359,000 lira. It does not establish that professional
 involvement becomes mandatory only above a size threshold.
 
-## What this means for the schema
-
-**A second regional rule that carries money**, after Hamburg's €16: the chamber
-charge differs by city, Istanbul 3,305 against Antalya 4,875, and that is a
-published tariff rather than an office habit. Turkey's law is still national
-throughout; what is regional here is a **fee set by a local body**, which is the
-same shape as Hamburg and the same argument for SB-168.
-
-**Everything with a date in it changes on a schedule**: the minimum wage in
-January, the chamber tariffs annually, the notary tariff annually. The guide's
-verified date is doing real work on this page.
 
 ## Sources
 

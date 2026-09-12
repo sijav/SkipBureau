@@ -52,15 +52,6 @@ account of somebody receiving duplicate potential tax numbers, or an official
 procedure for merging duplicates or correcting identity details on an issued tax
 record.
 
-## What this means for the schema
-
-**National, with no regional variation verified anywhere in this case.** Turkey's
-third rule case in a row with nothing for a province to hold.
-
-**Three "you need this for X" claims did not survive**, which is a pattern worth
-carrying into every country: the errands a guide sends people on are the part
-least likely to have a rule behind them, because nobody ever checks a step that
-sounds plausible.
 
 ## Sources
 

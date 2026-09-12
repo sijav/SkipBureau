@@ -63,16 +63,6 @@ dated 2025 or 2026, which is not the same as knowing Bursa is alone.
 address declaration, at 2026 rates. National figures, usually revised each
 January.
 
-## What this means for the schema
-
-No regional variation **in law** was found: the 20-working-day deadlines are
-national. What Bursa supplies is evidence about **administrative procedure**.
-So this rule is stored once, nationally, with a provincial note attached to
-Bursa, which is the shape SB-168 should build.
-
-Two things are stored as **unknown rather than absent**, because they are
-different and a reader deserves the difference: whether one office or two, and
-what the online service completes.
 
 ## Sources
 

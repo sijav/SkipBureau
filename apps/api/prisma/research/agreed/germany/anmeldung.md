@@ -74,22 +74,6 @@ representation, and we could not find a Hamburg rule that overrides it. The
 service pages we checked for Berlin, Munich and Hamburg do not offer ordinary
 registration by post.
 
-## What this means for the schema, and it settles SB-168
-
-Turkey answered twice that the law is national and only administration varies.
-**Germany answers differently, and it is the answer that decides the design:**
-
-> Store the federal registration duty and the Land fee rule **separately**.
-> Hamburg's charge is a legally prescribed regional rule, not an office
-> practice. The two-week duty has no regional variation; the fee does.
-
-So a region must be able to hold a **rule**, with facts of its own like a fee,
-and not merely a note attached to a national rule. A design that only allowed
-regional notes would have had nowhere to put Hamburg's €16, and would have been
-chosen on Turkish evidence alone.
-
-Three levels, then: **federal duty**, **Land rules** where a Land has
-legislated, and **municipal procedure**, which is not a rule at all.
 
 ## Sources
 

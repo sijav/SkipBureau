@@ -57,11 +57,11 @@ A 2014 Revenue Administration letter specifies conversion at the central bank
 verified how today's e-İkamet assessment implements that instruction. We have
 not established the image's publication date.
 
-**Proving you have health cover.** Any one of these: the prescribed
-signed or e-signed and stamped or sealed provincial social security certificate
-confirming healthcare entitlement under a bilateral agreement; an SGK provision
-document; an SGK general health insurance application certificate; or a private
-policy **meeting the official minimum coverage requirements** (the SEDDK
+**Proving you have health cover.** Any one of these, and the institutional
+documents must all carry the prescribed signature or e-signature and stamp or
+seal: the provincial social security certificate confirming healthcare
+entitlement under a bilateral agreement; an SGK provision document; an SGK
+general health insurance application certificate; or a private policy **meeting the official minimum coverage requirements** (the SEDDK
 standard). It must cover the period you are asking for. Applicants under
 eighteen and over sixty-five are **exempt from obtaining** health insurance for
 the application; official guidance says existing valid cover must still be
@@ -86,18 +86,6 @@ exists. We also could not verify what happens to an application made at such an
 address today. Ask the Istanbul provincial directorate or YİMER 157 before you
 commit to a lease.
 
-## What this means for the schema
-
-**The fee is the first real case for eligibility by nationality.** Five bands
-plus an outside-every-group tariff plus an exemption list is not a number on a
-guide; it is a rule with a nationality criterion, which
-`EligibilityCriterion` already models. Storing one figure would be wrong for
-almost everybody.
-
-**No regional variation in law**, again: the tariff, the insurance standards
-and the address evidence are national. Istanbul's district restriction is
-administrative and belongs in a provincial note, stored as **unknown rather
-than absent**.
 
 ## Sources
 
