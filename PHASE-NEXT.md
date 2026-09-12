@@ -76,3 +76,25 @@ has history cascades to rows whose triggers refuse it.
 
 **Undo it** by guarding them too, the day an obligation's `kind` or slug comes
 to change what a past answer says rather than how it is labelled.
+
+## A suggestion is stored, and nothing reads it back yet
+
+**Decided 2026-09-12**, finishing change proposals from anonymous visitors
+(SB-010).
+
+A visitor's suggestion is written to `Proposal`, `pending`, against the guide
+they were reading and in the language they were reading it in, and the guide is
+untouched. What does not exist is any way to read those rows through the API,
+so the card's "appears in the moderation queue" is not met and is not meant to
+be: the queue is the admin panel, SB-011, which the owner's phases put in
+**Next**.
+
+That is a decision rather than an omission. A `proposals` query now, with no
+login in front of it, would publish every visitor's email address and every
+unreviewed suggestion on a public endpoint. The guard is the login, and the
+login is the next phase, so the query is written when the thing that protects
+it exists. Until then an editor reads the table directly.
+
+The same applies to what the text is trusted to be. A change is stored exactly
+as typed, which is right for storage; escaping belongs where it is displayed,
+and nothing displays it yet.
