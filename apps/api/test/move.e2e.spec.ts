@@ -63,7 +63,9 @@ const verdicts = (entries: { obligationSlug: string; verdict: string }[]) =>
   Object.fromEntries(entries.map((entry) => [entry.obligationSlug, entry.verdict]))
 
 test('moving from Turkey to Germany answers in the four kinds', async () => {
-  const response = await graphql(MOVE, { from: 'tr', to: 'de', nationality: 'ir' })
+  // The situation is given, not left out: a reader who has not said whether
+  // they are a student is asked, not assumed not to be one (SB-176).
+  const response = await graphql(MOVE, { from: 'tr', to: 'de', nationality: 'ir', situation: 'worker' })
   expect(response.body.errors, JSON.stringify(response.body.errors)).toBeUndefined()
 
   const seen = verdicts(response.body.data.move)
@@ -71,7 +73,7 @@ test('moving from Turkey to Germany answers in the four kinds', async () => {
   // Both countries want an address registration, on different deadlines.
   expect(seen['register-your-address']).toBe('changed')
   // Germany requires health insurance of everyone; the Turkish rule is for
-  // students, and this person is not one.
+  // students, and this person, a worker, is not one.
   expect(seen['hold-health-insurance']).toBe('newInDestination')
   // The Turkish tax number stops applying.
   expect(seen['get-a-tax-number']).toBe('endsOnLeaving')

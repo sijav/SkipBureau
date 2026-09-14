@@ -76,10 +76,23 @@ type Country {
   name: String!
 }
 
+"""A detail about a person that can change which rule applies to them."""
+enum Detail {
+  nationality
+  residenceRegion
+  situation
+  workRegion
+}
+
 """One obligation, and what happens to it."""
 type DiffEntry {
   differences: [FactDifference!]!
   from: ResolvedRule
+
+  """
+  Details this person has not given that could change the answer, on either side. Empty when none could.
+  """
+  needs: [Detail!]!
   obligationSlug: String!
 
   """Why a person has to decide this one. Null when nobody does."""
@@ -501,6 +514,7 @@ enum Verdict {
   changed
   endsOnLeaving
   identical
+  needsDetail
   needsReview
   newInDestination
   unknown

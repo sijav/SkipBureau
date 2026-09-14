@@ -1,0 +1,233 @@
+import { INestApplication } from '@nestjs/common'
+import { Test } from '@nestjs/testing'
+import { execFile } from 'node:child_process'
+import { createRequire } from 'node:module'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { promisify } from 'node:util'
+import request from 'supertest'
+import { afterAll, beforeAll, expect, test } from 'vitest'
+import { AppModule } from '../src/app.module.js'
+import { PrismaService } from '../src/prisma/prisma.service.js'
+import { seed } from '../prisma/seed.js'
+import { startPglite } from '../scripts/pglite-server.mjs'
+
+// SB-176: a detail the reader has not given, where it could change what they
+// are told, is asked for rather than answered as though it did not match.
+
+const API = join(dirname(fileURLToPath(import.meta.url)), '..')
+const PORT = 5464
+
+let app: INestApplication
+let prisma: PrismaService
+let stopDatabase: () => Promise<void>
+
+const day = (offset = 0) => new Date(new Date(Date.now() + offset * 86_400_000).toISOString().slice(0, 10))
+const NEXT_MONTH = day(30)
+const AFTER_NEXT_MONTH = day(31).toISOString().slice(0, 10)
+const source = { sourceUrl: 'https://example.gov', sourceName: 'test', verifiedAt: new Date('2026-09-14') }
+
+beforeAll(async () => {
+  const database = await startPglite(PORT)
+  stopDatabase = database.stop
+  process.env.DATABASE_URL = database.url
+
+  await promisify(execFile)(
+    process.execPath,
+    [createRequire(import.meta.url).resolve('prisma/build/index.js'), 'migrate', 'deploy'],
+    { cwd: API, env: { ...process.env, DATABASE_URL: database.url }, encoding: 'utf8' },
+  )
+
+  const moduleRef = await Test.createTestingModule({ imports: [AppModule] }).compile()
+  app = moduleRef.createNestApplication()
+  await app.init()
+
+  prisma = app.get(PrismaService)
+  await seed(prisma)
+}, 180_000)
+
+afterAll(async () => {
+  await app?.close()
+  await stopDatabase?.()
+})
+
+const MOVE = `
+  query Move(
+    $from: String!
+    $to: String!
+    $nationality: String
+    $situation: String
+    $residenceRegions: [String!]
+    $workRegions: [String!]
+    $at: String
+  ) {
+    move(
+      from: $from
+      to: $to
+      nationality: $nationality
+      situation: $situation
+      residenceRegions: $residenceRegions
+      workRegions: $workRegions
+      at: $at
+    ) {
+      obligationSlug
+      verdict
+      reason
+      needs
+      differences { key known }
+      from { ruleVersionId facts { key numericValue } }
+      to { ruleVersionId facts { key numericValue } }
+    }
+  }
+`
+
+type Side = { ruleVersionId: string; facts: { key: string; numericValue: string | null }[] } | null
+type Entry = {
+  obligationSlug: string
+  verdict: string
+  reason: string | null
+  needs: string[]
+  differences: { key: string; known: boolean }[]
+  from: Side
+  to: Side
+}
+
+const moveFromTurkey = async (variables: Record<string, unknown>): Promise<Entry[]> => {
+  const response = await request(app.getHttpServer())
+    .post('/graphql')
+    .send({ query: MOVE, variables: { from: 'tr', to: 'de', ...variables } })
+  expect(response.body.errors, JSON.stringify(response.body.errors)).toBeUndefined()
+  return response.body.data.move
+}
+
+const entryFor = async (slug: string, variables: Record<string, unknown>): Promise<Entry> => {
+  const found = (await moveFromTurkey(variables)).find((entry) => entry.obligationSlug === slug)
+  expect(found, `no entry for ${slug}`).toBeDefined()
+  return found!
+}
+
+const shares = (entry: Entry) => Object.fromEntries((entry.to?.facts ?? []).map((fact) => [fact.key, Number(fact.numericValue)]))
+
+type CriterionInput = { dimension: 'nationality' | 'nationalityGroup' | 'situation' | 'residenceRegion' | 'workRegion'; value: string }
+
+/** A version starting next month, so it is asked about after next month. */
+const version = async (country: string, slug: string, criteria: CriterionInput[], facts: { key: string; textValue?: string; numericValue?: number }[]) =>
+  prisma.ruleVersion.create({
+    data: {
+      countryCode: country,
+      obligationId: (await prisma.obligation.findUniqueOrThrow({ where: { slug } })).id,
+      validFrom: NEXT_MONTH,
+      ...source,
+      criteria: { create: criteria },
+      facts: { create: facts },
+    },
+  })
+
+const WORKER = { nationality: 'ir', situation: 'worker' }
+
+test('a Saxony resident who has not said where they work is asked, not told the national split', async () => {
+  const care = await entryFor('pay-care-insurance', { ...WORKER, residenceRegions: ['DE-SN'] })
+
+  expect(care).toMatchObject({ verdict: 'needsDetail', needs: ['workRegion'], reason: null, to: null })
+})
+
+test('once they say where they work, they get the Saxon split or the national one', async () => {
+  const saxony = await entryFor('pay-care-insurance', { ...WORKER, residenceRegions: ['DE-SN'], workRegions: ['DE-SN'] })
+  expect(saxony.needs).toEqual([])
+  expect(shares(saxony)).toEqual({ employeeShare: 2.3, employerShare: 1.3 })
+
+  const brandenburg = await entryFor('pay-care-insurance', { ...WORKER, residenceRegions: ['DE-SN'], workRegions: ['DE-BB'] })
+  expect(brandenburg.needs).toEqual([])
+  expect(shares(brandenburg)).toEqual({ employeeShare: 1.8, employerShare: 1.8 })
+})
+
+test('an obligation no missing detail could change resolves exactly as before', async () => {
+  const address = await entryFor('register-your-address', { nationality: 'ir' })
+
+  expect(address.verdict).toBe('changed')
+  expect(address.needs).toEqual([])
+  expect(address.differences).toEqual([
+    { key: 'deadline', known: true },
+    { key: 'requiredDocument', known: true },
+  ])
+})
+
+test('a reader with no nationality is asked for it where a rule for a group of nationalities could apply', async () => {
+  // Germany's only residence permit rule here is for EU nationals, so it is
+  // open, and the obligation answers with the question rather than vanishing.
+  const permit = await entryFor('get-a-residence-permit', { situation: 'worker' })
+
+  expect(permit).toMatchObject({ verdict: 'needsDetail', needs: ['nationality'], to: null })
+  expect(permit.from).not.toBeNull()
+})
+
+test('an open version repeating the only winner asks nothing, and one that says something else asks for its detail', async () => {
+  const at = AFTER_NEXT_MONTH
+  // Germany's national rule says health insurance is required.
+  await version('de', 'hold-health-insurance', [{ dimension: 'workRegion', value: 'DE-HH' }], [{ key: 'required', textValue: 'yes' }])
+  expect(await entryFor('hold-health-insurance', { ...WORKER, at })).toMatchObject({ verdict: 'newInDestination', needs: [] })
+
+  await version('de', 'hold-health-insurance', [{ dimension: 'residenceRegion', value: 'DE-BE' }], [{ key: 'required', textValue: 'no' }])
+  expect(await entryFor('hold-health-insurance', { ...WORKER, at })).toMatchObject({ verdict: 'needsDetail', needs: ['residenceRegion'], to: null })
+})
+
+test('a tie no answer could settle asks nothing, and one an answer could settle says what to ask', async () => {
+  const at = AFTER_NEXT_MONTH
+  const student = { nationality: 'fr', situation: 'student', at }
+  await prisma.region.create({ data: { code: 'TR-06', countryCode: 'tr', name: 'Ankara' } })
+
+  await version('tr', 'open-a-blocked-account', [{ dimension: 'nationality', value: 'fr' }], [{ key: 'balance', numericValue: 1 }])
+  await version('tr', 'open-a-blocked-account', [{ dimension: 'situation', value: 'student' }], [{ key: 'balance', numericValue: 2 }])
+  // Covers the first tied version only: answered, it would still tie with the second.
+  await version(
+    'tr',
+    'open-a-blocked-account',
+    [
+      { dimension: 'nationality', value: 'fr' },
+      { dimension: 'workRegion', value: 'TR-06' },
+    ],
+    [{ key: 'balance', numericValue: 3 }],
+  )
+
+  const tied = await entryFor('open-a-blocked-account', student)
+  expect(tied.verdict).toBe('needsReview')
+  expect(tied.needs).toEqual([])
+
+  // Covers both: answered, it would settle the tie.
+  await version(
+    'tr',
+    'open-a-blocked-account',
+    [
+      { dimension: 'nationality', value: 'fr' },
+      { dimension: 'situation', value: 'student' },
+      { dimension: 'residenceRegion', value: 'TR-06' },
+    ],
+    [{ key: 'balance', numericValue: 4 }],
+  )
+
+  const settleable = await entryFor('open-a-blocked-account', student)
+  expect(settleable.verdict).toBe('needsReview')
+  expect(settleable.needs).toEqual(['residenceRegion'])
+})
+
+test('one side tied and the other needing a detail is still for a person to decide, and says what could be asked', async () => {
+  // Builds on the tie above, on Turkey's side. Germany's student rule gains a
+  // Hamburg version that says something else, so Germany's side needs to know
+  // where a student works.
+  await version(
+    'de',
+    'open-a-blocked-account',
+    [
+      { dimension: 'situation', value: 'student' },
+      { dimension: 'workRegion', value: 'DE-HH' },
+    ],
+    [{ key: 'balance', numericValue: 5 }],
+  )
+
+  const both = await entryFor('open-a-blocked-account', { nationality: 'fr', situation: 'student', at: AFTER_NEXT_MONTH })
+
+  expect(both.verdict).toBe('needsReview')
+  expect(both.reason).toContain('none is more specific')
+  expect(both.needs).toEqual(['residenceRegion', 'workRegion'])
+  expect(both.to).toBeNull()
+})

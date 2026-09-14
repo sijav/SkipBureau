@@ -104,17 +104,16 @@ const draft = async (country: string, slug: string, dimension: 'residenceRegion'
     },
   })
 
-test('a rule for one region is returned for a reader working there, and the national rule for everyone else', async () => {
+test('a rule for one region is returned for a reader working there, and the national rule for a reader working elsewhere', async () => {
   const saxony = await careSplit({ workRegions: ['DE-SN'] })
   expect(saxony).toMatchObject({ employee: 2.3, employer: 1.3 })
 
   const brandenburg = await careSplit({ workRegions: ['DE-BB'] })
   expect(brandenburg).toMatchObject({ employee: 1.8, employer: 1.8 })
+  expect(saxony.version).not.toBe(brandenburg.version)
 
-  // A rule with no region is the answer for a reader connected to no region too.
-  const nowhere = await careSplit({})
-  expect(nowhere).toEqual(brandenburg)
-  expect(saxony.version).not.toBe(nowhere.version)
+  // A reader who has said nothing about where they work is asked rather than
+  // told the national split: SB-176, in needs.e2e.spec.ts.
 })
 
 test("Saxony's split follows where the reader works, not where they live", async () => {

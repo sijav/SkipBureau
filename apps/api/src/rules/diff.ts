@@ -1,3 +1,5 @@
+import type { Detail } from './eligibility.js'
+
 export type Fact = {
   key: string
   operator: string
@@ -36,6 +38,8 @@ export enum Verdict {
   newInDestination = 'newInDestination',
   endsOnLeaving = 'endsOnLeaving',
   needsReview = 'needsReview',
+  /** The answer depends on details this person has not given, named in `needs`. */
+  needsDetail = 'needsDetail',
 }
 
 export type Entry = {
@@ -46,6 +50,8 @@ export type Entry = {
   differences: FactDifference[]
   /** Why this needs a person, when it does. Empty otherwise. */
   reason: string | null
+  /** Details this person has not given that could change the answer, on either side. */
+  needs: readonly Detail[]
 }
 
 const sameFact = (a: Fact, b: Fact): boolean =>
@@ -56,6 +62,23 @@ const sameFact = (a: Fact, b: Fact): boolean =>
   a.currency === b.currency
 
 const byKey = (facts: readonly Fact[]) => new Map(facts.map((fact) => [fact.key, fact]))
+
+/**
+ * The same facts under the same keys, by the rule the diff uses. A key on one
+ * side only is a difference here too: `none` is a checked answer, a missing key
+ * is a gap, and neither is the other.
+ */
+export const sameFacts = (a: readonly Fact[], b: readonly Fact[]): boolean => {
+  const before = byKey(a)
+  const after = byKey(b)
+  return (
+    before.size === after.size &&
+    [...before].every(([key, fact]) => {
+      const other = after.get(key)
+      return other !== undefined && sameFact(fact, other)
+    })
+  )
+}
 
 const differences = (from: Resolved, to: Resolved): FactDifference[] => {
   const before = byKey(from.facts)
@@ -71,7 +94,13 @@ const differences = (from: Resolved, to: Resolved): FactDifference[] => {
     })
 }
 
-export type Side = { resolved: Resolved | null; ambiguous: string | null }
+/**
+ * One country's answer for one obligation. `needs` is independent of the other
+ * two: a side can be tied now and also say which detail could break the tie.
+ * When it is not empty `resolved` is null, because a provisional answer beside
+ * a question is the answer the question exists to replace (SB-176).
+ */
+export type Side = { resolved: Resolved | null; ambiguous: string | null; needs: readonly Detail[] }
 
 /**
  * Compares two already-resolved sides.
@@ -86,16 +115,21 @@ export const compare = (origin: ReadonlyMap<string, Side>, destination: Readonly
   return slugs.map((obligationSlug) => {
     const from = origin.get(obligationSlug)
     const to = destination.get(obligationSlug)
+    const needs = [...new Set([...(from?.needs ?? []), ...(to?.needs ?? [])])].sort()
 
+    // An ambiguity is never hidden behind a question: a caller that reads only
+    // the verdict still learns a person has to decide, and `needs` says what
+    // could still be asked.
     const reason = from?.ambiguous ?? to?.ambiguous ?? null
-    if (reason) {
+    if (reason || needs.length > 0) {
       return {
         obligationSlug,
-        verdict: Verdict.needsReview,
+        verdict: reason ? Verdict.needsReview : Verdict.needsDetail,
         from: from?.resolved ?? null,
         to: to?.resolved ?? null,
         differences: [],
         reason,
+        needs,
       }
     }
 
@@ -114,6 +148,7 @@ export const compare = (origin: ReadonlyMap<string, Side>, destination: Readonly
         to: after,
         differences: found,
         reason: null,
+        needs,
       }
     }
 
@@ -124,6 +159,7 @@ export const compare = (origin: ReadonlyMap<string, Side>, destination: Readonly
       to: after,
       differences: [],
       reason: null,
+      needs,
     }
   })
 }

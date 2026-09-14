@@ -165,6 +165,18 @@ that clash.
 product does not guess at a rule a reader will act on. Picking one of two
 applicable residence permit rules is the same class of harm as inventing one.
 
+**A detail the reader has not given is asked for, not assumed** (SB-176). A
+criterion about something missing from the profile neither matches nor fails:
+the version is open on it. Where an open version could change what the reader
+is told, the answer is **`needsDetail`**, naming the details in `needs`, and no
+provisional rule is given beside it. A reader who has not said where they work
+is not told the national care insurance split when Saxony's might be theirs.
+With no applicable rule every open version counts; with one, unless its facts
+are the same; with a tie, only a version covering every tied rule, because
+nothing else could settle it. An ambiguity stays `needsReview` and still carries
+`needs`, so a caller reading only the verdict never loses it. This is what lets
+the context control ask only when it changes the answer.
+
 ### Time is the same machinery
 
 `validFrom` and `validTo`, half open, so `validFrom <= at < validTo` and a rule

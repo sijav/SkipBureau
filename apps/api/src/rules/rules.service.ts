@@ -1,8 +1,24 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../prisma/prisma.service.js'
-import { compare, type Entry, type Fact, type Side } from './diff.js'
-import { matchesProfile, mostSpecific, RegionProfileError, regionsInConflict, type Criterion, type Profile } from './eligibility.js'
+import { compare, sameFacts, type Entry, type Fact, type Side } from './diff.js'
+import { fitToProfile, mostSpecific, RegionProfileError, regionsInConflict, strictlyCovers, type Criterion, type Detail, type Profile } from './eligibility.js'
 import { inForceAt } from './selection.js'
+
+type Candidate = { criteria: readonly Criterion[]; facts: readonly Fact[]; open: readonly Detail[] }
+
+/**
+ * Whether answering what an open version leaves unanswered could change what
+ * the reader is told (SB-176). With no winner it could become the answer. With
+ * one, it would win or tie, which changes nothing a reader sees when it says the
+ * same. With a tie, only a version covering every tied one could settle it;
+ * anything else could only join the tie.
+ */
+const matters = (open: Candidate, winners: readonly Candidate[]): boolean => {
+  const [only] = winners
+  if (!only) return true
+  if (winners.length === 1) return !sameFacts(open.facts, only.facts)
+  return winners.every((winner) => strictlyCovers(open.criteria, winner.criteria))
+}
 
 @Injectable()
 export class RulesService {
@@ -68,53 +84,48 @@ export class RulesService {
       include: { criteria: true, facts: true, obligation: true },
     })
 
-    const applicable = versions
-      .map((version) => ({
-        version,
-        criteria: version.criteria.map((criterion): Criterion => ({ dimension: criterion.dimension, value: criterion.value })),
-      }))
-      .filter((candidate) => matchesProfile(candidate.criteria, profile, groups))
+    const toFact = (fact: (typeof versions)[number]['facts'][number]): Fact => ({
+      key: fact.key,
+      operator: fact.operator,
+      numericValue: fact.numericValue === null ? null : fact.numericValue.toString(),
+      textValue: fact.textValue,
+      unit: fact.unit,
+      currency: fact.currency,
+    })
 
-    const byObligation = new Map<string, typeof applicable>()
-    for (const candidate of applicable) {
-      const slug = candidate.version.obligation.slug
+    // Every version not contradicted by what the reader said, grouped before
+    // matching: an obligation whose only versions are open must still answer,
+    // with the question, rather than vanish.
+    const byObligation = new Map<string, (Candidate & { id: string })[]>()
+    for (const version of versions) {
+      const criteria = version.criteria.map((criterion): Criterion => ({ dimension: criterion.dimension, value: criterion.value }))
+      const fit = fitToProfile(criteria, profile, groups)
+      if (fit.contradicted) continue
+      const slug = version.obligation.slug
+      const candidate = { id: version.id, criteria, facts: version.facts.map(toFact), open: fit.open }
       byObligation.set(slug, [...(byObligation.get(slug) ?? []), candidate])
     }
 
     const resolved = new Map<string, Side>()
 
-    for (const [slug, candidates] of byObligation) {
-      const winners = mostSpecific(candidates)
+    for (const [slug, standing] of byObligation) {
+      const winners = mostSpecific(standing.filter((candidate) => candidate.open.length === 0))
+      const needs = [
+        ...new Set(standing.filter((candidate) => candidate.open.length > 0 && matters(candidate, winners)).flatMap((candidate) => candidate.open)),
+      ].sort()
 
-      if (winners.length > 1) {
-        resolved.set(slug, {
-          resolved: null,
-          ambiguous: `${winners.length} rules apply to this person and none is more specific than the others: ${winners
-            .map((winner) => winner.version.id)
-            .join(', ')}`,
-        })
-        continue
-      }
+      const ambiguous =
+        winners.length > 1
+          ? `${winners.length} rules apply to this person and none is more specific than the others: ${winners.map((winner) => winner.id).join(', ')}`
+          : null
+      const [winner] = winners
 
-      const winner = winners[0]
-      if (!winner) continue
+      if (!winner && needs.length === 0) continue
 
       resolved.set(slug, {
-        ambiguous: null,
-        resolved: {
-          obligationSlug: slug,
-          ruleVersionId: winner.version.id,
-          facts: winner.version.facts.map(
-            (fact): Fact => ({
-              key: fact.key,
-              operator: fact.operator,
-              numericValue: fact.numericValue === null ? null : fact.numericValue.toString(),
-              textValue: fact.textValue,
-              unit: fact.unit,
-              currency: fact.currency,
-            }),
-          ),
-        },
+        ambiguous,
+        needs,
+        resolved: winner && !ambiguous && needs.length === 0 ? { obligationSlug: slug, ruleVersionId: winner.id, facts: winner.facts } : null,
       })
     }
 
