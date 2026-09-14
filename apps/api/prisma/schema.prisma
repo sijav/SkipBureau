@@ -504,27 +504,44 @@ model CountryText {
   @@id([countryCode, locale])
 }
 
-/// A first-level division of a country: a German Land, a Turkish province.
+/// A place a rule can belong to: a country's first-level division, a German
+/// Land or a Turkish province, or a place inside one, a city or an area, which
+/// names the place it is inside (SB-186).
 ///
 /// A rule reaches one through an eligibility criterion, `residenceRegion` or
-/// `workRegion`, valued by this code. Codes are ISO 3166-2, `DE-SN` or `TR-35`,
-/// so a code names its country. Nothing below the first level: see
-/// PHASE-NEXT.md. The criterion's value is a plain string that no foreign key
-/// can reach, so triggers refuse a criterion naming a region of another country
-/// or none, and refuse deleting or recoding a region a criterion names (SB-168).
+/// `workRegion`, valued by this code, and with it every place inside it. The
+/// criterion's value is a plain string that no foreign key can reach, so
+/// triggers refuse a criterion naming a region of another country or none, and
+/// refuse deleting, recoding or moving a region a criterion names, itself or
+/// through a place inside it (SB-168). Another keeps every place inside its own
+/// country and never inside itself.
 model Region {
-  code        String       @id @db.VarChar(6)
-  countryCode String       @db.VarChar(2)
-  name        String
-  country     Country      @relation(fields: [countryCode], references: [code], onDelete: Cascade)
-  texts       RegionText[]
+  /// A province or state by its ISO 3166-2 code, and a place inside one by a
+  /// readable key under its parent's, `TR-34.kadikoy`. The product's own, and
+  /// never changed: a merger, a split or a move is a new row (SB-186).
+  code         String       @id @db.VarChar(40)
+  countryCode  String       @db.VarChar(2)
+  /// The place this one is inside: a city's province or state, an area's city.
+  /// Null for a first-level division, whose parent is the country.
+  parentCode   String?      @db.VarChar(40)
+  /// The state's own identifier where one exists, such as Germany's Amtlicher
+  /// Gemeindeschlüssel. An attribute, never the identity.
+  officialCode String?
+  name         String
+  country      Country      @relation(fields: [countryCode], references: [code], onDelete: Cascade)
+  // No action on delete: a place with places inside it is not removed from
+  // under them, and a country's deletion still takes its whole tree at once.
+  parent       Region?      @relation("RegionTree", fields: [parentCode], references: [code], onDelete: NoAction, onUpdate: Cascade)
+  children     Region[]     @relation("RegionTree")
+  texts        RegionText[]
 
   @@index([countryCode])
+  @@index([parentCode])
 }
 
 /// A region's name in one language, like `CountryText`.
 model RegionText {
-  regionCode String @db.VarChar(6)
+  regionCode String @db.VarChar(40)
   locale     String @db.VarChar(5)
   name       String
   region     Region @relation(fields: [regionCode], references: [code], onDelete: Cascade)

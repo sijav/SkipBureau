@@ -58,8 +58,9 @@ const OBLIGATIONS: { slug: string; kind: 'registration' | 'permit' | 'insurance'
   { slug: 'pay-care-insurance', kind: 'insurance', en: 'Pay care insurance contributions', fa: 'پرداخت حق بیمه مراقبت' },
 ]
 
-// The Länder the SB-167 research names, by ISO 3166-2 code. First-level
-// divisions only (PHASE-NEXT.md), and only these until an editor adds the rest.
+// The Länder the SB-167 research names, by ISO 3166-2 code, and only these
+// until an editor adds the rest. A place inside one is added with the rule that
+// names it, under its parent (SB-186, PHASE-NEXT.md).
 const REGIONS: { code: string; country: string; en: string; fa: string }[] = [
   { code: 'DE-BB', country: 'de', en: 'Brandenburg', fa: 'براندنبورگ' },
   { code: 'DE-BE', country: 'de', en: 'Berlin', fa: 'برلین' },

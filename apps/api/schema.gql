@@ -304,7 +304,7 @@ type Query {
     nationality: String
 
     """
-    Where this person lives: ISO 3166-2 region codes such as DE-SN, one per country, so a move can carry one on each side.
+    Where this person lives: region codes, one per country, so a move between countries can carry one on each side. A province or state by its ISO 3166-2 code such as TR-34, or a place inside one by its key such as TR-34.kadikoy.
     """
     residenceRegions: [String!]
     since: String!
@@ -332,18 +332,40 @@ type Query {
   """True when the API is answering. Nothing more is promised."""
   health: Boolean!
 
-  """What changes for this person on moving between two countries."""
+  """
+  What changes for this person on moving between two countries, or between two places in one.
+  """
   move(
     at: String
     from: String!
+
+    """
+    Where this person lives before the move, in place of residenceRegions on that side. Left out, residenceRegions applies; an empty list says nowhere. This is how a move within one country names both places.
+    """
+    fromResidenceRegions: [String!]
+
+    """
+    Where this person works before the move, in place of workRegions on that side, the same way.
+    """
+    fromWorkRegions: [String!]
     nationality: String
 
     """
-    Where this person lives: ISO 3166-2 region codes such as DE-SN, one per country, so a move can carry one on each side.
+    Where this person lives: region codes, one per country, so a move between countries can carry one on each side. A province or state by its ISO 3166-2 code such as TR-34, or a place inside one by its key such as TR-34.kadikoy.
     """
     residenceRegions: [String!]
     situation: String
     to: String!
+
+    """
+    Where this person will live after the move, in place of residenceRegions on that side, the same way.
+    """
+    toResidenceRegions: [String!]
+
+    """
+    Where this person will work after the move, in place of workRegions on that side, the same way.
+    """
+    toWorkRegions: [String!]
 
     """
     Where this person works, the same way. Some rules follow the place of work rather than where a person lives.
@@ -396,6 +418,10 @@ type RelatedGoalView {
 type ResolvedRule {
   facts: [RuleFactValue!]!
   obligationSlug: String!
+
+  """
+  The most specific rule version that applies to this person. Each fact names the version it came from.
+  """
   ruleVersionId: String!
 }
 
@@ -404,6 +430,11 @@ type RuleFactValue {
   key: String!
   numericValue: String
   operator: String!
+
+  """
+  The rule version this fact was read from. A place's answer takes what its own rule does not change from the wider places' rules, so one answer's facts can come from several versions, each with its own source and verified date.
+  """
+  ruleVersionId: String!
   textValue: String
   unit: String
 }

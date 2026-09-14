@@ -22,12 +22,21 @@ export class RuleFactValue {
   @Field(() => String, { nullable: true }) textValue!: string | null
   @Field(() => String, { nullable: true }) unit!: string | null
   @Field(() => String, { nullable: true }) currency!: string | null
+
+  @Field(() => String, {
+    description:
+      "The rule version this fact was read from. A place's answer takes what its own rule does not change from the wider places' rules, so one answer's facts can come from several versions, each with its own source and verified date.",
+  })
+  ruleVersionId!: string
 }
 
 @ObjectType()
 export class ResolvedRule {
   @Field(() => String) obligationSlug!: string
-  @Field(() => String) ruleVersionId!: string
+
+  @Field(() => String, { description: 'The most specific rule version that applies to this person. Each fact names the version it came from.' })
+  ruleVersionId!: string
+
   @Field(() => [RuleFactValue]) facts!: readonly RuleFactValue[]
 }
 

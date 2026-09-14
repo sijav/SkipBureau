@@ -147,19 +147,41 @@ and family status can be added later without migrating every rule. A version
 with no criteria applies to everyone.
 
 **Where the reader lives and where they work are criteria too** (SB-168):
-`residenceRegion` and `workRegion`, valued by an ISO 3166-2 code such as
-`DE-SN`, so Hamburg's registration fee and Saxony's care insurance split, which
-follows the place of employment rather than residence, are versions like any
-other. A profile carries a list of each, one region per country, so a move holds
-one on each side. Two regions of one country in a list, or a code that is no
-region, is refused as the caller's mistake rather than reported as an
-ambiguity. Only first-level divisions exist, a decision recorded in
-PHASE-NEXT.md, and where a transaction happens is SB-177.
+`residenceRegion` and `workRegion`, valued by a region's code such as `DE-SN`,
+so Hamburg's registration fee and Saxony's care insurance split, which follows
+the place of employment rather than residence, are versions like any other. A
+profile carries a list of each, one region per country, so a move between
+countries holds one on each side. Two regions of one country in a list, or a
+code that is no region, is refused as the caller's mistake rather than reported
+as an ambiguity. Where a transaction happens is SB-177.
 
-Specificity is **set inclusion, not a count**. A rule for EU nationals and a
-rule for students each have one criterion and neither is more specific than the
-other, so both survive and the answer is **`needsReview`**, naming the versions
-that clash.
+**A region is a place at any level, and a narrower place states only what
+differs there** (SB-186, the owner's order of 2026-09-14). A province or state
+has its ISO 3166-2 code; a city or an area inside it has a readable key under
+its parent's, `TR-34.kadikoy`, and names the place it is inside, with the
+state's own identifier beside it where one exists. The key is the product's and
+never changes: a merger, a split or a move is a new place, and its rules new
+versions. A rule for a place applies to a reader anywhere inside it, and one for
+a place inside the reader's is open until they say where they are. The winning
+version takes every fact it does not state from the versions it narrows by place
+alone, those with exactly its other criteria whose places are its own or ones
+they are inside, the most specific first. So a city's version holds its own fee,
+deadline or office and nothing else. `none` is stated, so a city with no fee is
+not handed the country's; a version for EU nationals inherits nothing from the
+national one; and two versions on that chain that state a key differently where
+neither covers the other, one for where the reader lives and one for where they
+work, come back `needsReview` rather than ranked. Every fact names the version
+it came from, since each has its own source and verified date. A move within
+one country gives each side its own places, `fromResidenceRegions` and
+`toResidenceRegions`, so Istanbul to Bursa compares two Turkish answers. What a
+reader is shown of their place is SB-154: in the details, never on the first
+page, and never a list of provinces once they have said where they are going.
+
+Specificity is **set inclusion, not a count**, with a place standing in for
+every place it is inside, so a city's version is more specific than its
+province's. A rule for EU nationals and a rule for students each have one
+criterion and neither is more specific than the other, so both survive and the
+answer is **`needsReview`**, naming the versions that clash.
 
 **That refusal is the same decision the Ask section already made.** This
 product does not guess at a rule a reader will act on. Picking one of two
@@ -171,9 +193,9 @@ the version is open on it. Where an open version could change what the reader
 is told, the answer is **`needsDetail`**, naming the details in `needs`, and no
 provisional rule is given beside it. A reader who has not said where they work
 is not told the national care insurance split when Saxony's might be theirs.
-With no applicable rule every open version counts; with one, unless its facts
-are the same; with a tie, only a version covering every tied rule, because
-nothing else could settle it. An ambiguity stays `needsReview` and still carries
+With no applicable rule every open version counts; with one, unless the two,
+each completed from the places it narrows, would say the same; with a tie, only
+a version covering every tied rule, because nothing else could settle it. An ambiguity stays `needsReview` and still carries
 `needs`, so a caller reading only the verdict never loses it. This is what lets
 the context control ask only when it changes the answer.
 

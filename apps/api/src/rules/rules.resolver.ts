@@ -15,14 +15,20 @@ const asInputError = (error: unknown): never => {
   throw error
 }
 
-const RESIDENCE = 'Where this person lives: ISO 3166-2 region codes such as DE-SN, one per country, so a move can carry one on each side.'
+const RESIDENCE =
+  'Where this person lives: region codes, one per country, so a move between countries can carry one on each side. A province or state by its ISO 3166-2 code such as TR-34, or a place inside one by its key such as TR-34.kadikoy.'
 const WORK = 'Where this person works, the same way. Some rules follow the place of work rather than where a person lives.'
+const FROM_RESIDENCE =
+  'Where this person lives before the move, in place of residenceRegions on that side. Left out, residenceRegions applies; an empty list says nowhere. This is how a move within one country names both places.'
+const TO_RESIDENCE = 'Where this person will live after the move, in place of residenceRegions on that side, the same way.'
+const FROM_WORK = 'Where this person works before the move, in place of workRegions on that side, the same way.'
+const TO_WORK = 'Where this person will work after the move, in place of workRegions on that side, the same way.'
 
 @Resolver(() => DiffEntry)
 export class RulesResolver {
   constructor(private readonly rules: RulesService) {}
 
-  @Query(() => [DiffEntry], { description: 'What changes for this person on moving between two countries.' })
+  @Query(() => [DiffEntry], { description: 'What changes for this person on moving between two countries, or between two places in one.' })
   async move(
     @Args('from', { type: () => String }) from: string,
     @Args('to', { type: () => String }) to: string,
@@ -31,9 +37,31 @@ export class RulesResolver {
     @Args('at', { type: () => String, nullable: true }) at?: string,
     @Args('residenceRegions', { type: () => [String], nullable: true, description: RESIDENCE }) residenceRegions?: string[],
     @Args('workRegions', { type: () => [String], nullable: true, description: WORK }) workRegions?: string[],
+    @Args('fromResidenceRegions', { type: () => [String], nullable: true, description: FROM_RESIDENCE }) fromResidenceRegions?: string[] | null,
+    @Args('toResidenceRegions', { type: () => [String], nullable: true, description: TO_RESIDENCE }) toResidenceRegions?: string[] | null,
+    @Args('fromWorkRegions', { type: () => [String], nullable: true, description: FROM_WORK }) fromWorkRegions?: string[] | null,
+    @Args('toWorkRegions', { type: () => [String], nullable: true, description: TO_WORK }) toWorkRegions?: string[] | null,
   ): Promise<DiffEntry[]> {
+    // GraphQL tells a list left out from one given as null. Left out, a side
+    // takes the shared list, and an empty list says nowhere; null says neither,
+    // so it is the caller's mistake (SB-186).
+    const sides = { fromResidenceRegions, toResidenceRegions, fromWorkRegions, toWorkRegions }
+    const nulls = Object.entries(sides)
+      .filter(([, list]) => list === null)
+      .map(([name]) => name)
+    if (nulls.length > 0) {
+      throw new GraphQLError(`${nulls.join(', ')} cannot be null: leave a list out to use the shared one, or give an empty list for nowhere.`, {
+        extensions: { code: 'BAD_USER_INPUT' },
+      })
+    }
+
+    const person = { nationality, situation }
     return this.rules
-      .move(from, to, { nationality, situation, residenceRegions, workRegions }, at ? new Date(at) : new Date())
+      .move(
+        { country: from, profile: { ...person, residenceRegions: fromResidenceRegions ?? residenceRegions, workRegions: fromWorkRegions ?? workRegions } },
+        { country: to, profile: { ...person, residenceRegions: toResidenceRegions ?? residenceRegions, workRegions: toWorkRegions ?? workRegions } },
+        at ? new Date(at) : new Date(),
+      )
       .catch(asInputError)
   }
 

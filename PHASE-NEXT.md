@@ -120,3 +120,37 @@ None of them is a researched rule waiting to be stored today. **When one is:**
 give `Region` a nullable parent, which rewrites no rule history, and decide the
 municipal identifiers and which connection each charge follows, which is the
 real work. Where a transaction happens is a separate question, SB-177.
+
+## Places below the first level exist only where a rule names them
+
+**Decided 2026-09-14**, building SB-186 from the owner's order of that day.
+
+A city or an area is a `Region` row with a parent, added with the researched
+rule that names it and not before, so no country's districts are loaded
+wholesale. Its key is the product's own, a readable path under the ISO 3166-2
+code of its province or state, and never changes: a rename changes the name,
+and a merger, a split or a move under another parent is a new place, with the
+rules that follow it recorded as new versions. Nothing parses a key; the tree
+follows `parentCode`, so a key that breaks the pattern is an editor's slip and
+not a wrong answer. The state's own identifier, where one exists, is
+`officialCode`, an attribute rather than the identity, because official
+registers are reissued through territorial changes.
+
+A place a rule names, itself or through a place inside it, keeps its code, its
+country and its parent, a draft's rule included, as SB-168 decided for a code.
+A mistake in the tree under a draft is corrected by removing the draft first.
+
+A change to a country's tree and a rule naming one of its places wait for each
+other through one lock per country, exclusive for the change and shared for the
+rule. Two transactions that each write a rule naming a place and then change the
+tree of that country can deadlock; PostgreSQL aborts one, and it has to be
+retried. Accepted, because editing places and rules together is an editor's
+occasional batch rather than a reader's request, and a refused write is honest
+where a tree changed under a recorded rule is not. The locks are shown taken on
+PGlite, which runs one session, and not shown making two sessions wait.
+
+A guide still shows the national rule. What a reader sees for their own place
+is SB-154, and where a transaction happens is still SB-177.
+
+**Undo it** by loading a country's places wholesale, the day a place picker
+needs every district to choose from.

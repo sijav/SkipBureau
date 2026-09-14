@@ -7,10 +7,17 @@ export type Fact = {
   textValue: string | null
   unit: string | null
   currency: string | null
+  /**
+   * The version this fact was read from. A place's answer takes what its own
+   * version does not change from the wider places' versions, each with its own
+   * source and verified date (SB-186).
+   */
+  ruleVersionId: string
 }
 
 export type Resolved = {
   obligationSlug: string
+  /** The most specific version that applies; each fact names the version it came from. */
   ruleVersionId: string
   facts: readonly Fact[]
 }
@@ -54,7 +61,8 @@ export type Entry = {
   needs: readonly Detail[]
 }
 
-const sameFact = (a: Fact, b: Fact): boolean =>
+/** The same value, whichever version it was read from. */
+export const sameFact = (a: Fact, b: Fact): boolean =>
   a.operator === b.operator &&
   a.numericValue === b.numericValue &&
   a.textValue === b.textValue &&
