@@ -286,7 +286,23 @@ type Query {
   categoryHub(country: String!, goal: String!, locale: String = "en-US", slug: String!): CategoryHubView
 
   """What changed in one country between two dates, for this person."""
-  changes(country: String!, nationality: String, since: String!, situation: String, until: String!): [DiffEntry!]!
+  changes(
+    country: String!
+    nationality: String
+
+    """
+    Where this person lives: ISO 3166-2 region codes such as DE-SN, one per country, so a move can carry one on each side.
+    """
+    residenceRegions: [String!]
+    since: String!
+    situation: String
+    until: String!
+
+    """
+    Where this person works, the same way. Some rules follow the place of work rather than where a person lives.
+    """
+    workRegions: [String!]
+  ): [DiffEntry!]!
 
   """Every country SkipBureau covers."""
   countries(locale: String = "en-US"): [Country!]!
@@ -304,7 +320,23 @@ type Query {
   health: Boolean!
 
   """What changes for this person on moving between two countries."""
-  move(at: String, from: String!, nationality: String, situation: String, to: String!): [DiffEntry!]!
+  move(
+    at: String
+    from: String!
+    nationality: String
+
+    """
+    Where this person lives: ISO 3166-2 region codes such as DE-SN, one per country, so a move can carry one on each side.
+    """
+    residenceRegions: [String!]
+    situation: String
+    to: String!
+
+    """
+    Where this person works, the same way. Some rules follow the place of work rather than where a person lives.
+    """
+    workRegions: [String!]
+  ): [DiffEntry!]!
 
   """Common questions in one country, each with its short answer."""
   questions(country: String!, locale: String = "en-US"): [QuestionView!]!

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../prisma/prisma.service.js'
 import { compare, type Entry, type Fact, type Side } from './diff.js'
-import { matchesProfile, mostSpecific, type Criterion, type Profile } from './eligibility.js'
+import { matchesProfile, mostSpecific, RegionProfileError, regionsInConflict, type Criterion, type Profile } from './eligibility.js'
 import { inForceAt } from './selection.js'
 
 @Injectable()
@@ -25,6 +25,29 @@ export class RulesService {
   }
 
   /**
+   * Refuses regions a profile cannot hold, before anything is resolved: two of
+   * one country in the same list, or a code that is not a region. Here rather
+   * than in the resolver, so that every caller is refused the same way.
+   */
+  private async checkRegions(profile: Profile): Promise<void> {
+    const conflicting = regionsInConflict(profile)
+    if (conflicting.length > 0) {
+      throw new RegionProfileError(
+        conflicting,
+        `Only one region per country can be where a reader lives, and one where they work: ${conflicting.join(', ')}.`,
+      )
+    }
+
+    const codes = [...new Set([...(profile.residenceRegions ?? []), ...(profile.workRegions ?? [])])]
+    if (codes.length === 0) return
+
+    const regions = await this.prisma.region.findMany({ where: { code: { in: codes } }, select: { code: true } })
+    const known = new Set(regions.map((region) => region.code))
+    const unknown = codes.filter((code) => !known.has(code))
+    if (unknown.length > 0) throw new RegionProfileError(unknown, `Not a region: ${unknown.join(', ')}.`)
+  }
+
+  /**
    * Exactly one rule per obligation, or a note that a person has to decide.
    *
    * Half open on the dates: a version ending on the first and another starting
@@ -32,6 +55,12 @@ export class RulesService {
    * gets wrong.
    */
   async resolve(countryCode: string, profile: Profile, at: Date): Promise<Map<string, Side>> {
+    await this.checkRegions(profile)
+    return this.resolveChecked(countryCode, profile, at)
+  }
+
+  /** `resolve` for a profile already checked, so a caller resolving twice checks once. */
+  private async resolveChecked(countryCode: string, profile: Profile, at: Date): Promise<Map<string, Side>> {
     const groups = await this.groupsAt(profile.nationality, at)
 
     const versions = await this.prisma.ruleVersion.findMany({
@@ -94,7 +123,8 @@ export class RulesService {
 
   /** What changes for this person on moving from one country to another. */
   async move(from: string, to: string, profile: Profile, at: Date): Promise<Entry[]> {
-    const [origin, destination] = await Promise.all([this.resolve(from, profile, at), this.resolve(to, profile, at)])
+    await this.checkRegions(profile)
+    const [origin, destination] = await Promise.all([this.resolveChecked(from, profile, at), this.resolveChecked(to, profile, at)])
     return compare(origin, destination)
   }
 
@@ -105,9 +135,10 @@ export class RulesService {
    * reason a change is a new row rather than an edit.
    */
   async changes(countryCode: string, profile: Profile, since: Date, until: Date): Promise<Entry[]> {
+    await this.checkRegions(profile)
     const [before, after] = await Promise.all([
-      this.resolve(countryCode, profile, since),
-      this.resolve(countryCode, profile, until),
+      this.resolveChecked(countryCode, profile, since),
+      this.resolveChecked(countryCode, profile, until),
     ])
     return compare(before, after)
   }

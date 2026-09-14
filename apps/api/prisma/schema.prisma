@@ -24,6 +24,7 @@ model Country {
   guides     Guide[]
   questions  Question[]
   texts      CountryText[]
+  regions    Region[]
 }
 
 enum ObligationKind {
@@ -139,6 +140,10 @@ enum EligibilityDimension {
   nationality
   nationalityGroup
   situation
+  // Where the reader lives, and where they work, each valued by a Region code
+  // (SB-168). Saxony's care insurance split follows work, not residence.
+  residenceRegion
+  workRegion
 }
 
 /// Who a rule applies to, as child rows rather than nullable columns.
@@ -497,6 +502,34 @@ model CountryText {
   country     Country @relation(fields: [countryCode], references: [code], onDelete: Cascade)
 
   @@id([countryCode, locale])
+}
+
+/// A first-level division of a country: a German Land, a Turkish province.
+///
+/// A rule reaches one through an eligibility criterion, `residenceRegion` or
+/// `workRegion`, valued by this code. Codes are ISO 3166-2, `DE-SN` or `TR-35`,
+/// so a code names its country. Nothing below the first level: see
+/// PHASE-NEXT.md. The criterion's value is a plain string that no foreign key
+/// can reach, so triggers refuse a criterion naming a region of another country
+/// or none, and refuse deleting or recoding a region a criterion names (SB-168).
+model Region {
+  code        String       @id @db.VarChar(6)
+  countryCode String       @db.VarChar(2)
+  name        String
+  country     Country      @relation(fields: [countryCode], references: [code], onDelete: Cascade)
+  texts       RegionText[]
+
+  @@index([countryCode])
+}
+
+/// A region's name in one language, like `CountryText`.
+model RegionText {
+  regionCode String @db.VarChar(6)
+  locale     String @db.VarChar(5)
+  name       String
+  region     Region @relation(fields: [regionCode], references: [code], onDelete: Cascade)
+
+  @@id([regionCode, locale])
 }
 
 /// A category hub's checklist line, Figma 132:537. Ticking it is a reading aid

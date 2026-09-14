@@ -146,6 +146,16 @@ Eligibility is child rows, not nullable columns, so age, income, length of stay
 and family status can be added later without migrating every rule. A version
 with no criteria applies to everyone.
 
+**Where the reader lives and where they work are criteria too** (SB-168):
+`residenceRegion` and `workRegion`, valued by an ISO 3166-2 code such as
+`DE-SN`, so Hamburg's registration fee and Saxony's care insurance split, which
+follows the place of employment rather than residence, are versions like any
+other. A profile carries a list of each, one region per country, so a move holds
+one on each side. Two regions of one country in a list, or a code that is no
+region, is refused as the caller's mistake rather than reported as an
+ambiguity. Only first-level divisions exist, a decision recorded in
+PHASE-NEXT.md, and where a transaction happens is SB-177.
+
 Specificity is **set inclusion, not a count**. A rule for EU nationals and a
 rule for students each have one criterion and neither is more specific than the
 other, so both survive and the answer is **`needsReview`**, naming the versions

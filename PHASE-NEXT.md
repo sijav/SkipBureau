@@ -98,3 +98,19 @@ it exists. Until then an editor reads the table directly.
 The same applies to what the text is trusted to be. A change is stored exactly
 as typed, which is right for storage; escaping belongs where it is displayed,
 and nothing displays it yet.
+
+## A region is a country's first-level division, and nothing below it
+
+**Decided 2026-09-14**, building SB-168.
+
+A rule can belong to a region: a German Land or a Turkish province, named by its
+ISO 3166-2 code and reached through where the reader lives or where they work.
+Nothing below that level has a row. Germany sets some charges a newcomer meets
+by municipality, the trade tax multiplier, dog tax and second home tax among
+them, and Turkish municipalities administer licences and fees, so none of those
+can be stored as a rule yet.
+
+None of them is a researched rule waiting to be stored today. **When one is:**
+give `Region` a nullable parent, which rewrites no rule history, and decide the
+municipal identifiers and which connection each charge follows, which is the
+real work. Where a transaction happens is a separate question, SB-177.

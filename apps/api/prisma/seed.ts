@@ -10,6 +10,9 @@ import { seedContent } from '../src/sample-content.js'
  * check the page that day. It exists so the diff has something non-trivial to
  * work on. Nothing here should reach a reader until an editor has been through
  * it, which is what the moderation queue is for.
+ *
+ * The care insurance rules at the end of RULES are the exception: they come
+ * from the SB-167 research and carry the day it was read.
  */
 
 const VERIFIED = new Date('2026-09-10')
@@ -39,7 +42,9 @@ type RuleInput = {
   validTo?: Date
   sourceUrl: string
   sourceName: string
-  criteria?: { dimension: 'nationality' | 'nationalityGroup' | 'situation'; value: string }[]
+  /** The day the source was actually read, where it was. Otherwise VERIFIED. */
+  verifiedAt?: Date
+  criteria?: { dimension: 'nationality' | 'nationalityGroup' | 'situation' | 'residenceRegion' | 'workRegion'; value: string }[]
   facts: FactInput[]
   notes: { en: string; fa: string }
 }
@@ -50,7 +55,24 @@ const OBLIGATIONS: { slug: string; kind: 'registration' | 'permit' | 'insurance'
   { slug: 'hold-health-insurance', kind: 'insurance', en: 'Hold health insurance', fa: 'داشتن بیمه درمانی' },
   { slug: 'get-a-tax-number', kind: 'tax', en: 'Get a tax number', fa: 'دریافت شماره مالیاتی' },
   { slug: 'open-a-blocked-account', kind: 'document', en: 'Open a blocked account', fa: 'افتتاح حساب مسدود' },
+  { slug: 'pay-care-insurance', kind: 'insurance', en: 'Pay care insurance contributions', fa: 'پرداخت حق بیمه مراقبت' },
 ]
+
+// The Länder the SB-167 research names, by ISO 3166-2 code. First-level
+// divisions only (PHASE-NEXT.md), and only these until an editor adds the rest.
+const REGIONS: { code: string; country: string; en: string; fa: string }[] = [
+  { code: 'DE-BB', country: 'de', en: 'Brandenburg', fa: 'براندنبورگ' },
+  { code: 'DE-BE', country: 'de', en: 'Berlin', fa: 'برلین' },
+  { code: 'DE-BW', country: 'de', en: 'Baden-Württemberg', fa: 'بادن-وورتمبرگ' },
+  { code: 'DE-BY', country: 'de', en: 'Bavaria', fa: 'بایرن' },
+  { code: 'DE-HE', country: 'de', en: 'Hesse', fa: 'هسن' },
+  { code: 'DE-HH', country: 'de', en: 'Hamburg', fa: 'هامبورگ' },
+  { code: 'DE-NW', country: 'de', en: 'North Rhine-Westphalia', fa: 'نوردراین-وستفالن' },
+  { code: 'DE-SN', country: 'de', en: 'Saxony', fa: 'ساکسونی' },
+]
+
+// When research/agreed/germany/health-insurance.md was read.
+const CARE_CHECKED = new Date('2026-09-12')
 
 const RULES: RuleInput[] = [
   {
@@ -162,6 +184,43 @@ const RULES: RuleInput[] = [
       fa: 'برای ویزای دانشجویی، حساب مسدود با هزینه زندگی یک سال لازم است.',
     },
   },
+  // In force from the day the research read them, not from whenever the rate
+  // was set: it established the split, not its history, and a version dated
+  // earlier would answer a question about 2024 with a figure nobody checked.
+  {
+    country: 'de',
+    obligation: 'pay-care-insurance',
+    validFrom: CARE_CHECKED,
+    verifiedAt: CARE_CHECKED,
+    sourceUrl: 'https://www.gesetze-im-internet.de/sgb_11/__58.html',
+    sourceName: 'Sozialgesetzbuch XI, § 58',
+    facts: [
+      { key: 'employeeShare', numericValue: 1.8, unit: 'percent' },
+      { key: 'employerShare', numericValue: 1.8, unit: 'percent' },
+    ],
+    notes: {
+      en: 'The standard care insurance contribution of 3.6% is split equally between employee and employer, before child-related adjustments and special rules such as midijobs.',
+      fa: 'حق بیمه مراقبت استاندارد ۳٫۶ درصد است و پیش از تعدیل‌های مربوط به فرزند و قواعد ویژه‌ای مانند میدی‌جاب، به‌طور برابر میان کارمند و کارفرما تقسیم می‌شود.',
+    },
+  },
+  {
+    country: 'de',
+    obligation: 'pay-care-insurance',
+    // Where the employment is, not where the employee lives.
+    criteria: [{ dimension: 'workRegion', value: 'DE-SN' }],
+    validFrom: CARE_CHECKED,
+    verifiedAt: CARE_CHECKED,
+    sourceUrl: 'https://www.gesetze-im-internet.de/sgb_11/__58.html',
+    sourceName: 'Sozialgesetzbuch XI, § 58',
+    facts: [
+      { key: 'employeeShare', numericValue: 2.3, unit: 'percent' },
+      { key: 'employerShare', numericValue: 1.3, unit: 'percent' },
+    ],
+    notes: {
+      en: 'For employment located in Saxony the split is 2.3% employee and 1.3% employer, before child-related adjustments. It follows where the employment is, not where the employee lives.',
+      fa: 'برای اشتغال در ساکسونی، سهم کارمند ۲٫۳ درصد و سهم کارفرما ۱٫۳ درصد است، پیش از تعدیل‌های مربوط به فرزند. ملاک محل اشتغال است، نه محل سکونت کارمند.',
+    },
+  },
 ]
 
 export const seed = async (prisma = client()): Promise<void> => {
@@ -173,18 +232,34 @@ export const seed = async (prisma = client()): Promise<void> => {
     skipDuplicates: true,
   })
 
+  // Before any rule, because a trigger refuses a criterion naming a region that
+  // is not there.
+  await prisma.region.createMany({
+    data: REGIONS.map((region) => ({ code: region.code, countryCode: region.country, name: region.en })),
+    skipDuplicates: true,
+  })
+  await prisma.regionText.createMany({
+    data: REGIONS.flatMap((region) => [
+      { regionCode: region.code, locale: 'en-US', name: region.en },
+      { regionCode: region.code, locale: 'fa-IR', name: region.fa },
+    ]),
+    skipDuplicates: true,
+  })
+
   await prisma.nationalityGroup.createMany({ data: [{ code: 'eu', name: 'European Union' }], skipDuplicates: true })
 
   // Dated, because which countries were in a group in 2019 is not which are
   // today, and a historical question must not be answered with today's groups.
-  await prisma.nationalityGroupMember.createMany({
-    data: [
-      { groupCode: 'eu', nationality: 'de', validFrom: FOREVER_AGO },
-      { groupCode: 'eu', nationality: 'fr', validFrom: FOREVER_AGO },
-      { groupCode: 'eu', nationality: 'gb', validFrom: new Date('2000-01-01'), validTo: new Date('2020-02-01') },
-    ],
-    skipDuplicates: true,
-  })
+  // Looked for one at a time: a membership has no unique key for skipDuplicates
+  // to skip on, so a second run used to add all three again.
+  for (const membership of [
+    { groupCode: 'eu', nationality: 'de', validFrom: FOREVER_AGO, validTo: null },
+    { groupCode: 'eu', nationality: 'fr', validFrom: FOREVER_AGO, validTo: null },
+    { groupCode: 'eu', nationality: 'gb', validFrom: new Date('2000-01-01'), validTo: new Date('2020-02-01') },
+  ]) {
+    const known = await prisma.nationalityGroupMember.findFirst({ where: membership, select: { id: true } })
+    if (!known) await prisma.nationalityGroupMember.create({ data: membership })
+  }
 
   for (const obligation of OBLIGATIONS) {
     const row = await prisma.obligation.upsert({
@@ -209,9 +284,21 @@ export const seed = async (prisma = client()): Promise<void> => {
     const obligation = await prisma.obligation.findUniqueOrThrow({ where: { slug: rule.obligation } })
 
     // Versions are append-only and a trigger refuses an overlapping one, so a
-    // second run would stop here. Each country and obligation is seeded once;
+    // second run would stop here. Each country, obligation and set of criteria
+    // is seeded once, so a regional version can sit beside the national one;
     // after that the versions are an editor's to add, never the seed's.
-    const seeded = await prisma.ruleVersion.findFirst({ where: { countryCode: rule.country, obligationId: obligation.id }, select: { id: true } })
+    const criteria = rule.criteria ?? []
+    const existing = await prisma.ruleVersion.findMany({
+      where: { countryCode: rule.country, obligationId: obligation.id },
+      select: { criteria: { select: { dimension: true, value: true } } },
+    })
+    // A version's criteria are unique per dimension and value, so the same size
+    // with every wanted one present is the same set, the empty set included.
+    const seeded = existing.some(
+      (version) =>
+        version.criteria.length === criteria.length &&
+        criteria.every((wanted) => version.criteria.some((had) => had.dimension === wanted.dimension && had.value === wanted.value)),
+    )
     if (seeded) continue
 
     await prisma.ruleVersion.create({
@@ -222,8 +309,8 @@ export const seed = async (prisma = client()): Promise<void> => {
         validTo: rule.validTo ?? null,
         sourceUrl: rule.sourceUrl,
         sourceName: rule.sourceName,
-        verifiedAt: VERIFIED,
-        criteria: { create: rule.criteria ?? [] },
+        verifiedAt: rule.verifiedAt ?? VERIFIED,
+        criteria: { create: criteria },
         facts: {
           create: rule.facts.map((fact) => ({
             key: fact.key,
