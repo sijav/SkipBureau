@@ -1,14 +1,14 @@
 import { Prisma, type PrismaClient } from '../../generated/prisma/client.js'
-import type { ResearchFact, ResearchRules, ResearchSource, ResearchVersion } from './rows.js'
+import type { ResearchFact, ResearchMembership, ResearchRules, ResearchSource, ResearchVersion } from './rows.js'
 
 /** What a load added; everything else was already there. */
-export type LoadReport = { statusesAdded: number; obligationsAdded: number; versionsAdded: number }
+export type LoadReport = { statusesAdded: number; groupsAdded: number; membershipsAdded: number; obligationsAdded: number; versionsAdded: number }
 
 /**
- * A deployed researched version, or a residence status the file names, that no
- * longer says what the file says. The load stops rather than write over history
- * or leave the database quietly different from the repository: a changed rule
- * is a new version (SB-202).
+ * A deployed researched version, a residence status or a nationality group's
+ * membership the file names, that no longer says what the file says. The load
+ * stops rather than write over history or leave the database quietly different
+ * from the repository: a changed rule is a new version (SB-202).
  */
 export class ResearchRulesMismatch extends Error {
   constructor(message: string) {
@@ -39,6 +39,8 @@ const pageOf = (rules: ResearchRules, key: string, what: string): ResearchSource
 }
 
 const placeOf = (country: string, parent: string | null): string => (parent === null ? `in ${country} with nothing above it` : `in ${country} inside ${parent}`)
+
+const heldUntil = (until: string | null): string => (until === null ? 'open' : `until ${until}`)
 
 const factRow = (fact: ResearchFact, rules: ResearchRules, what: string) => {
   const page = pageOf(rules, fact.source, what)
@@ -87,8 +89,8 @@ const differenceOf = (stored: Stored, version: ResearchVersion, rules: ResearchR
 
 /**
  * One country's researched rules, written through the transaction client it
- * is given, fill-only and append-only, its residence statuses first and in the
- * file's order so its versions' criteria can name them. It takes the research
+ * is given, fill-only and append-only, its residence statuses and nationality
+ * groups first so its versions' criteria can name them. It takes the research
  * lock first and uses that client for every read and write, never the base
  * one, so the caller's transaction is what the lock protects.
  */
@@ -117,6 +119,45 @@ export const loadInto = async (tx: Prisma.TransactionClient, rules: ResearchRule
       ],
       skipDuplicates: true,
     })
+  }
+
+  // A group the file declares is the file's: its deployed memberships are
+  // compared one to one with the file's, never changed, and only a missing one
+  // is added. A membership has no unique key, so two identical deployed rows are
+  // two memberships, and the second is one the file does not list (SB-192).
+  let groupsAdded = 0
+  let membershipsAdded = 0
+  for (const group of rules.nationalityGroups) {
+    if (!(await tx.nationalityGroup.findUnique({ where: { code: group.code } }))) {
+      await tx.nationalityGroup.create({ data: { code: group.code, name: group.name } })
+      groupsAdded += 1
+    }
+
+    const unmatched = await tx.nationalityGroupMember.findMany({ where: { groupCode: group.code }, orderBy: { id: 'asc' } })
+    const missing: ResearchMembership[] = []
+    for (const member of group.members) {
+      const at = unmatched.findIndex((row) => row.nationality === member.nationality && iso(row.validFrom) === member.from)
+      const row = at === -1 ? undefined : unmatched.splice(at, 1)[0]
+      if (!row) {
+        missing.push(member)
+      } else if ((row.validTo === null ? null : iso(row.validTo)) !== (member.until ?? null)) {
+        throw new ResearchRulesMismatch(
+          `Nationality group ${group.code} has ${member.nationality} from ${member.from} deployed ${heldUntil(row.validTo === null ? null : iso(row.validTo))}, and src/rules/research has it ${heldUntil(member.until ?? null)}. A membership is history: record a change as a new dated fact (SB-202).`,
+        )
+      }
+    }
+    const [extra] = unmatched
+    if (extra) {
+      throw new ResearchRulesMismatch(
+        `Nationality group ${group.code} has ${extra.nationality} from ${iso(extra.validFrom)} deployed, which src/rules/research does not list. A membership is history: record a change as a new dated fact (SB-202).`,
+      )
+    }
+    for (const member of missing) {
+      await tx.nationalityGroupMember.create({
+        data: { groupCode: group.code, nationality: member.nationality, validFrom: day(member.from), validTo: member.until ? day(member.until) : null },
+      })
+      membershipsAdded += 1
+    }
   }
 
   let obligationsAdded = 0
@@ -171,7 +212,7 @@ export const loadInto = async (tx: Prisma.TransactionClient, rules: ResearchRule
     versionsAdded += 1
   }
 
-  return { statusesAdded, obligationsAdded, versionsAdded }
+  return { statusesAdded, groupsAdded, membershipsAdded, obligationsAdded, versionsAdded }
 }
 
 /** Every country's researched rules, in one transaction under the research lock, as a deploy loads them. */
@@ -179,10 +220,12 @@ export const loadResearchRules = async (prisma: PrismaClient, countries: readonl
   try {
     return await prisma.$transaction(
       async (tx) => {
-        const report: LoadReport = { statusesAdded: 0, obligationsAdded: 0, versionsAdded: 0 }
+        const report: LoadReport = { statusesAdded: 0, groupsAdded: 0, membershipsAdded: 0, obligationsAdded: 0, versionsAdded: 0 }
         for (const rules of countries) {
           const added = await loadInto(tx, rules)
           report.statusesAdded += added.statusesAdded
+          report.groupsAdded += added.groupsAdded
+          report.membershipsAdded += added.membershipsAdded
           report.obligationsAdded += added.obligationsAdded
           report.versionsAdded += added.versionsAdded
         }

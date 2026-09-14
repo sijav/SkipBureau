@@ -11,7 +11,7 @@ import { afterAll, beforeAll, expect, test } from 'vitest'
 import { AppModule } from '../src/app.module.js'
 import { PrismaService } from '../src/prisma/prisma.service.js'
 import { loadInto, loadResearchRules, ResearchRulesMismatch } from '../src/rules/research/load.js'
-import type { ResearchRules, ResearchStatus } from '../src/rules/research/rows.js'
+import type { ResearchMembership, ResearchRules, ResearchStatus } from '../src/rules/research/rows.js'
 import { TURKEY } from '../src/rules/research/turkey.js'
 import { seed } from '../prisma/seed.js'
 import { startPglite } from '../scripts/pglite-server.mjs'
@@ -21,6 +21,7 @@ import { startPglite } from '../scripts/pglite-server.mjs'
 // and a load is fill-only, append-only and serialised under one lock. SB-194:
 // the residence statuses a file names are written first, in its order, and a
 // deployed one is never moved. SB-209: an answer carries its rule's notes.
+// SB-192: a nationality group the file declares keeps the memberships it says.
 
 const API = join(dirname(fileURLToPath(import.meta.url)), '..')
 const PORT = 5468
@@ -78,18 +79,23 @@ test('every researched version and fact rests on verified definitions of its own
   let checked = 0
   for (const rules of COUNTRIES) {
     for (const version of rules.versions) {
-      const definitions = definitionsOf(rules.research, version.document)
       const uses = [
-        { what: `${rules.country} ${version.obligation}`, source: version.source, labels: version.labels },
-        ...version.facts.map((fact) => ({ what: `${rules.country} ${version.obligation}.${fact.key}`, source: fact.source, labels: fact.labels })),
+        { what: `${rules.country} ${version.obligation}`, document: version.document, source: version.source, labels: version.labels },
+        ...version.facts.map((fact) => ({
+          what: `${rules.country} ${version.obligation}.${fact.key}`,
+          document: fact.document ?? version.document,
+          source: fact.source,
+          labels: fact.labels,
+        })),
       ]
       for (const use of uses) {
+        const definitions = definitionsOf(rules.research, use.document)
         const page = rules.sources[use.source]
         expect(page, `${use.what} names ${use.source}, which is not a source`).toBeDefined()
         expect(use.labels.length, `${use.what} names no definition`).toBeGreaterThan(0)
         for (const label of use.labels) {
           const definition = definitions.get(label)
-          expect(definition, `${use.what}: ${label} is not a definition in ${version.document}.md`).toBeDefined()
+          expect(definition, `${use.what}: ${label} is not a definition in ${use.document}.md`).toBeDefined()
           expect(definition?.status, `${use.what}: ${label} is ${definition?.status}, not verified`).toBe('verified')
           expect(definition?.url, `${use.what}: ${label} is on another page`).toBe(page?.url)
           expect(definition?.read, `${use.what}: ${label} was read on another day`).toBe(page?.read)
@@ -102,8 +108,8 @@ test('every researched version and fact rests on verified definitions of its own
 })
 
 const MOVE = `
-  query Move($residenceStatuses: [String!], $situation: String, $locale: String) {
-    move(from: "de", to: "tr", residenceStatuses: $residenceStatuses, situation: $situation, locale: $locale) {
+  query Move($residenceStatuses: [String!], $nationality: String, $situation: String, $locale: String) {
+    move(from: "de", to: "tr", residenceStatuses: $residenceStatuses, nationality: $nationality, situation: $situation, locale: $locale) {
       obligationSlug
       verdict
       needs
@@ -132,7 +138,7 @@ type Note = { ruleVersionId: string; text: string; locale: string; translationMi
 type Entry = { obligationSlug: string; verdict: string; needs: string[]; to: { facts: Shown[]; notes: Note[] } | null }
 
 /** What a reader has said about themselves, and the language they asked in. */
-type Asked = { residenceStatuses?: string[]; situation?: string; locale?: string }
+type Asked = { residenceStatuses?: string[]; nationality?: string; situation?: string; locale?: string }
 
 /** Turkey's answer for one obligation to a reader arriving from Germany, or undefined where no rule of it applies to them. */
 const entryFor = async (slug: string, asked: Asked = {}): Promise<Entry | undefined> => {
@@ -165,7 +171,13 @@ test("after a load, Turkey's limited company formation answers with every fact t
   const started = Date.now()
   const report = await loadResearchRules(prisma, COUNTRIES)
   console.log(`a full load of researched rules took ${Date.now() - started} ms`)
-  expect(report).toEqual({ statusesAdded: TURKEY.statuses.length, obligationsAdded: TURKEY.obligations.length, versionsAdded: TURKEY.versions.length })
+  expect(report).toEqual({
+    statusesAdded: TURKEY.statuses.length,
+    groupsAdded: TURKEY.nationalityGroups.length,
+    membershipsAdded: TURKEY.nationalityGroups.reduce((sum, group) => sum + group.members.length, 0),
+    obligationsAdded: TURKEY.obligations.length,
+    versionsAdded: TURKEY.versions.length,
+  })
 
   const formation = await entryFor('form-a-limited-company')
   expect(formation?.verdict).toBe('newInDestination')
@@ -176,10 +188,7 @@ test("after a load, Turkey's limited company formation answers with every fact t
 
 test("joining Turkey's general health insurance answers a residence permit holder, or a holder of a kind of one, with its five facts on their pages, asks a reader who has not said what they hold, and is never told to a visitor on a visa exemption", async () => {
   await prisma.residenceStatus.createMany({
-    data: [
-      { code: 'tr.residence-permit.student', countryCode: 'tr', parentCode: 'tr.residence-permit', name: 'Student residence permit' },
-      { code: 'tr.visa-exemption', countryCode: 'tr', parentCode: null, name: 'Visa exemption' },
-    ],
+    data: [{ code: 'tr.residence-permit.student', countryCode: 'tr', parentCode: 'tr.residence-permit', name: 'Student residence permit' }],
   })
   const expected = factsOf('join-general-health-insurance')
   expect(expected).toHaveLength(5)
@@ -191,7 +200,7 @@ test("joining Turkey's general health insurance answers a residence permit holde
   }
 
   expect(await entryFor('join-general-health-insurance')).toMatchObject({ verdict: 'needsDetail', needs: ['residenceStatus'], to: null })
-  expect(await entryFor('join-general-health-insurance', { residenceStatuses: ['tr.visa-exemption'] })).toBeUndefined()
+  expect(await entryFor('join-general-health-insurance', { residenceStatuses: ['tr.short-stay.visa-exemption'] })).toBeUndefined()
 })
 
 test("joining general health insurance carries its rule's notes in English, and asked in Persian says they are only in English", async () => {
@@ -235,10 +244,44 @@ test("a reader starting a company is told each duty that follows registration, i
   }
 })
 
+test('a reader on a visa or a visa exemption is told how to get a short-term residence permit, its figures on their pages and its condition first in its notes, a residence permit holder is not told it, and a reader who has not said is asked', async () => {
+  const slug = 'get-a-short-term-residence-permit'
+  const version = TURKEY.versions.find((candidate) => candidate.obligation === slug)
+  const expected = factsOf(slug)
+  expect(expected).toHaveLength(17)
+
+  for (const held of ['tr.short-stay.visa-exemption', 'tr.short-stay.visa']) {
+    const permit = await entryFor(slug, { residenceStatuses: [held] })
+    expect(permit?.verdict, held).toBe('newInDestination')
+    expect(permit?.to?.facts, held).toEqual(expected)
+    expect(permit?.to?.notes.map((note) => note.text), held).toEqual([version?.notes.en])
+    expect(permit?.to?.notes[0]?.text.startsWith('Only while your visa or visa-exempt stay is still valid'), held).toBe(true)
+  }
+
+  expect(await entryFor(slug, { residenceStatuses: ['tr.residence-permit'] })).toBeUndefined()
+  expect(await entryFor(slug)).toMatchObject({ verdict: 'needsDetail', needs: ['residenceStatus'], to: null })
+})
+
+test('a reader of a nationality the fee page exempts is told there is no permit charge, a reader of another is not told the charge, and a reader who has not said is asked', async () => {
+  const slug = 'pay-the-residence-permit-charge'
+  const version = TURKEY.versions.find((candidate) => candidate.obligation === slug)
+
+  const danish = await entryFor(slug, { nationality: 'dk' })
+  expect(danish?.verdict).toBe('newInDestination')
+  expect(danish?.to?.facts).toEqual(factsOf(slug))
+  expect(danish?.to?.facts.map((fact) => [fact.key, fact.operator])).toEqual([['charge', 'none']])
+  expect(danish?.to?.notes.map((note) => note.text)).toEqual([version?.notes.en])
+
+  expect(await entryFor(slug, { nationality: 'ir' })).toBeUndefined()
+  expect(await entryFor(slug)).toMatchObject({ verdict: 'needsDetail', needs: ['nationality'], to: null })
+})
+
 const counts = () =>
   Promise.all([
     prisma.residenceStatus.count(),
     prisma.residenceStatusText.count(),
+    prisma.nationalityGroup.count(),
+    prisma.nationalityGroupMember.count(),
     prisma.obligation.count(),
     prisma.obligationText.count(),
     prisma.ruleVersion.count(),
@@ -249,8 +292,44 @@ const counts = () =>
 
 test('a second load, and the seed run beside it, add nothing', async () => {
   const before = await counts()
-  expect(await loadResearchRules(prisma, COUNTRIES)).toEqual({ statusesAdded: 0, obligationsAdded: 0, versionsAdded: 0 })
+  expect(await loadResearchRules(prisma, COUNTRIES)).toEqual({ statusesAdded: 0, groupsAdded: 0, membershipsAdded: 0, obligationsAdded: 0, versionsAdded: 0 })
   await seed(prisma)
+  expect(await counts()).toEqual(before)
+})
+
+test('a group the file declares stops the load where its deployed memberships differ from the file, a member dropped, a member ended or an identical second membership, and the load writes nothing', async () => {
+  const [exempt] = TURKEY.nationalityGroups
+  if (!exempt) throw new Error("Turkey's file declares no nationality group")
+  const withMembers = (members: readonly ResearchMembership[]): ResearchRules => ({
+    ...TURKEY,
+    nationalityGroups: TURKEY.nationalityGroups.map((group) => (group.code === exempt.code ? { ...group, members } : group)),
+  })
+  const before = await counts()
+
+  const dropped = withMembers(exempt.members.filter((member) => member.nationality !== 'dk'))
+  await expect(loadResearchRules(prisma, [dropped])).rejects.toThrow(ResearchRulesMismatch)
+  await expect(loadResearchRules(prisma, [dropped])).rejects.toThrow(
+    /tr.residence-permit-charge-exempt has dk from 2026-09-14 deployed, which src\/rules\/research does not list/,
+  )
+
+  const ended = withMembers(exempt.members.map((member) => (member.nationality === 'dk' ? { ...member, until: '2027-01-01' } : member)))
+  await expect(loadResearchRules(prisma, [ended])).rejects.toThrow(
+    /tr.residence-permit-charge-exempt has dk from 2026-09-14 deployed open, and src\/rules\/research has it until 2027-01-01/,
+  )
+  expect(await counts()).toEqual(before)
+
+  // A membership that has started is history and cannot be removed, so the
+  // duplicate is written inside a transaction that is then rolled back.
+  const rollback = 'rolled back after the duplicate was refused'
+  await expect(
+    prisma.$transaction(async (tx) => {
+      await tx.nationalityGroupMember.create({ data: { groupCode: exempt.code, nationality: 'dk', validFrom: new Date('2026-09-14') } })
+      const withDuplicate = await Promise.all([tx.nationalityGroupMember.count(), tx.ruleVersion.count()])
+      await expect(loadInto(tx, TURKEY)).rejects.toThrow(/tr.residence-permit-charge-exempt has dk from 2026-09-14 deployed, which src\/rules\/research does not list/)
+      expect(await Promise.all([tx.nationalityGroupMember.count(), tx.ruleVersion.count()])).toEqual(withDuplicate)
+      throw new Error(rollback)
+    }),
+  ).rejects.toThrow(rollback)
   expect(await counts()).toEqual(before)
 })
 

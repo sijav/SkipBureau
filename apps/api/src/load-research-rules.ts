@@ -11,8 +11,8 @@ import { TURKEY } from './rules/research/turkey.js'
  * research, every fact tied to the page that states it. The sample rules in
  * seed.ts never run here. Idempotent and serialised with any other container
  * starting at the same time, so it runs on every start, and it stops the start
- * if a deployed version, or a residence status the file names, no longer
- * matches the file.
+ * if a deployed version, a residence status or a nationality group's membership
+ * the file names no longer matches the file.
  */
 const load = async (): Promise<void> => {
   const prisma = new PrismaClient({ adapter: new PrismaPg({ connectionString: databaseUrl() }) })
@@ -21,7 +21,7 @@ const load = async (): Promise<void> => {
   try {
     const report = await loadResearchRules(prisma, [TURKEY])
     console.log(
-      `research rules: ${report.statusesAdded} residence status(es), ${report.obligationsAdded} obligation(s) and ${report.versionsAdded} version(s) added in ${Date.now() - started} ms, the rest already present`,
+      `research rules: ${report.statusesAdded} residence status(es), ${report.groupsAdded} nationality group(s) with ${report.membershipsAdded} membership(s), ${report.obligationsAdded} obligation(s) and ${report.versionsAdded} version(s) added in ${Date.now() - started} ms, the rest already present`,
     )
   } finally {
     await prisma.$disconnect()

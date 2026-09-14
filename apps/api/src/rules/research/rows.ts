@@ -17,6 +17,22 @@ export type ResearchStatus = {
   names: { en: string; fa: string }
 }
 
+/** One nationality's membership of a group (SB-192). */
+export type ResearchMembership = {
+  nationality: string
+  /** YYYY-MM-DD, the first day it holds. */
+  from: string
+  /** YYYY-MM-DD, the first day it no longer holds; left out while it holds. */
+  until?: string
+}
+
+/** A nationality group a researched version names, whose memberships the file owns (SB-192). */
+export type ResearchNationalityGroup = {
+  code: string
+  name: string
+  members: readonly ResearchMembership[]
+}
+
 export type ResearchObligation = {
   slug: string
   kind: ObligationKind
@@ -30,9 +46,11 @@ export type ResearchFact = {
   textValue?: string
   unit?: string
   currency?: string
+  /** The agreed document this fact is read from, where it is not its version's own (SB-192). */
+  document?: string
   /** The key in `sources` of the page this fact is read on. */
   source: string
-  /** The definitions of the version's agreed document that state this fact on that page. */
+  /** The definitions of the fact's agreed document that state this fact on that page. */
   labels: readonly string[]
 }
 
@@ -62,6 +80,8 @@ export type ResearchRules = {
   research: string
   /** Written before any version and in this order, so a status comes before any kind of it. */
   statuses: readonly ResearchStatus[]
+  /** Written before any version, and compared with the memberships deployed. */
+  nationalityGroups: readonly ResearchNationalityGroup[]
   obligations: readonly ResearchObligation[]
   sources: Readonly<Record<string, ResearchSource>>
   versions: readonly ResearchVersion[]
