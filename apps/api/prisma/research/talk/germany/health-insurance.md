@@ -495,3 +495,895 @@ All read 2026-09-12.
 ## Answered
 
 I see no remaining overclaims in the health-insurance guidance against the evidence we reviewed. No URLs opened this turn.
+
+---
+
+## Asked, 2026-09-14 11:05 UTC
+
+SB-174. We are going back over the text we agreed for this case on 2026-09-12. Not to change a word of it: to tie every figure in it to the page that states it.
+
+Why. Every rule this product publishes will carry one source URL per figure, and the agreed text lists its sources once, at the end, so nothing says which page states which figure. In a sister case, checking a single attribution found that a page cited for a set of insurance limits is a one-page announcement that states none of them. A related page is not a page that states the figure.
+
+Below are the agreed text and a list of every number and number word in it, by line. For EVERY item on that list, give one of three answers:
+
+A. It is a figure a reader could act on: a fee, charge, deadline, period, threshold, ceiling, fine, rate, percentage, or the date a rule took effect. Give:
+   - the single URL you opened that states it, from the Sources list or a deeper page on the same official host;
+   - where on that page: paragraph, section, table row, or the page number of a PDF;
+   - the page's exact words for the whole claim, as the page writes them and in its own language: the value with its comparator ("bis zu", "mindestens"), both ends of a range, its period, and its date. Copy, do not translate or paraphrase. If you cannot quote the page's words exactly, say so.
+B. It is a figure, but no page you opened states it in that form: it was calculated, or it comes from somewhere you cannot point to. Say which. If calculated, give the formula, each input with its own URL and exact words, and the rounding.
+C. It is not a figure a reader acts on: a paragraph or section number, a case identifier, a count of our own turns or corrections, part of a law's name. One line saying which.
+
+Open the pages again for this; do not answer from your memory of the earlier turns. Where a page will not open, say so for each figure on it.
+
+One thing I assumed before asking and may have wrong: I expected the self-employed monthly minimum contributions, about 222.80 and 230.71 euros, to be arithmetic. The Federal Ministry of Health's contributions page may state them directly. Check, and answer A if it does.
+
+Answer as a list keyed by line number and item, in the order given. End with the URLs you actually opened.
+
+--- The agreed text ---
+
+# Health insurance in Germany, which is not optional
+
+**Agreed 2026-09-12**, after two turns in `talk/germany/health-insurance.md`.
+**Eleven** overclaims found at sign-off, the most of any case. Every sentence
+below is the corrected one.
+
+## What a reader is told
+
+**You must have it, and living here is what triggers it.** Anyone with a
+residence in Germany must hold qualifying health insurance unless an exception
+applies. It is **§193(3) VVG**, and it attaches to residing here, not to holding
+a permit and not to having a job. Not working does not excuse you.
+
+**Which system you are in is mostly decided for you.** An employee is normally
+compulsorily in the statutory system (§5(1)(1) SGB V). A student at a recognised
+university normally is too, until thirty (§5(1)(9)). Someone self-employed as
+their main occupation normally is not. A permit on its own does not get you into
+the statutory system: the uninsured-person fallback in §5(1)(13) is restricted by
+**§5(11)** for third-country nationals and is not a general door for newcomers.
+Cross-border rules may also leave you insured by another country.
+
+**The threshold, and a three month window.** The general employee threshold is
+**€77,400** in 2026, equivalent to **€6,450** a month. Someone starting
+employment above it is generally outside compulsory employee membership. Someone
+**crossing it during an existing compulsory membership normally leaves only at
+year-end**, provided their pay also exceeds the following year's threshold.
+Private insurance is an option above the threshold, not an obligation. If this is
+your **first employment in Germany** and you are over the threshold, you can join
+the statutory system voluntarily without the usual prior-insurance history, but
+you must tell the fund **within three months** of starting work (§9(1)(3)).
+
+**What it costs.** The general statutory rate is **14.6%**, plus an additional
+contribution each fund sets for itself; the official 2026 average is **2.9%**.
+Employer and employee normally split the general and additional contributions
+equally, giving **8.75% each** at the official average, up to the monthly
+assessment ceiling of **€5,812.50**. Special contribution-sharing rules apply,
+including for midijobs.
+
+An ordinarily voluntarily insured **self-employed** GKV member pays the whole
+contribution, assessed on at least **€1,318.33** monthly even with lower income.
+At the average additional rate the monthly minimum is about **€222.80** without
+sickness cash benefit or **€230.71** with it; higher assessable income means
+higher contributions, up to the ceiling.
+
+**Care insurance is on top, and it is where Saxony differs.** The standard social
+care-insurance rate is **3.6%**. Childless members normally pay **4.2%** from the
+month after their twenty-third birthday, subject to statutory exceptions.
+Discounts apply for the second through fifth qualifying children under
+twenty-five.
+
+**For employment located in Saxony**, the standard split is **2.3% employee and
+1.3% employer**; elsewhere it is 1.8 each. These figures are before child-related
+adjustments and special rules such as midijobs. **The geographic trigger is the
+place of employment, not where the employee lives** (§58 SGB XI).
+
+**The weeks before your job starts.** Statutory membership through employment
+begins **when the employment begins** (§186(1)), not when you sign the contract.
+For the gap, the Foreign Office's visa guidance says incoming or travel
+insurance **normally** suffices as a bridge, provided it actually covers the
+interval and is not invalidated by an exclusion for intending to live in
+Germany; ending the policy when statutory cover starts is **permitted, not
+required**. That is visa-administration guidance; it is not
+certification that such a product satisfies §193 VVG.
+
+**Do not carry that assumption into the permit office.** Travel insurance
+accepted for your visa is not automatically enough for the **first residence
+permit issued inside Germany**. Hamburg's guidance separates those two stages
+explicitly. **Berlin and Hamburg publish different requirements**, which is not
+the same as verified acceptance decisions: Berlin's leaflet generally wants an
+annual deductible of no more than **€300**, with more allowed after individual
+assessment; Hamburg refers to a **€5,000** ceiling and, for statutory insurance,
+says a copy of your health card is not enough on its own, it wants a current
+membership certificate.
+
+**Being late is not automatically a bill back to your arrival.** Whether you owe
+back contributions depends on when your membership legally began; if it begins
+with your employment, that does not create contributions for the weeks before it.
+Where the uninsured-person route applies, late notification can produce
+contributions owed from the legal membership start; **§256a** provides for
+appropriately reducing those back contributions and **fully waiving** the
+associated late-payment surcharges, subject to its implementing rules. For the
+private-insurance duty, **§193(4) VVG** provides a separate premium surcharge
+when the application to conclude the required contract is made **more than one
+month** after that duty arose.
+
+**What is the same everywhere.** The duty, the earnings threshold, the statutory
+rates and the assessment limits are federal and identical wherever you live. What
+differs is which funds you can join, since some depend on where you live or work
+(§173 SGB V); what each fund charges as its additional contribution; what your
+city's immigration office accepts as evidence; and the Saxon care-insurance
+split.
+
+
+## Sources
+
+- <https://www.gesetze-im-internet.de/vvg_2008/__193.html>
+- <https://www.gesetze-im-internet.de/sgb_5/__5.html>, `__6`, `__9`, `__173`, `__186`, `__249`, `__256a`
+- <https://www.gesetze-im-internet.de/sgb_11/__55.html>, `__58`
+- <https://www.gesetze-im-internet.de/aufenthg_2004/__2.html> (§2(3)), `BJNR195010004` (§5)
+- <https://www.bundesgesundheitsministerium.de/gesetzlich-versicherte>, <https://www.bundesgesundheitsministerium.de/beitraege/seite>
+- <https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung>
+- <https://www.auswaertiges-amt.de/blob/207816/e025d7a51aa0e20f5567c6f7478c8fd6/visumhandbuch-data.pdf> (§2.4, pp. 450-451)
+- <https://welcome.hamburg.de/resource/blob/17560/c987410a6f2d85efdd62e238305eac16/merkblatt-der-bis-zum-nachweis-kv-data.pdf>
+- <https://www.berlin.de/einwanderung/_assets/merkblatt_zur_krankenversicherung.pdf>
+
+All read 2026-09-12.
+
+--- Every number and number word in it, by line ---
+
+line 3: 2026 | 09 | 12 | two
+line 4: Eleven
+line 5: one
+line 11: 193 | 3
+line 15: 5 | 1 | 1
+line 16: thirty | 5 | 1 | 9
+line 18: 5 | 1 | 13
+line 19: 5 | 11
+line 22: three
+line 23: €77,400 | 2026, | €6,450
+line 28: first
+line 30: three | 9 | 1 | 3
+line 32: 14.6%
+line 33: 2026 | 2.9%
+line 35: 8.75%
+line 36: €5,812.50
+line 40: €1,318.33
+line 41: €222.80
+line 42: €230.71
+line 46: 3.6% | 4.2%
+line 47: twenty
+line 48: second | fifth
+line 49: twenty | five
+line 51: 2.3%
+line 52: 1.3% | 1.8
+line 54: 58
+line 57: 186 | 1
+line 63: 193
+line 66: first
+line 67: two
+line 70: €300
+line 71: €5,000
+line 79: 256
+line 82: 193 | 4
+line 83: one
+line 89: 173
+
+## Answered
+
+Reopened for this check on **14 September 2026**. **A** means directly stated, **B** means calculated or not reverified, and **C** means a non-quantitative reference.
+
+I am limited to 25 quoted words per source page. Consequently, entries marked **excerpt only** do not reproduce the complete passage; the figure and location were verified, but the full quotation is not supplied.
+
+- **Line 3 — `2026 | 09 | 12`: C.** Components of our agreement date, not a rule’s effective date.
+- **Line 3 — `two`: C.** Count of our own research turns.
+- **Line 4 — `Eleven`: C.** Count of our own corrections.
+- **Line 5 — `one`: C.** Grammatical reference to a corrected sentence, not a numerical requirement.
+- **Line 11 — `193 | 3`: C.** Section and subsection in §193(3) VVG.
+- **Line 15 — `5 | 1 | 1`: C.** Section, subsection and numbered provision in §5(1)(1) SGB V.
+
+- **Line 16 — `thirty`: A.**  
+  URL: [§5 SGB V](https://www.gesetze-im-internet.de/sgb_5/__5.html).  
+  Location: subsection (1), number 9. Exact relevant clauses:
+  > Studenten, die an staatlichen oder staatlich anerkannten Hochschulen eingeschrieben sind
+  
+  > längstens bis zur Vollendung des dreißigsten Lebensjahres
+  
+  **Excerpt only:** the complete provision, including its exceptions, exceeds the quotation allowance.
+
+- **Line 16 — `5 | 1 | 9`: C.** Section, subsection and numbered provision.
+- **Line 18 — `5 | 1 | 13`: C.** Section, subsection and numbered provision.
+- **Line 19 — `5 | 11`: C.** Section and subsection.
+
+- **Line 22 — `three`: A.**  
+  URL: [§9 SGB V](https://www.gesetze-im-internet.de/sgb_5/__9.html).  
+  Location: subsection (2), opening text and number 3. Exact text, shown separately because other numbered provisions intervene:
+  > Der Beitritt ist der Krankenkasse innerhalb von drei Monaten anzuzeigen
+  
+  > im Falle des Absatzes 1 Satz 1 Nummer 3 nach Aufnahme der Beschäftigung,
+
+- **Line 23 — `€77,400`: A.**  
+  URL: [BMG: statutory-insurance membership](https://www.bundesgesundheitsministerium.de/gesetzlich-versicherte).  
+  Location: annual earnings threshold section, first paragraph, final sentence:
+  > Diese Obergrenze wird jährlich angepasst und liegt im Jahr 2026 bei 77.400 Euro.
+  
+  This directly states the annual threshold and applicable year. **Excerpt only:** the surrounding explanation of crossing the threshold is not reproduced.
+
+- **Line 23 — `2026,`: A.**  
+  URL: [BMG: statutory-insurance membership](https://www.bundesgesundheitsministerium.de/gesetzlich-versicherte).  
+  Location and exact wording: the same sentence quoted immediately above. This is the threshold’s applicable year, not document metadata.
+
+- **Line 23 — `€6,450`: B — calculated.**  
+  None of the permitted-host pages I successfully opened states that monthly equivalent directly.  
+  Formula: **€77,400 per year ÷ 12 months per year = €6,450 per month**.  
+  Input source: [BMG: statutory-insurance membership](https://www.bundesgesundheitsministerium.de/gesetzlich-versicherte), annual earnings threshold section; exact annual-value wording is quoted under line 23, €77,400. The divisor 12 is the calendar conversion, not a separately sourced insurance parameter. **No rounding.**
+
+- **Line 28 — `first`: A — an eligibility ordinal.**  
+  URL: [BMG: statutory-insurance membership](https://www.bundesgesundheitsministerium.de/gesetzlich-versicherte).  
+  Location: voluntary-insurance section, paragraph explaining admission when first taking employment in Germany. Exact relevant clause:
+  > die erstmals in Deutschland eine Beschäftigung aufnehmen
+  
+  **Excerpt only:** the complete eligibility explanation is not reproduced.
+
+- **Line 30 — `three`: A.**  
+  URL: [§9 SGB V](https://www.gesetze-im-internet.de/sgb_5/__9.html).  
+  Location: subsection (2), opening text and number 3. **The exact quotation under line 22 applies to this identical deadline:** notification within three months after employment starts.
+- **Line 30 — `9 | 1 | 3`: C.** Section, subsection and numbered provision. The admission right is in §9(1)(3); the deadline is in §9(2)(3).
+
+- **Line 32 — `14.6%`: A.**  
+  URL: [§241 SGB V](https://www.gesetze-im-internet.de/sgb_5/__241.html).  
+  Location: sole operative sentence:
+  > Der allgemeine Beitragssatz beträgt 14,6 Prozent der beitragspflichtigen Einnahmen der Mitglieder.
+
+- **Line 33 — `2026`: A.**  
+  URL: [BMG: GKV financial results for 2025](https://www.bundesgesundheitsministerium.de/presse/pressemitteilungen/finanzentwicklung-gkv-2025).  
+  Location: final section on subsequent developments, paragraph beginning with the announced average additional contribution. Exact clause:
+  > Der für 2026 bekanntgegebene durchschnittliche Zusatzbeitragssatz von 2,9 Prozent
+  
+  **Excerpt only:** this directly pairs the applicable year and announced rate; the remainder of the sentence is not reproduced.
+
+- **Line 33 — `2.9%`: A.**  
+  URL: [BMG: GKV financial results for 2025](https://www.bundesgesundheitsministerium.de/presse/pressemitteilungen/finanzentwicklung-gkv-2025).  
+  Location and exact wording: the same clause quoted immediately above. It identifies the **announced average additional contribution**, not an individual fund’s rate.
+
+- **Line 35 — `8.75%`: B — calculated.**  
+  Formula: **(14.6% + 2.9%) ÷ 2 = 8.75% each**. **No rounding.** Inputs:
+  - **14.6%:** [§241 SGB V](https://www.gesetze-im-internet.de/sgb_5/__241.html), sole operative sentence; exact wording quoted under line 32.
+  - **2.9%:** [BMG financial results](https://www.bundesgesundheitsministerium.de/presse/pressemitteilungen/finanzentwicklung-gkv-2025), final developments section; exact wording quoted under line 33.
+  - **Division by two:** [BMG: GKV financing](https://www.bundesgesundheitsministerium.de/finanzierung-gkv), subsection on income-related contributions:
+    > Den allgemeinen Beitrag und den Zusatzbeitrag tragen Arbeitgeber und Arbeitnehmer je zur Hälfte.
+  
+  The individual §249 page did not reopen successfully; the quoted split input is from the successfully opened BMG page.
+
+- **Line 36 — `€5,812.50`: A.**  
+  URL: [BMG: contribution-assessment ceiling](https://www.bundesgesundheitsministerium.de/service/begriffe-von-a-z/b/beitragsbemessungsgrenze/seite).  
+  Location: main explanatory paragraph, final sentence:
+  > Im Jahr 2026 beträgt die Beitragsbemessungsgrenze jährlich 69.750 Euro (2025: 66.150 Euro) bzw. monatlich 5.812,50 Euro (2025: 5.512,50 Euro).
+
+- **Line 40 — `€1,318.33`: A.**  
+  URL: [BMG: contributions](https://www.bundesgesundheitsministerium.de/beitraege/seite).  
+  Location: voluntary-insurance contribution table, penultimate row. Exact row label:
+  > Mindestbeitrag für Selbstständige/sonstige freiwillig Versicherte (Mindestbemessungsgrundlage: 1.318,33 €)
+  
+  **Excerpt only:** the amount is explicitly the minimum assessment base. The complete table context and accompanying footnotes are not reproduced.
+
+- **Line 41 — `€222.80`: A — directly published, not merely calculated.**  
+  URL: [BMG: contributions](https://www.bundesgesundheitsministerium.de/beitraege/seite).  
+  Location: the same penultimate table row identified under line 40. Exact column headings:
+  > Anspruch auf Krankengeld
+  
+  > Monatlicher Beitrag
+  
+  Exact corresponding cells:
+  > nein
+  
+  > 222,80 €
+  
+  **Excerpt only:** footnote ** specifies use of the average additional contribution of 2.9% and warns that the fund-specific rate may differ. I cannot reproduce that complete footnote within this page’s quotation allowance.
+
+- **Line 42 — `€230.71`: A — directly published, not merely calculated.**  
+  URL: [BMG: contributions](https://www.bundesgesundheitsministerium.de/beitraege/seite).  
+  Location: final row of the voluntary-insurance table. Exact beginning of the row label:
+  > Mindestbeitrag für Selbstständige
+  
+  Under the same sickness-benefit and monthly-contribution columns quoted above, the exact cells are:
+  > ja
+  
+  > 230,71 €
+  
+  **Excerpt only:** the row repeats the minimum assessment base and carries the same average-additional-contribution footnote. The complete row and footnote are not reproduced.
+
+- **Line 46 — `3.6%`: A.**  
+  URL: [BMG: care-insurance financing](https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung).  
+  Location: contribution-rate section, first paragraph. Exact date and rate excerpts:
+  > Seit dem 1. Januar 2025
+  
+  > 3,6 Prozent
+  
+  **Excerpt only:** the paragraph identifies this as the rate on assessable income; its complete wording is not reproduced.
+
+- **Line 46 — `4.2%`: A.**  
+  URL: [BMG: care-insurance financing](https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung).  
+  Location: the same opening paragraph and effective-date statement. Exact clause:
+  > bei Kinderlosen sind es 4,2 Prozent
+  
+  **Excerpt only:** the complete sentence explaining the surcharge is not reproduced.
+
+- **Line 47 — `twenty`: A, but the extracted token belongs to `twenty-third`: age 23, not 20.**  
+  URL: [SGB XI, complete act](https://www.gesetze-im-internet.de/sgb_11/BJNR101500994.html).  
+  Location: §55(3), first sentence. Exact timing clause:
+  > nach Ablauf des Monats, in dem sie das 23. Lebensjahr vollendet haben
+  
+  **Excerpt only:** the complete surcharge sentence is not reproduced. The individual `__55.html` page failed to open; this wording was reverified in the complete act.
+
+- **Line 48 — `second`: A.**  
+  URL: [SGB XI, complete act](https://www.gesetze-im-internet.de/sgb_11/BJNR101500994.html).  
+  Location: §55(3), sentence establishing the child discounts. Exact range:
+  > für jedes Kind ab dem zweiten Kind bis zum fünften Kind
+  
+  **Excerpt only:** the complete sentence is not reproduced. The individual `__55.html` page failed; the complete act opened successfully.
+
+- **Line 48 — `fifth`: A.**  
+  URL: [SGB XI, complete act](https://www.gesetze-im-internet.de/sgb_11/BJNR101500994.html).  
+  Location and exact range: **the quotation immediately above includes both endpoints**. The individual `__55.html` page failed; the complete act opened successfully.
+
+- **Line 49 — `twenty`: A, as part of `twenty-five`: age 25.**  
+  URL: [BMG: care-insurance financing](https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung).  
+  Location: section on contribution rates for parents with multiple children, first paragraph. Exact age condition:
+  > unter 25 Jahren
+  
+  **Excerpt only:** the complete discount sentence and subsequent month-end explanation are not reproduced.
+
+- **Line 49 — `five`: A, the second component of the same age 25.**  
+  URL: [BMG: care-insurance financing](https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung).  
+  Location and exact wording: the same age-condition quotation immediately above. **Not a separate five-year limit.**
+
+- **Line 51 — `2.3%`: A.**  
+  URL: [BMG: care-insurance financing](https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung).  
+  Location: contribution-sharing table, **Saxony row, employee column**. Exact cell:
+  > 2,3 %
+  
+  **Excerpt only:** the complete table headers and row are not reproduced.
+
+- **Line 52 — `1.3%`: A.**  
+  URL: [BMG: care-insurance financing](https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung).  
+  Location: the same table, **Saxony row, employer column**. Exact cell:
+  > 1,3 %
+  
+  **Excerpt only:** the complete table headers and row are not reproduced.
+
+- **Line 52 — `1.8`: A.**  
+  URL: [BMG: care-insurance financing](https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung).  
+  Location: the same table, **other federal states row, both employee and employer columns**. Both cells contain:
+  > 1,8 %
+  
+  **Excerpt only:** the complete table headers and row are not reproduced. This is a percentage, despite the missing percent sign in this occurrence of the agreed text.
+
+- **Line 54 — `58`: C.** Section number in §58 SGB XI.
+- **Line 57 — `186 | 1`: C.** Section and subsection in §186(1) SGB V.
+- **Line 63 — `193`: C.** Section number in §193 VVG.
+
+- **Line 66 — `first`: A — the procedural stage at which the requirement applies.**  
+  URL: [Hamburg: insurance evidence leaflet](https://welcome.hamburg.de/resource/blob/17560/c987410a6f2d85efdd62e238305eac16/merkblatt-der-bis-zum-nachweis-kv-data.pdf).  
+  Location: **PDF page 2**, paragraph immediately before the exceptions. Exact stage description:
+  > Zur ersten Erteilung des Aufenthaltstitels im Inland
+  
+  **Excerpt only:** the complete requirement sentence is not reproduced.
+
+- **Line 67 — `two`: C.** Descriptive count of the visa and domestic residence-permit stages; not an amount or time limit.
+
+- **Line 70 — `€300`: B — not reverified because the source would not open.**  
+  Attempted source: [Berlin insurance leaflet](https://www.berlin.de/einwanderung/_assets/merkblatt_zur_krankenversicherung.pdf), including the linked version with its timestamp query. Both direct access and access through the official FAQ failed.  
+  **I cannot supply a freshly verified location or exact quotation.** This is not a calculation; I am not substituting the wording from earlier turns.
+
+- **Line 71 — `€5,000`: A.**  
+  URL: [Hamburg: insurance evidence leaflet](https://welcome.hamburg.de/resource/blob/17560/c987410a6f2d85efdd62e238305eac16/merkblatt-der-bis-zum-nachweis-kv-data.pdf).  
+  Location: **PDF page 1**, paragraph discussing §193(3) VVG. Exact ceiling clause:
+  > die vereinbarten absoluten und prozentualen Selbstbehalte dürfen betragsmäßig 5.000 EUR im Jahr nicht überschreiten.
+
+- **Line 79 — `256`: C.** Extracted numeric part of the section reference **§256a**, not a financial figure.
+- **Line 82 — `193 | 4`: C.** Section and subsection in §193(4) VVG.
+
+- **Line 83 — `one`: A.**  
+  URL: [§193 VVG](https://www.gesetze-im-internet.de/vvg_2008/__193.html).  
+  Location: subsection (4), first sentence:
+  > Wird der Vertragsabschluss später als einen Monat nach Entstehen der Pflicht nach Absatz 3 Satz 1 beantragt, ist ein Prämienzuschlag zu entrichten.
+
+- **Line 89 — `173`: C.** Section number in §173 SGB V.
+
+URLs successfully opened in this check:
+
+https://www.bundesgesundheitsministerium.de/beitraege/seite  
+https://www.bundesgesundheitsministerium.de/gesetzlich-versicherte  
+https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung  
+https://www.gesetze-im-internet.de/sgb_5/__5.html  
+https://www.gesetze-im-internet.de/sgb_5/__9.html  
+https://www.gesetze-im-internet.de/vvg_2008/__193.html  
+https://welcome.hamburg.de/resource/blob/17560/c987410a6f2d85efdd62e238305eac16/merkblatt-der-bis-zum-nachweis-kv-data.pdf  
+https://www.bundesgesundheitsministerium.de/service/begriffe-von-a-z/b/beitragsbemessungsgrenze/seite  
+https://www.berlin.de/einwanderung/service/faq/artikel.874993.php  
+https://www.gesetze-im-internet.de/sgb_11/BJNR101500994.html  
+https://www.gesetze-im-internet.de/sgb_5/__241.html  
+https://www.bundesgesundheitsministerium.de/presse/pressemitteilungen/finanzentwicklung-gkv-2025  
+https://www.bundesgesundheitsministerium.de/finanzierung-gkv
+
+---
+
+## Asked, 2026-09-14 11:11 UTC
+
+SB-174, second pass. I opened every page you named and found your quoted wording on each, as exact text, including §55 SGB XI, whose individual page opened for me. Berlin's insurance leaflet opened for me too; I am reading it as a rendered PDF, so you do not need to retry it.
+
+Three things go back to you.
+
+1. Deadlines and conditions in words, which my number list could not catch. Crossing the threshold during an existing membership "normally leaves only at year-end" (§6 SGB V); statutory membership "begins when the employment begins" (§186(1)); §256a "fully waiving the associated late-payment surcharges". For each, the single page that states it, where on the page, and its exact words, or say that no page you open states it.
+
+2. The Saxon split's source. You attributed 2.3, 1.3 and 1.8 per cent to the Ministry of Health's care insurance financing page, and they are there. Does §58 SGB XI itself state those percentages, or the rule they follow from? Quote §58's operative words for Saxony.
+
+3. Which average. The Ministry's GKV financing page says: "Im Durchschnitt liegt der derzeit von den Krankenkassen erhobene Zusatzbeitragssatz bei 3,13 Prozent (Stand 1. April 2026)." Our text says "the official 2026 average is 2.9%" and gives 8.75% each from it. 2.9 is the average announced for 2026; 3.13 is what funds actually charged on 1 April 2026. Is "the official 2026 average is 2.9%" accurate as written, or does it mislead a reader about what they will pay? Say plainly which.
+
+Quote exactly, from pages you open now, not from memory. End with the URLs you actually opened.
+
+## Answered
+
+**1. Deadlines and conditions**
+
+These are nationwide federal provisions.
+
+- **Year-end:** [SGB V, complete act](https://www.gesetze-im-internet.de/sgb_5/BJNR024820988.html), **§6(4), first sentence**:
+  > Wird die Jahresarbeitsentgeltgrenze überschritten, endet die Versicherungspflicht mit Ablauf des Kalenderjahres, in dem sie überschritten wird.
+
+  The next sentence makes this conditional on earnings also exceeding the threshold applicable from the following year. This ends **compulsory status**, not necessarily membership. The individual §6 page failed twice; the complete act opened. I cannot reproduce both sentences within the per-source quotation limit.
+
+- **Employment start:** [§186 SGB V](https://www.gesetze-im-internet.de/sgb_5/__186.html), **subsection (1), complete sentence**:
+  > Die Mitgliedschaft versicherungspflichtig Beschäftigter beginnt mit dem Tag des Eintritts in das Beschäftigungsverhältnis.
+
+- **Full waiver of associated late-payment surcharges:** [§256a SGB V](https://www.gesetze-im-internet.de/sgb_5/__256a.html), **subsection (1), clause after the semicolon**:
+  > darauf entfallende Säumniszuschläge nach § 24 des Vierten Buches sind vollständig zu erlassen.
+
+  “Darauf” refers to the back contributions addressed earlier in that subsection, arising from late notification of compulsory insurance under §5(1)(13). It is not a blanket waiver of every insurance-related surcharge.
+
+**2. What §58 itself states**
+
+**§58 states the allocation rule, not the resulting 2.3%, 1.3% or 1.8%. It does not name Saxony.**
+
+[§58 SGB XI](https://www.gesetze-im-internet.de/sgb_11/__58.html), **subsection (3), first sentence**, contains these exact excerpts:
+
+> tragen die Beiträge in Höhe von 1 vom Hundert allein
+
+> wenn der Beschäftigungsort in einem Land liegt
+
+The remaining condition concerns a Land that did not reduce its statutory statewide holidays, relative to 31 December 1993, by one holiday falling on a weekday. Subsection (1) supplies equal sharing of the remaining contribution. **These are excerpts; the complete operative sentence exceeds my quotation limit.**
+
+For the standard case, the resulting arithmetic is:
+
+- Employer: `(3.6% − 1 percentage point) ÷ 2 = 1.3%`.
+- Employee: `1 percentage point + 1.3% = 2.3%`.
+- Elsewhere: `3.6% ÷ 2 = 1.8% each`.
+
+The [BMG care-insurance page](https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung), contribution-rate section and sharing table, explicitly identifies Saxony and publishes those resulting percentages. Thus **BMG is the direct numerical source; §58 is the underlying legal mechanism**.
+
+**3. Which average**
+
+**It is misleading as written in a passage explaining what the reader will pay.** The 2.9% value is correct, but its identity needs to be explicit. My earlier sign-off missed that distinction.
+
+[BMG contributions page](https://www.bundesgesundheitsministerium.de/beitraege/seite), average-additional-contribution subsection:
+
+> Für das Jahr 2026 beträgt der durchschnittliche Zusatzbeitragssatz 2,9 Prozent.
+
+[BMG GKV financing page](https://www.bundesgesundheitsministerium.de/finanzierung-gkv), income-related-contributions subsection:
+
+> Im Durchschnitt liegt der derzeit von den Krankenkassen erhobene Zusatzbeitragssatz bei 3,13 Prozent (Stand 1. April 2026).
+
+The text should identify **2.9% as the BMG-announced average additional contribution for 2026**. The **8.75% each** calculation is an illustration using that announced rate, not the observed average paid or a prediction of the reader’s deduction. Their ordinary employee contribution uses their fund’s actual additional rate. **3.13% is a dated observed average, not a universal replacement rate either.**
+
+URLs successfully opened:
+
+https://www.gesetze-im-internet.de/sgb_5/BJNR024820988.html  
+https://www.gesetze-im-internet.de/sgb_5/__186.html  
+https://www.gesetze-im-internet.de/sgb_5/__256a.html  
+https://www.gesetze-im-internet.de/sgb_11/__58.html  
+https://www.bundesgesundheitsministerium.de/finanzierung-gkv  
+https://www.bundesgesundheitsministerium.de/beitraege/seite  
+https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung
+
+---
+
+## Asked, 2026-09-14 11:46 UTC
+
+SB-174, the last pass on this document. Below is the agreed text exactly as agreed, with a footnote marker after every figure, and at the end one definition per marker: the page, where on it, and the page's own words, copied from its raw text. A calculated figure says "calculated" and names its inputs instead of a page. Not a word of the prose has changed: removing the markers gives back the agreed text byte for byte.
+
+I opened every page again today and found every quoted passage on it, exactly. The Hamburg and Berlin leaflets are PDFs and were read as rendered pages.
+
+What I changed after reading each quote against its sentence, which you have not seen:
+
+1. "Year-end" now quotes §6(4) sentences 1 and 2 SGB V, because the proviso about the following year's threshold is sentence 2.
+2. "1.8 each" and the Saxon split now quote the Ministry's care table with its column headings, so the three percentages in each row are labelled.
+
+And one I cannot settle myself. The text says a self-employed member is "assessed on at least €1,318.33 monthly". The Ministry's contributions page gives that base inside a table whose column heading is "Monatlicher Beitrag", but never writes "monatlich" beside the base itself; the definition now quotes the heading and the row. Is there an official page, the Ministry, the GKV-Spitzenverband or a statute, that states the 2026 minimum assessment base as a monthly amount in words? If there is none, say so, and say whether "monthly" in that sentence claims more than the table supports.
+
+The question for everything else: does any marker attach a figure to a page that does not state it, or quote evidence that leaves out a condition its sentence depends on? A one-line "no" is the answer asked for. If yes, name the marker, quote what the page actually says from a page you open now, and end with the URLs you opened.
+
+---
+
+# Health insurance in Germany, which is not optional
+
+**Agreed 2026-09-12**, after two turns in `talk/germany/health-insurance.md`.
+**Eleven** overclaims found at sign-off, the most of any case. Every sentence
+below is the corrected one.
+
+## What a reader is told
+
+**You must have it, and living here is what triggers it.** Anyone with a
+residence in Germany must hold qualifying health insurance unless an exception
+applies. It is **§193(3) VVG**, and it attaches to residing here, not to holding
+a permit and not to having a job. Not working does not excuse you.
+
+**Which system you are in is mostly decided for you.** An employee is normally
+compulsorily in the statutory system (§5(1)(1) SGB V). A student at a recognised
+university normally is too, until thirty[^sgb5-5-student-until-thirty] (§5(1)(9)). Someone self-employed as
+their main occupation normally is not. A permit on its own does not get you into
+the statutory system: the uninsured-person fallback in §5(1)(13) is restricted by
+**§5(11)** for third-country nationals and is not a general door for newcomers.
+Cross-border rules may also leave you insured by another country.
+
+**The threshold, and a three month window.**[^sgb5-9-three-months] The general employee threshold is
+**€77,400** in 2026[^bmg-threshold-2026], equivalent to **€6,450**[^threshold-monthly-equivalent][^bmg-threshold-2026] a month. Someone starting
+employment above it is generally outside compulsory employee membership. Someone
+**crossing it during an existing compulsory membership normally leaves only at
+year-end**[^sgb5-6-year-end], provided their pay also exceeds the following year's threshold.
+Private insurance is an option above the threshold, not an obligation. If this is
+your **first employment in Germany**[^bmg-first-employment-above-threshold] and you are over the threshold, you can join
+the statutory system voluntarily without the usual prior-insurance history, but
+you must tell the fund **within three months**[^sgb5-9-three-months] of starting work (§9(1)(3)).
+
+**What it costs.** The general statutory rate is **14.6%**[^sgb5-241-general-rate], plus an additional
+contribution each fund sets for itself; the official 2026 average is **2.9%**[^bmg-average-additional-2026].
+Employer and employee normally split the general and additional contributions
+equally[^bmg-half-each], giving **8.75% each**[^share-at-average] at the official average, up to the monthly
+assessment ceiling of **€5,812.50**[^bmg-assessment-ceiling-monthly]. Special contribution-sharing rules apply,
+including for midijobs.
+
+An ordinarily voluntarily insured **self-employed** GKV member pays the whole
+contribution, assessed on at least **€1,318.33**[^bmg-minimum-assessment-base] monthly even with lower income.
+At the average additional rate the monthly minimum is about **€222.80**[^bmg-minimum-without-sick-pay] without
+sickness cash benefit or **€230.71**[^bmg-minimum-with-sick-pay] with it; higher assessable income means
+higher contributions, up to the ceiling.
+
+**Care insurance is on top, and it is where Saxony differs.** The standard social
+care-insurance rate is **3.6%**[^bmg-care-rate]. Childless members normally pay **4.2%**[^bmg-care-rate] from the
+month after their twenty-third birthday[^sgb11-55-childless-surcharge-age], subject to statutory exceptions.
+Discounts apply for the second through fifth[^sgb11-55-second-to-fifth-child] qualifying children under
+twenty-five[^bmg-care-children-under-25].
+
+**For employment located in Saxony**, the standard split is **2.3% employee and
+1.3% employer**[^bmg-care-saxony-split]; elsewhere it is 1.8 each[^bmg-care-other-states]. These figures are before child-related
+adjustments and special rules such as midijobs. **The geographic trigger is the
+place of employment, not where the employee lives**[^sgb11-58-place-of-employment] (§58 SGB XI).
+
+**The weeks before your job starts.** Statutory membership through employment
+begins **when the employment begins**[^sgb5-186-membership-begins] (§186(1)), not when you sign the contract.
+For the gap, the Foreign Office's visa guidance says incoming or travel
+insurance **normally** suffices as a bridge, provided it actually covers the
+interval and is not invalidated by an exclusion for intending to live in
+Germany; ending the policy when statutory cover starts is **permitted, not
+required**. That is visa-administration guidance; it is not
+certification that such a product satisfies §193 VVG.
+
+**Do not carry that assumption into the permit office.** Travel insurance
+accepted for your visa is not automatically enough for the **first residence
+permit issued inside Germany**[^hh-kv-first-issue]. Hamburg's guidance separates those two stages
+explicitly. **Berlin and Hamburg publish different requirements**, which is not
+the same as verified acceptance decisions: Berlin's leaflet generally wants an
+annual deductible of no more than **€300**[^berlin-kv-deductible-300], with more allowed after individual
+assessment; Hamburg refers to a **€5,000**[^hh-kv-deductible-5000] ceiling and, for statutory insurance,
+says a copy of your health card is not enough on its own, it wants a current
+membership certificate.
+
+**Being late is not automatically a bill back to your arrival.** Whether you owe
+back contributions depends on when your membership legally began; if it begins
+with your employment, that does not create contributions for the weeks before it.
+Where the uninsured-person route applies, late notification can produce
+contributions owed from the legal membership start; **§256a** provides for
+appropriately reducing those back contributions and **fully waiving**[^sgb5-256a-surcharges-waived] the
+associated late-payment surcharges, subject to its implementing rules. For the
+private-insurance duty, **§193(4) VVG** provides a separate premium surcharge
+when the application to conclude the required contract is made **more than one
+month**[^vvg-193-one-month] after that duty arose.
+
+**What is the same everywhere.** The duty, the earnings threshold, the statutory
+rates and the assessment limits are federal and identical wherever you live. What
+differs is which funds you can join, since some depend on where you live or work
+(§173 SGB V); what each fund charges as its additional contribution; what your
+city's immigration office accepts as evidence; and the Saxon care-insurance
+split.
+
+
+## Sources
+
+- <https://www.gesetze-im-internet.de/vvg_2008/__193.html>
+- <https://www.gesetze-im-internet.de/sgb_5/__5.html>, `__6`, `__9`, `__173`, `__186`, `__249`, `__256a`
+- <https://www.gesetze-im-internet.de/sgb_11/__55.html>, `__58`
+- <https://www.gesetze-im-internet.de/aufenthg_2004/__2.html> (§2(3)), `BJNR195010004` (§5)
+- <https://www.bundesgesundheitsministerium.de/gesetzlich-versicherte>, <https://www.bundesgesundheitsministerium.de/beitraege/seite>
+- <https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung>
+- <https://www.auswaertiges-amt.de/blob/207816/e025d7a51aa0e20f5567c6f7478c8fd6/visumhandbuch-data.pdf> (§2.4, pp. 450-451)
+- <https://welcome.hamburg.de/resource/blob/17560/c987410a6f2d85efdd62e238305eac16/merkblatt-der-bis-zum-nachweis-kv-data.pdf>
+- <https://www.berlin.de/einwanderung/_assets/merkblatt_zur_krankenversicherung.pdf>
+
+All read 2026-09-12.
+
+[^sgb5-5-student-until-thirty]: <https://www.gesetze-im-internet.de/sgb_5/__5.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 5 Abs. 1 Nr. 9", "evidence": ["längstens bis zur Vollendung des dreißigsten Lebensjahres"]}
+
+[^sgb5-9-three-months]: <https://www.gesetze-im-internet.de/sgb_5/__9.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 9 Abs. 2 Nr. 3", "evidence": ["(2) Der Beitritt ist der Krankenkasse innerhalb von drei Monaten anzuzeigen", "3. im Falle des Absatzes 1 Satz 1 Nummer 3 nach Aufnahme der Beschäftigung"]}
+
+[^bmg-threshold-2026]: <https://www.bundesgesundheitsministerium.de/gesetzlich-versicherte> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Versicherungspflichtgrenze", "evidence": ["Diese Obergrenze wird jährlich angepasst und liegt im Jahr 2026 bei 77.400 Euro."]}
+
+[^threshold-monthly-equivalent]: calculated | {"status": "calculated", "read": "2026-09-14", "inputs": ["bmg-threshold-2026"], "formula": "77,400 Euro divided by 12 months", "rounding": "none"}
+
+[^sgb5-6-year-end]: <https://www.gesetze-im-internet.de/sgb_5/__6.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 6 Abs. 4 Sätze 1 und 2", "evidence": ["Wird die Jahresarbeitsentgeltgrenze überschritten, endet die Versicherungspflicht mit Ablauf des Kalenderjahres, in dem sie überschritten wird. Dies gilt nicht, wenn das Entgelt die vom Beginn des nächsten Kalenderjahres an geltende Jahresarbeitsentgeltgrenze nicht übersteigt."]}
+
+[^bmg-first-employment-above-threshold]: <https://www.bundesgesundheitsministerium.de/gesetzlich-versicherte> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Freiwillige Versicherung", "evidence": ["Arbeitnehmerinnen oder Arbeitnehmer, die erstmals in Deutschland eine Beschäftigung aufnehmen und mit ihrem Einkommen über der Jahresarbeitsentgeltgrenze liegen"]}
+
+[^sgb5-241-general-rate]: <https://www.gesetze-im-internet.de/sgb_5/__241.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 241", "evidence": ["Der allgemeine Beitragssatz beträgt 14,6 Prozent der beitragspflichtigen Einnahmen der Mitglieder."]}
+
+[^bmg-average-additional-2026]: <https://www.bundesgesundheitsministerium.de/beitraege/seite> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Zusatzbeitrag", "evidence": ["Für das Jahr 2026 beträgt der durchschnittliche Zusatzbeitragssatz 2,9 Prozent."]}
+
+[^bmg-half-each]: <https://www.bundesgesundheitsministerium.de/finanzierung-gkv> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Einkommensabhängige Beiträge", "evidence": ["Den allgemeinen Beitrag und den Zusatzbeitrag tragen Arbeitgeber und Arbeitnehmer je zur Hälfte."]}
+
+[^share-at-average]: calculated | {"status": "calculated", "read": "2026-09-14", "inputs": ["sgb5-241-general-rate", "bmg-average-additional-2026", "bmg-half-each"], "formula": "(14.6 per cent plus 2.9 per cent) divided by 2", "rounding": "none"}
+
+[^bmg-assessment-ceiling-monthly]: <https://www.bundesgesundheitsministerium.de/service/begriffe-von-a-z/b/beitragsbemessungsgrenze/seite> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Beitragsbemessungsgrenze", "evidence": ["Im Jahr 2026 beträgt die Beitragsbemessungsgrenze jährlich 69.750 Euro (2025: 66.150 Euro) bzw. monatlich 5.812,50 Euro (2025: 5.512,50 Euro)."]}
+
+[^bmg-minimum-assessment-base]: <https://www.bundesgesundheitsministerium.de/beitraege/seite> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Beiträge für freiwillig Versicherte in der GKV", "evidence": ["Personenkreis Anspruch auf Krankengeld* Monatlicher Beitrag", "Mindestbeitrag für Selbstständige/sonstige freiwillig Versicherte (Mindestbemessungsgrundlage: 1.318,33 €)"]}
+
+[^bmg-minimum-without-sick-pay]: <https://www.bundesgesundheitsministerium.de/beitraege/seite> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Beiträge für freiwillig Versicherte in der GKV", "evidence": ["Personenkreis Anspruch auf Krankengeld* Monatlicher Beitrag", "Mindestbeitrag für Selbstständige/sonstige freiwillig Versicherte (Mindestbemessungsgrundlage: 1.318,33 €) nein 222,80 €**", "** Inklusive Zusatzbeitrag (bei Anwendung des durchschnittlichen Zusatzbeitragssatzes in Höhe von 2,9 %; der kassenindividuelle Zusatzbeitragssatz kann hiervon abweichen)."]}
+
+[^bmg-minimum-with-sick-pay]: <https://www.bundesgesundheitsministerium.de/beitraege/seite> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Beiträge für freiwillig Versicherte in der GKV", "evidence": ["Personenkreis Anspruch auf Krankengeld* Monatlicher Beitrag", "Mindestbeitrag für Selbstständige (Mindestbemessungsgrundlage: 1.318,33 €) ja 230,71 €**", "** Inklusive Zusatzbeitrag (bei Anwendung des durchschnittlichen Zusatzbeitragssatzes in Höhe von 2,9 %; der kassenindividuelle Zusatzbeitragssatz kann hiervon abweichen)."]}
+
+[^bmg-care-rate]: <https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Beitragssatz", "evidence": ["Seit dem 1. Januar 2025 beträgt der Beitragssatz 3,6 Prozent der beitragspflichtigen Einnahmen, bei Kinderlosen sind es 4,2 Prozent"]}
+
+[^sgb11-55-childless-surcharge-age]: <https://www.gesetze-im-internet.de/sgb_11/__55.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 55 Abs. 3 Satz 1", "evidence": ["erhöht sich für Mitglieder nach Ablauf des Monats, in dem sie das 23. Lebensjahr vollendet haben, um einen Beitragszuschlag in Höhe von 0,6 Beitragssatzpunkten"]}
+
+[^sgb11-55-second-to-fifth-child]: <https://www.gesetze-im-internet.de/sgb_11/__55.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 55 Abs. 3", "evidence": ["für jedes Kind ab dem zweiten Kind bis zum fünften Kind um jeweils einen Abschlag in Höhe von 0,25 Beitragssatzpunkten"]}
+
+[^bmg-care-children-under-25]: <https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Beitragssätze für Eltern mit mehreren Kindern", "evidence": ["Mitglieder mit Kindern erhalten je Kind unter 25 Jahren einen Abschlag in Höhe von 0,25 Beitragssatzpunkten. Dies gilt vom zweiten bis zum fünften Kind."]}
+
+[^bmg-care-saxony-split]: <https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Beitragssatz, und die Tabelle Höhe der Beitragssätze", "evidence": ["Dort entfallen von den 3,6 Prozent Pflegeversicherungsbeitrag 2,3 Prozent auf die Beschäftigten und 1,3 Prozent auf die Arbeitgeber.", "Höhe der Beitragssätze in der sozialen Pflegeversicherung Arbeitnehmer Kinderloser Arbeitnehmer Arbeitgeber Bundesland Sachsen 2,3 % 2,9 % 1,3 % Übrige Bundesländer 1,8 % 2,4 % 1,8 %"]}
+
+[^bmg-care-other-states]: <https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Beitragssatz, und die Tabelle Höhe der Beitragssätze", "evidence": ["grundsätzlich zur Hälfte, also jeweils 1,8 Prozent.", "Höhe der Beitragssätze in der sozialen Pflegeversicherung Arbeitnehmer Kinderloser Arbeitnehmer Arbeitgeber Bundesland Sachsen 2,3 % 2,9 % 1,3 % Übrige Bundesländer 1,8 % 2,4 % 1,8 %"]}
+
+[^sgb11-58-place-of-employment]: <https://www.gesetze-im-internet.de/sgb_11/__58.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 58 Abs. 3 Satz 1", "evidence": ["(3) Die in Absatz 1 genannten Beschäftigten tragen die Beiträge in Höhe von 1 vom Hundert allein, wenn der Beschäftigungsort in einem Land liegt"]}
+
+[^sgb5-186-membership-begins]: <https://www.gesetze-im-internet.de/sgb_5/__186.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 186 Abs. 1", "evidence": ["(1) Die Mitgliedschaft versicherungspflichtig Beschäftigter beginnt mit dem Tag des Eintritts in das Beschäftigungsverhältnis."]}
+
+[^hh-kv-first-issue]: <https://welcome.hamburg.de/resource/blob/17560/c987410a6f2d85efdd62e238305eac16/merkblatt-der-bis-zum-nachweis-kv-data.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "Seite 2", "evidence": ["Zur ersten Erteilung des Aufenthaltstitels im Inland gelten aber dann die o.g. Anforderungen, es muss also noch während der Gültigkeit des Visums ein ausreichender Krankenversicherungsschutz abgeschlossen werden."]}
+
+[^berlin-kv-deductible-300]: <https://www.berlin.de/einwanderung/_assets/merkblatt_zur_krankenversicherung.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "Seite 1", "evidence": ["dem Versicherten im Krankheitsfall grundsätzlich keinen höheren Selbstbehalt als 300 Euro im Jahr abverlangen", "Ein höherer Selbstbehalt im Rahmen des § 152 Abs. 1 des Versicherungsaufsichtsgesetzes (VAG) kann nach einer Einzelfallprüfung zugelassen werden."]}
+
+[^hh-kv-deductible-5000]: <https://welcome.hamburg.de/resource/blob/17560/c987410a6f2d85efdd62e238305eac16/merkblatt-der-bis-zum-nachweis-kv-data.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "Seite 1", "evidence": ["die vereinbarten absoluten und prozentualen Selbstbehalte dürfen betragsmäßig 5.000 EUR im Jahr nicht überschreiten."]}
+
+[^sgb5-256a-surcharges-waived]: <https://www.gesetze-im-internet.de/sgb_5/__256a.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 256a Abs. 1", "evidence": ["darauf entfallende Säumniszuschläge nach § 24 des Vierten Buches sind vollständig zu erlassen."]}
+
+[^vvg-193-one-month]: <https://www.gesetze-im-internet.de/vvg_2008/__193.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 193 Abs. 4 Satz 1", "evidence": ["Wird der Vertragsabschluss später als einen Monat nach Entstehen der Pflicht nach Absatz 3 Satz 1 beantragt, ist ein Prämienzuschlag zu entrichten"]}
+
+## Answered
+
+**`bmg-minimum-assessment-base`: “monthly” is supported.** An explicit statement appears in the Bundestag Wissenschaftliche Dienste paper, page 8, section 4:
+
+> sodass im Jahr 2026 die freiwilligen Beiträge mindestens aus einer „fiktiven“ Einnahme von monatlich 1.318,33 Euro berechnet werden.
+
+That paper discusses voluntarily insured pensioners. For self-employed members specifically, [BKK24’s official leaflet](https://www.bkk24.de/fileadmin/user_upload/Inhalte/Arbeitgeber/Infoblatt_Beitragsabrechnung_f%C3%BCr_Selbst%C3%A4ndige_ab_01.01.2026.pdf), page 1, “BEITRAGSEINSTUFUNG”, states:
+
+> Allerdings mindestens aus der Mindestbemessungsgrenze in Höhe von monatlich 1.318,33 € (= 2026, siehe Beispiel 1).
+
+I did not find that explicit monthly wording alongside the amount in the BMG or GKV-Spitzenverband tables. §240’s individual page failed to open. The BMG heading alone labels the **contribution** as monthly; the sources above resolve the base’s period without changing your prose.
+
+**For the remaining markers: no attribution or omitted-condition problem found.**
+
+URLs opened successfully:
+
+https://www.bundesgesundheitsministerium.de/beitraege/seite
+https://www.bundesgesundheitsministerium.de/gesetzlich-versicherte
+https://www.gesetze-im-internet.de/sgb_11/__58.html
+https://www.bundestag.de/resource/blob/1170364/WD-6-015-26.pdf
+https://www.gkv-spitzenverband.de/media/dokumente/presse/zahlen_und_grafiken/20260101_Faktenblatt_Rechengroessen_Beitragsrecht.pdf
+https://www.bkk24.de/fileadmin/user_upload/Inhalte/Arbeitgeber/Infoblatt_Beitragsabrechnung_f%C3%BCr_Selbst%C3%A4ndige_ab_01.01.2026.pdf
+
+Attempted; failed to open:
+
+https://www.gesetze-im-internet.de/sgb_5/__240.html
+
+---
+
+## Asked, 2026-09-14 11:52 UTC
+
+SB-174. Thank you for settling "monthly". I took the Bundestag paper and not the BKK24 leaflet, because one fund's leaflet is a weaker source than the Bundestag's research service. The €1,318.33 marker now also carries `bundestag-wd-minimum-base-monthly`, which quotes page 8, section 4, in full:
+
+"Für die Beitragsberechnung gilt als beitragspflichtige Einnahme für den Kalendertag mindestens der 1/90 der monatlichen Bezugsgröße (Mindesteinnahme § 240 Abs. 4 Satz 1 SGB V), sodass im Jahr 2026 die freiwilligen Beiträge mindestens aus einer „fiktiven“ Einnahme von monatlich 1.318,33 Euro berechnet werden."
+
+Its locator names the paper's title, so nobody mistakes it for a page about the self-employed. One question on it, since you pointed out that the paper is about pensioners: that sentence speaks of voluntary contributions generally and rests on §240(4) sentence 1. Does that same minimum apply, in 2026, to a self-employed voluntary member, with no different minimum of its own? Quote the provision that says so.
+
+The document follows with that in place, and every quoted passage was found again on its page. For everything else, the same question: does any marker attach a figure to a page that does not state it, or quote evidence that leaves out a condition its sentence depends on? A one-line "no" is the answer asked for. If yes, name the marker, quote what the page says from a page you open now, and end with the URLs you opened.
+
+---
+
+# Health insurance in Germany, which is not optional
+
+**Agreed 2026-09-12**, after two turns in `talk/germany/health-insurance.md`.
+**Eleven** overclaims found at sign-off, the most of any case. Every sentence
+below is the corrected one.
+
+## What a reader is told
+
+**You must have it, and living here is what triggers it.** Anyone with a
+residence in Germany must hold qualifying health insurance unless an exception
+applies. It is **§193(3) VVG**, and it attaches to residing here, not to holding
+a permit and not to having a job. Not working does not excuse you.
+
+**Which system you are in is mostly decided for you.** An employee is normally
+compulsorily in the statutory system (§5(1)(1) SGB V). A student at a recognised
+university normally is too, until thirty[^sgb5-5-student-until-thirty] (§5(1)(9)). Someone self-employed as
+their main occupation normally is not. A permit on its own does not get you into
+the statutory system: the uninsured-person fallback in §5(1)(13) is restricted by
+**§5(11)** for third-country nationals and is not a general door for newcomers.
+Cross-border rules may also leave you insured by another country.
+
+**The threshold, and a three month window.**[^sgb5-9-three-months] The general employee threshold is
+**€77,400** in 2026[^bmg-threshold-2026], equivalent to **€6,450**[^threshold-monthly-equivalent][^bmg-threshold-2026] a month. Someone starting
+employment above it is generally outside compulsory employee membership. Someone
+**crossing it during an existing compulsory membership normally leaves only at
+year-end**[^sgb5-6-year-end], provided their pay also exceeds the following year's threshold.
+Private insurance is an option above the threshold, not an obligation. If this is
+your **first employment in Germany**[^bmg-first-employment-above-threshold] and you are over the threshold, you can join
+the statutory system voluntarily without the usual prior-insurance history, but
+you must tell the fund **within three months**[^sgb5-9-three-months] of starting work (§9(1)(3)).
+
+**What it costs.** The general statutory rate is **14.6%**[^sgb5-241-general-rate], plus an additional
+contribution each fund sets for itself; the official 2026 average is **2.9%**[^bmg-average-additional-2026].
+Employer and employee normally split the general and additional contributions
+equally[^bmg-half-each], giving **8.75% each**[^share-at-average] at the official average, up to the monthly
+assessment ceiling of **€5,812.50**[^bmg-assessment-ceiling-monthly]. Special contribution-sharing rules apply,
+including for midijobs.
+
+An ordinarily voluntarily insured **self-employed** GKV member pays the whole
+contribution, assessed on at least **€1,318.33**[^bmg-minimum-assessment-base][^bundestag-wd-minimum-base-monthly] monthly even with lower income.
+At the average additional rate the monthly minimum is about **€222.80**[^bmg-minimum-without-sick-pay] without
+sickness cash benefit or **€230.71**[^bmg-minimum-with-sick-pay] with it; higher assessable income means
+higher contributions, up to the ceiling.
+
+**Care insurance is on top, and it is where Saxony differs.** The standard social
+care-insurance rate is **3.6%**[^bmg-care-rate]. Childless members normally pay **4.2%**[^bmg-care-rate] from the
+month after their twenty-third birthday[^sgb11-55-childless-surcharge-age], subject to statutory exceptions.
+Discounts apply for the second through fifth[^sgb11-55-second-to-fifth-child] qualifying children under
+twenty-five[^bmg-care-children-under-25].
+
+**For employment located in Saxony**, the standard split is **2.3% employee and
+1.3% employer**[^bmg-care-saxony-split]; elsewhere it is 1.8 each[^bmg-care-other-states]. These figures are before child-related
+adjustments and special rules such as midijobs. **The geographic trigger is the
+place of employment, not where the employee lives**[^sgb11-58-place-of-employment] (§58 SGB XI).
+
+**The weeks before your job starts.** Statutory membership through employment
+begins **when the employment begins**[^sgb5-186-membership-begins] (§186(1)), not when you sign the contract.
+For the gap, the Foreign Office's visa guidance says incoming or travel
+insurance **normally** suffices as a bridge, provided it actually covers the
+interval and is not invalidated by an exclusion for intending to live in
+Germany; ending the policy when statutory cover starts is **permitted, not
+required**. That is visa-administration guidance; it is not
+certification that such a product satisfies §193 VVG.
+
+**Do not carry that assumption into the permit office.** Travel insurance
+accepted for your visa is not automatically enough for the **first residence
+permit issued inside Germany**[^hh-kv-first-issue]. Hamburg's guidance separates those two stages
+explicitly. **Berlin and Hamburg publish different requirements**, which is not
+the same as verified acceptance decisions: Berlin's leaflet generally wants an
+annual deductible of no more than **€300**[^berlin-kv-deductible-300], with more allowed after individual
+assessment; Hamburg refers to a **€5,000**[^hh-kv-deductible-5000] ceiling and, for statutory insurance,
+says a copy of your health card is not enough on its own, it wants a current
+membership certificate.
+
+**Being late is not automatically a bill back to your arrival.** Whether you owe
+back contributions depends on when your membership legally began; if it begins
+with your employment, that does not create contributions for the weeks before it.
+Where the uninsured-person route applies, late notification can produce
+contributions owed from the legal membership start; **§256a** provides for
+appropriately reducing those back contributions and **fully waiving**[^sgb5-256a-surcharges-waived] the
+associated late-payment surcharges, subject to its implementing rules. For the
+private-insurance duty, **§193(4) VVG** provides a separate premium surcharge
+when the application to conclude the required contract is made **more than one
+month**[^vvg-193-one-month] after that duty arose.
+
+**What is the same everywhere.** The duty, the earnings threshold, the statutory
+rates and the assessment limits are federal and identical wherever you live. What
+differs is which funds you can join, since some depend on where you live or work
+(§173 SGB V); what each fund charges as its additional contribution; what your
+city's immigration office accepts as evidence; and the Saxon care-insurance
+split.
+
+
+## Sources
+
+- <https://www.gesetze-im-internet.de/vvg_2008/__193.html>
+- <https://www.gesetze-im-internet.de/sgb_5/__5.html>, `__6`, `__9`, `__173`, `__186`, `__249`, `__256a`
+- <https://www.gesetze-im-internet.de/sgb_11/__55.html>, `__58`
+- <https://www.gesetze-im-internet.de/aufenthg_2004/__2.html> (§2(3)), `BJNR195010004` (§5)
+- <https://www.bundesgesundheitsministerium.de/gesetzlich-versicherte>, <https://www.bundesgesundheitsministerium.de/beitraege/seite>
+- <https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung>
+- <https://www.auswaertiges-amt.de/blob/207816/e025d7a51aa0e20f5567c6f7478c8fd6/visumhandbuch-data.pdf> (§2.4, pp. 450-451)
+- <https://welcome.hamburg.de/resource/blob/17560/c987410a6f2d85efdd62e238305eac16/merkblatt-der-bis-zum-nachweis-kv-data.pdf>
+- <https://www.berlin.de/einwanderung/_assets/merkblatt_zur_krankenversicherung.pdf>
+
+All read 2026-09-12.
+
+[^sgb5-5-student-until-thirty]: <https://www.gesetze-im-internet.de/sgb_5/__5.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 5 Abs. 1 Nr. 9", "evidence": ["längstens bis zur Vollendung des dreißigsten Lebensjahres"]}
+
+[^sgb5-9-three-months]: <https://www.gesetze-im-internet.de/sgb_5/__9.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 9 Abs. 2 Nr. 3", "evidence": ["(2) Der Beitritt ist der Krankenkasse innerhalb von drei Monaten anzuzeigen", "3. im Falle des Absatzes 1 Satz 1 Nummer 3 nach Aufnahme der Beschäftigung"]}
+
+[^bmg-threshold-2026]: <https://www.bundesgesundheitsministerium.de/gesetzlich-versicherte> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Versicherungspflichtgrenze", "evidence": ["Diese Obergrenze wird jährlich angepasst und liegt im Jahr 2026 bei 77.400 Euro."]}
+
+[^threshold-monthly-equivalent]: calculated | {"status": "calculated", "read": "2026-09-14", "inputs": ["bmg-threshold-2026"], "formula": "77,400 Euro divided by 12 months", "rounding": "none"}
+
+[^sgb5-6-year-end]: <https://www.gesetze-im-internet.de/sgb_5/__6.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 6 Abs. 4 Sätze 1 und 2", "evidence": ["Wird die Jahresarbeitsentgeltgrenze überschritten, endet die Versicherungspflicht mit Ablauf des Kalenderjahres, in dem sie überschritten wird. Dies gilt nicht, wenn das Entgelt die vom Beginn des nächsten Kalenderjahres an geltende Jahresarbeitsentgeltgrenze nicht übersteigt."]}
+
+[^bmg-first-employment-above-threshold]: <https://www.bundesgesundheitsministerium.de/gesetzlich-versicherte> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Freiwillige Versicherung", "evidence": ["Arbeitnehmerinnen oder Arbeitnehmer, die erstmals in Deutschland eine Beschäftigung aufnehmen und mit ihrem Einkommen über der Jahresarbeitsentgeltgrenze liegen"]}
+
+[^sgb5-241-general-rate]: <https://www.gesetze-im-internet.de/sgb_5/__241.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 241", "evidence": ["Der allgemeine Beitragssatz beträgt 14,6 Prozent der beitragspflichtigen Einnahmen der Mitglieder."]}
+
+[^bmg-average-additional-2026]: <https://www.bundesgesundheitsministerium.de/beitraege/seite> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Zusatzbeitrag", "evidence": ["Für das Jahr 2026 beträgt der durchschnittliche Zusatzbeitragssatz 2,9 Prozent."]}
+
+[^bmg-half-each]: <https://www.bundesgesundheitsministerium.de/finanzierung-gkv> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Einkommensabhängige Beiträge", "evidence": ["Den allgemeinen Beitrag und den Zusatzbeitrag tragen Arbeitgeber und Arbeitnehmer je zur Hälfte."]}
+
+[^share-at-average]: calculated | {"status": "calculated", "read": "2026-09-14", "inputs": ["sgb5-241-general-rate", "bmg-average-additional-2026", "bmg-half-each"], "formula": "(14.6 per cent plus 2.9 per cent) divided by 2", "rounding": "none"}
+
+[^bmg-assessment-ceiling-monthly]: <https://www.bundesgesundheitsministerium.de/service/begriffe-von-a-z/b/beitragsbemessungsgrenze/seite> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Beitragsbemessungsgrenze", "evidence": ["Im Jahr 2026 beträgt die Beitragsbemessungsgrenze jährlich 69.750 Euro (2025: 66.150 Euro) bzw. monatlich 5.812,50 Euro (2025: 5.512,50 Euro)."]}
+
+[^bmg-minimum-assessment-base]: <https://www.bundesgesundheitsministerium.de/beitraege/seite> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Beiträge für freiwillig Versicherte in der GKV", "evidence": ["Personenkreis Anspruch auf Krankengeld* Monatlicher Beitrag", "Mindestbeitrag für Selbstständige/sonstige freiwillig Versicherte (Mindestbemessungsgrundlage: 1.318,33 €)"]}
+
+[^bundestag-wd-minimum-base-monthly]: <https://www.bundestag.de/resource/blob/1170364/WD-6-015-26.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "Wissenschaftliche Dienste des Deutschen Bundestages, WD 6 - 3000 - 015/26, Beiträge von Altersrentnern zur Krankenversicherung in unterschiedlichen Fallkonstellationen, Seite 8, Abschnitt 4 Freiwillige Versicherung", "evidence": ["Für die Beitragsberechnung gilt als beitragspflichtige Einnahme für den Kalendertag mindestens der 1/90 der monatlichen Bezugsgröße (Mindesteinnahme § 240 Abs. 4 Satz 1 SGB V), sodass im Jahr 2026 die freiwilligen Beiträge mindestens aus einer „fiktiven“ Einnahme von monatlich 1.318,33 Euro berechnet werden."]}
+
+[^bmg-minimum-without-sick-pay]: <https://www.bundesgesundheitsministerium.de/beitraege/seite> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Beiträge für freiwillig Versicherte in der GKV", "evidence": ["Personenkreis Anspruch auf Krankengeld* Monatlicher Beitrag", "Mindestbeitrag für Selbstständige/sonstige freiwillig Versicherte (Mindestbemessungsgrundlage: 1.318,33 €) nein 222,80 €**", "** Inklusive Zusatzbeitrag (bei Anwendung des durchschnittlichen Zusatzbeitragssatzes in Höhe von 2,9 %; der kassenindividuelle Zusatzbeitragssatz kann hiervon abweichen)."]}
+
+[^bmg-minimum-with-sick-pay]: <https://www.bundesgesundheitsministerium.de/beitraege/seite> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Beiträge für freiwillig Versicherte in der GKV", "evidence": ["Personenkreis Anspruch auf Krankengeld* Monatlicher Beitrag", "Mindestbeitrag für Selbstständige (Mindestbemessungsgrundlage: 1.318,33 €) ja 230,71 €**", "** Inklusive Zusatzbeitrag (bei Anwendung des durchschnittlichen Zusatzbeitragssatzes in Höhe von 2,9 %; der kassenindividuelle Zusatzbeitragssatz kann hiervon abweichen)."]}
+
+[^bmg-care-rate]: <https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Beitragssatz", "evidence": ["Seit dem 1. Januar 2025 beträgt der Beitragssatz 3,6 Prozent der beitragspflichtigen Einnahmen, bei Kinderlosen sind es 4,2 Prozent"]}
+
+[^sgb11-55-childless-surcharge-age]: <https://www.gesetze-im-internet.de/sgb_11/__55.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 55 Abs. 3 Satz 1", "evidence": ["erhöht sich für Mitglieder nach Ablauf des Monats, in dem sie das 23. Lebensjahr vollendet haben, um einen Beitragszuschlag in Höhe von 0,6 Beitragssatzpunkten"]}
+
+[^sgb11-55-second-to-fifth-child]: <https://www.gesetze-im-internet.de/sgb_11/__55.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 55 Abs. 3", "evidence": ["für jedes Kind ab dem zweiten Kind bis zum fünften Kind um jeweils einen Abschlag in Höhe von 0,25 Beitragssatzpunkten"]}
+
+[^bmg-care-children-under-25]: <https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Beitragssätze für Eltern mit mehreren Kindern", "evidence": ["Mitglieder mit Kindern erhalten je Kind unter 25 Jahren einen Abschlag in Höhe von 0,25 Beitragssatzpunkten. Dies gilt vom zweiten bis zum fünften Kind."]}
+
+[^bmg-care-saxony-split]: <https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Beitragssatz, und die Tabelle Höhe der Beitragssätze", "evidence": ["Dort entfallen von den 3,6 Prozent Pflegeversicherungsbeitrag 2,3 Prozent auf die Beschäftigten und 1,3 Prozent auf die Arbeitgeber.", "Höhe der Beitragssätze in der sozialen Pflegeversicherung Arbeitnehmer Kinderloser Arbeitnehmer Arbeitgeber Bundesland Sachsen 2,3 % 2,9 % 1,3 % Übrige Bundesländer 1,8 % 2,4 % 1,8 %"]}
+
+[^bmg-care-other-states]: <https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Beitragssatz, und die Tabelle Höhe der Beitragssätze", "evidence": ["grundsätzlich zur Hälfte, also jeweils 1,8 Prozent.", "Höhe der Beitragssätze in der sozialen Pflegeversicherung Arbeitnehmer Kinderloser Arbeitnehmer Arbeitgeber Bundesland Sachsen 2,3 % 2,9 % 1,3 % Übrige Bundesländer 1,8 % 2,4 % 1,8 %"]}
+
+[^sgb11-58-place-of-employment]: <https://www.gesetze-im-internet.de/sgb_11/__58.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 58 Abs. 3 Satz 1", "evidence": ["(3) Die in Absatz 1 genannten Beschäftigten tragen die Beiträge in Höhe von 1 vom Hundert allein, wenn der Beschäftigungsort in einem Land liegt"]}
+
+[^sgb5-186-membership-begins]: <https://www.gesetze-im-internet.de/sgb_5/__186.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 186 Abs. 1", "evidence": ["(1) Die Mitgliedschaft versicherungspflichtig Beschäftigter beginnt mit dem Tag des Eintritts in das Beschäftigungsverhältnis."]}
+
+[^hh-kv-first-issue]: <https://welcome.hamburg.de/resource/blob/17560/c987410a6f2d85efdd62e238305eac16/merkblatt-der-bis-zum-nachweis-kv-data.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "Seite 2", "evidence": ["Zur ersten Erteilung des Aufenthaltstitels im Inland gelten aber dann die o.g. Anforderungen, es muss also noch während der Gültigkeit des Visums ein ausreichender Krankenversicherungsschutz abgeschlossen werden."]}
+
+[^berlin-kv-deductible-300]: <https://www.berlin.de/einwanderung/_assets/merkblatt_zur_krankenversicherung.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "Seite 1", "evidence": ["dem Versicherten im Krankheitsfall grundsätzlich keinen höheren Selbstbehalt als 300 Euro im Jahr abverlangen", "Ein höherer Selbstbehalt im Rahmen des § 152 Abs. 1 des Versicherungsaufsichtsgesetzes (VAG) kann nach einer Einzelfallprüfung zugelassen werden."]}
+
+[^hh-kv-deductible-5000]: <https://welcome.hamburg.de/resource/blob/17560/c987410a6f2d85efdd62e238305eac16/merkblatt-der-bis-zum-nachweis-kv-data.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "Seite 1", "evidence": ["die vereinbarten absoluten und prozentualen Selbstbehalte dürfen betragsmäßig 5.000 EUR im Jahr nicht überschreiten."]}
+
+[^sgb5-256a-surcharges-waived]: <https://www.gesetze-im-internet.de/sgb_5/__256a.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 256a Abs. 1", "evidence": ["darauf entfallende Säumniszuschläge nach § 24 des Vierten Buches sind vollständig zu erlassen."]}
+
+[^vvg-193-one-month]: <https://www.gesetze-im-internet.de/vvg_2008/__193.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 193 Abs. 4 Satz 1", "evidence": ["Wird der Vertragsabschluss später als einen Monat nach Entstehen der Pflicht nach Absatz 3 Satz 1 beantragt, ist ein Prämienzuschlag zu entrichten"]}
+
+## Answered
+
+**Yes. The same minimum applies in 2026 to an ordinarily voluntarily insured self-employed member; self-employment does not carry a separate minimum.**
+
+[§240 SGB V](https://www.gesetze-im-internet.de/sgb_5/BJNR024820988.html), headed “Beitragspflichtige Einnahmen freiwilliger Mitglieder”, applies to voluntary members generally. Paragraph 4, sentence 1 states:
+
+> Als beitragspflichtige Einnahmen gilt für den Kalendertag mindestens der neunzigste Teil der monatlichen Bezugsgröße.
+
+Paragraph 4a regulates assessment of income from self-employment; it does not replace that minimum. Read together, the BMG’s self-employed table, the Bundestag’s monthly amount and §240 support your sentence. This is a federal minimum with no regional variation.
+
+**For everything else: no attribution or omitted-condition problem found.**
+
+Opened successfully—the complete statute, containing §240:
+
+https://www.gesetze-im-internet.de/sgb_5/BJNR024820988.html
+
+Attempted; individual page failed to open:
+
+https://www.gesetze-im-internet.de/sgb_5/__240.html

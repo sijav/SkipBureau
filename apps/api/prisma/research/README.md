@@ -90,6 +90,102 @@ commentary moved, all ten came back clean.
 **Do not skip this because the sign-off already happened.** The sign-off checks
 the research. This checks whether the research survived contact with me.
 
+## Every figure names the page that states it (SB-174)
+
+Germany's four agreed documents carry a footnote marker after every fee,
+deadline, threshold, fine and rate, and one definition per label at the end. The
+prose did not change: remove the markers and the agreed text comes back byte for
+byte, which the script that wrote them checked before writing anything. Turkey's
+six documents are SB-182.
+
+A definition is one line: the label, then the page in angle brackets or the word
+`calculated`, then a bar and exactly one JSON object.
+
+```md
+[^bmg-17-two-weeks]: <https://www.gesetze-im-internet.de/bmg/__17.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 17 Abs. 1", "evidence": ["Wer eine Wohnung bezieht, hat sich innerhalb von zwei Wochen nach dem Einzug bei der Meldebehörde anzumelden."]}
+[^share-at-average]: calculated | {"status": "calculated", "read": "2026-09-14", "inputs": ["sgb5-241-general-rate", "bmg-average-additional-2026", "bmg-half-each"], "formula": "(14.6 per cent plus 2.9 per cent) divided by 2", "rounding": "none"}
+```
+
+- **`verified`** carries `evidence`, passages copied exactly from the page, and
+  `locator`, where on the page they are. The evidence carries the whole claim:
+  the "bis zu", the period, both ends of a range, and any condition the sentence
+  depends on. `method` says how the page was read: `raw page`, fetched and its
+  text searched; `rendered PDF`, the cited page read as rendered and its text
+  layer searched; `browser pane`, a page that renders by script, read in a
+  browser.
+- **`calculated`** names no page, because no page states the result. `inputs`
+  are other labels, each verified, with the `formula` and the `rounding`.
+- **One definition per figure a page states**, not one per page. Several labels
+  share a URL, and a figure that two pages state carries both markers.
+
+**How it was checked.** Each case's conversation said which page states which
+figure, as with every fact here. Every quoted passage was then fetched again and
+searched for on its page: 108 passages across the 81 verified definitions that
+can be fetched, all found; the other two render by script and were read in the
+browser pane. Reading each passage against its sentence found quotes that
+stopped short of what the sentence says, a proviso in the law's next sentence, a
+fine quoted without the tier that sets its ceiling, a table row without its
+column headings, and those were extended from the page. Two figures gained a
+second page: the landlord's two weeks, a federal rule that had only a Berlin
+page, and applying before your permission expires, a Berlin instruction that had
+only the statute.
+
+**The last pass.** Each annotated document then went back into its own
+conversation with one question: does any marker attach a figure to a page that
+does not state it, or quote evidence that leaves out a condition its sentence
+depends on? The residence permit came back no. Anmeldung and business
+registration each came back with three quotes missing a condition: the refusal
+that triggers §19(2) BMG, the actual move-in that "in diesem Fall" refers to,
+what makes an address fictitious (§19(6), now a second definition on the €50,000
+fine), a business itself and not only its branches, "actual" turnover in the
+first year, and the €25,000 ceiling beside the €100,000 one. Health insurance
+settled the one question I could not: the Ministry's table never writes
+"monatlich" beside the €1,318.33 base and a Bundestag research paper does, so
+that figure carries both, and §240(4) sentence 1 SGB V sets the same minimum for
+a self-employed member. With those applied, all three came back no.
+
+**Compare in Unicode's composed form.** The Ministry of Health's care page writes
+`fünften` as `u` followed by a combining mark, and a literal search for the
+passage fails although every word of it is on the page.
+
+**The random recheck.** A script then drew two verified definitions per document
+with the operating system's random source, fetched each page again and searched
+for every passage. All eight were found:
+
+- **Anmeldung.** Free in Munich, <https://stadt.muenchen.de/service/info/wohnsitzanmeldung/1063475/n0/>:
+  "Gebührenrahmen kostenfrei". One fee for a family sharing both addresses,
+  <https://www.luewu.de/wp-content/uploads/2025/08/GVBL_HH_2015-42.pdf>, gazette
+  page 274: "Verarbeitung der Anmeldung einer Person oder einer Familie mit
+  gleicher Wegzugs- und Zuzugsadresse (§ 17 Absatz 1 BMG)".
+- **Residence permit.** Up to seven months in Munich,
+  <https://stadt.muenchen.de/service/info/servicestelle-fur-zuwanderung-und-einburgerung/10278359/>:
+  "Bearbeitungszeit Bis zu 7 Monate". Applying before your permission expires,
+  <https://service.berlin.de/dienstleistung/329328/>: "Damit wird bescheinigt,
+  dass Ihr aktueller Aufenthaltstitel (nationales D-Visum oder
+  Aufenthaltserlaubnis) über das bisherige Gültigkeitsdatum hinaus im
+  Bundesgebiet weiter gültig bleibt", and "(Dies gilt nicht, wenn Sie ein
+  Schengen-Visum (C-Visum) für einen kurzfristigen Aufenthalt besitzen oder Ihr
+  aktueller Aufenthaltstitel am Tag der Antragstellung bereits abgelaufen ist.)"
+- **Health insurance.** The second through fifth child,
+  <https://www.gesetze-im-internet.de/sgb_11/__55.html>: "für jedes Kind ab dem
+  zweiten Kind bis zum fünften Kind um jeweils einen Abschlag in Höhe von 0,25
+  Beitragssatzpunkten". About €222.80 without sickness cash benefit,
+  <https://www.bundesgesundheitsministerium.de/beitraege/seite>: the column
+  "Monatlicher Beitrag", the row "Mindestbeitrag für Selbstständige/sonstige
+  freiwillig Versicherte (Mindestbemessungsgrundlage: 1.318,33 €) nein 222,80
+  €**", and its note "Inklusive Zusatzbeitrag (bei Anwendung des
+  durchschnittlichen Zusatzbeitragssatzes in Höhe von 2,9 %".
+- **Business registration.** €25,000 in the first year,
+  <https://www.bundesfinanzministerium.de/Content/DE/Downloads/BMF_Schreiben/Steuerarten/Umsatzsteuer/Umsatzsteuer-Anwendungserlass/2025-03-18-sonderregelung-kleinunternehmer.pdf?__blob=publicationFile&v=4>,
+  page 12: "im Jahr der Aufnahme der Tätigkeit die Grenze von 25.000 € und nicht
+  die Grenze von 100.000 € maßgebend". The €24,500 allowance,
+  <https://www.gesetze-im-internet.de/gewstg/__11.html>: "1. bei natürlichen
+  Personen sowie bei Personengesellschaften um einen Freibetrag in Höhe von 24
+  500 Euro".
+
+The €25,000 definition gained its section's first sentence in the last pass,
+after it was drawn, and that sentence was found on page 12 as well.
+
 ## What it has changed about the product
 
 **SB-168, twice.** Turkey answered three times that the law is national and

@@ -29,14 +29,19 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import subprocess
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 SESSIONS = HERE / "sessions.json"
+# SB-174: a turn holds its case's lock, and a session write holds this one.
+LOCKS = HERE / ".locks"
+SESSIONS_LOCK = LOCKS / "sessions.lock"
 TALK = HERE / "talk"
 
 # The owner named the model and the effort. Web search on, because the whole
@@ -90,9 +95,11 @@ def transcript_of(case: str) -> Path:
     return TALK / country / f"{rule}.md"
 
 
-def run_codex(prompt: str, session_id: str | None) -> tuple[bool, str, str | None]:
+def run_codex(case: str, prompt: str, session_id: str | None) -> tuple[bool, str, str | None]:
     """Returns (ok, answer, session id). Copied in shape from the roast skill, which works."""
-    last = HERE / ".last-message.tmp"
+    # One answer file per case: with one shared file, two cases running at once
+    # read each other's answers (SB-174).
+    last = HERE / f".last-message-{case.replace('/', '-')}.tmp"
     last.unlink(missing_ok=True)
 
     options = [
@@ -152,6 +159,62 @@ def append(case: str, said: str, answer: str, session_id: str | None, opened: bo
     return path
 
 
+def take_lock(path: Path) -> bool:
+    """Creates the lock file exclusively, or reports that someone holds it.
+
+    Never expired by age: a slow turn and a dead one look the same by the clock,
+    and taking a live turn's lock lets two writers in. A lock left by a killed
+    run names its process, and is removed by hand once that process is gone.
+    """
+    try:
+        handle = os.open(path, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+    except FileExistsError:
+        return False
+    with os.fdopen(handle, "w", encoding="utf-8") as file:
+        started = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+        file.write(f"pid {os.getpid()}, started {started}")
+    return True
+
+
+def save_session(case: str, session_id: str) -> None:
+    """Merges one case's session id into sessions.json, under a short lock.
+
+    Re-read, merge, write a temporary file and replace: two cases finishing
+    together would otherwise both read the old file, and the second write would
+    erase the first case's id.
+    """
+    LOCKS.mkdir(exist_ok=True)
+    for _ in range(100):
+        if take_lock(SESSIONS_LOCK):
+            break
+        time.sleep(0.1)
+    else:
+        raise SystemExit(f"sessions.json stayed locked ({SESSIONS_LOCK.read_text(encoding='utf-8')}). "
+                         f"If that process is gone, remove {SESSIONS_LOCK} by hand; {case} is {session_id}.")
+
+    try:
+        sessions = load(SESSIONS)
+        if sessions.get(case) == session_id:
+            return
+        sessions[case] = session_id
+        temporary = SESSIONS.with_name("sessions.json.tmp")
+        with temporary.open("w", encoding="utf-8") as file:
+            file.write(json.dumps(sessions, indent=2, sort_keys=True) + "\n")
+            file.flush()
+            os.fsync(file.fileno())
+        # Windows refuses the replace while another program holds the file open.
+        for attempt in range(10):
+            try:
+                os.replace(temporary, SESSIONS)
+                return
+            except PermissionError:
+                if attempt == 9:
+                    raise
+                time.sleep(0.2)
+    finally:
+        SESSIONS_LOCK.unlink(missing_ok=True)
+
+
 def ask(case: str, message: str) -> int:
     if not CASE.match(case):
         print(f"a case is <country>/<rule>, in lower case with dashes, not {case!r}", file=sys.stderr)
@@ -160,32 +223,42 @@ def ask(case: str, message: str) -> int:
         print("nothing to ask", file=sys.stderr)
         return 2
 
-    sessions = load(SESSIONS)
-    session_id = sessions.get(case)
-    opened = session_id is None
+    # One turn per case at a time: resuming a conversation twice at once, or
+    # opening a new case twice, would give it two writers.
+    LOCKS.mkdir(exist_ok=True)
+    case_lock = LOCKS / f"{case.replace('/', '-')}.lock"
+    if not take_lock(case_lock):
+        print(f"{case} already has a turn running ({case_lock.read_text(encoding='utf-8')}). "
+              f"If that process is gone, remove {case_lock} by hand.", file=sys.stderr)
+        return 3
 
-    # The standing rules open a case and are never repeated: a resumed
-    # conversation already carries them, and restating them every time would
-    # teach it that they are noise.
-    prompt = f"{STANDING}\n\n---\n\n{message}" if opened else message
+    try:
+        session_id = load(SESSIONS).get(case)
+        opened = session_id is None
 
-    where = "opening" if opened else f"resuming {session_id}"
-    print(f"{case}: {where} with {MODEL}, effort {EFFORT}...", flush=True)
+        # The standing rules open a case and are never repeated: a resumed
+        # conversation already carries them, and restating them every time would
+        # teach it that they are noise.
+        prompt = f"{STANDING}\n\n---\n\n{message}" if opened else message
 
-    ok, answer, new_session = run_codex(prompt, session_id)
+        where = "opening" if opened else f"resuming {session_id}"
+        print(f"{case}: {where} with {MODEL}, effort {EFFORT}...", flush=True)
 
-    if new_session:
-        sessions[case] = new_session
-        SESSIONS.write_text(json.dumps(sessions, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        ok, answer, new_session = run_codex(case, prompt, session_id)
 
-    if not ok:
-        print(answer, file=sys.stderr)
-        return 1
+        if new_session:
+            save_session(case, new_session)
 
-    path = append(case, message, answer, new_session, opened)
-    print(answer)
-    print(f"\n[{case} -> {path.relative_to(HERE)}]", file=sys.stderr)
-    return 0
+        if not ok:
+            print(answer, file=sys.stderr)
+            return 1
+
+        path = append(case, message, answer, new_session, opened)
+        print(answer)
+        print(f"\n[{case} -> {path.relative_to(HERE)}]", file=sys.stderr)
+        return 0
+    finally:
+        case_lock.unlink(missing_ok=True)
 
 
 def show(case: str) -> int:

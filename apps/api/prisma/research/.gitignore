@@ -2,3 +2,6 @@
 # are only the way a long message is handed to the script.
 *.txt
 .last-message.tmp
+.last-message-*.tmp
+.locks/
+sessions.json.tmp

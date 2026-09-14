@@ -393,3 +393,419 @@ All read 2026-09-12.
 ## Answered
 
 Nothing left claims more than the evidence we checked supports. URLs opened this turn: none.
+
+---
+
+## Asked, 2026-09-14 10:56 UTC
+
+SB-174. We are going back over the text we agreed for this case on 2026-09-12. Not to change a word of it: to tie every figure in it to the page that states it.
+
+Why. Every rule this product publishes will carry one source URL per figure, and the agreed text lists its sources once, at the end, so nothing says which page states which figure. In a sister case, checking a single attribution found that a page cited for a set of insurance limits is a one-page announcement that states none of them. A related page is not a page that states the figure.
+
+Below are the agreed text and a list of every number and number word in it, by line. For EVERY item on that list, give one of three answers:
+
+A. It is a figure a reader could act on: a fee, charge, deadline, period, threshold, ceiling, fine, rate, percentage, or the date a rule took effect. Give:
+   - the single URL you opened that states it, from the Sources list or a deeper page on the same official host;
+   - where on that page: paragraph, section, table row, or the page number of a PDF;
+   - the page's exact words for the whole claim, as the page writes them and in its own language: the value with its comparator ("bis zu", "mindestens"), both ends of a range, its period, and its date. Copy, do not translate or paraphrase. If you cannot quote the page's words exactly, say so.
+B. It is a figure, but no page you opened states it in that form: it was calculated, or it comes from somewhere you cannot point to. Say which. If calculated, give the formula, each input with its own URL and exact words, and the rounding.
+C. It is not a figure a reader acts on: a paragraph or section number, a case identifier, a count of our own turns or corrections, part of a law's name. One line saying which.
+
+Open the pages again for this; do not answer from your memory of the earlier turns. Where a page will not open, say so for each figure on it.
+
+Answer as a list keyed by line number and item, in the order given. End with the URLs you actually opened.
+
+--- The agreed text ---
+
+# Getting a residence permit in Germany
+
+**Agreed 2026-09-12**, after two turns in `talk/germany/residence-permit.md`.
+Five overclaims found at sign-off. Every sentence below is the corrected one.
+
+The correction worth naming: the draft told a reader who cannot get an
+appointment to plead an emergency. The actual answer is that in Berlin you
+**submit the online application before your permission expires and do not need
+to wait for an appointment at all**. Published as drafted, it would have sent
+people to beg for a slot they did not need.
+
+## What a reader is told
+
+**Who decides.** The Ausländerbehörde where you live decides your application
+and issues the permit: in Berlin the **Landesamt für Einwanderung**, in Munich
+the city's **Servicestelle für Zuwanderung und Einbürgerung**. The employment
+agency may have to consent to your job, but it does not issue the permit.
+
+**What it costs, and this one is federal.** A first residence permit for
+employment, issued as an electronic card, costs **€100**, whether it runs for a
+year or longer. It is set in the federal **Aufenthaltsverordnung §45(1)**, not
+by your city. If you see **€56** quoted in Berlin, that is the federal reduction
+for the exceptional sticker format under §78a, not a Berlin price. Exemptions
+and reductions exist.
+
+**What happens while you wait, and this is the part to read twice.** Applying
+before your national **D visa** or residence permit expires normally preserves
+that title under **§81(4)**; applying during a lawful **visa-free** stay without
+a residence title protects your stay under **§81(3)**. A short-stay **C visa**
+does not receive this protection. These rules apply nationwide.
+
+Applying does not automatically let you work, and it does not automatically let
+you travel.
+
+- **Under §81(4)**, your existing permission to work continues with the
+  restrictions it already had, and applying does not let you switch to a
+  different job. With a valid §81(4) Fiktionsbescheinigung and a valid passport,
+  you can travel and come back.
+- **Under §81(3)**, the application by itself does not let you work, and an
+  **§81(3) Fiktionsbescheinigung does not let you re-enter Germany.** Leaving
+  may mean you cannot get back in.
+
+Two more things about working. Under **§81(5a)**, once the authority has started
+issuing your employment permit, the specified work is allowed while the card is
+being produced, and that permission must be recorded on your certificate. And
+arriving visa-free as a tourist is not a general route to applying for a work
+permit inside Germany: **§41 AufenthV** opens that route only to specified
+nationalities, with a **ninety day** deadline.
+
+**If you cannot get an appointment.** This is real and officially acknowledged:
+Berlin says some departments have nothing available for months. In Berlin,
+**submit the employment-permit application through the dedicated online
+application before your current permission expires; you do not need to wait for
+an appointment.** For additional help in a documented emergency, use the
+responsible department's contact form. Berlin assesses emergency requests for
+urgent travel within the next four weeks evidenced by a booking, or threatened
+job loss or benefit termination because of missing valid documentation,
+evidenced by an employer's or Jobcenter/Sozialamt's letter. If it accepts the
+emergency, it can send a Fiktionsbescheinigung or offer a prompt appointment.
+
+**Cities do the same thing differently.** For the same permit, skilled
+employment with a degree (§18b):
+
+| | Berlin | Munich |
+|---|---|---|
+| Applying | online only, payment before submission | online **or by post** |
+| Appointment | after a positive assessment | after review |
+| Published time | 4-6 weeks for the electronic card after the issuance stage; that page gives no numerical estimate for the whole process | **up to seven months**, with too many applications and not enough staff said plainly |
+| Extra evidence | housing size, and what your rent costs | a declaration about the employment, and a certified translation of a foreign degree |
+
+These are differences in **procedure and in what each office lists**, not
+different eligibility rules, and neither list is a promise that nothing else
+will be asked for. Munich's employment declaration implements **§18(2)(4a)**,
+which is federal: it is not a Bavarian condition.
+
+**The mistake to avoid.** Believing that applying settles all three questions at
+once. Staying, working and travelling are separate. Existing work permission
+continues under §81(4); new work permission under §81(5a) arises when issuance
+of the qualifying title is initiated and must be recorded on the certificate.
+Re-entry requires the appropriate valid travel documents. An application receipt
+is not the same document as a Fiktionsbescheinigung that is valid for travel.
+
+
+## Sources
+
+- <https://www.gesetze-im-internet.de/aufenthg_2004/__81.html>, `__71`, `__18`
+- <https://www.gesetze-im-internet.de/aufenthv/__45.html>, `__45b`, `__52`, `__41`
+- <https://www.gesetze-im-internet.de/gg/art_83.html>, `art_84`
+- <https://service.berlin.de/dienstleistung/329328/> (§18b), <https://service.berlin.de/dienstleistung/326233/> (Fiktionsbescheinigung)
+- <https://www.berlin.de/einwanderung/termine/termin-vereinbaren/>
+- <https://www.berlin.de/einwanderung/service/downloads/artikel.875097.php> (the VAB, unread)
+- <https://stadt.muenchen.de/service/info/servicestelle-fur-zuwanderung-und-einburgerung/10278359/>, <https://stadt.muenchen.de/infos/sze-faq.html>
+
+All read 2026-09-12.
+
+--- Every number and number word in it, by line ---
+
+line 3: 2026 | 09 | 12 | two
+line 4: Five | one
+line 19: one | first
+line 20: €100
+line 21: 45 | 1
+line 22: €56
+line 23: 78
+line 26: twice
+line 28: 81 | 4
+line 29: 81 | 3
+line 35: 81 | 4
+line 37: 81 | 4
+line 39: 81 | 3
+line 40: 81 | 3
+line 43: Two | 81 | 5 | once
+line 47: 41
+line 48: ninety
+line 56: four
+line 62: 18
+line 68: 4 | 6 | seven
+line 73: 18 | 2 | 4
+line 76: three
+line 77: once
+line 78: 81 | 4 | 81 | 5
+
+## Answered
+
+- **Line 3 — 2026 | 09 | 12: C.** Components of our agreement date, not a rule’s effective date. **two: C.** Count of our research turns.
+- **Line 4 — Five: C.** Count of our corrections. **one: C.** Refers to the corrected sentence, not a numerical rule.
+- **Line 19 — one: C.** Refers to this fee rule. **first: C.** Identifies first issuance, the fee category addressed by line 20.
+- **Line 20 — €100: A.** [Official consolidated Aufenthaltsverordnung](https://www.gesetze-im-internet.de/aufenthv/BJNR294510004.html), **§45, number 1, table rows a and b**:
+  
+  > mit einer Geltungsdauer von bis zu einem Jahr — 100 Euro,  
+  > mit einer Geltungsdauer von mehr als einem Jahr — 100 Euro,
+
+  The dash separates table cells; the wording and punctuation are otherwise copied. The individual `__45.html` page timed out; the consolidated regulation opened.
+- **Line 21 — 45 | 1: C.** Legal reference: §45, number 1, AufenthV.
+- **Line 22 — €56: A.** [Berlin’s academic skilled-worker permit page](https://service.berlin.de/dienstleistung/329328/), **Gebühren**, first-issuance sticker entry:
+  
+  > 56,00 Euro: bei erstmaliger Ausstellung der Aufenthaltserlaubnis als Etikett
+
+  Directly stated; no calculation required.
+- **Line 23 — 78: C.** Part of the legal reference §78a AufenthG.
+- **Line 26 — twice: C.** Editorial instruction to read carefully, not a legal frequency.
+- **Line 28 — 81 | 4: C.** Legal reference: §81(4) AufenthG.
+- **Line 29 — 81 | 3: C.** Legal reference: §81(3) AufenthG.
+- **Line 35 — 81 | 4: C.** Legal reference: §81(4) AufenthG.
+- **Line 37 — 81 | 4: C.** Legal reference: §81(4) AufenthG.
+- **Line 39 — 81 | 3: C.** Legal reference: §81(3) AufenthG.
+- **Line 40 — 81 | 3: C.** Legal reference: §81(3) AufenthG.
+- **Line 43 — Two: C.** Count of the following explanations. **81 | 5: C.** Legal reference: §81(5a) AufenthG. **once: C.** Temporal conjunction identifying a trigger, not a numerical figure.
+- **Line 47 — 41: C.** Legal reference: §41 AufenthV.
+- **Line 48 — ninety: A.** [Official consolidated Aufenthaltsverordnung](https://www.gesetze-im-internet.de/aufenthv/BJNR294510004.html), **§41(3), first sentence**:
+  
+  > Ein erforderlicher Aufenthaltstitel ist innerhalb von 90 Tagen nach der Einreise zu beantragen.
+
+  The individual `__41.html` page timed out; the consolidated regulation opened.
+- **Line 56 — four: A.** [Berlin’s appointment page](https://www.berlin.de/einwanderung/termine/termin-vereinbaren/), **Termin im Notfall**, introductory line and first bullet:
+  
+  > Wir helfen Ihnen, wenn Sie
+  
+  > dringend innerhalb der nächsten vier Wochen verreisen müssen und dies durch eine Buchung nachweisen.
+- **Line 62 — 18: C.** Part of the legal reference §18b AufenthG.
+- **Line 68 — 4 | 6: A.** Both endpoints of one range. [Berlin’s academic skilled-worker permit page](https://service.berlin.de/dienstleistung/329328/), **Durchschnittliche Bearbeitungszeit**, electronic-card bullet. Exact duration-and-collection clause:
+  
+  > dauert es 4 bis 6 Wochen, bis dieser abgeholt werden kann.
+
+  This clause concerns the electronic residence card; it is not a total application-processing estimate.
+- **Line 68 — seven: A.** [Munich’s academic skilled-worker permit page](https://stadt.muenchen.de/service/info/servicestelle-fur-zuwanderung-und-einburgerung/10278359/), **Dauer und Kosten → Bearbeitungszeit**:
+  
+  > Bis zu 7 Monate
+- **Line 73 — 18 | 2 | 4: C.** Legal reference: §18(2), number 4a, AufenthG.
+- **Line 76 — three: C.** Count of the three questions discussed: staying, working and travelling.
+- **Line 77 — once: C.** Part of “at once,” meaning simultaneously.
+- **Line 78 — 81 | 4 | 81 | 5: C.** Two legal references, respectively §81(4) and §81(5a) AufenthG.
+
+The quoted entries do not attach an effective date to these figures. This check reopened sources on **2026-09-14**; it does not establish historical page contents on 2026-09-12.
+
+URLs opened successfully:
+
+[Consolidated Aufenthaltsverordnung](https://www.gesetze-im-internet.de/aufenthv/BJNR294510004.html)  
+[Berlin academic skilled-worker permit](https://service.berlin.de/dienstleistung/329328/)  
+[Berlin appointment guidance](https://www.berlin.de/einwanderung/termine/termin-vereinbaren/)  
+[Munich academic skilled-worker permit](https://stadt.muenchen.de/service/info/servicestelle-fur-zuwanderung-und-einburgerung/10278359/)
+
+URLs attempted but timed out:
+
+[Individual §45 AufenthV page](https://www.gesetze-im-internet.de/aufenthv/__45.html)  
+[Individual §41 AufenthV page](https://www.gesetze-im-internet.de/aufenthv/__41.html)
+
+---
+
+## Asked, 2026-09-14 11:07 UTC
+
+SB-174, second pass. I opened every page you named and searched its raw text for your quoted wording. Every quote was there, exactly: §45 and §41 AufenthV (the individual pages opened for me), Berlin's permit page 329328 and its appointment page. Munich's page I am reopening.
+
+Two things are still open.
+
+1. 56 euros as a federal figure. You attributed €56 to Berlin's page, where it is: "56,00 Euro: bei erstmaliger Ausstellung der Aufenthaltserlaubnis als Etikett". But the agreed text says €56 is "the federal reduction for the exceptional sticker format under §78a, not a Berlin price". I searched the whole consolidated Aufenthaltsverordnung for "56 Euro" and it is not there. Which federal provision sets or produces 56 euros for the sticker format, and what are its exact words? If it is 100 euros reduced by an amount set somewhere, that is a calculation: give the provision with the reduction, its exact words, and the arithmetic. If no federal text you can open supports "federal reduction", say so plainly, because then that sentence of our agreed text is an overclaim.
+
+2. Deadlines in words. "before your national D visa or residence permit expires", and "submit the employment-permit application through the dedicated online application before your current permission expires", are deadlines without a number. For each, the page and its exact words.
+
+Quote exactly, from pages you open now, not from memory. End with the URLs you actually opened.
+
+## Answered
+
+1. **€56: the federal basis is verified, and its derivation is a calculation.** My previous attribution established Berlin’s published amount but omitted that derivation.
+
+   **Base fee:** [consolidated AufenthV](https://www.gesetze-im-internet.de/aufenthv/BJNR294510004.html), §45 number 1, rows a and b. Exact table-cell wording:
+
+   | | Validity | Fee |
+   |---|---|---|
+   | a) | mit einer Geltungsdauer von bis zu einem Jahr | 100 Euro, |
+   | b) | mit einer Geltungsdauer von mehr als einem Jahr | 100 Euro, |
+
+   **Reduction:** [§45b AufenthV](https://www.gesetze-im-internet.de/aufenthv/__45b.html), its sole sentence:
+
+   > Für die Ausstellung eines Aufenthaltstitels nach § 78a Absatz 1 Satz 1 des Aufenthaltsgesetzes ermäßigt sich die nach den §§ 44, 44a oder 45 zu erhebende Gebühr um 44 Euro.
+
+   **Arithmetic: €100 − €44 = €56. No rounding.**
+
+   Thus, **€44 is the federal reduction; €56 is the resulting reduced fee**. The federal origin is supported. For attribution, this is **B: calculated from federal provisions**, even though Berlin also states the result directly. There is no regional variation in this calculation.
+
+2. **The deadlines expressed in words**
+
+   **“before your national D visa or residence permit expires”**
+
+   [§81 AufenthG](https://www.gesetze-im-internet.de/aufenthg_2004/__81.html), paragraph 4, first sentence:
+
+   > Beantragt ein Ausländer vor Ablauf seines Aufenthaltstitels dessen Verlängerung oder die Erteilung eines anderen Aufenthaltstitels, gilt der bisherige Aufenthaltstitel vom Zeitpunkt seines Ablaufs bis zur Entscheidung der Ausländerbehörde als fortbestehend.
+
+   This states the before-expiry condition for automatic continuation. It uses *Aufenthaltstitel* rather than spelling out the national D visa separately.
+
+   **“submit the employment-permit application through the dedicated online application before your current permission expires”**
+
+   This combines **the federal timing condition above** with **Berlin’s application procedure**; it is not one verbatim sentence on one page.
+
+   [Berlin’s permit page](https://service.berlin.de/dienstleistung/329328/), **Verfahrensablauf**, step 1:
+
+   > Stellen Sie den Online-Antrag „Befristeter Aufenthaltstitel zur Beschäftigung“.
+
+   Step 3 establishes that the appointment follows assessment:
+
+   > Wenn Ihr Antrag positiv geprüft wurde, erhalten Sie einen Termin zur Vorsprache.
+
+   For lawful visa-free applicants without a residence title, the relevant timing condition is instead in [§81(3), first sentence](https://www.gesetze-im-internet.de/aufenthg_2004/__81.html):
+
+   > Beantragt ein Ausländer, der sich rechtmäßig im Bundesgebiet aufhält, ohne einen Aufenthaltstitel zu besitzen, die Erteilung eines Aufenthaltstitels, gilt sein Aufenthalt bis zur Entscheidung der Ausländerbehörde als erlaubt.
+
+   The deadline attribution therefore belongs to **§81**, while the online submission method belongs to **Berlin’s service page**.
+
+URLs opened successfully:
+
+[Consolidated AufenthV](https://www.gesetze-im-internet.de/aufenthv/BJNR294510004.html)  
+[§45b AufenthV](https://www.gesetze-im-internet.de/aufenthv/__45b.html)  
+[§78a AufenthG](https://www.gesetze-im-internet.de/aufenthg_2004/__78a.html)  
+[§81 AufenthG](https://www.gesetze-im-internet.de/aufenthg_2004/__81.html)  
+[Berlin permit page](https://service.berlin.de/dienstleistung/329328/)
+
+Attempted but timed out:
+
+[Individual §45 AufenthV page](https://www.gesetze-im-internet.de/aufenthv/__45.html)
+
+---
+
+## Asked, 2026-09-14 11:43 UTC
+
+SB-174, the last pass on this document. Below is the agreed text exactly as agreed, with a footnote marker after every figure, and at the end one definition per marker: the page, where on it, and the page's own words, copied from its raw text. A calculated figure says "calculated" and names its inputs instead of a page. Not a word of the prose has changed: removing the markers gives back the agreed text byte for byte.
+
+I opened every page again today and found every quoted passage on it, exactly.
+
+One thing I changed after reading each quote against its sentence, which you have not seen: "before your current permission expires" in the Berlin paragraph now names Berlin's page 329328 first. That page says the online application ends with a PDF confirmation certifying that your current title stays valid beyond its date, and that this does not hold if the title had already expired on the day you applied. §81(4) stays beside it.
+
+The question: does any marker attach a figure to a page that does not state it, or quote evidence that leaves out a condition its sentence depends on? A one-line "no" is the answer asked for. If yes, name the marker, quote what the page actually says from a page you open now, and end with the URLs you opened.
+
+---
+
+# Getting a residence permit in Germany
+
+**Agreed 2026-09-12**, after two turns in `talk/germany/residence-permit.md`.
+Five overclaims found at sign-off. Every sentence below is the corrected one.
+
+The correction worth naming: the draft told a reader who cannot get an
+appointment to plead an emergency. The actual answer is that in Berlin you
+**submit the online application before your permission expires and do not need
+to wait for an appointment at all**. Published as drafted, it would have sent
+people to beg for a slot they did not need.
+
+## What a reader is told
+
+**Who decides.** The Ausländerbehörde where you live decides your application
+and issues the permit: in Berlin the **Landesamt für Einwanderung**, in Munich
+the city's **Servicestelle für Zuwanderung und Einbürgerung**. The employment
+agency may have to consent to your job, but it does not issue the permit.
+
+**What it costs, and this one is federal.** A first residence permit for
+employment, issued as an electronic card, costs **€100**[^aufenthv-45-first-permit-fee], whether it runs for a
+year or longer. It is set in the federal **Aufenthaltsverordnung §45(1)**, not
+by your city. If you see **€56**[^berlin-sticker-fee-56][^federal-sticker-fee-56] quoted in Berlin, that is the federal reduction[^aufenthv-45b-sticker-reduction]
+for the exceptional sticker format under §78a, not a Berlin price. Exemptions
+and reductions exist.
+
+**What happens while you wait, and this is the part to read twice.** Applying
+before your national **D visa** or residence permit expires[^aufenthg-81-4-before-expiry] normally preserves
+that title under **§81(4)**; applying during a lawful **visa-free** stay without
+a residence title protects your stay under **§81(3)**. A short-stay **C visa**
+does not receive this protection. These rules apply nationwide.
+
+Applying does not automatically let you work, and it does not automatically let
+you travel.
+
+- **Under §81(4)**, your existing permission to work continues with the
+  restrictions it already had, and applying does not let you switch to a
+  different job. With a valid §81(4) Fiktionsbescheinigung and a valid passport,
+  you can travel and come back.
+- **Under §81(3)**, the application by itself does not let you work, and an
+  **§81(3) Fiktionsbescheinigung does not let you re-enter Germany.** Leaving
+  may mean you cannot get back in.
+
+Two more things about working. Under **§81(5a)**, once the authority has started
+issuing your employment permit, the specified work is allowed while the card is
+being produced, and that permission must be recorded on your certificate. And
+arriving visa-free as a tourist is not a general route to applying for a work
+permit inside Germany: **§41 AufenthV** opens that route only to specified
+nationalities, with a **ninety day**[^aufenthv-41-ninety-days] deadline.
+
+**If you cannot get an appointment.** This is real and officially acknowledged:
+Berlin says some departments have nothing available for months. In Berlin,
+**submit the employment-permit application through the dedicated online
+application before your current permission expires[^berlin-online-before-expiry][^aufenthg-81-4-before-expiry]; you do not need to wait for
+an appointment.** For additional help in a documented emergency, use the
+responsible department's contact form. Berlin assesses emergency requests for
+urgent travel within the next four weeks[^berlin-emergency-four-weeks] evidenced by a booking, or threatened
+job loss or benefit termination because of missing valid documentation,
+evidenced by an employer's or Jobcenter/Sozialamt's letter. If it accepts the
+emergency, it can send a Fiktionsbescheinigung or offer a prompt appointment.
+
+**Cities do the same thing differently.** For the same permit, skilled
+employment with a degree (§18b):
+
+| | Berlin | Munich |
+|---|---|---|
+| Applying | online only, payment before submission | online **or by post** |
+| Appointment | after a positive assessment | after review |
+| Published time | 4-6 weeks[^berlin-card-4-to-6-weeks] for the electronic card after the issuance stage; that page gives no numerical estimate for the whole process | **up to seven months**[^munich-up-to-seven-months], with too many applications and not enough staff said plainly |
+| Extra evidence | housing size, and what your rent costs | a declaration about the employment, and a certified translation of a foreign degree |
+
+These are differences in **procedure and in what each office lists**, not
+different eligibility rules, and neither list is a promise that nothing else
+will be asked for. Munich's employment declaration implements **§18(2)(4a)**,
+which is federal: it is not a Bavarian condition.
+
+**The mistake to avoid.** Believing that applying settles all three questions at
+once. Staying, working and travelling are separate. Existing work permission
+continues under §81(4); new work permission under §81(5a) arises when issuance
+of the qualifying title is initiated and must be recorded on the certificate.
+Re-entry requires the appropriate valid travel documents. An application receipt
+is not the same document as a Fiktionsbescheinigung that is valid for travel.
+
+
+## Sources
+
+- <https://www.gesetze-im-internet.de/aufenthg_2004/__81.html>, `__71`, `__18`
+- <https://www.gesetze-im-internet.de/aufenthv/__45.html>, `__45b`, `__52`, `__41`
+- <https://www.gesetze-im-internet.de/gg/art_83.html>, `art_84`
+- <https://service.berlin.de/dienstleistung/329328/> (§18b), <https://service.berlin.de/dienstleistung/326233/> (Fiktionsbescheinigung)
+- <https://www.berlin.de/einwanderung/termine/termin-vereinbaren/>
+- <https://www.berlin.de/einwanderung/service/downloads/artikel.875097.php> (the VAB, unread)
+- <https://stadt.muenchen.de/service/info/servicestelle-fur-zuwanderung-und-einburgerung/10278359/>, <https://stadt.muenchen.de/infos/sze-faq.html>
+
+All read 2026-09-12.
+
+[^aufenthv-45-first-permit-fee]: <https://www.gesetze-im-internet.de/aufenthv/__45.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 45 Nr. 1 Buchstabe a und b", "evidence": ["für die Erteilung einer Aufenthaltserlaubnis, einer Blauen Karte EU oder einer ICT-Karte a) mit einer Geltungsdauer von bis zu einem Jahr 100 Euro, b) mit einer Geltungsdauer von mehr als einem Jahr 100 Euro"]}
+
+[^berlin-sticker-fee-56]: <https://service.berlin.de/dienstleistung/329328/> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Gebühren", "evidence": ["56,00 Euro: bei erstmaliger Ausstellung der Aufenthaltserlaubnis als Etikett"]}
+
+[^federal-sticker-fee-56]: calculated | {"status": "calculated", "read": "2026-09-14", "inputs": ["aufenthv-45-first-permit-fee", "aufenthv-45b-sticker-reduction"], "formula": "100 Euro minus 44 Euro", "rounding": "none"}
+
+[^aufenthv-45b-sticker-reduction]: <https://www.gesetze-im-internet.de/aufenthv/__45b.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 45b", "evidence": ["Für die Ausstellung eines Aufenthaltstitels nach § 78a Absatz 1 Satz 1 des Aufenthaltsgesetzes ermäßigt sich die nach den §§ 44, 44a oder 45 zu erhebende Gebühr um 44 Euro."]}
+
+[^aufenthg-81-4-before-expiry]: <https://www.gesetze-im-internet.de/aufenthg_2004/__81.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 81 Abs. 4 Satz 1", "evidence": ["Beantragt ein Ausländer vor Ablauf seines Aufenthaltstitels dessen Verlängerung oder die Erteilung eines anderen Aufenthaltstitels, gilt der bisherige Aufenthaltstitel vom Zeitpunkt seines Ablaufs bis zur Entscheidung der Ausländerbehörde als fortbestehend"]}
+
+[^aufenthv-41-ninety-days]: <https://www.gesetze-im-internet.de/aufenthv/__41.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 41 Abs. 3 Satz 1", "evidence": ["Ein erforderlicher Aufenthaltstitel ist innerhalb von 90 Tagen nach der Einreise zu beantragen."]}
+
+[^berlin-online-before-expiry]: <https://service.berlin.de/dienstleistung/329328/> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Verfahrensablauf, Schritt 1", "evidence": ["Am Ende erhalten Sie ein PDF-Dokument als Bestätigung Ihres Antrags. Damit wird bescheinigt, dass Ihr aktueller Aufenthaltstitel (nationales D-Visum oder Aufenthaltserlaubnis) über das bisherige Gültigkeitsdatum hinaus im Bundesgebiet weiter gültig bleibt.", "(Dies gilt nicht, wenn Sie ein Schengen-Visum (C-Visum) für einen kurzfristigen Aufenthalt besitzen oder Ihr aktueller Aufenthaltstitel am Tag der Antragstellung bereits abgelaufen ist.)"]}
+
+[^berlin-emergency-four-weeks]: <https://www.berlin.de/einwanderung/termine/termin-vereinbaren/> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Termin im Notfall", "evidence": ["Wir helfen Ihnen, wenn Sie dringend innerhalb der nächsten vier Wochen verreisen müssen und dies durch eine Buchung nachweisen."]}
+
+[^berlin-card-4-to-6-weeks]: <https://service.berlin.de/dienstleistung/329328/> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Bearbeitungszeit", "evidence": ["Bei Ausstellung als elektronischer Aufenthaltstitel (eAT) dauert es 4 bis 6 Wochen, bis dieser abgeholt werden kann."]}
+
+[^munich-up-to-seven-months]: <https://stadt.muenchen.de/service/info/servicestelle-fur-zuwanderung-und-einburgerung/10278359/> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Dauer und Kosten", "evidence": ["Bearbeitungszeit Bis zu 7 Monate"]}
+
+## Answered
+
+No. URLs opened this turn: none.
