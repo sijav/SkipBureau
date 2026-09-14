@@ -14,8 +14,10 @@ import { PrismaClient } from './generated/prisma/client.js'
  *
  * So this inserts COUNTRIES, which are structural rather than advisory: a
  * country either exists or it does not, and saying Turkey is called Turkey
- * misleads nobody. Obligations, rule versions and their texts stay out until
- * an editor has approved them, which is what the moderation queue is for.
+ * misleads nobody. It writes no obligation and no rule. Researched ones, from
+ * the agreed research with every fact tied to the page that states it, are
+ * loaded by load-research-rules.ts (SB-190), and nothing else reaches the
+ * deployed database.
  *
  * Idempotent, because it runs on every container start.
  *

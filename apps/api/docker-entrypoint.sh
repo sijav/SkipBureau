@@ -21,6 +21,13 @@ npx prisma migrate deploy
 echo "bootstrapping reference data"
 node dist/bootstrap.js
 
+# Researched rules, written from the agreed research with every fact tied to
+# the page that states it (SB-190). Before the sample content, so a sample guide
+# naming an obligation this adds can link to it. It stops the start if a
+# deployed version differs from the file, which the previous container survives.
+echo "loading researched rules"
+node dist/load-research-rules.js
+
 # Sample content, so the screens can be seen: the owner's order of 2026-09-10,
 # on a database the owner calls test-only. Fill-only, so it is safe on every
 # start. Remove this line before a real launch; see PHASE-NEXT.md. NOT the

@@ -1,0 +1,204 @@
+import { INestApplication } from '@nestjs/common'
+import { Test } from '@nestjs/testing'
+import { execFile } from 'node:child_process'
+import { readFileSync } from 'node:fs'
+import { createRequire } from 'node:module'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { promisify } from 'node:util'
+import request from 'supertest'
+import { afterAll, beforeAll, expect, test } from 'vitest'
+import { AppModule } from '../src/app.module.js'
+import { PrismaService } from '../src/prisma/prisma.service.js'
+import { loadInto, loadResearchRules, ResearchRulesMismatch } from '../src/rules/research/load.js'
+import type { ResearchRules } from '../src/rules/research/rows.js'
+import { TURKEY } from '../src/rules/research/turkey.js'
+import { seed } from '../prisma/seed.js'
+import { startPglite } from '../scripts/pglite-server.mjs'
+
+// SB-190: researched rules reach the database only from src/rules/research,
+// every version and fact resting on verified definitions of its agreed document,
+// and a load is fill-only, append-only and serialised under one lock.
+
+const API = join(dirname(fileURLToPath(import.meta.url)), '..')
+const PORT = 5468
+const COUNTRIES: readonly ResearchRules[] = [TURKEY]
+
+let app: INestApplication
+let prisma: PrismaService
+let stopDatabase: () => Promise<void>
+
+beforeAll(async () => {
+  const database = await startPglite(PORT)
+  stopDatabase = database.stop
+  process.env.DATABASE_URL = database.url
+
+  await promisify(execFile)(
+    process.execPath,
+    [createRequire(import.meta.url).resolve('prisma/build/index.js'), 'migrate', 'deploy'],
+    { cwd: API, env: { ...process.env, DATABASE_URL: database.url }, encoding: 'utf8' },
+  )
+
+  const moduleRef = await Test.createTestingModule({ imports: [AppModule] }).compile()
+  app = moduleRef.createNestApplication()
+  await app.init()
+
+  prisma = app.get(PrismaService)
+  await seed(prisma)
+}, 180_000)
+
+afterAll(async () => {
+  await app?.close()
+  await stopDatabase?.()
+})
+
+const graphql = (query: string, variables: Record<string, unknown> = {}) =>
+  request(app.getHttpServer()).post('/graphql').send({ query, variables })
+
+type Definition = { url: string | null; status: string; read: string }
+
+const isMeta = (value: unknown): value is { status: string; read: string } =>
+  typeof value === 'object' && value !== null && 'status' in value && typeof value.status === 'string' && 'read' in value && typeof value.read === 'string'
+
+/** Every footnote definition of one agreed document, by its label. */
+const definitionsOf = (research: string, document: string): Map<string, Definition> => {
+  const text = readFileSync(join(API, 'prisma/research/agreed', research, `${document}.md`), 'utf8')
+  const definitions = new Map<string, Definition>()
+  for (const line of text.split(/\r?\n/)) {
+    const found = /^\[\^([^\]]+)\]: (?:<([^>]+)>|calculated) \| (\{.*\})$/.exec(line)
+    const meta: unknown = found?.[3] ? JSON.parse(found[3]) : undefined
+    if (found?.[1] && isMeta(meta)) definitions.set(found[1], { url: found[2] ?? null, status: meta.status, read: meta.read })
+  }
+  return definitions
+}
+
+test('every researched version and fact rests on verified definitions of its own agreed document, on the page and the day the file names', () => {
+  let checked = 0
+  for (const rules of COUNTRIES) {
+    for (const version of rules.versions) {
+      const definitions = definitionsOf(rules.research, version.document)
+      const uses = [
+        { what: `${rules.country} ${version.obligation}`, source: version.source, labels: version.labels },
+        ...version.facts.map((fact) => ({ what: `${rules.country} ${version.obligation}.${fact.key}`, source: fact.source, labels: fact.labels })),
+      ]
+      for (const use of uses) {
+        const page = rules.sources[use.source]
+        expect(page, `${use.what} names ${use.source}, which is not a source`).toBeDefined()
+        expect(use.labels.length, `${use.what} names no definition`).toBeGreaterThan(0)
+        for (const label of use.labels) {
+          const definition = definitions.get(label)
+          expect(definition, `${use.what}: ${label} is not a definition in ${version.document}.md`).toBeDefined()
+          expect(definition?.status, `${use.what}: ${label} is ${definition?.status}, not verified`).toBe('verified')
+          expect(definition?.url, `${use.what}: ${label} is on another page`).toBe(page?.url)
+          expect(definition?.read, `${use.what}: ${label} was read on another day`).toBe(page?.read)
+          checked += 1
+        }
+      }
+    }
+  }
+  expect(checked).toBeGreaterThan(0)
+})
+
+const MOVE = `
+  query Move {
+    move(from: "de", to: "tr") {
+      obligationSlug
+      verdict
+      to { facts { key operator numericValue textValue unit currency sourceUrl sourceName verifiedAt } }
+    }
+  }
+`
+
+type Shown = {
+  key: string
+  operator: string
+  numericValue: string | null
+  textValue: string | null
+  unit: string | null
+  currency: string | null
+  sourceUrl: string
+  sourceName: string
+  verifiedAt: string
+}
+
+test("after a load, Turkey's limited company formation answers with every fact the file holds, each on its own page", async () => {
+  const started = Date.now()
+  const report = await loadResearchRules(prisma, COUNTRIES)
+  console.log(`a full load of researched rules took ${Date.now() - started} ms`)
+  expect(report).toEqual({ obligationsAdded: 1, versionsAdded: 1 })
+
+  const response = await graphql(MOVE)
+  expect(response.body.errors, JSON.stringify(response.body.errors)).toBeUndefined()
+  const entries: { obligationSlug: string; verdict: string; to: { facts: Shown[] } | null }[] = response.body.data.move
+  const formation = entries.find((entry) => entry.obligationSlug === 'form-a-limited-company')
+  expect(formation?.verdict).toBe('newInDestination')
+
+  const expected = (TURKEY.versions[0]?.facts ?? [])
+    .map((fact) => {
+      const page = TURKEY.sources[fact.source]
+      return {
+        key: fact.key,
+        operator: fact.operator,
+        numericValue: fact.numericValue === undefined ? null : String(fact.numericValue),
+        textValue: fact.textValue ?? null,
+        unit: fact.unit ?? null,
+        currency: fact.currency ?? null,
+        sourceUrl: page?.url,
+        sourceName: page?.name,
+        verifiedAt: page?.read,
+      }
+    })
+    .sort((a, b) => (a.key < b.key ? -1 : 1))
+  expect(expected).toHaveLength(4)
+  expect(formation?.to?.facts).toEqual(expected)
+})
+
+const counts = () =>
+  Promise.all([
+    prisma.obligation.count(),
+    prisma.obligationText.count(),
+    prisma.ruleVersion.count(),
+    prisma.ruleFact.count(),
+    prisma.eligibilityCriterion.count(),
+    prisma.ruleText.count(),
+  ])
+
+test('a second load, and the seed run beside it, add nothing', async () => {
+  const before = await counts()
+  expect(await loadResearchRules(prisma, COUNTRIES)).toEqual({ obligationsAdded: 0, versionsAdded: 0 })
+  await seed(prisma)
+  expect(await counts()).toEqual(before)
+})
+
+test('a deployed version that no longer matches the file stops the load, and nothing is written', async () => {
+  const changed: ResearchRules = {
+    ...TURKEY,
+    versions: TURKEY.versions.map((version) => ({
+      ...version,
+      facts: version.facts.map((fact) => (fact.key === 'minimumCapital' ? { ...fact, numericValue: 60000 } : fact)),
+    })),
+  }
+  const before = await counts()
+
+  await expect(loadResearchRules(prisma, [changed])).rejects.toThrow(ResearchRulesMismatch)
+  await expect(loadResearchRules(prisma, [changed])).rejects.toThrow(
+    /tr form-a-limited-company from 2026-09-14 is deployed as version \S+, and its fact minimumCapital no longer matches/,
+  )
+  expect(await counts()).toEqual(before)
+})
+
+// The research lock's single integer key, reassembled from how pg_locks shows a
+// one-key advisory lock, so it is told apart from Prisma migrate's own.
+const RESEARCH_LOCKS = `
+  SELECT mode, granted FROM pg_locks
+  WHERE locktype = 'advisory' AND objsubid = 1
+    AND ((classid::bigint << 32) | objid::bigint) = hashtext('skipbureau_research_rules')::bigint`
+
+test('a load holds the research lock in the transaction that runs it', async () => {
+  const held = await prisma.$transaction(async (tx) => {
+    await loadInto(tx, TURKEY)
+    return tx.$queryRawUnsafe<{ mode: string; granted: boolean }[]>(RESEARCH_LOCKS)
+  })
+  expect(held).toEqual([{ mode: 'ExclusiveLock', granted: true }])
+  expect(await prisma.$queryRawUnsafe<{ mode: string; granted: boolean }[]>(RESEARCH_LOCKS)).toEqual([])
+})

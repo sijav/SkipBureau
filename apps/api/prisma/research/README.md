@@ -421,6 +421,23 @@ so did the two drawn again for company formation:
   insurance book, page 34: "Ülkemizde kesintisiz bir yıldır ikamet etmekte olan
   yabancı ülke vatandaşlarından talepte bulunan kişiler".
 
+## How an agreed figure reaches a reader (SB-190)
+
+A figure in `agreed/` becomes a rule only through `src/rules/research/`, one
+module per country, loaded onto the deployed database on every start, fill-only
+and append-only. Each version there names the agreed document it is written
+from, and it and each of its facts name the labels of the definitions they rest
+on. `test/research-rules.e2e.spec.ts` reads every label back from that document
+and fails on one that is calculated, unverified, missing, or on another page or
+day than the module says.
+
+A fact's page is chosen in order: a verified definition of the same document,
+never calculated and never a superseded edition; a page whose own scope covers
+the fact's, so a national fact never cites one city's chamber, which is what
+SB-184 and SB-185 filed; and among those, the page that states the whole fact
+itself, not a change to it or a clause in a longer list. Never marker order, and
+never how official a page looks.
+
 ## What it has changed about the product
 
 **SB-168, twice.** Turkey answered three times that the law is national and
