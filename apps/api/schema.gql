@@ -123,8 +123,19 @@ type GuideObligationFact {
   key: String!
   numericValue: String
   operator: String!
+
+  """The name of the page this figure was read on."""
+  sourceName: String!
+
+  """
+  The page this figure was read on: its own, or where it has none, the page of the rule version it belongs to.
+  """
+  sourceUrl: String!
   textValue: String
   unit: String
+
+  """The day the page this figure was read on was read, as YYYY-MM-DD."""
+  verifiedAt: String!
 }
 
 """An obligation this guide explains, with its current facts."""
@@ -435,8 +446,19 @@ type RuleFactValue {
   The rule version this fact was read from. A place's answer takes what its own rule does not change from the wider places' rules, so one answer's facts can come from several versions, each with its own source and verified date.
   """
   ruleVersionId: String!
+
+  """The name of the page this figure was read on."""
+  sourceName: String!
+
+  """
+  The page this figure was read on: its own, or where it has none, the page of the rule version it came from.
+  """
+  sourceUrl: String!
   textValue: String
   unit: String
+
+  """The day the page this figure was read on was read, as YYYY-MM-DD."""
+  verifiedAt: String!
 }
 
 type SearchGuideView {

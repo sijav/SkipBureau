@@ -14,6 +14,7 @@ import {
   type Profile,
 } from './eligibility.js'
 import { inForceAt } from './selection.js'
+import { sourceOf } from './source.js'
 
 type Candidate = { id: string; criteria: readonly Criterion[]; facts: readonly Fact[]; open: readonly Detail[] }
 
@@ -164,7 +165,11 @@ export class RulesService {
       include: { criteria: true, facts: true, obligation: true },
     })
 
-    const toFact = (fact: (typeof versions)[number]['facts'][number]): Fact => ({
+    type Version = (typeof versions)[number]
+
+    // A fact's page is resolved here, against the version it was read from,
+    // before any answer merges facts from several versions (SB-188).
+    const toFact = (fact: Version['facts'][number], version: Version): Fact => ({
       key: fact.key,
       operator: fact.operator,
       numericValue: fact.numericValue === null ? null : fact.numericValue.toString(),
@@ -172,6 +177,7 @@ export class RulesService {
       unit: fact.unit,
       currency: fact.currency,
       ruleVersionId: fact.ruleVersionId,
+      ...sourceOf(fact, version),
     })
 
     // Every version not contradicted by what the reader said, grouped before
@@ -183,7 +189,7 @@ export class RulesService {
       const fit = fitToProfile(criteria, profile, groups, places)
       if (fit.contradicted) continue
       const slug = version.obligation.slug
-      const candidate = { id: version.id, criteria, facts: version.facts.map(toFact), open: fit.open }
+      const candidate = { id: version.id, criteria, facts: version.facts.map((fact) => toFact(fact, version)), open: fit.open }
       byObligation.set(slug, [...(byObligation.get(slug) ?? []), candidate])
     }
 

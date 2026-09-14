@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../prisma/prisma.service.js'
 import { generalVersionAt } from '../rules/selection.js'
+import { sourceOf } from '../rules/source.js'
 import type { AskView, CategoryHubView, CategoryView, GuideView, HubSourceView, QuestionView, SearchView, TaskHubView, TaskView } from './guide.model.js'
 import { CategoryKind, ObligationResolution, SectionKind } from './guide.model.js'
 import { best, match, WEIGHT, wordsOf, type Field } from './search.js'
@@ -465,14 +466,17 @@ export class GuideService {
           // sends the reader to the context control; an empty fact list would
           // tell them this country asks nothing of them.
           resolution: version ? ObligationResolution.general : ObligationResolution.contextRequired,
-          facts: (version?.facts ?? []).map((fact) => ({
-            key: fact.key,
-            operator: fact.operator,
-            numericValue: fact.numericValue === null ? null : fact.numericValue.toString(),
-            textValue: fact.textValue,
-            unit: fact.unit,
-            currency: fact.currency,
-          })),
+          facts: version
+            ? version.facts.map((fact) => ({
+                key: fact.key,
+                operator: fact.operator,
+                numericValue: fact.numericValue === null ? null : fact.numericValue.toString(),
+                textValue: fact.textValue,
+                unit: fact.unit,
+                currency: fact.currency,
+                ...sourceOf(fact, version),
+              }))
+            : [],
         }
       }),
     }

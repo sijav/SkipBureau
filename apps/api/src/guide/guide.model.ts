@@ -100,6 +100,15 @@ export class GuideObligationFact {
   @Field(() => String, { nullable: true }) textValue!: string | null
   @Field(() => String, { nullable: true }) unit!: string | null
   @Field(() => String, { nullable: true }) currency!: string | null
+
+  @Field(() => String, { description: 'The page this figure was read on: its own, or where it has none, the page of the rule version it belongs to.' })
+  sourceUrl!: string
+
+  @Field(() => String, { description: 'The name of the page this figure was read on.' })
+  sourceName!: string
+
+  @Field(() => String, { description: 'The day the page this figure was read on was read, as YYYY-MM-DD.' })
+  verifiedAt!: string
 }
 
 @ObjectType()

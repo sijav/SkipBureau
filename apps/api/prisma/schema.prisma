@@ -122,6 +122,13 @@ model RuleFact {
   /// ISO 4217, for a fee. Kept apart from `unit` so money never compares
   /// against a duration.
   currency      String?      @db.VarChar(3)
+  /// The page this fact was read on, where it is not its version's own, with
+  /// the page's name and the day it was read. All three or none, which a CHECK
+  /// constraint in the migration enforces; none means the version's own page
+  /// states the fact (SB-188).
+  sourceUrl     String?
+  sourceName    String?
+  verifiedAt    DateTime?    @db.Date
   ruleVersion   RuleVersion  @relation(fields: [ruleVersionId], references: [id], onDelete: Cascade)
 
   @@unique([ruleVersionId, key])

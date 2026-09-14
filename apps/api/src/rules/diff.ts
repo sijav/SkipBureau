@@ -13,6 +13,10 @@ export type Fact = {
    * source and verified date (SB-186).
    */
   ruleVersionId: string
+  /** The page this figure was read on, its name and the day it was read: the fact's own, or its version's (SB-188). */
+  sourceUrl: string
+  sourceName: string
+  verifiedAt: string
 }
 
 export type Resolved = {

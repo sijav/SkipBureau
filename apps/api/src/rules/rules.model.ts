@@ -28,6 +28,15 @@ export class RuleFactValue {
       "The rule version this fact was read from. A place's answer takes what its own rule does not change from the wider places' rules, so one answer's facts can come from several versions, each with its own source and verified date.",
   })
   ruleVersionId!: string
+
+  @Field(() => String, { description: 'The page this figure was read on: its own, or where it has none, the page of the rule version it came from.' })
+  sourceUrl!: string
+
+  @Field(() => String, { description: 'The name of the page this figure was read on.' })
+  sourceName!: string
+
+  @Field(() => String, { description: 'The day the page this figure was read on was read, as YYYY-MM-DD.' })
+  verifiedAt!: string
 }
 
 @ObjectType()

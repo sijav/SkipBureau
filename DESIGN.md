@@ -135,6 +135,14 @@ documents and an exception at once, so values live in `RuleFact` rows with a
 key, an operator, a number or a text, a unit and a currency. Rules are only
 compared when they share an obligation, so the keys line up.
 
+**A fact names the page it was read on** where that is not its version's own
+page, with the page's name and the day it was read (SB-188). One Turkish
+obligation's deadline is in a regulation and its fines are on a directorate's
+page, and a version's single source would cite a page that does not state one
+of them. A reader is always given a page and a day for a figure, the fact's own
+or its version's, and two pages stating the same value are still one fact to
+the comparison.
+
 **That is what makes the answer specific.** "Something is different about
 registering your address" is what a folder of articles already tells you. "The
 deadline is 14 days rather than 20, and Germany also wants a
