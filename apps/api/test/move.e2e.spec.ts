@@ -245,3 +245,42 @@ test('validity is half open, so a rule ending and one starting on the same day d
   const fee = entry.differences.find((d: { key: string }) => d.key === 'fee')
   expect([fee.from.numericValue, fee.to.numericValue]).toEqual(['50', '80'])
 })
+
+test("changes, asked in another language, carries each side's notes in the language they have, and says which are not in it", async () => {
+  const obligation = await prisma.obligation.findUniqueOrThrow({ where: { slug: 'get-a-residence-permit' } })
+  const common = { countryCode: 'tr', obligationId: obligation.id, sourceUrl: 'https://example.gov', sourceName: 'test', verifiedAt: new Date('2026-09-10') }
+  const criteria = { create: [{ dimension: 'situation' as const, value: 'translator' }] }
+
+  const before = await prisma.ruleVersion.create({
+    data: {
+      ...common,
+      criteria,
+      validFrom: new Date('2024-01-01'),
+      validTo: new Date('2025-01-01'),
+      facts: { create: [{ key: 'fee', numericValue: 50, currency: 'USD' }] },
+      texts: {
+        create: [
+          { locale: 'en-US', notes: 'before, in English' },
+          { locale: 'fa-IR', notes: 'before, translated' },
+        ],
+      },
+    },
+  })
+  const after = await prisma.ruleVersion.create({
+    data: {
+      ...common,
+      criteria,
+      validFrom: new Date('2025-01-01'),
+      facts: { create: [{ key: 'fee', numericValue: 80, currency: 'USD' }] },
+      texts: { create: [{ locale: 'en-US', notes: 'after, in English' }] },
+    },
+  })
+
+  const query = `query C { changes(country: "tr", since: "2024-06-01", until: "2026-06-01", situation: "translator", locale: "fa-IR") { obligationSlug from { notes { ruleVersionId text locale translationMissing } } to { notes { ruleVersionId text locale translationMissing } } } }`
+  const response = await graphql(query)
+  expect(response.body.errors, JSON.stringify(response.body.errors)).toBeUndefined()
+  const entry = response.body.data.changes.find((e: { obligationSlug: string }) => e.obligationSlug === 'get-a-residence-permit')
+
+  expect(entry.from.notes).toEqual([{ ruleVersionId: before.id, text: 'before, translated', locale: 'fa-IR', translationMissing: false }])
+  expect(entry.to.notes).toEqual([{ ruleVersionId: after.id, text: 'after, in English', locale: 'en-US', translationMissing: true }])
+})

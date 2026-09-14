@@ -1,8 +1,7 @@
 import { Args, Query, Resolver } from '@nestjs/graphql'
+import { LOCALE } from '../locale.js'
 import { PrismaService } from '../prisma/prisma.service.js'
 import { Country } from './country.model.js'
-
-const LOCALE = { type: () => String, nullable: true, defaultValue: 'en-US' } as const
 
 type Row = { code: string; name: string; texts: { locale: string; name: string }[] }
 

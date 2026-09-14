@@ -303,3 +303,25 @@ test('an obligation with only a scoped version asks for context rather than gues
   expect(scoped.resolution).toBe('contextRequired')
   expect(scoped.facts, "a student's rule was shown as everyone's").toEqual([])
 })
+
+type Note = { ruleVersionId: string; text: string; locale: string; translationMissing: boolean }
+
+test("a guide's obligation carries its rule's note in the language asked for", async () => {
+  const notesIn = async (locale: string): Promise<Note[]> => {
+    const response = await graphql(
+      `query G { guide(country: "tr", slug: "register-your-address", locale: "${locale}") { obligations { notes { ruleVersionId text locale translationMissing } } } }`,
+    )
+    expect(response.body.errors, JSON.stringify(response.body.errors)).toBeUndefined()
+    return response.body.data.guide.obligations[0].notes
+  }
+
+  const [english] = await notesIn('en-US')
+  expect(english).toBeDefined()
+  const texts = english ? await prisma.ruleText.findMany({ where: { ruleVersionId: english.ruleVersionId } }) : []
+  const inEnglish = texts.find((text) => text.locale === 'en-US')
+  const inPersian = texts.find((text) => text.locale === 'fa-IR')
+  expect(inEnglish && inPersian, 'the seeded rule has a note in both languages').toBeTruthy()
+
+  expect(english).toEqual({ ruleVersionId: inEnglish?.ruleVersionId, text: inEnglish?.notes, locale: 'en-US', translationMissing: false })
+  expect(await notesIn('fa-IR')).toEqual([{ ruleVersionId: inPersian?.ruleVersionId, text: inPersian?.notes, locale: 'fa-IR', translationMissing: false }])
+})

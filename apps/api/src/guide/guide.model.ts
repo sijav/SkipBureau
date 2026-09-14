@@ -1,4 +1,5 @@
 import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql'
+import { RuleNote } from '../rules/rules.model.js'
 
 export enum SectionKind {
   beforeYouStart = 'beforeYouStart',
@@ -90,6 +91,11 @@ export class GuideObligationView {
   resolution!: ObligationResolution
 
   @Field(() => [GuideObligationFact]) facts!: readonly GuideObligationFact[]
+
+  @Field(() => [RuleNote], {
+    description: "The notes of the rule this obligation's facts come from, in the language asked for or saying they are not. None where the resolution is contextRequired.",
+  })
+  notes!: readonly RuleNote[]
 }
 
 @ObjectType()

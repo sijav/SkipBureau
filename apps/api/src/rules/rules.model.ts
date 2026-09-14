@@ -39,6 +39,16 @@ export class RuleFactValue {
   verifiedAt!: string
 }
 
+@ObjectType({ description: 'What a rule version says that no fact or criterion can, such as who it does not bind, in one language.' })
+export class RuleNote {
+  @Field(() => String, { description: 'The rule version this note belongs to.' }) ruleVersionId!: string
+  @Field(() => String) text!: string
+  @Field(() => String, { description: 'The language the text is in.' }) locale!: string
+
+  @Field(() => Boolean, { description: 'True where the version has no note in the language asked for, so the text is in another.' })
+  translationMissing!: boolean
+}
+
 @ObjectType()
 export class ResolvedRule {
   @Field(() => String) obligationSlug!: string
@@ -47,6 +57,12 @@ export class ResolvedRule {
   ruleVersionId!: string
 
   @Field(() => [RuleFactValue]) facts!: readonly RuleFactValue[]
+
+  @Field(() => [RuleNote], {
+    description:
+      "The notes of the rule version that applies and of each wider place's version one of its facts came from, widest place first. A wider version this answer takes no fact from gives none.",
+  })
+  notes!: readonly RuleNote[]
 }
 
 @ObjectType()

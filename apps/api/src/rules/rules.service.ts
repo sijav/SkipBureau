@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
+import { FALLBACK } from '../locale.js'
 import { PrismaService } from '../prisma/prisma.service.js'
-import { compare, sameFact, sameFacts, type Entry, type Fact, type Side } from './diff.js'
+import { compare, sameFact, sameFacts, type Entry, type Fact, type Note, type Side } from './diff.js'
 import {
   fitToProfile,
   inConflict,
@@ -13,6 +14,7 @@ import {
   type Profile,
   type Trees,
 } from './eligibility.js'
+import { notesOf } from './note.js'
 import { inForceAt } from './selection.js'
 import { sourceOf } from './source.js'
 
@@ -172,19 +174,19 @@ export class RulesService {
    * that day do not both apply, which is the boundary every naive range check
    * gets wrong.
    */
-  async resolve(countryCode: string, profile: Profile, at: Date): Promise<Map<string, Side>> {
+  async resolve(countryCode: string, profile: Profile, at: Date, locale = FALLBACK): Promise<Map<string, Side>> {
     await this.checkProfile(profile)
-    return this.resolveChecked(countryCode, profile, at)
+    return this.resolveChecked(countryCode, profile, at, locale)
   }
 
   /** `resolve` for a profile already checked, so a caller resolving twice checks once. */
-  private async resolveChecked(countryCode: string, profile: Profile, at: Date): Promise<Map<string, Side>> {
+  private async resolveChecked(countryCode: string, profile: Profile, at: Date, locale: string): Promise<Map<string, Side>> {
     const groups = await this.groupsAt(profile.nationality, at)
     const trees = await this.treesOf(countryCode)
 
     const versions = await this.prisma.ruleVersion.findMany({
       where: { countryCode, ...inForceAt(at) },
-      include: { criteria: true, facts: true, obligation: true },
+      include: { criteria: true, facts: true, obligation: true, texts: true },
     })
 
     type Version = (typeof versions)[number]
@@ -215,6 +217,22 @@ export class RulesService {
       byObligation.set(slug, [...(byObligation.get(slug) ?? []), candidate])
     }
 
+    const textsOf = new Map(versions.map((version) => [version.id, version.texts]))
+
+    // An answer's notes come from the versions its finished facts name, never
+    // from walking the wider rules: a wider rule whose every fact the answer
+    // restates, or whose equal fact it did not keep, gives none (SB-209). Widest
+    // place first, each after every other it strictly covers, ties by id.
+    const noted = (winner: Answered, standing: readonly Candidate[]): Note[] => {
+      const named = new Set([winner.id, ...winner.answer.facts.map((fact) => fact.ruleVersionId)])
+      const giving = standing.filter((candidate) => named.has(candidate.id))
+      const depth = (candidate: Candidate) => giving.filter((other) => other !== candidate && strictlyCovers(candidate.criteria, other.criteria, trees)).length
+      return giving
+        .map((candidate) => ({ candidate, depth: depth(candidate) }))
+        .sort((a, b) => a.depth - b.depth || (a.candidate.id < b.candidate.id ? -1 : 1))
+        .flatMap(({ candidate }) => notesOf(candidate.id, textsOf.get(candidate.id) ?? [], locale))
+    }
+
     const resolved = new Map<string, Side>()
 
     for (const [slug, standing] of byObligation) {
@@ -240,7 +258,10 @@ export class RulesService {
       resolved.set(slug, {
         ambiguous,
         needs,
-        resolved: winner && !ambiguous && needs.length === 0 ? { obligationSlug: slug, ruleVersionId: winner.id, facts: winner.answer.facts } : null,
+        resolved:
+          winner && !ambiguous && needs.length === 0
+            ? { obligationSlug: slug, ruleVersionId: winner.id, facts: winner.answer.facts, notes: noted(winner, standing) }
+            : null,
       })
     }
 
@@ -253,11 +274,11 @@ export class RulesService {
    * Istanbul to Bursa compares two Turkish answers rather than refusing two
    * places in one country (SB-186).
    */
-  async move(from: Place, to: Place, at: Date): Promise<Entry[]> {
+  async move(from: Place, to: Place, at: Date, locale = FALLBACK): Promise<Entry[]> {
     await Promise.all([this.checkProfile(from.profile), this.checkProfile(to.profile)])
     const [origin, destination] = await Promise.all([
-      this.resolveChecked(from.country, from.profile, at),
-      this.resolveChecked(to.country, to.profile, at),
+      this.resolveChecked(from.country, from.profile, at, locale),
+      this.resolveChecked(to.country, to.profile, at, locale),
     ])
     return compare(origin, destination)
   }
@@ -268,11 +289,11 @@ export class RulesService {
    * The same machinery with two dates instead of two countries, which is the
    * reason a change is a new row rather than an edit.
    */
-  async changes(countryCode: string, profile: Profile, since: Date, until: Date): Promise<Entry[]> {
+  async changes(countryCode: string, profile: Profile, since: Date, until: Date, locale = FALLBACK): Promise<Entry[]> {
     await this.checkProfile(profile)
     const [before, after] = await Promise.all([
-      this.resolveChecked(countryCode, profile, since),
-      this.resolveChecked(countryCode, profile, until),
+      this.resolveChecked(countryCode, profile, since, locale),
+      this.resolveChecked(countryCode, profile, until, locale),
     ])
     return compare(before, after)
   }

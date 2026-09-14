@@ -144,6 +144,11 @@ type GuideObligationView {
   facts: [GuideObligationFact!]!
 
   """
+  The notes of the rule this obligation's facts come from, in the language asked for or saying they are not. None where the resolution is contextRequired.
+  """
+  notes: [RuleNote!]!
+
+  """
   contextRequired means every version is scoped to somebody, so there is no general answer to show.
   """
   resolution: ObligationResolution!
@@ -313,6 +318,7 @@ type Query {
   """What changed in one country between two dates, for this person."""
   changes(
     country: String!
+    locale: String = "en-US"
     nationality: String
 
     """
@@ -365,6 +371,7 @@ type Query {
     Where this person works before the move, in place of workRegions on that side, the same way.
     """
     fromWorkRegions: [String!]
+    locale: String = "en-US"
     nationality: String
 
     """
@@ -439,6 +446,11 @@ type RelatedGoalView {
 
 type ResolvedRule {
   facts: [RuleFactValue!]!
+
+  """
+  The notes of the rule version that applies and of each wider place's version one of its facts came from, widest place first. A wider version this answer takes no fact from gives none.
+  """
+  notes: [RuleNote!]!
   obligationSlug: String!
 
   """
@@ -470,6 +482,23 @@ type RuleFactValue {
 
   """The day the page this figure was read on was read, as YYYY-MM-DD."""
   verifiedAt: String!
+}
+
+"""
+What a rule version says that no fact or criterion can, such as who it does not bind, in one language.
+"""
+type RuleNote {
+  """The language the text is in."""
+  locale: String!
+
+  """The rule version this note belongs to."""
+  ruleVersionId: String!
+  text: String!
+
+  """
+  True where the version has no note in the language asked for, so the text is in another.
+  """
+  translationMissing: Boolean!
 }
 
 type SearchGuideView {

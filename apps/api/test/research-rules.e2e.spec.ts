@@ -20,7 +20,7 @@ import { startPglite } from '../scripts/pglite-server.mjs'
 // every version and fact resting on verified definitions of its agreed document,
 // and a load is fill-only, append-only and serialised under one lock. SB-194:
 // the residence statuses a file names are written first, in its order, and a
-// deployed one is never moved.
+// deployed one is never moved. SB-209: an answer carries its rule's notes.
 
 const API = join(dirname(fileURLToPath(import.meta.url)), '..')
 const PORT = 5468
@@ -102,12 +102,15 @@ test('every researched version and fact rests on verified definitions of its own
 })
 
 const MOVE = `
-  query Move($residenceStatuses: [String!]) {
-    move(from: "de", to: "tr", residenceStatuses: $residenceStatuses) {
+  query Move($residenceStatuses: [String!], $locale: String) {
+    move(from: "de", to: "tr", residenceStatuses: $residenceStatuses, locale: $locale) {
       obligationSlug
       verdict
       needs
-      to { facts { key operator numericValue textValue unit currency sourceUrl sourceName verifiedAt } }
+      to {
+        facts { key operator numericValue textValue unit currency sourceUrl sourceName verifiedAt }
+        notes { ruleVersionId text locale translationMissing }
+      }
     }
   }
 `
@@ -124,11 +127,13 @@ type Shown = {
   verifiedAt: string
 }
 
-type Entry = { obligationSlug: string; verdict: string; needs: string[]; to: { facts: Shown[] } | null }
+type Note = { ruleVersionId: string; text: string; locale: string; translationMissing: boolean }
+
+type Entry = { obligationSlug: string; verdict: string; needs: string[]; to: { facts: Shown[]; notes: Note[] } | null }
 
 /** Turkey's answer for one obligation to a reader arriving from Germany, or undefined where no rule of it applies to them. */
-const entryFor = async (slug: string, residenceStatuses?: string[]): Promise<Entry | undefined> => {
-  const response = await graphql(MOVE, residenceStatuses ? { residenceStatuses } : {})
+const entryFor = async (slug: string, residenceStatuses?: string[], locale?: string): Promise<Entry | undefined> => {
+  const response = await graphql(MOVE, { ...(residenceStatuses ? { residenceStatuses } : {}), ...(locale ? { locale } : {}) })
   expect(response.body.errors, JSON.stringify(response.body.errors)).toBeUndefined()
   const entries: Entry[] = response.body.data.move
   return entries.find((entry) => entry.obligationSlug === slug)
@@ -184,6 +189,21 @@ test("joining Turkey's general health insurance answers a residence permit holde
 
   expect(await entryFor('join-general-health-insurance')).toMatchObject({ verdict: 'needsDetail', needs: ['residenceStatus'], to: null })
   expect(await entryFor('join-general-health-insurance', ['tr.visa-exemption'])).toBeUndefined()
+})
+
+test("joining general health insurance carries its rule's notes in English, and asked in Persian says they are only in English", async () => {
+  const notes = TURKEY.versions.find((version) => version.obligation === 'join-general-health-insurance')?.notes.en
+  expect(notes?.split('. ')[0]).toContain("not insured under a foreign country's law")
+
+  const { id: version } = await prisma.ruleVersion.findFirstOrThrow({
+    where: { countryCode: 'tr', obligation: { slug: 'join-general-health-insurance' } },
+    select: { id: true },
+  })
+  const english = await entryFor('join-general-health-insurance', ['tr.residence-permit'])
+  expect(english?.to?.notes).toEqual([{ ruleVersionId: version, text: notes, locale: 'en-US', translationMissing: false }])
+
+  const persian = await entryFor('join-general-health-insurance', ['tr.residence-permit'], 'fa-IR')
+  expect(persian?.to?.notes).toEqual([{ ruleVersionId: version, text: notes, locale: 'en-US', translationMissing: true }])
 })
 
 const counts = () =>

@@ -1,24 +1,12 @@
 import { Injectable } from '@nestjs/common'
+import { pick } from '../locale.js'
 import { PrismaService } from '../prisma/prisma.service.js'
+import { notesOf } from '../rules/note.js'
 import { generalVersionAt } from '../rules/selection.js'
 import { sourceOf } from '../rules/source.js'
 import type { AskView, CategoryHubView, CategoryView, GuideView, HubSourceView, QuestionView, SearchView, TaskHubView, TaskView } from './guide.model.js'
 import { CategoryKind, ObligationResolution, SectionKind } from './guide.model.js'
 import { best, match, WEIGHT, wordsOf, type Field } from './search.js'
-
-const FALLBACK = 'en-US'
-
-/** A row picked in the asked-for language, or the fallback, or nothing. */
-const pick = <T extends { locale: string }>(texts: readonly T[], locale: string): { text: T | null; missing: boolean } => {
-  const wanted = texts.find((text) => text.locale === locale)
-  if (wanted) return { text: wanted, missing: false }
-
-  // An ABSENT row means not translated. A present row with null columns means
-  // deliberately empty. Keeping those apart is why no reader-facing field
-  // lives on the parent table.
-  const fallback = texts.find((text) => text.locale === FALLBACK) ?? texts[0] ?? null
-  return { text: fallback, missing: true }
-}
 
 const date = (value: Date): string => value.toISOString().slice(0, 10)
 
@@ -386,7 +374,7 @@ export class GuideService {
                 // twenty day deadline. Without the date a rule starting next
                 // year counted as current. Without `criteria: none` a rule
                 // written for students would be shown to a worker.
-                versions: { where: generalVersionAt(countryCode, at), include: { facts: true } },
+                versions: { where: generalVersionAt(countryCode, at), include: { facts: true, texts: true } },
               },
             },
           },
@@ -477,6 +465,7 @@ export class GuideService {
                 ...sourceOf(fact, version),
               }))
             : [],
+          notes: version ? notesOf(version.id, version.texts, locale) : [],
         }
       }),
     }

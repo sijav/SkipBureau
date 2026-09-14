@@ -218,6 +218,15 @@ a version covering every tied rule, because nothing else could settle it. An amb
 `needs`, so a caller reading only the verdict never loses it. This is what lets
 the context control ask only when it changes the answer.
 
+**A rule's notes come with its answer** (SB-209). A note holds what no fact or
+criterion can, such as who a rule does not bind, so an answer carries the note of
+the rule that applies and of each wider place's rule one of its facts came from,
+widest place first. Which rules those are is read from the finished facts: a
+wider rule whose every fact the narrower one restates gives no note, because free
+text cannot say which of its sentences still hold, and a condition that still
+binds there is written again in the narrower rule's note. A question carries no
+note, for the reason it carries no provisional rule.
+
 ### Time is the same machinery
 
 `validFrom` and `validTo`, half open, so `validFrom <= at < validTo` and a rule
@@ -383,6 +392,13 @@ verified style panel, "Not in your language yet", naming the language it is in.
 Nothing at all would send the reader away; the wrong language unannounced would
 be worse. Search engines are told the same: the page's canonical is the
 language the text is in, and it names no alternate it does not have (SB-086).
+
+A rule's note is picked the same way, one note at a time, because one answer can
+draw on a national rule translated into Persian and a city rule that is not: each
+note says the language it is in and whether the one asked for was missing
+(SB-209). Where a text has neither the language asked for nor English, the one
+whose language code sorts first is given, so the same question always gets the
+same text.
 
 ---
 

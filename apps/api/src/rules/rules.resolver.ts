@@ -1,5 +1,6 @@
 import { Args, Query, Resolver } from '@nestjs/graphql'
 import { GraphQLError } from 'graphql'
+import { LOCALE } from '../locale.js'
 import { ProfileError } from './eligibility.js'
 import { DiffEntry } from './rules.model.js'
 import { RulesService } from './rules.service.js'
@@ -34,6 +35,7 @@ export class RulesResolver {
   async move(
     @Args('from', { type: () => String }) from: string,
     @Args('to', { type: () => String }) to: string,
+    @Args('locale', LOCALE) locale: string,
     @Args('nationality', { type: () => String, nullable: true }) nationality?: string,
     @Args('situation', { type: () => String, nullable: true }) situation?: string,
     @Args('at', { type: () => String, nullable: true }) at?: string,
@@ -64,6 +66,7 @@ export class RulesResolver {
         { country: from, profile: { ...person, residenceRegions: fromResidenceRegions ?? residenceRegions, workRegions: fromWorkRegions ?? workRegions } },
         { country: to, profile: { ...person, residenceRegions: toResidenceRegions ?? residenceRegions, workRegions: toWorkRegions ?? workRegions } },
         at ? new Date(at) : new Date(),
+        locale,
       )
       .catch(asInputError)
   }
@@ -73,6 +76,7 @@ export class RulesResolver {
     @Args('country', { type: () => String }) country: string,
     @Args('since', { type: () => String }) since: string,
     @Args('until', { type: () => String }) until: string,
+    @Args('locale', LOCALE) locale: string,
     @Args('nationality', { type: () => String, nullable: true }) nationality?: string,
     @Args('situation', { type: () => String, nullable: true }) situation?: string,
     @Args('residenceRegions', { type: () => [String], nullable: true, description: RESIDENCE }) residenceRegions?: string[],
@@ -80,7 +84,7 @@ export class RulesResolver {
     @Args('residenceStatuses', { type: () => [String], nullable: true, description: STATUS }) residenceStatuses?: string[],
   ): Promise<DiffEntry[]> {
     return this.rules
-      .changes(country, { nationality, situation, residenceRegions, workRegions, residenceStatuses }, new Date(since), new Date(until))
+      .changes(country, { nationality, situation, residenceRegions, workRegions, residenceStatuses }, new Date(since), new Date(until), locale)
       .catch(asInputError)
   }
 }

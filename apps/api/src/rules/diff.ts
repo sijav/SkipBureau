@@ -19,11 +19,26 @@ export type Fact = {
   verifiedAt: string
 }
 
+/** A rule version's note, in the language it is in (SB-209). */
+export type Note = {
+  ruleVersionId: string
+  text: string
+  locale: string
+  /** True where the version has no note in the language asked for, so this one is in another. */
+  translationMissing: boolean
+}
+
 export type Resolved = {
   obligationSlug: string
   /** The most specific version that applies; each fact names the version it came from. */
   ruleVersionId: string
   facts: readonly Fact[]
+  /**
+   * The notes of the version that applies and of each wider place's version one
+   * of its facts came from, widest place first. Never compared: a note changes
+   * no verdict (SB-209).
+   */
+  notes: readonly Note[]
 }
 
 export type FactDifference = {

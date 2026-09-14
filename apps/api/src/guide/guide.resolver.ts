@@ -1,8 +1,7 @@
 import { Args, Query, Resolver } from '@nestjs/graphql'
+import { LOCALE } from '../locale.js'
 import { AskView, CategoryHubView, CategoryView, GuideView, QuestionView, SearchView, TaskHubView, TaskView } from './guide.model.js'
 import { GuideService } from './guide.service.js'
-
-const LOCALE = { type: () => String, nullable: true, defaultValue: 'en-US' } as const
 
 @Resolver(() => GuideView)
 export class GuideResolver {

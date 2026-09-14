@@ -99,14 +99,15 @@ const MOVE = `
       reason
       needs
       from { ruleVersionId facts { key operator numericValue textValue ruleVersionId } }
-      to { ruleVersionId facts { key operator numericValue textValue ruleVersionId } }
+      to { ruleVersionId facts { key operator numericValue textValue ruleVersionId } notes { ruleVersionId text locale translationMissing } }
       differences { key known from { numericValue ruleVersionId } to { numericValue ruleVersionId } }
     }
   }
 `
 
 type Fact = { key: string; operator: string; numericValue: string | null; textValue: string | null; ruleVersionId: string }
-type Side = { ruleVersionId: string; facts: Fact[] } | null
+type Note = { ruleVersionId: string; text: string; locale: string; translationMissing: boolean }
+type Side = { ruleVersionId: string; facts: Fact[]; notes?: Note[] } | null
 type Value = { numericValue: string | null; ruleVersionId: string } | null
 type Entry = {
   obligationSlug: string
@@ -145,8 +146,8 @@ const obligation = async () => (await prisma.obligation.create({ data: { slug: `
 type CriterionInput = { dimension: 'nationality' | 'nationalityGroup' | 'situation' | 'residenceRegion' | 'workRegion'; value: string }
 type FactInput = { key: string; operator?: 'equals' | 'none'; numericValue?: number; textValue?: string }
 
-/** A version in Turkey starting next month. */
-const version = async (slug: string, criteria: CriterionInput[], facts: FactInput[]) =>
+/** A version in Turkey starting next month, with an English note where one is given. */
+const version = async (slug: string, criteria: CriterionInput[], facts: FactInput[], note?: string) =>
   prisma.ruleVersion.create({
     data: {
       countryCode: 'tr',
@@ -155,6 +156,7 @@ const version = async (slug: string, criteria: CriterionInput[], facts: FactInpu
       ...source,
       criteria: { create: criteria },
       facts: { create: facts },
+      ...(note ? { texts: { create: [{ locale: 'en-US', notes: note }] } } : {}),
     },
   })
 
@@ -461,4 +463,48 @@ test('the seed, run a second time on a database with places below the first leve
   const before = await counts()
   await seed(prisma)
   expect(await counts()).toEqual(before)
+})
+
+/** The notes a side carries, as the version each belongs to and its text. */
+const noted = (side: Side) => (side?.notes ?? []).map((note) => [note.ruleVersionId, note.text])
+
+test('an answer carries the notes of the rules its facts come from, widest place first, and a wider rule it takes no fact from gives none', async () => {
+  const inherits = await obligation()
+  const country = await version(
+    inherits,
+    [],
+    [
+      { key: 'fee', numericValue: 100 },
+      { key: 'deadline', numericValue: 30 },
+    ],
+    'the country',
+  )
+  const city = await version(inherits, [lives('TR-34.kadikoy')], [{ key: 'fee', numericValue: 150 }], 'the city')
+
+  expect(noted((await livingIn(inherits, 'TR-34.kadikoy')).to)).toEqual([
+    [country.id, 'the country'],
+    [city.id, 'the city'],
+  ])
+  expect(noted((await livingIn(inherits, 'TR-16')).to)).toEqual([[country.id, 'the country']])
+
+  // A city rule that states every fact the country's does replaces it there, note and all.
+  const replaced = await obligation()
+  await version(replaced, [], [{ key: 'fee', numericValue: 100 }], 'the country')
+  const whole = await version(replaced, [lives('TR-34.kadikoy')], [{ key: 'fee', numericValue: 150 }], 'the city')
+  expect(noted((await livingIn(replaced, 'TR-34.kadikoy')).to)).toEqual([[whole.id, 'the city']])
+})
+
+test('where two wider rules state the same value, only the version whose fact the answer kept gives a note', async () => {
+  const slug = await obligation()
+  const istanbul = await version(slug, [lives('TR-34')], [{ key: 'fee', numericValue: 100 }], 'where you live')
+  const bursa = await version(slug, [works('TR-16')], [{ key: 'fee', numericValue: 100 }], 'where you work')
+  const both = await version(slug, [lives('TR-34.kadikoy'), works('TR-16')], [{ key: 'deadline', numericValue: 10 }], 'both')
+  const [kept] = [istanbul, bursa].sort((a, b) => (a.id < b.id ? -1 : 1))
+
+  const answer = await livingIn(slug, 'TR-34.kadikoy', { toWorkRegions: ['TR-16'] })
+  expect(told(answer.to).fee).toEqual(['100', kept?.id])
+  expect(noted(answer.to)).toEqual([
+    [kept?.id, kept?.id === istanbul.id ? 'where you live' : 'where you work'],
+    [both.id, 'both'],
+  ])
 })
