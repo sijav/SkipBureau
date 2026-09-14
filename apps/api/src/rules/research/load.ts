@@ -2,12 +2,13 @@ import { Prisma, type PrismaClient } from '../../generated/prisma/client.js'
 import type { ResearchFact, ResearchRules, ResearchSource, ResearchVersion } from './rows.js'
 
 /** What a load added; everything else was already there. */
-export type LoadReport = { obligationsAdded: number; versionsAdded: number }
+export type LoadReport = { statusesAdded: number; obligationsAdded: number; versionsAdded: number }
 
 /**
- * A deployed researched version that no longer says what the file says. The
- * load stops rather than write over history or leave the database quietly
- * different from the repository: a changed rule is a new version (SB-202).
+ * A deployed researched version, or a residence status the file names, that no
+ * longer says what the file says. The load stops rather than write over history
+ * or leave the database quietly different from the repository: a changed rule
+ * is a new version (SB-202).
  */
 export class ResearchRulesMismatch extends Error {
   constructor(message: string) {
@@ -36,6 +37,8 @@ const pageOf = (rules: ResearchRules, key: string, what: string): ResearchSource
   if (!page) throw new Error(`Researched rule ${what} names ${key}, which is not one of ${rules.research}'s sources.`)
   return page
 }
+
+const placeOf = (country: string, parent: string | null): string => (parent === null ? `in ${country} with nothing above it` : `in ${country} inside ${parent}`)
 
 const factRow = (fact: ResearchFact, rules: ResearchRules, what: string) => {
   const page = pageOf(rules, fact.source, what)
@@ -84,12 +87,37 @@ const differenceOf = (stored: Stored, version: ResearchVersion, rules: ResearchR
 
 /**
  * One country's researched rules, written through the transaction client it
- * is given, fill-only and append-only. It takes the research lock first and
- * uses that client for every read and write, never the base one, so the
- * caller's transaction is what the lock protects.
+ * is given, fill-only and append-only, its residence statuses first and in the
+ * file's order so its versions' criteria can name them. It takes the research
+ * lock first and uses that client for every read and write, never the base
+ * one, so the caller's transaction is what the lock protects.
  */
 export const loadInto = async (tx: Prisma.TransactionClient, rules: ResearchRules): Promise<LoadReport> => {
   await tx.$queryRaw`SELECT 1 AS locked FROM pg_advisory_xact_lock(hashtext(${LOCK}))`
+
+  // A status's names are an editor's once it exists, as an obligation's titles
+  // are. Where it sits is not: moving one changes which readers every rule
+  // naming it, or a status above it, reaches.
+  let statusesAdded = 0
+  for (const status of rules.statuses) {
+    const existing = await tx.residenceStatus.findUnique({ where: { code: status.code } })
+    if (existing && (existing.countryCode !== rules.country || existing.parentCode !== status.parent)) {
+      throw new ResearchRulesMismatch(
+        `Residence status ${status.code} is deployed ${placeOf(existing.countryCode, existing.parentCode)}, and src/rules/research has it ${placeOf(rules.country, status.parent)}. Moving a status changes which readers every rule naming it reaches, so a load never moves one.`,
+      )
+    }
+    if (!existing) {
+      await tx.residenceStatus.create({ data: { code: status.code, countryCode: rules.country, parentCode: status.parent, name: status.names.en } })
+      statusesAdded += 1
+    }
+    await tx.residenceStatusText.createMany({
+      data: [
+        { statusCode: status.code, locale: 'en-US', name: status.names.en },
+        { statusCode: status.code, locale: 'fa-IR', name: status.names.fa },
+      ],
+      skipDuplicates: true,
+    })
+  }
 
   let obligationsAdded = 0
   for (const obligation of rules.obligations) {
@@ -143,7 +171,7 @@ export const loadInto = async (tx: Prisma.TransactionClient, rules: ResearchRule
     versionsAdded += 1
   }
 
-  return { obligationsAdded, versionsAdded }
+  return { statusesAdded, obligationsAdded, versionsAdded }
 }
 
 /** Every country's researched rules, in one transaction under the research lock, as a deploy loads them. */
@@ -151,9 +179,10 @@ export const loadResearchRules = async (prisma: PrismaClient, countries: readonl
   try {
     return await prisma.$transaction(
       async (tx) => {
-        const report: LoadReport = { obligationsAdded: 0, versionsAdded: 0 }
+        const report: LoadReport = { statusesAdded: 0, obligationsAdded: 0, versionsAdded: 0 }
         for (const rules of countries) {
           const added = await loadInto(tx, rules)
+          report.statusesAdded += added.statusesAdded
           report.obligationsAdded += added.obligationsAdded
           report.versionsAdded += added.versionsAdded
         }

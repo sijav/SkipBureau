@@ -11,14 +11,16 @@ import { afterAll, beforeAll, expect, test } from 'vitest'
 import { AppModule } from '../src/app.module.js'
 import { PrismaService } from '../src/prisma/prisma.service.js'
 import { loadInto, loadResearchRules, ResearchRulesMismatch } from '../src/rules/research/load.js'
-import type { ResearchRules } from '../src/rules/research/rows.js'
+import type { ResearchRules, ResearchStatus } from '../src/rules/research/rows.js'
 import { TURKEY } from '../src/rules/research/turkey.js'
 import { seed } from '../prisma/seed.js'
 import { startPglite } from '../scripts/pglite-server.mjs'
 
 // SB-190: researched rules reach the database only from src/rules/research,
 // every version and fact resting on verified definitions of its agreed document,
-// and a load is fill-only, append-only and serialised under one lock.
+// and a load is fill-only, append-only and serialised under one lock. SB-194:
+// the residence statuses a file names are written first, in its order, and a
+// deployed one is never moved.
 
 const API = join(dirname(fileURLToPath(import.meta.url)), '..')
 const PORT = 5468
@@ -100,10 +102,11 @@ test('every researched version and fact rests on verified definitions of its own
 })
 
 const MOVE = `
-  query Move {
-    move(from: "de", to: "tr") {
+  query Move($residenceStatuses: [String!]) {
+    move(from: "de", to: "tr", residenceStatuses: $residenceStatuses) {
       obligationSlug
       verdict
+      needs
       to { facts { key operator numericValue textValue unit currency sourceUrl sourceName verifiedAt } }
     }
   }
@@ -121,19 +124,19 @@ type Shown = {
   verifiedAt: string
 }
 
-test("after a load, Turkey's limited company formation answers with every fact the file holds, each on its own page", async () => {
-  const started = Date.now()
-  const report = await loadResearchRules(prisma, COUNTRIES)
-  console.log(`a full load of researched rules took ${Date.now() - started} ms`)
-  expect(report).toEqual({ obligationsAdded: 1, versionsAdded: 1 })
+type Entry = { obligationSlug: string; verdict: string; needs: string[]; to: { facts: Shown[] } | null }
 
-  const response = await graphql(MOVE)
+/** Turkey's answer for one obligation to a reader arriving from Germany, or undefined where no rule of it applies to them. */
+const entryFor = async (slug: string, residenceStatuses?: string[]): Promise<Entry | undefined> => {
+  const response = await graphql(MOVE, residenceStatuses ? { residenceStatuses } : {})
   expect(response.body.errors, JSON.stringify(response.body.errors)).toBeUndefined()
-  const entries: { obligationSlug: string; verdict: string; to: { facts: Shown[] } | null }[] = response.body.data.move
-  const formation = entries.find((entry) => entry.obligationSlug === 'form-a-limited-company')
-  expect(formation?.verdict).toBe('newInDestination')
+  const entries: Entry[] = response.body.data.move
+  return entries.find((entry) => entry.obligationSlug === slug)
+}
 
-  const expected = (TURKEY.versions[0]?.facts ?? [])
+/** The facts Turkey's file holds for one obligation, as the move query shows them, in key order. */
+const factsOf = (slug: string) =>
+  (TURKEY.versions.find((version) => version.obligation === slug)?.facts ?? [])
     .map((fact) => {
       const page = TURKEY.sources[fact.source]
       return {
@@ -149,12 +152,44 @@ test("after a load, Turkey's limited company formation answers with every fact t
       }
     })
     .sort((a, b) => (a.key < b.key ? -1 : 1))
+
+test("after a load, Turkey's limited company formation answers with every fact the file holds, each on its own page", async () => {
+  const started = Date.now()
+  const report = await loadResearchRules(prisma, COUNTRIES)
+  console.log(`a full load of researched rules took ${Date.now() - started} ms`)
+  expect(report).toEqual({ statusesAdded: TURKEY.statuses.length, obligationsAdded: TURKEY.obligations.length, versionsAdded: TURKEY.versions.length })
+
+  const formation = await entryFor('form-a-limited-company')
+  expect(formation?.verdict).toBe('newInDestination')
+  const expected = factsOf('form-a-limited-company')
   expect(expected).toHaveLength(4)
   expect(formation?.to?.facts).toEqual(expected)
 })
 
+test("joining Turkey's general health insurance answers a residence permit holder, or a holder of a kind of one, with its five facts on their pages, asks a reader who has not said what they hold, and is never told to a visitor on a visa exemption", async () => {
+  await prisma.residenceStatus.createMany({
+    data: [
+      { code: 'tr.residence-permit.student', countryCode: 'tr', parentCode: 'tr.residence-permit', name: 'Student residence permit' },
+      { code: 'tr.visa-exemption', countryCode: 'tr', parentCode: null, name: 'Visa exemption' },
+    ],
+  })
+  const expected = factsOf('join-general-health-insurance')
+  expect(expected).toHaveLength(5)
+
+  for (const held of ['tr.residence-permit', 'tr.residence-permit.student']) {
+    const insurance = await entryFor('join-general-health-insurance', [held])
+    expect(insurance?.verdict, held).toBe('newInDestination')
+    expect(insurance?.to?.facts, held).toEqual(expected)
+  }
+
+  expect(await entryFor('join-general-health-insurance')).toMatchObject({ verdict: 'needsDetail', needs: ['residenceStatus'], to: null })
+  expect(await entryFor('join-general-health-insurance', ['tr.visa-exemption'])).toBeUndefined()
+})
+
 const counts = () =>
   Promise.all([
+    prisma.residenceStatus.count(),
+    prisma.residenceStatusText.count(),
     prisma.obligation.count(),
     prisma.obligationText.count(),
     prisma.ruleVersion.count(),
@@ -165,7 +200,7 @@ const counts = () =>
 
 test('a second load, and the seed run beside it, add nothing', async () => {
   const before = await counts()
-  expect(await loadResearchRules(prisma, COUNTRIES)).toEqual({ obligationsAdded: 0, versionsAdded: 0 })
+  expect(await loadResearchRules(prisma, COUNTRIES)).toEqual({ statusesAdded: 0, obligationsAdded: 0, versionsAdded: 0 })
   await seed(prisma)
   expect(await counts()).toEqual(before)
 })
@@ -184,6 +219,35 @@ test('a deployed version that no longer matches the file stops the load, and not
   await expect(loadResearchRules(prisma, [changed])).rejects.toThrow(
     /tr form-a-limited-company from 2026-09-14 is deployed as version \S+, and its fact minimumCapital no longer matches/,
   )
+  expect(await counts()).toEqual(before)
+})
+
+/** A status of a test's own file, named by its code. */
+const status = (code: string, parent: string | null): ResearchStatus => ({ code, parent, names: { en: code, fa: code } })
+
+test('a deployed residence status the file puts inside another status, or in another country, stops the load, and nothing is written', async () => {
+  const before = await counts()
+
+  const inside: ResearchRules = { ...TURKEY, statuses: [status('tr.residence-permit', 'tr.permits')] }
+  await expect(loadResearchRules(prisma, [inside])).rejects.toThrow(ResearchRulesMismatch)
+  await expect(loadResearchRules(prisma, [inside])).rejects.toThrow(
+    /Residence status tr.residence-permit is deployed in tr with nothing above it, and src\/rules\/research has it in tr inside tr.permits/,
+  )
+
+  const elsewhere: ResearchRules = { ...TURKEY, country: 'de', statuses: [status('tr.residence-permit', null)], obligations: [], versions: [] }
+  await expect(loadResearchRules(prisma, [elsewhere])).rejects.toThrow(
+    /Residence status tr.residence-permit is deployed in tr with nothing above it, and src\/rules\/research has it in de with nothing above it/,
+  )
+
+  expect(await counts()).toEqual(before)
+})
+
+test('a kind listed before the status it is a kind of stops the load, and nothing is written', async () => {
+  const misordered: ResearchRules = { ...TURKEY, statuses: [status('tr.protection.applicant', 'tr.protection'), status('tr.protection', null), ...TURKEY.statuses] }
+  const before = await counts()
+
+  // Refused by the parent's foreign key or the status tree's own check, whichever fires first.
+  await expect(loadResearchRules(prisma, [misordered])).rejects.toThrow()
   expect(await counts()).toEqual(before)
 })
 

@@ -9,6 +9,14 @@ export type ResearchSource = {
   read: string
 }
 
+/** A residence status a researched version names (SB-194), listed after the status it is a kind of. */
+export type ResearchStatus = {
+  code: string
+  /** The status this is a kind of, or null for one with nothing above it. */
+  parent: string | null
+  names: { en: string; fa: string }
+}
+
 export type ResearchObligation = {
   slug: string
   kind: ObligationKind
@@ -52,6 +60,8 @@ export type ResearchRules = {
   country: string
   /** The folder under research/agreed that its documents are in. */
   research: string
+  /** Written before any version and in this order, so a status comes before any kind of it. */
+  statuses: readonly ResearchStatus[]
   obligations: readonly ResearchObligation[]
   sources: Readonly<Record<string, ResearchSource>>
   versions: readonly ResearchVersion[]
