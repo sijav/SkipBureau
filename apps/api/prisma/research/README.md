@@ -37,15 +37,16 @@ finding, not a gap to fill in later with something that sounds better.
 | `turkey/company-formation` | 2 | 5 |
 | `turkey/tax-number` | 2 | 7 |
 | `turkey/health-insurance` | 2 | 5 |
+| `turkey/provinces` | 2 | 0 |
 | `germany/anmeldung` | 3 | 6 |
 | `germany/residence-permit` | 2 | 5 |
 | `germany/health-insurance` | 2 | 11 |
 | `germany/business-registration` | 2 | 11 |
 
-All six obligations, both countries. Every one then passed the fixed-point
-check below. The turns are counted from `talk/`: the sign-off turn, the
-fixed-point turns and SB-174's came after them, so `research.py cases`, which
-counts every turn, shows more.
+All six obligations, both countries, and Turkey's 81 provinces (SB-210). Every
+one then passed the fixed-point check below. The turns are counted from `talk/`:
+the sign-off turn, the fixed-point turns and SB-174's came after them, so
+`research.py cases`, which counts every turn, shows more.
 
 Not yet done: whatever countries the owner names next.
 
@@ -53,7 +54,9 @@ Not yet done: whatever countries the owner names next.
 
 The last turn of every case puts the **reader-facing wording** in front of the
 other side and asks only which sentences claim more than the evidence supports.
-It has never once come back empty. It has caught, among others:
+For every rule it has come back with something; Turkey's provinces, a list of
+places rather than a rule, is the one case that came back empty. It has caught,
+among others:
 
 - a threshold written **backwards**, which would have told every small Turkish
   company the opposite of the truth;

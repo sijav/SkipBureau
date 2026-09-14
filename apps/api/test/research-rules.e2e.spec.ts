@@ -11,7 +11,7 @@ import { afterAll, beforeAll, expect, test } from 'vitest'
 import { AppModule } from '../src/app.module.js'
 import { PrismaService } from '../src/prisma/prisma.service.js'
 import { loadInto, loadResearchRules, ResearchRulesMismatch } from '../src/rules/research/load.js'
-import type { ResearchMembership, ResearchRules, ResearchStatus } from '../src/rules/research/rows.js'
+import type { ResearchMembership, ResearchReading, ResearchRules, ResearchStatus } from '../src/rules/research/rows.js'
 import { TURKEY } from '../src/rules/research/turkey.js'
 import { seed } from '../prisma/seed.js'
 import { startPglite } from '../scripts/pglite-server.mjs'
@@ -22,6 +22,8 @@ import { startPglite } from '../scripts/pglite-server.mjs'
 // the residence statuses a file names are written first, in its order, and a
 // deployed one is never moved. SB-209: an answer carries its rule's notes.
 // SB-192: a nationality group the file declares keeps the memberships it says.
+// SB-210: every region a file names is read back from the two pages that code
+// and name it, and a reader can say they live in any of them.
 
 const API = join(dirname(fileURLToPath(import.meta.url)), '..')
 const PORT = 5468
@@ -58,10 +60,13 @@ afterAll(async () => {
 const graphql = (query: string, variables: Record<string, unknown> = {}) =>
   request(app.getHttpServer()).post('/graphql').send({ query, variables })
 
-type Definition = { url: string | null; status: string; read: string }
+type Definition = { url: string | null; status: string; read: string; evidence: readonly string[] }
 
-const isMeta = (value: unknown): value is { status: string; read: string } =>
+const isMeta = (value: unknown): value is { status: string; read: string; evidence?: unknown } =>
   typeof value === 'object' && value !== null && 'status' in value && typeof value.status === 'string' && 'read' in value && typeof value.read === 'string'
+
+const passagesOf = (evidence: unknown): string[] =>
+  Array.isArray(evidence) ? evidence.filter((passage): passage is string => typeof passage === 'string') : []
 
 /** Every footnote definition of one agreed document, by its label. */
 const definitionsOf = (research: string, document: string): Map<string, Definition> => {
@@ -70,7 +75,9 @@ const definitionsOf = (research: string, document: string): Map<string, Definiti
   for (const line of text.split(/\r?\n/)) {
     const found = /^\[\^([^\]]+)\]: (?:<([^>]+)>|calculated) \| (\{.*\})$/.exec(line)
     const meta: unknown = found?.[3] ? JSON.parse(found[3]) : undefined
-    if (found?.[1] && isMeta(meta)) definitions.set(found[1], { url: found[2] ?? null, status: meta.status, read: meta.read })
+    if (found?.[1] && isMeta(meta)) {
+      definitions.set(found[1], { url: found[2] ?? null, status: meta.status, read: meta.read, evidence: passagesOf(meta.evidence) })
+    }
   }
   return definitions
 }
@@ -102,6 +109,60 @@ test('every researched version and fact rests on verified definitions of its own
           checked += 1
         }
       }
+    }
+  }
+  expect(checked).toBeGreaterThan(0)
+})
+
+// A page can write a letter and its mark apart, so a passage and a name are
+// composed before they are compared, and nothing else is folded: not case, so İ
+// and I stay apart, and not a circumflex (SB-210).
+const composed = (text: string) => text.normalize('NFC')
+
+test('every region a file names is one row of the page that codes it, beside its name as that page spells it, and one of the official names, and neither page has a region the file leaves out', () => {
+  let checked = 0
+  for (const rules of COUNTRIES) {
+    if (rules.regions.length === 0) continue
+    const from = rules.regionsFrom
+    if (!from) throw new Error(`${rules.country} names regions and not the agreed document they are read from`)
+    const definitions = definitionsOf(rules.research, from.document)
+
+    const readBack = (reading: ResearchReading): string[] => {
+      const definition = definitions.get(reading.label)
+      const page = rules.sources[reading.source]
+      expect(page, `${reading.source} is not a source`).toBeDefined()
+      expect(definition, `${reading.label} is not a definition in ${from.document}.md`).toBeDefined()
+      expect(definition?.status, `${reading.label} is ${definition?.status}, not verified`).toBe('verified')
+      expect(definition?.url, `${reading.label} is on another page`).toBe(page?.url)
+      expect(definition?.read, `${reading.label} was read on another day`).toBe(page?.read)
+      return (definition?.evidence ?? []).map(composed)
+    }
+    // A row is a passage holding a word in the country's code prefix, and it holds
+    // exactly one, its code. ISO prints an asterisk beside a code whose source its
+    // code source line names, and the asterisk is not part of the code.
+    const prefix = `${rules.country.toUpperCase()}-`
+    const codesIn = (passage: string) => passage.split(' ').filter((word) => word.startsWith(prefix)).map((word) => word.replace(/\*+$/, ''))
+    const rows = readBack(from.codes).filter((passage) => codesIn(passage).length > 0)
+    const names = readBack(from.names)
+
+    const fileCodes = new Set(rules.regions.map((region) => region.code))
+    expect(fileCodes.size, 'a code is given twice').toBe(rules.regions.length)
+    expect(new Set(rules.regions.map((region) => composed(region.name))).size, 'a name is given twice').toBe(rules.regions.length)
+    for (const row of rows) expect(codesIn(row), `${from.codes.label}'s row ${row} holds one code`).toHaveLength(1)
+    expect(rows, `${from.codes.label} codes as many regions as the file names`).toHaveLength(rules.regions.length)
+    expect(new Set(rows.flatMap((row) => codesIn(row))), `${from.codes.label} codes exactly the regions the file names`).toEqual(fileCodes)
+    expect(names, `${from.names.label} names as many regions as the file names`).toHaveLength(rules.regions.length)
+
+    for (const region of rules.regions) {
+      const own = rows.filter((row) => codesIn(row)[0] === region.code)
+      expect(own, `${region.code} is one row of ${from.codes.label}`).toHaveLength(1)
+      if (region.isoName !== undefined) {
+        expect(composed(region.isoName), `${region.code} records ISO's spelling where it is the same`).not.toBe(composed(region.name))
+      }
+      const spelled = composed(region.isoName ?? region.name)
+      expect(` ${own[0] ?? ''} `.includes(` ${spelled} `), `${region.code}'s row is ${own[0]}, which does not say ${spelled}`).toBe(true)
+      expect(names.filter((name) => name === composed(region.name)), `${region.name} is one name of ${from.names.label}`).toHaveLength(1)
+      checked += 1
     }
   }
   expect(checked).toBeGreaterThan(0)
@@ -173,6 +234,7 @@ test("after a load, Turkey's limited company formation answers with every fact t
   console.log(`a full load of researched rules took ${Date.now() - started} ms`)
   expect(report).toEqual({
     statusesAdded: TURKEY.statuses.length,
+    regionsAdded: TURKEY.regions.length,
     groupsAdded: TURKEY.nationalityGroups.length,
     membershipsAdded: TURKEY.nationalityGroups.reduce((sum, group) => sum + group.members.length, 0),
     obligationsAdded: TURKEY.obligations.length,
@@ -184,6 +246,33 @@ test("after a load, Turkey's limited company formation answers with every fact t
   const expected = factsOf('form-a-limited-company')
   expect(expected).toHaveLength(4)
   expect(formation?.to?.facts).toEqual(expected)
+})
+
+const LIVES = `
+  query Lives($toResidenceRegions: [String!]) {
+    move(from: "de", to: "tr", toResidenceRegions: $toResidenceRegions, residenceStatuses: ["tr.residence-permit"]) {
+      obligationSlug
+    }
+  }
+`
+
+test("after a load, every province in Turkey's file is stored by its code with its name and nothing above it, and a residence permit holder can say they will live in any one of them", async () => {
+  const byCode = (a: { code: string }, b: { code: string }) => (a.code < b.code ? -1 : 1)
+  const stored = await prisma.region.findMany({ where: { countryCode: 'tr' }, select: { code: true, parentCode: true, name: true } })
+  const written = TURKEY.regions.map((region) => ({ code: region.code, parentCode: region.parent, name: region.name }))
+  expect(stored.sort(byCode)).toEqual(written.sort(byCode))
+  expect(stored).toHaveLength(81)
+
+  for (const region of TURKEY.regions) {
+    const response = await graphql(LIVES, { toResidenceRegions: [region.code] })
+    expect(response.body.errors, `${region.code}: ${JSON.stringify(response.body.errors)}`).toBeUndefined()
+    expect(response.body.data.move, region.code).not.toHaveLength(0)
+  }
+
+  // The same query refuses a code that is no province, so the loop above does not
+  // pass because nothing is ever refused.
+  const nowhere = await graphql(LIVES, { toResidenceRegions: ['TR-82'] })
+  expect(JSON.stringify(nowhere.body.errors)).toMatch(/Not a region: TR-82\./)
 })
 
 test("joining Turkey's general health insurance answers a residence permit holder, or a holder of a kind of one, with its five facts on their pages, asks a reader who has not said what they hold, and is never told to a visitor on a visa exemption", async () => {
@@ -302,6 +391,7 @@ const counts = () =>
   Promise.all([
     prisma.residenceStatus.count(),
     prisma.residenceStatusText.count(),
+    prisma.region.count(),
     prisma.nationalityGroup.count(),
     prisma.nationalityGroupMember.count(),
     prisma.obligation.count(),
@@ -312,9 +402,11 @@ const counts = () =>
     prisma.ruleText.count(),
   ])
 
+const NOTHING_ADDED = { statusesAdded: 0, regionsAdded: 0, groupsAdded: 0, membershipsAdded: 0, obligationsAdded: 0, versionsAdded: 0 }
+
 test('a second load, and the seed run beside it, add nothing', async () => {
   const before = await counts()
-  expect(await loadResearchRules(prisma, COUNTRIES)).toEqual({ statusesAdded: 0, groupsAdded: 0, membershipsAdded: 0, obligationsAdded: 0, versionsAdded: 0 })
+  expect(await loadResearchRules(prisma, COUNTRIES)).toEqual(NOTHING_ADDED)
   await seed(prisma)
   expect(await counts()).toEqual(before)
 })
@@ -389,6 +481,34 @@ test('a deployed residence status the file puts inside another status, or in ano
     /Residence status tr.residence-permit is deployed in tr with nothing above it, and src\/rules\/research has it in de with nothing above it/,
   )
 
+  expect(await counts()).toEqual(before)
+})
+
+test('a deployed province the file puts inside another place, or in another country, stops the load and nothing is written, and one an editor has renamed does not', async () => {
+  const bursa = TURKEY.regions.find((region) => region.code === 'TR-16')
+  if (!bursa) throw new Error("Turkey's file has no TR-16")
+  const before = await counts()
+
+  const inside: ResearchRules = {
+    ...TURKEY,
+    regions: TURKEY.regions.map((region) => (region === bursa ? { ...region, parent: 'TR-41' } : region)),
+  }
+  await expect(loadResearchRules(prisma, [inside])).rejects.toThrow(ResearchRulesMismatch)
+  await expect(loadResearchRules(prisma, [inside])).rejects.toThrow(
+    /Region TR-16 is deployed in tr with nothing above it, and src\/rules\/research has it in tr inside TR-41/,
+  )
+
+  const elsewhere: ResearchRules = { ...TURKEY, country: 'de', statuses: [], regions: [bursa], nationalityGroups: [], obligations: [], versions: [] }
+  await expect(loadResearchRules(prisma, [elsewhere])).rejects.toThrow(
+    /Region TR-16 is deployed in tr with nothing above it, and src\/rules\/research has it in de with nothing above it/,
+  )
+  expect(await counts()).toEqual(before)
+
+  const edited = 'Bursa, as an editor wrote it'
+  await prisma.region.update({ where: { code: bursa.code }, data: { name: edited } })
+  expect(await loadResearchRules(prisma, COUNTRIES)).toEqual(NOTHING_ADDED)
+  expect((await prisma.region.findUniqueOrThrow({ where: { code: bursa.code } })).name).toBe(edited)
+  await prisma.region.update({ where: { code: bursa.code }, data: { name: bursa.name } })
   expect(await counts()).toEqual(before)
 })
 

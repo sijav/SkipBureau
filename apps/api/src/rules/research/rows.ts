@@ -17,6 +17,33 @@ export type ResearchStatus = {
   names: { en: string; fa: string }
 }
 
+/** A place a reader can say they are in (SB-210), listed after the place it is inside. */
+export type ResearchRegion = {
+  code: string
+  /** The place this one is inside, or null for a first-level division such as a province. */
+  parent: string | null
+  /** Its official name, as the list the file names prints it. */
+  name: string
+  /** How the page that codes it spells its name, where that differs from `name`: read by the check, never written. */
+  isoName?: string
+}
+
+/** One definition of an agreed document, on a page of the file's own. */
+export type ResearchReading = {
+  /** The key in `sources` of the page. */
+  source: string
+  label: string
+}
+
+/** The agreed document a file's regions are read from, and its two definitions, each quoting one passage per region. */
+export type ResearchRegionSource = {
+  document: string
+  /** Whose passages each hold a region's code beside its name as that page spells it. */
+  codes: ResearchReading
+  /** Whose passages are each exactly one region's official name. */
+  names: ResearchReading
+}
+
 /** One nationality's membership of a group (SB-192). */
 export type ResearchMembership = {
   nationality: string
@@ -80,6 +107,10 @@ export type ResearchRules = {
   research: string
   /** Written before any version and in this order, so a status comes before any kind of it. */
   statuses: readonly ResearchStatus[]
+  /** Written after statuses and in this order, so a place comes before any place inside it. */
+  regions: readonly ResearchRegion[]
+  /** Where the regions are read from, which a file with any regions must say (SB-210). */
+  regionsFrom?: ResearchRegionSource
   /** Written before any version, and compared with the memberships deployed. */
   nationalityGroups: readonly ResearchNationalityGroup[]
   obligations: readonly ResearchObligation[]

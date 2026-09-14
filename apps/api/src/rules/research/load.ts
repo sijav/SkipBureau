@@ -2,13 +2,20 @@ import { Prisma, type PrismaClient } from '../../generated/prisma/client.js'
 import type { ResearchFact, ResearchMembership, ResearchRules, ResearchSource, ResearchVersion } from './rows.js'
 
 /** What a load added; everything else was already there. */
-export type LoadReport = { statusesAdded: number; groupsAdded: number; membershipsAdded: number; obligationsAdded: number; versionsAdded: number }
+export type LoadReport = {
+  statusesAdded: number
+  regionsAdded: number
+  groupsAdded: number
+  membershipsAdded: number
+  obligationsAdded: number
+  versionsAdded: number
+}
 
 /**
- * A deployed researched version, a residence status or a nationality group's
- * membership the file names, that no longer says what the file says. The load
- * stops rather than write over history or leave the database quietly different
- * from the repository: a changed rule is a new version (SB-202).
+ * A deployed researched version, a residence status, a region or a nationality
+ * group's membership the file names, that no longer says what the file says. The
+ * load stops rather than write over history or leave the database quietly
+ * different from the repository: a changed rule is a new version (SB-202).
  */
 export class ResearchRulesMismatch extends Error {
   constructor(message: string) {
@@ -89,10 +96,10 @@ const differenceOf = (stored: Stored, version: ResearchVersion, rules: ResearchR
 
 /**
  * One country's researched rules, written through the transaction client it
- * is given, fill-only and append-only, its residence statuses and nationality
- * groups first so its versions' criteria can name them. It takes the research
- * lock first and uses that client for every read and write, never the base
- * one, so the caller's transaction is what the lock protects.
+ * is given, fill-only and append-only, its residence statuses, regions and
+ * nationality groups first so its versions' criteria can name them. It takes the
+ * research lock first and uses that client for every read and write, never the
+ * base one, so the caller's transaction is what the lock protects.
  */
 export const loadInto = async (tx: Prisma.TransactionClient, rules: ResearchRules): Promise<LoadReport> => {
   await tx.$queryRaw`SELECT 1 AS locked FROM pg_advisory_xact_lock(hashtext(${LOCK}))`
@@ -119,6 +126,23 @@ export const loadInto = async (tx: Prisma.TransactionClient, rules: ResearchRule
       ],
       skipDuplicates: true,
     })
+  }
+
+  // The same for a place (SB-210). Its name is an editor's too, and a name that
+  // differs from the file never stops a start: it is shown to no reader yet, so
+  // a name the research later corrects reaches the database by an editor's hand.
+  let regionsAdded = 0
+  for (const region of rules.regions) {
+    const existing = await tx.region.findUnique({ where: { code: region.code } })
+    if (existing && (existing.countryCode !== rules.country || existing.parentCode !== region.parent)) {
+      throw new ResearchRulesMismatch(
+        `Region ${region.code} is deployed ${placeOf(existing.countryCode, existing.parentCode)}, and src/rules/research has it ${placeOf(rules.country, region.parent)}. Moving a region changes which readers every rule naming it reaches, so a load never moves one.`,
+      )
+    }
+    if (!existing) {
+      await tx.region.create({ data: { code: region.code, countryCode: rules.country, parentCode: region.parent, name: region.name } })
+      regionsAdded += 1
+    }
   }
 
   // A group the file declares is the file's: its deployed memberships are
@@ -212,7 +236,7 @@ export const loadInto = async (tx: Prisma.TransactionClient, rules: ResearchRule
     versionsAdded += 1
   }
 
-  return { statusesAdded, groupsAdded, membershipsAdded, obligationsAdded, versionsAdded }
+  return { statusesAdded, regionsAdded, groupsAdded, membershipsAdded, obligationsAdded, versionsAdded }
 }
 
 /** Every country's researched rules, in one transaction under the research lock, as a deploy loads them. */
@@ -220,10 +244,11 @@ export const loadResearchRules = async (prisma: PrismaClient, countries: readonl
   try {
     return await prisma.$transaction(
       async (tx) => {
-        const report: LoadReport = { statusesAdded: 0, groupsAdded: 0, membershipsAdded: 0, obligationsAdded: 0, versionsAdded: 0 }
+        const report: LoadReport = { statusesAdded: 0, regionsAdded: 0, groupsAdded: 0, membershipsAdded: 0, obligationsAdded: 0, versionsAdded: 0 }
         for (const rules of countries) {
           const added = await loadInto(tx, rules)
           report.statusesAdded += added.statusesAdded
+          report.regionsAdded += added.regionsAdded
           report.groupsAdded += added.groupsAdded
           report.membershipsAdded += added.membershipsAdded
           report.obligationsAdded += added.obligationsAdded
