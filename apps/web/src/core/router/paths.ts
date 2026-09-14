@@ -105,3 +105,27 @@ export const samePageIn = (place: Place, locale: Locale): string => withReader(p
 /** The same page for a reader from somewhere else, or from nowhere they have said, for the context panel. */
 export const samePageFrom = (place: Place, origin: string | null): string =>
   withReader(place, (reader) => ({ ...reader, origin: origin ? origin.toLowerCase() : null }))
+
+// The pages that exist in every country we cover. Everything else belongs to
+// one country and may not exist in another: a task hub for a goal a country has
+// no areas for is Not Found, because `taskHub` answers null (SB-172).
+const IN_EVERY_COUNTRY = new Set(['guides', 'search'])
+
+/**
+ * The same page in another country, for the context panel's Currently in row,
+ * where the page exists there. Home, the guides index and a search are kept,
+ * with their query and hash; any other page goes to the new country's home.
+ * The reader, their language and where they come from, is kept either way.
+ */
+export const samePageAt = ({ pathname, search = '', hash = '' }: Place, country: string): string => {
+  const [, first = '', second = '', ...rest] = pathname.split('/')
+  const reader = readerFromSegment(first)
+  if (!reader || !countryFromSegment(second)) return `${pathname}${search}${hash}`
+  // React Router matches a trailing slash, and canonicalPath keeps one.
+  const page = rest.at(-1) === '' ? rest.slice(0, -1) : rest
+  const home = ['', readerSegment(reader), countrySegment(country)].join('/')
+  const [only, ...below] = page
+  if (only === undefined) return `${home}${search}${hash}`
+  if (below.length === 0 && IN_EVERY_COUNTRY.has(only)) return `${home}/${only}${search}${hash}`
+  return home
+}

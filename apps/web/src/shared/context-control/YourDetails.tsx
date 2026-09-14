@@ -5,7 +5,7 @@ import { useQuery } from 'urql'
 import { REGIONS, regionName } from 'src/core/country'
 import { CountriesQuery, overThePage } from 'src/core/graphql'
 import { useLocale } from 'src/core/i18n'
-import { samePageFrom } from 'src/core/router'
+import { samePageAt, samePageFrom } from 'src/core/router'
 import { useShell } from 'src/core/shell'
 import { lazyPart } from 'src/shared/lazy-part'
 import { ContextControl } from './ContextControl'
@@ -17,7 +17,7 @@ const ContextPopper = lazyPart(() => import('./ContextPopper').then((popper) => 
 export const YourDetails = () => {
   const { t } = useLingui()
   const { locale } = useLocale()
-  const { origin, countryName } = useShell()
+  const { origin, country, countryName } = useShell()
   const location = useLocation()
   const navigate = useNavigate()
   const id = useId()
@@ -57,11 +57,19 @@ export const YourDetails = () => {
             onClose={() => setOpen(false)}
             id={id}
             origin={origin && originName ? { code: origin, name: originName } : null}
+            country={country && countryName ? { code: country, name: countryName } : null}
+            // The countries the API covers, which is all a reader can be in. Not
+            // `options`: that is every country somebody can come from.
+            countries={data?.countries ?? []}
             countryName={countryName ?? ''}
             options={options}
             onOrigin={(code) => {
               setOpen(false)
               void navigate(samePageFrom(location, code))
+            }}
+            onCountry={(code) => {
+              setOpen(false)
+              void navigate(samePageAt(location, code))
             }}
           />
         </Suspense>

@@ -11,6 +11,7 @@ import {
   paths,
   readerFromSegment,
   readerSegment,
+  samePageAt,
   samePageFrom,
   samePageIn,
   type Journey,
@@ -130,4 +131,38 @@ test('a page with no reader in its address is left alone', () => {
   assert.equal(samePageIn({ pathname: '/' }, 'fa-IR'), '/')
   assert.equal(samePageIn({ pathname: '/not-a-locale/TR' }, 'fa-IR'), '/not-a-locale/TR')
   assert.equal(samePageFrom({ pathname: '/' }, 'ir'), '/')
+})
+
+test('changing where you are keeps a page that exists in every country, and the reader', () => {
+  assert.equal(samePageAt({ pathname: '/en/TR' }, 'de'), '/en/DE')
+  assert.equal(samePageAt({ pathname: '/fa-IR/TR' }, 'de'), '/fa-IR/DE')
+  assert.equal(samePageAt({ pathname: '/en/TR/guides' }, 'de'), '/en/DE/guides')
+  assert.equal(samePageAt({ pathname: '/en-IR/TR/search', search: '?q=residence' }, 'de'), '/en-IR/DE/search?q=residence')
+})
+
+test('changing where you are sends a page that belongs to one country to the new home', () => {
+  // A task hub for a goal the other country has no areas for is Not Found:
+  // `taskHub` answers null, and Germany has getting-settled but not
+  // start-a-business. So none of these is kept, not even a goal that exists.
+  for (const pathname of [
+    '/en/TR/tasks/start-a-business',
+    '/en/TR/tasks/getting-settled',
+    '/en/TR/tasks/start-a-business/register-your-company',
+    '/en/TR/setup/start-a-business',
+    '/en/TR/guides/sim-card',
+    '/en/TR/guides/sim-card/suggest',
+  ]) {
+    assert.equal(samePageAt({ pathname, search: '?x=1', hash: '#official-sources' }, 'de'), '/en/DE', pathname)
+  }
+})
+
+test('changing where you are reads a trailing slash as the same page', () => {
+  assert.equal(samePageAt({ pathname: '/en/TR/' }, 'de'), '/en/DE')
+  assert.equal(samePageAt({ pathname: '/en/TR/guides/' }, 'de'), '/en/DE/guides')
+  assert.equal(samePageAt({ pathname: '/en/TR/search/', search: '?q=sim' }, 'de'), '/en/DE/search?q=sim')
+})
+
+test('changing where you are leaves an address that is not a country page alone', () => {
+  assert.equal(samePageAt({ pathname: '/' }, 'de'), '/')
+  assert.equal(samePageAt({ pathname: '/not-a-locale/TR' }, 'de'), '/not-a-locale/TR')
 })

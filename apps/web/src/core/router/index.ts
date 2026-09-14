@@ -13,6 +13,7 @@ export {
   paths,
   readerFromSegment,
   readerSegment,
+  samePageAt,
   samePageFrom,
   samePageIn,
   type Journey,

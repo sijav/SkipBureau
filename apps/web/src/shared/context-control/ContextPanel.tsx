@@ -8,9 +8,12 @@ export type Origin = { code: string; name: string }
 export type ContextPanelProps = {
   id: string
   origin: Origin | null
+  country: Origin | null
+  countries: readonly Origin[]
   countryName: string
   options: readonly Origin[]
   onOrigin: (code: string | null) => void
+  onCountry: (code: string) => void
 }
 
 const STROKE = 1
@@ -38,10 +41,78 @@ const Row = ({ label, children }: { label: ReactNode; children: ReactNode }) => 
   )
 }
 
-export const ContextPanel = ({ id, origin, countryName, options, onOrigin }: ContextPanelProps) => {
+/**
+ * A country, said as text until it is tapped, then an Autocomplete over the
+ * countries this row allows. Nationality offers every country somebody can come
+ * from; Currently in offers only the ones SkipBureau covers (SB-172).
+ */
+const CountryChoice = ({
+  label,
+  value,
+  options,
+  onChoose,
+}: {
+  label: string
+  value: Origin | null
+  options: readonly Origin[]
+  onChoose: (code: string) => void
+}) => {
   const { tokens } = useTheme()
   const { t } = useLingui()
   const [editing, setEditing] = useState(false)
+
+  if (editing) {
+    return (
+      <Autocomplete
+        fullWidth
+        openOnFocus
+        autoHighlight
+        size="small"
+        options={options}
+        value={value && options.find((option) => option.code === value.code) ? value : null}
+        getOptionLabel={(option) => option.name}
+        isOptionEqualToValue={(option, chosen) => option.code === chosen.code}
+        onChange={(_, chosen) => {
+          setEditing(false)
+          if (chosen) onChoose(chosen.code)
+        }}
+        onBlur={() => setEditing(false)}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            autoFocus
+            // The row was showing the chosen name, so typing replaces it rather than
+            // adding to it. Autocomplete selects it on a click in the field, not on autoFocus.
+            onFocus={(event) => event.target.select()}
+            placeholder={t`Type a country`}
+            slotProps={{ ...params.slotProps, htmlInput: { ...params.slotProps.htmlInput, 'aria-label': label } }}
+          />
+        )}
+      />
+    )
+  }
+
+  return (
+    <ButtonBase
+      disableRipple
+      onClick={() => setEditing(true)}
+      sx={{
+        padding: 0,
+        color: tokens[value ? 'textPrimary' : 'accentText'],
+        '&:hover': { textDecoration: 'underline' },
+        '&.Mui-focusVisible': { outline: `2px solid ${tokens.accentText}`, outlineOffset: '2px', borderRadius: '2px' },
+      }}
+    >
+      <Typography component="span" variant="overline">
+        {value ? <bdi>{value.name}</bdi> : <Trans>Add</Trans>}
+      </Typography>
+    </ButtonBase>
+  )
+}
+
+export const ContextPanel = ({ id, origin, country, countries, countryName, options, onOrigin, onCountry }: ContextPanelProps) => {
+  const { tokens } = useTheme()
+  const { t } = useLingui()
 
   const soon = (
     <Typography variant="overline" sx={{ color: tokens.textSecondary }}>
@@ -74,48 +145,18 @@ export const ContextPanel = ({ id, origin, countryName, options, onOrigin }: Con
       </Box>
 
       <Row label={<Trans>Nationality</Trans>}>
-        {editing ? (
-          <Autocomplete
-            fullWidth
-            openOnFocus
-            autoHighlight
-            size="small"
-            options={options}
-            value={origin && options.find((option) => option.code === origin.code) ? origin : null}
-            getOptionLabel={(option) => option.name}
-            isOptionEqualToValue={(option, value) => option.code === value.code}
-            onChange={(_, chosen) => {
-              setEditing(false)
-              if (chosen) onOrigin(chosen.code)
-            }}
-            onBlur={() => setEditing(false)}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                autoFocus
-                placeholder={t`Type a country`}
-                slotProps={{ ...params.slotProps, htmlInput: { ...params.slotProps.htmlInput, 'aria-label': t`Nationality` } }}
-              />
-            )}
-          />
-        ) : (
-          <ButtonBase
-            disableRipple
-            onClick={() => setEditing(true)}
-            sx={{
-              padding: 0,
-              color: tokens[origin ? 'textPrimary' : 'accentText'],
-              '&:hover': { textDecoration: 'underline' },
-              '&.Mui-focusVisible': { outline: `2px solid ${tokens.accentText}`, outlineOffset: '2px', borderRadius: '2px' },
-            }}
-          >
-            <Typography component="span" variant="overline">
-              {origin ? <bdi>{origin.name}</bdi> : <Trans>Add</Trans>}
-            </Typography>
-          </ButtonBase>
-        )}
+        <CountryChoice label={t`Nationality`} value={origin} options={options} onChoose={onOrigin} />
       </Row>
-      <Row label={<Trans>Currently in</Trans>}>{soon}</Row>
+      <Row label={<Trans>Currently in</Trans>}>
+        <CountryChoice
+          label={t`Currently in`}
+          value={country}
+          options={countries}
+          onChoose={(code) => {
+            if (code !== country?.code) onCountry(code)
+          }}
+        />
+      </Row>
       <Row label={<Trans>City in {countryName}</Trans>}>{soon}</Row>
       <Row label={<Trans>Residence status</Trans>}>{soon}</Row>
       <Row label={<Trans>Role</Trans>}>{soon}</Row>
