@@ -102,8 +102,8 @@ test('every researched version and fact rests on verified definitions of its own
 })
 
 const MOVE = `
-  query Move($residenceStatuses: [String!], $locale: String) {
-    move(from: "de", to: "tr", residenceStatuses: $residenceStatuses, locale: $locale) {
+  query Move($residenceStatuses: [String!], $situation: String, $locale: String) {
+    move(from: "de", to: "tr", residenceStatuses: $residenceStatuses, situation: $situation, locale: $locale) {
       obligationSlug
       verdict
       needs
@@ -131,9 +131,12 @@ type Note = { ruleVersionId: string; text: string; locale: string; translationMi
 
 type Entry = { obligationSlug: string; verdict: string; needs: string[]; to: { facts: Shown[]; notes: Note[] } | null }
 
+/** What a reader has said about themselves, and the language they asked in. */
+type Asked = { residenceStatuses?: string[]; situation?: string; locale?: string }
+
 /** Turkey's answer for one obligation to a reader arriving from Germany, or undefined where no rule of it applies to them. */
-const entryFor = async (slug: string, residenceStatuses?: string[], locale?: string): Promise<Entry | undefined> => {
-  const response = await graphql(MOVE, { ...(residenceStatuses ? { residenceStatuses } : {}), ...(locale ? { locale } : {}) })
+const entryFor = async (slug: string, asked: Asked = {}): Promise<Entry | undefined> => {
+  const response = await graphql(MOVE, asked)
   expect(response.body.errors, JSON.stringify(response.body.errors)).toBeUndefined()
   const entries: Entry[] = response.body.data.move
   return entries.find((entry) => entry.obligationSlug === slug)
@@ -182,13 +185,13 @@ test("joining Turkey's general health insurance answers a residence permit holde
   expect(expected).toHaveLength(5)
 
   for (const held of ['tr.residence-permit', 'tr.residence-permit.student']) {
-    const insurance = await entryFor('join-general-health-insurance', [held])
+    const insurance = await entryFor('join-general-health-insurance', { residenceStatuses: [held] })
     expect(insurance?.verdict, held).toBe('newInDestination')
     expect(insurance?.to?.facts, held).toEqual(expected)
   }
 
   expect(await entryFor('join-general-health-insurance')).toMatchObject({ verdict: 'needsDetail', needs: ['residenceStatus'], to: null })
-  expect(await entryFor('join-general-health-insurance', ['tr.visa-exemption'])).toBeUndefined()
+  expect(await entryFor('join-general-health-insurance', { residenceStatuses: ['tr.visa-exemption'] })).toBeUndefined()
 })
 
 test("joining general health insurance carries its rule's notes in English, and asked in Persian says they are only in English", async () => {
@@ -199,11 +202,37 @@ test("joining general health insurance carries its rule's notes in English, and 
     where: { countryCode: 'tr', obligation: { slug: 'join-general-health-insurance' } },
     select: { id: true },
   })
-  const english = await entryFor('join-general-health-insurance', ['tr.residence-permit'])
+  const english = await entryFor('join-general-health-insurance', { residenceStatuses: ['tr.residence-permit'] })
   expect(english?.to?.notes).toEqual([{ ruleVersionId: version, text: notes, locale: 'en-US', translationMissing: false }])
 
-  const persian = await entryFor('join-general-health-insurance', ['tr.residence-permit'], 'fa-IR')
+  const persian = await entryFor('join-general-health-insurance', { residenceStatuses: ['tr.residence-permit'], locale: 'fa-IR' })
   expect(persian?.to?.notes).toEqual([{ ruleVersionId: version, text: notes, locale: 'en-US', translationMissing: true }])
+})
+
+// Each duty that follows registration, and the condition its notes must open
+// with, since a founder is not bound by every one of them (SB-196).
+const COMPANY_DUTIES: readonly [slug: string, opening: string][] = [
+  ['request-electronic-tax-notifications', 'For a corporate taxpayer, which a limited company is'],
+  ['get-a-tax-certificate', 'For a corporate taxpayer, which a limited company is'],
+  ['register-an-employee-for-social-insurance', 'Once the company employs someone under a service contract'],
+  ['get-a-workplace-licence', 'Where the premises and what is done there need an opening and operating licence'],
+  ['keep-company-books-electronically', 'For a company registered from 1 January 2026'],
+]
+
+test("a reader starting a company is told each duty that follows registration, its facts on their pages and its condition first in its notes, a reader who has not said is asked, and a student is not told them", async () => {
+  for (const [slug, opening] of COMPANY_DUTIES) {
+    const version = TURKEY.versions.find((candidate) => candidate.obligation === slug)
+    expect(version, `${slug} is in Turkey's file`).toBeDefined()
+
+    const founder = await entryFor(slug, { situation: 'company-founder' })
+    expect(founder?.verdict, slug).toBe('newInDestination')
+    expect(founder?.to?.facts, slug).toEqual(factsOf(slug))
+    expect(founder?.to?.notes, slug).toEqual([{ ruleVersionId: expect.any(String), text: version?.notes.en, locale: 'en-US', translationMissing: false }])
+    expect(founder?.to?.notes[0]?.text.startsWith(opening), `${slug}'s notes open with its condition`).toBe(true)
+
+    expect(await entryFor(slug), slug).toMatchObject({ verdict: 'needsDetail', needs: ['situation'], to: null })
+    expect(await entryFor(slug, { situation: 'student' }), slug).toBeUndefined()
+  }
 })
 
 const counts = () =>

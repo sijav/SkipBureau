@@ -11,8 +11,8 @@ verifies five duties that follow registration, and none reaches a reader.
 
 ## What stays exactly as it is
 
-- **SB-190's loader and its rule for choosing a fact's page**, and SB-194's
-  statuses. This card adds rows to Turkey's file and changes no code.
+- **SB-190's loader and its rule for choosing a fact's page**, SB-194's statuses,
+  and SB-209's notes. This card adds rows to Turkey's file and changes no code.
 - **Limited company formation's deployed version**, national, exactly as it is.
   Its scope is SB-207, below.
 - **Nothing calculated**: none of these figures is.
@@ -31,8 +31,9 @@ takes a situation; no screen asks for one yet.
 duty binds them. It cannot tell apart a founder with no employee, premises that
 need no licence, or a company registered before 1 January 2026. So no version
 claims its duty binds every founder: each one's notes open with the condition
-that makes it bind, before any figure, and the checks read the notes back as
-well as the facts.
+that makes it bind, before any figure. Since SB-209 those notes come with the
+answer, so a founder is told the condition beside the deadline, and the checks
+read it from that answer.
 
 Formation itself was written national by SB-190, so today every reader is told
 to form a limited company. Scoping it changes a deployed version's criteria,
@@ -100,18 +101,19 @@ is. No operator compares them, and nothing here needs one.
 ## Notes, per version
 
 Each version's English notes open with the condition that makes its duty bind,
-which no criterion holds, and only then give the figures:
+which no criterion holds, and only then give the figures. The opening each one
+starts with, which the checks look for in the answer:
 
-- e-Tebligat: for a corporate taxpayer, which a limited company is.
-- The certificate: for a corporate taxpayer; a company with a special accounting
-  period renews within a month after its own declaration deadline instead of by
-  31 May.
-- The employee: once the company employs someone under a service contract, with
-  Article 8's exceptions for construction, fishing and agriculture.
-- The licence: where the premises and what is done there need one, and premises
-  opened without it are closed.
-- ETDS: for a company registered from 1 January 2026, its books opening with the
-  registration.
+- e-Tebligat: "For a corporate taxpayer, which a limited company is".
+- The certificate: "For a corporate taxpayer, which a limited company is", and
+  later that a company with a special accounting period renews within a month
+  after its own declaration deadline instead of by 31 May.
+- The employee: "Once the company employs someone under a service contract",
+  and later Article 8's exceptions for construction, fishing and agriculture.
+- The licence: "Where the premises and what is done there need an opening and
+  operating licence", and later that premises opened without it are closed.
+- ETDS: "For a company registered from 1 January 2026", and later that its books
+  open with the registration.
 
 ## Files
 
@@ -121,10 +123,9 @@ schema or migration change.
 ## What this card does not do
 
 It does not scope formation, which is SB-207, nor write chamber dues, which
-differ by chamber, nor anything a sole trader does differently. It does not show
-a rule's notes to a reader: no field of the API serves them, for these rules or
-SB-194's. That is SB-209, and until it lands the conditions the notes open with
-are stored and not yet shown.
+differ by chamber, nor anything a sole trader does differently. It translates no
+note: the notes are English, and SB-209 tells a reader asking in Persian that
+they are only in English.
 
 ## The step I am least sure of
 
@@ -147,14 +148,18 @@ On PGlite, in `test/research-rules.e2e.spec.ts`:
 - every label is a verified definition of its document on the page and day the
   file names, the existing test, now over the five new versions;
 - after a load, a reader whose situation is `company-founder` is told each of the
-  five obligations with the facts the file holds, each on its page; a reader who
-  has not said is asked for their situation; a student is not told them;
-- each of the five versions' stored English notes is the file's, read back from
-  the database, since no field of the API serves notes yet (SB-209);
+  five obligations with the facts the file holds, each on its page, and with its
+  version's notes as the answer serves them: the file's English notes, whose
+  first sentence is the condition that makes that duty bind, the opening listed
+  above for each; a reader who has not said is asked for their situation; a
+  student is not told them;
 - a second load adds nothing, the existing test.
 
-Then a planted fault: one version's situation criterion left off, watched failing
-the assertions for the student and the reader who has not said. Then the full API
-suite, lint and `lint:tsc`, the build, and the compiled loader run twice on a
-fresh database. After the push, the deployed API answers a company founder with
-the five obligations.
+Then planted faults, each watched failing: one version's situation criterion left
+off, failing the assertions for the student and the reader who has not said; and
+one version's notes starting with a figure instead of its condition, failing the
+check that the answer opens with it. Then the full API suite, lint and
+`lint:tsc`, the build, and the compiled loader run twice on a fresh database.
+After the push, the deployed API answers a company founder with the five
+obligations, each with its deadlines on their pages and its condition in the
+notes beside them.
