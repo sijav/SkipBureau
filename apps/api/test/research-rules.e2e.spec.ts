@@ -11,7 +11,7 @@ import { afterAll, beforeAll, expect, test } from 'vitest'
 import { AppModule } from '../src/app.module.js'
 import { PrismaService } from '../src/prisma/prisma.service.js'
 import { loadInto, loadResearchRules, ResearchRulesMismatch } from '../src/rules/research/load.js'
-import type { ResearchMembership, ResearchReading, ResearchRules, ResearchStatus } from '../src/rules/research/rows.js'
+import type { ResearchMembership, ResearchReading, ResearchRules, ResearchStatus, ResearchVersion } from '../src/rules/research/rows.js'
 import { TURKEY } from '../src/rules/research/turkey.js'
 import { seed } from '../prisma/seed.js'
 import { startPglite } from '../scripts/pglite-server.mjs'
@@ -23,7 +23,9 @@ import { startPglite } from '../scripts/pglite-server.mjs'
 // deployed one is never moved. SB-209: an answer carries its rule's notes.
 // SB-192: a nationality group the file declares keeps the memberships it says.
 // SB-210: every region a file names is read back from the two pages that code
-// and name it, and a reader can say they live in any of them.
+// and name it, and a reader can say they live in any of them. SB-191: the
+// address duty reaches each status it was verified for, and Bursa's procedure
+// reaches only a reader who lives in Bursa.
 
 const API = join(dirname(fileURLToPath(import.meta.url)), '..')
 const PORT = 5468
@@ -169,8 +171,8 @@ test('every region a file names is one row of the page that codes it, beside its
 })
 
 const MOVE = `
-  query Move($residenceStatuses: [String!], $nationality: String, $situation: String, $locale: String) {
-    move(from: "de", to: "tr", residenceStatuses: $residenceStatuses, nationality: $nationality, situation: $situation, locale: $locale) {
+  query Move($residenceStatuses: [String!], $nationality: String, $situation: String, $locale: String, $toResidenceRegions: [String!]) {
+    move(from: "de", to: "tr", residenceStatuses: $residenceStatuses, nationality: $nationality, situation: $situation, locale: $locale, toResidenceRegions: $toResidenceRegions) {
       obligationSlug
       verdict
       needs
@@ -198,8 +200,8 @@ type Note = { ruleVersionId: string; text: string; locale: string; translationMi
 
 type Entry = { obligationSlug: string; verdict: string; needs: string[]; to: { facts: Shown[]; notes: Note[] } | null }
 
-/** What a reader has said about themselves, and the language they asked in. */
-type Asked = { residenceStatuses?: string[]; nationality?: string; situation?: string; locale?: string }
+/** What a reader has said about themselves, where they will live, and the language they asked in. */
+type Asked = { residenceStatuses?: string[]; nationality?: string; situation?: string; locale?: string; toResidenceRegions?: string[] }
 
 /** Turkey's answer for one obligation to a reader arriving from Germany, or undefined where no rule of it applies to them. */
 const entryFor = async (slug: string, asked: Asked = {}): Promise<Entry | undefined> => {
@@ -209,9 +211,10 @@ const entryFor = async (slug: string, asked: Asked = {}): Promise<Entry | undefi
   return entries.find((entry) => entry.obligationSlug === slug)
 }
 
-/** The facts Turkey's file holds for one obligation, as the move query shows them, in key order. */
-const factsOf = (slug: string) =>
-  (TURKEY.versions.find((version) => version.obligation === slug)?.facts ?? [])
+/** The facts some versions of Turkey's file hold together, as the move query shows them, in key order. */
+const factsIn = (...versions: readonly (ResearchVersion | undefined)[]) =>
+  versions
+    .flatMap((version) => version?.facts ?? [])
     .map((fact) => {
       const page = TURKEY.sources[fact.source]
       return {
@@ -227,6 +230,9 @@ const factsOf = (slug: string) =>
       }
     })
     .sort((a, b) => (a.key < b.key ? -1 : 1))
+
+/** The facts Turkey's file holds for one obligation, as the move query shows them, in key order. */
+const factsOf = (slug: string) => factsIn(TURKEY.versions.find((version) => version.obligation === slug))
 
 test("after a load, Turkey's limited company formation answers with every fact the file holds, each on its own page", async () => {
   const started = Date.now()
@@ -385,6 +391,54 @@ test('a reader of a nationality the fee page exempts is told there is no permit 
 
   expect(await entryFor(slug, { nationality: 'ir' })).toBeUndefined()
   expect(await entryFor(slug)).toMatchObject({ verdict: 'needsDetail', needs: ['nationality'], to: null })
+})
+
+// Each status the address duty was verified for, the provision its 20 working
+// days rest on, and how its notes open (SB-191).
+const ADDRESS_DUTIES: readonly [status: string, label: string, opening: string][] = [
+  ['tr.residence-permit', 'yukk-reg-23-2-twenty-working-days', 'For a residence permit holder.'],
+  ['tr.international-protection', 'yukk-reg-110-3-twenty-working-days', 'For an international protection applicant or status holder.'],
+  ['tr.temporary-protection', 'gk-reg-33-2-d-twenty-working-days', 'For a temporary protection beneficiary.'],
+]
+
+test("each status the address duty was verified for is told its 20 working days on its own provision's page and the fines, in Bursa also Bursa's appointment and UETS account, is asked where it lives until it says, and a visitor on a visa exemption is not told the duty", async () => {
+  const slug = 'report-your-address'
+  const versionFor = (status: string, place: string | null) =>
+    TURKEY.versions.find((version) => {
+      const valueOf = (dimension: string) => version.criteria.find((criterion) => criterion.dimension === dimension)?.value ?? null
+      return version.obligation === slug && valueOf('residenceStatus') === status && valueOf('residenceRegion') === place
+    })
+
+  for (const [status, label, opening] of ADDRESS_DUTIES) {
+    const national = versionFor(status, null)
+    const bursa = versionFor(status, 'TR-16')
+    expect(national?.facts.find((fact) => fact.key === 'reportAddressChangeWithin')?.labels, status).toEqual([label])
+    expect(national?.notes.en.startsWith(opening), `${status}'s notes open with who they bind`).toBe(true)
+    expect(bursa?.notes.en.startsWith("Where you register your address at Bursa's provincial migration directorate"), status).toBe(true)
+    expect(factsIn(national, bursa), status).toHaveLength(5)
+
+    const inBursa = await entryFor(slug, { residenceStatuses: [status], toResidenceRegions: ['TR-16'] })
+    expect(inBursa?.verdict, status).toBe('newInDestination')
+    expect(inBursa?.to?.facts, status).toEqual(factsIn(national, bursa))
+    expect(inBursa?.to?.notes.map((note) => note.text), status).toEqual([national?.notes.en, bursa?.notes.en])
+
+    const inIstanbul = await entryFor(slug, { residenceStatuses: [status], toResidenceRegions: ['TR-34'] })
+    expect(inIstanbul?.verdict, status).toBe('newInDestination')
+    expect(inIstanbul?.to?.facts, status).toEqual(factsIn(national))
+    expect(inIstanbul?.to?.notes.map((note) => note.text), status).toEqual([national?.notes.en])
+
+    expect(await entryFor(slug, { residenceStatuses: [status] }), status).toMatchObject({
+      verdict: 'needsDetail',
+      needs: ['residenceRegion'],
+      to: null,
+    })
+  }
+
+  for (const place of ['TR-16', 'TR-34', null]) {
+    const visitor = await entryFor(slug, { residenceStatuses: ['tr.short-stay.visa-exemption'], ...(place === null ? {} : { toResidenceRegions: [place] }) })
+    expect(visitor, `a visitor in ${place ?? 'no place they have named'}`).toBeUndefined()
+  }
+  expect((await entryFor(slug, { toResidenceRegions: ['TR-34'] }))?.needs).toContain('residenceStatus')
 })
 
 const counts = () =>
