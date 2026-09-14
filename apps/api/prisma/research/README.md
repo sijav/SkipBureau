@@ -29,9 +29,9 @@ finding, not a gap to fill in later with something that sounds better.
 
 ## What has been settled
 
-| case | turns | overclaims found at sign-off |
+| case | research turns before sign-off | overclaims found at sign-off |
 |---|---|---|
-| `turkey/address-registration` | 4 | 7 |
+| `turkey/address-registration` | 3 | 7 |
 | `turkey/short-term-residence-permit` | 3 | 9 |
 | `turkey/work-permit` | 3 | 8 |
 | `turkey/company-formation` | 2 | 5 |
@@ -43,7 +43,9 @@ finding, not a gap to fill in later with something that sounds better.
 | `germany/business-registration` | 2 | 11 |
 
 All six obligations, both countries. Every one then passed the fixed-point
-check above.
+check below. The turns are counted from `talk/`: the sign-off turn, the
+fixed-point turns and SB-174's came after them, so `research.py cases`, which
+counts every turn, shows more.
 
 Not yet done: whatever countries the owner names next.
 
