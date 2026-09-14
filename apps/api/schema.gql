@@ -80,6 +80,7 @@ type Country {
 enum Detail {
   nationality
   residenceRegion
+  residenceStatus
   situation
   workRegion
 }
@@ -318,6 +319,11 @@ type Query {
     Where this person lives: region codes, one per country, so a move between countries can carry one on each side. A province or state by its ISO 3166-2 code such as TR-34, or a place inside one by its key such as TR-34.kadikoy.
     """
     residenceRegions: [String!]
+
+    """
+    What this person holds in each country: residence status codes, one per country, such as tr.residence-permit, or a kind of one such as tr.residence-permit.student.
+    """
+    residenceStatuses: [String!]
     since: String!
     situation: String
     until: String!
@@ -365,6 +371,11 @@ type Query {
     Where this person lives: region codes, one per country, so a move between countries can carry one on each side. A province or state by its ISO 3166-2 code such as TR-34, or a place inside one by its key such as TR-34.kadikoy.
     """
     residenceRegions: [String!]
+
+    """
+    What this person holds in each country: residence status codes, one per country, such as tr.residence-permit, or a kind of one such as tr.residence-permit.student.
+    """
+    residenceStatuses: [String!]
     situation: String
     to: String!
 

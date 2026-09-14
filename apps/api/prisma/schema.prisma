@@ -16,15 +16,16 @@ datasource db {
 /// subject. Adding a second must need no code change, which is why this is a
 /// table rather than an enum.
 model Country {
-  code       String        @id @db.VarChar(2)
-  name       String
-  createdAt  DateTime      @default(now())
-  rules      RuleVersion[]
-  categories Category[]
-  guides     Guide[]
-  questions  Question[]
-  texts      CountryText[]
-  regions    Region[]
+  code              String            @id @db.VarChar(2)
+  name              String
+  createdAt         DateTime          @default(now())
+  rules             RuleVersion[]
+  categories        Category[]
+  guides            Guide[]
+  questions         Question[]
+  texts             CountryText[]
+  regions           Region[]
+  residenceStatuses ResidenceStatus[]
 }
 
 enum ObligationKind {
@@ -151,6 +152,10 @@ enum EligibilityDimension {
   // (SB-168). Saxony's care insurance split follows work, not residence.
   residenceRegion
   workRegion
+  // What the reader holds in the country, valued by a ResidenceStatus code
+  // (SB-189). Turkey's address duty is verified for permit holders, not for
+  // someone on a visa exemption.
+  residenceStatus
 }
 
 /// Who a rule applies to, as child rows rather than nullable columns.
@@ -554,6 +559,39 @@ model RegionText {
   region     Region @relation(fields: [regionCode], references: [code], onDelete: Cascade)
 
   @@id([regionCode, locale])
+}
+
+/// A country's own kind of permission to be there, "Student residence permit"
+/// under "Residence permit", which a rule reaches through a `residenceStatus`
+/// criterion (SB-189). A tree like `Region`: the key is the product's own and
+/// never changes, lower-case under its country, `tr.residence-permit.student`,
+/// and the same triggers keep both trees inside one country, never inside
+/// themselves, and fixed once a criterion names a row or a row inside it.
+model ResidenceStatus {
+  code        String                @id @db.VarChar(60)
+  countryCode String                @db.VarChar(2)
+  /// The status this one is a kind of. Null for one with nothing above it.
+  parentCode  String?               @db.VarChar(60)
+  name        String
+  country     Country               @relation(fields: [countryCode], references: [code], onDelete: Cascade)
+  // No action on delete, as for regions: a status with kinds under it is not
+  // removed from under them, and a country's deletion still takes its tree.
+  parent      ResidenceStatus?      @relation("ResidenceStatusTree", fields: [parentCode], references: [code], onDelete: NoAction, onUpdate: Cascade)
+  children    ResidenceStatus[]     @relation("ResidenceStatusTree")
+  texts       ResidenceStatusText[]
+
+  @@index([countryCode])
+  @@index([parentCode])
+}
+
+/// A residence status's name in one language, like `RegionText`.
+model ResidenceStatusText {
+  statusCode String          @db.VarChar(60)
+  locale     String          @db.VarChar(5)
+  name       String
+  status     ResidenceStatus @relation(fields: [statusCode], references: [code], onDelete: Cascade)
+
+  @@id([statusCode, locale])
 }
 
 /// A category hub's checklist line, Figma 132:537. Ticking it is a reading aid

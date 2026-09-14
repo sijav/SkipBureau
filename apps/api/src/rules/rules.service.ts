@@ -3,15 +3,15 @@ import { PrismaService } from '../prisma/prisma.service.js'
 import { compare, sameFact, sameFacts, type Entry, type Fact, type Side } from './diff.js'
 import {
   fitToProfile,
+  inConflict,
   mostSpecific,
-  RegionProfileError,
-  regionsInConflict,
+  ProfileError,
   scopeOf,
   strictlyCovers,
   type Criterion,
   type Detail,
-  type Places,
   type Profile,
+  type Trees,
 } from './eligibility.js'
 import { inForceAt } from './selection.js'
 import { sourceOf } from './source.js'
@@ -44,10 +44,10 @@ const byVersion = (a: Fact, b: Fact) => (a.ruleVersionId < b.ruleVersionId ? -1 
  * neither covers the other, one for where the reader lives and one for where
  * they work, are not ranked.
  */
-const answerOf = (version: Candidate, standing: readonly Candidate[], places: Places): Answer => {
+const answerOf = (version: Candidate, standing: readonly Candidate[], trees: Trees): Answer => {
   const scope = scopeOf(version.criteria)
   const chain = standing.filter(
-    (other) => other !== version && scopeOf(other.criteria) === scope && strictlyCovers(version.criteria, other.criteria, places),
+    (other) => other !== version && scopeOf(other.criteria) === scope && strictlyCovers(version.criteria, other.criteria, trees),
   )
 
   const facts = new Map(version.facts.map((fact) => [fact.key, fact]))
@@ -57,7 +57,7 @@ const answerOf = (version: Candidate, standing: readonly Candidate[], places: Pl
     if (facts.has(key)) continue
     const nearest = mostSpecific(
       chain.filter((other) => other.facts.some((fact) => fact.key === key)),
-      places,
+      trees,
     )
     const stated = nearest.flatMap((other) => other.facts.filter((fact) => fact.key === key)).sort(byVersion)
     const [first] = stated
@@ -84,11 +84,11 @@ const sameAnswer = (a: Answer, b: Answer): boolean => a.disputed === null && b.d
  * a tie, only a version covering every tied one could settle it; anything else
  * could only join the tie.
  */
-const matters = (open: Answered, winners: readonly Answered[], places: Places): boolean => {
+const matters = (open: Answered, winners: readonly Answered[], trees: Trees): boolean => {
   const [only] = winners
   if (!only) return true
   if (winners.length === 1) return !sameAnswer(open.answer, only.answer)
-  return winners.every((winner) => strictlyCovers(open.criteria, winner.criteria, places))
+  return winners.every((winner) => strictlyCovers(open.criteria, winner.criteria, trees))
 }
 
 /** One side of a move: a country, and the person as they are there. */
@@ -115,32 +115,54 @@ export class RulesService {
   }
 
   /**
-   * Refuses regions a profile cannot hold, before anything is resolved: a code
-   * that is not a region, or two of one country in the same list. Here rather
-   * than in the resolver, so that every caller is refused the same way.
+   * Refuses what a profile cannot hold, before anything is resolved: a code
+   * that is no region or no residence status, two regions of one country in
+   * the same list, or two statuses of one country. Here rather than in the
+   * resolver, so that every caller is refused the same way.
    */
-  private async checkRegions(profile: Profile): Promise<void> {
-    const codes = [...new Set([...(profile.residenceRegions ?? []), ...(profile.workRegions ?? [])])]
-    if (codes.length === 0) return
+  private async checkProfile(profile: Profile): Promise<void> {
+    const regionCodes = [...new Set([...(profile.residenceRegions ?? []), ...(profile.workRegions ?? [])])]
+    const statusCodes = [...new Set(profile.residenceStatuses ?? [])]
 
-    const regions = await this.prisma.region.findMany({ where: { code: { in: codes } }, select: { code: true, countryCode: true } })
-    const countries = new Map(regions.map((region) => [region.code, region.countryCode]))
-    const unknown = codes.filter((code) => !countries.has(code))
-    if (unknown.length > 0) throw new RegionProfileError(unknown, `Not a region: ${unknown.join(', ')}.`)
+    const regions: { code: string; countryCode: string }[] =
+      regionCodes.length === 0 ? [] : await this.prisma.region.findMany({ where: { code: { in: regionCodes } }, select: { code: true, countryCode: true } })
+    const statuses: { code: string; countryCode: string }[] =
+      statusCodes.length === 0
+        ? []
+        : await this.prisma.residenceStatus.findMany({ where: { code: { in: statusCodes } }, select: { code: true, countryCode: true } })
 
-    const conflicting = regionsInConflict(profile, countries)
-    if (conflicting.length > 0) {
-      throw new RegionProfileError(
-        conflicting,
-        `Only one region per country can be where a reader lives, and one where they work: ${conflicting.join(', ')}.`,
+    const regionCountries = new Map(regions.map((region) => [region.code, region.countryCode]))
+    const statusCountries = new Map(statuses.map((status) => [status.code, status.countryCode]))
+
+    const unknownRegions = regionCodes.filter((code) => !regionCountries.has(code))
+    if (unknownRegions.length > 0) throw new ProfileError(unknownRegions, `Not a region: ${unknownRegions.join(', ')}.`)
+    const unknownStatuses = statusCodes.filter((code) => !statusCountries.has(code))
+    if (unknownStatuses.length > 0) throw new ProfileError(unknownStatuses, `Not a residence status: ${unknownStatuses.join(', ')}.`)
+
+    const conflictingRegions = [
+      ...new Set([...inConflict(profile.residenceRegions ?? [], regionCountries), ...inConflict(profile.workRegions ?? [], regionCountries)]),
+    ]
+    if (conflictingRegions.length > 0) {
+      throw new ProfileError(
+        conflictingRegions,
+        `Only one region per country can be where a reader lives, and one where they work: ${conflictingRegions.join(', ')}.`,
       )
+    }
+
+    const conflictingStatuses = inConflict(profile.residenceStatuses ?? [], statusCountries)
+    if (conflictingStatuses.length > 0) {
+      throw new ProfileError(conflictingStatuses, `Only one residence status per country can be what a reader holds: ${conflictingStatuses.join(', ')}.`)
     }
   }
 
-  /** A country's regions and the region each is inside, read once per answer rather than walked per criterion. */
-  private async placesOf(countryCode: string): Promise<Places> {
-    const regions = await this.prisma.region.findMany({ where: { countryCode }, select: { code: true, parentCode: true } })
-    return new Map(regions.map((region) => [region.code, region.parentCode]))
+  /** A country's places and residence statuses, each with the row it is inside, read once per answer rather than walked per criterion. */
+  private async treesOf(countryCode: string): Promise<Trees> {
+    const places = await this.prisma.region.findMany({ where: { countryCode }, select: { code: true, parentCode: true } })
+    const statuses = await this.prisma.residenceStatus.findMany({ where: { countryCode }, select: { code: true, parentCode: true } })
+    return {
+      places: new Map(places.map((place) => [place.code, place.parentCode])),
+      statuses: new Map(statuses.map((status) => [status.code, status.parentCode])),
+    }
   }
 
   /**
@@ -151,14 +173,14 @@ export class RulesService {
    * gets wrong.
    */
   async resolve(countryCode: string, profile: Profile, at: Date): Promise<Map<string, Side>> {
-    await this.checkRegions(profile)
+    await this.checkProfile(profile)
     return this.resolveChecked(countryCode, profile, at)
   }
 
   /** `resolve` for a profile already checked, so a caller resolving twice checks once. */
   private async resolveChecked(countryCode: string, profile: Profile, at: Date): Promise<Map<string, Side>> {
     const groups = await this.groupsAt(profile.nationality, at)
-    const places = await this.placesOf(countryCode)
+    const trees = await this.treesOf(countryCode)
 
     const versions = await this.prisma.ruleVersion.findMany({
       where: { countryCode, ...inForceAt(at) },
@@ -186,7 +208,7 @@ export class RulesService {
     const byObligation = new Map<string, Candidate[]>()
     for (const version of versions) {
       const criteria = version.criteria.map((criterion): Criterion => ({ dimension: criterion.dimension, value: criterion.value }))
-      const fit = fitToProfile(criteria, profile, groups, places)
+      const fit = fitToProfile(criteria, profile, groups, trees)
       if (fit.contradicted) continue
       const slug = version.obligation.slug
       const candidate = { id: version.id, criteria, facts: version.facts.map((fact) => toFact(fact, version)), open: fit.open }
@@ -198,13 +220,13 @@ export class RulesService {
     for (const [slug, standing] of byObligation) {
       // Every version's answer is completed, an open one's too, so that what an
       // open version could change is judged by what it would actually say.
-      const answered = standing.map((candidate): Answered => ({ ...candidate, answer: answerOf(candidate, standing, places) }))
+      const answered = standing.map((candidate): Answered => ({ ...candidate, answer: answerOf(candidate, standing, trees) }))
       const winners = mostSpecific(
         answered.filter((candidate) => candidate.open.length === 0),
-        places,
+        trees,
       )
       const needs = [
-        ...new Set(answered.filter((candidate) => candidate.open.length > 0 && matters(candidate, winners, places)).flatMap((candidate) => candidate.open)),
+        ...new Set(answered.filter((candidate) => candidate.open.length > 0 && matters(candidate, winners, trees)).flatMap((candidate) => candidate.open)),
       ].sort()
 
       const [winner] = winners
@@ -232,7 +254,7 @@ export class RulesService {
    * places in one country (SB-186).
    */
   async move(from: Place, to: Place, at: Date): Promise<Entry[]> {
-    await Promise.all([this.checkRegions(from.profile), this.checkRegions(to.profile)])
+    await Promise.all([this.checkProfile(from.profile), this.checkProfile(to.profile)])
     const [origin, destination] = await Promise.all([
       this.resolveChecked(from.country, from.profile, at),
       this.resolveChecked(to.country, to.profile, at),
@@ -247,7 +269,7 @@ export class RulesService {
    * reason a change is a new row rather than an edit.
    */
   async changes(countryCode: string, profile: Profile, since: Date, until: Date): Promise<Entry[]> {
-    await this.checkRegions(profile)
+    await this.checkProfile(profile)
     const [before, after] = await Promise.all([
       this.resolveChecked(countryCode, profile, since),
       this.resolveChecked(countryCode, profile, until),

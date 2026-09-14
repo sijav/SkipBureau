@@ -185,9 +185,20 @@ one country gives each side its own places, `fromResidenceRegions` and
 reader is shown of their place is SB-154: in the details, never on the first
 page, and never a list of provinces once they have said where they are going.
 
+**A residence status is a detail too** (SB-189): what a reader holds in a
+country, a residence permit, a kind of one such as a student residence permit,
+or a visa exemption, the design's Residence status row beside Role. A country's
+statuses are a tree of rows like its places, keyed `tr.residence-permit.student`,
+and a profile holds one per country. A rule the research verified for
+residence-permit holders applies to a reader holding any kind of permit, asks a
+reader who has not said, and does not reach a visitor on a visa exemption,
+which is what Turkey's address duty needs. A status is scope, not a place: a
+version for one kind of permit inherits nothing from a version for every
+permit. The same triggers keep both trees honest, each under its own lock.
+
 Specificity is **set inclusion, not a count**, with a place standing in for
-every place it is inside, so a city's version is more specific than its
-province's. A rule for EU nationals and a rule for students each have one
+every place it is inside and a status for every status inside it, so a city's
+version is more specific than its province's. A rule for EU nationals and a rule for students each have one
 criterion and neither is more specific than the other, so both survive and the
 answer is **`needsReview`**, naming the versions that clash.
 

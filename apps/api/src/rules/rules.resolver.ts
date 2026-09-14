@@ -1,6 +1,6 @@
 import { Args, Query, Resolver } from '@nestjs/graphql'
 import { GraphQLError } from 'graphql'
-import { RegionProfileError } from './eligibility.js'
+import { ProfileError } from './eligibility.js'
 import { DiffEntry } from './rules.model.js'
 import { RulesService } from './rules.service.js'
 
@@ -9,7 +9,7 @@ import { RulesService } from './rules.service.js'
 // passes one through as it is, where a Nest HttpException would arrive as
 // BAD_REQUEST (SB-168).
 const asInputError = (error: unknown): never => {
-  if (error instanceof RegionProfileError) {
+  if (error instanceof ProfileError) {
     throw new GraphQLError(error.message, { extensions: { code: 'BAD_USER_INPUT', codes: error.codes } })
   }
   throw error
@@ -18,6 +18,8 @@ const asInputError = (error: unknown): never => {
 const RESIDENCE =
   'Where this person lives: region codes, one per country, so a move between countries can carry one on each side. A province or state by its ISO 3166-2 code such as TR-34, or a place inside one by its key such as TR-34.kadikoy.'
 const WORK = 'Where this person works, the same way. Some rules follow the place of work rather than where a person lives.'
+const STATUS =
+  'What this person holds in each country: residence status codes, one per country, such as tr.residence-permit, or a kind of one such as tr.residence-permit.student.'
 const FROM_RESIDENCE =
   'Where this person lives before the move, in place of residenceRegions on that side. Left out, residenceRegions applies; an empty list says nowhere. This is how a move within one country names both places.'
 const TO_RESIDENCE = 'Where this person will live after the move, in place of residenceRegions on that side, the same way.'
@@ -41,6 +43,7 @@ export class RulesResolver {
     @Args('toResidenceRegions', { type: () => [String], nullable: true, description: TO_RESIDENCE }) toResidenceRegions?: string[] | null,
     @Args('fromWorkRegions', { type: () => [String], nullable: true, description: FROM_WORK }) fromWorkRegions?: string[] | null,
     @Args('toWorkRegions', { type: () => [String], nullable: true, description: TO_WORK }) toWorkRegions?: string[] | null,
+    @Args('residenceStatuses', { type: () => [String], nullable: true, description: STATUS }) residenceStatuses?: string[],
   ): Promise<DiffEntry[]> {
     // GraphQL tells a list left out from one given as null. Left out, a side
     // takes the shared list, and an empty list says nowhere; null says neither,
@@ -55,7 +58,7 @@ export class RulesResolver {
       })
     }
 
-    const person = { nationality, situation }
+    const person = { nationality, situation, residenceStatuses }
     return this.rules
       .move(
         { country: from, profile: { ...person, residenceRegions: fromResidenceRegions ?? residenceRegions, workRegions: fromWorkRegions ?? workRegions } },
@@ -74,9 +77,10 @@ export class RulesResolver {
     @Args('situation', { type: () => String, nullable: true }) situation?: string,
     @Args('residenceRegions', { type: () => [String], nullable: true, description: RESIDENCE }) residenceRegions?: string[],
     @Args('workRegions', { type: () => [String], nullable: true, description: WORK }) workRegions?: string[],
+    @Args('residenceStatuses', { type: () => [String], nullable: true, description: STATUS }) residenceStatuses?: string[],
   ): Promise<DiffEntry[]> {
     return this.rules
-      .changes(country, { nationality, situation, residenceRegions, workRegions }, new Date(since), new Date(until))
+      .changes(country, { nationality, situation, residenceRegions, workRegions, residenceStatuses }, new Date(since), new Date(until))
       .catch(asInputError)
   }
 }

@@ -154,3 +154,19 @@ is SB-154, and where a transaction happens is still SB-177.
 
 **Undo it** by loading a country's places wholesale, the day a place picker
 needs every district to choose from.
+
+## Residence statuses exist only where a rule names them
+
+**Decided 2026-09-14**, building SB-189.
+
+A residence status is a row with a product-owned key under its country, added
+with the researched rule that names it or the test that needs it, as places
+are, so no country's catalogue of permits is loaded wholesale. A status is
+scope and is never inherited: a version for one kind of permit states every
+fact it means to show. `move` takes no per-side status lists, because a move
+between two places in one country does not change what a reader holds, and a
+mover between countries already names one status for each.
+
+**Undo it** by adding per-side status lists the day a comparison of two statuses
+in one country is asked for, and by loading a country's statuses wholesale the
+day the Residence status row needs every choice.
