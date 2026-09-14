@@ -438,6 +438,11 @@ SB-184 and SB-185 filed; and among those, the page that states the whole fact
 itself, not a change to it or a clause in a longer list. Never marker order, and
 never how official a page looks.
 
+A figure whose only verified page is narrower than the fact stays unwritten
+until research finds one that is not. Turkey's tax number is the first: its fee
+rests only on a university's guidance for its own applicants, which does not set
+what the Revenue Administration charges, so no fee is written (SB-195).
+
 ## What it has changed about the product
 
 **SB-168, twice.** Turkey answered three times that the law is national and
