@@ -40,10 +40,12 @@ figures.
 **The exemptions are worth checking before you give up.** Fifty million lira of
 annual net sales[^csgb-criteria-a-1-2] waives the employee quota for five foreigners[^csgb-criteria-a-1-2]. Since **3 August
 2026**[^csgb-criteria-a-4], domestic applications can receive employment and financial-criteria
-relief for up to three foreigners[^csgb-criteria-a-4] per workplace who spent at least **one year
+relief for up to three foreigners[^csgb-criteria-a-4] who spent at least **one year
 within the preceding three**[^csgb-criteria-a-4] lawfully in Turkey under a work permit, residence
-permit or international protection; foreign permit-holders must not outnumber
-Turkish employees[^csgb-criteria-a-4]. Long-term residence permit holders and foreigners living in a
+permit or international protection; in a workplace using that relief, foreign
+permit-holders must not outnumber its Turkish employees[^csgb-criteria-a-4]. (Corrected
+2026-09-14 in SB-193: this said "per workplace", which criterion 4.1 does not; the
+three is its own limit, and the workplace appears only in 4.2's headcount limit.) Long-term residence permit holders and foreigners living in a
 marital union with a Turkish citizen for at least three years[^csgb-criteria-cc-1-1-e] are **exempt from
 the employment, financial and salary criteria**. There is conditional relief in
 IT, research, education, public projects, tourism and livestock.

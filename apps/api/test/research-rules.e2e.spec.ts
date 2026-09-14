@@ -228,20 +228,42 @@ const COMPANY_DUTIES: readonly [slug: string, opening: string][] = [
   ['keep-company-books-electronically', 'For a company registered from 1 January 2026'],
 ]
 
-test("a reader starting a company is told each duty that follows registration, its facts on their pages and its condition first in its notes, a reader who has not said is asked, and a student is not told them", async () => {
-  for (const [slug, opening] of COMPANY_DUTIES) {
+// Each moment of the work permit, and the condition its notes must open with,
+// since every figure binds only under one (SB-193).
+const WORKER_DUTIES: readonly [slug: string, opening: string][] = [
+  ['get-a-work-permit', 'Where your employer applies for your work permit, as it normally does'],
+  ['report-employment-starting-and-ending', 'For the employer, or a foreigner holding an indefinite or independent work permit'],
+  ['apply-for-a-residence-permit-after-a-work-permit', 'Once your work permit has been cancelled or has ended'],
+  ['keep-working-while-an-extension-is-assessed', 'Only while a timely application to extend your work permit is assessed, for the same work at the same workplace'],
+]
+
+/**
+ * Each duty of a situation is told to a reader in it, with its facts on their
+ * pages and its notes as served, opening with its condition; a reader who has
+ * not said is asked for their situation; a student is told none of them.
+ */
+const toldInSituation = async (duties: readonly [slug: string, opening: string][], situation: string) => {
+  for (const [slug, opening] of duties) {
     const version = TURKEY.versions.find((candidate) => candidate.obligation === slug)
     expect(version, `${slug} is in Turkey's file`).toBeDefined()
 
-    const founder = await entryFor(slug, { situation: 'company-founder' })
-    expect(founder?.verdict, slug).toBe('newInDestination')
-    expect(founder?.to?.facts, slug).toEqual(factsOf(slug))
-    expect(founder?.to?.notes, slug).toEqual([{ ruleVersionId: expect.any(String), text: version?.notes.en, locale: 'en-US', translationMissing: false }])
-    expect(founder?.to?.notes[0]?.text.startsWith(opening), `${slug}'s notes open with its condition`).toBe(true)
+    const reader = await entryFor(slug, { situation })
+    expect(reader?.verdict, slug).toBe('newInDestination')
+    expect(reader?.to?.facts, slug).toEqual(factsOf(slug))
+    expect(reader?.to?.notes, slug).toEqual([{ ruleVersionId: expect.any(String), text: version?.notes.en, locale: 'en-US', translationMissing: false }])
+    expect(reader?.to?.notes[0]?.text.startsWith(opening), `${slug}'s notes open with its condition`).toBe(true)
 
     expect(await entryFor(slug), slug).toMatchObject({ verdict: 'needsDetail', needs: ['situation'], to: null })
     expect(await entryFor(slug, { situation: 'student' }), slug).toBeUndefined()
   }
+}
+
+test("a reader starting a company is told each duty that follows registration, its facts on their pages and its condition first in its notes, a reader who has not said is asked, and a student is not told them", () =>
+  toldInSituation(COMPANY_DUTIES, 'company-founder'))
+
+test("a reader who works in Turkey is told each moment of the work permit, its figures on their pages and its condition first in its notes, a reader who has not said is asked, and a student is not told them", async () => {
+  expect(factsOf('get-a-work-permit')).toHaveLength(16)
+  await toldInSituation(WORKER_DUTIES, 'worker')
 })
 
 test('a reader on a visa or a visa exemption is told how to get a short-term residence permit, its figures on their pages and its condition first in its notes, a residence permit holder is not told it, and a reader who has not said is asked', async () => {
