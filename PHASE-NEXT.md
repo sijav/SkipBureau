@@ -101,6 +101,12 @@ and nothing displays it yet.
 
 ## A region is a country's first-level division, and nothing below it
 
+**Superseded the same day by the owner's order of 2026-09-14**, recorded in
+CLAUDE.md: a rule belongs to a place at any level, the whole country, a province
+or state, a city or an area, and a narrower place inherits the wider rule and
+states only what differs there, including a different office. SB-186 builds
+that. What follows is kept as the record of what SB-168 built and why.
+
 **Decided 2026-09-14**, building SB-168.
 
 A rule can belong to a region: a German Land or a Turkish province, named by its

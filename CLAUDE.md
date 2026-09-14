@@ -154,10 +154,42 @@ So, for every piece of guide content and every rule from here on:
 - **Turkey differs by province and Germany by state.** A single national answer
   is wrong for both, and the product's whole claim is that it tells a reader
   what to do where they are. Every fact the research records says whether it
-  varies by region, and names the region where it does.
+  varies by region, and names the region where it does. How a difference is
+  stored and shown is the owner's later order, below.
 - **Every fact carries an official source URL and the date it was checked.**
   That is already what the schema demands and it is the product's one real
   advantage over what a search engine finds.
+
+## The owner's order of 2026-09-14, on where a rule applies
+
+The research found every Turkish rule national, with only office steps
+differing in Bursa and Istanbul and company chamber fees differing by city.
+Asked what Turkey should show per province, the owner answered, in full:
+
+> "Ok then the rules are going to be whole country province/state/city/area
+> basically in our database we distinguish laws by something which will then
+> inherit from global (whole country) laws but can have a different rule in
+> somewhere (or different office for something) the database needs to make
+> sense and the rules needs to make sense and how we show things needs to be in
+> the sense of user needs, so it doesn't make sense to show provinces or states
+> when user already showed us where the user is going, it shouldn't show in the
+> first page either, in the details we will show it to user"
+
+So, from here on:
+
+- **A rule belongs to a place at any level: the whole country, a province or
+  state, a city, or an area within it.** The country-wide rule is the default.
+  A narrower place inherits it and states only what differs there, whether that
+  is a different rule or a different office for the same thing. This replaces
+  the decision in PHASE-NEXT.md that only first-level divisions exist, and
+  SB-167's line that an office behaving differently is only a note on a guide.
+- **The database and the rules have to make sense on their own terms**, not
+  only produce the right screen: a narrower rule reads as an exception to the
+  wider one, never as a copy of it.
+- **What is shown follows what the reader needs.** Once a reader has said where
+  they are going, they are not shown a list of provinces or states. Nothing
+  about places belongs on the first page. The answer for their place is shown in
+  the details.
 
 ## The plan, before any task
 
