@@ -305,3 +305,288 @@ All read 2026-09-12.
 ## Answered
 
 Nothing remains that exceeds the evidence we reviewed. URLs opened this turn: none.
+
+---
+
+## Asked, 2026-09-14 12:52 UTC
+
+SB-182. We are going back over the text we agreed for this case on 2026-09-12. Not to change a word of it: to tie every figure in it to the page that states it.
+
+Why. Every rule this product publishes will carry a source URL for each figure, and the agreed text lists its sources once, at the end, so nothing says which page states which figure. In the Turkish health cover case, checking one attribution found that the SEDDK press release cited for the policy limits is a one-page announcement that states none of them. A related page is not a page that states the figure. The same work has just been finished for Germany's four cases, where it also found quotes that left out the condition their sentence depends on.
+
+Below are the agreed text and a list of every number and number word in it, by line. For EVERY item on that list, give one of three answers:
+
+A. It is a figure a reader could act on: a fee, charge, deadline, period, threshold, ceiling, fine, rate, percentage, or the date a rule took effect. Give:
+   - the single URL you opened that states it, from the Sources list or a deeper page on the same official host;
+   - where on that page: article and paragraph, section, table row, or the page number of a PDF;
+   - the page's exact words for the whole claim, as the page writes them and in Turkish: the value with its comparator ("en az", "en fazla", "kadar", "aşmamak üzere"), both ends of a range, its period ("aylık", "yıllık"), its date, and the condition the sentence depends on. Copy, do not translate or paraphrase. If you cannot quote the page's words exactly, say so.
+B. It is a figure, but no page you opened states it in that form: it was calculated, or it comes from somewhere you cannot point to. Say which. If calculated, give the formula, each input with its own URL and exact words, and the rounding.
+C. It is not a figure a reader acts on: an article or paragraph number, a law or circular number, a case identifier, a count of our own turns or corrections, a phone number. One line saying which.
+
+Three rules for this pass:
+
+1. A law is quoted as it is in force today. Where a figure comes from a statute, quote it from the consolidated text on mevzuat.gov.tr, whose PDF is at https://www.mevzuat.gov.tr/MevzuatMetin/1.5.<law number>.pdf, and give the article, paragraph and PDF page. The cdn.tbmm.gov.tr pages are the text as enacted and may be out of date. Also quote, exactly, every footnote the consolidated PDF attaches to that paragraph, since those footnotes are the only record of which amendments the PDF includes; if it attaches none, say so. If you know of an amendment the PDF does not show, say which. If a provision comes from an amending law, quote it from the consolidated law it amended. If only the enacted text carries it, say so and say whether it has been amended since.
+2. Where the page is an image, give the image's URL and transcribe exactly what the image prints for the row or rows the figure comes from, including the heading of the column or group.
+3. Where a page will not open, or sits behind a CAPTCHA or a sign-in, say so for each figure on it, and look for another official page that states the figure.
+
+Open the pages again for this; do not answer from your memory of the earlier turns.
+
+Answer as a list keyed by line number and item, in the order given. End with the URLs you actually opened, and separately the ones that failed to open.
+
+Known in this case:
+- dijital.gib.gov.tr renders by script. If you cannot read it, say so.
+- The rule since 1 July 2010 is cited from the Central Registry Agency (MKK). Say whether MKK is an official public body, and whether a Revenue Administration or other public page states the same rule and date.
+- "It is free" is a fee of nothing: give the page that states it and its exact words, or say that no official page does.
+
+--- The agreed text ---
+
+# The number that makes you exist in Turkey
+
+**Agreed 2026-09-12**, after two turns in `talk/turkey/tax-number.md`. Seven
+overclaims found at sign-off, and one of them was **its own earlier answer**,
+walked back unprompted. Every sentence below is the corrected one.
+
+## What a reader is told
+
+**Two numbers, and one of them takes over.** You may receive a potential tax
+number before receiving a 99 number; once you have the 99 number, it serves as
+your tax identifier. That has been the rule since **1 July 2010**. We could not
+establish what happens to an earlier potential tax number once the 99 number
+arrives, so we will not tell you it is merged or cancelled.
+
+**You do not need a residence permit to get a tax number.** A person who has
+just arrived can apply. You can apply through the tax administration's foreigners
+page; the published instructions describe the number appearing after successful
+submission. At a counter you bring your **original passport, a copy of its
+identity page, and a signed application** that includes your address. Istanbul's
+migration directorate published a notice in 2020 directing applicants online and
+keeping the counter for cases where identity verification fails; we could not
+verify whether that is still enforced.
+
+GİB documents an intermediary application route for **nonresident investors**
+through a bank, broker or custodian. We could not verify whether prior entry into
+Turkey is necessary, or whether someone abroad can complete the ordinary online
+application.
+
+**It is free** according to the public university guidance we checked. Published
+instructions describe online issuance after successful submission, but we could
+not verify a guaranteed processing time.
+
+**What you actually need it for, which is less than you have been told.**
+Türkiye's official country note identifies **banking transactions** as subject to
+a legal tax-identifier requirement; we did not verify the operative provision
+specifically governing account opening. **Buying property** requires one for the
+land registry transaction.
+
+We could not verify a current tax-number requirement for **signing an ordinary
+residential lease** or **obtaining a mobile line**. A 2021 official decision
+quotes telecom rules accepting foreigners' passports, but we did not verify the
+complete current rules. For **residence-permit fees**, Migration Management
+expressly provides payment using the **residence application number**.
+
+If somebody tells you to go and get a tax number before doing one of those
+three, ask them which rule says so.
+
+**When it goes wrong.** The failure that is documented is identity or passport
+verification failing even when you entered everything correctly, and the
+published remedy is to apply at a tax office. We could not verify an official
+account of somebody receiving duplicate potential tax numbers, or an official
+procedure for merging duplicates or correcting identity details on an issued tax
+record.
+
+
+## Sources
+
+- <https://dijital.gib.gov.tr/foreigners/kimlikNoBasvuru>
+- <https://www.mkk.com.tr/tr-tr/Genel-Mektuplar/Sayfalar/Yabanci-Kimlik-Numarasi-Bildirimi.aspx> (the 2010 rule)
+- <https://istanbul.goc.gov.tr/yabancilarin-vergi-kimlik-numarasi-temini-hakkinda>
+- <https://www.oecd.org/content/dam/oecd/en/topics/policy-issue-focus/aeoi/turkiye-tin.pdf>
+- <https://www.goc.gov.tr/ikamet-sss> (paying with the application number)
+- <https://www.kvkk.gov.tr/Icerik/7135/2021-859> (the telecom identity rules)
+- <https://www.uludag.edu.tr/en/uluyos/tax-identification-number-information-69202>
+- <https://cdn.gib.gov.tr/api/gibportal-file/file/getFileResources?objectKey=arsiv/fileadmin/beyannamerehberi/2025/2025_GVK_Gecici.pdf> (§25)
+
+All read 2026-09-12.
+
+--- Every number and number word in it, by line ---
+
+line 3: 2026 | 09 | 12 | two | Seven
+line 4: one
+line 5: one
+line 9: Two | one
+line 10: 99 | once | 99
+line 11: 1 | 2010
+line 12: once | 99
+line 20: 2020
+line 36: one
+line 40: 2021
+line 45: one
+line 46: three
+
+## Answered
+
+- **Line 3 — `2026 | 09 | 12`: C.** Components of our editorial agreement date, not a rule’s effective date.
+- **Line 3 — `two`: C.** Count of our research turns.
+- **Line 3 — `Seven`: C.** Count of our corrections.
+- **Line 4 — `one`: C.** Refers to one of those corrections.
+- **Line 5 — `one`: C.** Pronoun referring to the corrected sentence.
+- **Line 9 — `Two`: C.** Count of the identifier types being discussed, not a fee, limit or period.
+- **Line 9 — `one`: C.** Refers to the identifier that takes over.
+- **Line 10 — first `99`: C.** Identifier prefix.
+- **Line 10 — `once`: C.** Means “when”; it is not a numerical period or frequency.
+- **Line 10 — second `99`: C.** Identifier prefix.
+
+- **Line 11 — `1 | 2010`, together “1 July 2010”: A.** The date the foreigner identity number began serving as the tax identifier.
+
+  **Single attribution URL:** [GİB’s 2010 institutional financial expectations report](https://cdn.gib.gov.tr/api/gibportal-file/file/getFileResources?objectKey=arsiv/fileadmin/kur_mali_beklentiler_raporlari/2010/2010_Kur_Mali_Beklentiler_Raporu.pdf).
+
+  **Location:** PDF page **10**, bullet beginning “4 Seri No’lu Vergi Kimlik Numarası Genel Tebliği”, immediately before section I.9.
+
+  **Exact Turkish passage, including the qualifying condition:**
+  > yabancı kimlik numarası bulunan yabancıların 01.07.2010 tarihinden itibaren yabancı kimlik numaralarının vergi kimlik numarası olarak kullanılmasına ilişkin açıklamalara yer verilmiştir.
+
+  This states the date and limits the statement to foreigners **who have a foreigner identity number**. It describes a national communiqué; no regional variation is stated. This is GİB’s published explanation, **not consolidated statutory text**. No footnote is attached to this passage in the report.
+
+  **MKK provenance:** The [MKK notice](https://www.mkk.com.tr/tr-tr/Genel-Mektuplar/Sayfalar/Yabanci-Kimlik-Numarasi-Bildirimi.aspx), first substantive paragraph of General Letter 536, also states the same rule and date. However, **MKK is a private-law joint-stock company, not a public-law government body**. Its [articles of association](https://www.mkk.com.tr/sites/default/files/2022-06/MKK%20Esas%20S%C3%B6zle%C5%9Fme%202022.pdf), article 1(1), PDF page 1, describe it as:
+  > özel hukuk tüzel kişiliğini haiz anonim şirket
+
+  The consolidated Law 6362 PDF failed to open, so I cannot provide its current article 81 text, attached footnotes or an amendment-completeness check. The company’s own document establishes the source-status distinction; the GİB report supplies the public-authority attribution for the effective date.
+
+- **Line 12 — `once`: C.** Temporal conjunction, not a numerical period.
+- **Line 12 — `99`: C.** Identifier prefix.
+- **Line 20 — `2020`: C.** Publication year of the Istanbul notice, not an effective date asserted by the agreed text. The [notice’s date beneath its heading](https://istanbul.goc.gov.tr/yabancilarin-vergi-kimlik-numarasi-temini-hakkinda) reads **“25.11.2020”**.
+
+- **Line 29 — `free` — additional implicit figure expressly requested: A, with a language limitation.** A zero issuance fee is explicitly supported by the university’s **English** page.
+
+  **Single attribution URL:** [Bursa Uludağ University — Tax Identification Number Information](https://www.uludag.edu.tr/en/uluyos/tax-identification-number-information-69202).
+
+  **Location:** Second paragraph under “TAX IDENTIFICATION NUMBER INFORMATION”, immediately before the two application routes.
+
+  **Exact original words:**
+  > Obtaining a Tax ID is free of charge and the only required document is a valid passport.
+
+  **I cannot supply an exact Turkish quotation for “free”.** The [Turkish counterpart](https://www.uludag.edu.tr/uluyos/vergi-kimlik-numarasi-bilgilendirme-69202) does not state that issuance is free. I did not locate a Turkish GİB statement confirming the zero fee. The English public-university page does support the agreed attribution; this is not a calculation or a verified statutory fee provision.
+
+- **Line 36 — `one`: C.** Pronoun referring to a tax identifier, not a numerical requirement.
+- **Line 40 — `2021`: C.** Year of the cited decision, not the commencement date of the telecom rules. The [decision’s introductory table](https://www.kvkk.gov.tr/Icerik/7135/2021-859) states **“Karar Tarihi : 26/08/2021”**.
+- **Line 45 — `one`: C.** Refers to a member of the preceding set of activities.
+- **Line 46 — `three`: C.** Count of our three examples: lease, mobile line and residence-permit fee.
+
+**Dijital GİB access:** The foreigners application page returned readable form labels through the browser tool. It did not provide an issuance-fee statement or a processing-time guarantee. I did not submit an application.
+
+**URLs opened successfully:**
+
+https://dijital.gib.gov.tr/foreigners/kimlikNoBasvuru  
+https://www.mkk.com.tr/tr-tr/Genel-Mektuplar/Sayfalar/Yabanci-Kimlik-Numarasi-Bildirimi.aspx  
+https://istanbul.goc.gov.tr/yabancilarin-vergi-kimlik-numarasi-temini-hakkinda  
+https://www.oecd.org/content/dam/oecd/en/topics/policy-issue-focus/aeoi/turkiye-tin.pdf  
+https://www.goc.gov.tr/ikamet-sss  
+https://www.kvkk.gov.tr/Icerik/7135/2021-859  
+https://www.uludag.edu.tr/en/uluyos/tax-identification-number-information-69202  
+https://www.uludag.edu.tr/uluyos/vergi-kimlik-numarasi-bilgilendirme-69202  
+https://cdn.gib.gov.tr/api/gibportal-file/file/getFileResources?objectKey=arsiv/fileadmin/beyannamerehberi/2025/2025_GVK_Gecici.pdf  
+https://cdn.gib.gov.tr/api/gibportal-file/file/getFileResources?objectKey=arsiv/fileadmin/kur_mali_beklentiler_raporlari/2010/2010_Kur_Mali_Beklentiler_Raporu.pdf  
+https://www.mkk.com.tr/hakkimizda/biz-kimiz  
+https://www.mkk.com.tr/sikca-sorulan-sorular  
+https://www.mkk.com.tr/sites/default/files/2022-06/MKK%20Esas%20S%C3%B6zle%C5%9Fme%202022.pdf  
+
+**Failed to open — fetch errors, not observed CAPTCHA or sign-in barriers:**
+
+https://istanbul.gib.gov.tr/sites/default/files/usulelkitabi.pdf  
+https://www.mevzuat.gov.tr/MevzuatMetin/1.5.6362.pdf  
+https://www.mevzuat.gov.tr/mevzuatmetin/1.5.6362.pdf
+
+---
+
+## Asked, 2026-09-14 13:25 UTC
+
+SB-182, the last pass on this document. Below is the agreed text exactly as agreed, with a footnote marker after every figure, and at the end one definition per label: the page, where on it, and the page's own words. Not a word of the prose has changed: removing the markers gives back the agreed text byte for byte.
+
+Where your inventory could not open a page, I opened it, and every quoted passage was found again on its page today.
+- The 1 July 2010 date. MKK is a private company, so its general letter is not used as the attribution. The Revenue Administration's own 2010 institutional financial report, on cdn.gib.gov.tr, PDF page 10 (printed 8), read as rendered, records General Communiqué No. 4 on the tax identification number, published in the Official Gazette of 22 May 2010, no. 27588, explaining that a foreigner's foreigner identification number is used as the tax identification number from 1 July 2010.
+- "Free". Bursa Uludağ University's English page, which the sentence already names as its source.
+
+Two things to check in particular:
+
+1. The text says "once you have the 99 number, it serves as your tax identifier. That has been the rule since 1 July 2010." The report says the communiqué gives explanations on foreigners' identification numbers being used as tax identification numbers "01.07.2010 tarihinden itibaren". Does that support the rule applying since that date, or only that a communiqué about it was published? If the communiqué itself is the better page, name it and quote it from a page you open now.
+2. The "free" sentence rests on a public university page, and says so. Is that attribution accurate, and does "It is free" claim more than the page's "Obtaining a Tax ID is free of charge"?
+
+The question for everything: does any marker attach a figure to a page that does not state it, or quote evidence that leaves out a condition its sentence depends on? A one-line "no" is the answer asked for. If yes, name the marker, quote what the page says from a page you open now, and end with the URLs you opened.
+
+---
+
+# The number that makes you exist in Turkey
+
+**Agreed 2026-09-12**, after two turns in `talk/turkey/tax-number.md`. Seven
+overclaims found at sign-off, and one of them was **its own earlier answer**,
+walked back unprompted. Every sentence below is the corrected one.
+
+## What a reader is told
+
+**Two numbers, and one of them takes over.** You may receive a potential tax
+number before receiving a 99 number; once you have the 99 number, it serves as
+your tax identifier. That has been the rule since **1 July 2010**[^gib-2010-report-foreigner-id]. We could not
+establish what happens to an earlier potential tax number once the 99 number
+arrives, so we will not tell you it is merged or cancelled.
+
+**You do not need a residence permit to get a tax number.** A person who has
+just arrived can apply. You can apply through the tax administration's foreigners
+page; the published instructions describe the number appearing after successful
+submission. At a counter you bring your **original passport, a copy of its
+identity page, and a signed application** that includes your address. Istanbul's
+migration directorate published a notice in 2020 directing applicants online and
+keeping the counter for cases where identity verification fails; we could not
+verify whether that is still enforced.
+
+GİB documents an intermediary application route for **nonresident investors**
+through a bank, broker or custodian. We could not verify whether prior entry into
+Turkey is necessary, or whether someone abroad can complete the ordinary online
+application.
+
+**It is free**[^uludag-tax-id-free] according to the public university guidance we checked. Published
+instructions describe online issuance after successful submission, but we could
+not verify a guaranteed processing time.
+
+**What you actually need it for, which is less than you have been told.**
+Türkiye's official country note identifies **banking transactions** as subject to
+a legal tax-identifier requirement; we did not verify the operative provision
+specifically governing account opening. **Buying property** requires one for the
+land registry transaction.
+
+We could not verify a current tax-number requirement for **signing an ordinary
+residential lease** or **obtaining a mobile line**. A 2021 official decision
+quotes telecom rules accepting foreigners' passports, but we did not verify the
+complete current rules. For **residence-permit fees**, Migration Management
+expressly provides payment using the **residence application number**.
+
+If somebody tells you to go and get a tax number before doing one of those
+three, ask them which rule says so.
+
+**When it goes wrong.** The failure that is documented is identity or passport
+verification failing even when you entered everything correctly, and the
+published remedy is to apply at a tax office. We could not verify an official
+account of somebody receiving duplicate potential tax numbers, or an official
+procedure for merging duplicates or correcting identity details on an issued tax
+record.
+
+
+## Sources
+
+- <https://dijital.gib.gov.tr/foreigners/kimlikNoBasvuru>
+- <https://www.mkk.com.tr/tr-tr/Genel-Mektuplar/Sayfalar/Yabanci-Kimlik-Numarasi-Bildirimi.aspx> (the 2010 rule)
+- <https://istanbul.goc.gov.tr/yabancilarin-vergi-kimlik-numarasi-temini-hakkinda>
+- <https://www.oecd.org/content/dam/oecd/en/topics/policy-issue-focus/aeoi/turkiye-tin.pdf>
+- <https://www.goc.gov.tr/ikamet-sss> (paying with the application number)
+- <https://www.kvkk.gov.tr/Icerik/7135/2021-859> (the telecom identity rules)
+- <https://www.uludag.edu.tr/en/uluyos/tax-identification-number-information-69202>
+- <https://cdn.gib.gov.tr/api/gibportal-file/file/getFileResources?objectKey=arsiv/fileadmin/beyannamerehberi/2025/2025_GVK_Gecici.pdf> (§25)
+
+All read 2026-09-12.
+
+[^gib-2010-report-foreigner-id]: <https://cdn.gib.gov.tr/api/gibportal-file/file/getFileResources?objectKey=arsiv/fileadmin/kur_mali_beklentiler_raporlari/2010/2010_Kur_Mali_Beklentiler_Raporu.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "Maliye Bakanlığı Gelir İdaresi Başkanlığı, 2010 Yılı Kurumsal Mali Durum ve Beklentiler Raporu, Temmuz 2010, PDF sayfa 10 (basılı 8), 4 Seri No’lu Vergi Kimlik Numarası Genel Tebliği maddesi", "evidence": ["4 Seri No’lu Vergi Kimlik Numarası Genel Tebliği 22.05.2010 tarih ve 27588 sayılı Resmi Gazete’de yayımlanmıştır.", "4358 sayılı Kanunun 4 üncü maddesinin Maliye Bakanlığına verdiği yetkiye dayanılarak, yabancı kimlik numarası bulunan yabancıların 01.07.2010 tarihinden itibaren yabancı kimlik numaralarının vergi kimlik numarası olarak kullanılmasına ilişkin açıklamalara yer verilmiştir."]}
+
+[^uludag-tax-id-free]: <https://www.uludag.edu.tr/en/uluyos/tax-identification-number-information-69202> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Bursa Uludağ University, Tax Identification Number Information, the paragraph before the two ways to apply", "evidence": ["Obtaining a Tax ID is free of charge and the only required document is a valid passport."]}
+
+## Answered
+
+No. Both markers support their figures without omitting a necessary condition. URLs opened this turn: none.

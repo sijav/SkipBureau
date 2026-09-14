@@ -188,6 +188,239 @@ for every passage. All eight were found:
 The €25,000 definition gained its section's first sentence in the last pass,
 after it was drawn, and that sentence was found on page 12 as well.
 
+## Every Turkish figure names the page that states it (SB-182)
+
+Turkey's six agreed documents carry footnotes in the same grammar as Germany's:
+a marker after every fee, deadline, threshold, fine and rate, and one definition
+per label at the end. Two things were added to the grammar.
+
+- **`rendered image` and `rendered scan`** are two more values of `method`: a
+  PNG, or a PDF page with no text layer, read at full size and transcribed by
+  hand. The residence-permit charge by nationality is an image on `goc.gov.tr`;
+  SEDDK's circular 2024/34, GİB's April 2026 brochure and the body of
+  Presidential Decision 7887 are scans.
+- **`sha256`**, on those definitions only, is the digest of the file that was
+  read. It is provenance for the transcription, not a test: a later digest that
+  differs means the file is read and transcribed again. A PDF with a text layer
+  needs none, because its article, page and passage already show whether its
+  text changed.
+
+**A statute is quoted as it is in force, not as it was passed.** The research
+had cited Law 6458 and Law 6735 from the text the Assembly enacted, which no
+later amendment changes. Every statute and regulation figure is now quoted from
+the consolidated text on `mevzuat.gov.tr`, the PDF `MevzuatMetin/1.5.<number>.pdf`
+for a law and `MevzuatMetin/yonetmelik/7.5.<number>.pdf` for a regulation, read
+as rendered. Each footnote that PDF prints on the quoted paragraph is copied as
+one more passage, and the locator says where it prints none. That records what
+the PDF showed on the read date, not that the paragraph was never amended. An
+amending law is quoted inside the law it amended, so Law 4761's sentence on
+reciprocity is quoted from Law 492's tariff. An amount a law leaves to another
+instrument is quoted from that instrument as well: the 50,000 lira minimum
+capital from Presidential Decision 7887, with the Official Gazette correction
+that put it in force on 1 January 2024. Two regulations that `mevzuat.gov.tr`
+shows only through a script, the Temporary Protection Regulation and the
+regulation on workplace opening licences, were read in the browser pane.
+
+**How it was checked.** Each case's conversation said which page states which
+figure, and where it could not open a page, I opened it. The documents carry 136
+markers and 132 definitions, 3 of them calculated. The 129 verified ones quote
+281 passages. The 230 a script can search for, on raw pages and on PDF pages
+also read as rendered, were all found on their pages. The other 51 are 25
+transcribed from scans and 15 from the fee image, each file's digest recorded,
+and 11 from five pages read in the browser pane. Reading each passage against
+its sentence extended the quotes that stopped short: the 2021 Istanbul notice
+is now quoted whole, with its exceptions; the minimum capital carries its own
+Presidential decision; and a statute paragraph carries every footnote the PDF
+prints on it.
+
+**The last pass.** Each annotated document then went back into its own
+conversation with the same question as Germany's. Health insurance and the tax
+number came back no. Work permit came back with two quotes missing a condition:
+the documentary proof its exemptions require, criterion Ç.1.2, and what makes an
+extension application timely, Article 27(1) of the International Labour Force
+Law's regulation and the Ministry's FAQ 20. With both added it came back no.
+Short-term residence permit, address registration and company formation came
+back with seven sentences that said more or less than their pages, listed
+below; each conversation worded or confirmed the correction and then found
+nothing else.
+
+**Twelve sentences were corrected**, each in its own conversation, and nothing
+else in the prose changed. Each corrected sentence is the one its conversation
+worded or confirmed, and each entry names the footnotes the corrected sentence
+rests on, which is what tells a correction apart from softening. Five were
+corrected in the inventory turns, because no page states what they said:
+
+1. **Short-term residence permit, what it costs.** As agreed: "twenty-five US
+   dollars for a full first month and five for each month after" and "fourteen,
+   nine, seven and five dollars for a full first month". As corrected: "for the
+   first month", in both. The image prints "İLK AY" and "DİĞER AYLAR", first
+   month and other months, and neither it nor the fee page says anything about
+   a part month. Agreed in `talk/turkey/short-term-residence-permit.md`, the turn
+   asked 2026-09-14 12:53 UTC. Footnotes: `goc-image-main-group` and the four
+   `goc-image-group-*` definitions.
+2. **Company formation, the chamber's dues.** As agreed: "Chamber registration
+   is once." As corrected: "Istanbul's chamber charges a registration fee."
+   İTO's dues page and its formation cost sheet state a registration fee, and
+   that no annual dues are charged in the year it is collected; no page opened
+   says the fee is charged only once. Proposed in
+   `talk/turkey/company-formation.md` in the turn asked 2026-09-14 13:00 UTC and
+   confirmed in the turn asked 13:08 UTC. Footnotes:
+   `ito-ltd-cost-sheet-registration`, `ito-dues-registration-year`.
+3. **Company formation, the municipal licence.** As agreed: "you need it before
+   you open, not thirty days after you register, and premises operating without
+   one can be closed and fined." As corrected: ", not thirty days after you
+   register," removed. No page states a thirty-day period, so denying one handed
+   the reader a benchmark nobody sets; Article 6(1) of the licence regulation
+   says a workplace may not open or operate without the licence. The same two
+   turns. Footnotes: `isyeri-ruhsat-reg-6-before-open`,
+   `ticaret-bakkallik-before-open`.
+4. **Company formation, a bookkeeper.** As agreed: "The published 2026 framework
+   includes corporate taxpayers whose previous-year assets do not exceed
+   115,209,000 lira and net sales do not exceed 230,359,000 lira. It does not
+   establish that professional involvement becomes mandatory only above a size
+   threshold." As corrected: "We could not verify the applicable 2026 asset and
+   net-sales thresholds from a government source. The available evidence does
+   not establish that professional involvement becomes mandatory only above a
+   size threshold." The inventory turn quoted the two amounts from a table
+   published by the Ankara chamber of certified accountants, and two further
+   turns found no Revenue Administration page that states them. Agreed in the
+   turn asked 13:08 UTC. No footnote: the corrected sentence says the amounts
+   were not verified.
+5. **Address registration, who this applies to.** As agreed: "The foreigners'
+   population-register provision covers residence permits issued for at least
+   90 days. It does not establish a general exemption from address duties for
+   everyone else." As corrected: "Article 8 of Population Services Law 5490
+   authorises the Interior Ministry to assign identity numbers to foreigners
+   covered by Law 6458 and record them in the foreigners register; diplomatic
+   mission members are outside this provision. The validity of foreigner
+   identity numbers, the documents required during and after an application,
+   and other details are determined by an Interior Ministry regulation." The 90
+   days was Article 8 as Law 6458 wrote it in 2013. Law 7148 replaced the whole
+   article in 2018, and the consolidated Law 5490 has no "doksan", "90 gün",
+   "oturma" or "ikamet izni" anywhere in it. Agreed in
+   `talk/turkey/address-registration.md`, the turn asked 2026-09-14 13:27 UTC.
+   Footnote: `law5490-8-foreigners-register`.
+
+Seven more were corrected in the last pass, because a sentence left out a
+condition its page states, or said what no page does:
+
+6. **Short-term residence permit, what it costs.** As agreed: "Turkey sets it on
+   a reciprocity basis under Law 492, Schedule 6, section III, paragraph 1". As
+   corrected: "under Law 492, Schedule 6, section III". The reciprocity sentence
+   Law 4761 added stands at the end of section III, after its paragraph 2. Found
+   in the turn asked 2026-09-14 14:37 UTC and confirmed in the turn asked 14:40
+   UTC. Footnote: `law492-tariff-6-iii-reciprocity`.
+7. **Short-term residence permit, Istanbul.** As agreed: "Esenyurt and Fatih
+   from January 2021, ten districts from October 2022". As corrected: "Esenyurt
+   and Fatih from January 2021, with exceptions for investment-based short-term
+   permits, for property-based short-term permits where the property is in
+   Esenyurt, and for student residence permits for students registered at
+   universities in the respective district; ten districts from October 2022".
+   The notice of 18 January 2021 states those exceptions. Found in the turn
+   asked 14:37 UTC; the conversation worded it in the turn asked 14:40 UTC.
+   Footnote: `istanbul-2021-closure`.
+8. **Company formation, what it costs.** As agreed: "a signature declaration is
+   separately listed at 1,720 lira, and we could not verify when it is
+   additionally charged." As corrected: "a signature declaration is separately
+   listed at 1,720 lira in the general tariff, while the limited-company
+   formation cost sheet includes signature declarations in its 2,160 lira
+   service fee." İTO's cost sheet prints "Hizmet ücreti (imza tasdik, imza beyanı
+   vs.) 2.160 TL." Worded in `talk/turkey/company-formation.md` in the turn asked
+   2026-09-14 14:40 UTC, and confirmed in the turn asked 14:46 UTC. Footnotes:
+   `ito-harc-signature-declaration-1720`, `ito-ltd-cost-sheet-service-fee-2160`.
+9. **Company formation, the tax certificate.** As agreed: "then renew it by 31
+   May each year." As corrected: "then renew it by 31 May each year, or, for a
+   special accounting period, within one month after the declaration deadline."
+   GİB's Communiqué 408, section 2.3, gives taxpayers with a special accounting
+   period that month. The same two turns. Footnotes: `gib-teblig-408-31-may`,
+   `gib-teblig-408-special-period`.
+10. **Company formation, the municipal licence.** As agreed: "premises operating
+    without one can be closed and fined." As corrected: "premises operating
+    without one can be closed." The licence regulation's Article 6(1) and the
+    Trade Ministry's guide say such premises are closed, and no page quoted
+    mentions a fine. The same two turns. Footnotes:
+    `isyeri-ruhsat-reg-6-before-open`, `ticaret-bakkallik-before-open`.
+11. **Address registration, when the clock starts.** As agreed: "Moving house:
+    from the day you move, not the day you sign the lease." As corrected:
+    "Moving house: the notification period is 20 working days, but we could not
+    verify an explicit starting event for foreigners from a current official
+    source." The moving date appeared only in NVI's list of checks for its
+    e-Devlet service, which also checks for Turkish citizenship, while Law 5490's
+    address paragraph and the regulation's Article 23(2) give 20 working days
+    with no starting event. Found in `talk/turkey/address-registration.md` in
+    the turn asked 2026-09-14 14:38 UTC; the conversation worded it in the turn
+    asked 14:41 UTC. Footnotes: `yukk-reg-23-2-twenty-working-days`,
+    `nvi-faq-residence-permit-20-days`.
+12. **Address registration, a permit from a consulate.** As agreed: "A first
+    permit issued abroad: from the day you enter Turkey." As corrected: "A
+    residence permit, work permit or work-permit exemption confirmation obtained
+    from a consulate: from the day you enter Turkey." Law 6458 Article 26(2) and
+    the regulation's Article 22(12) start the clock at entry only for those
+    documents obtained from a consulate. Found in the turn asked 14:38 UTC and
+    confirmed in the turn asked 14:41 UTC. Footnotes: `law6458-26-2-from-entry`,
+    `yukk-reg-22-12-delivered`.
+
+**Three traps worth knowing before running this again.** A PDF's text layer can
+keep a typographic ligature, `ﬁ` for "fi", where the rendered page shows two
+letters, so the checks fold the five Latin ligatures before comparing. A real
+hyphen at the end of a printed line, as in "15/7/2016-" before "6728/33" in Law
+492, is folded away like a word broken across two lines, so such a passage is
+split around it. And partway through, `mevzuat.gov.tr` and `resmigazete.gov.tr`
+stopped answering any request without a browser's `User-Agent` header, while
+answering one with it in under a second, and `ito.org.tr` and `ticaret.gov.tr`
+reset connections for a while; a page that failed that way was fetched again.
+
+**The random recheck.** A script drew two verified definitions per document with
+the operating system's random source and fetched each page again. It searched a
+page for every passage; for an image or a scan it compared the file's digest,
+and the transcription was read against the file once more. All twelve held, and
+so did the two drawn again for company formation:
+
+- **Short-term residence permit.** Returning within fifteen days, the
+  implementing regulation, <https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/7.5.21460.pdf>,
+  page 10, Article 21(9)(d): "her defasında on beş gün içinde döndükleri takdirde
+  ülkeye girişlerinde vize koşulundan muaf tutulurlar". The smallest group's
+  charge, the fee image on `goc.gov.tr`, its digest unchanged and its last small
+  table read again: "1 FAS", "6 TUNUS", "İLK AY 5 ABD DOLARI, DİĞER AYLAR 0,5 ABD
+  DOLARI".
+- **Work permit.** The rule in force since 3 August 2026,
+  <https://www.csgb.gov.tr/uigm/calisma-izni/calisma-izni-degerlendirme-kriterleri/>:
+  criteria 4.1 and 4.2, with "(03.08.2026 tarihi itibarıyla yürürlüktedir.)". The
+  card's 964 lira,
+  <https://ms.hmb.gov.tr/uploads/sites/3/2025/12/2026-Degerli-Kagitlar-Tebligi-a3f95f2236d8ad45.pdf>:
+  "16 - Yabancı çalışma izni belgesi 964,00" and "Bu Tebliğ 1/1/2026 tarihinde
+  yürürlüğe girer."
+- **Company formation.** The tax certificate within a month, GİB's January 2025
+  brochure, page 6: "vergi levhalarını mükellefiyet tesisinden itibaren 1 ay
+  içerisinde almaları zorunludur". Half the paid-up capital for a broadcaster,
+  <https://www.rtuk.gov.tr/izin-ve-tahsisler-dairesi-baskanligi/3923>: "ödenmiş
+  sermayenin yüzde ellisini geçemez". The January 2025 brochure was removed from
+  the document after the draw: the plan check found that a superseded edition
+  cited beside the April 2026 one could be taken as the source of a current
+  rule, and the 2026 edition states the same sentence. So company formation was
+  drawn again from its current definitions, and both held: the signature
+  declaration, İTO's 2026 tariff, page 3, "Huzurda İmza Beyannamesi Ücreti
+  1.720,00 TL"; and 31 May, GİB's Communiqué 408, section 2.3, a browser-pane
+  reading reopened in the browser, "kurumlar vergisi mükellefleri için 1
+  Mayıstan itibaren, vergi levhalarını 31 Mayıs günü sonuna kadar
+  yazdıracaklardır".
+- **Address registration.** Twenty working days for international protection,
+  the implementing regulation, page 38, Article 110(3): "en geç yirmi iş günü
+  içinde il müdürlüğüne bildirmekle yükümlüdürler". Fines rising each January,
+  <https://www.mevzuat.gov.tr/MevzuatMetin/1.5.5326.pdf>, page 5, Article 17(7):
+  "İdarî para cezaları her takvim yılı başından geçerli olmak üzere".
+- **Tax number.** Free,
+  <https://www.uludag.edu.tr/en/uluyos/tax-identification-number-information-69202>:
+  "Obtaining a Tax ID is free of charge". The rule since 1 July 2010, GİB's 2010
+  institutional report, page 10: "01.07.2010 tarihinden itibaren yabancı kimlik
+  numaralarının vergi kimlik numarası olarak kullanılmasına".
+- **Health insurance.** The limits at the hospitals in Annex 1, SEDDK circular
+  2024/34, its digest unchanged and its table read again: "Ayakta Tedavi
+  15.000.-TL Sigortalı: %20 Şirket: %80" and "Yatarak Tedavi 250.000.-TL
+  Sigortalı: % 0 Şirket: %100". A continuous year, SGK's general health
+  insurance book, page 34: "Ülkemizde kesintisiz bir yıldır ikamet etmekte olan
+  yabancı ülke vatandaşlarından talepte bulunan kişiler".
+
 ## What it has changed about the product
 
 **SB-168, twice.** Turkey answered three times that the law is national and

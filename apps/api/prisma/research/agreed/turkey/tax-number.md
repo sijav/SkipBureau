@@ -8,7 +8,7 @@ walked back unprompted. Every sentence below is the corrected one.
 
 **Two numbers, and one of them takes over.** You may receive a potential tax
 number before receiving a 99 number; once you have the 99 number, it serves as
-your tax identifier. That has been the rule since **1 July 2010**. We could not
+your tax identifier. That has been the rule since **1 July 2010**[^gib-2010-report-foreigner-id]. We could not
 establish what happens to an earlier potential tax number once the 99 number
 arrives, so we will not tell you it is merged or cancelled.
 
@@ -26,7 +26,7 @@ through a bank, broker or custodian. We could not verify whether prior entry int
 Turkey is necessary, or whether someone abroad can complete the ordinary online
 application.
 
-**It is free** according to the public university guidance we checked. Published
+**It is free**[^uludag-tax-id-free] according to the public university guidance we checked. Published
 instructions describe online issuance after successful submission, but we could
 not verify a guaranteed processing time.
 
@@ -65,3 +65,7 @@ record.
 - <https://cdn.gib.gov.tr/api/gibportal-file/file/getFileResources?objectKey=arsiv/fileadmin/beyannamerehberi/2025/2025_GVK_Gecici.pdf> (§25)
 
 All read 2026-09-12.
+
+[^gib-2010-report-foreigner-id]: <https://cdn.gib.gov.tr/api/gibportal-file/file/getFileResources?objectKey=arsiv/fileadmin/kur_mali_beklentiler_raporlari/2010/2010_Kur_Mali_Beklentiler_Raporu.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "Maliye Bakanlığı Gelir İdaresi Başkanlığı, 2010 Yılı Kurumsal Mali Durum ve Beklentiler Raporu, Temmuz 2010, PDF sayfa 10 (basılı 8), 4 Seri No’lu Vergi Kimlik Numarası Genel Tebliği maddesi", "evidence": ["4 Seri No’lu Vergi Kimlik Numarası Genel Tebliği 22.05.2010 tarih ve 27588 sayılı Resmi Gazete’de yayımlanmıştır.", "4358 sayılı Kanunun 4 üncü maddesinin Maliye Bakanlığına verdiği yetkiye dayanılarak, yabancı kimlik numarası bulunan yabancıların 01.07.2010 tarihinden itibaren yabancı kimlik numaralarının vergi kimlik numarası olarak kullanılmasına ilişkin açıklamalara yer verilmiştir."]}
+
+[^uludag-tax-id-free]: <https://www.uludag.edu.tr/en/uluyos/tax-identification-number-information-69202> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Bursa Uludağ University, Tax Identification Number Information, the paragraph before the two ways to apply", "evidence": ["Obtaining a Tax ID is free of charge and the only required document is a valid passport."]}

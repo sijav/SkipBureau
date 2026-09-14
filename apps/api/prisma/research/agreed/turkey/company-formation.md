@@ -12,81 +12,83 @@ investment permission to do it. A foreigner can be the sole shareholder, there
 is no Turkish partner requirement and no minimum foreign shareholding. Living
 abroad does not disqualify you. Some sectors are different: **private security**
 is subject to reciprocity and needs operating permission, and **broadcasting**
-caps direct foreign capital at half the paid-up capital and must be an *anonim
-şirket* rather than a limited one. We verified those two; we did not check every
+caps direct foreign capital at half[^law6112-19-1-f-half][^rtuk-faq-24-half] the paid-up capital and must be an *anonim
+şirket*[^law6112-19-1-a-anonim] rather than a limited one. We verified those two; we did not check every
 sector, so check yours.
 
 **The five Turkish employees.** This is the thing that stops people, and it is
 misplaced. **There is no obligation on a company to employ five Turkish citizens
 simply because it exists or has a foreign shareholder.** The five belongs to the
-work permit assessment for a foreign partner, and it starts from the **seventh
-month of that first work permit**, not from incorporation. A partner with a
-capital share of US$100,000 or more is exempt from it.
+work permit assessment for a foreign partner[^csgb-criteria-c-1-1-b], and it starts from the **seventh
+month of that first work permit**[^csgb-criteria-c-1-1-b], not from incorporation. A partner with a
+capital share of US$100,000 or more[^csgb-criteria-c-1-2] is exempt from it.
 
-**What it costs.** The **minimum** capital is 50,000 lira. For cash capital, no
-statutory payment is required before registration; the full subscribed amount
-must be paid within **twenty-four months after registration**, or earlier under
-the payment schedule in the articles or set by the managers. This rule is
+**What it costs.** The **minimum** capital is 50,000 lira[^cb-karar-7887-limited-50000][^rg-2023-11-26-duzeltme-7887][^ttk-580-minimum-capital][^ticaret-limited-50000]. For cash capital, no
+statutory payment is required before registration[^ttk-585-1-limited]; the full subscribed amount
+must be paid within **twenty-four months after registration**[^ttk-344-1-twenty-four-months][^ttk-585-1-limited][^ito-limited-24-months], or earlier under
+the payment schedule in the articles or set by the managers[^ito-limited-24-months]. This rule is
 national. The capital is your company's money, not a fee.
 
-The state's own formation fee is **zero**: formation is exempt from the registry
+The state's own formation fee is **zero**[^law492-123-formation-exempt][^ito-harc-formation-exempt]: formation is exempt from the registry
 *harç*. What you actually pay is the **Competition Authority levy at 0.04 per
-cent** of subscribed capital, which is 20 lira at the minimum; the **Trade
-Registry Gazette at 2.48 lira per word** of your announcement; and your
+cent**[^law4054-39-c-levy][^ito-limited-levy] of subscribed capital, which is 20 lira at the minimum[^ito-ltd-cost-sheet-levy-20]; the **Trade
+Registry Gazette at 2.48 lira per word**[^ito-harc-gazette-2-48] of your announcement; and your
 chamber's own charges, **which differ by city**.
 
-Istanbul's published 2026 tariff lists 2,160 lira for formation certification,
-2,760 for opening-book certification and 250 for publication expenses; chamber
-registration for a new capital company is 3,305 lira. These are verified tariff
+Istanbul's published 2026 tariff lists 2,160 lira for formation certification[^ito-harc-formation-certification-2160],
+2,760 for opening-book certification[^ito-harc-opening-books-2760] and 250 for publication expenses[^ito-harc-publication-expenses-250]; chamber
+registration for a new capital company is 3,305 lira[^ito-ltd-cost-sheet-registration][^ito-dues-new-company-3305]. These are verified tariff
 entries, not a confirmed complete bill: a signature declaration is separately
-listed at 1,720 lira, and we could not verify when it is additionally charged.
-Antalya's equivalent new registration is **4,875 lira**.
+listed at 1,720 lira[^ito-harc-signature-declaration-1720] in the general tariff, while the limited-company formation
+cost sheet includes signature declarations in its 2,160 lira service fee[^ito-ltd-cost-sheet-service-fee-2160].
+Antalya's equivalent new registration is **4,875 lira**[^atso-new-registration-4875].
 
 We verified national notarial tariff components, not an all-inclusive formation
-quote: the notary's fee is 30 per cent of the applicable statutory notarial
-*harç*, minimum 58.82 lira; writing and copying are 80.68 lira per chargeable
-page; translation under Article 4 is 667.67 lira per page, halved for pages
-containing **ten lines or fewer**.
+quote: the notary's fee is 30 per cent[^noter-2026-art1-thirty-percent] of the applicable statutory notarial
+*harç*, minimum 58.82 lira[^noter-2026-art1-minimum]; writing and copying are 80.68 lira per chargeable
+page[^noter-2026-art3-writing]; translation under Article 4 is 667.67 lira per page[^noter-2026-art4-translation], halved for pages
+containing **ten lines or fewer**[^noter-2026-art4-short-pages].
 
-Chamber registration is once. Annual dues follow, and none are charged in the
-year you register. Istanbul assesses annual dues by registered capital **or net
-assets**; its 2026 band from 25,001 to 250,000 lira carries **3,500 lira** a
-year, collected in June and October, with supplementary dues of 0.5 per cent of
-**commercial balance-sheet profit**, within statutory limits.
+Istanbul's chamber charges a registration fee[^ito-ltd-cost-sheet-registration]. Annual dues follow, and none are
+charged in the year you register[^ito-dues-registration-year]. Istanbul assesses annual dues by registered
+capital **or net assets**[^ito-dues-basis]; its 2026 band from 25,001 to 250,000 lira carries
+**3,500 lira** a year[^ito-dues-band-2], collected in June and October[^ito-dues-instalments], with supplementary dues of
+0.5 per cent of **commercial balance-sheet profit**[^ito-dues-supplementary], within statutory limits.
 
 **What happens after registration, which is where the deadlines are.** Your tax
 registration is transmitted by the registry, so you do not file a separate
 commencement notification the way a sole trader does; check that it has actually
-been established. Apply for **electronic tax notifications within fifteen days**
-of commencement. Get your **tax certificate within a month** of your tax
-liability starting, then renew it by **31 May** each year. Your SGK workplace
-registration is created automatically by the registry-based formation. An
-employee must normally be registered **at least a day before they start**.
+been established. Apply for **electronic tax notifications within fifteen days**[^gib-brochure-2026-e-tebligat]
+of commencement. Get your **tax certificate within a month**[^gib-brochure-2026-certificate-month] of your tax
+liability starting, then renew it by **31 May** each year[^gib-brochure-2026-certificate-may][^gib-teblig-408-31-may][^gib-rights-guide-31-may], or, for a special
+accounting period, within one month after the declaration deadline[^gib-teblig-408-special-period]. Your SGK
+workplace registration is created automatically by the registry-based
+formation. An employee must normally be registered **at least a day before
+they start**[^sgk-employer-one-day][^sgb5510-8-1-before-start][^sgb5510-7-1a-start].
 
 **The municipal licence has no grace period.** If your premises and activity
-need an opening and operating licence, you need it **before you open**, not
-thirty days after you register, and premises operating without one can be closed
-and fined.
+need an opening and operating licence, you need it **before you open**[^isyeri-ruhsat-reg-6-before-open][^ticaret-bakkallik-before-open], and
+premises operating without one can be closed.
 
-A **2026 change** worth knowing: companies registered from 1 January 2026 keep
+A **2026 change** worth knowing: companies registered from 1 January 2026[^ticaret-etds-2026] keep
 their share register and general meeting minutes electronically in the **ETDS**
-system, opened automatically with registration.
+system, opened automatically with registration[^ticaret-etds-2026].
 
 **Where your company can live.** We could not verify a nationwide yes or no on
 registering at a home address or a virtual office, and we could not verify a
 universal requirement to hold a commercial lease. What is clear is that
 registering a company and being allowed to operate from a place are two
-different permissions, and some activities have premises requirements that a
+different permissions[^isyeri-ruhsat-reg-6-before-open], and some activities have premises requirements that a
 home or a mailbox cannot meet. We did not find a verified comparison of two
 named cities accepting different facts, so we are not claiming one.
 
 **A bookkeeper.** We could not establish that every new limited company must
 retain an external accountant within a fixed period. National rules require
 professional signatures for specified tax returns from covered taxpayers,
-subject to exemptions. The published 2026 framework includes corporate taxpayers
-whose previous-year assets **do not exceed** 115,209,000 lira and net sales **do
-not exceed** 230,359,000 lira. It does not establish that professional
-involvement becomes mandatory only above a size threshold.
+subject to exemptions. We could not verify the applicable 2026 asset and
+net-sales thresholds from a government source. The available evidence does not
+establish that professional involvement becomes mandatory only above a size
+threshold.
 
 
 ## Sources
@@ -104,3 +106,99 @@ involvement becomes mandatory only above a size threshold.
 - <https://csgb.gov.tr/uigm/calisma-izni/calisma-izni-degerlendirme-kriterleri/> (C.1.1(b), C.1.2)
 
 All read 2026-09-12.
+
+[^law6112-19-1-f-half]: <https://www.mevzuat.gov.tr/MevzuatMetin/1.5.6112.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "6112 sayılı Kanun, mevzuat.gov.tr birleştirilmiş metin, PDF sayfa 14 Madde 19 birinci fıkra giriş cümlesi, PDF sayfa 15 (f) bendi; (f) bendinde dipnot yok", "evidence": ["MADDE 19 – (1) Özel medya hizmet sağlayıcı kuruluşların şirket yapıları ve hisse oranları ile ilgili uymaları gereken hususlar şunlardır:", "f) Bir medya hizmet sağlayıcı kuruluşta doğrudan toplam yabancı sermaye payı, ödenmiş sermayenin yüzde ellisini geçemez."]}
+
+[^rtuk-faq-24-half]: <https://www.rtuk.gov.tr/izin-ve-tahsisler-dairesi-baskanligi/3923> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "RTÜK İzin ve Tahsisler Dairesi Başkanlığı, sıkça sorulan sorular, Soru 24", "evidence": ["Lisans başvurusunda bulunan yayıncı kuruluşlara yabancı ortak alınabilir mi?", "Bir medya hizmet sağlayıcı kuruluşta doğrudan toplam yabancı sermaye payı, ödenmiş sermayenin yüzde ellisini geçemez."]}
+
+[^law6112-19-1-a-anonim]: <https://www.mevzuat.gov.tr/MevzuatMetin/1.5.6112.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "6112 sayılı Kanun, mevzuat.gov.tr birleştirilmiş metin, PDF sayfa 14, Madde 19 birinci fıkra giriş cümlesi ve (a) bendi; (a) bendinde dipnot yok", "evidence": ["MADDE 19 – (1) Özel medya hizmet sağlayıcı kuruluşların şirket yapıları ve hisse oranları ile ilgili uymaları gereken hususlar şunlardır:", "a) Yayın lisansı, münhasıran radyo, televizyon ve isteğe bağlı yayın hizmeti sunmak amacıyla Türk Ticaret Kanunu hükümlerine göre kurulmuş anonim şirketlere verilir."]}
+
+[^csgb-criteria-c-1-1-b]: <https://www.csgb.gov.tr/uigm/calisma-izni/calisma-izni-degerlendirme-kriterleri/> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Çalışma İzni Değerlendirme Kriterleri, C. Şirket Ortağı Yabancılara İlişkin Değerlendirme Kriterleri,1.1 (b)", "evidence": ["b) Yeni işyeri açan veya bir işyerine ortak olan yabancı adına yapılan çalışma izni başvurusunun değerlendirilmesinde, işyerinde en az beş Türk vatandaşının istihdamı gerekir. İşyerinde en az beş Türk vatandaşı istihdamı şartı bakımından, şirket ortağı veya işyeri sahibi yabancıya verilecek ilk çalışma izni şerhli olarak düzenlenir. İlk çalışma izni süresinin yedinci ayının başından itibaren işyerinde her ay en az beş Türk vatandaşının istihdamı esastır."]}
+
+[^csgb-criteria-c-1-2]: <https://www.csgb.gov.tr/uigm/calisma-izni/calisma-izni-degerlendirme-kriterleri/> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Çalışma İzni Değerlendirme Kriterleri, C. Şirket Ortağı Yabancılara İlişkin Değerlendirme Kriterleri,1.2", "evidence": ["1.2. 100.000 ABD Doları ve üzerinde sermaye payı olan yabancı ortak adına yapılacak çalışma izni başvurusunun değerlendirilmesinde birinci fıkranın (a) ve (b) bentlerinde düzenlenen kriterler uygulanmaz."]}
+
+[^cb-karar-7887-limited-50000]: <https://www.resmigazete.gov.tr/eskiler/2023/11/20231125-23.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered scan", "locator": "Resmî Gazete 25 Kasım 2023 sayı 32380, Cumhurbaşkanı Kararı, Karar Sayısı 7887, eki Kararın 1 inci maddesi ikinci fıkra; kararın gövdesi PDF'in metin katmanında yok, sayfa görüntüsünden aktarıldı", "evidence": ["Karar Sayısı: 7887", "24/11/2023 TARİHLİ VE 7887 SAYILI CUMHURBAŞKANI KARARININ EKİ KARAR", "(2) Aynı Kanunun 580 inci maddesinin birinci fıkrasında limited şirketler için onbin Türk Lirası olarak öngörülen en az esas sermaye tutarı ellibin Türk Lirasına yükseltilmiştir."], "sha256": "b80dad80fdbf049e7c5a687518a071f1cc981f023fe597ae44bcbbfd5cdcd6fe"}
+
+[^rg-2023-11-26-duzeltme-7887]: <https://www.resmigazete.gov.tr/eskiler/2023/11/20231126-5.htm> | {"status": "verified", "read": "2026-09-14", "method": "browser pane", "locator": "Resmî Gazete 26 Kasım 2023 sayı 32381, Düzeltme: 24/11/2023 tarihli ve 7887 sayılı Cumhurbaşkanı Kararı ile ilgili, tamamı", "evidence": ["25/11/2023 tarihli ve 32380 sayılı Resmî Gazete’de yayımlanan 24/11/2023 tarihli ve 7887 sayılı Cumhurbaşkanı Kararının eki Kararın 2 nci maddesi aşağıdaki şekilde değiştirilerek düzeltilmiştir.", "“MADDE 2- (1) Bu Karar 1/1/2024 tarihinde yürürlüğe girer.”"]}
+
+[^ttk-580-minimum-capital]: <https://www.mevzuat.gov.tr/MevzuatMetin/1.5.6102.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "6102 sayılı Türk Ticaret Kanunu, mevzuat.gov.tr birleştirilmiş metin, PDF sayfa 163, Madde 580 birinci ve ikinci fıkralar, ve fıkralara bağlı 83 ve 84 numaralı dipnotlar", "evidence": ["I - En az tutar", "MADDE 580- (1) Limited şirketin esas sermayesi en az onbin Türk Lirasıdır.", "(2) Bu maddede yazılı en az tutar, Cumhurbaşkanınca on katına kadar artırılabilir.", "83 24/11/2023 tarihli ve 7887 sayılı Cumhurbaşkanı Kararı ile bu fıkrada yer alan limited şirketler için onbin Türk Lirası olarak öngörülen en az esas sermaye tutarı ellibin Türk Lirasına yükseltilmiştir.Söz konusu değişiklik daha sonra 26/11/2023 tarihli ve 32381 sayılı Resmî Gazete’de yayımlanan Düzeltme ile değiştirilerek düzeltilmiştir.", "84 2/7/2018 tarihli ve 700 sayılı Kanun Hükmünde Kararnamenin 192 nci maddesiyle bu fıkrada yer alan “Bakanlar Kurulunca” ibaresi “Cumhurbaşkanınca” şeklinde değiştirilmiştir."]}
+
+[^ticaret-limited-50000]: <https://ticaret.gov.tr/ic-ticaret/sirketler/sirket-bilgiler> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Ticaret Bakanlığı, Şirket Bilgileri, Şirket türleri ve özellikleri nelerdir?, Limited Şirket", "evidence": ["Bir limited şirket, asgari sermayesi 50,000 TL olmak üzere en az bir ve en fazla elli gerçek veya tüzel kişi ortaktan oluşturulabilir."]}
+
+[^ttk-585-1-limited]: <https://www.mevzuat.gov.tr/MevzuatMetin/1.5.6102.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "6102 sayılı Türk Ticaret Kanunu, mevzuat.gov.tr birleştirilmiş metin, PDF sayfa 165, Madde 585 birinci fıkra, satır içi değişiklik notları, ve fıkraya bağlı 85 ve 86 numaralı dipnotlar", "evidence": ["MADDE 585- (Değişik: 26/6/2012-6335/31 md.)", "(1) Şirket, kurucuların, kanuna uygun olarak düzenlenmiş bulunan, sermayenin tamamını ödemeyi şartsız olarak taahhüt ettikleri, ticaret sicili müdürlüğünde yetkilendirilmiş personelin huzurunda imzaladığı şirket sözleşmesinde limited şirket kurma iradelerini açıklamalarıyla kurulur. Esas sermaye pay bedellerinin ödenmesi, ödeme yeri, ifa borcu, ifa etmemenin sonuçları, bedelleri tamamen ödenmemiş payların devri hususlarında bu Kanunun anonim şirketlere ilişkin hükümleri kıyasen uygulanır. (Ek cümle: 15/2/2018-7099/25 md.) Ancak nakden taahhüt edilen payların itibari değerlerinin en az yüzde yirmibeşinin tescilden önce ödenmesi şartı limited şirketler bakımından uygulanmaz. 588 inci maddenin birinci fıkra hükümleri saklıdır.", "85 15/7/2016 tarihli ve 6728 sayılı Kanunun 67 nci maddesi ile bu fıkraya “onaylandığı” ibaresinden sonra gelmek üzere “veya ticaret sicili müdürü yahut yardımcısı huzurunda imzaladığı” ibaresi eklenmiştir.", "86 15/2/2018 tarihli ve 7099 sayılı Kanunun 25 inci maddesi ile bu fıkrada yer alan “imzalarının noterce onaylandığı veya ticaret sicili müdürü yahut yardımcısı” ibaresi “ticaret sicili müdürlüğünde yetkilendirilmiş personelin” şeklinde değiştirilmiştir."]}
+
+[^ttk-344-1-twenty-four-months]: <https://www.mevzuat.gov.tr/MevzuatMetin/1.5.6102.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "6102 sayılı Türk Ticaret Kanunu, mevzuat.gov.tr birleştirilmiş metin, PDF sayfa 92, Madde 344 birinci fıkra; fıkrada dipnot yok", "evidence": ["1. Nakdî sermaye", "MADDE 344- (1) Nakden taahhüt edilen payların itibarî değerlerinin en az yüzde yirmibeşi tescilden önce, gerisi de şirketin tescilini izleyen yirmidört ay içinde ödenir. Payların çıkarma primlerinin tamamı tescilden önce ödenir."]}
+
+[^ito-limited-24-months]: <https://www.ito.org.tr/tr/hizmetler/ticaret-sicili-islemleri/tescil-islemleri/limited-sirketler> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "İTO, Limited Şirketler, giriş paragrafı ve Limited Şirket Kuruluş İşlemi, madde 11", "evidence": ["Nakdi olarak getirilen sermayenin tamamının şirketin tescilinden sonraki yirmi dört ay içinde ödenmesi mümkündür (TTK m. 585). Ödeme takvimi şirket sözleşmesinde düzenlenebileceği gibi, müdürler tarafından da belirlenebilir (TTK m. 585, 481).", "11-) Nakit taahhüt bulunması hâlinde sermaye maddesinde, “Nakden taahhüt edilen payların itibari değerleri, şirketin tescilini izleyen yirmi dört ay içerisinde ödenecektir.” ifadesi yer almalıdır."]}
+
+[^law492-123-formation-exempt]: <https://www.mevzuat.gov.tr/MevzuatMetin/1.5.492.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "492 sayılı Harçlar Kanunu, mevzuat.gov.tr birleştirilmiş metin, PDF sayfa 28, Madde 123 üçüncü fıkra, satır içi ekleme ve değişiklik notları, ve fıkraya bağlı 48 ile 52 numaralı dipnotlar sayfa 28'de, 53 numaralı dipnot PDF sayfa 29'da", "evidence": ["Madde 123 – (Değişik: 20/3/1981 - 2430/3 md.)", "(Ek fıkra: 20/6/2001-4684/23 md.; Değişik: 25/12/2003 - 5035/31 md.) Anonim, eshamlı komandit, limited şirket ve kooperatiflerin kuruluş, pay devri, sermaye artırımı, birleşme, devir, bölünme ve nev'i değişiklikleri nedeniyle yapılacak işlemler ile Esnaf ve Sanatkarlar Kredi ve Kefalet Kooperatifleri (Değişik parantez içi hüküm: 15/7/2016", "6728/33 md.) (Bu kooperatifler tarafından bankalardan kullandırılacak krediler için verilecek kefaletler ile Kredi Garanti Fonu Anonim Şirketi ve 13/6/2006 tarihli ve 5520 sayılı Kurumlar Vergisi Kanununun 4 üncü maddesinin birinci fıkrasının (p) bendinde belirtilen kurumlar tarafından verilecek kefaletler dâhil) bankalar, finansman şirketleri, yurt dışı kredi kuruluşları ve uluslararası kurumlarca kullandırılacak kredilere, bunların teminatlarına ve geri ödenmelerine ilişkin işlemler (yargı harçları hariç) bu Kanunda yazılı harçlardan müstesnadır.", "48 28/3/2007 tarihli ve 5615 sayılı Kanunun 16 ncı maddesiyle; bu fıkrada yer alan \"nev’i değişiklikleri nedeniyle yapılacak işlemler ile\" ibaresinden sonra gelmek üzere \"Esnaf ve Sanatkarlar Kredi ve Kefalet Kooperatifleri (Bu kooperatifler ile Kredi Garanti Fonu İşletme ve Araştırma Anonim Şirketi tarafından bankalardan kullandırılacak krediler için verilecek kefaletler dahil)\" ibaresi eklenmiştir.", "49 4/6/2008 tarihli ve 5766 sayılı Kanunun 11 inci maddesiyle; bu fıkrada yer alan \"harca tabi tutulmaz.\" ibaresi \"bu Kanunda yazılı harçlardan müstesnadır.\" şeklinde değiştirilmiştir.", "50 31/5/2012 tarihli ve 6322 sayılı Kanunun 19 uncu maddesiyle; bu fıkrada yer alan “kredilerin temini ve bunların teminatları ile geri ödenmelerine ilişkin işlemler” ibaresi “kredilere, bunların teminatlarına ve geri ödenmelerine ilişkin işlemler (yargı harçları hariç)” şeklinde değiştirilmiştir.", "51 15/7/2016 tarihli ve 6728 sayılı Kanunun 33 üncü maddesiyle, bu fıkrada yer alan “şirketlerin kuruluş,” ibaresinden sonra gelmek üzere “pay devri,” ibaresi, “bankalar,” ibaresinden sonra gelmek üzere “finansman şirketleri,” ibaresi eklenmiştir.", "52 15/2/2018 tarihli ve 7099 sayılı Kanunun 3 üncü maddesiyle, bu fıkrada yer alan “ve limited şirketlerin” ibaresi “, limited şirket ve kooperatiflerin” şeklinde değiştirilmiştir.", "53 4/11/2021 tarihli ve 7341 sayılı Kanunun 5 inci maddesiyle bu fıkrada yer alan “Kredi Garanti Fonu İşletme ve Araştırma Anonim Şirketi” ibaresi “Kredi Garanti Fonu Anonim Şirketi ve 13/6/2006 tarihli ve 5520 sayılı Kurumlar Vergisi Kanununun 4 üncü maddesinin birinci fıkrasının (p) bendinde belirtilen kurumlar” şeklinde değiştirilmiştir."]}
+
+[^ito-harc-formation-exempt]: <https://www.ito.org.tr/documents/Ticaret-Sicil/onemli_bilgiler_ve_duyurular/harc.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "İTO, 2026 Yılı Ticaret Sicili Harçları, TTSG İlan Ücretleri, Hizmet Bedelleri, PDF sayfa 1 başlık, PDF sayfa 2 Tescil Harçları, Limited ve Anonim Şirket, Kuruluş Harcı satırı", "evidence": ["2026 YILI TİCARET SİCİLİ HARÇLARI – TTSG İLAN ÜCRETLERİ – HİZMET BEDELLERİ", "TESCİL HARÇLARI", "LİMİTED VE ANONİM ŞİRKET", "Kuruluş Harcı Kuruluş işlemleri harçtan istisnadır."]}
+
+[^law4054-39-c-levy]: <https://www.mevzuat.gov.tr/MevzuatMetin/1.5.4054.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "4054 sayılı Kanun, mevzuat.gov.tr birleştirilmiş metin, PDF sayfa 15, Madde 39 giriş cümlesi ve (c) bendi, satır içi ekleme notu, ve maddeye bağlı 14 numaralı dipnot", "evidence": ["Madde 39 – Kurumun gelirleri Kurumun bütçesini oluşturur ve aşağıdaki gelir kalemlerinden oluşur:", "c) (Ek: 17/9/2004-5234/29 md.) Yeni kurulacak olan anonim ve limited şirket statüsündeki tüm ortaklıkların sermayelerinin ve sermaye artırımı halinde artan kısmın on binde dördü nispetinde yapılacak ödemeler,", "14 17/9/2004 tarihli ve 5234 sayılı Kanunun 29 uncu maddesiyle bu maddeye “(c)” bendi eklenmiş ve mevcut “(c)” bendi ise, “(d)” bendi olarak teselsül ettirilmiştir."]}
+
+[^ito-limited-levy]: <https://www.ito.org.tr/tr/hizmetler/ticaret-sicili-islemleri/tescil-islemleri/limited-sirketler> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "İTO, Limited Şirketler, Limited Şirket Kuruluş İşlemi, madde 10", "evidence": ["10-) Rekabet Kurumu payına ait sermayenin on binde dördüne tekâbül eden kısım ödeme esnasında Oda veznesince alınmaktadır (Ticaret Sicili Yönetmeliği m. 90/1-ı)."]}
+
+[^ito-ltd-cost-sheet-levy-20]: <https://www.ito.org.tr/documents/Ticaret-Sicil/ltd_kurulus_surec/teknoktadalimitedsirketkurulususurecmaliyettr.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "İTO, Tek Noktada Limited Şirket Kuruluşu, Süreç ve Maliyet, PDF sayfa 1, Limited Şirket Kuruluş İşlem Ücretleri", "evidence": ["LİMİTED ŞİRKET KURULUŞ İŞLEM ÜCRETLERİ", "Rekabet kurumu payı (50.000 TL sermayeye göre) 20 TL."]}
+
+[^ito-harc-gazette-2-48]: <https://www.ito.org.tr/documents/Ticaret-Sicil/onemli_bilgiler_ve_duyurular/harc.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "İTO, 2026 Yılı Ticaret Sicili Harçları, TTSG İlan Ücretleri, Hizmet Bedelleri, PDF sayfa 3, TTSG İlan Ücretleri tablosu", "evidence": ["TTSG İLAN ÜCRETLERİ", "(01 Ocak 2026 Tarih itibari ile)", "Şirket Kuruluş ilanları (Kelimesi) 2,48 TL"]}
+
+[^ito-harc-formation-certification-2160]: <https://www.ito.org.tr/documents/Ticaret-Sicil/onemli_bilgiler_ve_duyurular/harc.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "İTO, 2026 Yılı Ticaret Sicili Harçları, TTSG İlan Ücretleri, Hizmet Bedelleri, PDF sayfa 1 başlık, PDF sayfa 3 Hizmet Ücretleri tablosu", "evidence": ["2026 YILI TİCARET SİCİLİ HARÇLARI – TTSG İLAN ÜCRETLERİ – HİZMET BEDELLERİ", "HİZMET ÜCRETLERİ", "Kuruluş Tasdik Ücreti 2.160,00 TL"]}
+
+[^ito-harc-opening-books-2760]: <https://www.ito.org.tr/documents/Ticaret-Sicil/onemli_bilgiler_ve_duyurular/harc.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "İTO, 2026 Yılı Ticaret Sicili Harçları, TTSG İlan Ücretleri, Hizmet Bedelleri, PDF sayfa 1 başlık, PDF sayfa 3 Hizmet Ücretleri tablosu", "evidence": ["2026 YILI TİCARET SİCİLİ HARÇLARI – TTSG İLAN ÜCRETLERİ – HİZMET BEDELLERİ", "HİZMET ÜCRETLERİ", "Anonim ve Limited Şirket ile Kooperatif Kuruluş Defter Tasdiki 2.760,00 TL"]}
+
+[^ito-harc-publication-expenses-250]: <https://www.ito.org.tr/documents/Ticaret-Sicil/onemli_bilgiler_ve_duyurular/harc.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "İTO, 2026 Yılı Ticaret Sicili Harçları, TTSG İlan Ücretleri, Hizmet Bedelleri, PDF sayfa 1 başlık, PDF sayfa 3 Hizmet Ücretleri tablosu", "evidence": ["2026 YILI TİCARET SİCİLİ HARÇLARI – TTSG İLAN ÜCRETLERİ – HİZMET BEDELLERİ", "HİZMET ÜCRETLERİ", "İlan Giderleri Ücreti 250,00 TL"]}
+
+[^ito-ltd-cost-sheet-registration]: <https://www.ito.org.tr/documents/Ticaret-Sicil/ltd_kurulus_surec/teknoktadalimitedsirketkurulususurecmaliyettr.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "İTO, Tek Noktada Limited Şirket Kuruluşu, Süreç ve Maliyet, PDF sayfa 1, Limited Şirket Kuruluş İşlem Ücretleri", "evidence": ["LİMİTED ŞİRKET KURULUŞ İŞLEM ÜCRETLERİ", "Oda kayıt ücreti 3.305 TL."]}
+
+[^ito-dues-new-company-3305]: <https://ito.org.tr/tr/hizmetler/aidat-islemleri> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "İTO, Aidat İşlemleri, 2026 Yılında Uygulanan Aidat Tarifesi, Y satırı ve tablonun altındaki not", "evidence": ["2026 Yılında Uygulanan Aidat Tarifesi", "Y Yeni Kurulan Sermaye Şirketleri 3.305 ₺", "* Kayıt ücreti alındığı yıl için ayrıca yıllık aidat alınmaz."]}
+
+[^ito-harc-signature-declaration-1720]: <https://www.ito.org.tr/documents/Ticaret-Sicil/onemli_bilgiler_ve_duyurular/harc.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "İTO, 2026 Yılı Ticaret Sicili Harçları, TTSG İlan Ücretleri, Hizmet Bedelleri, PDF sayfa 1 başlık, PDF sayfa 3 Hizmet Ücretleri tablosu", "evidence": ["2026 YILI TİCARET SİCİLİ HARÇLARI – TTSG İLAN ÜCRETLERİ – HİZMET BEDELLERİ", "HİZMET ÜCRETLERİ", "Huzurda İmza Beyannamesi Ücreti 1.720,00 TL"]}
+
+[^ito-ltd-cost-sheet-service-fee-2160]: <https://www.ito.org.tr/documents/Ticaret-Sicil/ltd_kurulus_surec/teknoktadalimitedsirketkurulususurecmaliyettr.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "İTO, Tek Noktada Limited Şirket Kuruluşu, Süreç ve Maliyet, PDF sayfa 1, Limited Şirket Kuruluş İşlem Ücretleri", "evidence": ["LİMİTED ŞİRKET KURULUŞ İŞLEM ÜCRETLERİ", "Hizmet ücreti (imza tasdik, imza beyanı vs.) 2.160 TL."]}
+
+[^atso-new-registration-4875]: <https://www.atso.org.tr/tr/hizmetler/uye-rehberi/uye-ucretleri> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Antalya Ticaret ve Sanayi Odası, Üye Ücretleri, 2026 Yılı Kayıt Ücreti ve Yıllık Aidat Tarifesi, Yeni Kayıt satırı", "evidence": ["2026 YILI KAYIT ÜCRETİ VE YILLIK AİDAT TARİFESİ", "Yeni Kayıt - 4.875.-TL"]}
+
+[^noter-2026-art1-thirty-percent]: <https://higm.adalet.gov.tr/Resimler/SayfaDokuman/202512301701273242026%20YILI%20NOTERL%C4%B0K%20%C3%9CCRET%20TAR%C4%B0FES%C4%B0.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "2026 Yılı Noterlik Ücret Tarifesi, Resmî Gazete 30 Aralık 2025 sayı 33123, PDF sayfa 1, Madde 1 birinci fıkra", "evidence": ["2026 YILI NOTERLİK ÜCRET TARİFESİ", "Madde 1- Noterler, yaptıkları işlemlerden Harçlar Kanununa göre aldıkları harçların yüzde otuzu oranında noter ücreti alırlar."]}
+
+[^noter-2026-art1-minimum]: <https://higm.adalet.gov.tr/Resimler/SayfaDokuman/202512301701273242026%20YILI%20NOTERL%C4%B0K%20%C3%9CCRET%20TAR%C4%B0FES%C4%B0.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "2026 Yılı Noterlik Ücret Tarifesi, Resmî Gazete 30 Aralık 2025 sayı 33123, PDF sayfa 1, Madde 1 birinci ve ikinci fıkralar", "evidence": ["2026 YILI NOTERLİK ÜCRET TARİFESİ", "Madde 1- Noterler, yaptıkları işlemlerden Harçlar Kanununa göre aldıkları harçların yüzde otuzu oranında noter ücreti alırlar.", "Bu ücret, bir noterlik işleminde 58,82 TL'den az olamaz."]}
+
+[^noter-2026-art3-writing]: <https://higm.adalet.gov.tr/Resimler/SayfaDokuman/202512301701273242026%20YILI%20NOTERL%C4%B0K%20%C3%9CCRET%20TAR%C4%B0FES%C4%B0.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "2026 Yılı Noterlik Ücret Tarifesi, Resmî Gazete 30 Aralık 2025 sayı 33123, PDF sayfa 1, Madde 3 birinci ve ikinci fıkralar", "evidence": ["2026 YILI NOTERLİK ÜCRET TARİFESİ", "Madde 3 - Noterler, her ne suretle olursa olsun yazdıkları kağıtların dairede kalan nüshası ile iş sahibine verilen asıl ve örneklerinin her sayfasından 80,68 TL yazı ücreti alırlar.", "Yukarıdaki fıkrada gösterilen kağıtların örneklerinin iş sahibinin istek ve onayı üzerine, noterlik dairesinde fotokopi yoluyla çıkartılması halinde, bu örneklerin her sayfası da aynı ücrete tabidir."]}
+
+[^noter-2026-art4-translation]: <https://higm.adalet.gov.tr/Resimler/SayfaDokuman/202512301701273242026%20YILI%20NOTERL%C4%B0K%20%C3%9CCRET%20TAR%C4%B0FES%C4%B0.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "2026 Yılı Noterlik Ücret Tarifesi, Resmî Gazete 30 Aralık 2025 sayı 33123, PDF sayfa 1, Madde 4 birinci fıkra", "evidence": ["2026 YILI NOTERLİK ÜCRET TARİFESİ", "Madde 4 - 1512 sayılı Noterlik Kanununun 103 üncü maddesi hükmü uyarınca, noter tarafından bir dilden diğer dile, bir yazıdan diğer yazıya çevrilen veya çevirtilen kağıtların her sayfasından 667,67 TL çevirme ücreti alınır."]}
+
+[^noter-2026-art4-short-pages]: <https://higm.adalet.gov.tr/Resimler/SayfaDokuman/202512301701273242026%20YILI%20NOTERL%C4%B0K%20%C3%9CCRET%20TAR%C4%B0FES%C4%B0.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "2026 Yılı Noterlik Ücret Tarifesi, Resmî Gazete 30 Aralık 2025 sayı 33123, PDF sayfa 1, Madde 4 birinci ve ikinci fıkralar", "evidence": ["2026 YILI NOTERLİK ÜCRET TARİFESİ", "Madde 4 - 1512 sayılı Noterlik Kanununun 103 üncü maddesi hükmü uyarınca, noter tarafından bir dilden diğer dile, bir yazıdan diğer yazıya çevrilen veya çevirtilen kağıtların her sayfasından 667,67 TL çevirme ücreti alınır.", "Bir dilden diğer dile veya bir yazıdan diğer yazıya çevrilen veya çevirtilen kağıtların 10 veya daha az satırı içeren sayfalarından birinci fıkrada gösterilenin yarısı kadar ücret alınır."]}
+
+[^ito-dues-registration-year]: <https://ito.org.tr/tr/hizmetler/aidat-islemleri> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "İTO, Aidat İşlemleri, 2026 aidat tarifesinin altındaki not", "evidence": ["* Kayıt ücreti alındığı yıl için ayrıca yıllık aidat alınmaz."]}
+
+[^ito-dues-basis]: <https://ito.org.tr/tr/hizmetler/aidat-islemleri> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "İTO, Aidat İşlemleri, Aidat paragrafı", "evidence": ["Aidat : İTO üyeleri kayıtlı bulunan sermayelerine veya öz varlıklarına göre derecelendirilir ve ilgili tarife esas alınarak yıllık aidat tahakkuk ettirilir."]}
+
+[^ito-dues-band-2]: <https://ito.org.tr/tr/hizmetler/aidat-islemleri> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "İTO, Aidat İşlemleri, 2026 Yılında Uygulanan Aidat Tarifesi, başlık satırı ve 2. derece", "evidence": ["2026 Yılında Uygulanan Aidat Tarifesi DERECELER SERMAYE VE ÖZ VARLIK AİDAT (TL)", "2 25.001 250.000 3.500 ₺"]}
+
+[^ito-dues-instalments]: <https://ito.org.tr/tr/hizmetler/aidat-islemleri> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "İTO, Aidat İşlemleri, ilk paragraf", "evidence": ["5174 Sayılı Kanun gereğince, İstanbul Ticaret Odası’na kayıtlı bulunan şahıs firmalarından ve şirketlerden her yıl Haziran ve Ekim aylarında olmak üzere 2 eşit taksitle tahsil edilir."]}
+
+[^ito-dues-supplementary]: <https://ito.org.tr/tr/hizmetler/aidat-islemleri> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "İTO, Aidat İşlemleri, Munzam Aidat paragrafı", "evidence": ["Tüzel kişi tacir ve sanayicilerin ise Kurumlar Vergisi Beyannamesinde gösterilen Ticari Bilanço karı üzerinden %0.5 (binde 5) oranında munzam aidat tahakkuk ettirilir.", "Zarar eden firmalar o yıl için munzam aidat ödemezler."]}
+
+[^gib-brochure-2026-e-tebligat]: <https://cdn.gib.gov.tr/api/gibportal-file/file/getFileResources?objectKey=arsiv%2Fonceki-dokumanlar%2Fise_yeni_baslayan_kurumlar_vergisi_mukellefleri_2026.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered scan", "locator": "Gelir İdaresi Başkanlığı, İşe Yeni Başlayan Kurumlar Vergisi Mükelleflerinin Hak ve Ödevleri, Nisan 2026, Yayın No 602, metin katmanı olmayan PDF, PDF sayfa 7, Elektronik Tebligat Kullanma Zorunluluğu Var mı?", "evidence": ["Elektronik Tebligat Kullanma Zorunluluğu Var mı?", "Kurumlar vergisi mükellefiyeti bulunanlar, işe başlama tarihini takip eden 15 gün içerisinde e-Tebligat talep bildiriminde bulunmak ve e-Tebligat Sistemini kullanmak zorundadır."], "sha256": "7be267af82d45a97f4ed39e4959d64c94d7e0b82aaab27b27b03f854ec8eb58f"}
+
+[^gib-brochure-2026-certificate-month]: <https://cdn.gib.gov.tr/api/gibportal-file/file/getFileResources?objectKey=arsiv%2Fonceki-dokumanlar%2Fise_yeni_baslayan_kurumlar_vergisi_mukellefleri_2026.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered scan", "locator": "Gelir İdaresi Başkanlığı, İşe Yeni Başlayan Kurumlar Vergisi Mükelleflerinin Hak ve Ödevleri, Nisan 2026, Yayın No 602, metin katmanı olmayan PDF, PDF sayfa 6, Vergi Levhası Alma ve Bulundurma Zorunluluğu Var mı?, ikinci paragraf", "evidence": ["Vergi Levhası Alma ve Bulundurma Zorunluluğu Var mı?", "Kurumlar vergisi mükellefi olup yıl içinde işe yeni başlayan mükelleflerin, vergi levhalarını mükellefiyet tesisinden itibaren 1 ay içerisinde almaları zorunludur."], "sha256": "7be267af82d45a97f4ed39e4959d64c94d7e0b82aaab27b27b03f854ec8eb58f"}
+
+[^gib-brochure-2026-certificate-may]: <https://cdn.gib.gov.tr/api/gibportal-file/file/getFileResources?objectKey=arsiv%2Fonceki-dokumanlar%2Fise_yeni_baslayan_kurumlar_vergisi_mukellefleri_2026.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered scan", "locator": "Gelir İdaresi Başkanlığı, İşe Yeni Başlayan Kurumlar Vergisi Mükelleflerinin Hak ve Ödevleri, Nisan 2026, Yayın No 602, metin katmanı olmayan PDF, PDF sayfa 6, Vergi Levhası Alma ve Bulundurma Zorunluluğu Var mı?, birinci paragraf", "evidence": ["Vergi Levhası Alma ve Bulundurma Zorunluluğu Var mı?", "Sermaye şirketleri her yıl Mayıs ayının son gününe kadar vergi tarhına esas olan kazanç tutarları ile bunlara isabet eden vergi miktarlarını gösteren levhayı almak zorundadırlar."], "sha256": "7be267af82d45a97f4ed39e4959d64c94d7e0b82aaab27b27b03f854ec8eb58f"}
+
+[^gib-teblig-408-31-may]: <https://gib.gov.tr/mevzuat/kanun/434/teblig/8006> | {"status": "verified", "read": "2026-09-14", "method": "browser pane", "locator": "Gelir İdaresi Başkanlığı, 408 Sıra No'lu Vergi Usul Kanunu Genel Tebliği (Resmî Gazete 27.05.2011 sayı 27946), sayfa betikle doluyor, tarayıcıda okundu, 2.3 Vergi Levhasının Alınması ve Bulundurulması, ikinci paragraf", "evidence": ["2.3. Vergi Levhasının Alınması ve Bulundurulması", "Vergi levhaları sistem tarafından internet vergi dairesi hesaplarına aktarıldıktan sonra, mükellefler, internet vergi dairesinden bizzat kendileri veya 3568 sayılı Kanun uyarınca yetki almış olup bağımsız çalışan serbest muhasebeci, serbest muhasebeci mali müşavir veya yeminli mali müşavirler (meslek mensupları) aracılığıyla, gelir vergisi mükellefleri için (Kazancı basit usulde tespit edilenler dâhil)1 Nisandan itibaren, kurumlar vergisi mükellefleri için 1 Mayıstan itibaren, vergi levhalarını 31 Mayıs günü sonuna kadar yazdıracaklardır."]}
+
+[^gib-rights-guide-31-may]: <https://cdn.gib.gov.tr/api/gibportal-file/file/getFileResources?objectKey=arsiv%2Fonceki-dokumanlar%2Fmuk_hak_odev_elektr_uyg_ceza_rehberi.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "Gelir İdaresi Başkanlığı rehberi muk_hak_odev_elektr_uyg_ceza_rehberi.pdf, PDF sayfa 148, 2.6.2.2 Vergi levhasının alınması ve bulundurulması, ikinci paragraf", "evidence": ["2.6.2.2. Vergi levhasının alınması ve bulundurulması", "Vergi levhaları sistem tarafından internet/interaktif vergi dairesi hesaplarına aktarıldıktan sonra, mükellefler, internet/interaktif vergi dairesinden bizzat kendileri veya meslek mensupları aracılığıyla, gelir vergisi mükellefleri için 1 Nisandan itibaren, kurumlar vergisi mükellefleri için 1 Mayıstan itibaren, vergi levhalarını 31 Mayıs günü sonuna kadar yazdırırlar."]}
+
+[^gib-teblig-408-special-period]: <https://gib.gov.tr/mevzuat/kanun/434/teblig/8006> | {"status": "verified", "read": "2026-09-14", "method": "browser pane", "locator": "Gelir İdaresi Başkanlığı, 408 Sıra No'lu Vergi Usul Kanunu Genel Tebliği (Resmî Gazete 27.05.2011 sayı 27946), sayfa betikle doluyor, tarayıcıda okundu, 2.3 Vergi Levhasının Alınması ve Bulundurulması, özel hesap dönemine tâbi mükellefler paragrafı", "evidence": ["2.3. Vergi Levhasının Alınması ve Bulundurulması", "Özel hesap dönemine tâbi mükellefler vergi levhalarını beyanname verme sürelerinin son gününden itibaren 1 ay içinde internet vergi dairesinde bu işlem için hazırlanan menüyü kullanmak suretiyle kendileri oluşturarak yazdıracaklar, bu Tebliğin 2.5. bölümünde sayılan yerlerde bulunduracaklardır."]}
+
+[^sgk-employer-one-day]: <https://www.sgk.gov.tr/Content/Post/d9d838d8-6585-40f5-bbcc-47bd43c59bb4/Isverenin-Yukumlulukleri-2022-05-15-06-17-29> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "SGK, İşverenin Yükümlülükleri, Sigortalı İşe Giriş Bildirgesi Verme Yükümlülüğü, ve istisnaların başlığı", "evidence": ["Sigortalı İşe Giriş Bildirgesi Verme Yükümlülüğü 5510 sayılı Sosyal Sigortalar ve Genel Sağlık Sigortası Kanununun 4 üncü maddesinin birinci fıkrasının (a) bendi kapsamında sigortalı sayılanlar için", "işe başlamadan en az 1 gün önce sigortalı işe giriş bildirgesinin e-sigorta kanalıyla verilmesi gerekmektedir.", "Sigortalı işe giriş bildirgesinin yasal olarak verilmesi gereken sürenin istisnai durumları"]}
+
+[^sgb5510-8-1-before-start]: <https://www.mevzuat.gov.tr/MevzuatMetin/1.5.5510.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "5510 sayılı Kanun, mevzuat.gov.tr birleştirilmiş metin, PDF sayfa 11, Madde 8 birinci fıkra, satır içi değişiklik notu; fıkrada dipnot yok", "evidence": ["MADDE 8- (Değişik birinci fıkra: 17/4/2008-5754/6 md.) İşverenler, 4 üncü maddenin birinci fıkrasının (a) bendi kapsamında sigortalı sayılan kişileri, 7 nci maddenin birinci fıkrasının (a) bendinde belirtilen sigortalılık başlangıç tarihinden önce, sigortalı işe giriş bildirgesi ile Kuruma bildirmekle yükümlüdür. Ancak işveren tarafından sigortalı işe giriş bildirgesi;", "a) İnşaat, balıkçılık ve tarım işyerlerinde işe başlatılacak sigortalılar için, en geç çalışmaya başlatıldığı gün,", "Kuruma verilmesi halinde, sigortalılık başlangıcından önce bildirilmiş sayılır."]}
+
+[^sgb5510-7-1a-start]: <https://www.mevzuat.gov.tr/MevzuatMetin/1.5.5510.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "5510 sayılı Kanun, mevzuat.gov.tr birleştirilmiş metin, PDF sayfa 10, Madde 7, birinci fıkra (a) bendi, ve bende bağlı 17, 18 ve 19 numaralı dipnotlar", "evidence": ["MADDE 7- Sigorta hak ve yükümlülükleri 4 üncü maddenin birinci fıkrasının;", "a) (a) bendi kapsamında sigortalı sayılanlar için çalışmaya, meslekî ve teknik eğitime, meslekî ve teknik ortaöğretim sırasında tamamlayıcı eğitim ya da alan eğitimine, staja veya bursiyer olarak göreve başladıkları tarihten,", "itibaren başlar.", "17 13/2/2011 tarihli ve 6111 sayılı Kanunun 26 ncı maddesiyle, bu bentte yer alan “zorunlu” ibaresi madde metninden çıkarılmıştır.", "18 16/2/2016 tarihli ve 6676 sayılı Kanunun 22 nci maddesiyle, bu bentte yer alan “meslekî eğitime veya staja” ibaresi “meslekî eğitime, staja veya bursiyer olarak göreve” şeklinde değiştirilmiştir.", "19 2/12/2016 tarihli ve 6764 sayılı Kanunun 56 ncı maddesiyle, bu bentte yer alan alan “meslekî eğitime” ibaresi “meslekî ve teknik eğitime, meslekî ve teknik orta öğretim sırasında tamamlayıcı eğitim ya da alan eğitimine” şeklinde değiştirilmiştir."]}
+
+[^isyeri-ruhsat-reg-6-before-open]: <https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=20059207&MevzuatTur=21&MevzuatTertip=5> | {"status": "verified", "read": "2026-09-14", "method": "browser pane", "locator": "İşyeri Açma ve Çalışma Ruhsatlarına İlişkin Yönetmelik (Bakanlar Kurulu Kararı 2005/9207), mevzuat.gov.tr birleştirilmiş metin, metin çerçevesi MevzuatFihristDetayIframe tarayıcıda okundu, Madde 6 birinci fıkra, satır içi değişiklik notu; fıkrada dipnot yok", "evidence": ["İşyeri açılması", "Madde 6- (Değişik birinci fıkra: 19/3/2007 – 2007/11882 K.) Yetkili idarelerden usulüne uygun olarak işyeri açma ve çalışma ruhsatı alınmadan işyeri açılamaz ve çalıştırılamaz. İşyerlerine bu Yönetmelikte belirtilen yetkili idareler dışında diğer kamu kurum ve kuruluşları ile ilgili meslek kuruluşları tarafından özel mevzuatına göre verilen izinler ile tescil ve benzeri işlemler bu Yönetmelik hükümlerine göre ruhsat alma mükellefiyetini ortadan kaldırmaz. İşyeri açma ve çalışma ruhsatı alınmadan açılan işyerleri yetkili idareler tarafından kapatılır."]}
+
+[^ticaret-bakkallik-before-open]: <https://ticaret.gov.tr/data/5e0f1da813b87658f03c9b74/Bakkall%C4%B1k%20Meslek%20K%C4%B1lavuzu.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "Ticaret Bakanlığı, Bakkallık Meslek Kılavuzu, PDF sayfa 19, 4. Aşama, İşyeri Açma ve Çalışma Ruhsatı ile İlgili İşlemler, birinci paragraf", "evidence": ["Yetkili idarelerden usulüne uygun olarak işyeri açma ve çalışma ruhsatı alınmadan işyeri açılamaz ve çalıştırılamaz. İşyeri açma ve çalışma ruhsatı alınmadan açılan işyerleri yetkili idareler tarafından kapatılır."]}
+
+[^ticaret-etds-2026]: <https://ticaret.gov.tr/haberler/1-ocak-2026-tarihinden-sonra-kurulacak-sirketlerde-elektronik-ticari-defter-sistemi-zorunlu-olacak> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Ticaret Bakanlığı haberi, 1 Ocak 2026 tarihinden sonra kurulacak şirketlerde Elektronik Ticari Defter Sistemi zorunlu olacak, Yeni Kurulacak Şirketler İçin Zorunluluk", "evidence": ["YENİ KURULACAK ŞİRKETLER İÇİN ZORUNLULUK Ayrıca, 1 Ocak 2026 tarihinden itibaren kuruluşu ticaret siciline tescil edilecek tüm şirketler, pay defteri ile genel kurul toplantı ve müzakere defterini ETDS’de tutmakla yükümlü kılınmıştır.", "Şirketlerin kuruluşlarının ticaret siciline tescilleri ile birlikte, başkaca bir işleme gerek olmaksızın ticari defterler eş anlı olarak kullanıma açılacaktır."]}
