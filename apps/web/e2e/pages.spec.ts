@@ -296,6 +296,41 @@ test('a guide linking a rule carries the rule for everyone, asks where the reade
   expect(mismatches).toEqual([])
 })
 
+test('choosing a nationality in the panel answers a guide already on screen, and a city completes the control', async ({ page }) => {
+  // SB-154: Turkey's residence permit charge has no version for everyone, and
+  // Czechia is one of the nine nationalities the research names as exempt.
+  const documents: string[] = []
+  page.on('request', (sent) => {
+    if (sent.resourceType() === 'document') documents.push(sent.url())
+  })
+  await page.goto('en/TR/guides/short-term-residence-permit', { waitUntil: 'load' })
+
+  const charge = page.getByRole('region', { name: 'Pay the residence permit charge' })
+  await expect(charge.getByText('Your nationality decides the answer')).toBeVisible()
+
+  await charge.getByRole('button', { name: 'Tell us' }).click()
+  const panel = page.getByRole('dialog')
+  await panel.getByText('Nationality', { exact: true }).locator('..').getByRole('button', { name: 'Add', exact: true }).click()
+  await panel.getByRole('combobox', { name: 'Nationality' }).fill('Czech')
+  await page.getByRole('option', { name: 'Czechia' }).click()
+
+  await expect(page).toHaveURL(/\/en-CZ\/TR\/guides\/short-term-residence-permit$/)
+  await expect(charge.getByText('For you', { exact: true })).toBeVisible()
+  await expect(charge.getByText('Residence permit charge', { exact: true })).toBeVisible()
+  await expect(charge.getByText('None', { exact: true })).toBeVisible()
+  await expect(charge.getByText(/Only for a citizen of Czechia/)).toBeVisible()
+
+  await page.keyboard.press('Escape')
+  await page.locator('header button[aria-haspopup="dialog"]').first().click()
+  await panel.getByText('City in Turkey', { exact: true }).locator('..').getByRole('button', { name: 'Add', exact: true }).click()
+  await page.getByRole('option', { name: 'İzmir' }).click()
+
+  await expect(page).toHaveURL(/\/en-CZ\/TR-35\/guides\/short-term-residence-permit$/)
+  await expect(page.getByRole('button', { name: /From Czechia\s*· İzmir/ })).toBeVisible()
+  // Answered in the page: the one document is the one first opened.
+  expect(documents).toHaveLength(1)
+})
+
 test('a status reached from a page already up is in its links at once', async ({ page }) => {
   await ensureStatus()
   await page.goto('en/TR/guides/sim-card', { waitUntil: 'load' })
