@@ -906,6 +906,74 @@ test("a reader who works in Saxony is told Saxony's care split with the federal 
   expect(anywhere?.to?.facts).toEqual(factsIn(GERMANY, health))
 })
 
+const FOUNDER_ANSWER = `
+  query FounderAnswer($situation: String, $toWorkRegions: [String!], $residenceStatuses: [String!]) {
+    move(from: "xx", to: "de", situation: $situation, toWorkRegions: $toWorkRegions, residenceStatuses: $residenceStatuses) {
+      obligationSlug
+      verdict
+      needs
+      to {
+        facts { key operator numericValue textValue unit currency sourceUrl sourceName verifiedAt }
+        notes { ruleVersionId text locale translationMissing }
+      }
+    }
+  }
+`
+
+test("a reader starting a business is told the trade office's duty and fine, with a sole trade's fee where the business is in Berlin, Hamburg or Cologne and the federal facts alone elsewhere, is asked where it is while a named place could change the fee, a student is not told it, and a holder of a residence permit or a national visa is told what their title allows", async () => {
+  const slug = 'register-a-trade'
+  const placeOf = (version: ResearchVersion) => version.criteria.find((criterion) => criterion.dimension === 'workRegion')?.value
+  const trade = GERMANY.versions.filter((version) => version.obligation === slug)
+  const federal = trade.find((version) => placeOf(version) === undefined)
+  if (!federal) throw new Error("Germany's file has no trade registration version for everywhere")
+
+  type Said = { situation?: string; toWorkRegions?: string[]; residenceStatuses?: string[] }
+  const answerFor = async (obligation: string, said: Said) => {
+    const response = await graphql(FOUNDER_ANSWER, said)
+    expect(response.body.errors, JSON.stringify(response.body.errors)).toBeUndefined()
+    const entries: Entry[] = response.body.data.move
+    return entries.find((entry) => entry.obligationSlug === obligation)
+  }
+  const founder = (toWorkRegions?: string[]) =>
+    answerFor(slug, { situation: 'company-founder', ...(toWorkRegions ? { toWorkRegions } : {}) })
+  const fee = (entry: Entry | undefined, key: string) => Number(entry?.to?.facts.find((fact) => fact.key === key)?.numericValue)
+
+  for (const place of ['DE-BE', 'DE-HH', 'DE-NW.koeln']) {
+    const local = trade.find((version) => placeOf(version) === place)
+    if (!local) throw new Error(`Germany's file has no trade registration version for ${place}`)
+    const answer = await founder([place])
+    expect(answer?.verdict, place).toBe('newInDestination')
+    expect(answer?.to?.facts, place).toEqual(factsIn(GERMANY, federal, local))
+  }
+  // The fees the exit names, held to the pages rather than to the file.
+  const berlin = await founder(['DE-BE'])
+  expect([fee(berlin, 'soleTradeRegistrationFee'), fee(berlin, 'onlineTradeRegistrationFee')]).toEqual([26, 15])
+  expect(fee(await founder(['DE-HH']), 'soleTradeRegistrationFee')).toBe(25)
+
+  // A Land no version names, and a city of North Rhine-Westphalia other than Cologne, are told the federal facts alone.
+  for (const place of ['DE-BY', 'DE-NW.duesseldorf']) expect((await founder([place]))?.to?.facts, place).toEqual(factsIn(GERMANY, federal))
+  // A founder who has not said where, or has said only the Land that holds Cologne, is asked where.
+  for (const said of [undefined, ['DE-NW']])
+    expect(await founder(said), String(said)).toMatchObject({ verdict: 'needsDetail', needs: ['workRegion'], to: null })
+  expect(await answerFor(slug, { situation: 'student', toWorkRegions: ['DE-BE'] })).toBeUndefined()
+
+  const titleSlug = 'check-your-title-allows-self-employment'
+  for (const status of ['de.residence-permit', 'de.national-visa']) {
+    const version = GERMANY.versions.find(
+      (candidate) => candidate.obligation === titleSlug && candidate.criteria.some((criterion) => criterion.value === status),
+    )
+    if (!version) throw new Error(`Germany's file has no self-employment version for ${status}`)
+    const answer = await answerFor(titleSlug, { situation: 'company-founder', residenceStatuses: [status] })
+    expect(answer?.verdict, status).toBe('newInDestination')
+    expect(answer?.to?.facts, status).toEqual(factsIn(GERMANY, version))
+  }
+  expect(await answerFor(titleSlug, { situation: 'company-founder' })).toMatchObject({
+    verdict: 'needsDetail',
+    needs: ['residenceStatus'],
+    to: null,
+  })
+})
+
 const COMPARED = `
   query Compared($fromResidenceRegions: [String!], $toResidenceRegions: [String!], $residenceStatuses: [String!]) {
     move(from: "de", to: "tr", fromResidenceRegions: $fromResidenceRegions, toResidenceRegions: $toResidenceRegions, residenceStatuses: $residenceStatuses) {
