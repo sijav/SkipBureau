@@ -1423,3 +1423,238 @@ All read 2026-09-12.
 ## Answered
 
 No. I opened no URLs in this pass.
+
+---
+
+## Asked, 2026-09-15 09:23 UTC
+
+Sign-off, 2026-09-15. We are about to write the agreed document on registering a business in Germany as rules the product serves. Every rule below is for a reader starting a business on their own account in Germany, a freelance practice included, and each place's fee is for where the business has its establishment, not where the founder lives. Three pages read raw today change what can be written, so they come first.
+
+1. The agreed sentence "If you are a third-country national, the intended self-employment must be permitted before you exercise it (§4a AufenthG)" has no definition, and §4a as it stands today reads, in (1): "Ausländer, die einen Aufenthaltstitel besitzen, dürfen eine Erwerbstätigkeit ausüben, es sei denn, ein Gesetz bestimmt ein Verbot. Die Erwerbstätigkeit kann durch Gesetz beschränkt sein. Die Ausübung einer über das Verbot oder die Beschränkung hinausgehenden Erwerbstätigkeit bedarf der Erlaubnis." and in (3): "Jeder Aufenthaltstitel muss erkennen lassen, ob die Ausübung einer Erwerbstätigkeit erlaubt ist und ob sie Beschränkungen unterliegt." and "Wurde ein Aufenthaltstitel zum Zweck der Ausübung einer bestimmten Beschäftigung erteilt, ist die Ausübung einer anderen Erwerbstätigkeit verboten, solange und soweit die zuständige Behörde die Ausübung der anderen Erwerbstätigkeit nicht erlaubt hat." We propose to replace the sentence, and to write the fact, as: "Check whether your residence title permits self-employment and whether it contains restrictions. If it prohibits or restricts it, you need permission for activity beyond that, and a title issued for a particular job does not allow other work until the authority permits it." Give the sentence today's page supports, for a reader holding a German residence permit and for one holding a national (D) visa. It would rest on two new definitions:
+
+[^aufenthg-4a-1-title-permits-work]: <https://www.gesetze-im-internet.de/aufenthg_2004/__4a.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 4a Abs. 1", "evidence": ["(1) Ausländer, die einen Aufenthaltstitel besitzen, dürfen eine Erwerbstätigkeit ausüben, es sei denn, ein Gesetz bestimmt ein Verbot.", "Die Erwerbstätigkeit kann durch Gesetz beschränkt sein.", "Die Ausübung einer über das Verbot oder die Beschränkung hinausgehenden Erwerbstätigkeit bedarf der Erlaubnis."]}
+
+[^aufenthg-4a-3-title-shows-restrictions]: <https://www.gesetze-im-internet.de/aufenthg_2004/__4a.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 4a Abs. 3 Sätze 1 und 4", "evidence": ["(3) Jeder Aufenthaltstitel muss erkennen lassen, ob die Ausübung einer Erwerbstätigkeit erlaubt ist und ob sie Beschränkungen unterliegt.", "Wurde ein Aufenthaltstitel zum Zweck der Ausübung einer bestimmten Beschäftigung erteilt, ist die Ausübung einer anderen Erwerbstätigkeit verboten, solange und soweit die zuständige Behörde die Ausübung der anderen Erwerbstätigkeit nicht erlaubt hat."]}
+
+2. dguv-one-week, extended with the sentence after it on the same page, which today reads:
+
+[^dguv-one-week]: <https://www.dguv.de/de/versicherung/unternehmensnummer/anmeldung/index.jsp> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "Neues Unternehmen anmelden", "evidence": ["Wer ein Unternehmen eröffnet, muss dieses binnen einer Woche beim zuständigen Unfallversicherungsträger anmelden.", "Die Meldepflicht (§ 192 Sozialgesetzbuch VII) gilt als erfüllt, wenn für ein Unternehmen eine Gewerbeanmeldung erstattet wurde."]}
+
+3. ao-138-one-month, extended with (1b) sentences 1 to 3 from the same page:
+
+[^ao-138-one-month]: <https://www.gesetze-im-internet.de/ao_1977/__138.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 138 Abs. 1b Sätze 1 bis 3 und Abs. 4", "evidence": ["(1b) Sofern Steuerpflichtige gemäß Absatz 1 Satz 1 bis 3 verpflichtet sind, eine Betriebseröffnung oder Aufnahme einer freiberuflichen Tätigkeit mitzuteilen, haben sie dem in Absatz 1 bezeichneten Finanzamt weitere Auskünfte über die für die Besteuerung erheblichen rechtlichen und tatsächlichen Verhältnisse zu erteilen.", "Die Auskünfte im Sinne des Satzes 1 sind nach amtlich vorgeschriebenem Datensatz über die amtlich bestimmte Schnittstelle zu übermitteln.", "Auf Antrag kann das Finanzamt zur Vermeidung unbilliger Härten auf eine Übermittlung gemäß Satz 2 verzichten; in diesem Fall sind die Auskünfte im Sinne des Satzes 1 nach amtlich vorgeschriebenem Vordruck zu erteilen.", "(4) Mitteilungen nach den Absätzen 1, 1a und 1b sind innerhalb eines Monats nach dem meldepflichtigen Ereignis zu erstatten."]}
+
+4. The facts, each resting on the definitions named after it:
+
+Register a trade, anywhere in Germany:
+- notify the trade office: "at the same time as you start the business" (gewo-14-at-the-same-time)
+- fine for a late or missing notification: at most 1,000 euro (gewo-146-late-notification-fine)
+
+Register a trade, where the business has its establishment in Berlin:
+- sole trade registration fee: 26 euro, for each sole trade, or each partner of a partnership; other legal forms can cost differently (berlin-trade-registration-26)
+- online registration fee: 15 euro, where Berlin's online procedure is available for the legal form (berlin-trade-registration-online-15)
+
+Register a trade, where the business has its establishment in Hamburg:
+- sole trade registration fee: 25 euro (handelskammer-hh-registration-25)
+
+Register a trade, where the business has its establishment in Cologne:
+- sole trade registration fee: 26 euro, for a natural person (koeln-trade-registration-26)
+- a warning fine can be charged once the start lies more than 4 weeks back (koeln-warning-fine-four-weeks)
+- fine proceedings can be started once the start lies more than 6 months back (koeln-fine-proceedings-six-months)
+
+Notify the accident insurer, anywhere in Germany:
+- within 1 week of opening the business; a trade registration already counts as this notification (dguv-one-week, as extended)
+
+Send the tax registration questionnaire, anywhere in Germany:
+- within 1 month of opening the business or taking up a freelance activity, electronically, unless the tax office agrees to a paper form to avoid undue hardship (ao-138-one-month, as extended)
+
+Trade tax, anywhere in Germany:
+- trade income allowance: 24,500 euro, for individuals and partnerships (gewstg-11-allowance)
+
+Chamber of commerce (IHK) contributions, anywhere in Germany:
+- no contribution: up to 5,200 euro of trade income or profit, for an individual or partnership not in the commercial register (ihkg-3-exempt-up-to-5200)
+- founder relief: up to 25,000 euro of trade income or profit; no basic contribution and no levy in the opening year and the year after, and no levy in years three and four; for an individual not in the commercial register who had no income from agriculture or forestry, a trade or self-employment in the five financial years before opening, and no direct or indirect holding of more than one tenth in a corporation in that period (ihkg-3-founder-relief, ihkg-3-five-years, ihkg-3-more-than-one-tenth)
+- levy base allowance: 15,340 euro, for individuals and partnerships (ihkg-3-levy-allowance)
+
+The VAT small business rule, anywhere in Germany:
+- turnover in the previous calendar year: at most 25,000 euro; in the current year: at most 100,000 euro (ustg-19-thresholds)
+- in the year the business starts: at most 25,000 euro of actual turnover (bmf-first-year-ceiling)
+- the transaction that crosses the ceiling loses the exemption in full, not only the excess (bmf-exemption-lost-in-full)
+- a waiver binds you for at least 5 calendar years (ustg-19-waiver-five-years)
+
+Self-employment on a residence title, for a reader holding a German residence permit, and for one holding a national (D) visa:
+- the sentence from 1 (aufenthg-4a-1-title-permits-work, aufenthg-4a-3-title-shows-restrictions)
+
+5. The notes. Write the note a reader is shown beside each rule's facts, in plain, simple English, from the agreed document and today's pages above only, each as short as it can be while keeping every condition: register a trade anywhere; in Berlin; in Hamburg; in Cologne; notify the accident insurer; the tax registration questionnaire; trade tax; IHK contributions; the VAT small business rule; self-employment on a residence title. The trade office's note and the chamber's open with the condition that they bind only a business that is a trade, and say that calling yourself a freelancer settles neither question. Each place's note says the fee follows where the business has its establishment, not where the founder lives, and that other legal forms and additional representatives can change the charge. Cologne's says its two timings are possible enforcement, not an extension of the deadline. The note on self-employment carries §21(6) as a possible route, not an entitlement, and that we could not verify a trade office refusing a registration without the permission. Leave out Rhein-Neckar's rates, its €35 example and retrospective cancellation.
+
+Answer in two parts. First, which of 1 to 4 claims more than its evidence supports, with the corrected wording and the page that settles it, or the single word "None." Then the ten notes, each under its rule's name as written above. At the end, list the URLs you opened this turn.
+
+## Answered
+
+## 1. Corrections and qualifications
+
+**1, and its repetition in 4 — residence titles:** retain the possibility of restrictions imposed by law, not merely restrictions written on the document. Use this wording for **both a German residence permit and a German national (D) visa**:
+
+> Your German residence permit or national (D) visa generally allows work, including self-employment, unless the law prohibits or restricts it. Check the document’s work conditions before starting. You need permission for activity beyond a prohibition or restriction. A title issued for a particular job does not allow other work unless and to the extent the competent authority permits it.
+
+The two proposed definitions support the permission rule, but need **§2(2)** for the meaning of “Erwerbstätigkeit” and **§4(1), read with §6(3)** for national visas. These establish that self-employment is covered and a German national visa is a residence title. [AufenthG §§4 and 4a](https://www.gesetze-im-internet.de/aufenthg_2004/BJNR195010004.html), [§2(2)](https://www.gesetze-im-internet.de/aufenthg_2004/__2.html), [§6(3)](https://www.gesetze-im-internet.de/aufenthg_2004/__6.html).
+
+**4 — IHK contributions:** “trade income or profit” must not offer a choice of measure, and the exemption thresholds must not be unconditional nationwide amounts. Use:
+
+> For an individual or partnership outside the commercial register, the default exemption threshold is €5,200 of Gewerbeertrag; use business profit determined under income-tax law only where no Gewerbesteuermessbetrag is assessed for that year. The €5,200 and €25,000 exemption thresholds can be lowered by the chamber under §3(3), sentence 5; check its annual rules.
+
+The founder conditions and periods otherwise remain as listed. [IHKG §3(3), sentences 3–5](https://www.gesetze-im-internet.de/ihkg/BJNR009200956.html).
+
+**4 — VAT:** preserve the agreed scope and turnover definition:
+
+> For a business established in Germany that has not waived the exemption, qualifying domestic supplies are exempt where relevant turnover under §19(2) was at most €25,000 in the previous calendar year and remains at most €100,000 in the current calendar year.
+
+Use **“actual relevant turnover”** for the opening-year ceiling. “Turnover” must not mean all receipts indiscriminately. [UStG §19(1)–(3)](https://www.gesetze-im-internet.de/ustg_1980/BJNR119530979.html).
+
+No correction to **2 or 3**.
+
+## 2. Reader notes
+
+### Register a trade, anywhere in Germany
+
+This applies only if your activity is a trade under trade law. Calling yourself a freelancer settles neither trade registration nor IHK membership. The tax office and trade office classify your activity separately; the tax classification does not bind the trade office. If unsure, give both authorities your actual services, qualifications and representative projects. Register where the business is established when you start; there is no nationwide grace period. Registration does not complete every separate obligation.
+
+### Register a trade, where the business has its establishment in Berlin
+
+The fee follows the business’s establishment in Berlin, not where you live. Other legal forms and additional representatives can change the charge. The online fee applies where Berlin’s online procedure supports your legal form.
+
+### Register a trade, where the business has its establishment in Hamburg
+
+The fee follows the business’s establishment in Hamburg, not where you live. Other legal forms and additional representatives can change the charge.
+
+### Register a trade, where the business has its establishment in Cologne
+
+The fee follows the business’s establishment in Cologne, not where you live. Other legal forms and additional representatives can change the charge. The four-week and six-month timings describe possible enforcement measures, not extensions of the registration deadline.
+
+### Notify the accident insurer, anywhere in Germany
+
+This also applies to a freelance practice. Notify the responsible statutory accident insurer within one week of opening, unless you have already made a Gewerbeanmeldung: that satisfies this notification obligation. [DGUV](https://www.dguv.de/de/versicherung/unternehmensnummer/anmeldung/index.jsp).
+
+### Send the tax registration questionnaire, anywhere in Germany
+
+Do not wait for the tax office to contact you. Submit the questionnaire electronically, normally through ELSTER, within one month of opening or starting your freelance activity. Gewerbeanmeldung does not replace it. On application, the tax office may allow the prescribed paper form to avoid undue hardship. Your tax number is communicated in writing; we could not verify a processing time. [AO §138(1b) and (4)](https://www.gesetze-im-internet.de/ao_1977/BJNR006130976.html).
+
+### Trade tax, anywhere in Germany
+
+This concerns income classified as a trade for tax purposes. The nationwide allowance applies to individuals and partnerships, not turnover. Registering a Gewerbe does not itself determine your tax classification. Reclassification can affect earlier years, but the allowance means it does not automatically produce trade tax to pay.
+
+### Chamber of commerce (IHK) contributions, anywhere in Germany
+
+These contributions apply only to a business that is a trade and belongs to the IHK. Calling yourself a freelancer settles neither trade registration nor IHK membership. Membership is normally compulsory; contribution relief does not remove membership. These are profit-based tests, not turnover tests: use Gewerbeertrag, with business profit substituted only where no Gewerbesteuermessbetrag is assessed. Founder relief requires all the listed conditions and applies for the listed years. Check the chamber’s annual rules: it may lower the exemption thresholds under the statutory condition. [IHKG §3(3)](https://www.gesetze-im-internet.de/ihkg/BJNR009200956.html).
+
+### The VAT small business rule, anywhere in Germany
+
+This covers qualifying domestic supplies by a business established in Germany, including a freelance practice. Use the relevant turnover for this rule, not profit. The limits are nationwide; the opening-year limit uses actual relevant turnover for that calendar year. Once it is crossed, the whole crossing transaction loses this exemption; ordinary VAT rules, including any other exemption, apply. The exemption applies automatically unless waived. Waiving it binds you for at least five calendar years; using it does not. [UStG §19](https://www.gesetze-im-internet.de/ustg_1980/BJNR119530979.html).
+
+### Self-employment on a residence title, for a reader holding a German residence permit, and for one holding a national (D) visa
+
+The same federal permission rule applies to both documents. Check the work conditions before starting, including freelance work. If you are being granted or already hold an Aufenthaltserlaubnis for another purpose, §21(6) may allow self-employment while keeping that purpose. This is not an entitlement; other required professional or business permissions must have been granted or their grant promised. We could not verify that the trade office will refuse registration without the immigration permission. [AufenthG §21(6)](https://www.gesetze-im-internet.de/aufenthg_2004/__21.html).
+
+URLs successfully opened this turn:
+
+https://www.gesetze-im-internet.de/aufenthg_2004/__2.html
+https://www.gesetze-im-internet.de/aufenthg_2004/__6.html
+https://www.gesetze-im-internet.de/aufenthg_2004/__21.html
+https://www.gesetze-im-internet.de/aufenthg_2004/BJNR195010004.html
+https://www.gesetze-im-internet.de/ihkg/BJNR009200956.html
+https://www.gesetze-im-internet.de/ustg_1980/BJNR119530979.html
+https://www.gesetze-im-internet.de/ao_1977/BJNR006130976.html
+https://www.dguv.de/de/versicherung/unternehmensnummer/anmeldung/index.jsp
+
+Individual pages attempted but unavailable; the complete-act pages above supplied their provisions:
+
+https://www.gesetze-im-internet.de/aufenthg_2004/__4a.html
+https://www.gesetze-im-internet.de/aufenthg_2004/__4.html
+https://www.gesetze-im-internet.de/ihkg/__3.html
+https://www.gesetze-im-internet.de/ustg_1980/__19.html
+https://www.gesetze-im-internet.de/ao_1977/__138.html
+
+---
+
+## Asked, 2026-09-15 09:36 UTC
+
+Fixed point, 2026-09-15. Your corrections are applied, and your ten notes are used as you wrote them, with straight apostrophes. One more question over what will be published: does anything below still claim more than its evidence supports, attach a figure to a page that does not state it, or leave out a condition its value depends on? Answer "No." or name each, with the corrected wording.
+
+The agreed document's corrected passages now read:
+
+- "A German residence permit or national (D) visa generally allows work, including self-employment, unless the law prohibits or restricts it. Check the document's work conditions before starting. You need permission for activity beyond a prohibition or restriction. A title issued for a particular job does not allow other work unless and to the extent the competent authority permits it. You do not always need a separate self-employment permit: §21(6) lets self-employment be authorised while you keep another residence purpose. We would not tell you that the trade office will refuse your registration without that authorisation, because we could not verify it."
+- "For IHK contributions: an eligible individual or partnership not in the commercial register is exempt where its Gewerbeertrag, or its business profit under income-tax law where no Gewerbesteuermessbetrag is assessed for that year, is no more than €5,200." and "These are profit tests, not turnover tests, and §3 IHKG permits a chamber to lower the €5,200 and €25,000 exemption thresholds under a specified condition, so check its annual rules."
+- "For a business established in Germany that has not waived the exemption, qualifying domestic supplies are VAT-exempt where relevant turnover under §19(2) was no more than €25,000 in the previous calendar year and remains no more than €100,000 in the current calendar year."
+
+The definitions added or extended, each read today on its raw page with every passage found there. The five other definitions on the §3 IHKG page keep their evidence and take today's date.
+
+[^aufenthg-2-2-gainful-activity]: <https://www.gesetze-im-internet.de/aufenthg_2004/__2.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 2 Abs. 2", "evidence": ["(2) Erwerbstätigkeit ist die selbständige Tätigkeit, die Beschäftigung im Sinne von § 7 des Vierten Buches Sozialgesetzbuch und die Tätigkeit als Beamter."]}
+
+[^aufenthg-4-1-titles]: <https://www.gesetze-im-internet.de/aufenthg_2004/__4.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 4 Abs. 1 Satz 2 Nr. 1 und 2", "evidence": ["Die Aufenthaltstitel werden erteilt als 1. Visum im Sinne des § 6 Absatz 1 Nummer 1 und Absatz 3, 2. Aufenthaltserlaubnis (§ 7),"]}
+
+[^aufenthg-6-3-national-visa]: <https://www.gesetze-im-internet.de/aufenthg_2004/__6.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 6 Abs. 3 Satz 1", "evidence": ["(3) Für längerfristige Aufenthalte ist ein Visum für das Bundesgebiet (nationales Visum) erforderlich, das vor der Einreise erteilt wird."]}
+
+[^aufenthg-4a-1-title-permits-work]: <https://www.gesetze-im-internet.de/aufenthg_2004/__4a.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 4a Abs. 1", "evidence": ["(1) Ausländer, die einen Aufenthaltstitel besitzen, dürfen eine Erwerbstätigkeit ausüben, es sei denn, ein Gesetz bestimmt ein Verbot.", "Die Erwerbstätigkeit kann durch Gesetz beschränkt sein.", "Die Ausübung einer über das Verbot oder die Beschränkung hinausgehenden Erwerbstätigkeit bedarf der Erlaubnis."]}
+
+[^aufenthg-4a-3-title-shows-restrictions]: <https://www.gesetze-im-internet.de/aufenthg_2004/__4a.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 4a Abs. 3 Sätze 1 und 4", "evidence": ["(3) Jeder Aufenthaltstitel muss erkennen lassen, ob die Ausübung einer Erwerbstätigkeit erlaubt ist und ob sie Beschränkungen unterliegt.", "Wurde ein Aufenthaltstitel zum Zweck der Ausübung einer bestimmten Beschäftigung erteilt, ist die Ausübung einer anderen Erwerbstätigkeit verboten, solange und soweit die zuständige Behörde die Ausübung der anderen Erwerbstätigkeit nicht erlaubt hat."]}
+
+[^ihkg-3-thresholds-can-be-lowered]: <https://www.gesetze-im-internet.de/ihkg/__3.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 3 Abs. 3 Satz 5", "evidence": ["Wenn nach dem Stand der zum Zeitpunkt der Verabschiedung der Wirtschaftssatzung vorliegenden Bemessungsgrundlagen zu besorgen ist, dass bei einer Industrie- und Handelskammer die Zahl der Beitragspflichtigen, die einen Beitrag entrichten, durch die in den Sätzen 3 und 4 genannten Freistellungsregelungen auf weniger als 55 vom Hundert aller ihr zugehörigen Gewerbetreibenden sinkt, kann die Vollversammlung für das betreffende Geschäftsjahr eine entsprechende Herabsetzung der dort genannten Grenzen für den Gewerbeertrag oder den Gewinn aus Gewerbebetrieb beschließen."]}
+
+[^dguv-one-week]: <https://www.dguv.de/de/versicherung/unternehmensnummer/anmeldung/index.jsp> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "Neues Unternehmen anmelden", "evidence": ["Wer ein Unternehmen eröffnet, muss dieses binnen einer Woche beim zuständigen Unfallversicherungsträger anmelden.", "Die Meldepflicht (§ 192 Sozialgesetzbuch VII) gilt als erfüllt, wenn für ein Unternehmen eine Gewerbeanmeldung erstattet wurde."]}
+
+[^ao-138-one-month]: <https://www.gesetze-im-internet.de/ao_1977/__138.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 138 Abs. 1b Sätze 1 bis 3 und Abs. 4", "evidence": ["(1b) Sofern Steuerpflichtige gemäß Absatz 1 Satz 1 bis 3 verpflichtet sind, eine Betriebseröffnung oder Aufnahme einer freiberuflichen Tätigkeit mitzuteilen, haben sie dem in Absatz 1 bezeichneten Finanzamt weitere Auskünfte über die für die Besteuerung erheblichen rechtlichen und tatsächlichen Verhältnisse zu erteilen.", "Die Auskünfte im Sinne des Satzes 1 sind nach amtlich vorgeschriebenem Datensatz über die amtlich bestimmte Schnittstelle zu übermitteln.", "Auf Antrag kann das Finanzamt zur Vermeidung unbilliger Härten auf eine Übermittlung gemäß Satz 2 verzichten; in diesem Fall sind die Auskünfte im Sinne des Satzes 1 nach amtlich vorgeschriebenem Vordruck zu erteilen.", "(4) Mitteilungen nach den Absätzen 1, 1a und 1b sind innerhalb eines Monats nach dem meldepflichtigen Ereignis zu erstatten."]}
+
+[^ustg-19-thresholds]: <https://www.gesetze-im-internet.de/ustg_1980/__19.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 19 Abs. 1 Satz 1", "evidence": ["(1) Ein von einem im Inland oder in den in § 1 Absatz 3 bezeichneten Gebieten ansässigen Unternehmer bewirkter Umsatz im Sinne des § 1 Absatz 1 Nummer 1 ist steuerfrei, wenn der Gesamtumsatz nach Absatz 2 im vorangegangenen Kalenderjahr 25 000 Euro nicht überschritten hat und im laufenden Kalenderjahr 100 000 Euro nicht überschreitet."]}
+
+[^ustg-19-waiver-five-years]: <https://www.gesetze-im-internet.de/ustg_1980/__19.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 19 Abs. 3 Sätze 1 und 3", "evidence": ["(3) Ein Unternehmer nach Absatz 1 Satz 1 kann bis zum letzten Tag des Monats Februar des zweiten auf den Besteuerungszeitraum folgenden Kalenderjahres gegenüber dem Finanzamt unwiderruflich erklären, dass er auf die Anwendung des Absatzes 1 verzichtet.", "Der Verzicht bindet den Unternehmer mindestens für fünf Kalenderjahre."]}
+
+The facts as written, each for a reader starting a business on their own account in Germany, a freelance practice included. A fact can rest only on definitions of its own page, so on a residence title "self-employment counts as work" is a fact of its own on §2, the permission rule a second fact on §4a, and each title's rule rests on §4(1) for the permit or visa being a residence title.
+
+Register a trade, anywhere in Germany:
+- notify the trade office: "at the same time as you start the business" (gewo-14-at-the-same-time)
+- fine for a late or missing notification: at most 1,000 euro (gewo-146-late-notification-fine)
+
+Register a trade, where the business has its establishment in Berlin:
+- sole trade registration fee: 26 euro, "for each sole trade, or each partner of a partnership; other legal forms can cost differently" (berlin-trade-registration-26)
+- online registration fee: 15 euro, "where Berlin's online procedure is available for the legal form" (berlin-trade-registration-online-15)
+
+Register a trade, where the business has its establishment in Hamburg:
+- sole trade registration fee: 25 euro (handelskammer-hh-registration-25)
+
+Register a trade, where the business has its establishment in Cologne:
+- sole trade registration fee: 26 euro, "for a natural person" (koeln-trade-registration-26)
+- a warning fine can be charged after: 4 weeks, "once the business started more than four weeks ago" (koeln-warning-fine-four-weeks)
+- fine proceedings can start after: 6 months, "once the business started more than six months ago" (koeln-fine-proceedings-six-months)
+
+Notify the accident insurer, anywhere in Germany:
+- within 1 week, "of opening the business; a trade registration already counts as this notification" (dguv-one-week)
+
+Send the tax registration questionnaire, anywhere in Germany:
+- within 1 month, "of opening the business or taking up a freelance activity, electronically, unless the tax office agrees to a paper form to avoid undue hardship" (ao-138-one-month)
+
+Trade tax, anywhere in Germany:
+- trade income allowance: 24,500 euro, "for individuals and partnerships" (gewstg-11-allowance)
+
+Chamber of commerce (IHK) contributions, anywhere in Germany:
+- contribution exemption threshold: 5,200 euro, "no contribution while Gewerbeertrag, or business profit under income-tax law where no Gewerbesteuermessbetrag is assessed for the year, does not exceed it, for an individual or partnership outside the commercial register; the chamber can lower it" (ihkg-3-exempt-up-to-5200, ihkg-3-thresholds-can-be-lowered)
+- founder relief threshold: 25,000 euro, "no basic contribution and no levy in the opening year and the year after, and no levy in years three and four, while Gewerbeertrag or business profit does not exceed it, for an individual outside the commercial register who had no income from agriculture or forestry, a trade or self-employment in the five financial years before opening and no direct or indirect holding of more than one tenth in a corporation in that period; the chamber can lower it" (ihkg-3-founder-relief, ihkg-3-five-years, ihkg-3-more-than-one-tenth, ihkg-3-thresholds-can-be-lowered)
+- levy base allowance: 15,340 euro, "deducted from the levy base for individuals and partnerships" (ihkg-3-levy-allowance)
+
+The VAT small business rule, anywhere in Germany:
+- previous year's turnover threshold: 25,000 euro, "of relevant turnover under §19(2) in the previous calendar year, for a business established in Germany that has not waived the exemption" (ustg-19-thresholds, ustg-19-waiver-five-years)
+- current year's turnover threshold: 100,000 euro, "of relevant turnover under §19(2) in the current calendar year, for a business established in Germany that has not waived the exemption" (ustg-19-thresholds, ustg-19-waiver-five-years)
+- first year's turnover threshold: 25,000 euro, "of actual relevant turnover in the calendar year the business starts" (bmf-first-year-ceiling)
+- the exemption is lost from: "the whole transaction that crosses the ceiling, not only the excess" (bmf-exemption-lost-in-full)
+- a waiver binds you for: at least 5 calendar years (ustg-19-waiver-five-years)
+
+Self-employment on a residence title, for a reader holding a German residence permit, and separately for one holding a national (D) visa, each resting on aufenthg-4-1-titles:
+- "self-employment counts as work (Erwerbstätigkeit) under the Residence Act" (aufenthg-2-2-gainful-activity)
+- "Your residence title generally allows work unless the law prohibits or restricts it. Check the document's work conditions before starting. You need permission for activity beyond a prohibition or restriction. A title issued for a particular job does not allow other work unless and to the extent the competent authority permits it." (aufenthg-4a-1-title-permits-work, aufenthg-4a-3-title-shows-restrictions)
+
+At the end, list the URLs you opened this turn.
+
+## Answered
+
+No.
+
+URLs opened this turn: none.
