@@ -12,6 +12,7 @@ import {
   emptyCase,
   lastUnreverted,
   messageOf,
+  NO_RULE_NATIONALITY,
   otherInputs,
   PublishError,
   publishLog,
@@ -19,9 +20,10 @@ import {
   runVerdict,
 } from '../scripts/publish-research.js'
 import { compose } from '../src/rules/research/compose.js'
+import { RESEARCHED } from '../src/rules/research/countries.js'
 import { digestOf } from '../src/rules/research/digest.js'
 import { GERMANY } from '../src/rules/research/germany.js'
-import type { ResearchRules } from '../src/rules/research/rows.js'
+import type { ResearchRules, ResearchVersion } from '../src/rules/research/rows.js'
 
 // SB-232: the parts of the research publish script that need no database and no network, and its
 // commit, built in a temporary repository.
@@ -144,6 +146,52 @@ test('a reader is built from a version, and a version with no place is asked fro
       version.criteria.some((criterion) => criterion.value === asked || criterion.value.startsWith(`${asked}.`)),
     ),
   ).toBe(false)
+})
+
+test('a version with no nationality, beside one for a nationality group, is asked as a reader of no group, and a version whose obligation names no nationality is asked with none', () => {
+  const slug = 'get-a-residence-permit-as-a-skilled-worker-with-a-degree'
+  const names = (version: ResearchVersion, value: string) => version.criteria.some((criterion) => criterion.value === value)
+  const federal = GERMANY.versions.find(
+    (version) =>
+      version.obligation === slug &&
+      names(version, 'de.national-visa') &&
+      !version.criteria.some((criterion) => criterion.dimension === 'residenceRegion'),
+  )
+  const munich = GERMANY.versions.find(
+    (version) => version.obligation === slug && names(version, 'de.national-visa') && names(version, 'DE-BY.muenchen'),
+  )
+  const address = GERMANY.versions.find((version) => version.obligation === 'report-your-address')
+  if (!federal || !munich || !address) throw new Error("Germany's file has no D visa version of the permit, no Munich one, or no Anmeldung")
+
+  const grouped: ResearchVersion = { ...federal, criteria: [...federal.criteria, { dimension: 'nationalityGroup', value: 'spec.group' }] }
+  const withGroup: ResearchRules = {
+    ...GERMANY,
+    nationalityGroups: [
+      ...GERMANY.nationalityGroups,
+      { code: 'spec.group', name: 'A group no rule names', members: [{ nationality: 'au', from: federal.validFrom }] },
+    ],
+    versions: [...GERMANY.versions, grouped],
+  }
+  expect(readerFor(withGroup, federal).nationality).toBe(NO_RULE_NATIONALITY)
+  expect(readerFor(withGroup, munich)).toEqual({
+    to: GERMANY.country,
+    statuses: ['de.national-visa'],
+    regions: ['DE-BY.muenchen'],
+    nationality: NO_RULE_NATIONALITY,
+  })
+  expect(readerFor(withGroup, grouped).nationality).toBe('au')
+  expect(readerFor(withGroup, address).nationality).toBeUndefined()
+
+  // The reader stands for no nationality rule only while no rule or group names its nationality.
+  for (const rules of RESEARCHED) {
+    const named = [
+      ...rules.versions.flatMap((version) =>
+        version.criteria.filter((criterion) => criterion.dimension === 'nationality').map((criterion) => criterion.value),
+      ),
+      ...rules.nationalityGroups.flatMap((group) => group.members.map((member) => member.nationality)),
+    ]
+    expect(named, rules.research).not.toContain(NO_RULE_NATIONALITY)
+  }
 })
 
 test("Northflank's state of a commit is its newest status in Northflank's own context, another context's passed over, and none where it posted none", () => {

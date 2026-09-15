@@ -164,8 +164,17 @@ const identity = (version: ResearchVersion): string =>
 
 export type Reader = { to: string; statuses?: string[]; nationality?: string; situation?: string; regions?: string[] }
 
+/** The nationality of a reader no nationality rule is for: ISO 3166 leaves `xx` to users, so no rule or group may name it (SB-242). */
+export const NO_RULE_NATIONALITY = 'xx'
+
+const namesNationality = (version: ResearchVersion): boolean =>
+  version.criteria.some((criterion) => criterion.dimension === 'nationality' || criterion.dimension === 'nationalityGroup')
+
 export const readerFor = (rules: ResearchRules, version: ResearchVersion): Reader => {
   const reader: Reader = { to: rules.country }
+  // A reader who has said no nationality is asked for it wherever another version of the obligation names one.
+  if (!namesNationality(version) && rules.versions.some((other) => other.obligation === version.obligation && namesNationality(other)))
+    reader.nationality = NO_RULE_NATIONALITY
   for (const criterion of version.criteria) {
     if (criterion.dimension === 'residenceStatus') reader.statuses = [criterion.value]
     if (criterion.dimension === 'situation') reader.situation = criterion.value
@@ -208,7 +217,13 @@ const widerOf = (rules: ResearchRules, version: ResearchVersion): ResearchVersio
   )
 }
 
-type Served = {
+/** What a version's reader must be served: its own facts, and those it takes from a wider version. */
+export const expectedOf = (rules: ResearchRules, version: ResearchVersion): ResearchFact[] => [
+  ...version.facts,
+  ...widerOf(rules, version).flatMap((wider) => wider.facts.filter((fact) => !version.facts.some((mine) => mine.key === fact.key))),
+]
+
+export type Served = {
   key: string
   operator: string
   numericValue: string | null
@@ -223,7 +238,7 @@ type Entry = { obligationSlug: string; to: { facts: Served[] } | null }
 
 const isEntry = (value: unknown): value is Entry => isRecord(value) && typeof value['obligationSlug'] === 'string'
 
-const shows = (sources: ResearchRules['sources'], served: readonly Served[], fact: ResearchFact): boolean => {
+export const shows = (sources: ResearchRules['sources'], served: readonly Served[], fact: ResearchFact): boolean => {
   const page = sources[fact.source]
   return served.some(
     (shown) =>
@@ -258,7 +273,7 @@ const ask = async (query: string, variables: Record<string, unknown>): Promise<{
   }
 }
 
-const MOVE = `query Sweep($to: String!, $statuses: [String!], $nationality: String, $situation: String, $regions: [String!]) {
+export const MOVE = `query Sweep($to: String!, $statuses: [String!], $nationality: String, $situation: String, $regions: [String!]) {
   move(from: "xx", to: $to, residenceStatuses: $statuses, nationality: $nationality, situation: $situation, toResidenceRegions: $regions) {
     obligationSlug
     to { facts { key operator numericValue textValue unit currency sourceUrl sourceName verifiedAt } }
@@ -535,11 +550,9 @@ const main = async (): Promise<void> => {
   const problems: string[] = []
   for (const version of current.versions ?? []) {
     const { served, errors } = await servedFor(readerFor(rules, version), version.obligation)
-    const expected = [
-      ...version.facts,
-      ...widerOf(rules, version).flatMap((wider) => wider.facts.filter((fact) => !version.facts.some((mine) => mine.key === fact.key))),
-    ]
-    const missing = expected.filter((fact) => !shows(rules.sources, served, fact)).map((fact) => fact.key)
+    const missing = expectedOf(rules, version)
+      .filter((fact) => !shows(rules.sources, served, fact))
+      .map((fact) => fact.key)
     if (errors.length > 0 || missing.length > 0)
       problems.push(`${identity(version)}: ${[...errors, ...missing.map((key) => `${key} not served`)].join('; ')}`)
   }

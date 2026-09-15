@@ -18,6 +18,7 @@ import { GERMANY } from '../src/rules/research/germany.js'
 import { TURKEY } from '../src/rules/research/turkey.js'
 import { seed } from '../prisma/seed.js'
 import { startPglite } from '../scripts/pglite-server.mjs'
+import { expectedOf, MOVE as READ_BACK, readerFor, shows, type Served } from '../scripts/publish-research.js'
 
 // SB-190: researched rules reach the database only from src/rules/research,
 // every version and fact resting on verified definitions of its agreed document,
@@ -684,6 +685,55 @@ test("a skilled worker with a degree holding a national D visa or a residence pe
     expect((await germanEntryFor(slug, [spare], [status]))?.to?.facts, `${status} in ${spare}`).toEqual(factsIn(GERMANY, federalOf(status)))
   }
   await loadResearchRules(prisma, [GERMANY])
+  expect(await ownedBy('germany')).toEqual(before)
+})
+
+test("every version of each researched file is served to the reader the publish's read-back asks it as, and so is a version with no nationality beside one for a nationality group", async () => {
+  const unservedIn = async (rules: ResearchRules): Promise<string[]> => {
+    const unserved: string[] = []
+    for (const version of rules.versions) {
+      const response = await graphql(READ_BACK, { ...readerFor(rules, version) })
+      expect(response.body.errors, JSON.stringify(response.body.errors)).toBeUndefined()
+      const entries: { obligationSlug: string; to: { facts: Served[] } | null }[] = response.body.data.move
+      const served = entries.find((entry) => entry.obligationSlug === version.obligation)?.to?.facts ?? []
+      const missing = expectedOf(rules, version).filter((fact) => !shows(rules.sources, served, fact))
+      if (missing.length > 0)
+        unserved.push(`${version.obligation} ${JSON.stringify(version.criteria)}: ${missing.map((fact) => fact.key).join(', ')}`)
+    }
+    return unserved
+  }
+  for (const rules of COUNTRIES) expect(await unservedIn(rules), rules.research).toEqual([])
+
+  // SB-242: a version for a nationality group beside the D visa's federal one, on a copy of Germany's file, so the
+  // federal version and its cities are asked as a reader of no group; the real file loaded again puts every row back.
+  const slug = 'get-a-residence-permit-as-a-skilled-worker-with-a-degree'
+  const federal = GERMANY.versions.find(
+    (version) =>
+      version.obligation === slug &&
+      version.criteria.some((criterion) => criterion.value === 'de.national-visa') &&
+      !version.criteria.some((criterion) => criterion.dimension === 'residenceRegion'),
+  )
+  if (!federal) throw new Error("Germany's file has no D visa version of the skilled worker's permit")
+  const grouped: ResearchVersion = {
+    ...federal,
+    criteria: [...federal.criteria, { dimension: 'nationalityGroup', value: 'spec.group' }],
+    facts: [{ key: 'specGroupOnly', operator: 'equals', textValue: 'for the spec group', source: federal.source, labels: federal.labels }],
+  }
+  const withGroup: ResearchRules = {
+    ...GERMANY,
+    nationalityGroups: [
+      ...GERMANY.nationalityGroups,
+      { code: 'spec.group', name: 'A group no rule names', members: [{ nationality: 'au', from: federal.validFrom }] },
+    ],
+    versions: [...GERMANY.versions, grouped],
+  }
+  const before = await ownedBy('germany')
+  try {
+    await loadResearchRules(prisma, [withGroup])
+    expect(await unservedIn(withGroup)).toEqual([])
+  } finally {
+    await loadResearchRules(prisma, [GERMANY])
+  }
   expect(await ownedBy('germany')).toEqual(before)
 })
 
