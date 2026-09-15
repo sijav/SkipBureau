@@ -1268,3 +1268,188 @@ These individual pages failed to reopen; their provisions were checked in the co
 https://www.gesetze-im-internet.de/aufenthv/__45.html  
 https://www.gesetze-im-internet.de/aufenthv/__45b.html  
 https://www.gesetze-im-internet.de/aufenthg_2004/__81.html
+
+---
+
+## Asked, 2026-09-15 07:51 UTC
+
+A new question on this case, 2026-09-15: the fee for this permit. The agreed document verifies §45 AufenthV's 100 euro for a grant, but the product does not publish a fee yet, because official pages list lower fees for Turkish citizens and nothing verified says who else pays something different. Please research each point from official sources.
+
+1. §52a AufenthV. Who is "assoziationsberechtigt" under §52a(1) for a first residence permit under §18b AufenthG? We are told that Berlin's administrative instructions (VAB) say the reduced fee reaches Turkish citizens lawfully in Germany, a first grant after entering on a national visa included but not a tourist stay, and needs no prior status under Articles 6 or 7 of Decision No 1/80. Confirm or correct that from a federal page, federal administrative instruction or court decision, in both directions: does every Turkish citizen who holds a national D visa, or a residence permit for any purpose, pay the reduced fee for this permit with no further condition (prior lawful work, a right under Decision No 1/80, family ties, length of stay, the visa's purpose), and does no Turkish citizen outside those two statuses who could apply for this permit pay it, for example one on a Schengen visa? In particular, does a Turkish citizen who has just entered with a national D visa to take up a first job, and one who holds a residence permit for another purpose, pay it? Berlin's §18b page lists it for "Türkische Staatsangehörige", Munich's for "Assoziationsberechtigte türkische Staatsangehörige": a difference in who pays it, or only in wording?
+
+2. The amounts. §52a(2) sets the fee at the fee for a German identity card, and "Wird der Aufenthaltstitel für eine Person ausgestellt, die noch nicht 24 Jahre alt ist" the rate for a German of that age; §1(1) PAuswGebV sets 27.60 euro for a holder "im Zeitpunkt der Antragstellung noch nicht 24 Jahre alt" and 46 euro otherwise. Is there one official federal page that states the reduced amounts for a Turkish citizen's residence permit? Does the under-24 rate turn on age when the application is made or when the permit is issued?
+
+3. A change of purpose. A holder of a residence permit for another purpose, such as study under §16b or job search under §20, who obtains a §18b permit: does that cost §45 Nr. 3's 98 euro ("die durch einen Wechsel des Aufenthaltszwecks veranlasste Änderung der Aufenthaltserlaubnis einschließlich deren Verlängerung") or Nr. 1's 100 euro for a grant? And is extending a §18b permit already held Nr. 2's 93 euro, or 96 euro for up to three months more? Neither Berlin's nor Munich's §18b page lists 98 euro. Name the official page.
+
+4. §49(2) AufenthV charges a processing fee in the amount of the fee, and §69(7) sentence 3 AufenthG reads "Die Gebühr ist auf die Gebühr für die individuell zurechenbare öffentliche Leistung anzurechnen". Confirm that for this permit the processing fee counts towards the fee rather than being paid on top, and that it is not repaid if the application is withdrawn or refused.
+
+5. Which exemptions, reductions and surcharges can change what a skilled worker with a degree pays for this permit, and for whom: §52 AufenthV (for example refugees and subsidiary protection holders changing to this permit, holders of a public scholarship), §53 (people who cannot live without benefits under SGB II, SGB XII or the Asylum Seekers' Benefits Act), agreements §54 preserves, and surcharges under §69(6) sentence 3 AufenthG for nationals of states that charge Germans more. Is any such surcharge actually in force, and for which nationality?
+
+For every claim, give the official URL and the section or paragraph that states it, and say plainly where no official page you opened states it. At the end, list the URLs you opened this turn.
+
+## Answered
+
+1. **Who qualifies for §52a**
+
+The federal definition is broader than already having an acquired residence right under Articles 6 or 7 of Decision 1/80. §52a(1) covers people to whom EU–Turkey association law applies. The federal government’s explanatory memorandum expressly includes someone:
+
+> “wer sich als türkischer Staatsangehöriger ordnungsgemäß im Hoheitsgebiet der Bundesrepublik Deutschland befindet und die Absicht hat, eine Arbeit aufzunehmen.”
+
+That is **BR-Drucksache 75/14, printed page 6, explanation of §52a(1)**. It supports the reduction for both examples you give: a Turkish citizen lawfully present after entering with a D visa for a first job, and a lawful residence-permit holder changing from another purpose to employment. This category does not require prior employment, an accrued Article 6/7 right, family ties or a minimum residence period. It does require lawful presence and the intention to work. The memorandum also includes qualifying family members and association-law beneficiaries exercising self-employment or service rights. [§52a](https://www.gesetze-im-internet.de/aufenthv/__52a.html); [federal explanatory memorandum, pp. 5–6](https://dserver.bundestag.de/brd/2014/0075-14.pdf).
+
+**I could not verify the proposed exhaustive test in either direction.** No federal source I opened says that possession of any D visa or residence permit, regardless of circumstances, is itself sufficient—or that everyone outside those two document categories is excluded. In particular, I could not verify a categorical federal exclusion of every Schengen-visa holder who can lawfully obtain §18b inside Germany. The cited federal judgment concerns an established Turkish worker; it does not settle that boundary. [BVerwG 1 C 12.12, paragraphs 26–32](https://www.bverwg.de/190313U1C12.12.0).
+
+I could not reliably retrieve the current VAB passages: the PDF requests ultimately returned HTTP 429. I therefore cannot confirm its current tourist exclusion from the document itself.
+
+Berlin and Munich publish the same reduced amounts under differently worded descriptions. **That establishes a wording difference, not a verified difference in eligibility or charging practice.** The governing fee provision is federal; there is no separate Berlin or Bavarian fee rule here. [Berlin, “Gebühren”](https://service.berlin.de/dienstleistung/329328/); [Munich, “Gebührenrahmen”](https://stadt.muenchen.de/service/info/servicestelle-fur-zuwanderung-und-einburgerung/10278359/); [§69(3) AufenthG](https://www.gesetze-im-internet.de/aufenthg_2004/__69.html).
+
+2. **Amounts and age**
+
+The amounts are **€27.60 for the under-24 category and €46 otherwise**, through §52a(2)’s reference to the German identity-card fee in §1(1) PAuswGebV. These are linked statutory amounts, not a subtraction from €100. I found no single federal page expressly publishing both current amounts as Turkish residence-permit fees. Berlin and Munich expressly publish them, but those are local-authority pages. [§52a(2)](https://www.gesetze-im-internet.de/aufenthv/__52a.html); [§1(1) PAuswGebV](https://www.gesetze-im-internet.de/pauswgebv/__1.html).
+
+**I could not conclusively verify the age-assessment date.** PAuswGebV expressly says “im Zeitpunkt der Antragstellung”; current §52a(2) instead says “Wird der Aufenthaltstitel für eine Person ausgestellt, die noch nicht 24 Jahre alt ist”. The latter wording points towards issuance, but the cross-reference prevents me from presenting that interpretation as settled. The 2021 explanatory memorandum describes a dynamic link to identity-card fee amounts without expressly resolving this timing question. Do not encode either date as verified yet. [§1(1)](https://www.gesetze-im-internet.de/pauswgebv/__1.html); [§52a(2)](https://www.gesetze-im-internet.de/aufenthv/__52a.html); [BT-Drucksache 19/28170, p. 102, “Zu Nummer 3”](https://dserver.bundestag.de/btd/19/281/1928170.pdf).
+
+3. **Grant, change of purpose and extension**
+
+Subject to applicable exemptions or reductions:
+
+| Transaction | Federal fee | Provision |
+|---|---:|---|
+| First residence-permit grant after a D visa | €100 | §45 No. 1 |
+| Change of an existing residence permit from study/job search to §18b, including an accompanying extension | €98 | §45 No. 3 |
+| Extension of an existing §18b permit by up to three months | €96 | §45 No. 2(a) |
+| Extension by more than three months | €93 | §45 No. 2(b) |
+
+These distinctions are expressly in [§45 AufenthV](https://www.gesetze-im-internet.de/aufenthv/__45.html). Erlangen-Höchstadt’s official employment-permit page also publishes all four figures under **“Kosten”**, including “Zweckwechsel: 98 Euro”. Berlin’s and Munich’s omission does not displace the federal provision. [Official employment-permit page](https://www.erlangen-hoechstadt.de/buergerservice/a-bis-z/auslaenderamt/allgemeine-informationen-aufenthaltserlaubnis/aufenthalt-zum-zweck-der-ausbildung-zum-studium-oder-zur-erwerbstaetigkeit/aufenthaltserlaubnis-beantragung-bei-erwerbstaetigkeit-im-bundesgebiet/).
+
+For qualifying association beneficiaries, §52a(2) substitutes its reduced fee for these §45 fees, including a purpose change. [§52a(2)](https://www.gesetze-im-internet.de/aufenthv/__52a.html).
+
+4. **Processing fee and refunds**
+
+**The processing fee counts towards the permit fee; it is not an additional second permit fee.** §49(2) prescribes the processing fee, and §69(7), sentences 3–4, requires crediting it and provides for retention on withdrawal or refusal. [§49](https://www.gesetze-im-internet.de/aufenthv/__49.html); [§69(7)](https://www.gesetze-im-internet.de/aufenthg_2004/__69.html).
+
+The no-refund statement needs exceptions: **§49(3) provides that no processing fee is charged** if the application is withdrawn before substantive processing begins, or refused exclusively because the authority lacks competence or the applicant lacks procedural capacity. Berlin expressly confirms the substantive-processing qualification under “Gebühren”. [§49(3)](https://www.gesetze-im-internet.de/aufenthv/__49.html); [Berlin](https://service.berlin.de/dienstleistung/329328/).
+
+5. **Other exemptions, reductions and additional charges**
+
+The following are federal rules, with no regional variation in their statutory terms. Discretionary waivers still require individual decisions.
+
+| Who or circumstance | Verified rule |
+|---|---|
+| Recognised asylum beneficiaries, resettlement refugees, and people enjoying refugee or subsidiary-protection status in Germany | §52(3) exempts the listed grant and extension fees, associated processing fees and specified document fees. |
+| A current scholarship from public funds for the person’s stay in Germany | §52(5) provides corresponding listed exemptions. Its extension to funded family members concerns the national-visa exemption, not a general residence-permit exemption. |
+| Cultural, sporting, foreign-policy, development-policy, other substantial public interests, or humanitarian reasons | §52(7) permits an individual reduction or waiver. |
+| Unpaid education or training only | §52(6) allows discretionary relief; it does not describe an ordinary salaried §18b worker. |
+
+Source: [§52, respective subsections](https://www.gesetze-im-internet.de/aufenthv/__52.html).
+
+**For refugees or scholarship holders changing to §18b, do not promise automatic exemption:** §52(3) and (5) expressly list §45 **Nos. 1 and 2**, but not **No. 3**. I found no official source establishing that their mandatory exemption nevertheless covers the €98 purpose-change fee. [§52](https://www.gesetze-im-internet.de/aufenthv/__52.html).
+
+People unable to maintain themselves without **SGB II, SGB XII or AsylbLG benefits** are mandatorily exempt from §45 Nos. 1 and 2 and associated listed fees under §53(1). Again, No. 3 is absent; other fees may be reduced or waived. §53(2) separately permits relief warranted by the person’s economic circumstances in Germany. [§53(1)–(2)](https://www.gesetze-im-internet.de/aufenthv/__53.html).
+
+Other relevant adjustments are:
+
+- **Minors:** half the ordinary §45 fees under §50(1). This does not establish an additional halving of the special §52a amount. [§50(1)](https://www.gesetze-im-internet.de/aufenthv/__50.html).
+- **Exceptional sticker format:** the ordinary §45 fee is reduced by €44 under §45b; thus a €100 grant becomes €56. [§45b](https://www.gesetze-im-internet.de/aufenthv/__45b.html).
+- **Express production:** an additional €35 under §45a. [§45a](https://www.gesetze-im-internet.de/aufenthv/__45a.html).
+- **Optional postal delivery:** an additional €15 under §47(1) No. 16, subject to §60a(2)’s delivery conditions. **Authority-produced photograph:** €6 under §48(1) No. 16. These are separate services, not a higher base permit fee. [Consolidated AufenthV, those provisions](https://www.gesetze-im-internet.de/aufenthv/BJNR294510004.html).
+
+The Swiss identity-card-linked fee in §52(2) concerns their specific chip-format residence document; it should not be entered as a general §18b nationality discount. [§52(2)](https://www.gesetze-im-internet.de/aufenthv/__52.html).
+
+**Treaties:** §54 preserves international agreements concerning fee exemptions or amounts. I could not identify and verify an additional agreement changing the fee for this particular §18b permit and a specified nationality. That remains unverified, rather than “none exist”. [§54](https://www.gesetze-im-internet.de/aufenthv/__54.html).
+
+**Reciprocity surcharges:** §69(6), sentence 3, authorises them where the other state charges Germans more for corresponding services. **I found no implementing provision establishing a current §18b reciprocity surcharge for any named nationality.** I therefore cannot publish either a surcharge or a categorical claim that none is in force. [§69(6)](https://www.gesetze-im-internet.de/aufenthg_2004/__69.html).
+
+URLs opened this turn:
+
+https://www.gesetze-im-internet.de/aufenthv/__52a.html
+https://www.gesetze-im-internet.de/aufenthv/__45.html
+https://www.gesetze-im-internet.de/aufenthv/__49.html
+https://www.gesetze-im-internet.de/aufenthv/__52.html
+https://www.gesetze-im-internet.de/aufenthv/__53.html
+https://www.gesetze-im-internet.de/aufenthv/__54.html
+https://www.gesetze-im-internet.de/aufenthg_2004/__69.html
+https://www.gesetze-im-internet.de/pauswgebv/__1.html
+https://www.gesetze-im-internet.de/aufenthv/__50.html
+https://www.gesetze-im-internet.de/aufenthv/__51.html
+https://www.bverwg.de/190313U1C12.12.0
+https://service.berlin.de/dienstleistung/329328/
+https://stadt.muenchen.de/service/info/servicestelle-fur-zuwanderung-und-einburgerung/10278359/
+https://www.berlin.de/einwanderung/service/downloads/artikel.875097.php
+https://dserver.bundestag.de/brd/2014/0075-14.pdf
+https://dserver.bundestag.de/btd/19/298/1929820.pdf
+https://dserver.bundestag.de/btd/19/281/1928170.pdf
+https://www.gesetze-im-internet.de/aufenthv/__45a.html
+https://www.gesetze-im-internet.de/aufenthv/__45b.html
+https://www.gesetze-im-internet.de/aufenthv/BJNR294510004.html
+https://www.erlangen-hoechstadt.de/buergerservice/a-bis-z/auslaenderamt/allgemeine-informationen-aufenthaltserlaubnis/aufenthalt-zum-zweck-der-ausbildung-zum-studium-oder-zur-erwerbstaetigkeit/aufenthaltserlaubnis-beantragung-bei-erwerbstaetigkeit-im-bundesgebiet/
+
+Attempted but relevant text could not be retrieved reliably:
+
+https://www.berlin.de/einwanderung/_assets/20191129.pdf?ts=1766489182
+https://www.berlin.de/einwanderung/_assets/20191129.pdf
+https://www.berlin.de/einwanderung/_assets/20191129.pdf?ts=1788181350
+https://www.gesetze-im-internet.de/aufenthv/__47.html
+https://eur-lex.europa.eu/legal-content/DE/TXT/?uri=CELEX:62007CJ0092
+https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:62007CJ0092
+
+---
+
+## Asked, 2026-09-15 08:00 UTC
+
+A second question on the fee, 2026-09-15. Your answer settled the §45 amounts, the credited processing fee and the exemptions. What it could not settle decides whether the reduced fee can be published at all, so please research only these points, from official sources.
+
+1. The edge of §52a for this permit. You quote the explanatory memorandum (BR-Drucksache 75/14, page 6) placing within §52a(1) "wer sich als türkischer Staatsangehöriger ordnungsgemäß im Hoheitsgebiet der Bundesrepublik Deutschland befindet und die Absicht hat, eine Arbeit aufzunehmen". Every reader of this permit intends to take up work, so the question is only who is "ordnungsgemäß im Hoheitsgebiet". Is a Turkish citizen staying in Germany on a valid Schengen (C) visa, who can obtain the §18b permit inside Germany under §39 No. 3 AufenthV, "ordnungsgemäß im Hoheitsgebiet" in that sense, and so charged the reduced fee? Look in particular for the Federal Ministry of the Interior's general application notes on the EEC-Turkey association law (Allgemeine Anwendungshinweise zum Assoziationsrecht EWG/Türkei), the European Court of Justice's judgment of 29 April 2010 in C-92/07 (Commission v Netherlands) and any later federal instruction on fees for Turkish citizens, and say what each states about a short-stay visa or a stay that is lawful but temporary.
+
+2. Anyone else. Could a Turkish citizen who holds neither a national D visa nor a residence permit, other than on a Schengen visa, apply inside Germany for this permit and be charged the reduced fee, for example one holding a Fiktionsbescheinigung or a Duldung? Name the page that says so either way.
+
+3. The age. Is there an official federal source, the Ministry's notes, a federal instruction or a court, on whether the 27.60 euro rate of §52a(2) with §1(1) PAuswGebV is assessed at the applicant's age when applying or when the permit is issued?
+
+4. The memorandum. Quote again the exact sentence you rely on and its page, and say whether the 2021 change to §52a (BT-Drucksache 19/28170) narrowed or widened who §52a(1) covers.
+
+For every claim, give the official URL and the section, page or paragraph that states it, and say plainly where no official source you opened states it. At the end, list the URLs you opened this turn.
+
+## Answered
+
+1. **The C-visa case remains unverified.** I found no official instruction or judgment expressly deciding the reduced fee for a Turkish citizen obtaining §18b through §39 No. 3 while holding a valid Schengen visa. The permission to obtain the title inside Germany is stated in **§39 No. 3**; that provision does not decide association-law fee eligibility. [§39 AufenthV](https://www.gesetze-im-internet.de/aufenthv/__39.html)
+
+   The BMI’s **2013 application notes, 8.5.3, p. 77**, explain “ordnungsgemäß” through compliance with national rules governing entry, residence and, where applicable, employment. They also require a stay sufficiently long to permit gradual integration. **8.5.2, pp. 75–77**, discusses people already admitted but not yet integrated into the labour market. Neither passage expressly classifies your C-visa-to-§18b case. I could read these notes only in a **FragDenStaat copy of the Ministry’s document**; the BMI and Bavarian government downloads failed. This is not verification from an opened government-hosted copy. [BMI notes, disclosed copy](https://media.frag-den-staat.de/files/foi/705554/anwendungshinweise-zum-assoziationsrecht-ewg-tuerkei.pdf)
+
+   For **C-92/07**, EUR-Lex returned a robot-check page. The Court’s own published digest was accessible: its entries **4–5**, referring to judgment paragraphs **49–50 and 74–76**, say the standstill protection covers fees for first admission and renewal, and addresses disproportionate fees. That establishes that protection is not confined to renewals; **it does not expressly settle the Schengen-visa example**. [Court’s official digest](https://curia.europa.eu/common/recdoc/repertoire_jurisp/bull_6/data/6_07_15_01.htm)
+
+   A relevant distinction appears in **Demir, C-225/12**, recorded in the same official digest, entry **25**, referring to paragraphs **48–49 and operative ruling 2**: a provisional permission valid only pending a final residence decision does not constitute regular residence under Article 13. That concerns **provisional permission pending a decision**, not an express ruling that every permission with a short validity period is excluded. I found no later federal fee instruction resolving the remaining C-visa question.
+
+2. **A Fiktionsbescheinigung or Duldung cannot, by its name alone, establish reduced-fee eligibility.**
+
+   - **Fiktionsbescheinigung:** §81(5) makes it evidence of the effect of an application. Those effects differ: §81(4) continues the previous title; §81(3) sentence 1 treats residence as permitted; sentence 2 only suspends deportation. Consequently, a certificate under §81(4) is not necessarily a case of having lost the underlying D-visa or residence-permit status. **I found no official fee-specific source expressly deciding §52a eligibility for each of these categories.** [§81(3)–(5) AufenthG](https://www.gesetze-im-internet.de/aufenthg_2004/__81.html)
+   - The BMI notes **3.7.2, pp. 34–36**, discuss provisional residence, including §81(3) and (4), and Duldung when assessing acquisition of **Article 6 employment rights**. They distinguish provisional residence from merely time-limited permits. **Those passages must not be presented as a direct ruling on the broader §52a fee entitlement.** [BMI notes, disclosed copy](https://media.frag-den-staat.de/files/foi/705554/anwendungshinweise-zum-assoziationsrecht-ewg-tuerkei.pdf)
+   - **Duldung:** §60a(3) expressly leaves the obligation to leave intact. The Duldung exception in **§39 No. 5** concerns an entitlement acquired through marriage, civil partnership or a child’s birth—not acquiring a skilled-worker entitlement merely through a job offer. These provisions do not establish a reduced-fee route for your example. **I could not verify either a qualifying Duldung-to-§18b fee case or a categorical exclusion covering every possible additional association-law entitlement.** [§60a(3) AufenthG](https://www.gesetze-im-internet.de/aufenthg_2004/__60a.html), [§39 No. 5 AufenthV](https://www.gesetze-im-internet.de/aufenthv/__39.html)
+   - There are other possible in-country application categories: **§39 No. 6**, for example, covers someone entitled to be in Germany using another Schengen state’s residence title, provided the conditions for an entitlement to a German title are satisfied. **That establishes an application route, not the reduced fee; I found no official source settling its §52a treatment.** [§39 No. 6 AufenthV](https://www.gesetze-im-internet.de/aufenthv/__39.html)
+
+3. **I could not verify a current federal interpretation settling age at application versus issuance.**
+
+   **§1(1) No. 1 PAuswGebV** expressly uses age at application for the German identity card: “im Zeitpunkt der Antragstellung noch nicht 24 Jahre alt”. **Current §52a(2), sentence 2**, instead says: “Wird der Aufenthaltstitel für eine Person ausgestellt, die noch nicht 24 Jahre alt ist”. Its cross-reference expressly concerns the fee’s amount. [§1 PAuswGebV](https://www.gesetze-im-internet.de/pauswgebv/__1.html), [§52a AufenthV](https://www.gesetze-im-internet.de/aufenthv/__52a.html)
+
+   There is useful historical evidence: **BR-Drucksache 75/14, printed p. 2, proposed §52a(2) No. 1(a)–(b)**, expressly used age **at application**. The **2021 explanation, printed p. 102, “Zu Nummer 3”**, describes linking fees dynamically to identity-card fees, including the younger-person rate; it does not explain the omission of the application-date wording. That supports an interpretation, but **does not expressly settle the current birthday-between-application-and-issuance case**. I found no current federal instruction or court ruling that does. [2014 proposal](https://dserver.bundestag.de/brd/2014/0075-14.pdf), [2021 explanatory memorandum](https://dserver.bundestag.de/btd/19/281/1928170.pdf)
+
+4. **The memorandum’s exact sentence**, at **printed p. 6, “Nummer 4 (§52a)”**—PDF page 11—is:
+
+   > Zu den Begünstigten gehört auch, wer sich als türkischer Staatsangehöriger ordnungsgemäß im Hoheitsgebiet der Bundesrepublik Deutschland befindet und die Absicht hat, eine Arbeit aufzunehmen.
+
+   [BR-Drucksache 75/14](https://dserver.bundestag.de/brd/2014/0075-14.pdf)
+
+   **The 2021 change neither narrowed nor widened §52a(1)’s personal scope.** **BT-Drucksache 19/28170, Article 5 No. 3, printed p. 42**, replaces **paragraph 2 only**. Its explanation on **p. 102** concerns dynamic adjustment of the amounts. Paragraph 1’s definition remains unchanged. This amendment supplies no new answer about C visas, Duldung or provisional residence. [BT-Drucksache 19/28170](https://dserver.bundestag.de/btd/19/281/1928170.pdf)
+
+URLs successfully opened and read this turn:
+
+https://www.gesetze-im-internet.de/aufenthv/__52a.html  
+https://www.gesetze-im-internet.de/aufenthv/__39.html  
+https://www.gesetze-im-internet.de/aufenthg_2004/__81.html  
+https://www.gesetze-im-internet.de/aufenthg_2004/__60a.html  
+https://www.gesetze-im-internet.de/pauswgebv/__1.html  
+https://dserver.bundestag.de/brd/2014/0075-14.pdf  
+https://dserver.bundestag.de/btd/19/281/1928170.pdf  
+https://curia.europa.eu/common/recdoc/repertoire_jurisp/bull_6/data/6_07_15_01.htm  
+https://www.bverwg.de/190313U1C12.12.0  
+https://ssl.bverwg.de/1C4.14  
+https://media.frag-den-staat.de/files/foi/705554/anwendungshinweise-zum-assoziationsrecht-ewg-tuerkei.pdf
