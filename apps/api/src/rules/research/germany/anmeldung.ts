@@ -44,10 +44,30 @@ export const CASE: ResearchCase = {
       name: 'Amt24 Sachsen, Wohnsitz – alleinige Wohnung oder Hauptwohnung anmelden',
       read: RULES_READ,
     },
+    muenchenRegistration: {
+      url: 'https://stadt.muenchen.de/service/info/wohnsitzanmeldung/1063475/n0/',
+      name: 'Landeshauptstadt München, Wohnsitzanmeldung',
+      read: RULES_READ,
+    },
+    duesseldorfRegistration: {
+      url: 'https://service.duesseldorf.de/suche/-/egov-bis-detail/dienstleistung/227/show',
+      name: 'Serviceportal Düsseldorf, Anmeldung eines Wohnsitzes',
+      read: RULES_READ,
+    },
+    wiesbadenRegistration: {
+      url: 'https://www.wiesbaden.de/vv/produkte/34/Wohnungsanmeldung',
+      name: 'Landeshauptstadt Wiesbaden, Wohnungsanmeldung in Wiesbaden',
+      read: RULES_READ,
+    },
+    freiburgRegistration: {
+      url: 'https://www.freiburg.de/pb/-/205332/vbid6020109',
+      name: 'freiburg.de, Service A-Z: Wohnsitz anmelden',
+      read: RULES_READ,
+    },
   },
   versions: [
-    // The Anmeldung for everyone, and the fee only where a Land's own page states it; Munich,
-    // Düsseldorf, Wiesbaden and Freiburg wait for their places (SB-228, SB-229).
+    // The Anmeldung for everyone, and the fee only where a Land's or a city's own page states it
+    // (SB-224); Munich's, Düsseldorf's, Wiesbaden's and Freiburg's under their Länder (SB-229).
     {
       obligation: 'report-your-address',
       document: 'anmeldung',
@@ -134,6 +154,82 @@ export const CASE: ResearchCase = {
       ],
       notes: {
         en: "In Saxony, registration is free under the state's guidance.",
+      },
+    },
+    {
+      obligation: 'report-your-address',
+      document: 'anmeldung',
+      validFrom: RULES_READ,
+      criteria: [{ dimension: 'residenceRegion', value: 'DE-BY.muenchen' }],
+      source: 'muenchenRegistration',
+      labels: ['munich-registration-free'],
+      facts: [
+        {
+          key: 'registrationFee',
+          operator: 'none',
+          source: 'muenchenRegistration',
+          labels: ['munich-registration-free'],
+        },
+      ],
+      notes: {
+        en: 'In Munich, registration is free. Munich also allows a representative and publishes a form for a missing landlord confirmation. The service page we checked for Munich does not offer ordinary registration by post.',
+      },
+    },
+    {
+      obligation: 'report-your-address',
+      document: 'anmeldung',
+      validFrom: RULES_READ,
+      criteria: [{ dimension: 'residenceRegion', value: 'DE-NW.duesseldorf' }],
+      source: 'duesseldorfRegistration',
+      labels: ['duesseldorf-registration-free'],
+      facts: [
+        {
+          key: 'registrationFee',
+          operator: 'none',
+          source: 'duesseldorfRegistration',
+          labels: ['duesseldorf-registration-free'],
+        },
+      ],
+      notes: {
+        en: 'In Düsseldorf, registration is free.',
+      },
+    },
+    {
+      obligation: 'report-your-address',
+      document: 'anmeldung',
+      validFrom: RULES_READ,
+      criteria: [{ dimension: 'residenceRegion', value: 'DE-HE.wiesbaden' }],
+      source: 'wiesbadenRegistration',
+      labels: ['wiesbaden-registration-free'],
+      facts: [
+        {
+          key: 'registrationFee',
+          operator: 'none',
+          source: 'wiesbadenRegistration',
+          labels: ['wiesbaden-registration-free'],
+        },
+      ],
+      notes: {
+        en: 'In Wiesbaden, registration is free.',
+      },
+    },
+    {
+      obligation: 'report-your-address',
+      document: 'anmeldung',
+      validFrom: RULES_READ,
+      criteria: [{ dimension: 'residenceRegion', value: 'DE-BW.freiburg' }],
+      source: 'freiburgRegistration',
+      labels: ['freiburg-registration-free'],
+      facts: [
+        {
+          key: 'registrationFee',
+          operator: 'none',
+          source: 'freiburgRegistration',
+          labels: ['freiburg-registration-free'],
+        },
+      ],
+      notes: {
+        en: 'In Freiburg, registration is free.',
       },
     },
   ],
