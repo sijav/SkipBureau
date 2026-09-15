@@ -1,0 +1,77 @@
+name: Northflank build
+
+# SB-232. Starts Northflank's build of one commit of the API, for a push it did
+# not build: the research publish runs it when a commit it pushed has no build
+# status three minutes later, and it can be run by hand for any commit.
+# NORTHFLANK_TOKEN is the owner's own repository secret. The logs of a public
+# repository are public, so nothing here prints the token, the service's
+# environment or Northflank's build message: only the build's id, commit and
+# status.
+on:
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: The full 40-character commit id to build
+        type: string
+        required: true
+
+permissions: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # Covers the twelve minutes the step waits for the build; the publish allows
+    # for GitHub's own time to cancel a job past this.
+    timeout-minutes: 15
+    env:
+      NF_TOKEN: ${{ secrets.NORTHFLANK_TOKEN }}
+      API: https://api.northflank.com/v1
+      PROJECT: skipbureau
+      SERVICE: buildfromgithub
+      SHA: ${{ inputs.sha }}
+    steps:
+      - name: Start the build and wait until it concludes
+        run: |
+          set -euo pipefail
+          if ! [[ "$SHA" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "::error::sha must be a full 40-character commit id"
+            exit 1
+          fi
+
+          body=$(jq -n --arg sha "$SHA" '{sha: $sha}')
+          code=$(curl -sS -o started.json -w '%{http_code}' -X POST \
+            -H "Authorization: Bearer $NF_TOKEN" -H 'Content-Type: application/json' \
+            -d "$body" "$API/projects/$PROJECT/services/$SERVICE/build")
+          if [ "$code" -ge 300 ]; then
+            echo "::error::Northflank answered $code to the build request"
+            # Its error object where the answer is JSON, else the start of the text.
+            jq '{error}' started.json 2> /dev/null || head -c 400 started.json
+            exit 1
+          fi
+          id=$(jq -r '.data.id // empty' started.json)
+          if [ -z "$id" ]; then
+            echo "::error::Northflank's answer names no build"
+            exit 1
+          fi
+          jq -c '.data | {id, sha, status}' started.json
+
+          # That answer only says the build was accepted, so it is read until it
+          # concludes: every 15 seconds, for twelve minutes.
+          for _ in $(seq 48); do
+            sleep 15
+            if ! curl -sS --fail -o build.json -H "Authorization: Bearer $NF_TOKEN" \
+              "$API/projects/$PROJECT/services/$SERVICE/build/$id"; then
+              echo "reading build $id failed, trying again"
+              continue
+            fi
+            jq -c '.data | {id, sha, status, concluded}' build.json
+            if [ "$(jq -r '.data.concluded' build.json)" = "true" ]; then
+              if [ "$(jq -r '.data.success' build.json)" = "true" ]; then
+                exit 0
+              fi
+              echo "::error::Northflank's build $id of $SHA ended $(jq -r '.data.status' build.json)"
+              exit 1
+            fi
+          done
+          echo "::error::Northflank's build $id of $SHA had not concluded after twelve minutes"
+          exit 1
