@@ -17,7 +17,10 @@ import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { digestOf } from '../src/rules/research/digest.js'
-import type { ResearchCase, ResearchFact, ResearchRules, ResearchVersion } from '../src/rules/research/rows.js'
+import type { ResearchCase, ResearchRules, ResearchVersion } from '../src/rules/research/rows.js'
+import { answerOf, type Answer } from '../src/rules/answer.js'
+import type { Fact } from '../src/rules/diff.js'
+import type { Trees } from '../src/rules/eligibility.js'
 
 const API = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const LIVE = process.env['SKIPBUREAU_API'] ?? 'https://p01--buildfromgithub--fsy7zpnfgznq.code.run/graphql'
@@ -162,13 +165,31 @@ const isCase = (value: unknown): value is ResearchCase => isRecord(value) && typ
 const identity = (version: ResearchVersion): string =>
   `${version.obligation} from ${version.validFrom} for ${JSON.stringify(version.criteria.map((criterion) => `${criterion.dimension}:${criterion.value}`).sort())}`
 
-export type Reader = { to: string; statuses?: string[]; nationality?: string; situation?: string; regions?: string[] }
+export type Reader = {
+  to: string
+  statuses?: string[]
+  nationality?: string
+  situation?: string
+  regions?: string[]
+  workRegions?: string[]
+}
 
 /** The nationality of a reader no nationality rule is for: ISO 3166 leaves `xx` to users, so no rule or group may name it (SB-242). */
 export const NO_RULE_NATIONALITY = 'xx'
 
 const namesNationality = (version: ResearchVersion): boolean =>
   version.criteria.some((criterion) => criterion.dimension === 'nationality' || criterion.dimension === 'nationalityGroup')
+
+/** A Land in which no version of the obligation names a place of this kind, or none where no version names one. */
+const unnamedLand = (rules: ResearchRules, obligation: string, dimension: 'residenceRegion' | 'workRegion'): string | undefined => {
+  const named = rules.versions
+    .filter((other) => other.obligation === obligation)
+    .flatMap((other) => other.criteria.filter((criterion) => criterion.dimension === dimension).map((criterion) => criterion.value))
+  if (named.length === 0) return undefined
+  return rules.regions.find(
+    (region) => region.parent === null && !named.some((code) => code === region.code || code.startsWith(`${region.code}.`)),
+  )?.code
+}
 
 export const readerFor = (rules: ResearchRules, version: ResearchVersion): Reader => {
   const reader: Reader = { to: rules.country }
@@ -180,48 +201,60 @@ export const readerFor = (rules: ResearchRules, version: ResearchVersion): Reade
     if (criterion.dimension === 'situation') reader.situation = criterion.value
     if (criterion.dimension === 'nationality') reader.nationality = criterion.value
     if (criterion.dimension === 'residenceRegion') reader.regions = [criterion.value]
+    if (criterion.dimension === 'workRegion') reader.workRegions = [criterion.value]
     if (criterion.dimension === 'nationalityGroup') {
       const member = rules.nationalityGroups.find((group) => group.code === criterion.value)?.members[0]?.nationality
       if (member) reader.nationality = member
     }
   }
-  // A version with no place, whose obligation has a place's version, is asked from a Land in which no rule names a
-  // place: a Land holding a named city asks where in it the reader will live.
-  const named = new Set(
-    rules.versions
-      .filter((other) => other.obligation === version.obligation)
-      .flatMap((other) =>
-        other.criteria.filter((criterion) => criterion.dimension === 'residenceRegion').map((criterion) => criterion.value),
-      ),
-  )
-  const elsewhere = rules.regions.find(
-    (region) => region.parent === null && ![...named].some((code) => code === region.code || code.startsWith(`${region.code}.`)),
-  )
-  if (!reader.regions && named.size > 0 && elsewhere) reader.regions = [elsewhere.code]
+  // A version with no place of a kind, whose obligation has a version naming one, is asked from a Land in which no rule
+  // names a place of that kind: a Land holding a named city asks where in it the reader lives or works (SB-229, SB-249).
+  const livesIn = unnamedLand(rules, version.obligation, 'residenceRegion')
+  if (!reader.regions && livesIn) reader.regions = [livesIn]
+  const worksIn = unnamedLand(rules, version.obligation, 'workRegion')
+  if (!reader.workRegions && worksIn) reader.workRegions = [worksIn]
   return reader
 }
 
-/** The versions a place's version takes the facts it does not state from: the same obligation and other criteria, no place. */
-const widerOf = (rules: ResearchRules, version: ResearchVersion): ResearchVersion[] => {
-  const place = version.criteria.some((criterion) => criterion.dimension === 'residenceRegion')
-  if (!place) return []
-  return rules.versions.filter(
-    (other) =>
-      other !== version &&
-      other.obligation === version.obligation &&
-      !other.criteria.some((criterion) => criterion.dimension === 'residenceRegion') &&
-      other.criteria.length === version.criteria.length - 1 &&
-      other.criteria.every((criterion) =>
-        version.criteria.some((mine) => mine.dimension === criterion.dimension && mine.value === criterion.value),
-      ),
-  )
-}
+/** A version's facts as the resolver holds them, each with the page, name and read date its source gives (SB-249). */
+export const factsOf = (rules: ResearchRules, version: ResearchVersion): Fact[] =>
+  version.facts.map((fact) => {
+    const page = rules.sources[fact.source]
+    return {
+      key: fact.key,
+      operator: fact.operator,
+      numericValue: fact.numericValue === undefined ? null : String(fact.numericValue),
+      textValue: fact.textValue ?? null,
+      unit: fact.unit ?? null,
+      currency: fact.currency ?? null,
+      ruleVersionId: identity(version),
+      sourceUrl: page?.url ?? '',
+      sourceName: page?.name ?? '',
+      verifiedAt: page?.read ?? '',
+    }
+  })
 
-/** What a version's reader must be served: its own facts, and those it takes from a wider version. */
-export const expectedOf = (rules: ResearchRules, version: ResearchVersion): ResearchFact[] => [
-  ...version.facts,
-  ...widerOf(rules, version).flatMap((wider) => wider.facts.filter((fact) => !version.facts.some((mine) => mine.key === fact.key))),
-]
+/** Whether a version holds on a day, YYYY-MM-DD: from its first day until the first day it no longer does. */
+export const inForceOn = (version: ResearchVersion, day: string): boolean =>
+  version.validFrom <= day && (version.validTo === undefined || day < version.validTo)
+
+/** The file's places and statuses, each code to its parent, as the resolver builds its trees from the database. */
+const treesOf = (rules: ResearchRules): Trees => ({
+  places: new Map(rules.regions.map((region) => [region.code, region.parent])),
+  statuses: new Map(rules.statuses.map((status) => [status.code, status.parent])),
+})
+
+/**
+ * What the deployed resolver answers a reader a version is for: its facts completed from the versions in force on the day
+ * that it narrows, by the resolver's own answerOf, so the read-back never holds a second copy of that rule (SB-249).
+ */
+export const expectedOf = (rules: ResearchRules, version: ResearchVersion, day: string): Answer => {
+  const standing = rules.versions
+    .filter((other) => other.obligation === version.obligation && inForceOn(other, day))
+    .map((other) => ({ id: identity(other), criteria: other.criteria, facts: factsOf(rules, other), open: [] }))
+  const candidate = standing.find((other) => other.id === identity(version))
+  return candidate ? answerOf(candidate, standing, treesOf(rules)) : { facts: [], disputed: null }
+}
 
 export type Served = {
   key: string
@@ -238,21 +271,20 @@ type Entry = { obligationSlug: string; to: { facts: Served[] } | null }
 
 const isEntry = (value: unknown): value is Entry => isRecord(value) && typeof value['obligationSlug'] === 'string'
 
-export const shows = (sources: ResearchRules['sources'], served: readonly Served[], fact: ResearchFact): boolean => {
-  const page = sources[fact.source]
-  return served.some(
+/** Whether the served facts hold this one, every field the API serves compared, the version it came from aside. */
+export const shows = (served: readonly Served[], fact: Fact): boolean =>
+  served.some(
     (shown) =>
       shown.key === fact.key &&
       shown.operator === fact.operator &&
-      shown.numericValue === (fact.numericValue === undefined ? null : String(fact.numericValue)) &&
-      shown.textValue === (fact.textValue ?? null) &&
-      shown.unit === (fact.unit ?? null) &&
-      shown.currency === (fact.currency ?? null) &&
-      shown.sourceUrl === page?.url &&
-      shown.sourceName === page?.name &&
-      shown.verifiedAt === page?.read,
+      shown.numericValue === fact.numericValue &&
+      shown.textValue === fact.textValue &&
+      shown.unit === fact.unit &&
+      shown.currency === fact.currency &&
+      shown.sourceUrl === fact.sourceUrl &&
+      shown.sourceName === fact.sourceName &&
+      shown.verifiedAt === fact.verifiedAt,
   )
-}
 
 const ask = async (query: string, variables: Record<string, unknown>): Promise<{ data: unknown; errors: string[] }> => {
   const response = await fetch(LIVE, {
@@ -273,8 +305,8 @@ const ask = async (query: string, variables: Record<string, unknown>): Promise<{
   }
 }
 
-export const MOVE = `query Sweep($to: String!, $statuses: [String!], $nationality: String, $situation: String, $regions: [String!]) {
-  move(from: "xx", to: $to, residenceStatuses: $statuses, nationality: $nationality, situation: $situation, toResidenceRegions: $regions) {
+export const MOVE = `query Sweep($to: String!, $statuses: [String!], $nationality: String, $situation: String, $regions: [String!], $workRegions: [String!]) {
+  move(from: "xx", to: $to, residenceStatuses: $statuses, nationality: $nationality, situation: $situation, toResidenceRegions: $regions, toWorkRegions: $workRegions) {
     obligationSlug
     to { facts { key operator numericValue textValue unit currency sourceUrl sourceName verifiedAt } }
   }
@@ -548,11 +580,16 @@ const main = async (): Promise<void> => {
   }
 
   const problems: string[] = []
-  for (const version of current.versions ?? []) {
+  // Only a version in force today is asked, since the deployed resolver answers nothing else today (SB-249).
+  const today = new Date().toISOString().slice(0, 10)
+  for (const version of (current.versions ?? []).filter((version) => inForceOn(version, today))) {
+    const answer = expectedOf(rules, version, today)
+    if (answer.disputed !== null) {
+      problems.push(`${identity(version)}: the file's own versions dispute its answer: ${answer.disputed}`)
+      continue
+    }
     const { served, errors } = await servedFor(readerFor(rules, version), version.obligation)
-    const missing = expectedOf(rules, version)
-      .filter((fact) => !shows(rules.sources, served, fact))
-      .map((fact) => fact.key)
+    const missing = answer.facts.filter((fact) => !shows(served, fact)).map((fact) => fact.key)
     if (errors.length > 0 || missing.length > 0)
       problems.push(`${identity(version)}: ${[...errors, ...missing.map((key) => `${key} not served`)].join('; ')}`)
   }
@@ -564,7 +601,9 @@ const main = async (): Promise<void> => {
   const oldSources = { ...rules.sources, ...(previous?.sources ?? {}) }
   for (const version of (previous?.versions ?? []).filter((old) => !kept.has(identity(old)))) {
     const { served } = await servedFor(readerFor(rules, version), version.obligation)
-    const still = version.facts.filter((fact) => shows(oldSources, served, fact)).map((fact) => fact.key)
+    const still = factsOf({ ...rules, sources: oldSources }, version)
+      .filter((fact) => shows(served, fact))
+      .map((fact) => fact.key)
     if (still.length > 0) problems.push(`${identity(version)} was removed and still serves ${still.join(', ')}`)
   }
   const placesKept = new Set((current.regions ?? []).map((region) => region.code))

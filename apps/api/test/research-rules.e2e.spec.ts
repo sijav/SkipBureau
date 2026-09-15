@@ -18,7 +18,8 @@ import { GERMANY } from '../src/rules/research/germany.js'
 import { TURKEY } from '../src/rules/research/turkey.js'
 import { seed } from '../prisma/seed.js'
 import { startPglite } from '../scripts/pglite-server.mjs'
-import { expectedOf, MOVE as READ_BACK, readerFor, shows, type Served } from '../scripts/publish-research.js'
+import { withWorkPlaces } from './work-places.js'
+import { expectedOf, inForceOn, MOVE as READ_BACK, readerFor, shows, type Served } from '../scripts/publish-research.js'
 
 // SB-190: researched rules reach the database only from src/rules/research,
 // every version and fact resting on verified definitions of its agreed document,
@@ -694,20 +695,28 @@ test("a skilled worker with a degree holding a national D visa or a residence pe
   expect(await ownedBy('germany')).toEqual(before)
 })
 
-test("every version of each researched file is served to the reader the publish's read-back asks it as, and so is a version with no nationality beside one for a nationality group", async () => {
-  const unservedIn = async (rules: ResearchRules): Promise<string[]> => {
-    const unserved: string[] = []
-    for (const version of rules.versions) {
-      const response = await graphql(READ_BACK, { ...readerFor(rules, version) })
-      expect(response.body.errors, JSON.stringify(response.body.errors)).toBeUndefined()
-      const entries: { obligationSlug: string; to: { facts: Served[] } | null }[] = response.body.data.move
-      const served = entries.find((entry) => entry.obligationSlug === version.obligation)?.to?.facts ?? []
-      const missing = expectedOf(rules, version).filter((fact) => !shows(rules.sources, served, fact))
-      if (missing.length > 0)
-        unserved.push(`${version.obligation} ${JSON.stringify(version.criteria)}: ${missing.map((fact) => fact.key).join(', ')}`)
+/** What the publish's read-back would report for a file: every version in force today it would find unserved or disputed. */
+const unservedIn = async (rules: ResearchRules): Promise<string[]> => {
+  const today = new Date().toISOString().slice(0, 10)
+  const unserved: string[] = []
+  for (const version of rules.versions.filter((version) => inForceOn(version, today))) {
+    const label = `${version.obligation} ${JSON.stringify(version.criteria)}`
+    const answer = expectedOf(rules, version, today)
+    if (answer.disputed !== null) {
+      unserved.push(`${label}: disputed`)
+      continue
     }
-    return unserved
+    const response = await graphql(READ_BACK, { ...readerFor(rules, version) })
+    expect(response.body.errors, JSON.stringify(response.body.errors)).toBeUndefined()
+    const entries: { obligationSlug: string; to: { facts: Served[] } | null }[] = response.body.data.move
+    const served = entries.find((entry) => entry.obligationSlug === version.obligation)?.to?.facts ?? []
+    const missing = answer.facts.filter((fact) => !shows(served, fact))
+    if (missing.length > 0) unserved.push(`${label}: ${missing.map((fact) => fact.key).join(', ')}`)
   }
+  return unserved
+}
+
+test("every version of each researched file is served to the reader the publish's read-back asks it as, and so is a version with no nationality beside one for a nationality group", async () => {
   for (const rules of COUNTRIES) expect(await unservedIn(rules), rules.research).toEqual([])
 
   // SB-242: a version for a nationality group beside the D visa's federal one, on a copy of Germany's file, so the
@@ -737,6 +746,40 @@ test("every version of each researched file is served to the reader the publish'
   try {
     await loadResearchRules(prisma, [withGroup])
     expect(await unservedIn(withGroup)).toEqual([])
+  } finally {
+    await loadResearchRules(prisma, [GERMANY])
+  }
+  expect(await ownedBy('germany')).toEqual(before)
+})
+
+const NOTED = `
+  query Noted($to: String!, $regions: [String!], $workRegions: [String!]) {
+    move(from: "xx", to: $to, toResidenceRegions: $regions, toWorkRegions: $workRegions) {
+      obligationSlug
+      to {
+        facts { key sourceUrl }
+        notes { text }
+      }
+    }
+  }
+`
+
+test("a version for where a reader works, and one for where they live and work, are served to the publish's read-back as it expects, and a fact two equally specific versions state alike comes from the page that sorts first, with that version's note", async () => {
+  const { rules, work, mixed } = withWorkPlaces()
+  const before = await ownedBy('germany')
+  try {
+    await loadResearchRules(prisma, [rules])
+    expect(await unservedIn(rules)).toEqual([])
+
+    // The tie, asked of the resolver itself: the work version's page sorts first, so its fact and its note are served.
+    const { to, regions, workRegions } = readerFor(rules, mixed)
+    const response = await graphql(NOTED, { to, regions, workRegions })
+    expect(response.body.errors, JSON.stringify(response.body.errors)).toBeUndefined()
+    const entries: { obligationSlug: string; to: { facts: { key: string; sourceUrl: string }[]; notes: { text: string }[] } | null }[] =
+      response.body.data.move
+    const answer = entries.find((entry) => entry.obligationSlug === mixed.obligation)?.to
+    expect(answer?.facts.find((fact) => fact.key === 'specTie')?.sourceUrl).toBe(rules.sources[work.source]?.url)
+    expect(answer?.notes.map((note) => note.text)).toContain(work.notes.en)
   } finally {
     await loadResearchRules(prisma, [GERMANY])
   }

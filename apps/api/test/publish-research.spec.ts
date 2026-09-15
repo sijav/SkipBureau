@@ -10,6 +10,8 @@ import {
   commitBytes,
   dispatchArgs,
   emptyCase,
+  expectedOf,
+  inForceOn,
   lastUnreverted,
   messageOf,
   NO_RULE_NATIONALITY,
@@ -24,6 +26,7 @@ import { RESEARCHED } from '../src/rules/research/countries.js'
 import { digestOf } from '../src/rules/research/digest.js'
 import { GERMANY } from '../src/rules/research/germany.js'
 import type { ResearchRules, ResearchVersion } from '../src/rules/research/rows.js'
+import { withWorkPlaces } from './work-places.js'
 
 // SB-232: the parts of the research publish script that need no database and no network, and its
 // commit, built in a temporary repository.
@@ -192,6 +195,56 @@ test('a version with no nationality, beside one for a nationality group, is aske
     ]
     expect(named, rules.research).not.toContain(NO_RULE_NATIONALITY)
   }
+})
+
+test('a version for where a reader works is asked with its work region, and a version naming none, beside it, from a Land in which no rule names a work region', () => {
+  const { rules, federal, hamburg, work, mixed } = withWorkPlaces()
+  const worksNamed = rules.versions.flatMap((version) =>
+    version.criteria.filter((criterion) => criterion.dimension === 'workRegion').map((criterion) => criterion.value),
+  )
+
+  const asWorker = readerFor(rules, work)
+  expect(asWorker.workRegions).toEqual(['DE-SN'])
+  expect(asWorker.regions).toHaveLength(1)
+  expect(readerFor(rules, mixed)).toMatchObject({ regions: ['DE-HH'], workRegions: ['DE-SN'] })
+  for (const version of [federal, hamburg]) {
+    const [worksIn, ...more] = readerFor(rules, version).workRegions ?? []
+    expect(more).toEqual([])
+    expect(worksIn, 'a work region for a version naming none').toBeDefined()
+    expect(worksNamed.some((code) => code === worksIn || code.startsWith(`${worksIn}.`))).toBe(false)
+  }
+  expect(readerFor(rules, hamburg).regions).toEqual(['DE-HH'])
+  expect(readerFor(GERMANY, federal).workRegions).toBeUndefined()
+})
+
+test("what a version's reader must be served is the resolver's own answer: each key from the most specific wider version, equal facts from the page that sorts first, and a key two of them state differently disputed", () => {
+  const today = '2026-09-15'
+  const { rules, federal, hamburg, work, mixed } = withWorkPlaces()
+  const pageOf = (version: ResearchVersion) => rules.sources[version.source]?.url ?? ''
+  // The test's premise: the work version's page sorts before Hamburg's, and its id would not, so page order and id order
+  // pick different facts.
+  expect(pageOf(work) < pageOf(hamburg)).toBe(true)
+
+  const answer = expectedOf(rules, mixed, today)
+  expect(answer.disputed).toBeNull()
+  const from = new Map(answer.facts.map((fact) => [fact.key, fact.sourceUrl]))
+  expect(from.get('specMixedOnly')).toBe(pageOf(hamburg))
+  expect(from.get('registrationFee')).toBe(pageOf(hamburg))
+  expect(from.get('specTie')).toBe(pageOf(work))
+  for (const key of federal.facts.map((fact) => fact.key)) expect(from.has(key), key).toBe(true)
+
+  expect(expectedOf(withWorkPlaces(true).rules, mixed, today).disputed).not.toBeNull()
+})
+
+test('a version is asked only on the days it holds, from its first day until the first day it no longer does', () => {
+  const [version] = GERMANY.versions
+  if (!version) throw new Error("Germany's file has no version")
+  const held = { ...version, validFrom: '2026-09-15', validTo: '2026-10-01' }
+  expect(inForceOn(held, '2026-09-14')).toBe(false)
+  expect(inForceOn(held, '2026-09-15')).toBe(true)
+  expect(inForceOn(held, '2026-09-30')).toBe(true)
+  expect(inForceOn(held, '2026-10-01')).toBe(false)
+  expect(inForceOn({ ...version, validFrom: '2026-09-15' }, '2099-01-01')).toBe(true)
 })
 
 test("Northflank's state of a commit is its newest status in Northflank's own context, another context's passed over, and none where it posted none", () => {
