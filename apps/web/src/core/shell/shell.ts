@@ -27,11 +27,14 @@ export type Shell = {
   place: { code: string; name: string } | null
   /** The residence status the reader holds, once confirmed, for links built above the route (SB-256). */
   status: string | null
+  /** The reader's role, a situation the country's rules name, once confirmed, for the same (SB-286). */
+  situation: string | null
   /**
-   * Whether the address's status is read yet: false only for the first render
-   * of a page hydrated from its file, which was rendered without it (SB-256).
+   * Whether the address's query, the status and the role, is read yet: false
+   * only for the first render of a page hydrated from its file, which was
+   * rendered without them (SB-256, SB-286).
    */
-  readsStatus: boolean
+  readsQuery: boolean
   /** Whether the details panel is open, so a page can open it too, as a rule's answer asks for a detail (SB-257). */
   detailsOpen: boolean
   setDetailsOpen: (open: boolean) => void
@@ -45,7 +48,8 @@ export const ShellContext = createContext<Shell>({
   origin: null,
   place: null,
   status: null,
-  readsStatus: true,
+  situation: null,
+  readsQuery: true,
   detailsOpen: false,
   setDetailsOpen: () => undefined,
 })

@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom'
 import { useQuery } from 'urql'
 import { CountryQuery, overThePage, ReaderDetailsQuery } from 'src/core/graphql'
-import { canonicalPath, destinationFromSegment, readerFromSegment, statusFromSearch } from './paths'
+import { canonicalPath, destinationFromSegment, readerFromSegment, situationFromSearch, statusFromSearch } from './paths'
 
 /**
  * The reader and the country an address names, `/en-IR/TR/...`, and the
@@ -23,17 +23,20 @@ import { canonicalPath, destinationFromSegment, readerFromSegment, statusFromSea
  * the residence status in its query, with the country's places and statuses
  * to check them against, asked only when there is one to check and never
  * suspending, so a status applied after hydration leaves the page as it is
- * until they are in. `readsStatus` is false for the first render of a page
- * hydrated from its file, which was rendered without the status.
+ * until they are in. SB-286: the role in its query too, `?situation=worker`,
+ * checked against the situations the country's rules name. `readsQuery` is
+ * false for the first render of a page hydrated from its file, which was
+ * rendered without the status and the role, so both are read together after.
  */
-export const useAddressCountry = ({ readsStatus = true }: { readsStatus?: boolean } = {}) => {
+export const useAddressCountry = ({ readsQuery = true }: { readsQuery?: boolean } = {}) => {
   const location = useLocation()
   const [, readerSegment = '', destinationSegment = ''] = location.pathname.split('/')
   const reader = readerFromSegment(readerSegment)
   const destination = destinationFromSegment(destinationSegment)
   const code = destination?.country ?? null
   const place = destination?.place ?? null
-  const status = readsStatus ? statusFromSearch(location.search) : null
+  const status = readsQuery ? statusFromSearch(location.search) : null
+  const situation = readsQuery ? situationFromSearch(location.search) : null
   // One page, one address: `/en/tr/t/x` and `/EN/TR/tasks/x` are both
   // `/en/TR/tasks/x`, and links shared before the markers were spelled out
   // still arrive.
@@ -53,10 +56,10 @@ export const useAddressCountry = ({ readsStatus = true }: { readsStatus?: boolea
   const [details, refetchDetails] = useQuery({
     query: ReaderDetailsQuery,
     variables: { country: code ?? '', locale: reader?.locale },
-    pause: !reader || !code || moved || (place === null && status === null),
+    pause: !reader || !code || moved || (place === null && status === null && situation === null),
     requestPolicy: 'cache-first',
     context: overThePage,
   })
 
-  return { location, reader, code, place, status, canonical, moved, result, refetch, details, refetchDetails }
+  return { location, reader, code, place, status, situation, canonical, moved, result, refetch, details, refetchDetails }
 }

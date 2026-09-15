@@ -38,10 +38,16 @@ const meta = {
       { code: 'tr.short-stay', name: 'A stay on a visa or visa exemption', depth: 0 },
       { code: 'tr.short-stay.visa', name: 'Visa', depth: 1 },
     ],
+    situation: null,
+    situations: [
+      { code: 'company-founder', name: 'Company founder' },
+      { code: 'worker', name: 'Worker' },
+    ],
     onOrigin: fn(),
     onCountry: fn(),
     onPlace: fn(),
     onStatus: fn(),
+    onSituation: fn(),
     onClear: fn(),
   },
 } satisfies Meta<typeof ContextPanel>
@@ -126,17 +132,28 @@ export const ResidenceStatus: Story = {
   },
 }
 
-/** Figma 47:663, Complete: every row the reader has said, as text, with Role still to come. */
+/** The reader's role (SB-286): the situations the country's rules name, and choosing one says it. */
+export const Role: Story = {
+  play: async ({ canvasElement, args }) => {
+    await userEvent.click(addIn(canvasElement, /^Role$/))
+    await userEvent.click(await within(window.document.body).findByRole('option', { name: /^Worker$/ }))
+    await expect(args.onSituation).toHaveBeenCalledWith('worker')
+  },
+}
+
+/** Figma 47:663, Complete: every row the reader has said, as text. */
 export const Complete: Story = {
   args: {
     origin: { code: 'ir', name: 'Iran' },
     place: { code: 'TR-35', name: 'İzmir' },
     status: { code: 'tr.residence-permit', name: 'Residence permit' },
+    situation: { code: 'worker', name: 'Worker' },
   },
   play: async ({ canvasElement, args }) => {
     const panel = within(canvasElement)
     await expect(await panel.findByRole('button', { name: /İzmir/ })).toBeVisible()
     await expect(panel.getByRole('button', { name: /Residence permit/ })).toBeVisible()
+    await expect(panel.getByRole('button', { name: /^Worker$/ })).toBeVisible()
     await expect(panel.queryAllByRole('button', { name: /^Add$/ })).toHaveLength(0)
     await userEvent.click(panel.getByRole('button', { name: /Clear all/ }))
     await expect(args.onClear).toHaveBeenCalled()

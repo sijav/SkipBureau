@@ -383,6 +383,10 @@ msgstr "مشکلات رایج"
 msgid "Common questions"
 msgstr "پرسش‌های رایج"
 
+#: src/shared/context-control/situationLabels.ts
+msgid "Company founder"
+msgstr "بنیان‌گذار شرکت"
+
 #: src/shared/task-tile/TaskTile.stories.tsx
 msgid "Company types, registration and first obligations"
 msgstr "انواع شرکت، ثبت و نخستین تعهدات"
@@ -1349,6 +1353,10 @@ msgid "Type a place"
 msgstr "نام مکان را بنویسید"
 
 #: src/shared/context-control/ContextPanel.tsx
+msgid "Type a role"
+msgstr "نام نقش را بنویسید"
+
+#: src/shared/context-control/ContextPanel.tsx
 msgid "Type a status"
 msgstr "نام وضعیت را بنویسید"
 
@@ -1577,6 +1585,10 @@ msgstr "اینکه مدرک تحصیلی شما آپوستیل لازم دارد
 msgid "within {number}"
 msgstr "ظرف {number}"
 
+#: src/shared/context-control/situationLabels.ts
+msgid "Worker"
+msgstr "شاغل"
+
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Yes, bring the original and one copy"
 msgstr "بله، اصل و یک رونوشت را بیاورید"
@@ -1626,6 +1638,10 @@ msgstr "گذرنامهٔ شما باید دست‌کم ۶۰ روز پس از پ�
 msgid "Your residence status"
 msgstr "وضعیت اقامت شما"
 
+#: src/screens/guide/Guide.tsx
+msgid "Your role"
+msgstr "نقش شما"
+
 #: src/shared/rule-answer/factLabels.ts
 msgid "Your share of inpatient care, at a non-contracted provider or a public hospital outside Annex 1"
 msgstr "سهم شما از هزینهٔ درمان بستری، نزد ارائه‌دهندهٔ بدون قرارداد یا بیمارستان دولتی بیرون از پیوست ۱"
@@ -1651,8 +1667,8 @@ msgid "Your share of outpatient care, at a public hospital named in Annex 1"
 msgstr "سهم شما از هزینهٔ درمان سرپایی، در بیمارستان دولتی نام‌برده در پیوست ۱"
 
 #: src/screens/guide/Guide.tsx
-msgid "Your situation"
-msgstr "وضعیت شما"
+#~ msgid "Your situation"
+#~ msgstr "وضعیت شما"
 
 #: src/shared/rule-answer/factLabels.ts
 msgid "Your stay while the application is decided"

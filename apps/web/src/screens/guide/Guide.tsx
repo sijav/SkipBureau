@@ -53,12 +53,13 @@ export const Guide = () => {
   // SB-257: the linked rules answered for the reader the link names. Only in the
   // browser, and never suspending, so the first render is the prerendered
   // file's, the rule for everyone, and the reader's answer replaces it when it
-  // comes. A place or a status is sent only where the link has one.
+  // comes. A place, a status or a role is sent only where the link has one.
   const obligations = data?.guide?.obligations ?? []
   const reader = {
     ...(journey.origin ? { nationality: journey.origin } : {}),
     ...(journey.place ? { residenceRegions: [journey.place] } : {}),
     ...(journey.status ? { residenceStatuses: [journey.status] } : {}),
+    ...(journey.situation ? { situation: journey.situation } : {}),
   }
   const [{ data: answers }] = useQuery({
     query: GuideAnswersQuery,
@@ -141,7 +142,8 @@ export const Guide = () => {
     residenceRegion: t`Where you live`,
     residenceStatus: t`Your residence status`,
     nationality: t`Your nationality`,
-    situation: t`Your situation`,
+    // The panel's row is Role, so the question uses its word (SB-286).
+    situation: t`Your role`,
     workRegion: t`Where you work`,
   }
   const answerOf = new Map((answers?.guide?.obligations ?? []).map((row) => [row.slug, row.reader]))

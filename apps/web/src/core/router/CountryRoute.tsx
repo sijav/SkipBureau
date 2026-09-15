@@ -7,20 +7,21 @@ import { Unreachable } from 'src/screens/Unreachable'
 import { useAddressCountry } from './addressCountry'
 
 export const CountryRoute = () => {
-  const { readsStatus } = useShell()
+  const { readsQuery } = useShell()
   const {
     location,
     reader,
     code,
     place,
     status,
+    situation,
     canonical,
     moved,
     result: { data, fetching, error },
     refetch,
     details,
     refetchDetails,
-  } = useAddressCountry({ readsStatus })
+  } = useAddressCountry({ readsQuery })
 
   if (canonical !== null && moved) return <Navigate replace to={{ pathname: canonical, search: location.search, hash: location.hash }} />
   if (!reader || !code) return <NotFound />
@@ -37,21 +38,32 @@ export const CountryRoute = () => {
   if (!data?.country) return <NotFound />
 
   // SB-256: a place or a status the country does not have is the same stale
-  // link as a country we do not cover. A place is checked before the page
-  // draws; a status once its answer is in, so a page hydrated from its file
-  // stays on screen meanwhile, without the status.
+  // link as a country we do not cover, and so is a role its rules do not name
+  // (SB-286). A place is checked before the page draws; a status and a role
+  // once their answer is in, so a page hydrated from its file stays on screen
+  // meanwhile, without them.
   const places = details.data?.places
   const statuses = details.data?.residenceStatuses
+  const situations = details.data?.situations
   if (details.error && !details.data) {
     return <Unreachable onRetry={() => startTransition(() => refetchDetails({ requestPolicy: 'network-only' }))} />
   }
   if (place !== null && !places) return null
   if (place !== null && !places?.some((row) => row.code === place)) return <NotFound />
   if (status !== null && statuses && !statuses.some((row) => row.code === status)) return <NotFound />
+  if (situation !== null && situations && !situations.includes(situation)) return <NotFound />
   const confirmedStatus = status !== null && statuses?.some((row) => row.code === status) ? status : null
+  const confirmedSituation = situation !== null && situations?.includes(situation) ? situation : null
 
   return (
-    <CountryProvider country={validated(data.country.code)} name={data.country.name} origin={reader.origin} place={place} status={confirmedStatus}>
+    <CountryProvider
+      country={validated(data.country.code)}
+      name={data.country.name}
+      origin={reader.origin}
+      place={place}
+      status={confirmedStatus}
+      situation={confirmedSituation}
+    >
       <Outlet />
     </CountryProvider>
   )

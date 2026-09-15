@@ -9,8 +9,9 @@ export type CountryProviderProps = {
   origin?: string | null
   place?: string | null
   status?: string | null
+  situation?: string | null
 }
 
-export const CountryProvider = ({ children, country, name, origin = null, place = null, status = null }: CountryProviderProps) => (
-  <Context value={{ country, name, origin, place, status }}>{children}</Context>
+export const CountryProvider = ({ children, country, name, origin = null, place = null, status = null, situation = null }: CountryProviderProps) => (
+  <Context value={{ country, name, origin, place, status, situation }}>{children}</Context>
 )

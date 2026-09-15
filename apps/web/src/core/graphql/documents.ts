@@ -184,6 +184,7 @@ export const ReaderDetailsQuery = graphql(`
       parentCode
       name
     }
+    situations(country: $country)
   }
 `)
 

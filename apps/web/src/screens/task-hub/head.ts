@@ -10,7 +10,7 @@ type TaskHubHeadData = { slug: string; title: string; heading?: string | null | 
 export const taskHubHead = (hub: TaskHubHeadData, country: CountryCode, name: string): PageHeadProps => ({
   title: withCountry(hub.heading ?? hub.title, name),
   description: hub.intro ? withCountry(hub.intro, name) : null,
-  path: (locale) => paths.taskHub({ locale, origin: null, country, place: null, status: null }, hub.slug),
+  path: (locale) => paths.taskHub({ locale, origin: null, country, place: null, status: null, situation: null }, hub.slug),
   languages: Object.keys(locales),
 })
 
@@ -19,7 +19,7 @@ export const taskHubHead = (hub: TaskHubHeadData, country: CountryCode, name: st
  * the country's home, then the goal. `home` is the word the breadcrumbs use.
  */
 export const taskHubData = (hub: TaskHubHeadData, country: CountryCode, locale: Locale, origin: string, home: string, name: string): StructuredDatum[] => {
-  const journey = { locale, origin: null, country, place: null, status: null }
+  const journey = { locale, origin: null, country, place: null, status: null, situation: null }
   return [
     breadcrumbList([
       { name: home, url: absolute(paths.home(journey), origin) },

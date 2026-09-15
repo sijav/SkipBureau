@@ -494,6 +494,11 @@ type Query {
   search(country: String!, locale: String = "en-US", text: String!): SearchView!
 
   """
+  Every situation a researched rule in one country applies to, such as worker or company-founder, for the reader's Role; never one only a rule research did not write names (SB-286).
+  """
+  situations(country: String!): [String!]!
+
+  """
   What one goal involves in one country, or null where it is Coming soon.
   """
   taskHub(country: String!, locale: String = "en-US", slug: String!): TaskHubView

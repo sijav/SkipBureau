@@ -383,6 +383,10 @@ msgstr "Common problems"
 msgid "Common questions"
 msgstr "Common questions"
 
+#: src/shared/context-control/situationLabels.ts
+msgid "Company founder"
+msgstr "Company founder"
+
 #: src/shared/task-tile/TaskTile.stories.tsx
 msgid "Company types, registration and first obligations"
 msgstr "Company types, registration and first obligations"
@@ -1349,6 +1353,10 @@ msgid "Type a place"
 msgstr "Type a place"
 
 #: src/shared/context-control/ContextPanel.tsx
+msgid "Type a role"
+msgstr "Type a role"
+
+#: src/shared/context-control/ContextPanel.tsx
 msgid "Type a status"
 msgstr "Type a status"
 
@@ -1577,6 +1585,10 @@ msgstr "Whether your diploma needs an apostille or consular legalization depends
 msgid "within {number}"
 msgstr "within {number}"
 
+#: src/shared/context-control/situationLabels.ts
+msgid "Worker"
+msgstr "Worker"
+
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Yes, bring the original and one copy"
 msgstr "Yes, bring the original and one copy"
@@ -1626,6 +1638,10 @@ msgstr "Your passport must stay valid for at least 60 days beyond the end of the
 msgid "Your residence status"
 msgstr "Your residence status"
 
+#: src/screens/guide/Guide.tsx
+msgid "Your role"
+msgstr "Your role"
+
 #: src/shared/rule-answer/factLabels.ts
 msgid "Your share of inpatient care, at a non-contracted provider or a public hospital outside Annex 1"
 msgstr "Your share of inpatient care, at a non-contracted provider or a public hospital outside Annex 1"
@@ -1651,8 +1667,8 @@ msgid "Your share of outpatient care, at a public hospital named in Annex 1"
 msgstr "Your share of outpatient care, at a public hospital named in Annex 1"
 
 #: src/screens/guide/Guide.tsx
-msgid "Your situation"
-msgstr "Your situation"
+#~ msgid "Your situation"
+#~ msgstr "Your situation"
 
 #: src/shared/rule-answer/factLabels.ts
 msgid "Your stay while the application is decided"

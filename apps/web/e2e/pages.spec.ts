@@ -367,3 +367,35 @@ test('a status reached from a page already up is in its links at once', async ({
   }, STATUS)
   await expect(page.locator(HOME_WITH_STATUS).first()).toBeAttached()
 })
+
+// SB-286: the reader's role, a situation the country's researched rules name, in the address as the status is.
+
+test("choosing a role in the panel puts it in the link, names it there, and asks the guide's rules for it", async ({ page }) => {
+  // No guide links a rule that needs a role until SB-280, so this proves the role reaches the rules, not that an answer
+  // changes for it.
+  const roles: (string | null)[] = []
+  page.on('request', (sent) => {
+    const body = sent.url().includes('graphql') && sent.method() === 'POST' ? (sent.postData() ?? '') : ''
+    if (body.includes('GuideAnswers')) roles.push(JSON.parse(body).variables?.reader?.situation ?? null)
+  })
+  await page.goto(`en/${ADDRESS}`, { waitUntil: 'load' })
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(GUIDE)
+  // Hydrated: the page has asked its rules for a reader who has said nothing, so the panel opens on the page a reader uses.
+  await expect.poll(() => roles).toContain(null)
+
+  const details = page.locator('header button[aria-haspopup="dialog"]').first()
+  const role = page.getByRole('dialog').getByText('Role', { exact: true }).locator('..')
+  await details.click()
+  await role.getByRole('button', { name: 'Add', exact: true }).click()
+  await page.getByRole('option', { name: 'Worker', exact: true }).click()
+
+  await expect(page).toHaveURL(/\/en\/TR\/guides\/short-term-residence-permit\?situation=worker$/)
+  await expect.poll(() => roles).toContain('worker')
+  await details.click()
+  await expect(role.getByRole('button', { name: 'Worker', exact: true })).toBeVisible()
+})
+
+test("a role the country's researched rules do not name is Not Found", async ({ page }) => {
+  await page.goto(`en/${ADDRESS}?situation=astronaut`, { waitUntil: 'load' })
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(/does not exist/)
+})

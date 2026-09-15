@@ -11,6 +11,7 @@ import {
   persianNames,
   questions,
   readerPlaces,
+  readerSituations,
   readerStatuses,
   simGuide,
   taskHub,
@@ -57,10 +58,12 @@ export const handlers = [
     return HttpResponse.json({ data: { country: match ? { ...match, name } : null } })
   }),
 
-  // Keyed on the country: another country has its own places and statuses, or none (SB-256).
+  // Keyed on the country: another country has its own places, statuses and situations, or none (SB-256, SB-286).
   api.query('ReaderDetails', ({ variables }) => {
     const country = typeof variables['country'] === 'string' ? variables['country'] : ''
-    return HttpResponse.json({ data: { places: readerPlaces[country] ?? [], residenceStatuses: readerStatuses[country] ?? [] } })
+    return HttpResponse.json({
+      data: { places: readerPlaces[country] ?? [], residenceStatuses: readerStatuses[country] ?? [], situations: readerSituations[country] ?? [] },
+    })
   }),
 
   // Getting Settled has one area, so its goal opens that area's hub directly.

@@ -93,9 +93,33 @@ export const ChooseStatus: Story = {
   },
 }
 
-/** Clear all takes back the nationality, the place and the status, and keeps the country and the page (SB-256). */
+/** Saying your role adds it to the address after the status, and the panel names it (SB-286). */
+export const ChooseRole: Story = {
+  parameters: { at: '/en/TR/search?q=residence&status=tr.residence-permit' },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const page = within(window.document.body)
+    const roleRow = async () => {
+      const row = (await page.findByText(/^Role$/, {}, { timeout: 5000 })).parentElement
+      if (!row) throw new Error('the panel has no Role row')
+      return within(row)
+    }
+    await userEvent.click(await canvas.findByRole('button', { name: /Add your details/ }, { timeout: 5000 }))
+    await userEvent.click((await roleRow()).getByRole('button', { name: /^Add$/ }))
+    await userEvent.click(await page.findByRole('option', { name: /^Worker$/ }, { timeout: 5000 }))
+    await waitFor(
+      () => expect(canvas.getByTestId('address')).toHaveTextContent('/en/TR/search?q=residence&status=tr.residence-permit&situation=worker'),
+      { timeout: 5000 },
+    )
+
+    await userEvent.click(await canvas.findByRole('button', { name: /Add your details/ }, { timeout: 5000 }))
+    await expect(await (await roleRow()).findByRole('button', { name: /^Worker$/ }, { timeout: 5000 })).toBeVisible()
+  },
+}
+
+/** Clear all takes back the nationality, the place, the status and the role, and keeps the country and the page (SB-256, SB-286). */
 export const ClearAll: Story = {
-  parameters: { at: '/en-IR/DE-HH/guides/anmeldung?status=de.visa-free' },
+  parameters: { at: '/en-IR/DE-HH/guides/anmeldung?status=de.visa-free&situation=company-founder' },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     await userEvent.click(await canvas.findByRole('button', { name: /From Iran\s*· Hamburg/ }, { timeout: 5000 }))

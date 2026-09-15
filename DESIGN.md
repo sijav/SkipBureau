@@ -196,6 +196,13 @@ which is what Turkey's address duty needs. A status is scope, not a place: a
 version for one kind of permit inherits nothing from a version for every
 permit. The same triggers keep both trees honest, each under its own lock.
 
+**So is a role** (SB-286): what a reader is doing in a country, a worker or a
+company founder, the design's Role row. It is not a status a country names in
+law but how the product describes the reader, the same in every country, so it
+has no table of its own: a rule's `situation` criterion names it, the API lists
+the situations a country's researched rules name, the Role row offers those,
+and the interface names each in lingui. A rule that asks for it says "Your role".
+
 Specificity is **set inclusion, not a count**, with a place standing in for
 every place it is inside and a status for every status inside it, so a city's
 version is more specific than its province's. A rule for EU nationals and a rule for students each have one
@@ -302,12 +309,14 @@ shared keeps working while one page keeps one address.
 A reader who has said where in the country they live has that place where the
 country was, spelled as the API codes it, `/en-IR/TR-35/guides/register-your-address`
 or `/en/DE-BY.muenchen`, the owner's choice of 2026-09-15 (SB-256). A residence
-status they hold is `?status=` with its code, `?status=tr.residence-permit`.
-Either is Not Found where the country does not have it, as an unknown country
-is. Every link keeps both; changing country drops both, and Clear all drops them
-with the nationality. A page's canonical and alternates never carry them. A
-status on a page that has a prerendered file is read just after the file is
-hydrated, never in its first render, because the file was rendered without it.
+status they hold is `?status=` with its code, `?status=tr.residence-permit`,
+and their role is `?situation=` after it, `?situation=worker` (SB-286), one of
+the situations the country's researched rules name. Each is Not Found where the
+country does not have it, as an unknown country is. Every link keeps them;
+changing country drops them, and Clear all drops them with the nationality. A
+page's canonical and alternates never carry them. A status or a role on a page
+that has a prerendered file is read just after the file is hydrated, never in
+its first render, because the file was rendered without them.
 
 **Country is in the path because a guide is about a country.** "Get a SIM card
 in Turkey" and the same guide for Germany are different documents with different
@@ -852,7 +861,8 @@ There are no nationality or city dropdowns beside Ask, by design: **context is
 requested after a question, and only when it changes the answer.**
 
 Context panel `47:686` (400x312): Empty `47:617`, Partial `47:640`, Complete
-`47:663`.
+`47:663`. Every row is built: Nationality, Currently in, City and Residence
+status (SB-256), and Role (SB-286).
 
 ### Ask
 

@@ -77,6 +77,22 @@ export const UnknownStatus: Story = {
   },
 }
 
+/** A role the country's rules name (SB-286): the page draws. */
+export const FoundSituation: Story = {
+  parameters: { at: '/en/TR?situation=worker' },
+  play: async ({ canvasElement }) => {
+    await expect(await within(canvasElement).findByTestId('country-name')).toHaveTextContent('Turkey')
+  },
+}
+
+/** And a role they do not name is Not Found, as a status is. */
+export const UnknownSituation: Story = {
+  parameters: { at: '/en/DE?situation=worker' },
+  play: async ({ canvasElement }) => {
+    await expect(await within(canvasElement).findByRole('heading', { level: 1 })).toHaveTextContent(/does not exist/)
+  },
+}
+
 export const NotCovered: Story = {
   parameters: { msw: { handlers: emptyHandlers } },
   play: async ({ canvasElement }) => {

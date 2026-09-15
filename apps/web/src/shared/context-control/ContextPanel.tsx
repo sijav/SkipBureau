@@ -19,10 +19,13 @@ export type ContextPanelProps = {
   places?: readonly DetailOption[] | undefined
   status?: Origin | null | undefined
   statuses?: readonly DetailOption[] | undefined
+  situation?: Origin | null | undefined
+  situations?: readonly DetailOption[] | undefined
   onOrigin: (code: string | null) => void
   onCountry: (code: string) => void
   onPlace?: ((code: string) => void) | undefined
   onStatus?: ((code: string) => void) | undefined
+  onSituation?: ((code: string) => void) | undefined
   onClear?: (() => void) | undefined
 }
 
@@ -56,7 +59,7 @@ const Row = ({ label, children }: { label: ReactNode; children: ReactNode }) => 
  * what the row allows. Nationality offers every country somebody can come from;
  * Currently in only the ones SkipBureau covers (SB-172); City and Residence
  * status the country's places and statuses, each after the one it is inside
- * (SB-256).
+ * (SB-256); Role the situations its rules name (SB-286).
  */
 const Choice = ({
   label,
@@ -139,10 +142,13 @@ export const ContextPanel = ({
   places = [],
   status = null,
   statuses = [],
+  situation = null,
+  situations = [],
   onOrigin,
   onCountry,
   onPlace,
   onStatus,
+  onSituation,
   onClear,
 }: ContextPanelProps) => {
   const { tokens } = useTheme()
@@ -222,7 +228,21 @@ export const ContextPanel = ({
           soon
         )}
       </Row>
-      <Row label={<Trans>Role</Trans>}>{soon}</Row>
+      <Row label={<Trans>Role</Trans>}>
+        {onSituation ? (
+          <Choice
+            label={t`Role`}
+            placeholder={t`Type a role`}
+            value={situation}
+            options={situations}
+            onChoose={(code) => {
+              if (code !== situation?.code) onSituation(code)
+            }}
+          />
+        ) : (
+          soon
+        )}
+      </Row>
 
       <Box
         sx={{
@@ -239,7 +259,7 @@ export const ContextPanel = ({
         </Typography>
         <ButtonBase
           disableRipple
-          disabled={!origin && !place && !status}
+          disabled={!origin && !place && !status && !situation}
           onClick={() => (onClear ? onClear() : onOrigin(null))}
           sx={{
             padding: 0,

@@ -45,6 +45,9 @@ export const readerStatuses: Record<string, Listed[]> = {
   ],
 }
 
+/** The situations each country's researched rules name, sorted, as the API lists them for the Role row (SB-286). */
+export const readerSituations: Record<string, string[]> = { tr: ['company-founder', 'worker'], de: ['company-founder'] }
+
 // The twelve goals as the API's sample content has them, `{country}` included.
 export const tasks = [
   ['getting-settled', 'Getting Settled', 'Essential services to help you start everyday life in {country}.'],

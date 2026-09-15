@@ -18,16 +18,18 @@ import {
   samePageCleared,
   samePageFrom,
   samePageIn,
+  samePageInRole,
   samePageWhere,
+  situationFromSearch,
   statusFromSearch,
   type Journey,
 } from './paths'
 
 const tr = validated('tr')
 const de = validated('de')
-const inEnglish: Journey = { locale: 'en-US', origin: null, country: tr, place: null, status: null }
-const fromIran: Journey = { locale: 'fa-IR', origin: 'ir', country: tr, place: null, status: null }
-const inHamburg: Journey = { locale: 'en-US', origin: 'ir', country: de, place: 'DE-HH', status: 'de.visa-free' }
+const inEnglish: Journey = { locale: 'en-US', origin: null, country: tr, place: null, status: null, situation: null }
+const fromIran: Journey = { locale: 'fa-IR', origin: 'ir', country: tr, place: null, status: null, situation: null }
+const inHamburg: Journey = { locale: 'en-US', origin: 'ir', country: de, place: 'DE-HH', status: 'de.visa-free', situation: null }
 
 test('a URL carries the short public form of a language, not the lingui tag', () => {
   assert.equal(localeSegment('en-US'), 'en')
@@ -235,6 +237,39 @@ test('changing country leaves the place and the status behind, and switching lan
   assert.equal(samePageAt({ pathname: '/en/DE-HH/guides/anmeldung', search: '?status=de.visa-free' }, 'tr'), '/en/TR')
   assert.equal(samePageIn({ pathname: '/en-IR/DE-HH/guides/anmeldung', search: '?status=de.visa-free' }, 'fa-IR'), '/fa-IR/DE-HH/guides/anmeldung?status=de.visa-free')
   assert.equal(samePageFrom({ pathname: '/en/DE-HH/guides/anmeldung', search: '?status=de.visa-free' }, 'ir'), '/en-IR/DE-HH/guides/anmeldung?status=de.visa-free')
+})
+
+test('every path keeps the role the reader has said, after the status', () => {
+  // SB-286: a situation the country's rules name, such as worker, in the query as the status is.
+  assert.equal(paths.home({ ...inHamburg, situation: 'company-founder' }), '/en-IR/DE-HH?status=de.visa-free&situation=company-founder')
+  assert.equal(paths.guide({ ...inEnglish, situation: 'worker' }, 'work-permit'), '/en/TR/guides/work-permit?situation=worker')
+  assert.equal(paths.search({ ...inEnglish, situation: 'worker' }, 'permit'), '/en/TR/search?q=permit&situation=worker')
+  assert.equal(situationFromSearch('?q=sim&status=tr.residence-permit&situation=worker'), 'worker')
+  assert.equal(situationFromSearch('?status=tr.residence-permit'), null)
+  assert.equal(situationFromSearch('?situation='), null)
+})
+
+test('saying your role, or taking it back, changes only the role in the query', () => {
+  assert.equal(samePageInRole({ pathname: '/en/TR/guides/work-permit' }, 'worker'), '/en/TR/guides/work-permit?situation=worker')
+  assert.equal(
+    samePageInRole({ pathname: '/en/TR/search', search: '?q=bank&status=tr.residence-permit', hash: '#results' }, 'company-founder'),
+    '/en/TR/search?q=bank&status=tr.residence-permit&situation=company-founder#results',
+  )
+  assert.equal(
+    samePageInRole({ pathname: '/en/TR/guides/work-permit', search: '?situation=worker&status=tr.residence-permit' }, null),
+    '/en/TR/guides/work-permit?status=tr.residence-permit',
+  )
+  assert.equal(
+    samePageAs({ pathname: '/en/TR/guides/work-permit', search: '?situation=worker' }, 'tr.residence-permit'),
+    '/en/TR/guides/work-permit?situation=worker&status=tr.residence-permit',
+  )
+  assert.equal(samePageInRole({ pathname: '/' }, 'worker'), '/')
+})
+
+test('changing country and clearing everything leave the role behind with the status, and switching language keeps it', () => {
+  assert.equal(samePageAt({ pathname: '/en/TR/search', search: '?q=bank&situation=worker&status=tr.residence-permit' }, 'de'), '/en/DE/search?q=bank')
+  assert.equal(samePageCleared({ pathname: '/en-IR/TR/guides/work-permit', search: '?situation=worker' }), '/en/TR/guides/work-permit')
+  assert.equal(samePageIn({ pathname: '/en/TR/guides/work-permit', search: '?situation=worker' }, 'fa-IR'), '/fa/TR/guides/work-permit?situation=worker')
 })
 
 test('clearing everything takes back the nationality, the place and the status, and nothing else', () => {

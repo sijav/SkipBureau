@@ -22,9 +22,10 @@ export type Reader = {
 /**
  * A reader and where they are going, which is everything a page's address says before the page: the country, the place
  * in it where they live, as the API codes it, `DE-HH` or `DE-BY.muenchen`, and the residence status they hold there,
- * `tr.residence-permit`, each once they have said (SB-256).
+ * `tr.residence-permit`, each once they have said (SB-256), and their role, a situation the country's rules name, such
+ * as `worker` (SB-286).
  */
-export type Journey = Reader & { country: CountryCode; place: string | null; status: string | null }
+export type Journey = Reader & { country: CountryCode; place: string | null; status: string | null; situation: string | null }
 
 /** Where an address points below the reader: a country, and a place in it where one is named. */
 export type Destination = { country: string; place: string | null }
@@ -77,14 +78,22 @@ export const destinationSegment = ({ country, place }: Destination): string => p
 /** The residence status an address carries in its query, or null. */
 export const statusFromSearch = (search: string): string | null => new URLSearchParams(search).get('status') || null
 
-// The reader's status, after whatever query a page has of its own.
-const statusQuery = (status: string | null, joiner: '?' | '&'): string => (status ? `${joiner}status=${encodeURIComponent(status)}` : '')
+/** The role an address carries in its query, a situation the country's rules name, or null (SB-286). */
+export const situationFromSearch = (search: string): string | null => new URLSearchParams(search).get('situation') || null
+
+// What the reader has said of their status and role, after whatever query a page has of its own.
+const readerQuery = ({ status, situation }: Pick<Journey, 'status' | 'situation'>, joiner: '?' | '&'): string => {
+  const parts = [status ? `status=${encodeURIComponent(status)}` : '', situation ? `situation=${encodeURIComponent(situation)}` : ''].filter(
+    (part) => part !== '',
+  )
+  return parts.length > 0 ? `${joiner}${parts.join('&')}` : ''
+}
 
 /** The prefix every page below the root sits under. */
 const at = (journey: Journey) => `/${readerSegment(journey)}/${destinationSegment(journey)}`
 
-/** What follows a page that has no query of its own: the reader's status, if they have said one. */
-const tail = (journey: Journey) => statusQuery(journey.status, '?')
+/** What follows a page that has no query of its own: the reader's status and role, if they have said them. */
+const tail = (journey: Journey) => readerQuery(journey, '?')
 
 export const paths = {
   home: (journey: Journey) => `${at(journey)}${tail(journey)}`,
@@ -97,7 +106,7 @@ export const paths = {
   guide: (journey: Journey, guide: string) => `${at(journey)}/guides/${guide}${tail(journey)}`,
   suggest: (journey: Journey, guide: string) => `${at(journey)}/guides/${guide}/suggest${tail(journey)}`,
   search: (journey: Journey, question: string) =>
-    `${at(journey)}/search?q=${encodeURIComponent(question)}${statusQuery(journey.status, '&')}`,
+    `${at(journey)}/search?q=${encodeURIComponent(question)}${readerQuery(journey, '&')}`,
 } as const
 
 // The markers pages had before they were spelled out, kept so a link someone
@@ -129,15 +138,19 @@ const withReader = ({ pathname, search = '', hash = '' }: Address, change: (read
   return `${['', readerSegment(change(reader)), ...rest].join('/')}${search}${hash}`
 }
 
-// A query with its status set, or taken out, and every other part of it as it was written.
-const searchWithStatus = (search: string, status: string | null): string => {
+// A query with one thing the reader has said, their status or their role, set or taken out, and every other part of it
+// as it was written.
+const searchWith = (search: string, key: 'status' | 'situation', value: string | null): string => {
   const kept = search
     .replace(/^\?/, '')
     .split('&')
-    .filter((part) => part !== '' && part.split('=')[0] !== 'status')
-  const parts = status ? [...kept, `status=${encodeURIComponent(status)}`] : kept
+    .filter((part) => part !== '' && part.split('=')[0] !== key)
+  const parts = value ? [...kept, `${key}=${encodeURIComponent(value)}`] : kept
   return parts.length > 0 ? `?${parts.join('&')}` : ''
 }
+
+// A query with neither the reader's status nor their role, for a page that no longer has them.
+const searchWithout = (search: string): string => searchWith(searchWith(search, 'status', null), 'situation', null)
 
 /**
  * The same page in another language, for the language control. Where the
@@ -168,13 +181,20 @@ export const samePageWhere = ({ pathname, search = '', hash = '' }: Address, pla
 export const samePageAs = ({ pathname, search = '', hash = '' }: Address, status: string | null): string => {
   const [, first = '', second = ''] = pathname.split('/')
   if (!readerFromSegment(first) || !destinationFromSegment(second)) return `${pathname}${search}${hash}`
-  return `${pathname}${searchWithStatus(search, status)}${hash}`
+  return `${pathname}${searchWith(search, 'status', status)}${hash}`
+}
+
+/** The same page for a reader who says what role they have there, or takes it back, for the Role row (SB-286). */
+export const samePageInRole = ({ pathname, search = '', hash = '' }: Address, situation: string | null): string => {
+  const [, first = '', second = ''] = pathname.split('/')
+  if (!readerFromSegment(first) || !destinationFromSegment(second)) return `${pathname}${search}${hash}`
+  return `${pathname}${searchWith(search, 'situation', situation)}${hash}`
 }
 
 /**
  * The same page with nothing the reader has said about themselves, for Clear
- * all: no nationality, place or status. The language, the country, the page,
- * the rest of the query and the fragment stay.
+ * all: no nationality, place, status or role. The language, the country, the
+ * page, the rest of the query and the fragment stay.
  */
 export const samePageCleared = ({ pathname, search = '', hash = '' }: Address): string => {
   const [, first = '', second = '', ...rest] = pathname.split('/')
@@ -182,7 +202,7 @@ export const samePageCleared = ({ pathname, search = '', hash = '' }: Address): 
   const destination = destinationFromSegment(second)
   if (!reader || !destination) return `${pathname}${search}${hash}`
   const page = ['', readerSegment({ ...reader, origin: null }), countrySegment(destination.country), ...rest].join('/')
-  return `${page}${searchWithStatus(search, null)}${hash}`
+  return `${page}${searchWithout(search)}${hash}`
 }
 
 // The pages that exist in every country we cover. Everything else belongs to
@@ -195,7 +215,8 @@ const IN_EVERY_COUNTRY = new Set(['guides', 'search'])
  * where the page exists there. Home, the guides index and a search are kept,
  * with their query and hash; any other page goes to the new country's home.
  * The reader, their language and where they come from, is kept either way; a
- * place and a status belong to the country being left, so neither is.
+ * place, a status and a role belong to the country being left, whose rules name
+ * them, so none is.
  */
 export const samePageAt = ({ pathname, search = '', hash = '' }: Address, country: string): string => {
   const [, first = '', second = '', ...rest] = pathname.split('/')
@@ -204,7 +225,7 @@ export const samePageAt = ({ pathname, search = '', hash = '' }: Address, countr
   // React Router matches a trailing slash, and canonicalPath keeps one.
   const page = rest.at(-1) === '' ? rest.slice(0, -1) : rest
   const home = ['', readerSegment(reader), countrySegment(country)].join('/')
-  const kept = searchWithStatus(search, null)
+  const kept = searchWithout(search)
   const [only, ...below] = page
   if (only === undefined) return `${home}${kept}${hash}`
   if (below.length === 0 && IN_EVERY_COUNTRY.has(only)) return `${home}/${only}${kept}${hash}`

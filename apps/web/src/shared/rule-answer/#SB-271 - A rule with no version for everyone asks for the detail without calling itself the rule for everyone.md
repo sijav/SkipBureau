@@ -28,7 +28,7 @@ when the rule has no version for everyone.
 - **The question's panel says only what is true of what is on screen.** With the rule for everyone
   shown, as now: "{asks} can change this", and "This is the rule for everyone. Tell us, and we show the
   answer for you." With nothing shown: "{asks} decides the answer", and "Tell us to show your answer."
-  `{asks}` is one of "Your nationality", "Where you live", "Your residence status", "Your situation",
+  `{asks}` is one of "Your nationality", "Where you live", "Your residence status", "Your situation" (since SB-286, "Your role", the panel's word),
   "Where you work".
 - **Guide.tsx does not change.** It already gives a rule with no version for everyone no lines and no
   notes.

@@ -54,4 +54,18 @@ export class CountryResolver {
     })
     return rows.map((row) => ({ code: row.code, parentCode: row.parentCode, name: named(row, locale).name }))
   }
+
+  @Query(() => [String], {
+    description:
+      "Every situation a researched rule in one country applies to, such as worker or company-founder, for the reader's Role; never one only a rule research did not write names (SB-286).",
+  })
+  async situations(@Args('country', { type: () => String }) country: string): Promise<string[]> {
+    const rows = await this.prisma.eligibilityCriterion.findMany({
+      where: { dimension: 'situation', ruleVersion: { countryCode: country, research: { not: null } } },
+      distinct: ['value'],
+      select: { value: true },
+      orderBy: { value: 'asc' },
+    })
+    return rows.map((row) => row.value)
+  }
 }

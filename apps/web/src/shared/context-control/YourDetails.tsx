@@ -5,11 +5,12 @@ import { useQuery } from 'urql'
 import { REGIONS, regionName } from 'src/core/country'
 import { CountriesQuery, overThePage, ReaderDetailsQuery } from 'src/core/graphql'
 import { useLocale } from 'src/core/i18n'
-import { samePageAs, samePageAt, samePageCleared, samePageFrom, samePageWhere } from 'src/core/router'
+import { samePageAs, samePageAt, samePageCleared, samePageFrom, samePageInRole, samePageWhere } from 'src/core/router'
 import { useShell } from 'src/core/shell'
 import { lazyPart } from 'src/shared/lazy-part'
 import { ContextControl } from './ContextControl'
 import type { DetailOption } from './ContextPanel'
+import { SITUATION_LABELS } from './situationLabels'
 
 // SB-159: the panel, with the Autocomplete and Popper it is built on, arrives
 // the first time it opens.
@@ -33,10 +34,10 @@ const nested = (rows: readonly Listed[], locale: string): DetailOption[] => {
 }
 
 export const YourDetails = () => {
-  const { t } = useLingui()
+  const { t, i18n } = useLingui()
   const { locale } = useLocale()
   // The panel's open state is the shell's, so a rule's answer on the page can open it too (SB-257).
-  const { origin, country, countryName, place, status, detailsOpen: open, setDetailsOpen: setOpen } = useShell()
+  const { origin, country, countryName, place, status, situation, detailsOpen: open, setDetailsOpen: setOpen } = useShell()
   const location = useLocation()
   const navigate = useNavigate()
   const id = useId()
@@ -57,9 +58,9 @@ export const YourDetails = () => {
     return REGIONS.map((code) => ({ code, name: ours.get(code) ?? regionName(code, locale) })).sort((a, b) => collator.compare(a.name, b.name))
   }, [open, ours, locale])
 
-  // The country's places and statuses once the panel opens. The route guard
-  // asks the same, with the same variables, when an address names one, so it
-  // is one answer (SB-256).
+  // The country's places, statuses and situations once the panel opens. The
+  // route guard asks the same, with the same variables, when an address names
+  // one, so it is one answer (SB-256).
   const [{ data: details }] = useQuery({
     query: ReaderDetailsQuery,
     variables: { country: country ?? '', locale },
@@ -69,6 +70,18 @@ export const YourDetails = () => {
   const places = useMemo(() => nested(details?.places ?? [], locale), [details, locale])
   const statuses = useMemo(() => nested(details?.residenceStatuses ?? [], locale), [details, locale])
   const statusName = status ? details?.residenceStatuses.find((row) => row.code === status)?.name : undefined
+  // SB-286: a situation is named by the interface, not the API. One with no name
+  // shows its code, which situationLabels.test.ts stops before it ships.
+  const situations = useMemo(() => {
+    const collator = new Intl.Collator(locale)
+    return (details?.situations ?? [])
+      .map((code) => {
+        const label = SITUATION_LABELS[code]
+        return { code, name: label ? i18n._(label) : code }
+      })
+      .sort((a, b) => collator.compare(a.name, b.name))
+  }, [details, locale, i18n])
+  const situationName = situation ? situations.find((row) => row.code === situation)?.name : undefined
 
   const originName = origin ? (ours.get(origin) ?? regionName(origin, locale)) : null
 
@@ -105,10 +118,13 @@ export const YourDetails = () => {
             places={places}
             status={status && statusName ? { code: status, name: statusName } : null}
             statuses={statuses}
+            situation={situation && situationName ? { code: situation, name: situationName } : null}
+            situations={situations}
             onOrigin={(code) => go(samePageFrom(location, code))}
             onCountry={(code) => go(samePageAt(location, code))}
             onPlace={(code) => go(samePageWhere(location, code))}
             onStatus={(code) => go(samePageAs(location, code))}
+            onSituation={(code) => go(samePageInRole(location, code))}
             onClear={() => go(samePageCleared(location))}
           />
         </Suspense>

@@ -4,5 +4,5 @@ import { negotiateLocale } from 'src/core/i18n'
 import { paths } from './paths'
 
 export const RootRedirect = () => (
-  <Navigate replace to={paths.home({ locale: negotiateLocale(), origin: null, country: validated(defaultCountry), place: null, status: null })} />
+  <Navigate replace to={paths.home({ locale: negotiateLocale(), origin: null, country: validated(defaultCountry), place: null, status: null, situation: null })} />
 )
