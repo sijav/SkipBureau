@@ -1,7 +1,6 @@
-import type { PrismaClient } from '../generated/prisma/client.js'
+import type { Prisma, PrismaClient } from '../generated/prisma/client.js'
 import type { GuideDetailSeed } from '../sample-types.js'
 import { TASKS } from '../tasks.js'
-import { fillGuideDetail, linkObligationGroups } from './guide-fill.js'
 
 // Guides written from the agreed research, not sample content (SB-258): each section is one of its document's paragraphs
 // under the bold lead that opens it, whole sentences in the document's order with only footnote markers, bold and list
@@ -216,16 +215,36 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
   },
 ]
 
+// As long as the research rules' own load may take, waiting on another container's (src/rules/research/load.ts).
+const TIMEOUT_MS = 120_000
+
+const LOCALES = [
+  ['en-US', 'en'],
+  ['fa-IR', 'fa'],
+] as const
+
 /**
- * Each researched guide onto a database, creating only what is missing: its goal with the goal's texts, its area with
- * the area's titles, the guide with its English title and description, its body, and its links. A start after changes
- * nothing, and a database with no sample content gets the goal too.
+ * Each researched guide onto a database, owned as a research module's rules are (SB-202, SB-261): every start writes the
+ * guide, its area and its links to exactly what the file says and removes what the file does not list, one transaction a
+ * guide. Only the goal is shared, with sample content, so it is made sure of and never rewritten.
+ * test/researched-guides.spec.ts holds a file to the fields written here: a section's title and body, a source's address
+ * and name.
  */
-export const loadResearchedGuides = async (prisma: PrismaClient): Promise<string[]> => {
+export const loadResearchedGuides = async (
+  prisma: PrismaClient,
+  guides: readonly ResearchedGuide[] = RESEARCHED_GUIDES,
+): Promise<string[]> => {
   const loaded: string[] = []
-  for (const researched of RESEARCHED_GUIDES) {
+  for (const researched of guides) {
     const goal = TASKS.find((task) => task.slug === researched.task)
     if (!goal) throw new Error(`src/tasks.ts has no goal ${researched.task} for ${researched.country}/${researched.guide.slug}.`)
+    const named = researched.obligations.flat()
+    const repeated = [...new Set(named.filter((slug, index) => named.indexOf(slug) !== index))]
+    if (repeated.length > 0) {
+      throw new Error(
+        `${researched.country}/${researched.guide.slug} names ${repeated.join(', ')} in more than one of its obligation groups.`,
+      )
+    }
 
     const task = await prisma.task.upsert({ where: { slug: goal.slug }, update: {}, create: { slug: goal.slug, position: goal.position } })
     for (const [locale, title, subtitle] of [
@@ -237,42 +256,102 @@ export const loadResearchedGuides = async (prisma: PrismaClient): Promise<string
         await prisma.taskText.create({ data: { taskId: task.id, locale, title, subtitle } })
     }
 
-    const area = await prisma.category.upsert({
-      where: { countryCode_slug: { countryCode: researched.country, slug: researched.area.slug } },
-      update: {},
-      create: { countryCode: researched.country, taskId: task.id, slug: researched.area.slug, position: 0 },
-    })
-    for (const [locale, title] of [
-      ['en-US', researched.area.en],
-      ['fa-IR', researched.area.fa],
-    ] as const) {
-      const where = { categoryId_locale: { categoryId: area.id, locale } }
-      if (!(await prisma.categoryText.findUnique({ where })))
-        await prisma.categoryText.create({ data: { categoryId: area.id, locale, title } })
-    }
-
-    const found = await prisma.guide.findUnique({
-      where: { countryCode_slug: { countryCode: researched.country, slug: researched.guide.slug } },
-    })
-    const guide =
-      found ??
-      (await prisma.guide.create({
-        data: {
-          countryCode: researched.country,
-          categoryId: area.id,
-          slug: researched.guide.slug,
-          verifiedAt: new Date(researched.guide.verifiedAt),
-          position: 0,
-        },
-      }))
-    const text = { guideId_locale: { guideId: guide.id, locale: 'en-US' } }
-    if (!(await prisma.guideText.findUnique({ where: text }))) {
-      await prisma.guideText.create({ data: { guideId: guide.id, locale: 'en-US', ...researched.guide.en } })
-    }
-
-    await fillGuideDetail(prisma, researched.country, researched.detail)
-    await linkObligationGroups(prisma, guide.id, researched.obligations)
+    await prisma.$transaction((tx) => writeGuide(tx, task.id, researched), { timeout: TIMEOUT_MS })
     loaded.push(`${researched.country}/${researched.guide.slug}`)
   }
   return loaded
+}
+
+const writeGuide = async (tx: Prisma.TransactionClient, taskId: string, researched: ResearchedGuide): Promise<void> => {
+  const { country: countryCode, detail } = researched
+  const verifiedAt = new Date(researched.guide.verifiedAt)
+
+  const areaRow = { taskId, position: 0, kind: null, startGuideId: null }
+  const area = await tx.category.upsert({
+    where: { countryCode_slug: { countryCode, slug: researched.area.slug } },
+    update: areaRow,
+    create: { countryCode, slug: researched.area.slug, ...areaRow },
+  })
+  for (const [locale, title] of [
+    ['en-US', researched.area.en],
+    ['fa-IR', researched.area.fa],
+  ] as const) {
+    const written = { title, description: null, startReason: null, askPrompt: null }
+    await tx.categoryText.upsert({
+      where: { categoryId_locale: { categoryId: area.id, locale } },
+      update: written,
+      create: { categoryId: area.id, locale, ...written },
+    })
+  }
+
+  const guideRow = { categoryId: area.id, verifiedAt, position: 0, showDisclaimer: false, showSuggestUpdate: true, readingMinutes: null }
+  const guide = await tx.guide.upsert({
+    where: { countryCode_slug: { countryCode, slug: researched.guide.slug } },
+    update: guideRow,
+    create: { countryCode, slug: researched.guide.slug, ...guideRow },
+  })
+
+  const text = { ...researched.guide.en, intro: null, quickAnswer: null, cost: null, time: null, deadlines: null, costNote: null }
+  await tx.guideText.upsert({
+    where: { guideId_locale: { guideId: guide.id, locale: 'en-US' } },
+    update: text,
+    create: { guideId: guide.id, locale: 'en-US', ...text },
+  })
+  await tx.guideText.deleteMany({ where: { guideId: guide.id, locale: { not: 'en-US' } } })
+
+  await tx.guideSection.deleteMany({ where: { guideId: guide.id, kind: { notIn: detail.sections.map((section) => section.kind) } } })
+  for (const [position, section] of detail.sections.entries()) {
+    const row = await tx.guideSection.upsert({
+      where: { guideId_kind: { guideId: guide.id, kind: section.kind } },
+      update: { position, linkGuideId: null },
+      create: { guideId: guide.id, kind: section.kind, position },
+    })
+    await tx.guideStep.deleteMany({ where: { sectionId: row.id } })
+    for (const [locale, language] of LOCALES) {
+      const title = section.title?.[language]
+      const body = section.body?.[language]
+      if (title === undefined && body === undefined) {
+        await tx.guideSectionText.deleteMany({ where: { sectionId: row.id, locale } })
+        continue
+      }
+      const written = { title: title ?? null, body: body ?? null, note: null, callout: null, calloutBody: null, calloutSource: null }
+      await tx.guideSectionText.upsert({
+        where: { sectionId_locale: { sectionId: row.id, locale } },
+        update: written,
+        create: { sectionId: row.id, locale, ...written },
+      })
+    }
+  }
+
+  await tx.guideOption.deleteMany({ where: { guideId: guide.id } })
+  await tx.relatedGuide.deleteMany({ where: { fromGuideId: guide.id } })
+
+  // A source has no key but its id, so the file's are matched by address, and a second row of one address goes too.
+  const stored = await tx.guideSource.findMany({ where: { guideId: guide.id }, orderBy: { position: 'asc' } })
+  const kept = new Set<string>()
+  for (const [position, source] of detail.sources.entries()) {
+    const written = { url: source.url, name: source.name, publisher: null, official: true, note: null, verifiedAt, position }
+    const row = stored.find((candidate) => candidate.url === source.url && !kept.has(candidate.id))
+    if (row) {
+      kept.add(row.id)
+      await tx.guideSource.update({ where: { id: row.id }, data: written })
+    } else {
+      kept.add((await tx.guideSource.create({ data: { guideId: guide.id, ...written } })).id)
+    }
+  }
+  await tx.guideSource.deleteMany({ where: { guideId: guide.id, id: { notIn: [...kept] } } })
+
+  // Each group's first obligation the database has, at the group's index, and no other link.
+  const rows = await tx.obligation.findMany({ where: { slug: { in: researched.obligations.flat() } }, select: { id: true, slug: true } })
+  const idOf = new Map(rows.map((row) => [row.slug, row.id]))
+  const chosen = researched.obligations.map((group) => group.map((slug) => idOf.get(slug)).find((id) => id !== undefined))
+  await tx.guideObligation.deleteMany({ where: { guideId: guide.id, obligationId: { notIn: chosen.filter((id) => id !== undefined) } } })
+  for (const [position, obligationId] of chosen.entries()) {
+    if (obligationId === undefined) continue
+    await tx.guideObligation.upsert({
+      where: { guideId_obligationId: { guideId: guide.id, obligationId } },
+      update: { position },
+      create: { guideId: guide.id, obligationId, position },
+    })
+  }
 }

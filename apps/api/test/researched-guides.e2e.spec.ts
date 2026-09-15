@@ -8,7 +8,7 @@ import { promisify } from 'node:util'
 import request from 'supertest'
 import { afterAll, beforeAll, expect, test } from 'vitest'
 import { AppModule } from '../src/app.module.js'
-import { loadResearchedGuides, RESEARCHED_GUIDES } from '../src/guide/researched-guides.js'
+import { loadResearchedGuides, RESEARCHED_GUIDES, type ResearchedGuide } from '../src/guide/researched-guides.js'
 import { PrismaService } from '../src/prisma/prisma.service.js'
 import { RESEARCHED } from '../src/rules/research/countries.js'
 import { loadResearchRules } from '../src/rules/research/load.js'
@@ -145,6 +145,65 @@ test("on a database no sample content has touched, the loader writes each resear
   const before = await rows()
   await loadResearchedGuides(prisma)
   expect(await rows()).toEqual(before)
+})
+
+test("a later start serves what the file now says: a section's new title and body, a source and a group taken out, and a link the file does not name replaced, with no row of the old left", async () => {
+  const [turkish, german] = RESEARCHED_GUIDES
+  const [first, ...rest] = turkish?.detail.sections ?? []
+  if (!turkish || !german || !first) throw new Error('RESEARCHED_GUIDES no longer has a Turkish and a German guide')
+  const changed: ResearchedGuide = {
+    ...turkish,
+    detail: {
+      ...turkish.detail,
+      sections: [{ ...first, title: { en: 'A title changed since.' }, body: { en: 'A body changed since.' } }, ...rest],
+      sources: turkish.detail.sources.slice(0, -1),
+    },
+    obligations: turkish.obligations.slice(0, 1),
+  }
+
+  try {
+    await loadResearchedGuides(prisma)
+    await loadResearchedGuides(prisma, [changed, german])
+
+    const served = await guideFor('tr', turkish.guide.slug)
+    expect(served.sections).toEqual(
+      changed.detail.sections.map((section) => ({ kind: section.kind, title: section.title?.en ?? null, body: section.body?.en ?? null })),
+    )
+    expect(served.sources).toEqual(changed.detail.sources.map(({ url, name }) => ({ url, name })))
+    expect(served.obligations.map((obligation) => obligation.slug)).toEqual(changed.obligations.map((group) => group[0]))
+
+    const { id: guideId } = await prisma.guide.findUniqueOrThrow({
+      where: { countryCode_slug: { countryCode: 'tr', slug: turkish.guide.slug } },
+    })
+    expect({
+      sections: await prisma.guideSection.count({ where: { guideId } }),
+      sectionTexts: await prisma.guideSectionText.count({ where: { section: { guideId } } }),
+      sources: await prisma.guideSource.count({ where: { guideId } }),
+      links: await prisma.guideObligation.count({ where: { guideId } }),
+    }).toEqual({
+      sections: changed.detail.sections.length,
+      sectionTexts: changed.detail.sections.length,
+      sources: changed.detail.sources.length,
+      links: changed.obligations.length,
+    })
+
+    // A link to a duty the German file does not name, written by hand where its group links.
+    const { id: germanId } = await prisma.guide.findUniqueOrThrow({
+      where: { countryCode_slug: { countryCode: 'de', slug: german.guide.slug } },
+    })
+    const stranger = await prisma.obligation.findFirstOrThrow({ where: { slug: { notIn: german.obligations.flat() } } })
+    await prisma.guideObligation.create({ data: { guideId: germanId, obligationId: stranger.id, position: 0 } })
+    await expect(loadResearchedGuides(prisma)).resolves.toEqual(
+      RESEARCHED_GUIDES.map((researched) => `${researched.country}/${researched.guide.slug}`),
+    )
+    expect((await guideFor('de', german.guide.slug)).obligations.map((obligation) => obligation.slug)).toEqual(
+      german.obligations.map((group) => group[0]),
+    )
+    expect(await prisma.guideObligation.count({ where: { guideId: germanId } })).toBe(german.obligations.length)
+  } finally {
+    // The file again, so the tests after this one read its rows whatever failed above.
+    await loadResearchedGuides(prisma)
+  }
 })
 
 test("Turkey's residence permit guide answers the permit charge as none for a reader of Denmark, no rule for a reader of Iran, and asks a reader who has not said their nationality", async () => {
