@@ -155,6 +155,13 @@ is SB-154, and where a transaction happens is still SB-177.
 **Undo it** by loading a country's places wholesale, the day a place picker
 needs every district to choose from.
 
+**Amended 2026-09-15**, building SB-228. A place may come one card ahead of the
+rule that names it, and only where that rule is agreed research and its card is
+already filed and waits on the place's. Germany's five cities came with SB-228,
+before the fees SB-229 and SB-227 write for them, so that reading a place below
+the first level from its own page was a change of its own. Nothing else is added
+ahead of a rule, and no country's municipalities are loaded wholesale.
+
 ## Residence statuses exist only where a rule names them
 
 **Decided 2026-09-14**, building SB-189.

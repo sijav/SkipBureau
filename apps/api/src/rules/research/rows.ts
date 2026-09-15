@@ -26,6 +26,13 @@ export type ResearchRegion = {
   name: string
   /** How the page that codes it spells its name, where that differs from `name`: read by the check, never written. */
   isoName?: string
+  /**
+   * The state's own identifier for the place where an official page states it, such as a German
+   * municipality's Amtlicher Gemeindeschlüssel: written when the place is created, never compared (SB-228).
+   */
+  officialCode?: string
+  /** For a place below the first level, the page that states it (SB-228). */
+  from?: ResearchPlaceReading
 }
 
 /** One definition of an agreed document, on a page of the file's own. */
@@ -40,6 +47,12 @@ export type ResearchReading = {
    */
   row?: string
 }
+
+/**
+ * The definition a place below the first level is read from: its entry title, which the pattern
+ * reads the name from, its parent's name and its official code (SB-228).
+ */
+export type ResearchPlaceReading = ResearchReading & { document: string }
 
 /** The agreed document a file's regions are read from, and its two definitions, each quoting one passage per region. */
 export type ResearchRegionSource = {

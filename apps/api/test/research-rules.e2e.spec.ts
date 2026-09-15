@@ -29,7 +29,8 @@ import { startPglite } from '../scripts/pglite-server.mjs'
 // address duty reaches each status it was verified for, and Bursa's procedure
 // reaches only a reader who lives in Bursa. SB-223: Germany's Länder, read the same way
 // from a list that prints each on a line. SB-224: Germany's Anmeldung, federally and in
-// three Länder, compared with Turkey's address duty.
+// three Länder, compared with Turkey's address duty. SB-228: a place below the first level
+// read from its own page.
 
 const API = join(dirname(fileURLToPath(import.meta.url)), '..')
 const PORT = 5468
@@ -136,6 +137,8 @@ test('every region a file names is one row of the page that codes it, beside its
     const from = rules.regionsFrom
     if (!from) throw new Error(`${rules.country} names regions and not the agreed document they are read from`)
     const definitions = definitionsOf(rules.research, from.document)
+    // The pages that code and name a country's first-level places list none below them (SB-228).
+    const firstLevel = rules.regions.filter((region) => region.parent === null)
 
     const readBack = (reading: ResearchReading): string[] => {
       const definition = definitions.get(reading.label)
@@ -161,15 +164,15 @@ test('every region a file names is one row of the page that codes it, beside its
       return found === undefined ? [] : [found]
     })
 
-    const fileCodes = new Set(rules.regions.map((region) => region.code))
-    expect(fileCodes.size, 'a code is given twice').toBe(rules.regions.length)
-    expect(new Set(rules.regions.map((region) => composed(region.name))).size, 'a name is given twice').toBe(rules.regions.length)
+    const fileCodes = new Set(firstLevel.map((region) => region.code))
+    expect(fileCodes.size, 'a code is given twice').toBe(firstLevel.length)
+    expect(new Set(firstLevel.map((region) => composed(region.name))).size, 'a name is given twice').toBe(firstLevel.length)
     for (const row of rows) expect(codesIn(row), `${from.codes.label}'s row ${row} holds one code`).toHaveLength(1)
-    expect(rows, `${from.codes.label} codes as many regions as the file names`).toHaveLength(rules.regions.length)
+    expect(rows, `${from.codes.label} codes as many regions as the file names`).toHaveLength(firstLevel.length)
     expect(new Set(rows.flatMap((row) => codesIn(row))), `${from.codes.label} codes exactly the regions the file names`).toEqual(fileCodes)
-    expect(names, `${from.names.label} names as many regions as the file names`).toHaveLength(rules.regions.length)
+    expect(names, `${from.names.label} names as many regions as the file names`).toHaveLength(firstLevel.length)
 
-    for (const region of rules.regions) {
+    for (const region of firstLevel) {
       const own = rows.filter((row) => codesIn(row)[0] === region.code)
       expect(own, `${region.code} is one row of ${from.codes.label}`).toHaveLength(1)
       if (region.isoName !== undefined) {
@@ -180,6 +183,44 @@ test('every region a file names is one row of the page that codes it, beside its
       expect(names.filter((name) => name === composed(region.name)), `${region.name} is one name of ${from.names.label}`).toHaveLength(1)
       checked += 1
     }
+  }
+  expect(checked).toBeGreaterThan(0)
+})
+
+test("every place below the first level a file names is read from its own page, its title its name, its Land its parent's name and its key its official code, each label and value one whole passage, with its parent earlier in the file", () => {
+  let checked = 0
+  for (const rules of COUNTRIES) {
+    rules.regions.forEach((place, index) => {
+      if (place.parent === null) return
+      const reading = place.from
+      if (!reading) throw new Error(`${place.code} is below the first level and names no page it is read from`)
+
+      const definition = definitionsOf(rules.research, reading.document).get(reading.label)
+      const page = rules.sources[reading.source]
+      expect(page, `${place.code}: ${reading.source} is not a source`).toBeDefined()
+      expect(definition?.status, `${place.code}: ${reading.label} is ${definition?.status}, not verified`).toBe('verified')
+      expect(definition?.url, `${place.code}: ${reading.label} is on another page`).toBe(page?.url)
+      expect(definition?.read, `${place.code}: ${reading.label} was read on another day`).toBe(page?.read)
+      const passages = (definition?.evidence ?? []).map(composed)
+
+      const parentAt = rules.regions.findIndex((region) => region.code === place.parent)
+      expect(parentAt, `${place.code}'s parent ${place.parent} is an earlier place of the file`).toBeGreaterThanOrEqual(0)
+      expect(parentAt, `${place.code}'s parent ${place.parent} is an earlier place of the file`).toBeLessThan(index)
+      const parentName = rules.regions[parentAt]?.name ?? ''
+
+      // The directory's entry title, read whole through the file's pattern, and each field as its
+      // label followed by its value, which the page prints on adjacent lines.
+      expect(reading.row, `${place.code}'s title pattern is anchored at both ends`).toMatch(/^\^.*\$$/)
+      const pattern = new RegExp(reading.row ?? '$^')
+      const titled = passages.flatMap((passage) => {
+        const found = pattern.exec(passage)?.[1]
+        return found === undefined ? [] : [found]
+      })
+      expect(titled, `${place.code}'s page titles it once, as ${place.name}`).toEqual([composed(place.name)])
+      expect(passages.filter((passage) => passage === composed(`Bundesland ${parentName}`)), `${place.code}'s page puts it in ${parentName}`).toHaveLength(1)
+      expect(passages.filter((passage) => passage === `Amtl. Gemeindeschlüssel ${place.officialCode ?? ''}`), `${place.code}'s page keys it ${place.officialCode}`).toHaveLength(1)
+      checked += 1
+    })
   }
   expect(checked).toBeGreaterThan(0)
 })
@@ -313,11 +354,23 @@ const IN_GERMANY = `
 
 test("after a load, every Land in Germany's file is a region with nothing above it, named as Destatis names it unless the seed named it first, and a reader can say they will live or work in any one of them", async () => {
   const byCode = (a: { code: string }, b: { code: string }) => (a.code < b.code ? -1 : 1)
-  const stored = await prisma.region.findMany({ where: { countryCode: 'de' }, select: { code: true, parentCode: true, name: true } })
-  const expected = GERMANY.regions.map((region) => ({ code: region.code, parentCode: region.parent, name: seededRegions.get(region.code) ?? region.name }))
+  const stored = await prisma.region.findMany({ where: { countryCode: 'de' }, select: { code: true, parentCode: true, name: true, officialCode: true } })
+  const expected = GERMANY.regions.map((region) => ({
+    code: region.code,
+    parentCode: region.parent,
+    name: seededRegions.get(region.code) ?? region.name,
+    officialCode: region.officialCode ?? null,
+  }))
   expect(stored.sort(byCode)).toEqual(expected.sort(byCode))
-  expect(stored).toHaveLength(16)
-  expect(GERMANY.regions.filter((region) => !seededRegions.has(region.code)), 'the Länder this spec shows Destatis names for').toHaveLength(8)
+  expect(stored.filter((region) => region.parentCode === null)).toHaveLength(16)
+  expect(stored.filter((region) => region.parentCode !== null).map((region) => region.code).sort()).toEqual([
+    'DE-BW.freiburg',
+    'DE-BY.muenchen',
+    'DE-HE.wiesbaden',
+    'DE-NW.duesseldorf',
+    'DE-NW.koeln',
+  ])
+  expect(GERMANY.regions.filter((region) => region.parent === null && !seededRegions.has(region.code)), 'the Länder this spec shows Destatis names for').toHaveLength(8)
 
   for (const region of GERMANY.regions) {
     for (const where of [{ toResidenceRegions: [region.code] }, { toWorkRegions: [region.code] }]) {

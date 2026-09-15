@@ -57,11 +57,11 @@ test("on a database the seed never touched, every researched country's regions a
   expect(report.regionsAdded).toBe(TURKEY.regions.length + GERMANY.regions.length)
 
   for (const rules of [TURKEY, GERMANY]) {
-    const stored = await prisma.region.findMany({ where: { countryCode: rules.country }, select: { code: true, parentCode: true, name: true } })
-    const written = rules.regions.map((region) => ({ code: region.code, parentCode: region.parent, name: region.name }))
+    const stored = await prisma.region.findMany({ where: { countryCode: rules.country }, select: { code: true, parentCode: true, name: true, officialCode: true } })
+    const written = rules.regions.map((region) => ({ code: region.code, parentCode: region.parent, name: region.name, officialCode: region.officialCode ?? null }))
     expect(stored.sort(byCode), rules.country).toEqual(written.sort(byCode))
   }
-  expect([TURKEY.regions.length, GERMANY.regions.length]).toEqual([81, 16])
+  expect([TURKEY.regions.length, GERMANY.regions.length]).toEqual([81, 21])
 
   expect((await loadResearchRules(prisma, RESEARCHED)).regionsAdded).toBe(0)
 })

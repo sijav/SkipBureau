@@ -131,6 +131,7 @@ export const loadInto = async (tx: Prisma.TransactionClient, rules: ResearchRule
   // The same for a place (SB-210). Its name is an editor's too, and a name that
   // differs from the file never stops a start: it is shown to no reader yet, so
   // a name the research later corrects reaches the database by an editor's hand.
+  // So is its official code, which is never its identity (SB-228).
   let regionsAdded = 0
   for (const region of rules.regions) {
     const existing = await tx.region.findUnique({ where: { code: region.code } })
@@ -140,7 +141,9 @@ export const loadInto = async (tx: Prisma.TransactionClient, rules: ResearchRule
       )
     }
     if (!existing) {
-      await tx.region.create({ data: { code: region.code, countryCode: rules.country, parentCode: region.parent, name: region.name } })
+      await tx.region.create({
+        data: { code: region.code, countryCode: rules.country, parentCode: region.parent, name: region.name, officialCode: region.officialCode ?? null },
+      })
       regionsAdded += 1
     }
   }

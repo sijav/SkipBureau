@@ -43,9 +43,11 @@ finding, not a gap to fill in later with something that sounds better.
 | `germany/health-insurance` | 2 | 11 |
 | `germany/business-registration` | 2 | 11 |
 | `germany/states` | 2 | 0 |
+| `germany/cities` | 2 | 1 |
 
-All six obligations, both countries, Turkey's 81 provinces (SB-210) and
-Germany's 16 states (SB-223). Every one then passed the fixed-point check below.
+All six obligations, both countries, Turkey's 81 provinces (SB-210), Germany's
+16 states (SB-223) and the five German cities its rules name (SB-228). Every one
+then passed the fixed-point check below.
 The turns are counted from `talk/`: the sign-off turn, the fixed-point turns and
 SB-174's came after them, so `research.py cases`, which counts every turn, shows
 more.
