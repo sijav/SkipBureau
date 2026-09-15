@@ -600,7 +600,7 @@ const ANMELDUNG_FEES: readonly [place: string, opening: string][] = [
   ['DE-SN', 'In Saxony'],
 ]
 
-test("a reader moving to Germany is told the Anmeldung's two weeks and fine ceiling from the federal law, in Hamburg also its fee, in Berlin and Saxony that it is free, elsewhere no fee, and a reader who has not said where is asked", async () => {
+test("a reader moving to Germany is told the Anmeldung's two weeks and fine ceiling from the federal law, in Hamburg also its fee, in Berlin and Saxony that it is free, elsewhere no fee, a reader in a Land where a city has its own rule is asked where in it, and a reader who has not said where is asked", async () => {
   const slug = 'report-your-address'
   const versionIn = (place: string | null) =>
     GERMANY.versions.find(
@@ -626,7 +626,16 @@ test("a reader moving to Germany is told the Anmeldung's two weeks and fine ceil
   expect(await feeIn('DE-HH')).toMatchObject({ operator: 'equals', numericValue: '16', currency: 'EUR', sourceUrl: 'https://www.hamburg.de/service/info/111142065/n0/' })
   expect(await feeIn('DE-BE')).toMatchObject({ operator: 'none', sourceUrl: 'https://service.berlin.de/dienstleistung/120686/' })
 
-  expect((await germanEntryFor(slug, ['DE-BY']))?.to?.facts).toEqual(factsIn(GERMANY, federal))
+  // A Land where no rule names a place is told the federal facts alone; one where a rule names a city
+  // asks where in it the reader will live, since that city's rule could change the answer (SB-229).
+  const named = (code: string) => GERMANY.versions.some((version) => version.criteria.some((criterion) => criterion.value === code || criterion.value.startsWith(`${code}.`)))
+  const plain = GERMANY.regions.find((region) => region.parent === null && !named(region.code))
+  if (!plain) throw new Error("Germany's file has no Land where no rule names a place")
+  expect((await germanEntryFor(slug, [plain.code]))?.to?.facts, plain.code).toEqual(factsIn(GERMANY, federal))
+  const withCity = GERMANY.regions.find(
+    (region) => region.parent === null && GERMANY.versions.some((version) => version.criteria.some((criterion) => criterion.value.startsWith(`${region.code}.`))),
+  )
+  if (withCity) expect(await germanEntryFor(slug, [withCity.code]), withCity.code).toMatchObject({ verdict: 'needsDetail', needs: ['residenceRegion'], to: null })
   expect(await germanEntryFor(slug)).toMatchObject({ verdict: 'needsDetail', needs: ['residenceRegion'], to: null })
 })
 
@@ -899,10 +908,12 @@ test("a Land whose city a rule names is moved inside another Land, that rule wri
 
   expect(await loadResearchRules(prisma, [withKoeln])).toEqual({ ...NOTHING_CHANGED, versionsAdded: 1 })
   // Only a load that reads the tree below a moved place takes Köln's version aside, so the move is not refused.
-  expect(await loadResearchRules(prisma, [moved])).toEqual({ ...NOTHING_CHANGED, regionsChanged: 1, versionsChanged: 1 })
+  // Every version naming a place inside North Rhine-Westphalia steps aside with it: Köln's, and any the file has, such as Düsseldorf's fee (SB-229).
+  const insideNW = GERMANY.versions.filter((version) => version.criteria.some((criterion) => criterion.value === 'DE-NW' || criterion.value.startsWith('DE-NW.'))).length
+  expect(await loadResearchRules(prisma, [moved])).toEqual({ ...NOTHING_CHANGED, regionsChanged: 1, versionsChanged: insideNW + 1 })
   expect((await prisma.region.findUniqueOrThrow({ where: { code: 'DE-NW' } })).parentCode).toBe('DE-BY')
 
-  expect(await loadResearchRules(prisma, [GERMANY])).toEqual({ ...NOTHING_CHANGED, regionsChanged: 1, versionsRemoved: 1 })
+  expect(await loadResearchRules(prisma, [GERMANY])).toEqual({ ...NOTHING_CHANGED, regionsChanged: 1, versionsChanged: insideNW, versionsRemoved: 1 })
   expect(await ownedBy('germany')).toEqual(before)
 })
 
