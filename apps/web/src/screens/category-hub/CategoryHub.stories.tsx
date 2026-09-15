@@ -3,7 +3,7 @@ import { HttpResponse, graphql } from 'msw'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { expect, userEvent, within } from 'storybook/test'
 import { GraphQLProvider, endpoint } from 'src/core/graphql'
-import { handlers } from 'src/core/graphql/mocks'
+import { fixtures, handlers } from 'src/core/graphql/mocks'
 import { isLocale } from 'src/core/i18n'
 import { AddressShell, CountryRoute, localeSegment } from 'src/core/router'
 import { AppShell } from 'src/shared/app-shell'
@@ -101,5 +101,35 @@ export const Unreachable: Story = {
   },
   play: async ({ canvasElement }) => {
     await expect(await within(canvasElement).findByRole('button', { name: /Try again/ }, { timeout: 5000 })).toBeVisible()
+  },
+}
+
+/** An area of researched guides says its guides are verified, not that they are sample material (SB-302). */
+export const Researched: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(
+      await canvas.findByText('Every guide shows when it was last verified and links to the official source', {}, { timeout: 5000 }),
+    ).toBeVisible()
+    await expect(canvas.queryByText(/sample material for design review/)).toBeNull()
+  },
+}
+
+/** An area the sample filler wrote says so, in place of that assurance. */
+export const SampleContent: Story = {
+  parameters: {
+    msw: {
+      handlers: [
+        graphql
+          .link(endpoint())
+          .query('CategoryHub', () => HttpResponse.json({ data: { categoryHub: { ...fixtures.categoryHub, sample: true } } })),
+        ...handlers,
+      ],
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(await canvas.findByText(/sample material for design review/, {}, { timeout: 5000 })).toBeVisible()
+    await expect(canvas.queryByText('Every guide shows when it was last verified and links to the official source')).toBeNull()
   },
 }

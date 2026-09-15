@@ -59,6 +59,13 @@ export class GuideResolver {
     return this.content.search(country, locale, text.slice(0, 500))
   }
 
+  @Query(() => Boolean, {
+    description: "Whether the common questions one country shows are sample content, which no reader should take as guidance (SB-302).",
+  })
+  async sampleQuestions(@Args('country', { type: () => String }) country: string): Promise<boolean> {
+    return this.content.sampleQuestions(country)
+  }
+
   @Query(() => [QuestionView], { description: 'Common questions in one country, each with its short answer.' })
   async questions(
     @Args('country', { type: () => String }) country: string,

@@ -43,6 +43,11 @@ type CategoryHubView {
   lastReviewed: String
   locale: String!
   related: [RelatedGoalView!]!
+
+  """
+  True where this area, or a guide in it, was written by sample content rather than from the research (SB-302).
+  """
+  sample: Boolean!
   slug: String!
   start: HubStartView
   title: String!
@@ -490,6 +495,11 @@ type Query {
   """
   residenceStatuses(country: String!, locale: String = "en-US"): [ResidenceStatus!]!
 
+  """
+  Whether the common questions one country shows are sample content, which no reader should take as guidance (SB-302).
+  """
+  sampleQuestions(country: String!): Boolean!
+
   """Everything a question matches in one country, for the results page."""
   search(country: String!, locale: String = "en-US", text: String!): SearchView!
 
@@ -754,6 +764,11 @@ type TaskHubView {
   """
   locale: String!
   otherRoutesIntro: String
+
+  """
+  True where an area this hub lists, or a guide under one, was written by sample content rather than from the research (SB-302).
+  """
+  sample: Boolean!
   slug: String!
 
   """The official sources behind those guides, each once."""

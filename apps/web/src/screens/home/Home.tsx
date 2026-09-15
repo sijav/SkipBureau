@@ -97,13 +97,17 @@ export const Home = () => {
       )}
 
       <Divider />
+      {/* The band speaks for what this page shows, which of the country's rows is only its common questions (SB-302). */}
       <Stack spacing="6px" sx={{ paddingTop: '32px', paddingBottom: '80px', color: tokens.textSecondary }}>
-        <Typography variant="caption">
-          <Trans>Every guide shows when it was last verified and links to the official source</Trans>
-        </Typography>
-        <Typography variant="body2" sx={{ maxWidth: layout.askWidth }}>
-          <Trans>Figures, timings and requirements shown throughout this design are sample content for review, not verified legal information.</Trans>
-        </Typography>
+        {data?.sampleQuestions ? (
+          <Typography variant="body2" sx={{ maxWidth: layout.askWidth }}>
+            <Trans>Figures, timings and requirements shown throughout this design are sample content for review, not verified legal information.</Trans>
+          </Typography>
+        ) : (
+          <Typography variant="caption">
+            <Trans>Every guide shows when it was last verified and links to the official source</Trans>
+          </Typography>
+        )}
       </Stack>
     </Page>
   )

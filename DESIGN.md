@@ -1041,6 +1041,16 @@ The trust band, quoted:
 and beneath it, a note that the figures in the design are sample content and not
 verified legal information.
 
+**That note is shown only where the page's own rows are sample** (SB-302). It was
+drawn when every row was sample content, and it says of researched, dated
+content exactly what the product exists to deny. So the API says which rows a
+page shows: a hub carries `sample`, true where an area it lists or a guide under
+one was written by the sample filler rather than from the research, and Home
+carries `sampleQuestions`, since the only rows of a country's own that Home
+shows are its common questions. A page shows one line or the other, never both:
+the warning where its rows are sample, and the assurance that every guide shows
+when it was last verified where they are researched.
+
 ### Scroll handoff `62:849`
 
 The four steps, from the file:

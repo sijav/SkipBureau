@@ -189,12 +189,15 @@ export const TaskHub = () => {
               checkedAt={source.verifiedAt}
             />
           ))}
-          <Typography variant="body2" sx={{ color: tokens.textSecondary }}>
-            <Trans>
-              Descriptions on this page are sample content for design review. They deliberately avoid fees, thresholds and eligibility rules, which are
-              determined during guided setup against verified sources.
-            </Trans>
-          </Typography>
+          {/* Only where an area or a guide here is sample content (SB-302). */}
+          {hub.sample && (
+            <Typography variant="body2" sx={{ color: tokens.textSecondary }}>
+              <Trans>
+                Descriptions on this page are sample content for design review. They deliberately avoid fees, thresholds and eligibility rules, which
+                are determined during guided setup against verified sources.
+              </Trans>
+            </Typography>
+          )}
         </Stack>
       </Box>
     </Page>

@@ -208,6 +208,7 @@ export const HomeQuery = graphql(`
       answer
       guideSlug
     }
+    sampleQuestions(country: $country)
   }
 `)
 
@@ -223,6 +224,7 @@ export const TaskHubQuery = graphql(`
       otherRoutesIntro
       locale
       translationMissing
+      sample
       areas {
         slug
         kind
@@ -256,6 +258,7 @@ export const CategoryHubQuery = graphql(`
       goalSlug
       goalTitle
       goalAreas
+      sample
       lastReviewed
       start {
         guideSlug

@@ -3,7 +3,7 @@ import { HttpResponse, graphql } from 'msw'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { expect, within } from 'storybook/test'
 import { GraphQLProvider, endpoint } from 'src/core/graphql'
-import { handlers } from 'src/core/graphql/mocks'
+import { fixtures, handlers } from 'src/core/graphql/mocks'
 import { isLocale } from 'src/core/i18n'
 import { AddressShell, CountryRoute, localeSegment } from 'src/core/router'
 import { AppShell } from 'src/shared/app-shell'
@@ -89,5 +89,31 @@ export const Unreachable: Story = {
   },
   play: async ({ canvasElement }) => {
     await expect(await within(canvasElement).findByRole('button', { name: /Try again/ }, { timeout: 5000 })).toBeVisible()
+  },
+}
+
+/** A goal whose areas and guides are all researched says nothing about sample content (SB-302). */
+export const Researched: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(await canvas.findByRole('heading', { level: 1 }, { timeout: 5000 })).toBeVisible()
+    await expect(canvas.queryByText(/sample content for design review/)).toBeNull()
+  },
+}
+
+/** A goal still holding a sample area says so, under its sources. */
+export const SampleContent: Story = {
+  parameters: {
+    msw: {
+      handlers: [
+        graphql
+          .link(endpoint())
+          .query('TaskHub', () => HttpResponse.json({ data: { taskHub: { ...fixtures.taskHub, sample: true } } })),
+        ...handlers,
+      ],
+    },
+  },
+  play: async ({ canvasElement }) => {
+    await expect(await within(canvasElement).findByText(/sample content for design review/, {}, { timeout: 5000 })).toBeVisible()
   },
 }

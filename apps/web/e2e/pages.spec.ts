@@ -400,6 +400,26 @@ test("a role the country's researched rules do not name is Not Found", async ({ 
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(/does not exist/)
 })
 
+// SB-302: a page says its content is sample material only where its own rows are, so a page of researched guides says
+// instead that its guides are verified.
+
+test('an area hub of researched guides says its guides are verified, not that they are sample material', async ({ page }) => {
+  await page.goto('en/TR/tasks/getting-settled/register-your-address', { waitUntil: 'load' })
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+  await expect(page.getByText(/sample material for design review/)).toHaveCount(0)
+  await expect(page.getByText('Every guide shows when it was last verified and links to the official source')).toBeVisible()
+})
+
+test('a page whose rows are sample content still says so', async ({ page }) => {
+  // The built site runs on the e2e fixture, which keeps Turkey's sample questions; the deployed database has none
+  // left, and its home carries the assurance instead, which the live run of the test above and the deploy check prove.
+  test.skip(LIVE, 'no sample row remains on the deployed database')
+  await page.goto('en/TR', { waitUntil: 'load' })
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+  await expect(page.getByText(/sample content for review/)).toBeVisible()
+  await expect(page.getByText('Every guide shows when it was last verified and links to the official source')).toHaveCount(0)
+})
+
 // SB-280: a guide whose rules apply by the reader's role asks for it, and answers a worker with the rule's figures.
 
 test('the work permit guide asks for the role, and shows a worker the permit fees with the page they were read on', async ({ page }) => {

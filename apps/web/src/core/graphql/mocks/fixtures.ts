@@ -182,6 +182,8 @@ export const anmeldungGuide = {
 /** Start a business in Turkey, as the API's sample content has it: Figma 81:523. */
 export const taskHub = {
   slug: 'start-a-business',
+  // SB-302: the mocks answer as the live API does for Turkey, whose rows are all researched.
+  sample: false,
   title: 'Start a business',
   heading: 'Start a business in {country}',
   intro: 'Understand the main decisions, registrations and ongoing responsibilities involved in setting up a business in {country}.',
@@ -216,6 +218,7 @@ export const taskHub = {
 /** Getting Settled in Turkey, as the API's sample content has it: Figma 133:690. */
 export const categoryHub = {
   slug: 'first-week',
+  sample: false,
   title: 'Getting Settled',
   description: 'Essential services to help you start everyday life in Turkey.',
   askPrompt: 'Ask about getting settled in Turkey and find the most relevant guide.',

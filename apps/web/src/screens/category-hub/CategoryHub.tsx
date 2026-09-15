@@ -188,13 +188,17 @@ export const CategoryHub = (props: CategoryHubProps) => {
 
       <Stack spacing="6px" sx={{ paddingTop: '56px', paddingBottom: '80px' }}>
         <Divider />
+        {/* One or the other (SB-302): a sample row's date and source are design data, and a researched one's are not sample material. */}
         <Stack spacing="5px" sx={{ paddingTop: '16px', color: tokens.textSecondary }}>
-          <Typography variant="caption">
-            <Trans>Every guide shows when it was last verified and links to the official source</Trans>
-          </Typography>
-          <Typography variant="body2" sx={{ maxWidth: layout.readingWidth }}>
-            <Trans>Content shown here is sample material for design review.</Trans>
-          </Typography>
+          {hub?.sample ? (
+            <Typography variant="body2" sx={{ maxWidth: layout.readingWidth }}>
+              <Trans>Content shown here is sample material for design review.</Trans>
+            </Typography>
+          ) : (
+            <Typography variant="caption">
+              <Trans>Every guide shows when it was last verified and links to the official source</Trans>
+            </Typography>
+          )}
         </Stack>
       </Stack>
     </Page>

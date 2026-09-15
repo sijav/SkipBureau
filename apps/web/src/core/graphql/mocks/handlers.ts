@@ -47,7 +47,10 @@ export const handlers = [
   // global, and none of Turkey's content.
   api.query('Home', ({ variables }) => {
     const ours = variables['country'] === 'tr'
-    return HttpResponse.json({ data: { tasks, categories: ours ? categories : [], questions: ours ? questions : [] } })
+    // SB-302: only the sample filler writes questions, so a country that has any shows the band's warning.
+    return HttpResponse.json({
+      data: { tasks, categories: ours ? categories : [], questions: ours ? questions : [], sampleQuestions: ours && questions.length > 0 },
+    })
   }),
 
   // Keyed on the variable, so asking for a country we do not have answers

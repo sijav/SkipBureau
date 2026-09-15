@@ -284,6 +284,11 @@ export class TaskHubView {
   @Field(() => String, { nullable: true }) dependsNote!: string | null
   @Field(() => String, { nullable: true }) otherRoutesIntro!: string | null
 
+  @Field(() => Boolean, {
+    description: 'True where an area this hub lists, or a guide under one, was written by sample content rather than from the research (SB-302).',
+  })
+  sample!: boolean
+
   @Field(() => String, { description: 'The locale this content is actually in, which may not be the one asked for.' })
   locale!: string
 
@@ -331,6 +336,9 @@ export class CategoryHubView {
   @Field(() => Boolean) translationMissing!: boolean
   @Field(() => String) goalSlug!: string
   @Field(() => String) goalTitle!: string
+
+  @Field(() => Boolean, { description: 'True where this area, or a guide in it, was written by sample content rather than from the research (SB-302).' })
+  sample!: boolean
 
   @Field(() => Int, { description: 'How many areas the goal has in this country. With one, the goal opens this hub directly.' })
   goalAreas!: number

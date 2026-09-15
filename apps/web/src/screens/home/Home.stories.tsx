@@ -3,7 +3,7 @@ import { HttpResponse, graphql } from 'msw'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { expect, userEvent, within } from 'storybook/test'
 import { GraphQLProvider, endpoint } from 'src/core/graphql'
-import { emptyHandlers, handlers } from 'src/core/graphql/mocks'
+import { emptyHandlers, fixtures, handlers } from 'src/core/graphql/mocks'
 import { isLocale } from 'src/core/i18n'
 import { AddressShell, CountryRoute, localeSegment } from 'src/core/router'
 import { AppShell } from 'src/shared/app-shell'
@@ -140,5 +140,37 @@ export const Ask: Story = {
 
     await userEvent.keyboard('{Escape}')
     await expect(field).toHaveAttribute('aria-expanded', 'false')
+  },
+}
+
+/** Turkey's rows are researched, so Home says its guides are verified and nothing about sample material (SB-302). */
+export const Researched: Story = {
+  parameters: {
+    msw: {
+      handlers: [
+        graphql
+          .link(endpoint())
+          .query('Home', () =>
+            HttpResponse.json({ data: { tasks: fixtures.tasks, categories: fixtures.categories, questions: [], sampleQuestions: false } }),
+          ),
+        ...handlers,
+      ],
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(
+      await canvas.findByText('Every guide shows when it was last verified and links to the official source', {}, { timeout: 5000 }),
+    ).toBeVisible()
+    await expect(canvas.queryByText(/sample content for review/)).toBeNull()
+  },
+}
+
+/** A country whose common questions the sample filler wrote still warns its readers, and drops the assurance. */
+export const SampleQuestions: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(await canvas.findByText(/sample content for review/, {}, { timeout: 5000 })).toBeVisible()
+    await expect(canvas.queryByText('Every guide shows when it was last verified and links to the official source')).toBeNull()
   },
 }
