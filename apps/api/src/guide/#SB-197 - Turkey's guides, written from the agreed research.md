@@ -53,3 +53,22 @@ Uludağ University's page, with no rule or rule page behind it. That is faithful
 source as not official, but it does not meet "its figures shown from the linked rules with their pages". So SB-197
 waits for SB-206, which asks the Revenue Administration's own pages what the tax number costs, and closes on these same
 checks once that answer is a rule the guide links, or the figure has left the guide through a research change.
+
+## Closed 2026-09-16
+
+SB-206 took that figure out. The tax number conversation found no first-party page stating a charge or an exemption,
+Law 492 was read here and lists no fee for issuing the number, and the guide now says that, sourced to the law, with
+the university's "free of charge" gone from the document and the guide. No figure of a Turkish guide is left without a
+rule or an authority's page.
+
+Every check of this card was then run again, after that deploy:
+
+- Turkey's live guides are the six researched ones, its areas the same six, each under its researched goal, and it has
+  no question.
+- SB-261's read-back finds every researched guide served exactly as `researched-guides.ts` holds it, sections, sources,
+  verified date and links.
+- Every obligation in Turkey's research rules files is linked by a guide; the tax number has no rules file, and its
+  charge now rests on Law 492's own page in the guide's sources.
+- All six guides answer 200 in en and fa from their own files; `sim-card`, the sample guide SB-282 deleted, answers 404
+  in both and is absent from the sitemap, which lists exactly the six.
+- A Turkish hub shows only the product's own goal texts from `tasks.ts` and what the researched guides give it.
