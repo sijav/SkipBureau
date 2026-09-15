@@ -227,7 +227,16 @@ on 2026-09-10 and both at a cost:
 
 Then have it checked by the `plan` roast, which runs with web search, and
 **wait for that one**: the point is that it lands before the time is spent.
-Every time the plan file is touched it is checked again.
+Check it again when the approach, the data, the tests or what goes live
+change, not for wording. The owner, 2026-09-15:
+
+> "by roasting you did notice just wording may not be necessary? ... why
+> don't let gpt give you the wording? And if it's totally wrong you fix it,
+> otherwise no reason if it gives the exact meaning right? No need to over
+> complicate it"
+
+So wording a check gives is taken as given when it keeps the meaning, and
+fixed only where it is wrong.
 
 **Ask it real questions.** `--ask` is what makes the check worth its round
 trip. Name the mechanism you doubt. "Is this a good approach" gets an answer
