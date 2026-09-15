@@ -572,8 +572,8 @@ test("each status the address duty was verified for is told its 20 working days 
 })
 
 const GERMAN_ANSWER = `
-  query GermanAnswer($toResidenceRegions: [String!]) {
-    move(from: "xx", to: "de", toResidenceRegions: $toResidenceRegions) {
+  query GermanAnswer($toResidenceRegions: [String!], $residenceStatuses: [String!]) {
+    move(from: "xx", to: "de", toResidenceRegions: $toResidenceRegions, residenceStatuses: $residenceStatuses) {
       obligationSlug
       verdict
       needs
@@ -585,9 +585,12 @@ const GERMAN_ANSWER = `
   }
 `
 
-/** Germany's answer for one obligation to a reader who will live where they say, or undefined where no rule of it applies. */
-const germanEntryFor = async (slug: string, toResidenceRegions?: string[]): Promise<Entry | undefined> => {
-  const response = await graphql(GERMAN_ANSWER, toResidenceRegions ? { toResidenceRegions } : {})
+/** Germany's answer for one obligation to a reader who lives where they say and holds what they say, or undefined where no rule of it applies. */
+const germanEntryFor = async (slug: string, toResidenceRegions?: string[], residenceStatuses?: string[]): Promise<Entry | undefined> => {
+  const response = await graphql(GERMAN_ANSWER, {
+    ...(toResidenceRegions ? { toResidenceRegions } : {}),
+    ...(residenceStatuses ? { residenceStatuses } : {}),
+  })
   expect(response.body.errors, JSON.stringify(response.body.errors)).toBeUndefined()
   const entries: Entry[] = response.body.data.move
   return entries.find((entry) => entry.obligationSlug === slug)
@@ -632,6 +635,56 @@ test("a reader moving to Germany is told the Anmeldung's two weeks and fine ceil
   if (!plain) throw new Error("Germany's file has no Land where no rule names a place")
   expect((await germanEntryFor(slug, [plain.code]))?.to?.facts, plain.code).toEqual(factsIn(GERMANY, federal))
   expect(await germanEntryFor(slug)).toMatchObject({ verdict: 'needsDetail', needs: ['residenceRegion'], to: null })
+})
+
+test("a skilled worker with a degree holding a national D visa or a residence permit is told that applying before it expires keeps it valid, in Munich and Berlin also their procedure, in a place no rule names the federal facts alone, is asked where when they have said only a Land holding a named place or nothing, and a reader on a Schengen visa is told nothing of it", async () => {
+  const slug = 'get-a-residence-permit-as-a-skilled-worker-with-a-degree'
+  const versions = GERMANY.versions.filter((version) => version.obligation === slug)
+  const valueOf = (version: ResearchVersion, dimension: string) => version.criteria.find((criterion) => criterion.dimension === dimension)?.value ?? null
+  const statuses = [...new Set(versions.map((version) => valueOf(version, 'residenceStatus')))].filter((status): status is string => status !== null)
+  expect(statuses, "Germany's file has no status for this permit").not.toEqual([])
+  const named = versions.map((version) => valueOf(version, 'residenceRegion')).filter((place): place is string => place !== null)
+  const plain = GERMANY.regions.find((region) => region.parent === null && !named.some((place) => place === region.code || place.startsWith(`${region.code}.`)))
+  const holding = GERMANY.regions.find((region) => region.parent === null && named.some((place) => place.startsWith(`${region.code}.`)))
+  if (!plain || !holding) throw new Error("Germany's file needs a Land with no place this permit names, and a Land holding one")
+  const federalOf = (status: string) =>
+    versions.find((version) => valueOf(version, 'residenceStatus') === status && valueOf(version, 'residenceRegion') === null)
+
+  for (const status of statuses) {
+    const federal = federalOf(status)
+    expect(federal, `${status} has no version without a place`).toBeDefined()
+    const inPlain = await germanEntryFor(slug, [plain.code], [status])
+    expect(inPlain?.verdict, `${status} in ${plain.code}`).toBe('newInDestination')
+    expect(inPlain?.to?.facts, `${status} in ${plain.code}`).toEqual(factsIn(GERMANY, federal))
+
+    for (const local of versions.filter((version) => valueOf(version, 'residenceStatus') === status && valueOf(version, 'residenceRegion') !== null)) {
+      const place = valueOf(local, 'residenceRegion') ?? ''
+      expect((await germanEntryFor(slug, [place], [status]))?.to?.facts, `${status} in ${place}`).toEqual(factsIn(GERMANY, federal, local))
+    }
+
+    // A Land holding a place a rule names, or no place at all, could be that place, so the reader is asked where.
+    for (const where of [[holding.code], undefined]) {
+      expect(await germanEntryFor(slug, where, [status]), `${status} in ${where?.[0] ?? 'no place'}`).toMatchObject({
+        verdict: 'needsDetail',
+        needs: ['residenceRegion'],
+        to: null,
+      })
+    }
+  }
+
+  // No rule of this permit is for a Schengen visa, so a reader holding one is told nothing of it.
+  expect(await germanEntryFor(slug, [plain.code], ['de.schengen-visa'])).toBeUndefined()
+
+  // A place inside that Land which no rule names is told the federal facts alone. Germany's file names no such place,
+  // so one is added to a copy of it, and the real file loaded again puts every row back.
+  const before = await ownedBy('germany')
+  const spare = `${holding.code}.spec-place`
+  await loadResearchRules(prisma, [{ ...GERMANY, regions: [...GERMANY.regions, { code: spare, parent: holding.code, name: 'A place no rule names' }] }])
+  for (const status of statuses) {
+    expect((await germanEntryFor(slug, [spare], [status]))?.to?.facts, `${status} in ${spare}`).toEqual(factsIn(GERMANY, federalOf(status)))
+  }
+  await loadResearchRules(prisma, [GERMANY])
+  expect(await ownedBy('germany')).toEqual(before)
 })
 
 const COMPARED = `
