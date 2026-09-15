@@ -2,7 +2,7 @@ import { Args, Query, Resolver } from '@nestjs/graphql'
 import { GraphQLError } from 'graphql'
 import { LOCALE } from '../locale.js'
 import { ProfileError } from './eligibility.js'
-import { DiffEntry } from './rules.model.js'
+import { DiffEntry, ResearchRowCount } from './rules.model.js'
 import { RulesService } from './rules.service.js'
 
 // A refused profile is the caller's mistake, and BAD_USER_INPUT is the code a
@@ -30,6 +30,13 @@ const TO_WORK = 'Where this person will work after the move, in place of workReg
 @Resolver(() => DiffEntry)
 export class RulesResolver {
   constructor(private readonly rules: RulesService) {}
+
+  @Query(() => [ResearchRowCount], {
+    description: 'How many versions, places, statuses and groups of this database each research file owns, so a publish can be read back.',
+  })
+  async researchRows(): Promise<ResearchRowCount[]> {
+    return this.rules.researchRows()
+  }
 
   @Query(() => [DiffEntry], { description: 'What changes for this person on moving between two countries, or between two places in one.' })
   async move(

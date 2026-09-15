@@ -23,8 +23,8 @@ node dist/bootstrap.js
 
 # Researched rules, written from the agreed research with every fact tied to
 # the page that states it (SB-190). Before the sample content, so a sample guide
-# naming an obligation this adds can link to it. It stops the start if a
-# deployed version differs from the file, which the previous container survives.
+# naming an obligation this adds can link to it. Every row a research file owns
+# then says what that file says, added, rewritten or removed (SB-202).
 echo "loading researched rules"
 node dist/load-research-rules.js
 

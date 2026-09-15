@@ -28,7 +28,7 @@ export type ResearchRegion = {
   isoName?: string
   /**
    * The state's own identifier for the place where an official page states it, such as a German
-   * municipality's Amtlicher Gemeindeschlüssel: written when the place is created, never compared (SB-228).
+   * municipality's Amtlicher Gemeindeschlüssel (SB-228). A load writes it as the file says (SB-202).
    */
   officialCode?: string
   /** For a place below the first level, the page that states it (SB-228). */
@@ -106,6 +106,8 @@ export type ResearchVersion = {
   document: string
   /** YYYY-MM-DD. */
   validFrom: string
+  /** YYYY-MM-DD, the first day it no longer holds, where the research found it ended; left out while it holds (SB-202). */
+  validTo?: string
   criteria: readonly { dimension: EligibilityDimension; value: string }[]
   /** The key in `sources` of the page for what the version itself states. */
   source: string
@@ -122,7 +124,7 @@ export type ResearchVersion = {
  */
 export type ResearchRules = {
   country: string
-  /** The folder under research/agreed that its documents are in. */
+  /** The folder under research/agreed that its documents are in, and the owner a load writes on every row the file lists (SB-202). */
   research: string
   /** Written before any version and in this order, so a status comes before any kind of it. */
   statuses: readonly ResearchStatus[]

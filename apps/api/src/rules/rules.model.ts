@@ -1,4 +1,4 @@
-import { Field, ObjectType, registerEnumType } from '@nestjs/graphql'
+import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql'
 import { Verdict } from './diff.js'
 import { Detail } from './eligibility.js'
 
@@ -13,6 +13,15 @@ registerEnumType(Detail, {
   name: 'Detail',
   description: 'A detail about a person that can change which rule applies to them.',
 })
+
+@ObjectType({ description: 'The rows of this database one research file owns, counted (SB-202).' })
+export class ResearchRowCount {
+  @Field(() => String, { description: 'The research file, such as turkey.' }) research!: string
+  @Field(() => Int) versions!: number
+  @Field(() => Int) places!: number
+  @Field(() => Int) statuses!: number
+  @Field(() => Int) groups!: number
+}
 
 @ObjectType()
 export class RuleFactValue {

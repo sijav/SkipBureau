@@ -84,6 +84,9 @@ model RuleVersion {
   /// the thing this product is actually selling.
   verifiedAt   DateTime               @db.Date
   createdAt    DateTime               @default(now())
+  /// The research file that wrote this version and keeps it as that file says,
+  /// `turkey` or `germany`. Null for one research did not write (SB-202).
+  research     String?
   country      Country                @relation(fields: [countryCode], references: [code], onDelete: Cascade)
   obligation   Obligation             @relation(fields: [obligationId], references: [id], onDelete: Cascade)
   criteria     EligibilityCriterion[]
@@ -176,9 +179,11 @@ model EligibilityCriterion {
 }
 
 model NationalityGroup {
-  code    String                   @id
-  name    String
-  members NationalityGroupMember[]
+  code     String                   @id
+  name     String
+  /// The research file that declares this group and its memberships, or null (SB-202).
+  research String?
+  members  NationalityGroupMember[]
 }
 
 /// Membership is dated, or a historical question is answered with today's
@@ -540,6 +545,8 @@ model Region {
   /// Gemeindeschlüssel. An attribute, never the identity.
   officialCode String?
   name         String
+  /// The research file that lists this place and keeps it as that file says, or null (SB-202).
+  research     String?
   country      Country      @relation(fields: [countryCode], references: [code], onDelete: Cascade)
   // No action on delete: a place with places inside it is not removed from
   // under them, and a country's deletion still takes its whole tree at once.
@@ -573,6 +580,8 @@ model ResidenceStatus {
   /// The status this one is a kind of. Null for one with nothing above it.
   parentCode  String?               @db.VarChar(60)
   name        String
+  /// The research file that lists this status and keeps it as that file says, or null (SB-202).
+  research    String?
   country     Country               @relation(fields: [countryCode], references: [code], onDelete: Cascade)
   // No action on delete, as for regions: a status with kinds under it is not
   // removed from under them, and a country's deletion still takes its tree.

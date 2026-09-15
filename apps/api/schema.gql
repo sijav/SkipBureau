@@ -405,6 +405,11 @@ type Query {
   """Common questions in one country, each with its short answer."""
   questions(country: String!, locale: String = "en-US"): [QuestionView!]!
 
+  """
+  How many versions, places, statuses and groups of this database each research file owns, so a publish can be read back.
+  """
+  researchRows: [ResearchRowCount!]!
+
   """Everything a question matches in one country, for the results page."""
   search(country: String!, locale: String = "en-US", text: String!): SearchView!
 
@@ -442,6 +447,17 @@ type RelatedGoalView {
   slug: String!
   subtitle: String
   title: String!
+}
+
+"""The rows of this database one research file owns, counted (SB-202)."""
+type ResearchRowCount {
+  groups: Int!
+  places: Int!
+
+  """The research file, such as turkey."""
+  research: String!
+  statuses: Int!
+  versions: Int!
 }
 
 type ResolvedRule {

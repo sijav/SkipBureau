@@ -77,6 +77,11 @@ has history cascades to rows whose triggers refuse it.
 **Undo it** by guarding them too, the day an obligation's `kind` or slug comes
 to change what a past answer says rather than how it is labelled.
 
+**Amended 2026-09-15**, on the owner's order that a research that passes changes
+the live data and a down puts it back, with git as the trace (SB-202): the
+research load is let past these triggers, and writes every row a research file
+owns as that file says, removing what the file no longer lists. Nothing else is.
+
 ## A suggestion is stored, and nothing reads it back yet
 
 **Decided 2026-09-12**, finishing change proposals from anonymous visitors

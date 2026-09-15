@@ -431,10 +431,14 @@ so did the two drawn again for company formation:
 ## How an agreed figure reaches a reader (SB-190)
 
 A figure in `agreed/` becomes a rule only through `src/rules/research/`, one
-module per country, loaded onto the deployed database on every start, fill-only
-and append-only. Each version there names the agreed document it is written
-from, and it and each of its facts name the labels of the definitions they rest
-on. `test/research-rules.e2e.spec.ts` reads every label back from that document
+module per country, loaded onto the deployed database on every start. After a
+load every row a module owns says exactly what the module says: what is new is
+added, what changed is written again, and what the module no longer lists is
+removed, so loading the earlier module puts the database back, and git holds
+what each one said (SB-202, the owner's order of 2026-09-15). A change in the
+law is still history, because the module says so: it ends the old version and
+adds its successor. Each version names the agreed document it is written from,
+and it and each of its facts name the labels of the definitions they rest on. `test/research-rules.e2e.spec.ts` reads every label back from that document
 and fails on one that is calculated, unverified, missing, or on another page or
 day than the module says.
 

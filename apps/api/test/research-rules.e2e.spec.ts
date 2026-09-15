@@ -10,7 +10,7 @@ import request from 'supertest'
 import { afterAll, beforeAll, expect, test } from 'vitest'
 import { AppModule } from '../src/app.module.js'
 import { PrismaService } from '../src/prisma/prisma.service.js'
-import { loadInto, loadResearchRules, ResearchRulesMismatch } from '../src/rules/research/load.js'
+import { loadInto, loadResearchRules, type LoadReport } from '../src/rules/research/load.js'
 import type { ResearchMembership, ResearchReading, ResearchRules, ResearchStatus, ResearchVersion } from '../src/rules/research/rows.js'
 import { RESEARCHED } from '../src/rules/research/countries.js'
 import { GERMANY } from '../src/rules/research/germany.js'
@@ -20,9 +20,10 @@ import { startPglite } from '../scripts/pglite-server.mjs'
 
 // SB-190: researched rules reach the database only from src/rules/research,
 // every version and fact resting on verified definitions of its agreed document,
-// and a load is fill-only, append-only and serialised under one lock. SB-194:
-// the residence statuses a file names are written first, in its order, and a
-// deployed one is never moved. SB-209: an answer carries its rule's notes.
+// and a load is serialised under one lock. SB-202: after a load every row a file
+// owns says exactly what that file says, and loading the earlier file puts it
+// back. SB-194: the residence statuses a file names are written first, in its
+// order. SB-209: an answer carries its rule's notes.
 // SB-192: a nationality group the file declares keeps the memberships it says.
 // SB-210: every region a file names is read back from the two pages that code
 // and name it, and a reader can say they live in any of them. SB-191: the
@@ -35,6 +36,25 @@ import { startPglite } from '../scripts/pglite-server.mjs'
 const API = join(dirname(fileURLToPath(import.meta.url)), '..')
 const PORT = 5468
 const COUNTRIES: readonly ResearchRules[] = RESEARCHED
+
+/** A load that wrote nothing (SB-202). */
+const NOTHING_CHANGED: LoadReport = {
+  statusesAdded: 0,
+  statusesChanged: 0,
+  statusesRemoved: 0,
+  regionsAdded: 0,
+  regionsChanged: 0,
+  regionsRemoved: 0,
+  groupsAdded: 0,
+  groupsChanged: 0,
+  groupsRemoved: 0,
+  membershipsAdded: 0,
+  membershipsRemoved: 0,
+  obligationsAdded: 0,
+  versionsAdded: 0,
+  versionsChanged: 0,
+  versionsRemoved: 0,
+}
 
 let app: INestApplication
 let prisma: PrismaService
@@ -301,8 +321,11 @@ test("after a load, Turkey's limited company formation answers with every fact t
   const report = await loadResearchRules(prisma, COUNTRIES)
   console.log(`a full load of researched rules took ${Date.now() - started} ms`)
   expect(report).toEqual({
+    ...NOTHING_CHANGED,
     statusesAdded: across((rules) => rules.statuses.length),
     regionsAdded: across((rules) => rules.regions.filter((region) => !seededRegions.has(region.code)).length),
+    // The Länder the seed wrote first are claimed, and named as the file names them (SB-202).
+    regionsChanged: across((rules) => rules.regions.filter((region) => seededRegions.has(region.code)).length),
     groupsAdded: across((rules) => rules.nationalityGroups.length),
     membershipsAdded: across((rules) => rules.nationalityGroups.reduce((sum, group) => sum + group.members.length, 0)),
     // An obligation two countries share is added once.
@@ -352,14 +375,18 @@ const IN_GERMANY = `
   }
 `
 
-test("after a load, every Land in Germany's file is a region with nothing above it, named as Destatis names it unless the seed named it first, and a reader can say they will live or work in any one of them", async () => {
+test("after a load, every Land in Germany's file is a region with nothing above it, owned by Germany's file and named as Destatis names it, the eight the seed wrote first included, and a reader can say they will live or work in any one of them", async () => {
   const byCode = (a: { code: string }, b: { code: string }) => (a.code < b.code ? -1 : 1)
-  const stored = await prisma.region.findMany({ where: { countryCode: 'de' }, select: { code: true, parentCode: true, name: true, officialCode: true } })
+  const stored = await prisma.region.findMany({
+    where: { countryCode: 'de' },
+    select: { code: true, parentCode: true, name: true, officialCode: true, research: true },
+  })
   const expected = GERMANY.regions.map((region) => ({
     code: region.code,
     parentCode: region.parent,
-    name: seededRegions.get(region.code) ?? region.name,
+    name: region.name,
     officialCode: region.officialCode ?? null,
+    research: 'germany',
   }))
   expect(stored.sort(byCode)).toEqual(expected.sort(byCode))
   expect(stored.filter((region) => region.parentCode === null)).toHaveLength(16)
@@ -370,7 +397,7 @@ test("after a load, every Land in Germany's file is a region with nothing above 
     'DE-NW.duesseldorf',
     'DE-NW.koeln',
   ])
-  expect(GERMANY.regions.filter((region) => region.parent === null && !seededRegions.has(region.code)), 'the Länder this spec shows Destatis names for').toHaveLength(8)
+  expect(GERMANY.regions.filter((region) => seededRegions.has(region.code)), 'the Länder the seed wrote first').toHaveLength(8)
 
   for (const region of GERMANY.regions) {
     for (const where of [{ toResidenceRegions: [region.code] }, { toWorkRegions: [region.code] }]) {
@@ -636,52 +663,118 @@ const counts = () =>
     prisma.ruleText.count(),
   ])
 
-const NOTHING_ADDED = { statusesAdded: 0, regionsAdded: 0, groupsAdded: 0, membershipsAdded: 0, obligationsAdded: 0, versionsAdded: 0 }
+const byJson = (a: unknown, b: unknown) => JSON.stringify(a).localeCompare(JSON.stringify(b))
+const dayOf = (value: Date | null) => (value === null ? null : value.toISOString().slice(0, 10))
 
-test('a second load, and the seed run beside it, add nothing', async () => {
+/** Every row one research file owns, as the database holds it, without ids or creation times (SB-202). */
+const ownedBy = async (research: string) => {
+  const versions = await prisma.ruleVersion.findMany({ where: { research }, include: { obligation: { select: { slug: true } }, criteria: true, facts: true, texts: true } })
+  const regions = await prisma.region.findMany({ where: { research }, select: { code: true, parentCode: true, name: true, officialCode: true } })
+  const statuses = await prisma.residenceStatus.findMany({ where: { research }, include: { texts: true } })
+  const groups = await prisma.nationalityGroup.findMany({ where: { research }, include: { members: true } })
+  return {
+    versions: versions
+      .map((version) => ({
+        obligation: version.obligation.slug,
+        validFrom: dayOf(version.validFrom),
+        validTo: dayOf(version.validTo),
+        page: [version.sourceUrl, version.sourceName, dayOf(version.verifiedAt)],
+        criteria: version.criteria.map((criterion) => `${criterion.dimension}:${criterion.value}`).sort(),
+        facts: version.facts
+          .map((fact) => [fact.key, fact.operator, fact.numericValue?.toString() ?? null, fact.textValue, fact.unit, fact.currency, fact.sourceUrl, fact.sourceName, dayOf(fact.verifiedAt)])
+          .sort(byJson),
+        notes: version.texts.filter((text) => text.locale === 'en-US').map((text) => text.notes),
+      }))
+      .sort(byJson),
+    regions: regions.sort(byJson),
+    statuses: statuses
+      .map((status) => ({ code: status.code, parentCode: status.parentCode, name: status.name, texts: status.texts.map((text) => [text.locale, text.name]).sort(byJson) }))
+      .sort(byJson),
+    groups: groups
+      .map((group) => ({ code: group.code, name: group.name, members: group.members.map((member) => [member.nationality, dayOf(member.validFrom), dayOf(member.validTo)]).sort(byJson) }))
+      .sort(byJson),
+  }
+}
+
+/** The same rows as a research file says them. */
+const asFileSays = (rules: ResearchRules) => {
+  const page = (key: string) => {
+    const source = rules.sources[key]
+    if (!source) throw new Error(`${rules.research} has no source ${key}`)
+    return [source.url, source.name, source.read]
+  }
+  return {
+    versions: rules.versions
+      .map((version) => ({
+        obligation: version.obligation,
+        validFrom: version.validFrom,
+        validTo: version.validTo ?? null,
+        page: page(version.source),
+        criteria: version.criteria.map((criterion) => `${criterion.dimension}:${criterion.value}`).sort(),
+        facts: version.facts
+          .map((fact) => [
+            fact.key,
+            fact.operator,
+            fact.numericValue === undefined ? null : String(fact.numericValue),
+            fact.textValue ?? null,
+            fact.unit ?? null,
+            fact.currency ?? null,
+            ...page(fact.source),
+          ])
+          .sort(byJson),
+        notes: [version.notes.en],
+      }))
+      .sort(byJson),
+    regions: rules.regions.map((region) => ({ code: region.code, parentCode: region.parent, name: region.name, officialCode: region.officialCode ?? null })).sort(byJson),
+    statuses: rules.statuses
+      .map((status) => ({
+        code: status.code,
+        parentCode: status.parent,
+        name: status.names.en,
+        texts: [
+          ['en-US', status.names.en],
+          ['fa-IR', status.names.fa],
+        ].sort(byJson),
+      }))
+      .sort(byJson),
+    groups: rules.nationalityGroups
+      .map((group) => ({ code: group.code, name: group.name, members: group.members.map((member) => [member.nationality, member.from, member.until ?? null]).sort(byJson) }))
+      .sort(byJson),
+  }
+}
+
+test('a second load, and the seed run beside it, change nothing', async () => {
   const before = await counts()
-  expect(await loadResearchRules(prisma, COUNTRIES)).toEqual(NOTHING_ADDED)
+  expect(await loadResearchRules(prisma, COUNTRIES)).toEqual(NOTHING_CHANGED)
   await seed(prisma)
   expect(await counts()).toEqual(before)
 })
 
-test('a group the file declares stops the load where its deployed memberships differ from the file, a member dropped, a member ended or an identical second membership, and the load writes nothing', async () => {
+test("a group the file declares keeps exactly the file's memberships, a member dropped, a member ended or an identical second membership, and the file loaded again puts each back", async () => {
   const [exempt] = TURKEY.nationalityGroups
   if (!exempt) throw new Error("Turkey's file declares no nationality group")
   const withMembers = (members: readonly ResearchMembership[]): ResearchRules => ({
     ...TURKEY,
     nationalityGroups: TURKEY.nationalityGroups.map((group) => (group.code === exempt.code ? { ...group, members } : group)),
   })
-  const before = await counts()
+  const denmark = () => prisma.nationalityGroupMember.findMany({ where: { groupCode: exempt.code, nationality: 'dk' }, select: { validTo: true } })
+  const before = await ownedBy('turkey')
 
   const dropped = withMembers(exempt.members.filter((member) => member.nationality !== 'dk'))
-  await expect(loadResearchRules(prisma, [dropped])).rejects.toThrow(ResearchRulesMismatch)
-  await expect(loadResearchRules(prisma, [dropped])).rejects.toThrow(
-    /tr.residence-permit-charge-exempt has dk from 2026-09-14 deployed, which src\/rules\/research does not list/,
-  )
+  expect(await loadResearchRules(prisma, [dropped])).toEqual({ ...NOTHING_CHANGED, membershipsRemoved: 1 })
+  expect(await denmark()).toEqual([])
 
   const ended = withMembers(exempt.members.map((member) => (member.nationality === 'dk' ? { ...member, until: '2027-01-01' } : member)))
-  await expect(loadResearchRules(prisma, [ended])).rejects.toThrow(
-    /tr.residence-permit-charge-exempt has dk from 2026-09-14 deployed open, and src\/rules\/research has it until 2027-01-01/,
-  )
-  expect(await counts()).toEqual(before)
+  expect(await loadResearchRules(prisma, [ended])).toEqual({ ...NOTHING_CHANGED, membershipsAdded: 1 })
+  expect(await denmark()).toEqual([{ validTo: new Date('2027-01-01') }])
 
-  // A membership that has started is history and cannot be removed, so the
-  // duplicate is written inside a transaction that is then rolled back.
-  const rollback = 'rolled back after the duplicate was refused'
-  await expect(
-    prisma.$transaction(async (tx) => {
-      await tx.nationalityGroupMember.create({ data: { groupCode: exempt.code, nationality: 'dk', validFrom: new Date('2026-09-14') } })
-      const withDuplicate = await Promise.all([tx.nationalityGroupMember.count(), tx.ruleVersion.count()])
-      await expect(loadInto(tx, TURKEY)).rejects.toThrow(/tr.residence-permit-charge-exempt has dk from 2026-09-14 deployed, which src\/rules\/research does not list/)
-      expect(await Promise.all([tx.nationalityGroupMember.count(), tx.ruleVersion.count()])).toEqual(withDuplicate)
-      throw new Error(rollback)
-    }),
-  ).rejects.toThrow(rollback)
-  expect(await counts()).toEqual(before)
+  expect(await loadResearchRules(prisma, [TURKEY])).toEqual({ ...NOTHING_CHANGED, membershipsAdded: 1, membershipsRemoved: 1 })
+  await prisma.nationalityGroupMember.create({ data: { groupCode: exempt.code, nationality: 'dk', validFrom: new Date('2026-09-14') } })
+  expect(await loadResearchRules(prisma, [TURKEY])).toEqual({ ...NOTHING_CHANGED, membershipsRemoved: 1 })
+  expect(await ownedBy('turkey')).toEqual(before)
 })
 
-test('a deployed version that no longer matches the file stops the load, and nothing is written', async () => {
+test('a version the file changes is written again as the file says, and the file loaded again puts it back', async () => {
   const changed: ResearchRules = {
     ...TURKEY,
     versions: TURKEY.versions.map((version) => ({
@@ -689,61 +782,53 @@ test('a deployed version that no longer matches the file stops the load, and not
       facts: version.facts.map((fact) => (fact.key === 'minimumCapital' ? { ...fact, numericValue: 60000 } : fact)),
     })),
   }
-  const before = await counts()
+  const capital = async () =>
+    (await prisma.ruleFact.findMany({ where: { key: 'minimumCapital', ruleVersion: { research: 'turkey' } }, select: { numericValue: true } })).map((fact) =>
+      fact.numericValue?.toString(),
+    )
+  const before = await ownedBy('turkey')
 
-  await expect(loadResearchRules(prisma, [changed])).rejects.toThrow(ResearchRulesMismatch)
-  await expect(loadResearchRules(prisma, [changed])).rejects.toThrow(
-    /tr form-a-limited-company from 2026-09-14 is deployed as version \S+, and its fact minimumCapital no longer matches/,
-  )
-  expect(await counts()).toEqual(before)
+  expect(await loadResearchRules(prisma, [changed])).toEqual({ ...NOTHING_CHANGED, versionsChanged: 1 })
+  expect(await capital()).toEqual(['60000'])
+
+  expect(await loadResearchRules(prisma, [TURKEY])).toEqual({ ...NOTHING_CHANGED, versionsChanged: 1 })
+  expect(await capital()).toEqual(['50000'])
+  expect(await ownedBy('turkey')).toEqual(before)
 })
 
 /** A status of a test's own file, named by its code. */
 const status = (code: string, parent: string | null): ResearchStatus => ({ code, parent, names: { en: code, fa: code } })
 
-test('a deployed residence status the file puts inside another status, or in another country, stops the load, and nothing is written', async () => {
-  const before = await counts()
-
-  const inside: ResearchRules = { ...TURKEY, statuses: [status('tr.residence-permit', 'tr.permits')] }
-  await expect(loadResearchRules(prisma, [inside])).rejects.toThrow(ResearchRulesMismatch)
-  await expect(loadResearchRules(prisma, [inside])).rejects.toThrow(
-    /Residence status tr.residence-permit is deployed in tr with nothing above it, and src\/rules\/research has it in tr inside tr.permits/,
-  )
-
-  const elsewhere: ResearchRules = { ...TURKEY, country: 'de', statuses: [status('tr.residence-permit', null)], obligations: [], versions: [] }
-  await expect(loadResearchRules(prisma, [elsewhere])).rejects.toThrow(
-    /Residence status tr.residence-permit is deployed in tr with nothing above it, and src\/rules\/research has it in de with nothing above it/,
-  )
-
-  expect(await counts()).toEqual(before)
-})
-
-test('a deployed province the file puts inside another place, or in another country, stops the load and nothing is written, and one an editor has renamed does not', async () => {
-  const bursa = TURKEY.regions.find((region) => region.code === 'TR-16')
-  if (!bursa) throw new Error("Turkey's file has no TR-16")
-  const before = await counts()
-
+test('a status the file puts inside another is moved there, the versions naming it written again, and the file loaded again puts it back', async () => {
+  const permit = TURKEY.statuses.find((listed) => listed.code === 'tr.residence-permit')
+  if (!permit) throw new Error("Turkey's file has no tr.residence-permit")
+  const naming = TURKEY.versions.filter((version) => version.criteria.some((criterion) => criterion.dimension === 'residenceStatus' && criterion.value === permit.code)).length
   const inside: ResearchRules = {
     ...TURKEY,
-    regions: TURKEY.regions.map((region) => (region === bursa ? { ...region, parent: 'TR-41' } : region)),
+    statuses: [status('tr.permits', null), ...TURKEY.statuses.map((listed) => (listed === permit ? { ...permit, parent: 'tr.permits' } : listed))],
   }
-  await expect(loadResearchRules(prisma, [inside])).rejects.toThrow(ResearchRulesMismatch)
-  await expect(loadResearchRules(prisma, [inside])).rejects.toThrow(
-    /Region TR-16 is deployed in tr with nothing above it, and src\/rules\/research has it in tr inside TR-41/,
-  )
+  const before = await ownedBy('turkey')
 
-  const elsewhere: ResearchRules = { ...TURKEY, country: 'de', statuses: [], regions: [bursa], nationalityGroups: [], obligations: [], versions: [] }
-  await expect(loadResearchRules(prisma, [elsewhere])).rejects.toThrow(
-    /Region TR-16 is deployed in tr with nothing above it, and src\/rules\/research has it in de with nothing above it/,
-  )
-  expect(await counts()).toEqual(before)
+  expect(await loadResearchRules(prisma, [inside])).toEqual({ ...NOTHING_CHANGED, statusesAdded: 1, statusesChanged: 1, versionsChanged: naming })
+  expect((await prisma.residenceStatus.findUniqueOrThrow({ where: { code: permit.code } })).parentCode).toBe('tr.permits')
 
-  const edited = 'Bursa, as an editor wrote it'
-  await prisma.region.update({ where: { code: bursa.code }, data: { name: edited } })
-  expect(await loadResearchRules(prisma, COUNTRIES)).toEqual(NOTHING_ADDED)
-  expect((await prisma.region.findUniqueOrThrow({ where: { code: bursa.code } })).name).toBe(edited)
-  await prisma.region.update({ where: { code: bursa.code }, data: { name: bursa.name } })
-  expect(await counts()).toEqual(before)
+  expect(await loadResearchRules(prisma, [TURKEY])).toEqual({ ...NOTHING_CHANGED, statusesChanged: 1, statusesRemoved: 1, versionsChanged: naming })
+  expect(await ownedBy('turkey')).toEqual(before)
+})
+
+test("a province the file puts inside another place is moved there, the versions naming it written again, a name an editor changed is set back to the file's, and the file loaded again puts both back", async () => {
+  const bursa = TURKEY.regions.find((region) => region.code === 'TR-16')
+  if (!bursa) throw new Error("Turkey's file has no TR-16")
+  const naming = TURKEY.versions.filter((version) => version.criteria.some((criterion) => criterion.value === bursa.code)).length
+  const inside: ResearchRules = { ...TURKEY, regions: TURKEY.regions.map((region) => (region === bursa ? { ...region, parent: 'TR-41' } : region)) }
+  const before = await ownedBy('turkey')
+
+  expect(await loadResearchRules(prisma, [inside])).toEqual({ ...NOTHING_CHANGED, regionsChanged: 1, versionsChanged: naming })
+  expect((await prisma.region.findUniqueOrThrow({ where: { code: bursa.code } })).parentCode).toBe('TR-41')
+
+  await prisma.region.update({ where: { code: bursa.code }, data: { name: 'Bursa, as an editor wrote it' } })
+  expect(await loadResearchRules(prisma, [TURKEY])).toEqual({ ...NOTHING_CHANGED, regionsChanged: 1, versionsChanged: naming })
+  expect(await ownedBy('turkey')).toEqual(before)
 })
 
 test('a kind listed before the status it is a kind of stops the load, and nothing is written', async () => {
@@ -755,6 +840,90 @@ test('a kind listed before the status it is a kind of stops the load, and nothin
   expect(await counts()).toEqual(before)
 })
 
+test("Turkey's file changed five ways at once is loaded as it says, the real file loaded again puts every row back, and a second load changes nothing", async () => {
+  const national = TURKEY.versions.find(
+    (version) => version.obligation === 'report-your-address' && version.criteria.length === 1 && version.criteria[0]?.value === 'tr.residence-permit',
+  )
+  const bursaProtection = TURKEY.versions.find(
+    (version) =>
+      version.obligation === 'report-your-address' &&
+      version.criteria.some((criterion) => criterion.value === 'tr.international-protection') &&
+      version.criteria.some((criterion) => criterion.value === 'TR-16'),
+  )
+  if (!national || !bursaProtection) throw new Error("Turkey's file has no national address duty for a permit holder, or none for protection in Bursa")
+
+  const ENDS = '2026-10-01'
+  const changed: ResearchRules = {
+    ...TURKEY,
+    versions: [
+      ...TURKEY.versions.filter((version) => version !== bursaProtection).map((version) => (version === national ? { ...version, validTo: ENDS } : version)),
+      { ...national, validFrom: ENDS, facts: national.facts.map((fact) => (fact.key === 'reportAddressChangeWithin' ? { ...fact, numericValue: 15 } : fact)) },
+    ],
+    nationalityGroups: TURKEY.nationalityGroups.map((group) => ({ ...group, members: group.members.filter((member) => member.nationality !== 'dk') })),
+    regions: TURKEY.regions.filter((region) => region.code !== 'TR-81').map((region) => (region.code === 'TR-16' ? { ...region, name: 'Bursa, renamed' } : region)),
+  }
+  const before = await ownedBy('turkey')
+  expect(before).toEqual(asFileSays(TURKEY))
+
+  expect(await loadResearchRules(prisma, [changed])).toEqual({
+    ...NOTHING_CHANGED,
+    regionsChanged: 1,
+    regionsRemoved: 1,
+    membershipsRemoved: 1,
+    versionsAdded: 1,
+    versionsChanged: 1,
+    versionsRemoved: 1,
+  })
+  expect(await ownedBy('turkey')).toEqual(asFileSays(changed))
+
+  expect(await loadResearchRules(prisma, [TURKEY])).toEqual({
+    ...NOTHING_CHANGED,
+    regionsAdded: 1,
+    regionsChanged: 1,
+    membershipsAdded: 1,
+    versionsAdded: 1,
+    versionsChanged: 1,
+    versionsRemoved: 1,
+  })
+  expect(await ownedBy('turkey')).toEqual(before)
+  expect(await loadResearchRules(prisma, COUNTRIES)).toEqual(NOTHING_CHANGED)
+})
+
+test("a Land whose city a rule names is moved inside another Land, that rule written again, and Germany's real file puts both back", async () => {
+  const hamburg = GERMANY.versions.find((version) => version.criteria.some((criterion) => criterion.value === 'DE-HH'))
+  if (!hamburg) throw new Error("Germany's file has no version for Hamburg")
+  const withKoeln: ResearchRules = { ...GERMANY, versions: [...GERMANY.versions, { ...hamburg, criteria: [{ dimension: 'residenceRegion', value: 'DE-NW.koeln' }] }] }
+  const moved: ResearchRules = { ...withKoeln, regions: withKoeln.regions.map((region) => (region.code === 'DE-NW' ? { ...region, parent: 'DE-BY' } : region)) }
+  const before = await ownedBy('germany')
+
+  expect(await loadResearchRules(prisma, [withKoeln])).toEqual({ ...NOTHING_CHANGED, versionsAdded: 1 })
+  // Only a load that reads the tree below a moved place takes Köln's version aside, so the move is not refused.
+  expect(await loadResearchRules(prisma, [moved])).toEqual({ ...NOTHING_CHANGED, regionsChanged: 1, versionsChanged: 1 })
+  expect((await prisma.region.findUniqueOrThrow({ where: { code: 'DE-NW' } })).parentCode).toBe('DE-BY')
+
+  expect(await loadResearchRules(prisma, [GERMANY])).toEqual({ ...NOTHING_CHANGED, regionsChanged: 1, versionsRemoved: 1 })
+  expect(await ownedBy('germany')).toEqual(before)
+})
+
+test("researchRows counts each file's own versions, places, statuses and groups, and a place written outside research is in none of them and stays after a load", async () => {
+  await prisma.region.create({ data: { code: 'TR-34.sb202-outside', countryCode: 'tr', parentCode: 'TR-34', name: 'Written outside research' } })
+  expect(await loadResearchRules(prisma, COUNTRIES)).toEqual(NOTHING_CHANGED)
+
+  const response = await graphql('{ researchRows { research versions places statuses groups } }')
+  expect(response.body.errors).toBeUndefined()
+  expect(response.body.data.researchRows).toEqual(
+    COUNTRIES.map((rules) => ({
+      research: rules.research,
+      versions: rules.versions.length,
+      places: rules.regions.length,
+      statuses: rules.statuses.length,
+      groups: rules.nationalityGroups.length,
+    })).sort((a, b) => a.research.localeCompare(b.research)),
+  )
+  expect((await prisma.region.findUniqueOrThrow({ where: { code: 'TR-34.sb202-outside' } })).research).toBeNull()
+  await prisma.region.delete({ where: { code: 'TR-34.sb202-outside' } })
+})
+
 // The research lock's single integer key, reassembled from how pg_locks shows a
 // one-key advisory lock, so it is told apart from Prisma migrate's own.
 const RESEARCH_LOCKS = `
@@ -762,11 +931,17 @@ const RESEARCH_LOCKS = `
   WHERE locktype = 'advisory' AND objsubid = 1
     AND ((classid::bigint << 32) | objid::bigint) = hashtext('skipbureau_research_rules')::bigint`
 
-test('a load holds the research lock in the transaction that runs it', async () => {
+const RESEARCH_LOAD = `SELECT current_setting('skipbureau.research_load', true) AS value`
+
+test('a load holds the research lock and the research setting in the transaction that runs it, and neither outlasts it', async () => {
   const held = await prisma.$transaction(async (tx) => {
-    await loadInto(tx, TURKEY)
-    return tx.$queryRawUnsafe<{ mode: string; granted: boolean }[]>(RESEARCH_LOCKS)
+    await loadInto(tx, [TURKEY])
+    return {
+      locks: await tx.$queryRawUnsafe<{ mode: string; granted: boolean }[]>(RESEARCH_LOCKS),
+      setting: await tx.$queryRawUnsafe<{ value: string | null }[]>(RESEARCH_LOAD),
+    }
   })
-  expect(held).toEqual([{ mode: 'ExclusiveLock', granted: true }])
+  expect(held).toEqual({ locks: [{ mode: 'ExclusiveLock', granted: true }], setting: [{ value: 'on' }] })
   expect(await prisma.$queryRawUnsafe<{ mode: string; granted: boolean }[]>(RESEARCH_LOCKS)).toEqual([])
+  expect((await prisma.$queryRawUnsafe<{ value: string | null }[]>(RESEARCH_LOAD))[0]?.value).not.toBe('on')
 })

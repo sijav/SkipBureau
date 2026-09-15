@@ -261,6 +261,14 @@ obligation's and a group's names stay editable, a decision in PHASE-NEXT.md.
 `apps/api/test/history.e2e.spec.ts` attempts each refusal against the database
 and reads the row back unchanged.
 
+**The research load is the one writer let through** (SB-202, the owner's order
+of 2026-09-15). A transaction that sets `skipbureau.research_load` passes these
+triggers, and only the load in `apps/api/src/rules/research/load.ts` sets it:
+afterwards every row a research file owns says what that file says, rewritten or
+removed where the file changed, with git holding what it said before. A change
+in the law still arrives as history, because the file ends the old version and
+adds its successor. Every other writer is refused as above.
+
 ---
 
 ## What a SkipBureau address contains

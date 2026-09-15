@@ -48,7 +48,7 @@ afterAll(async () => {
 
 const byCode = (a: { code: string }, b: { code: string }) => (a.code < b.code ? -1 : 1)
 
-test("on a database the seed never touched, every researched country's regions are exactly its file's, names included, and a second load adds none", async () => {
+test("on a database the seed never touched, every researched country's regions are exactly its file's, names included, and a second load changes nothing", async () => {
   // The list the loader and the specs share, held to the files themselves, so a
   // country left out of it cannot pass by being left out of this test too.
   expect(RESEARCHED).toEqual([TURKEY, GERMANY])
@@ -63,5 +63,6 @@ test("on a database the seed never touched, every researched country's regions a
   }
   expect([TURKEY.regions.length, GERMANY.regions.length]).toEqual([81, 21])
 
-  expect((await loadResearchRules(prisma, RESEARCHED)).regionsAdded).toBe(0)
+  // SB-202: every count of the second load is zero, so a rewrite shows as well as an addition.
+  expect(await loadResearchRules(prisma, RESEARCHED)).toEqual(Object.fromEntries(Object.keys(report).map((key) => [key, 0])))
 })
