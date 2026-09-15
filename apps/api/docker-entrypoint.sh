@@ -30,9 +30,11 @@ node dist/load-research-rules.js
 
 # Sample content, so the screens can be seen: the owner's order of 2026-09-10,
 # on a database the owner calls test-only. Fill-only, so it is safe on every
-# start. Remove this line before a real launch; see PHASE-NEXT.md. NOT the
-# rules in prisma/seed.ts, whose history is append-only and would duplicate.
-echo "filling in sample content"
+# start, except that it retires Turkey's sample rows, which the owner chose on
+# 2026-09-15 to delete (SB-282). Remove this line before a real launch; see
+# PHASE-NEXT.md. NOT the rules in prisma/seed.ts, whose history is append-only
+# and would duplicate.
+echo "filling in sample content, and retiring Turkey's"
 node dist/sample-content.js
 
 # Guides written from the agreed research, their areas and their links (SB-258).

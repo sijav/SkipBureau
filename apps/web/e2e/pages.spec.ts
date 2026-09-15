@@ -10,11 +10,16 @@ import { fileURLToPath } from 'node:url'
  * the only run that proves the deployment rather than a copy of it.
  */
 
-const GUIDE = 'Get a SIM Card or eSIM'
-const TITLE = `${GUIDE} in Turkey · Skipbureau`
+// Turkey's short-term residence permit guide, written from the agreed research: a page the e2e build and the live site
+// both have (SB-282). What only a guide with steps or Persian text can show stays on the SIM card guide, which the e2e
+// seed alone fills, in a test skipped against the live site.
+const GUIDE = 'Getting a short-term residence permit in Turkey'
+const TITLE = `${GUIDE} · Skipbureau`
+const ADDRESS = 'TR/guides/short-term-residence-permit'
+const LIVE = Boolean(process.env.PAGES_URL)
 
 test('a guide opens cold, left to right', async ({ page }) => {
-  const response = await page.goto('en/TR/guides/sim-card', { waitUntil: 'load' })
+  const response = await page.goto(`en/${ADDRESS}`, { waitUntil: 'load' })
 
   // A file of its own (SB-076): 200 from disk, not 404.html, and not by way of a redirect.
   expect(response?.status()).toBe(200)
@@ -23,21 +28,20 @@ test('a guide opens cold, left to right', async ({ page }) => {
   const source = (await response?.text()) ?? ''
   expect(source).toContain(`>${TITLE}</title>`)
   expect(source).toMatch(/<meta name="description" content="[^"]+"/)
-  expect(source).toMatch(/<link rel="canonical" href="[^"]*\/en\/TR\/guides\/sim-card"/)
-  // What the guide is, to a machine (SB-087): each block parses, the Article is
-  // dated by the verification, and a guide with steps is also a HowTo.
+  expect(source).toMatch(/<link rel="canonical" href="[^"]*\/en\/TR\/guides\/short-term-residence-permit"/)
+  // What the guide is, to a machine (SB-087): each block parses, and the Article
+  // is dated by the verification. A guide with no steps is no HowTo.
   const blocks = [...source.matchAll(/<script type="application\/ld\+json"[^>]*>(.*?)<\/script>/gs)].map((match) => JSON.parse(match[1] ?? ''))
-  expect(blocks.map((block) => block['@type'])).toEqual(['Article', 'BreadcrumbList', 'HowTo'])
+  expect(blocks.map((block) => block['@type'])).toEqual(['Article', 'BreadcrumbList'])
   expect(blocks[0].dateModified).toMatch(/^\d{4}-\d{2}-\d{2}$/)
   // What a link preview shows (SB-089): no preview bot runs a script.
-  expect(source).toContain(`<meta property="og:title" content="${GUIDE} in Turkey"`)
+  expect(source).toContain(`<meta property="og:title" content="${GUIDE}"`)
   expect(source).toContain('<meta property="og:locale" content="en_US"')
-  expect(source).toContain('<meta property="og:locale:alternate" content="fa_IR"')
   expect(source).toMatch(/<meta property="og:image" content="[^"]*\/og\.png"/)
   expect(source).toContain('<meta name="twitter:card" content="summary_large_image"')
 
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(GUIDE)
-  await expect(page).toHaveURL(/\/en\/TR\/guides\/sim-card$/)
+  await expect(page).toHaveURL(/\/en\/TR\/guides\/short-term-residence-permit$/)
   // The locale tag, en-US: the language is what matters, not the region.
   await expect(page.locator('html')).toHaveAttribute('lang', /^en(-|$)/)
   await expect(page.locator('html')).toHaveAttribute('dir', 'ltr')
@@ -47,26 +51,27 @@ test('a guide opens cold, left to right', async ({ page }) => {
   await expect(page).toHaveTitle(TITLE)
   await expect(page.locator('head [data-prerendered]')).toHaveCount(0)
   await expect(page.locator('link[rel="canonical"]')).toHaveCount(1)
-  await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(3)
+  await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(2)
 })
 
 test('a guide opens cold, right to left', async ({ page }) => {
-  const response = await page.goto('fa/TR/guides/sim-card', { waitUntil: 'load' })
+  const response = await page.goto(`fa/${ADDRESS}`, { waitUntil: 'load' })
 
   expect(response?.status()).toBe(200)
   const source = (await response?.text()) ?? ''
   expect(source).toContain('dir="rtl"')
-  expect(source).toMatch(/<link rel="canonical" href="[^"]*\/fa\/TR\/guides\/sim-card"/)
-  expect(source).toContain('<meta property="og:locale" content="fa_IR"')
+  // Written in English only, so its canonical and its preview are the English page's (SB-049).
+  expect(source).toMatch(/<link rel="canonical" href="[^"]*\/en\/TR\/guides\/short-term-residence-permit"/)
+  expect(source).toContain('<meta property="og:locale" content="en_US"')
 
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
-  await expect(page).toHaveURL(/\/fa\/TR\/guides\/sim-card$/)
+  await expect(page).toHaveURL(/\/fa\/TR\/guides\/short-term-residence-permit$/)
   await expect(page.locator('html')).toHaveAttribute('dir', 'rtl')
 })
 
 test('the file carries the page itself, and the page asks for none of it again', async ({ page, request }) => {
   // SB-155: the body, not only the head, is in what the server sends.
-  const source = await (await request.get('en/TR/guides/sim-card')).text()
+  const source = await (await request.get(`en/${ADDRESS}`)).text()
   const body = source.slice(source.indexOf('<div id="root"'))
   // The title inside its <bdi>, which marks the language the content is in.
   expect(body).toMatch(new RegExp(`<h1[^>]*>(?:<[^>]+>)*${GUIDE}<`))
@@ -90,10 +95,12 @@ test('the file carries the page itself, and the page asks for none of it again',
   page.on('console', (message) => {
     if (message.type() === 'error') errors.push(message.text())
   })
-  await page.goto('en/TR/guides/sim-card', { waitUntil: 'networkidle' })
+  await page.goto(`en/${ADDRESS}`, { waitUntil: 'networkidle' })
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(GUIDE)
   await expect(page.getByRole('heading', { level: 1 })).toHaveAttribute('data-from-file', 'yes')
-  expect(asked).toEqual([])
+  // Nothing the file carries is asked for again. The reader's own answers to the guide's rules are, since no file can
+  // hold an answer for a reader it has never met (SB-257).
+  expect(asked.filter((body) => !body.includes('GuideAnswers'))).toEqual([])
   expect(errors).toEqual([])
 })
 
@@ -101,7 +108,7 @@ test('the file draws the shell as the page renders it: the country known, one As
   // SB-161: the shell reads the country and who owns Ask from the address, so
   // the prerender has both. The header links to the country, not the site root,
   // and the home, whose own field is on screen, has no second one in its header.
-  const guide = await (await request.get('en/TR/guides/sim-card')).text()
+  const guide = await (await request.get(`en/${ADDRESS}`)).text()
   const header = guide.slice(guide.indexOf('<header'), guide.indexOf('</header>'))
   const links = [...header.matchAll(/<a [^>]*href="([^"]+)"/g)].map((match) => match[1] ?? '')
   expect(links.length).toBeGreaterThan(0)
@@ -114,7 +121,7 @@ test('the file draws the shell as the page renders it: the country known, one As
 test('the file asks for its screen and catalog alongside the app, not after it', async ({ request }) => {
   // SB-159: each screen is a chunk of its own, and the guide's, with its
   // catalog, is preloaded by the file rather than asked for once the app runs.
-  const source = await (await request.get('en/TR/guides/sim-card')).text()
+  const source = await (await request.get(`en/${ADDRESS}`)).text()
   const preloads = [...source.matchAll(/<link rel="modulepreload" crossorigin href="([^"]+)"/g)].map((match) => match[1] ?? '')
 
   expect(preloads.some((href) => /\/assets\/guide-[\w-]+\.js$/.test(href))).toBe(true)
@@ -130,7 +137,7 @@ test('without scripts, the file is the page in either scheme, in its own palette
   for (const colorScheme of ['light', 'dark'] as const) {
     const context = await browser.newContext({ javaScriptEnabled: false, colorScheme, baseURL: baseURL ?? '' })
     const page = await context.newPage()
-    await page.goto('fa/TR/guides/sim-card')
+    await page.goto(`fa/${ADDRESS}`)
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
     await expect(page.locator('body')).toHaveCSS('background-color', grounds[colorScheme])
     await context.close()
@@ -148,24 +155,41 @@ test('the home and a hub say what they are to a machine too', async ({ request }
   expect(home.map((block) => block['@type'])).toEqual(['WebSite', 'Organization'])
   expect(home[1].logo).toMatch(/\/icon-512\.png$/)
 
-  const [trail] = await blocksOf('en/TR/tasks/start-a-business/register-your-company')
+  // An area's trail runs from Home to the area; how many goals and areas sit between depends on the country's content.
+  const [trail] = await blocksOf('en/TR/tasks/start-a-business/company-formation')
   expect(trail['@type']).toBe('BreadcrumbList')
-  expect(trail.itemListElement.map((item: { position: number }) => item.position)).toEqual([1, 2, 3])
+  const positions = trail.itemListElement.map((item: { position: number }) => item.position)
+  expect(positions.length).toBeGreaterThanOrEqual(2)
+  expect(positions).toEqual(positions.map((_: number, index: number) => index + 1))
+  expect(trail.itemListElement[0].name).toBe('Home')
 })
 
-test('the sitemap lists the guide, dated, with its other language', async ({ request }) => {
+test('the sitemap lists the guide, dated', async ({ request }) => {
   // SB-088: written by the build from the same pages, never by hand.
   const response = await request.get('sitemap.xml')
   expect(response.status()).toBe(200)
   const xml = await response.text()
 
+  expect(xml).toMatch(/<loc>[^<]*\/en\/TR\/guides\/short-term-residence-permit<\/loc>\s*<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/)
+})
+
+test('a guide written with steps and in Persian says so to a machine, and the sitemap names its other language', async ({ request }) => {
+  // The SIM card guide, which only the e2e seed fills since SB-282 retired Turkey's sample from the live site: the one
+  // Turkish guide with steps and Persian text, so the only one that can show a HowTo block and a Persian alternate.
+  test.skip(LIVE, "the SIM card guide is a fixture of the e2e seed, retired from the live site")
+  const source = await (await request.get('en/TR/guides/sim-card')).text()
+  const blocks = [...source.matchAll(/<script type="application\/ld\+json"[^>]*>(.*?)<\/script>/gs)].map((match) => JSON.parse(match[1] ?? ''))
+  expect(blocks.map((block) => block['@type'])).toEqual(['Article', 'BreadcrumbList', 'HowTo'])
+  expect(source).toContain('<meta property="og:locale:alternate" content="fa_IR"')
+
+  const xml = await (await request.get('sitemap.xml')).text()
   expect(xml).toMatch(/<loc>[^<]*\/en\/TR\/guides\/sim-card<\/loc>\s*<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/)
   expect(xml).toMatch(/hreflang="fa" href="[^"]*\/fa\/TR\/guides\/sim-card"/)
 })
 
 test('a page carries the mark, and every icon it links is there', async ({ request }) => {
   // SB-157: what a tab, a search result and a home screen show.
-  const source = await (await request.get('en/TR/guides/sim-card')).text()
+  const source = await (await request.get(`en/${ADDRESS}`)).text()
   const links = [...source.matchAll(/<link rel="(?:icon|apple-touch-icon|manifest)" href="([^"]+)"/g)].map((match) => match[1] ?? '')
 
   expect(links).toHaveLength(4)
@@ -175,9 +199,9 @@ test('a page carries the mark, and every icon it links is there', async ({ reque
 })
 
 test('an address shared before the markers were spelled out still arrives', async ({ page }) => {
-  await page.goto('en/tr/g/sim-card', { waitUntil: 'load' })
+  await page.goto('en/tr/g/short-term-residence-permit', { waitUntil: 'load' })
 
-  await expect(page).toHaveURL(/\/en\/TR\/guides\/sim-card$/)
+  await expect(page).toHaveURL(/\/en\/TR\/guides\/short-term-residence-permit$/)
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(GUIDE)
 })
 
@@ -197,7 +221,6 @@ test('an address for a guide that does not exist reads as absent, never as a bla
 // SB-256: where in the country the reader lives, and what they hold there, in the address.
 
 const HERE = dirname(fileURLToPath(import.meta.url))
-const LIVE = Boolean(process.env.PAGES_URL)
 const STATUS = 'tr.residence-permit'
 // A page's links are built from the reader's status once it applies: the header's wordmark links home with it.
 const HOME_WITH_STATUS = `a[href$="/en/TR?status=${STATUS}"]`
@@ -247,7 +270,7 @@ test("a residence status in a prerendered page's address is in its links once th
   })
 
   await ensureStatus()
-  const response = await page.goto(`en/TR/guides/sim-card?status=${STATUS}`, { waitUntil: 'load' })
+  const response = await page.goto(`en/${ADDRESS}?status=${STATUS}`, { waitUntil: 'load' })
 
   // The file answers, as it does for the page without a status.
   expect(response?.status()).toBe(200)
@@ -257,7 +280,7 @@ test("a residence status in a prerendered page's address is in its links once th
 })
 
 test('a residence status the country does not hold is Not Found', async ({ page }) => {
-  await page.goto('en/TR/guides/sim-card?status=tr.nothing', { waitUntil: 'load' })
+  await page.goto(`en/${ADDRESS}?status=tr.nothing`, { waitUntil: 'load' })
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(/does not exist/)
 })
 
@@ -333,7 +356,7 @@ test('choosing a nationality in the panel answers a guide already on screen, and
 
 test('a status reached from a page already up is in its links at once', async ({ page }) => {
   await ensureStatus()
-  await page.goto('en/TR/guides/sim-card', { waitUntil: 'load' })
+  await page.goto(`en/${ADDRESS}`, { waitUntil: 'load' })
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(GUIDE)
   await expect(page.locator(HOME_WITH_STATUS)).toHaveCount(0)
 

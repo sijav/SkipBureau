@@ -17,7 +17,8 @@ import { digestOf } from '../src/rules/research/digest.js'
 import { GERMANY } from '../src/rules/research/germany.js'
 import { TURKEY } from '../src/rules/research/turkey.js'
 import { seed } from '../prisma/seed.js'
-import { seedContent } from '../src/sample-content.js'
+import { COUNTRIES as SAMPLE_COUNTRIES, seedContent } from '../src/sample-content.js'
+import { TURKEY_SAMPLE } from '../prisma/sample-turkey.js'
 import { startPglite } from '../scripts/pglite-server.mjs'
 import { withWorkPlaces } from './work-places.js'
 import { expectedOf, inForceOn, MOVE as READ_BACK, readerFor, shows, type Served } from '../scripts/publish-research.js'
@@ -996,8 +997,9 @@ type GuideObligation = {
 }
 
 test("after a load and sample content run again, each address guide links the researched address duty alone and answers it for the reader who asks: in Hamburg the federal facts with Hamburg's fee, to a reader who has said nothing the question, and to a residence permit holder in Istanbul Turkey's national facts", async () => {
-  // As the entrypoint runs it: sample content after the research load (SB-255).
-  await seedContent(prisma)
+  // Sample content after the research load, as the entrypoint runs it (SB-255), with Turkey's fixture, which
+  // production no longer fills (SB-282).
+  await seedContent(prisma, [TURKEY_SAMPLE, ...SAMPLE_COUNTRIES])
   const slug = 'report-your-address'
   const obligationsOf = async (country: string, guide: string, reader?: Record<string, unknown>): Promise<GuideObligation[]> => {
     const response = await graphql(GUIDE_FOR, { country, slug: guide, ...(reader ? { reader } : {}) })

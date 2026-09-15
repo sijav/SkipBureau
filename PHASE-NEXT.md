@@ -9,9 +9,15 @@ forgotten. Debt, meaning things that are wrong, goes in `TECH-DEBT.md`.
 them so they can be seen, on a database the owner calls test-only.
 
 `apps/api/docker-entrypoint.sh` runs `node dist/sample-content.js` on every
-start. It fills in the twelve goals, Turkey's categories, one guide per
-country and Home's four common questions, all illustrative and unverified.
-Home prints the design's own caveat that this is sample content.
+start. It fills in the twelve goals and Germany's sample area and guide, all
+illustrative and unverified.
+
+**Turkey's sample was retired on 2026-09-15** (SB-282). The owner, asked what
+happens to Turkey's sample rows once researched guides land, answered to delete
+all of them, and any visitor's suggestion on a sample guide with them. The same
+start deletes Turkey's sample areas, guides and common questions by slug and
+never fills them again; `apps/api/prisma/sample-turkey.ts` keeps them as a test
+fixture only. Germany's sample goes the same way in SB-198.
 
 **Before a real launch:** remove that line from the entrypoint, and delete the
 sample rows an editor has not replaced. The twelve goals can stay, they are

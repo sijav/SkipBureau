@@ -13,7 +13,8 @@ import { PrismaService } from '../src/prisma/prisma.service.js'
 import { RESEARCHED } from '../src/rules/research/countries.js'
 import { loadResearchRules } from '../src/rules/research/load.js'
 import { TURKEY } from '../src/rules/research/turkey.js'
-import { seedContent } from '../src/sample-content.js'
+import { COUNTRIES, seedContent } from '../src/sample-content.js'
+import { TURKEY_SAMPLE } from '../prisma/sample-turkey.js'
 import { startPglite } from '../scripts/pglite-server.mjs'
 
 // SB-258: the guides written from the agreed research, on a database as a start without sample content leaves it:
@@ -261,7 +262,7 @@ test('a start after sample content takes the sample address guide over in its ow
   const where = { countryCode_slug: { countryCode: 'tr', slug: address.guide.slug } }
 
   await prisma.guide.deleteMany({ where: { countryCode: 'tr', slug: address.guide.slug } })
-  await seedContent(prisma)
+  await seedContent(prisma, [TURKEY_SAMPLE, ...COUNTRIES])
   const sample = await prisma.guide.findUniqueOrThrow({ where, include: { texts: true, sections: { include: { steps: true } } } })
   expect(sample.texts.map((text) => text.locale).sort(), 'the sample guide as sample content writes it').toEqual(['en-US', 'fa-IR'])
   expect(sample.sections.flatMap((section) => section.steps).length, 'the sample guide as sample content writes it').toBeGreaterThan(0)

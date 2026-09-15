@@ -22,7 +22,9 @@ const readings = [
   { name: 'right to left', at: 'fa' },
 ] as const
 
-// Home, a hub, an area, a guide, and the suggest dialog over one.
+// Home, a hub, an area, a guide, and the suggest dialog over one, on researched
+// pages the live site has as well as the e2e build (SB-282), so a run with
+// PAGES_URL measures the same pages.
 //
 // The suggest address has no file of its own and answers 404 on purpose: it is
 // a form, reached from a guide, and not something a search engine should hold.
@@ -30,13 +32,13 @@ const readings = [
 // any other and why this spec does not check its status.
 const pages = (at: string) => [
   `${at}/TR`,
-  `${at}/TR/tasks/getting-settled`,
-  `${at}/TR/tasks/getting-settled/first-week`,
-  `${at}/TR/guides/sim-card`,
-  `${at}/TR/guides/sim-card/suggest`,
+  `${at}/TR/tasks/start-a-business`,
+  `${at}/TR/tasks/start-a-business/company-formation`,
+  `${at}/TR/guides/short-term-residence-permit`,
+  `${at}/TR/guides/short-term-residence-permit/suggest`,
   // What a question found, and a destination nobody has written yet. Neither
   // has a file either, for the same reason as the suggest address.
-  `${at}/TR/search?q=sim`,
+  `${at}/TR/search?q=permit`,
   `${at}/TR/guides`,
 ]
 

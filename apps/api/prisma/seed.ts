@@ -1,6 +1,7 @@
 import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient } from '../src/generated/prisma/client.js'
-import { seedContent } from '../src/sample-content.js'
+import { COUNTRIES, seedContent } from '../src/sample-content.js'
+import { TURKEY_SAMPLE } from './sample-turkey.js'
 
 /**
  * Illustrative, not verified.
@@ -21,8 +22,7 @@ const FOREVER_AGO = new Date('2020-01-01')
 const client = () =>
   new PrismaClient({
     adapter: new PrismaPg({
-      connectionString:
-        process.env.DATABASE_URL ?? 'postgresql://postgres:postgres@127.0.0.1:5433/postgres?sslmode=disable',
+      connectionString: process.env.DATABASE_URL ?? 'postgresql://postgres:postgres@127.0.0.1:5433/postgres?sslmode=disable',
     }),
   })
 
@@ -332,7 +332,7 @@ export const seed = async (prisma = client()): Promise<void> => {
     })
   }
 
-  await seedContent(prisma)
+  await seedContent(prisma, [TURKEY_SAMPLE, ...COUNTRIES])
 }
 
 if (process.argv[1]?.endsWith('seed.ts') || process.argv[1]?.endsWith('seed.js')) {

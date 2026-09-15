@@ -1,4 +1,4 @@
-import type { GuideDetailSeed } from './sample-types.js'
+import type { GuideDetailSeed } from '../src/sample-types.js'
 
 /**
  * The design's one fully written guide, Figma 143:734, Get a SIM Card or eSIM,
@@ -16,7 +16,10 @@ export const SIM_CARD: GuideDetailSeed = {
     fa: 'می‌توانید از یک اپراتور تلفن همراه ترکیه سیم‌کارت فیزیکی یا، اگر گوشی‌تان پشتیبانی کند، eSIM بگیرید. به‌عنوان مشتری خارجی معمولا باید در فروشگاه یک مدرک هویتی معتبر نشان دهید. اگر گوشی را از خارج آورده‌اید، پیش از اینکه برای مدت طولانی به آن تکیه کنید، قوانین جداگانه ثبت IMEI را بررسی کنید.',
   },
   cost: { en: 'Varies by operator, plan, SIM type and campaign', fa: 'بسته به اپراتور، طرح، نوع سیم‌کارت و جشنواره‌ها متفاوت است' },
-  time: { en: 'Usually a short visit in store; depends on the operator and your documents', fa: 'معمولا یک مراجعه کوتاه به فروشگاه؛ بسته به اپراتور و مدارک شما' },
+  time: {
+    en: 'Usually a short visit in store; depends on the operator and your documents',
+    fa: 'معمولا یک مراجعه کوتاه به فروشگاه؛ بسته به اپراتور و مدارک شما',
+  },
   costNote: {
     en: 'We do not publish prices or activation times here. Telecom pricing changes often, and any figure shown would be out of date before you read it — check the operator directly.',
     fa: 'ما اینجا قیمت یا زمان فعال‌سازی منتشر نمی‌کنیم. قیمت‌های مخابراتی اغلب تغییر می‌کنند و هر عددی پیش از خواندن شما کهنه می‌شود؛ مستقیما از اپراتور بپرسید.',
@@ -24,23 +27,47 @@ export const SIM_CARD: GuideDetailSeed = {
   options: [
     {
       title: { en: 'Physical SIM', fa: 'سیم‌کارت فیزیکی' },
-      body: { en: 'A card you put into your phone. Works with any phone that has a compatible SIM slot.', fa: 'کارتی که داخل گوشی قرار می‌دهید. با هر گوشی که شیار سیم‌کارت سازگار دارد کار می‌کند.' },
-      bestFor: { en: 'Phones without eSIM support · moving the card between compatible devices', fa: 'گوشی‌های بدون پشتیبانی eSIM · جابه‌جا کردن کارت بین دستگاه‌های سازگار' },
+      body: {
+        en: 'A card you put into your phone. Works with any phone that has a compatible SIM slot.',
+        fa: 'کارتی که داخل گوشی قرار می‌دهید. با هر گوشی که شیار سیم‌کارت سازگار دارد کار می‌کند.',
+      },
+      bestFor: {
+        en: 'Phones without eSIM support · moving the card between compatible devices',
+        fa: 'گوشی‌های بدون پشتیبانی eSIM · جابه‌جا کردن کارت بین دستگاه‌های سازگار',
+      },
     },
     {
       title: { en: 'eSIM', fa: 'eSIM' },
-      body: { en: 'A digital SIM activated without a card, where your phone and the operator both support it.', fa: 'سیم‌کارت دیجیتالی که بدون کارت فعال می‌شود، به شرطی که گوشی و اپراتور هر دو پشتیبانی کنند.' },
-      bestFor: { en: 'Newer compatible phones · keeping more than one SIM profile', fa: 'گوشی‌های سازگار جدیدتر · نگه داشتن بیش از یک پروفایل سیم‌کارت' },
-      caveat: { en: 'Not every operator or plan offers eSIM. Check before you choose.', fa: 'همه اپراتورها یا طرح‌ها eSIM ارائه نمی‌دهند. پیش از انتخاب بررسی کنید.' },
+      body: {
+        en: 'A digital SIM activated without a card, where your phone and the operator both support it.',
+        fa: 'سیم‌کارت دیجیتالی که بدون کارت فعال می‌شود، به شرطی که گوشی و اپراتور هر دو پشتیبانی کنند.',
+      },
+      bestFor: {
+        en: 'Newer compatible phones · keeping more than one SIM profile',
+        fa: 'گوشی‌های سازگار جدیدتر · نگه داشتن بیش از یک پروفایل سیم‌کارت',
+      },
+      caveat: {
+        en: 'Not every operator or plan offers eSIM. Check before you choose.',
+        fa: 'همه اپراتورها یا طرح‌ها eSIM ارائه نمی‌دهند. پیش از انتخاب بررسی کنید.',
+      },
     },
     {
       title: { en: 'Prepaid', fa: 'اعتباری' },
-      body: { en: 'You pay up front and use the balance or package, with no regular monthly bill.', fa: 'از پیش پرداخت می‌کنید و از اعتبار یا بسته استفاده می‌کنید، بدون صورت‌حساب ماهانه.' },
-      bestFor: { en: 'Short stays · simpler spending control · not committing yet', fa: 'اقامت‌های کوتاه · کنترل ساده‌تر هزینه · بدون تعهد، فعلا' },
+      body: {
+        en: 'You pay up front and use the balance or package, with no regular monthly bill.',
+        fa: 'از پیش پرداخت می‌کنید و از اعتبار یا بسته استفاده می‌کنید، بدون صورت‌حساب ماهانه.',
+      },
+      bestFor: {
+        en: 'Short stays · simpler spending control · not committing yet',
+        fa: 'اقامت‌های کوتاه · کنترل ساده‌تر هزینه · بدون تعهد، فعلا',
+      },
     },
     {
       title: { en: 'Contract / postpaid', fa: 'قراردادی / دائمی' },
-      body: { en: 'A monthly plan billed regularly on the operator’s terms.', fa: 'طرح ماهانه‌ای که طبق شرایط اپراتور به‌طور منظم صورت‌حساب می‌شود.' },
+      body: {
+        en: 'A monthly plan billed regularly on the operator’s terms.',
+        fa: 'طرح ماهانه‌ای که طبق شرایط اپراتور به‌طور منظم صورت‌حساب می‌شود.',
+      },
       bestFor: { en: 'Longer stays · a predictable monthly setup', fa: 'اقامت‌های طولانی‌تر · هزینه ماهانه قابل پیش‌بینی' },
       caveat: {
         en: 'Eligibility and required documents vary by operator. Not every plan is open to every customer.',
@@ -51,16 +78,39 @@ export const SIM_CARD: GuideDetailSeed = {
   sections: [
     {
       kind: 'yourOptions',
-      body: { en: 'Two decisions really: how the SIM reaches your phone, and how you pay for it.', fa: 'در واقع دو تصمیم: سیم‌کارت چگونه به گوشی شما می‌رسد، و هزینه آن را چگونه می‌پردازید.' },
+      body: {
+        en: 'Two decisions really: how the SIM reaches your phone, and how you pay for it.',
+        fa: 'در واقع دو تصمیم: سیم‌کارت چگونه به گوشی شما می‌رسد، و هزینه آن را چگونه می‌پردازید.',
+      },
     },
     {
       kind: 'beforeYouStart',
       title: { en: 'Before you get a SIM', fa: 'پیش از تهیه سیم‌کارت' },
       steps: [
-        { title: { en: 'Check whether your phone takes a physical SIM, an eSIM, or both.', fa: 'بررسی کنید گوشی شما سیم‌کارت فیزیکی، eSIM یا هر دو را می‌پذیرد.' } },
-        { title: { en: 'Make sure your phone is unlocked and can use a Turkish mobile network.', fa: 'مطمئن شوید گوشی شما قفل نیست و می‌تواند از شبکه تلفن همراه ترکیه استفاده کند.' } },
-        { title: { en: 'Decide whether you mainly need a Turkish phone number, or mainly mobile data.', fa: 'تصمیم بگیرید بیشتر به شماره تلفن ترکیه نیاز دارید یا به اینترنت همراه.' } },
-        { title: { en: 'If you brought your phone from abroad, check whether IMEI registration applies to it.', fa: 'اگر گوشی را از خارج آورده‌اید، بررسی کنید آیا ثبت IMEI برای آن لازم است.' } },
+        {
+          title: {
+            en: 'Check whether your phone takes a physical SIM, an eSIM, or both.',
+            fa: 'بررسی کنید گوشی شما سیم‌کارت فیزیکی، eSIM یا هر دو را می‌پذیرد.',
+          },
+        },
+        {
+          title: {
+            en: 'Make sure your phone is unlocked and can use a Turkish mobile network.',
+            fa: 'مطمئن شوید گوشی شما قفل نیست و می‌تواند از شبکه تلفن همراه ترکیه استفاده کند.',
+          },
+        },
+        {
+          title: {
+            en: 'Decide whether you mainly need a Turkish phone number, or mainly mobile data.',
+            fa: 'تصمیم بگیرید بیشتر به شماره تلفن ترکیه نیاز دارید یا به اینترنت همراه.',
+          },
+        },
+        {
+          title: {
+            en: 'If you brought your phone from abroad, check whether IMEI registration applies to it.',
+            fa: 'اگر گوشی را از خارج آورده‌اید، بررسی کنید آیا ثبت IMEI برای آن لازم است.',
+          },
+        },
       ],
     },
     {
@@ -70,15 +120,27 @@ export const SIM_CARD: GuideDetailSeed = {
         fa: 'الزامات برای مشتریان خارجی بسته به اپراتور و خدمت متفاوت است. پیش از مراجعه به فروشگاه، الزامات فعلی اپراتور را بررسی کنید.',
       },
       steps: [
-        { title: { en: 'Identity document', fa: 'مدرک هویتی' }, body: { en: 'A valid identity document that the operator accepts.', fa: 'یک مدرک هویتی معتبر که اپراتور بپذیرد.' } },
+        {
+          title: { en: 'Identity document', fa: 'مدرک هویتی' },
+          body: { en: 'A valid identity document that the operator accepts.', fa: 'یک مدرک هویتی معتبر که اپراتور بپذیرد.' },
+        },
         {
           title: { en: 'Your phone', fa: 'گوشی شما' },
-          body: { en: 'Bring the device you intend to use, or its details if you are buying an eSIM.', fa: 'دستگاهی را که می‌خواهید استفاده کنید همراه ببرید، یا اگر eSIM می‌خرید مشخصات آن را.' },
+          body: {
+            en: 'Bring the device you intend to use, or its details if you are buying an eSIM.',
+            fa: 'دستگاهی را که می‌خواهید استفاده کنید همراه ببرید، یا اگر eSIM می‌خرید مشخصات آن را.',
+          },
         },
-        { title: { en: 'Payment method', fa: 'روش پرداخت' }, body: { en: 'For the SIM and for the first plan or package.', fa: 'برای سیم‌کارت و نخستین طرح یا بسته.' } },
+        {
+          title: { en: 'Payment method', fa: 'روش پرداخت' },
+          body: { en: 'For the SIM and for the first plan or package.', fa: 'برای سیم‌کارت و نخستین طرح یا بسته.' },
+        },
         {
           title: { en: 'Your preferred plan', fa: 'طرح دلخواه شما' },
-          body: { en: 'Optional, but it speeds things up if you already know what you want.', fa: 'اختیاری است، اما اگر از قبل بدانید چه می‌خواهید کار سریع‌تر پیش می‌رود.' },
+          body: {
+            en: 'Optional, but it speeds things up if you already know what you want.',
+            fa: 'اختیاری است، اما اگر از قبل بدانید چه می‌خواهید کار سریع‌تر پیش می‌رود.',
+          },
         },
       ],
     },
@@ -88,11 +150,17 @@ export const SIM_CARD: GuideDetailSeed = {
       steps: [
         {
           title: { en: 'Choose an operator and SIM type', fa: 'انتخاب اپراتور و نوع سیم‌کارت' },
-          body: { en: 'Decide whether you want a physical SIM or an eSIM, and which operator you want to use.', fa: 'تصمیم بگیرید سیم‌کارت فیزیکی می‌خواهید یا eSIM، و از کدام اپراتور.' },
+          body: {
+            en: 'Decide whether you want a physical SIM or an eSIM, and which operator you want to use.',
+            fa: 'تصمیم بگیرید سیم‌کارت فیزیکی می‌خواهید یا eSIM، و از کدام اپراتور.',
+          },
         },
         {
           title: { en: 'Check the plan and its conditions', fa: 'بررسی طرح و شرایط آن' },
-          body: { en: 'Look at the current plan, pricing, activation conditions and eligibility requirements.', fa: 'طرح فعلی، قیمت، شرایط فعال‌سازی و الزامات واجد شرایط بودن را ببینید.' },
+          body: {
+            en: 'Look at the current plan, pricing, activation conditions and eligibility requirements.',
+            fa: 'طرح فعلی، قیمت، شرایط فعال‌سازی و الزامات واجد شرایط بودن را ببینید.',
+          },
         },
         {
           title: { en: 'Go to a store, or use an official digital channel', fa: 'مراجعه به فروشگاه یا استفاده از کانال دیجیتال رسمی' },
@@ -144,8 +212,18 @@ export const SIM_CARD: GuideDetailSeed = {
         { title: { en: 'What happens when your data allowance runs out?', fa: 'وقتی حجم اینترنت تمام شود چه اتفاقی می‌افتد؟' } },
         { title: { en: 'Are there activation or setup fees?', fa: 'آیا هزینه فعال‌سازی یا راه‌اندازی دارد؟' } },
         { title: { en: 'Does the plan support eSIM, if you need it?', fa: 'اگر نیاز دارید، آیا طرح از eSIM پشتیبانی می‌کند؟' } },
-        { title: { en: 'Can you keep the number if you later change plan or operator?', fa: 'اگر بعدا طرح یا اپراتور را عوض کنید، می‌توانید شماره را نگه دارید؟' } },
-        { title: { en: 'Are there conditions that apply specifically to foreign customers?', fa: 'آیا شرایطی ویژه مشتریان خارجی وجود دارد؟' } },
+        {
+          title: {
+            en: 'Can you keep the number if you later change plan or operator?',
+            fa: 'اگر بعدا طرح یا اپراتور را عوض کنید، می‌توانید شماره را نگه دارید؟',
+          },
+        },
+        {
+          title: {
+            en: 'Are there conditions that apply specifically to foreign customers?',
+            fa: 'آیا شرایطی ویژه مشتریان خارجی وجود دارد؟',
+          },
+        },
       ],
     },
     {
@@ -206,7 +284,12 @@ export const SIM_CARD: GuideDetailSeed = {
       name: 'Central Device Registration System — tuketici.btk.gov.tr/merkezi-cihaz-kayit-sistemi',
       note: 'Source for the 120-day figure and foreign-device rules',
     },
-    { url: 'https://www.turkiye.gov.tr/btk-imei-kaydet', publisher: 'e-Devlet', name: 'IMEI registration — turkiye.gov.tr/btk-imei-kaydet', note: 'The official registration route' },
+    {
+      url: 'https://www.turkiye.gov.tr/btk-imei-kaydet',
+      publisher: 'e-Devlet',
+      name: 'IMEI registration — turkiye.gov.tr/btk-imei-kaydet',
+      note: 'The official registration route',
+    },
     {
       url: 'https://www.turkcell.com.tr/',
       publisher: 'Turkcell',

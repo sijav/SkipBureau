@@ -1,10 +1,10 @@
 import { PrismaPg } from '@prisma/adapter-pg'
 import { databaseUrl } from './database-url.js'
 import { PrismaClient } from './generated/prisma/client.js'
-import { SIM_CARD } from './sample-sim-card.js'
 import type { GuideDetailSeed } from './sample-types.js'
 import { fillGuideDetail, linkObligationGroups } from './guide/guide-fill.js'
 import { ADDRESS_GUIDE } from './guide/obligation-groups.js'
+import { RESEARCHED_GUIDES } from './guide/researched-guides.js'
 import { TASKS } from './tasks.js'
 
 /**
@@ -23,6 +23,12 @@ import { TASKS } from './tasks.js'
  * preferred of the address duties it names, so the guide links the researched
  * one once a research load has written it (SB-255, linkObligationGroups).
  *
+ * It also retires what it no longer fills (SB-282). The owner answered on
+ * 2026-09-15 that every Turkish sample guide, area and common question is
+ * deleted from the deployed database and never refilled, and any visitor's
+ * suggestion on those guides with them. Turkey's sample is a test fixture
+ * now, prisma/sample-turkey.ts.
+ *
  * It keeps the thing that is easy to get wrong: **one task shared between two
  * countries**, with country-specific categories, guides and sources hanging
  * off it. `{country}` in a task's text is the country's name, filled in by the
@@ -31,34 +37,7 @@ import { TASKS } from './tasks.js'
 
 const VERIFIED = new Date('2026-09-10')
 
-
-type Kind = 'decision' | 'ifItApplies' | 'ongoing' | 'alternativeRoute'
-
-// The eight areas of the Task hub design, Figma 81:589, for Start a business,
-// and the one other route, 81:695. A kind only where the design labels one.
-const BUSINESS: [slug: string, kind: Kind | null, en: string, fa: string, enDesc: string, faDesc: string][] = [
-  ['choose-a-company-type', 'decision', 'Choose a company type', 'انتخاب نوع شرکت', 'Understand the main company structures and which situations they are commonly used for.', 'با ساختارهای اصلی شرکت و موقعیت‌هایی که معمولا برای آن‌ها به کار می‌روند آشنا شوید.'],
-  ['register-your-company', null, 'Register your company', 'ثبت شرکت', 'Understand the registration process and what needs to be prepared.', 'با روند ثبت و آنچه باید آماده شود آشنا شوید.'],
-  ['get-a-business-address', null, 'Get a business address', 'تهیه نشانی تجاری', 'Understand address requirements and what options may be available.', 'با الزامات نشانی و گزینه‌های احتمالی آشنا شوید.'],
-  ['get-your-tax-setup-ready', null, 'Get your tax setup ready', 'آماده‌سازی امور مالیاتی', 'Understand tax registration and the first administrative obligations.', 'با ثبت مالیاتی و نخستین تعهدات اداری آشنا شوید.'],
-  ['open-a-business-bank-account', null, 'Open a business bank account', 'افتتاح حساب بانکی تجاری', 'Understand when a business account is needed and what may be requested.', 'بدانید چه زمانی حساب تجاری لازم است و چه مدارکی ممکن است خواسته شود.'],
-  ['work-in-your-own-company', 'ifItApplies', 'Work in your own company', 'کار در شرکت خودتان', 'Understand when founders may need separate permission to work.', 'بدانید بنیان‌گذاران چه زمانی ممکن است به مجوز کار جداگانه نیاز داشته باشند.'],
-  ['hire-employees', 'ifItApplies', 'Hire employees', 'استخدام کارمند', 'Understand the basics of employing Turkish or foreign staff.', 'با اصول استخدام نیروی ترک یا خارجی آشنا شوید.'],
-  ['set-up-accounting-and-invoicing', 'ongoing', 'Set up accounting & invoicing', 'راه‌اندازی حسابداری و صدور فاکتور', 'Understand ongoing accounting, invoicing and reporting responsibilities.', 'با مسئولیت‌های مستمر حسابداری، صدور فاکتور و گزارش‌دهی آشنا شوید.'],
-  ['startup-and-tech-visa-programmes', 'alternativeRoute', 'Startup and tech visa programmes', 'برنامه‌های ویزای استارتاپ و فناوری', 'For founders exploring startup-specific immigration routes.', 'برای بنیان‌گذارانی که مسیرهای مهاجرتی ویژه استارتاپ را بررسی می‌کنند.'],
-]
-
-// The six guides of the Task hub design, Figma 81:659: titles and dates only.
-// Their one source is the institution the design's citation card names.
-const TRADE_REGISTRY = { url: 'https://ticaret.gov.tr/', name: 'Ministry of Trade · Trade Registry', publisher: 'Republic of Türkiye' }
-const BUSINESS_GUIDES: [slug: string, category: string, en: string, fa: string, verified: string][] = [
-  ['company-types', 'choose-a-company-type', 'Company types in Turkey', 'انواع شرکت در ترکیه', '2026-08-24'],
-  ['how-company-registration-works', 'register-your-company', 'How company registration works', 'روند ثبت شرکت چگونه است', '2026-08-24'],
-  ['business-addresses-explained', 'get-a-business-address', 'Business addresses explained', 'توضیح نشانی تجاری', '2026-07-15'],
-  ['working-in-your-own-company', 'work-in-your-own-company', 'Working in your own company as a foreign founder', 'کار در شرکت خودتان به‌عنوان بنیان‌گذار خارجی', '2026-08-24'],
-  ['hiring-foreign-employees', 'hire-employees', 'Hiring foreign employees', 'استخدام کارمند خارجی', '2026-08-24'],
-  ['accounting-basics', 'set-up-accounting-and-invoicing', 'Accounting basics for new companies', 'مبانی حسابداری برای شرکت‌های تازه‌تأسیس', '2026-07-15'],
-]
+export type Kind = 'decision' | 'ifItApplies' | 'ongoing' | 'alternativeRoute'
 
 type GuideText = { title: string; description?: string; quickAnswer?: string; cost?: string; time?: string }
 
@@ -72,12 +51,17 @@ type GuideSeed = {
   readingMinutes?: number
   en: GuideText
   fa?: GuideText
-  sections: { kind: 'whatYouNeed' | 'howToDoIt' | 'whereToDoIt' | 'importantToKnow'; en: string; fa?: string; steps?: { en: string; fa?: string }[] }[]
+  sections: {
+    kind: 'whatYouNeed' | 'howToDoIt' | 'whereToDoIt' | 'importantToKnow'
+    en: string
+    fa?: string
+    steps?: { en: string; fa?: string }[]
+  }[]
   options?: { en: string; fa?: string }[]
   sources: { url: string; name: string; publisher?: string }[]
 }
 
-type Both = { en: string; fa: string }
+export type Both = { en: string; fa: string }
 
 type CategorySeed = {
   slug: string
@@ -99,27 +83,8 @@ type CategorySeed = {
   related?: string[]
 }
 
-// Getting Settled's category hub, Figma 133:690.
-const SETTLED_GUIDES: [slug: string, minutes: number, en: string, fa: string, enDesc: string, faDesc: string][] = [
-  ['sim-card', 4, 'Get a SIM Card or eSIM', 'تهیه سیم‌کارت یا eSIM', 'Compare mobile operators and understand what documents you need.', 'اپراتورهای تلفن همراه را مقایسه کنید و بدانید چه مدارکی لازم دارید.'],
-  ['register-your-phone', 3, 'Register Your Foreign Phone / IMEI', 'ثبت گوشی خارجی / IMEI', 'Understand when an imported phone needs to be registered in Turkey.', 'بدانید چه زمانی گوشی واردشده باید در ترکیه ثبت شود.'],
-  ['home-internet', 5, 'Set Up Home Internet', 'راه‌اندازی اینترنت خانگی', 'Check infrastructure, compare providers and understand internet contracts.', 'زیرساخت را بررسی کنید، ارائه‌دهندگان را مقایسه کنید و قراردادهای اینترنت را بشناسید.'],
-  ['utilities', 4, 'Connect Electricity, Water and Gas', 'اتصال برق، آب و گاز', 'Learn how to start or transfer utility subscriptions for your home.', 'یاد بگیرید اشتراک خدمات خانه را چگونه آغاز یا منتقل کنید.'],
-  ['turkish-address', 3, 'Understand Your Turkish Address', 'آشنایی با نشانی ترکیه‌ای', 'Learn how Turkish addresses are structured and where your official address is used.', 'یاد بگیرید نشانی‌های ترکیه چه ساختاری دارند و نشانی رسمی شما کجا به کار می‌رود.'],
-  ['essential-apps', 4, 'Essential Apps and Services', 'برنامه‌ها و خدمات ضروری', 'Find useful apps for transport, banking, delivery and everyday services.', 'برنامه‌های کاربردی برای حمل‌ونقل، بانک، خرید و خدمات روزمره را پیدا کنید.'],
-]
-
-const SETTLED_CHECKLIST: Both[] = [
-  { en: 'Get a SIM Card or eSIM', fa: 'تهیه سیم‌کارت یا eSIM' },
-  { en: 'Check whether your phone needs IMEI registration', fa: 'بررسی اینکه آیا گوشی شما به ثبت IMEI نیاز دارد' },
-  { en: 'Arrange home internet', fa: 'ترتیب دادن اینترنت خانگی' },
-  { en: 'Connect or transfer utility services', fa: 'اتصال یا انتقال خدمات شهری' },
-  { en: 'Confirm your correct Turkish address', fa: 'اطمینان از درستی نشانی ترکیه‌ای خود' },
-  { en: 'Install essential local apps', fa: 'نصب برنامه‌های محلی ضروری' },
-]
-
 // The old sample title of the one Getting Settled category each country has.
-const WAS_FIRST_WEEK = { en: 'Your first week', fa: 'هفته اول شما' }
+export const WAS_FIRST_WEEK = { en: 'Your first week', fa: 'هفته اول شما' }
 
 const CATEGORY_TEXT_FILLS = ['startReason', 'askPrompt'] as const
 
@@ -130,7 +95,7 @@ type QuestionText = { question: string; answer: string }
 
 type QuestionSeed = { slug: string; guide?: string; en: QuestionText; fa?: QuestionText }
 
-type CountrySeed = {
+export type CountrySeed = {
   code: string
   categories: CategorySeed[]
   guides: GuideSeed[]
@@ -139,117 +104,9 @@ type CountrySeed = {
   questions?: QuestionSeed[]
 }
 
-const COUNTRIES: CountrySeed[] = [
-  {
-    code: 'tr',
-    categories: [
-      {
-        slug: 'first-week',
-        task: 'getting-settled',
-        position: 0,
-        en: 'Getting Settled',
-        fa: 'استقرار اولیه',
-        enDesc: 'Essential services to help you start everyday life in Turkey.',
-        faDesc: 'خدمات ضروری برای شروع زندگی روزمره در ترکیه.',
-        was: WAS_FIRST_WEEK,
-        start: 'sim-card',
-        startReason: {
-          en: 'Get connected first so you can use banking, transport, delivery and government services more easily.',
-          fa: 'اول به تلفن و اینترنت وصل شوید تا بانک، حمل‌ونقل، خرید اینترنتی و خدمات دولتی را راحت‌تر به کار ببرید.',
-        },
-        askPrompt: {
-          en: 'Ask about getting settled in Turkey and find the most relevant guide.',
-          fa: 'درباره استقرار در ترکیه بپرسید و مرتبط‌ترین راهنما را پیدا کنید.',
-        },
-        checklist: SETTLED_CHECKLIST,
-        related: ['renting-a-home', 'banking-and-money', 'health-and-insurance'],
-      },
-      ...BUSINESS.map(([slug, kind, en, fa, enDesc, faDesc], position) => ({ slug, task: 'start-a-business', position, kind, en, fa, enDesc, faDesc })),
-    ],
-    details: [SIM_CARD],
-    // Home's Common questions, Figma 60:742.
-    questions: [
-      {
-        slug: 'company-without-residence',
-        en: { question: 'Can I start a company without a residence permit?', answer: 'Yes — ownership and residence are separate. You can own 100% of a Turkish company.' },
-        fa: { question: 'آیا بدون اجازه اقامت می‌توانم شرکت ثبت کنم؟', answer: 'بله، مالکیت و اقامت از هم جدا هستند. می‌توانید مالک صددرصد یک شرکت ترکیه‌ای باشید.' },
-      },
-      {
-        slug: 'student-residence-documents',
-        en: { question: 'What documents do I need for student residence?', answer: 'Nine documents. Three of them change depending on your nationality.' },
-        fa: { question: 'برای اقامت دانشجویی به چه مدارکی نیاز دارم؟', answer: 'نه مدرک. سه مورد از آن‌ها بسته به ملیت شما تغییر می‌کند.' },
-      },
-      {
-        slug: 'hire-an-iranian-employee',
-        en: { question: 'Can my Turkish company hire an Iranian employee?', answer: 'Yes, subject to employment-ratio and salary conditions on the company.' },
-        fa: { question: 'آیا شرکت ترکیه‌ای من می‌تواند کارمند ایرانی استخدام کند؟', answer: 'بله، به شرط رعایت نسبت استخدام و شرایط حقوق از سوی شرکت.' },
-      },
-      {
-        slug: 'residence-by-buying-a-house',
-        en: { question: 'Can I get residence if I buy a house?', answer: 'Buying property does not grant residence by itself, but it can support a short-term permit.' },
-        fa: { question: 'آیا با خرید خانه می‌توانم اقامت بگیرم؟', answer: 'خرید ملک به‌تنهایی اقامت نمی‌دهد، اما می‌تواند پشتوانه اقامت کوتاه‌مدت باشد.' },
-      },
-    ],
-    guides: [
-      {
-        slug: 'register-your-address',
-        category: 'first-week',
-        obligations: ADDRESS_GUIDE,
-        en: {
-          title: 'Register your address',
-          description: 'What address registration in Turkey involves, and where it is done.',
-          quickAnswer: 'Go to the district population directorate once you have somewhere to live. Take your passport and your rental contract.',
-          cost: 'Free',
-          time: 'One appointment, usually under an hour',
-        },
-        fa: {
-          title: 'ثبت نشانی محل سکونت',
-          description: 'ثبت نشانی در ترکیه شامل چیست و کجا انجام می‌شود.',
-          quickAnswer: 'پس از پیدا کردن محل سکونت به اداره نفوس منطقه بروید. گذرنامه و قرارداد اجاره را همراه ببرید.',
-          cost: 'رایگان',
-          time: 'یک نوبت، معمولا کمتر از یک ساعت',
-        },
-        sections: [
-          {
-            kind: 'whatYouNeed',
-            en: 'Your passport, your rental contract, and the tax number you got first.',
-            fa: 'گذرنامه، قرارداد اجاره، و شماره مالیاتی که پیش‌تر گرفته‌اید.',
-          },
-          {
-            kind: 'howToDoIt',
-            en: 'Book an appointment, then attend in person.',
-            fa: 'ابتدا نوبت بگیرید، سپس حضوری مراجعه کنید.',
-            steps: [
-              { en: 'Get a tax number first, because everything else asks for it.', fa: 'ابتدا شماره مالیاتی بگیرید، چون بقیه کارها آن را می‌خواهند.' },
-              { en: 'Book an appointment online.', fa: 'به صورت آنلاین نوبت بگیرید.' },
-              { en: 'Attend with your documents.', fa: 'با مدارک خود حاضر شوید.' },
-            ],
-          },
-        ],
-        sources: [{ url: 'https://www.nvi.gov.tr/', name: 'Nufus ve Vatandaslik Isleri Genel Mudurlugu' }],
-      },
-      ...SETTLED_GUIDES.map(([slug, minutes, en, fa, enDesc, faDesc], index) => ({
-        slug,
-        category: 'first-week',
-        position: index + 1,
-        readingMinutes: minutes,
-        verifiedAt: new Date('2026-09-08'),
-        en: { title: en, description: enDesc },
-        fa: { title: fa, description: faDesc },
-        sections: [],
-        sources: index < 2 ? [{ url: 'https://www.btk.gov.tr/', name: 'Information and Communication Technologies Authority', publisher: 'Republic of Türkiye' }] : [],
-      })),
-      ...BUSINESS_GUIDES.map(([slug, category, en, fa, verified]) => ({
-        slug,
-        category,
-        verifiedAt: new Date(verified),
-        en: { title: en },
-        fa: { title: fa },
-        sections: [],
-        sources: [TRADE_REGISTRY],
-      })),
-    ],
-  },
+// Germany's sample until SB-198. Turkey's was retired by the owner's answer of 2026-09-15 (SB-282) and is a test
+// fixture now, prisma/sample-turkey.ts.
+export const COUNTRIES: CountrySeed[] = [
   {
     code: 'de',
     categories: [
@@ -272,7 +129,8 @@ const COUNTRIES: CountrySeed[] = [
         en: {
           title: 'Register your address',
           description: 'The Anmeldung, which almost everything else in Germany depends on.',
-          quickAnswer: 'Book a Buergeramt appointment and bring the confirmation your landlord signs. Without this you cannot open a bank account or get a tax id.',
+          quickAnswer:
+            'Book a Buergeramt appointment and bring the confirmation your landlord signs. Without this you cannot open a bank account or get a tax id.',
           cost: 'Free',
           time: 'One appointment, but the wait for it can be weeks',
         },
@@ -295,7 +153,7 @@ const COUNTRIES: CountrySeed[] = [
   },
 ]
 
-export const seedContent = async (prisma: PrismaClient): Promise<void> => {
+export const seedContent = async (prisma: PrismaClient, countries: readonly CountrySeed[] = COUNTRIES): Promise<void> => {
   for (const task of TASKS) {
     const row = await prisma.task.upsert({
       where: { slug: task.slug },
@@ -323,25 +181,52 @@ export const seedContent = async (prisma: PrismaClient): Promise<void> => {
     }
   }
 
-  for (const country of COUNTRIES) {
+  for (const country of countries) {
     for (const category of country.categories) {
       const task = await prisma.task.findUniqueOrThrow({ where: { slug: category.task } })
       const row = await prisma.category.upsert({
         where: { countryCode_slug: { countryCode: country.code, slug: category.slug } },
         update: {},
-        create: { countryCode: country.code, taskId: task.id, slug: category.slug, position: category.position, kind: category.kind ?? null },
+        create: {
+          countryCode: country.code,
+          taskId: task.id,
+          slug: category.slug,
+          position: category.position,
+          kind: category.kind ?? null,
+        },
       })
       // Kinds came after the categories did; fill one that is still empty.
       if (row.kind === null && category.kind) await prisma.category.update({ where: { id: row.id }, data: { kind: category.kind } })
 
       for (const [locale, title, description, was, extra] of [
-        ['en-US', category.en, category.enDesc ?? null, category.was?.en, { startReason: category.startReason?.en, askPrompt: category.askPrompt?.en }],
-        ['fa-IR', category.fa, category.faDesc ?? null, category.was?.fa, { startReason: category.startReason?.fa, askPrompt: category.askPrompt?.fa }],
+        [
+          'en-US',
+          category.en,
+          category.enDesc ?? null,
+          category.was?.en,
+          { startReason: category.startReason?.en, askPrompt: category.askPrompt?.en },
+        ],
+        [
+          'fa-IR',
+          category.fa,
+          category.faDesc ?? null,
+          category.was?.fa,
+          { startReason: category.startReason?.fa, askPrompt: category.askPrompt?.fa },
+        ],
       ] as const) {
         const where = { categoryId_locale: { categoryId: row.id, locale } }
         const existing = await prisma.categoryText.findUnique({ where })
         if (!existing) {
-          await prisma.categoryText.create({ data: { categoryId: row.id, locale, title, description, startReason: extra.startReason ?? null, askPrompt: extra.askPrompt ?? null } })
+          await prisma.categoryText.create({
+            data: {
+              categoryId: row.id,
+              locale,
+              title,
+              description,
+              startReason: extra.startReason ?? null,
+              askPrompt: extra.askPrompt ?? null,
+            },
+          })
           continue
         }
 
@@ -448,7 +333,14 @@ export const seedContent = async (prisma: PrismaClient): Promise<void> => {
 
       for (const [position, source] of guide.sources.entries()) {
         await prisma.guideSource.create({
-          data: { guideId: row.id, url: source.url, name: source.name, publisher: source.publisher ?? null, verifiedAt: guide.verifiedAt ?? VERIFIED, position },
+          data: {
+            guideId: row.id,
+            url: source.url,
+            name: source.name,
+            publisher: source.publisher ?? null,
+            verifiedAt: guide.verifiedAt ?? VERIFIED,
+            position,
+          },
         })
       }
 
@@ -521,11 +413,75 @@ export const seedContent = async (prisma: PrismaClient): Promise<void> => {
   }
 }
 
+export type SampleSlugs = { guides: readonly string[]; areas: readonly string[]; questions: readonly string[] }
+
+/** Turkey's sample rows by slug: what prisma/sample-turkey.ts fills, less register-your-address, whose row the researched loader owns (SB-281). */
+export const TURKEY_SAMPLE_SLUGS: SampleSlugs = {
+  guides: [
+    'sim-card',
+    'register-your-phone',
+    'home-internet',
+    'utilities',
+    'turkish-address',
+    'essential-apps',
+    'company-types',
+    'how-company-registration-works',
+    'business-addresses-explained',
+    'working-in-your-own-company',
+    'hiring-foreign-employees',
+    'accounting-basics',
+  ],
+  areas: [
+    'first-week',
+    'choose-a-company-type',
+    'register-your-company',
+    'get-a-business-address',
+    'get-your-tax-setup-ready',
+    'open-a-business-bank-account',
+    'work-in-your-own-company',
+    'hire-employees',
+    'set-up-accounting-and-invoicing',
+    'startup-and-tech-visa-programmes',
+  ],
+  questions: ['company-without-residence', 'student-residence-documents', 'hire-an-iranian-employee', 'residence-by-buying-a-house'],
+}
+
+/**
+ * A country's retired sample rows deleted by slug, in one transaction (SB-282): its questions, then its guides, whose
+ * texts, sections, sources, links and visitors' suggestions go with them, then its areas, whose texts, checklist and
+ * related goals go with them. It refuses a list naming a guide or area the researched loader writes, so it can never
+ * delete what the research wrote, and a start after the first finds nothing to delete.
+ */
+export const retireSample = async (
+  prisma: PrismaClient,
+  countryCode: string,
+  slugs: SampleSlugs,
+): Promise<{ questions: number; guides: number; areas: number }> => {
+  const researched = RESEARCHED_GUIDES.filter((guide) => guide.country === countryCode)
+  const owned = new Set(researched.flatMap((guide) => [guide.guide.slug, guide.area.slug]))
+  const clash = [...slugs.guides, ...slugs.areas].filter((slug) => owned.has(slug))
+  if (clash.length > 0) {
+    throw new Error(`${countryCode}'s retired sample names ${clash.join(', ')}, which the researched loader writes; nothing was deleted.`)
+  }
+
+  return prisma.$transaction(
+    async (tx) => {
+      const questions = await tx.question.deleteMany({ where: { countryCode, slug: { in: [...slugs.questions] } } })
+      const guides = await tx.guide.deleteMany({ where: { countryCode, slug: { in: [...slugs.guides] } } })
+      const areas = await tx.category.deleteMany({ where: { countryCode, slug: { in: [...slugs.areas] } } })
+      return { questions: questions.count, guides: guides.count, areas: areas.count }
+    },
+    { timeout: 120_000 },
+  )
+}
+
 const main = async (): Promise<void> => {
   const prisma = new PrismaClient({ adapter: new PrismaPg({ connectionString: databaseUrl() }) })
   try {
     await seedContent(prisma)
     console.log('sample content: filled in whatever was missing')
+    const retired = await retireSample(prisma, 'tr', TURKEY_SAMPLE_SLUGS)
+    console.log(`sample content: retired Turkey's ${retired.questions} questions, ${retired.guides} guides and ${retired.areas} areas`)
   } finally {
     await prisma.$disconnect()
   }
