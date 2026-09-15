@@ -124,6 +124,10 @@ export const commitBytes = (repo: string, start: string, branch: string, files: 
 
 const sha = (bytes: Buffer): string => createHash('sha256').update(bytes).digest('hex')
 
+/** Changed or new code a publish of the selected paths would not carry: notes such as a plan file do not count. */
+export const otherCode = (changed: readonly string[], selected: readonly string[]): string[] =>
+  [...new Set(changed)].filter((path) => /\.(ts|prisma|sql)$/.test(path) && !selected.includes(path))
+
 /** The files of a snapshot whose bytes are no longer the ones it holds. */
 export const changedSince = (snapshot: readonly { path: string; bytes: Buffer }[], read: (path: string) => Buffer): string[] =>
   snapshot.filter((file) => sha(read(file.path)) !== sha(file.bytes)).map((file) => file.path)
@@ -275,10 +279,17 @@ const main = async (): Promise<void> => {
   const selected = (down ? [the.dataFile] : [the.dataFile, the.countryFile, the.agreed, the.talk, 'prisma/research/sessions.json', 'prisma/research/README.md']).filter(
     (path) => existsSync(resolve(API, path)),
   )
-  const others = git(['status', '--porcelain', '--', 'apps/api/src', 'apps/api/prisma'], { cwd: repo })
-    .split('\n')
-    .map((line) => line.slice(3).trim().replace(/^"|"$/g, ''))
-    .filter((path) => /\.(ts|prisma|sql)$/.test(path) && !selected.map(inRepo).includes(path))
+  // Paths alone, one to a line: a status column's leading space is lost to a trim, and a quoted path to a filter.
+  const listed = (args: readonly string[]) =>
+    run('git', ['-c', 'core.quotepath=false', ...args], { cwd: repo })
+      .stdout.split('\n')
+      .map((line) => line.trim())
+      .filter(Boolean)
+  const changed = [
+    ...listed(['diff', '--name-only', 'HEAD', '--', 'apps/api/src', 'apps/api/prisma']),
+    ...listed(['ls-files', '--others', '--exclude-standard', '--', 'apps/api/src', 'apps/api/prisma']),
+  ]
+  const others = otherCode(changed, selected.map(inRepo))
   if (others.length > 0) throw new PublishError(`code this publish would not carry is changed: ${others.join(', ')}. Commit it first.`)
 
   const snapshot = selected.map((path) => ({ path, bytes: readFileSync(resolve(API, path)) }))

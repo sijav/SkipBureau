@@ -3,7 +3,7 @@ import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { expect, test } from 'vitest'
-import { caseOf, changedSince, commitBytes, emptyCase, lastUnreverted, messageOf, PublishError } from '../scripts/publish-research.js'
+import { caseOf, changedSince, commitBytes, emptyCase, lastUnreverted, messageOf, otherCode, PublishError } from '../scripts/publish-research.js'
 import { compose } from '../src/rules/research/compose.js'
 import { digestOf } from '../src/rules/research/digest.js'
 import { GERMANY } from '../src/rules/research/germany.js'
@@ -73,6 +73,23 @@ test("a country's digest ignores the order of keys, changes with one fact, and r
   if (!first || !fact) throw new Error("Germany's file has no version with a fact")
   expect(digestOf({ ...GERMANY, versions: [{ ...first, facts: [{ ...fact, numericValue: 3 }, ...facts] }, ...others] })).not.toBe(digestOf(GERMANY))
   expect(() => digestOf({ ...GERMANY, versions: [{ ...first, facts: [{ ...fact, numericValue: Number.NaN }, ...facts] }, ...others] })).toThrow(/NaN/)
+})
+
+test("code a publish would not carry is named, and the case's own files and notes such as a plan file are not", () => {
+  const selected = ['apps/api/src/rules/research/germany/anmeldung.ts', 'apps/api/src/rules/research/germany.ts']
+  const changed = [
+    'apps/api/src/rules/research/germany/anmeldung.ts',
+    'apps/api/src/rules/research/load.ts',
+    'apps/api/src/rules/research/#SB-240 - A plan.md',
+    'apps/api/prisma/schema.prisma',
+    'apps/api/prisma/migrations/20260916000000_example/migration.sql',
+    'apps/api/src/rules/research/load.ts',
+  ]
+  expect(otherCode(changed, selected)).toEqual([
+    'apps/api/src/rules/research/load.ts',
+    'apps/api/prisma/schema.prisma',
+    'apps/api/prisma/migrations/20260916000000_example/migration.sql',
+  ])
 })
 
 test('a file changed after the publish read it is named, so what is committed is what was checked', () => {
