@@ -743,6 +743,67 @@ test("every version of each researched file is served to the reader the publish'
   expect(await ownedBy('germany')).toEqual(before)
 })
 
+const VISA_FREE_ANSWER = `
+  query VisaFreeAnswer($nationality: String, $residenceStatuses: [String!]) {
+    move(from: "xx", to: "de", nationality: $nationality, residenceStatuses: $residenceStatuses) {
+      obligationSlug
+      verdict
+      needs
+      to {
+        facts { key operator numericValue textValue unit currency sourceUrl sourceName verifiedAt }
+        notes { ruleVersionId text locale translationMissing }
+      }
+    }
+  }
+`
+
+test("a visa-free reader of a nationality §41(1) AufenthV names is told the ninety days to apply in Germany and what applying protects, any other visa-free reader only what applying protects, one who has not said their nationality is asked, and a Schengen visa holder is told the file's Schengen visa facts", async () => {
+  const slug = 'get-a-residence-permit-as-a-skilled-worker-with-a-degree'
+  const versions = GERMANY.versions.filter((version) => version.obligation === slug)
+  const valueOf = (version: ResearchVersion, dimension: string) =>
+    version.criteria.find((criterion) => criterion.dimension === dimension)?.value ?? null
+  const grouped = versions.find(
+    (version) => valueOf(version, 'residenceStatus') === 'de.visa-free' && valueOf(version, 'nationalityGroup') !== null,
+  )
+  const general = versions.find(
+    (version) => valueOf(version, 'residenceStatus') === 'de.visa-free' && valueOf(version, 'nationalityGroup') === null,
+  )
+  const schengen = versions.find((version) => valueOf(version, 'residenceStatus') === 'de.schengen-visa')
+  if (!grouped || !general || !schengen)
+    throw new Error("Germany's file has no §41(1) version, no other visa-free version, or no Schengen visa version of the permit")
+  const group = GERMANY.nationalityGroups.find((candidate) => candidate.code === valueOf(grouped, 'nationalityGroup'))
+  if (!group) throw new Error(`Germany's file does not declare ${valueOf(grouped, 'nationalityGroup') ?? 'the group'}`)
+
+  // The ninety days are the §41(1) version's alone; every other visa-free reader is told only what applying protects.
+  expect(grouped.facts.map((fact) => fact.key)).toContain('applyInGermanyWithin')
+  expect(general.facts.map((fact) => fact.key)).not.toContain('applyInGermanyWithin')
+
+  const answerFor = async (nationality: string | undefined, residenceStatuses: string[]) => {
+    const response = await graphql(VISA_FREE_ANSWER, { residenceStatuses, ...(nationality ? { nationality } : {}) })
+    expect(response.body.errors, JSON.stringify(response.body.errors)).toBeUndefined()
+    const entries: Entry[] = response.body.data.move
+    return entries.find((entry) => entry.obligationSlug === slug)
+  }
+
+  for (const { nationality } of group.members) {
+    const answer = await answerFor(nationality, ['de.visa-free'])
+    expect(answer?.verdict, nationality).toBe('newInDestination')
+    expect(answer?.to?.facts, nationality).toEqual(factsIn(GERMANY, grouped))
+  }
+  // A §41(2) nationality, one in no list, and the United Kingdom, whose §41 class a code cannot tell.
+  for (const nationality of ['br', 'in', 'gb']) {
+    expect(
+      group.members.map((member) => member.nationality),
+      nationality,
+    ).not.toContain(nationality)
+    const answer = await answerFor(nationality, ['de.visa-free'])
+    expect(answer?.verdict, nationality).toBe('newInDestination')
+    expect(answer?.to?.facts, nationality).toEqual(factsIn(GERMANY, general))
+  }
+  expect(await answerFor(undefined, ['de.visa-free'])).toMatchObject({ verdict: 'needsDetail', needs: ['nationality'], to: null })
+  expect((await answerFor('us', ['de.schengen-visa']))?.to?.facts).toEqual(factsIn(GERMANY, schengen))
+})
+
 const COMPARED = `
   query Compared($fromResidenceRegions: [String!], $toResidenceRegions: [String!], $residenceStatuses: [String!]) {
     move(from: "de", to: "tr", fromResidenceRegions: $fromResidenceRegions, toResidenceRegions: $toResidenceRegions, residenceStatuses: $residenceStatuses) {
