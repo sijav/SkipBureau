@@ -28,6 +28,16 @@ test('the units the interface names are written in the reader’s language, sing
   expect(valueOf({ operator: 'equals', numericValue: '3.6', unit: 'percent' }).value).toBe('3.6%')
   expect(valueOf({ operator: 'equals', numericValue: '0.25', unit: 'percentage points' }).value).toBe('0.25 percentage points')
   expect(valueOf({ operator: 'equals', numericValue: '77400', unit: 'year', currency: 'EUR' }).value).toBe('€77,400 a year')
+  expect(valueOf({ operator: 'atLeast', numericValue: '5', unit: 'times the gross minimum wage' })).toEqual({
+    value: 'at least 5 times the gross minimum wage',
+    content: null,
+  })
+  expect(valueOf({ operator: 'atLeast', numericValue: '1', unit: 'times the gross minimum wage' }).value).toBe('at least the gross minimum wage')
+  expect(valueOf({ operator: 'atLeast', numericValue: '5', unit: 'Turkish employees for each foreigner' })).toEqual({
+    value: 'at least 5 Turkish employees for each foreigner',
+    content: null,
+  })
+  expect(valueOf({ operator: 'equals', numericValue: '1', unit: 'Turkish employees for each foreigner' }).value).toBe('1 Turkish employee for each foreigner')
 })
 
 test('a unit the interface does not name, and a text value, are the research’s own words beside the value', () => {

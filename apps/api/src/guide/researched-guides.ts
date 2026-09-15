@@ -1,7 +1,14 @@
 import type { Prisma, PrismaClient } from '../generated/prisma/client.js'
 import type { GuideDetailSeed } from '../sample-types.js'
 import { TASKS } from '../tasks.js'
-import { ADDRESS_GUIDE, GERMANY_RESIDENCE_PERMIT, TURKEY_SHORT_TERM_RESIDENCE_PERMIT } from './obligation-groups.js'
+import {
+  ADDRESS_GUIDE,
+  GERMANY_RESIDENCE_PERMIT,
+  TURKEY_COMPANY_FORMATION,
+  TURKEY_HEALTH_INSURANCE,
+  TURKEY_SHORT_TERM_RESIDENCE_PERMIT,
+  TURKEY_WORK_PERMIT,
+} from './obligation-groups.js'
 
 // Guides written from the agreed research, not sample content (SB-258): each section is one of its document's paragraphs
 // under the bold lead that opens it, whole sentences in the document's order with only footnote markers, bold and list
@@ -466,7 +473,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
         },
       ],
     },
-    obligations: [],
+    obligations: TURKEY_HEALTH_INSURANCE,
   },
   // Written from research/agreed/turkey/work-permit.md (SB-279).
   {
@@ -567,7 +574,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
         },
       ],
     },
-    obligations: [],
+    obligations: TURKEY_WORK_PERMIT,
   },
   // Written from research/agreed/turkey/company-formation.md (SB-279).
   {
@@ -706,7 +713,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
         },
       ],
     },
-    obligations: [],
+    obligations: TURKEY_COMPANY_FORMATION,
   },
 ]
 

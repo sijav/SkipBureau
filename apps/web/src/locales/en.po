@@ -22,6 +22,10 @@ msgid "{asks} decides the answer"
 msgstr "{asks} decides the answer"
 
 #: src/shared/rule-answer/factValue.ts
+msgid "{count, plural, =1 {the gross minimum wage} other {# times the gross minimum wage}}"
+msgstr "{count, plural, =1 {the gross minimum wage} other {# times the gross minimum wage}}"
+
+#: src/shared/rule-answer/factValue.ts
 msgid "{count, plural, one {# calendar year} other {# calendar years}}"
 msgstr "{count, plural, one {# calendar year} other {# calendar years}}"
 
@@ -40,6 +44,10 @@ msgstr "{count, plural, one {# percentage point} other {# percentage points}}"
 #: src/screens/search/SearchResults.tsx
 msgid "{count, plural, one {# result} other {# results}}"
 msgstr "{count, plural, one {# result} other {# results}}"
+
+#: src/shared/rule-answer/factValue.ts
+msgid "{count, plural, one {# Turkish employee for each foreigner} other {# Turkish employees for each foreigner}}"
+msgstr "{count, plural, one {# Turkish employee for each foreigner} other {# Turkish employees for each foreigner}}"
 
 #: src/shared/rule-answer/factValue.ts
 msgid "{count, plural, one {# week} other {# weeks}}"
@@ -172,6 +180,10 @@ msgstr "Alternative route"
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Ankara"
 msgstr "Ankara"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Annual tax-certificate renewal deadline"
+msgstr "Annual tax-certificate renewal deadline"
 
 #: src/shared/process-card/ProcessCard.stories.tsx
 msgid "Answer 10 questions and get a roadmap built for your nationality and city, including the trade registry, the tax office, the bank and the social security registration for your first employee."
@@ -315,6 +327,10 @@ msgstr "Cancel"
 msgid "Cap"
 msgstr "Cap"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Card fee"
+msgstr "Card fee"
+
 #: src/shared/document-card/DocumentCard.stories.tsx
 msgid "Certificate of enrolment for the current academic year, with the stamp of the faculty"
 msgstr "Certificate of enrolment for the current academic year, with the stamp of the faculty"
@@ -395,6 +411,10 @@ msgstr "Company types, registration and first obligations"
 msgid "Company types, registration, first obligations"
 msgstr "Company types, registration, first obligations"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Competition Authority levy on subscribed capital"
+msgstr "Competition Authority levy on subscribed capital"
+
 #: src/shared/roadmap-step/RoadmapStep.tsx
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Completed"
@@ -416,6 +436,14 @@ msgstr "Content shown here is sample material for design review."
 msgid "Continue"
 msgstr "Continue"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Continuous residence before applying for GSS"
+msgstr "Continuous residence before applying for GSS"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Contribution days in the preceding year, for routine treatment"
+msgstr "Contribution days in the preceding year, for routine treatment"
+
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Copies"
 msgstr "Copies"
@@ -429,12 +457,32 @@ msgid "Currently in"
 msgstr "Currently in"
 
 #: src/shared/rule-answer/factLabels.ts
+msgid "Deadline for the first tax certificate after tax liability begins"
+msgstr "Deadline for the first tax certificate after tax liability begins"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Deadline to apply for a residence permit after a work permit ends"
+msgstr "Deadline to apply for a residence permit after a work permit ends"
+
+#: src/shared/rule-answer/factLabels.ts
 msgid "Deadline to apply inside Germany"
 msgstr "Deadline to apply inside Germany"
 
 #: src/shared/rule-answer/factLabels.ts
+msgid "Deadline to pay cash capital after registration"
+msgstr "Deadline to pay cash capital after registration"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Deadline to register an employee before starting work"
+msgstr "Deadline to register an employee before starting work"
+
+#: src/shared/rule-answer/factLabels.ts
 msgid "Deadline to register your address"
 msgstr "Deadline to register your address"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Deadline to request electronic tax notifications after starting business"
+msgstr "Deadline to request electronic tax notifications after starting business"
 
 #: src/screens/task-hub/TaskHub.tsx
 #: src/shared/topic-item/TopicItem.stories.tsx
@@ -473,6 +521,10 @@ msgstr "Done"
 msgid "Due in 12 days"
 msgstr "Due in 12 days"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Employer’s deadline to notify the Ministry of employment changes"
+msgstr "Employer’s deadline to notify the Ministry of employment changes"
+
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Estimated cost"
 msgstr "Estimated cost"
@@ -480,6 +532,10 @@ msgstr "Estimated cost"
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Estimated time"
 msgstr "Estimated time"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Event that opens ETDS"
+msgstr "Event that opens ETDS"
 
 #: src/screens/coming-soon/GuidesSoon.tsx
 msgid "Every guide for {name}"
@@ -510,6 +566,10 @@ msgstr "Expiring"
 msgid "Explore"
 msgstr "Explore"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Exports for an established business"
+msgstr "Exports for an established business"
+
 #: src/screens/home/Home.tsx
 msgid "Figures, timings and requirements shown throughout this design are sample content for review, not verified legal information."
 msgstr "Figures, timings and requirements shown throughout this design are sample content for review, not verified legal information."
@@ -521,6 +581,10 @@ msgstr "Fine for a false address declaration"
 #: src/shared/rule-answer/factLabels.ts
 msgid "Fine for registering late"
 msgstr "Fine for registering late"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Fixed-term work permit fee, up to one year"
+msgstr "Fixed-term work permit fee, up to one year"
 
 #: src/shared/information-disclaimer/InformationDisclaimer.tsx
 msgid "For general information only"
@@ -549,6 +613,22 @@ msgstr "Getting Settled"
 #: src/screens/category-hub/CategoryHub.tsx
 msgid "Getting started checklist"
 msgstr "Getting started checklist"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Gross minimum wage in 2026"
+msgstr "Gross minimum wage in 2026"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "GSS premium base"
+msgstr "GSS premium base"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "GSS premium rate"
+msgstr "GSS premium rate"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "GSS registration starts after the request"
+msgstr "GSS registration starts after the request"
 
 #: src/screens/guide/Guide.tsx
 #: src/shared/ask-result-row/AskResultRow.tsx
@@ -705,6 +785,38 @@ msgstr "Longest stay on a visa or visa exemption"
 msgid "Main"
 msgstr "Main"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Maximum work while a timely extension is assessed"
+msgstr "Maximum work while a timely extension is assessed"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Minimum capital for a limited company"
+msgstr "Minimum capital for a limited company"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Minimum issued term of the residence permit"
+msgstr "Minimum issued term of the residence permit"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Minimum salary for domestic and other work"
+msgstr "Minimum salary for domestic and other work"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Minimum salary for engineers and architects"
+msgstr "Minimum salary for engineers and architects"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Minimum salary for other managers"
+msgstr "Minimum salary for other managers"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Minimum salary for senior executives and pilots"
+msgstr "Minimum salary for senior executives and pilots"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Minimum salary for work requiring expertise or mastery"
+msgstr "Minimum salary for work requiring expertise or mastery"
+
 #: src/shared/checklist-item/ChecklistItem.tsx
 #: src/shared/document-card/DocumentCard.tsx
 msgid "Missing"
@@ -730,6 +842,14 @@ msgstr "Needs step 02 first"
 #: src/shared/roadmap-step/RoadmapStep.tsx
 msgid "Needs your answer"
 msgstr "Needs your answer"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Net minimum wage in 2026"
+msgstr "Net minimum wage in 2026"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Net sales for an established business"
+msgstr "Net sales for an established business"
 
 #: src/shared/roadmap-step/RoadmapStep.tsx
 msgid "Next action"
@@ -887,6 +1007,14 @@ msgstr "Outpatient cover, at a provider your insurer has contracted with"
 msgid "Outpatient cover, at a public hospital named in Annex 1"
 msgstr "Outpatient cover, at a public hospital named in Annex 1"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Paid-in capital for a new business"
+msgstr "Paid-in capital for a new business"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Paid-in capital for an established business"
+msgstr "Paid-in capital for an established business"
+
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Parental consent"
 msgstr "Parental consent"
@@ -1008,6 +1136,10 @@ msgstr "Register your company"
 msgid "Registration fee"
 msgstr "Registration fee"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Registry charge on company formation"
+msgstr "Registry charge on company formation"
+
 #: src/screens/category-hub/CategoryHub.tsx
 #: src/screens/guide/Guide.tsx
 msgid "Related guides"
@@ -1041,13 +1173,21 @@ msgstr "Required"
 msgid "Required at any notary (noter)"
 msgstr "Required at any notary (noter)"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Required time to obtain an opening and operating licence"
+msgstr "Required time to obtain an opening and operating licence"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Required validity date of the residence permit"
+msgstr "Required validity date of the residence permit"
+
 #: src/shared/guide-card/GuideCard.stories.tsx
 msgid "Residence and immigration"
 msgstr "Residence and immigration"
 
 #: src/shared/rule-answer/factLabels.ts
-msgid "Residence permit card fee"
-msgstr "Residence permit card fee"
+#~ msgid "Residence permit card fee"
+#~ msgstr "Residence permit card fee"
 
 #: src/shared/rule-answer/factLabels.ts
 msgid "Residence permit charge"
@@ -1247,6 +1387,10 @@ msgstr "Tax filing, Q3"
 msgid "Tax number obtained"
 msgstr "Tax number obtained"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Tax-certificate renewal deadline after the return deadline in a special accounting period"
+msgstr "Tax-certificate renewal deadline after the return deadline in a special accounting period"
+
 #: src/shared/rule-answer/RuleAnswer.tsx
 msgid "Tell us"
 msgstr "Tell us"
@@ -1335,6 +1479,10 @@ msgstr "Try"
 #: src/screens/Unreachable.tsx
 msgid "Try again"
 msgstr "Try again"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Turkish employees for each foreigner"
+msgstr "Turkish employees for each foreigner"
 
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Turkish, by a sworn translator (yeminli tercüman)"
@@ -1564,6 +1712,10 @@ msgstr "Where"
 #: src/shared/rule-answer/factLabels.ts
 msgid "Where the appointment is booked"
 msgstr "Where the appointment is booked"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Where the share register and general-meeting minutes are kept"
+msgstr "Where the share register and general-meeting minutes are kept"
 
 #: src/screens/guide/GuideSection.tsx
 msgid "Where to do it"

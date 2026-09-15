@@ -22,6 +22,10 @@ msgid "{asks} decides the answer"
 msgstr "{asks} پاسخ را تعیین می‌کند"
 
 #: src/shared/rule-answer/factValue.ts
+msgid "{count, plural, =1 {the gross minimum wage} other {# times the gross minimum wage}}"
+msgstr "{count, plural, =1 {حداقل دستمزد ناخالص} other {# برابر حداقل دستمزد ناخالص}}"
+
+#: src/shared/rule-answer/factValue.ts
 msgid "{count, plural, one {# calendar year} other {# calendar years}}"
 msgstr "{count, plural, one {# سال تقویمی} other {# سال تقویمی}}"
 
@@ -40,6 +44,10 @@ msgstr "{count, plural, one {# واحد درصد} other {# واحد درصد}}"
 #: src/screens/search/SearchResults.tsx
 msgid "{count, plural, one {# result} other {# results}}"
 msgstr "{count, plural, one {# نتیجه} other {# نتیجه}}"
+
+#: src/shared/rule-answer/factValue.ts
+msgid "{count, plural, one {# Turkish employee for each foreigner} other {# Turkish employees for each foreigner}}"
+msgstr "{count, plural, one {# کارمند ترک برای هر خارجی} other {# کارمند ترک برای هر خارجی}}"
 
 #: src/shared/rule-answer/factValue.ts
 msgid "{count, plural, one {# week} other {# weeks}}"
@@ -172,6 +180,10 @@ msgstr "مسیر جایگزین"
 #: src/shared/select-field/SelectField.stories.tsx
 msgid "Ankara"
 msgstr "آنکارا"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Annual tax-certificate renewal deadline"
+msgstr "مهلت تمدید سالانهٔ گواهی مالیاتی"
 
 #: src/shared/process-card/ProcessCard.stories.tsx
 msgid "Answer 10 questions and get a roadmap built for your nationality and city, including the trade registry, the tax office, the bank and the social security registration for your first employee."
@@ -315,6 +327,10 @@ msgstr "انصراف"
 msgid "Cap"
 msgstr "سقف"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Card fee"
+msgstr "هزینهٔ کارت"
+
 #: src/shared/document-card/DocumentCard.stories.tsx
 msgid "Certificate of enrolment for the current academic year, with the stamp of the faculty"
 msgstr "گواهی ثبت‌نام برای سال تحصیلی جاری، با مهر دانشکده"
@@ -395,6 +411,10 @@ msgstr "انواع شرکت، ثبت و نخستین تعهدات"
 msgid "Company types, registration, first obligations"
 msgstr "انواع شرکت، ثبت، نخستین تعهدات"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Competition Authority levy on subscribed capital"
+msgstr "عوارض سازمان رقابت از سرمایهٔ تعهدشده"
+
 #: src/shared/roadmap-step/RoadmapStep.tsx
 #: src/shared/status-tag/StatusTag.stories.tsx
 msgid "Completed"
@@ -416,6 +436,14 @@ msgstr "محتوای این صفحه نمونه‌ای برای بازبینی �
 msgid "Continue"
 msgstr "ادامه"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Continuous residence before applying for GSS"
+msgstr "اقامت پیوسته پیش از درخواست بیمهٔ سلامت عمومی"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Contribution days in the preceding year, for routine treatment"
+msgstr "روزهای پرداخت حق‌بیمه در سال پیش، برای درمان عادی"
+
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Copies"
 msgstr "رونوشت‌ها"
@@ -429,12 +457,32 @@ msgid "Currently in"
 msgstr "محل زندگی فعلی"
 
 #: src/shared/rule-answer/factLabels.ts
+msgid "Deadline for the first tax certificate after tax liability begins"
+msgstr "مهلت دریافت نخستین گواهی مالیاتی پس از آغاز تکلیف مالیاتی"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Deadline to apply for a residence permit after a work permit ends"
+msgstr "مهلت درخواست اجازهٔ اقامت پس از پایان اجازهٔ کار"
+
+#: src/shared/rule-answer/factLabels.ts
 msgid "Deadline to apply inside Germany"
 msgstr "مهلت درخواست از داخل آلمان"
 
 #: src/shared/rule-answer/factLabels.ts
+msgid "Deadline to pay cash capital after registration"
+msgstr "مهلت پرداخت سرمایهٔ نقدی پس از ثبت"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Deadline to register an employee before starting work"
+msgstr "مهلت ثبت کارمند پیش از شروع کار"
+
+#: src/shared/rule-answer/factLabels.ts
 msgid "Deadline to register your address"
 msgstr "مهلت ثبت نشانی"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Deadline to request electronic tax notifications after starting business"
+msgstr "مهلت درخواست ابلاغ الکترونیکی مالیاتی پس از شروع فعالیت"
 
 #: src/screens/task-hub/TaskHub.tsx
 #: src/shared/topic-item/TopicItem.stories.tsx
@@ -473,6 +521,10 @@ msgstr "انجام شد"
 msgid "Due in 12 days"
 msgstr "۱۲ روز تا موعد"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Employer’s deadline to notify the Ministry of employment changes"
+msgstr "مهلت کارفرما برای اطلاع به وزارتخانه از تغییرات کار"
+
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Estimated cost"
 msgstr "هزینه تقریبی"
@@ -480,6 +532,10 @@ msgstr "هزینه تقریبی"
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Estimated time"
 msgstr "زمان تقریبی"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Event that opens ETDS"
+msgstr "رویدادی که ETDS را فعال می‌کند"
 
 #: src/screens/coming-soon/GuidesSoon.tsx
 msgid "Every guide for {name}"
@@ -510,6 +566,10 @@ msgstr "رو به انقضا"
 msgid "Explore"
 msgstr "کاوش"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Exports for an established business"
+msgstr "صادرات کسب‌وکار موجود"
+
 #: src/screens/home/Home.tsx
 msgid "Figures, timings and requirements shown throughout this design are sample content for review, not verified legal information."
 msgstr "ارقام، زمان‌بندی‌ها و الزاماتی که در سراسر این طرح نشان داده شده‌اند محتوای نمونه برای بازبینی هستند، نه اطلاعات حقوقی تأییدشده."
@@ -521,6 +581,10 @@ msgstr "جریمهٔ اعلام نشانی نادرست"
 #: src/shared/rule-answer/factLabels.ts
 msgid "Fine for registering late"
 msgstr "جریمهٔ ثبت دیرهنگام"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Fixed-term work permit fee, up to one year"
+msgstr "هزینهٔ مجوز کار مدت‌دار، تا یک سال"
 
 #: src/shared/information-disclaimer/InformationDisclaimer.tsx
 msgid "For general information only"
@@ -549,6 +613,22 @@ msgstr "استقرار اولیه"
 #: src/screens/category-hub/CategoryHub.tsx
 msgid "Getting started checklist"
 msgstr "فهرست کارهای شروع"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Gross minimum wage in 2026"
+msgstr "حداقل دستمزد ناخالص در ۲۰۲۶"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "GSS premium base"
+msgstr "مبنای حق‌بیمهٔ سلامت عمومی"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "GSS premium rate"
+msgstr "نرخ حق‌بیمهٔ سلامت عمومی"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "GSS registration starts after the request"
+msgstr "آغاز ثبت‌نام بیمهٔ سلامت عمومی پس از درخواست"
 
 #: src/screens/guide/Guide.tsx
 #: src/shared/ask-result-row/AskResultRow.tsx
@@ -705,6 +785,38 @@ msgstr "بیشترین مدت اقامت با ویزا یا معافیت از و
 msgid "Main"
 msgstr "اصلی"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Maximum work while a timely extension is assessed"
+msgstr "حداکثر مدت کار در زمان بررسی تمدید به‌موقع"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Minimum capital for a limited company"
+msgstr "حداقل سرمایهٔ شرکت با مسئولیت محدود"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Minimum issued term of the residence permit"
+msgstr "حداقل مدتِ اجازهٔ اقامتِ صادرشده"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Minimum salary for domestic and other work"
+msgstr "حداقل حقوق کارهای خانگی و سایر کارها"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Minimum salary for engineers and architects"
+msgstr "حداقل حقوق مهندسان و معماران"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Minimum salary for other managers"
+msgstr "حداقل حقوق سایر مدیران"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Minimum salary for senior executives and pilots"
+msgstr "حداقل حقوق مدیران ارشد و خلبانان"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Minimum salary for work requiring expertise or mastery"
+msgstr "حداقل حقوق کارِ نیازمند تخصص یا مهارت"
+
 #: src/shared/checklist-item/ChecklistItem.tsx
 #: src/shared/document-card/DocumentCard.tsx
 msgid "Missing"
@@ -730,6 +842,14 @@ msgstr "اول به گام ۰۲ نیاز دارد"
 #: src/shared/roadmap-step/RoadmapStep.tsx
 msgid "Needs your answer"
 msgstr "به پاسخ شما نیاز دارد"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Net minimum wage in 2026"
+msgstr "حداقل دستمزد خالص در ۲۰۲۶"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Net sales for an established business"
+msgstr "فروش خالص کسب‌وکار موجود"
 
 #: src/shared/roadmap-step/RoadmapStep.tsx
 msgid "Next action"
@@ -887,6 +1007,14 @@ msgstr "پوشش سرپایی، نزد ارائه‌دهنده‌ای که بی�
 msgid "Outpatient cover, at a public hospital named in Annex 1"
 msgstr "پوشش سرپایی، در بیمارستان دولتی نام‌برده در پیوست ۱"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Paid-in capital for a new business"
+msgstr "سرمایهٔ پرداخت‌شده برای کسب‌وکار جدید"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Paid-in capital for an established business"
+msgstr "سرمایهٔ پرداخت‌شده برای کسب‌وکار موجود"
+
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Parental consent"
 msgstr "رضایت والدین"
@@ -1008,6 +1136,10 @@ msgstr "ثبت شرکت"
 msgid "Registration fee"
 msgstr "هزینهٔ ثبت"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Registry charge on company formation"
+msgstr "هزینهٔ ثبت در تأسیس شرکت"
+
 #: src/screens/category-hub/CategoryHub.tsx
 #: src/screens/guide/Guide.tsx
 msgid "Related guides"
@@ -1041,13 +1173,21 @@ msgstr "الزامی"
 msgid "Required at any notary (noter)"
 msgstr "در هر دفتر اسناد رسمی (noter) لازم است"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Required time to obtain an opening and operating licence"
+msgstr "زمان لازم برای گرفتن مجوز افتتاح و بهره‌برداری"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Required validity date of the residence permit"
+msgstr "تاریخ لازم برای معتبر بودن اجازهٔ اقامت"
+
 #: src/shared/guide-card/GuideCard.stories.tsx
 msgid "Residence and immigration"
 msgstr "اقامت و مهاجرت"
 
 #: src/shared/rule-answer/factLabels.ts
-msgid "Residence permit card fee"
-msgstr "هزینهٔ کارت اقامت"
+#~ msgid "Residence permit card fee"
+#~ msgstr "هزینهٔ کارت اقامت"
 
 #: src/shared/rule-answer/factLabels.ts
 msgid "Residence permit charge"
@@ -1247,6 +1387,10 @@ msgstr "اظهارنامه مالیاتی، فصل سوم"
 msgid "Tax number obtained"
 msgstr "شماره مالیاتی دریافت شد"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Tax-certificate renewal deadline after the return deadline in a special accounting period"
+msgstr "مهلت تمدید گواهی مالیاتی پس از مهلت اظهارنامه در دورهٔ حسابداری ویژه"
+
 #: src/shared/rule-answer/RuleAnswer.tsx
 msgid "Tell us"
 msgstr "به ما بگویید"
@@ -1335,6 +1479,10 @@ msgstr "امتحان کنید"
 #: src/screens/Unreachable.tsx
 msgid "Try again"
 msgstr "تلاش دوباره"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Turkish employees for each foreigner"
+msgstr "کارکنان ترک برای هر خارجی"
 
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Turkish, by a sworn translator (yeminli tercüman)"
@@ -1564,6 +1712,10 @@ msgstr "کجا"
 #: src/shared/rule-answer/factLabels.ts
 msgid "Where the appointment is booked"
 msgstr "جای گرفتن نوبت"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Where the share register and general-meeting minutes are kept"
+msgstr "محل نگهداری دفتر سهام و صورت‌جلسات مجمع عمومی"
 
 #: src/screens/guide/GuideSection.tsx
 msgid "Where to do it"

@@ -399,3 +399,23 @@ test("a role the country's researched rules do not name is Not Found", async ({ 
   await page.goto(`en/${ADDRESS}?situation=astronaut`, { waitUntil: 'load' })
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(/does not exist/)
 })
+
+// SB-280: a guide whose rules apply by the reader's role asks for it, and answers a worker with the rule's figures.
+
+test('the work permit guide asks for the role, and shows a worker the permit fees with the page they were read on', async ({ page }) => {
+  await page.goto('en/TR/guides/work-permit', { waitUntil: 'load' })
+  const permit = page.getByRole('region', { name: 'Get a work permit' })
+  await expect(permit.getByText('Your role decides the answer')).toBeVisible()
+
+  await permit.getByRole('button', { name: 'Tell us' }).click()
+  await page.getByRole('dialog').getByText('Role', { exact: true }).locator('..').getByRole('button', { name: 'Add', exact: true }).click()
+  await page.getByRole('option', { name: 'Worker', exact: true }).click()
+
+  await expect(page).toHaveURL(/\/en\/TR\/guides\/work-permit\?situation=worker$/)
+  await expect(permit.getByText('For you', { exact: true })).toBeVisible()
+  await expect(permit.getByText('Fixed-term work permit fee, up to one year', { exact: true })).toBeVisible()
+  // The label the residence permit's card shares.
+  await expect(permit.getByText('Card fee', { exact: true })).toBeVisible()
+  await expect(permit.getByText('₺964', { exact: true })).toBeVisible()
+  await expect(permit.getByRole('link', { name: /Harç ve Değerli Kâğıt Bedelinin Ödenmesi/ }).first()).toBeVisible()
+})

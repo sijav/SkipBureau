@@ -51,6 +51,11 @@ const quantity = (count: number, { unit, currency }: FactShape, i18n: I18n, loca
       return i18n._(msg`${plural(count, { one: '# year', other: '# years' })}`)
     case 'calendar years':
       return i18n._(msg`${plural(count, { one: '# calendar year', other: '# calendar years' })}`)
+    // SB-280: Turkey's work permit states salaries as multiples of the minimum wage, and a staffing ratio.
+    case 'times the gross minimum wage':
+      return i18n._(msg`${plural(count, { 1: 'the gross minimum wage', other: '# times the gross minimum wage' })}`)
+    case 'Turkish employees for each foreigner':
+      return i18n._(msg`${plural(count, { one: '# Turkish employee for each foreigner', other: '# Turkish employees for each foreigner' })}`)
     default:
       return null
   }
