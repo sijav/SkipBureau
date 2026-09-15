@@ -1,26 +1,10 @@
 import { Args, Query, Resolver } from '@nestjs/graphql'
 import { GraphQLError } from 'graphql'
 import { LOCALE } from '../locale.js'
-import { ProfileError } from './eligibility.js'
+import { asInputError, RESIDENCE, STATUS, WORK } from './profile-args.js'
 import { DiffEntry, ResearchRowCount } from './rules.model.js'
 import { RulesService } from './rules.service.js'
 
-// A refused profile is the caller's mistake, and BAD_USER_INPUT is the code a
-// GraphQL client reads as that. A GraphQLError, because the Apollo driver
-// passes one through as it is, where a Nest HttpException would arrive as
-// BAD_REQUEST (SB-168).
-const asInputError = (error: unknown): never => {
-  if (error instanceof ProfileError) {
-    throw new GraphQLError(error.message, { extensions: { code: 'BAD_USER_INPUT', codes: error.codes } })
-  }
-  throw error
-}
-
-const RESIDENCE =
-  'Where this person lives: region codes, one per country, so a move between countries can carry one on each side. A province or state by its ISO 3166-2 code such as TR-34, or a place inside one by its key such as TR-34.kadikoy.'
-const WORK = 'Where this person works, the same way. Some rules follow the place of work rather than where a person lives.'
-const STATUS =
-  'What this person holds in each country: residence status codes, one per country, such as tr.residence-permit, or a kind of one such as tr.residence-permit.student.'
 const FROM_RESIDENCE =
   'Where this person lives before the move, in place of residenceRegions on that side. Left out, residenceRegions applies; an empty list says nowhere. This is how a move within one country names both places.'
 const TO_RESIDENCE = 'Where this person will live after the move, in place of residenceRegions on that side, the same way.'

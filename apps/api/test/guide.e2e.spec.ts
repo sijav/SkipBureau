@@ -10,6 +10,7 @@ import { afterAll, beforeAll, expect, test } from 'vitest'
 import { AppModule } from '../src/app.module.js'
 import { PrismaService } from '../src/prisma/prisma.service.js'
 import { seed } from '../prisma/seed.js'
+import { seedContent } from '../src/sample-content.js'
 import { startPglite } from '../scripts/pglite-server.mjs'
 
 /**
@@ -324,4 +325,128 @@ test("a guide's obligation carries its rule's note in the language asked for", a
 
   expect(english).toEqual({ ruleVersionId: inEnglish?.ruleVersionId, text: inEnglish?.notes, locale: 'en-US', translationMissing: false })
   expect(await notesIn('fa-IR')).toEqual([{ ruleVersionId: inPersian?.ruleVersionId, text: inPersian?.notes, locale: 'fa-IR', translationMissing: false }])
+})
+
+const FOR_READER = `
+  query ForReader($country: String!, $slug: String!, $reader: ReaderInput) {
+    guide(country: $country, slug: $slug, reader: $reader) {
+      obligations {
+        slug
+        resolution
+        facts { key numericValue }
+        notes { text }
+        reader { answer needs reason ruleVersionId facts { key numericValue currency } notes { text } }
+      }
+    }
+  }
+`
+
+type ForReader = {
+  slug: string
+  resolution: string
+  facts: { key: string; numericValue: string | null }[]
+  notes: { text: string }[]
+  reader: {
+    answer: string
+    needs: string[]
+    reason: string | null
+    ruleVersionId: string | null
+    facts: { key: string; numericValue: string | null; currency: string | null }[]
+    notes: { text: string }[]
+  } | null
+}
+
+/** A guide's obligations asked for a reader, for a reader who said nothing with `{}`, or for nobody with the reader left out (SB-255). */
+const obligationsFor = async (country: string, slug: string, reader?: Record<string, unknown> | null): Promise<ForReader[]> => {
+  const response = await graphql(FOR_READER, { country, slug, ...(reader === undefined ? {} : { reader }) })
+  expect(response.body.errors, JSON.stringify(response.body.errors)).toBeUndefined()
+  return response.body.data.guide.obligations
+}
+
+const byKey = <T extends { key: string }>(facts: readonly T[]) => [...facts].sort((a, b) => (a.key < b.key ? -1 : a.key > b.key ? 1 : 0))
+
+test('a guide asked for a reader answers each linked obligation for that reader alone, and asked for nobody is the same for everyone', async () => {
+  // The student-only obligation an earlier test links to the anmeldung guide.
+  const scopedFor = async (reader?: Record<string, unknown> | null) =>
+    (await obligationsFor('de', 'anmeldung', reader)).find((obligation) => obligation.slug === 'student-only-thing')
+
+  expect(await scopedFor({})).toMatchObject({
+    resolution: 'contextRequired',
+    facts: [],
+    notes: [],
+    reader: { answer: 'needsDetail', needs: ['situation'], reason: null, ruleVersionId: null, facts: [], notes: [] },
+  })
+
+  const student = await scopedFor({ situation: 'student' })
+  expect(student).toMatchObject({ resolution: 'contextRequired', facts: [], notes: [], reader: { answer: 'answered', needs: [] } })
+  expect(student?.reader?.facts).toEqual([{ key: 'fee', numericValue: '50', currency: 'EUR' }])
+
+  expect(await scopedFor({ situation: 'worker' })).toMatchObject({ facts: [], reader: { answer: 'noRule', needs: [], facts: [] } })
+
+  // Left out and null are both nobody in particular: the version for everyone, and no reader.
+  for (const reader of [undefined, null]) {
+    const general = (await obligationsFor('de', 'anmeldung', reader)).find((obligation) => obligation.slug === 'register-your-address')
+    expect(general?.reader, String(reader)).toBeNull()
+    expect(byKey(general?.facts ?? []), String(reader)).toEqual([
+      { key: 'deadline', numericValue: '14' },
+      { key: 'requiredDocument', numericValue: null },
+    ])
+  }
+})
+
+test("asked for a reader who has not said where they work, a guide gives care insurance's question alone, not the national split beside it", async () => {
+  const guide = await prisma.guide.findUniqueOrThrow({ where: { countryCode_slug: { countryCode: 'de', slug: 'anmeldung' } } })
+  const care = await prisma.obligation.findUniqueOrThrow({ where: { slug: 'pay-care-insurance' } })
+  await prisma.guideObligation.create({ data: { guideId: guide.id, obligationId: care.id, position: 8 } })
+  const careFor = async (reader?: Record<string, unknown>) =>
+    (await obligationsFor('de', 'anmeldung', reader)).find((obligation) => obligation.slug === 'pay-care-insurance')
+
+  expect(await careFor({})).toMatchObject({
+    resolution: 'general',
+    facts: [],
+    notes: [],
+    reader: { answer: 'needsDetail', needs: ['workRegion'], facts: [], notes: [] },
+  })
+
+  const inSaxony = await careFor({ workRegions: ['DE-SN'] })
+  expect(inSaxony).toMatchObject({ facts: [], notes: [], reader: { answer: 'answered' } })
+  expect(byKey(inSaxony?.reader?.facts ?? [])).toEqual([
+    { key: 'employeeShare', numericValue: '2.3', currency: null },
+    { key: 'employerShare', numericValue: '1.3', currency: null },
+  ])
+
+  const everyone = await careFor()
+  expect(everyone?.reader).toBeNull()
+  expect(byKey(everyone?.facts ?? [])).toEqual([
+    { key: 'employeeShare', numericValue: '1.8' },
+    { key: 'employerShare', numericValue: '1.8' },
+  ])
+})
+
+test('a reader naming a place that does not exist is refused, on a guide that links rules and on one that links none', async () => {
+  for (const [country, slug] of [
+    ['de', 'anmeldung'],
+    ['tr', 'sim-card'],
+  ] as const) {
+    const response = await graphql(FOR_READER, { country, slug, reader: { residenceRegions: ['XX-99'] } })
+    expect(response.body.errors?.[0]?.extensions?.code, `${country} ${slug}`).toBe('BAD_USER_INPUT')
+  }
+  const known = await graphql(FOR_READER, { country: 'tr', slug: 'sim-card', reader: { residenceRegions: ['DE-BE'] } })
+  expect(known.body.errors, JSON.stringify(known.body.errors)).toBeUndefined()
+})
+
+test('each address guide links one address duty, and sample content run again keeps a link it does not name', async () => {
+  const duties = (obligations: readonly ForReader[]) =>
+    obligations.map((obligation) => obligation.slug).filter((slug) => slug === 'report-your-address' || slug === 'register-your-address')
+  expect(duties(await obligationsFor('tr', 'register-your-address'))).toEqual(['register-your-address'])
+  expect(duties(await obligationsFor('de', 'anmeldung'))).toEqual(['register-your-address'])
+
+  const guide = await prisma.guide.findUniqueOrThrow({ where: { countryCode_slug: { countryCode: 'de', slug: 'anmeldung' } } })
+  const insurance = await prisma.obligation.findUniqueOrThrow({ where: { slug: 'hold-health-insurance' } })
+  await prisma.guideObligation.create({ data: { guideId: guide.id, obligationId: insurance.id, position: 9 } })
+  await seedContent(prisma)
+
+  const after = await obligationsFor('de', 'anmeldung')
+  expect(after.map((obligation) => obligation.slug)).toContain('hold-health-insurance')
+  expect(duties(after)).toEqual(['register-your-address'])
 })

@@ -85,9 +85,10 @@ export class RulesService {
    * Refuses what a profile cannot hold, before anything is resolved: a code
    * that is no region or no residence status, two regions of one country in
    * the same list, or two statuses of one country. Here rather than in the
-   * resolver, so that every caller is refused the same way.
+   * resolver, so that every caller is refused the same way, a guide asked for a
+   * reader included (SB-255).
    */
-  private async checkProfile(profile: Profile): Promise<void> {
+  async checkProfile(profile: Profile): Promise<void> {
     const regionCodes = [...new Set([...(profile.residenceRegions ?? []), ...(profile.workRegions ?? [])])]
     const statusCodes = [...new Set(profile.residenceStatuses ?? [])]
 

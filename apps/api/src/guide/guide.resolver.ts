@@ -1,5 +1,7 @@
 import { Args, Query, Resolver } from '@nestjs/graphql'
 import { LOCALE } from '../locale.js'
+import { asInputError } from '../rules/profile-args.js'
+import { ReaderInput } from '../rules/rules.model.js'
 import { AskView, CategoryHubView, CategoryView, GuideView, QuestionView, SearchView, TaskHubView, TaskView } from './guide.model.js'
 import { GuideService } from './guide.service.js'
 
@@ -78,7 +80,23 @@ export class GuideResolver {
     @Args('country', { type: () => String }) country: string,
     @Args('slug', { type: () => String }) slug: string,
     @Args('locale', LOCALE) locale: string,
+    @Args('reader', {
+      type: () => ReaderInput,
+      nullable: true,
+      description:
+        "What the reader has said about themselves. Given, even empty, each obligation answers for this reader in reader and carries no facts or notes of the version for everyone; left out or null, the guide is the same for everyone (SB-255).",
+    })
+    reader?: ReaderInput | null,
   ): Promise<GuideView | null> {
-    return this.content.guide(country, slug, locale)
+    const profile = reader
+      ? {
+          nationality: reader.nationality ?? undefined,
+          situation: reader.situation ?? undefined,
+          residenceRegions: reader.residenceRegions ?? undefined,
+          workRegions: reader.workRegions ?? undefined,
+          residenceStatuses: reader.residenceStatuses ?? undefined,
+        }
+      : null
+    return this.content.guide(country, slug, locale, profile).catch(asInputError)
   }
 }

@@ -17,6 +17,7 @@ import { digestOf } from '../src/rules/research/digest.js'
 import { GERMANY } from '../src/rules/research/germany.js'
 import { TURKEY } from '../src/rules/research/turkey.js'
 import { seed } from '../prisma/seed.js'
+import { seedContent } from '../src/sample-content.js'
 import { startPglite } from '../scripts/pglite-server.mjs'
 import { withWorkPlaces } from './work-places.js'
 import { expectedOf, inForceOn, MOVE as READ_BACK, readerFor, shows, type Served } from '../scripts/publish-research.js'
@@ -972,6 +973,105 @@ test("a reader starting a business is told the trade office's duty and fine, wit
     needs: ['residenceStatus'],
     to: null,
   })
+})
+
+const GUIDE_FOR = `
+  query GuideFor($country: String!, $slug: String!, $reader: ReaderInput) {
+    guide(country: $country, slug: $slug, reader: $reader) {
+      obligations {
+        slug
+        resolution
+        facts { key operator numericValue textValue unit currency sourceUrl sourceName verifiedAt }
+        reader { answer needs facts { key operator numericValue textValue unit currency sourceUrl sourceName verifiedAt } }
+      }
+    }
+  }
+`
+
+type GuideObligation = {
+  slug: string
+  resolution: string
+  facts: Shown[]
+  reader: { answer: string; needs: string[]; facts: Shown[] } | null
+}
+
+test("after a load and sample content run again, each address guide links the researched address duty alone and answers it for the reader who asks: in Hamburg the federal facts with Hamburg's fee, to a reader who has said nothing the question, and to a residence permit holder in Istanbul Turkey's national facts", async () => {
+  // As the entrypoint runs it: sample content after the research load (SB-255).
+  await seedContent(prisma)
+  const slug = 'report-your-address'
+  const obligationsOf = async (country: string, guide: string, reader?: Record<string, unknown>): Promise<GuideObligation[]> => {
+    const response = await graphql(GUIDE_FOR, { country, slug: guide, ...(reader ? { reader } : {}) })
+    expect(response.body.errors, JSON.stringify(response.body.errors)).toBeUndefined()
+    return response.body.data.guide.obligations
+  }
+  const byKey = (facts: readonly Shown[]) => [...facts].sort((a, b) => (a.key < b.key ? -1 : a.key > b.key ? 1 : 0))
+
+  expect((await obligationsOf('de', 'anmeldung')).map((obligation) => obligation.slug)).toEqual([slug])
+  expect((await obligationsOf('tr', 'register-your-address')).map((obligation) => obligation.slug)).toEqual([slug])
+
+  const germanAt = (place: string | null) =>
+    GERMANY.versions.find(
+      (version) =>
+        version.obligation === slug &&
+        (version.criteria.find((criterion) => criterion.dimension === 'residenceRegion')?.value ?? null) === place,
+    )
+  const federal = germanAt(null)
+  const hamburg = germanAt('DE-HH')
+  if (!federal || !hamburg) throw new Error("Germany's file has no federal or Hamburg version of the Anmeldung")
+
+  const [inHamburg] = await obligationsOf('de', 'anmeldung', { residenceRegions: ['DE-HH'] })
+  expect(inHamburg).toMatchObject({ facts: [], reader: { answer: 'answered', needs: [] } })
+  expect(inHamburg?.reader?.facts).toEqual(factsIn(GERMANY, federal, hamburg))
+  // What the exit names, held to the page rather than to the file.
+  expect(Number(inHamburg?.reader?.facts.find((fact) => fact.key === 'registrationFee')?.numericValue)).toBe(16)
+
+  const [saidNothing] = await obligationsOf('de', 'anmeldung', {})
+  expect(saidNothing).toMatchObject({ facts: [], reader: { answer: 'needsDetail', needs: ['residenceRegion'], facts: [] } })
+
+  const [forEveryone] = await obligationsOf('de', 'anmeldung')
+  expect(forEveryone).toMatchObject({ resolution: 'general', reader: null })
+  expect(byKey(forEveryone?.facts ?? [])).toEqual(factsIn(GERMANY, federal))
+
+  const national = TURKEY.versions.find(
+    (version) =>
+      version.obligation === slug &&
+      version.criteria.some((criterion) => criterion.dimension === 'residenceStatus' && criterion.value === 'tr.residence-permit') &&
+      !version.criteria.some((criterion) => criterion.dimension === 'residenceRegion'),
+  )
+  if (!national) throw new Error("Turkey's file has no national address duty for a residence permit holder")
+  const [inIstanbul] = await obligationsOf('tr', 'register-your-address', {
+    residenceStatuses: ['tr.residence-permit'],
+    residenceRegions: ['TR-34'],
+  })
+  expect(inIstanbul).toMatchObject({ resolution: 'contextRequired', facts: [], reader: { answer: 'answered', needs: [] } })
+  expect(inIstanbul?.reader?.facts).toEqual(factsIn(TURKEY, national))
+})
+
+const OFFERED = `
+  query Offered($country: String!, $locale: String) {
+    places(country: $country, locale: $locale) { code parentCode officialCode name }
+    residenceStatuses(country: $country, locale: $locale) { code parentCode name }
+  }
+`
+
+test("a reader is offered every place and residence status Germany's file names, each place under the place it is inside and each status named in the language asked for", async () => {
+  const response = await graphql(OFFERED, { country: 'de', locale: 'fa-IR' })
+  expect(response.body.errors, JSON.stringify(response.body.errors)).toBeUndefined()
+  const places: { code: string; parentCode: string | null; officialCode: string | null; name: string }[] = response.body.data.places
+  const statuses: { code: string; parentCode: string | null; name: string }[] = response.body.data.residenceStatuses
+
+  const byCode = (a: { code: string }, b: { code: string }) => (a.code < b.code ? -1 : a.code > b.code ? 1 : 0)
+  expect(places.map(({ code, parentCode }) => ({ code, parentCode }))).toEqual(
+    GERMANY.regions.map(({ code, parent }) => ({ code, parentCode: parent })).sort(byCode),
+  )
+  // A city no text names in Persian keeps the name its directory entry gives it.
+  const muenchen = GERMANY.regions.find((region) => region.code === 'DE-BY.muenchen')
+  expect(places.find((place) => place.code === 'DE-BY.muenchen')).toMatchObject({
+    name: muenchen?.name,
+    officialCode: muenchen?.officialCode,
+  })
+
+  expect(statuses).toEqual(GERMANY.statuses.map(({ code, parent, names }) => ({ code, parentCode: parent, name: names.fa })).sort(byCode))
 })
 
 const COMPARED = `

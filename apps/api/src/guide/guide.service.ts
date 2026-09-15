@@ -1,11 +1,25 @@
 import { Injectable } from '@nestjs/common'
 import { pick } from '../locale.js'
 import { PrismaService } from '../prisma/prisma.service.js'
+import type { Side } from '../rules/diff.js'
+import type { Profile } from '../rules/eligibility.js'
 import { notesOf } from '../rules/note.js'
+import { RulesService } from '../rules/rules.service.js'
 import { generalVersionAt } from '../rules/selection.js'
 import { sourceOf } from '../rules/source.js'
-import type { AskView, CategoryHubView, CategoryView, GuideView, HubSourceView, QuestionView, SearchView, TaskHubView, TaskView } from './guide.model.js'
-import { CategoryKind, ObligationResolution, SectionKind } from './guide.model.js'
+import type {
+  AskView,
+  CategoryHubView,
+  CategoryView,
+  GuideReaderView,
+  GuideView,
+  HubSourceView,
+  QuestionView,
+  SearchView,
+  TaskHubView,
+  TaskView,
+} from './guide.model.js'
+import { CategoryKind, ObligationResolution, ReaderAnswer, SectionKind } from './guide.model.js'
 import { best, match, WEIGHT, wordsOf, type Field } from './search.js'
 
 const date = (value: Date): string => value.toISOString().slice(0, 10)
@@ -42,9 +56,25 @@ const placeOf = (
 const IN_PANEL = 3
 const ON_PAGE = 20
 
+const NO_ANSWER = { needs: [], reason: null, ruleVersionId: null, facts: [], notes: [] }
+
+/** One obligation's answer for a reader, from the resolver's side for it, in `compare`'s order: a clash, then a question, then the rule (SB-255). */
+const readerOf = (side: Side | undefined): GuideReaderView => {
+  if (side?.ambiguous) return { ...NO_ANSWER, answer: ReaderAnswer.needsReview, needs: side.needs, reason: side.ambiguous }
+  if (side && side.needs.length > 0) return { ...NO_ANSWER, answer: ReaderAnswer.needsDetail, needs: side.needs }
+  if (side?.resolved) {
+    const { ruleVersionId, facts, notes } = side.resolved
+    return { ...NO_ANSWER, answer: ReaderAnswer.answered, ruleVersionId, facts, notes }
+  }
+  return { ...NO_ANSWER, answer: ReaderAnswer.noRule }
+}
+
 @Injectable()
 export class GuideService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly rules: RulesService,
+  ) {}
 
   /** The twelve goals. Global: no country narrows them. */
   async tasks(locale: string): Promise<TaskView[]> {
@@ -346,8 +376,12 @@ export class GuideService {
    * `translationMissing` is the honest half: a guide that exists in English and
    * not in Persian is shown in English and SAYS SO, rather than rendering a
    * blank page or pretending. What the reader is told about it is SB-049.
+   *
+   * Asked for a reader, even one who has said nothing, each obligation answers
+   * for that reader alone (SB-255); asked for nobody, the guide is the same for
+   * everyone, which is what a page's file is rendered from.
    */
-  async guide(countryCode: string, slug: string, locale: string, at = new Date()): Promise<GuideView | null> {
+  async guide(countryCode: string, slug: string, locale: string, reader: Profile | null = null, at = new Date()): Promise<GuideView | null> {
     const row = await this.prisma.guide.findUnique({
       where: { countryCode_slug: { countryCode, slug } },
       include: {
@@ -386,6 +420,19 @@ export class GuideService {
 
     const { text, missing } = pick(row.texts, locale)
     if (!text) return null
+
+    // The profile is checked for every guide it is given for, and a guide that
+    // links rules resolves them once, by the resolver move answers with, so a
+    // guide and a move never answer one reader differently.
+    let answers: ReadonlyMap<string, Side> | null = null
+    if (reader) {
+      if (row.obligations.length > 0) {
+        answers = await this.rules.resolve(countryCode, reader, at, locale)
+      } else {
+        await this.rules.checkProfile(reader)
+        answers = new Map()
+      }
+    }
 
     return {
       slug: row.slug,
@@ -446,6 +493,11 @@ export class GuideService {
       // is the only thing that stops the two drifting apart.
       obligations: row.obligations.map((link) => {
         const version = link.obligation.versions[0]
+        // Asked for a reader, the version for everyone is not served beside
+        // their answer: beside a question it is the provisional answer SB-176
+        // refuses, such as a national split where the reader's workplace might
+        // have its own.
+        const everyone = answers === null ? version : undefined
 
         return {
           slug: link.obligation.slug,
@@ -454,18 +506,19 @@ export class GuideService {
           // sends the reader to the context control; an empty fact list would
           // tell them this country asks nothing of them.
           resolution: version ? ObligationResolution.general : ObligationResolution.contextRequired,
-          facts: version
-            ? version.facts.map((fact) => ({
+          facts: everyone
+            ? everyone.facts.map((fact) => ({
                 key: fact.key,
                 operator: fact.operator,
                 numericValue: fact.numericValue === null ? null : fact.numericValue.toString(),
                 textValue: fact.textValue,
                 unit: fact.unit,
                 currency: fact.currency,
-                ...sourceOf(fact, version),
+                ...sourceOf(fact, everyone),
               }))
             : [],
-          notes: version ? notesOf(version.id, version.texts, locale) : [],
+          notes: everyone ? notesOf(everyone.id, everyone.texts, locale) : [],
+          reader: answers === null ? null : readerOf(answers.get(link.obligation.slug)),
         }
       }),
     }

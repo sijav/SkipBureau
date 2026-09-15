@@ -1,6 +1,7 @@
-import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql'
+import { Field, InputType, Int, ObjectType, registerEnumType } from '@nestjs/graphql'
 import { Verdict } from './diff.js'
 import { Detail } from './eligibility.js'
+import { RESIDENCE, STATUS, WORK } from './profile-args.js'
 
 export { Verdict }
 
@@ -13,6 +14,15 @@ registerEnumType(Detail, {
   name: 'Detail',
   description: 'A detail about a person that can change which rule applies to them.',
 })
+
+@InputType({ description: 'What a reader has said about themselves, every part optional. A detail left out is asked for where it would change an answer (SB-176, SB-255).' })
+export class ReaderInput {
+  @Field(() => String, { nullable: true }) nationality?: string | null
+  @Field(() => String, { nullable: true }) situation?: string | null
+  @Field(() => [String], { nullable: true, description: RESIDENCE }) residenceRegions?: string[] | null
+  @Field(() => [String], { nullable: true, description: WORK }) workRegions?: string[] | null
+  @Field(() => [String], { nullable: true, description: STATUS }) residenceStatuses?: string[] | null
+}
 
 @ObjectType({ description: 'The rows of this database one research file owns, counted, with the receipt of its last load (SB-202, SB-232).' })
 export class ResearchRowCount {

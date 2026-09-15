@@ -1,5 +1,6 @@
 import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql'
-import { RuleNote } from '../rules/rules.model.js'
+import { Detail } from '../rules/eligibility.js'
+import { RuleFactValue, RuleNote } from '../rules/rules.model.js'
 
 export enum SectionKind {
   beforeYouStart = 'beforeYouStart',
@@ -81,6 +82,46 @@ registerEnumType(ObligationResolution, {
   description: 'Whether this obligation has one answer for everyone, or needs to know who is asking.',
 })
 
+export enum ReaderAnswer {
+  answered = 'answered',
+  needsDetail = 'needsDetail',
+  needsReview = 'needsReview',
+  noRule = 'noRule',
+}
+
+registerEnumType(ReaderAnswer, {
+  name: 'ReaderAnswer',
+  description: 'What a guide can tell the reader it was asked for about one obligation (SB-255).',
+  valuesMap: {
+    answered: { description: 'One rule applies and no detail the reader has not given could change it.' },
+    needsDetail: { description: 'A detail the reader has not given could change the answer, named in needs. No provisional rule is given beside it.' },
+    needsReview: { description: 'Two rules apply and neither is more specific than the other, said in reason.' },
+    noRule: { description: 'No rule held for this obligation in this country applies to what the reader said, including where none is held at all.' },
+  },
+})
+
+@ObjectType({ description: "One obligation's answer for the reader a guide was asked for (SB-255)." })
+export class GuideReaderView {
+  @Field(() => ReaderAnswer) answer!: ReaderAnswer
+
+  @Field(() => [Detail], { description: 'Details the reader has not given that could change the answer. Empty unless the answer is needsDetail or needsReview.' })
+  needs!: readonly Detail[]
+
+  @Field(() => String, { nullable: true, description: 'Why a person has to decide this one. Null unless the answer is needsReview.' })
+  reason!: string | null
+
+  @Field(() => String, { nullable: true, description: 'The most specific rule version that applies. Null unless the answer is answered.' })
+  ruleVersionId!: string | null
+
+  @Field(() => [RuleFactValue], { description: 'Each fact with the version, page and day it was read from. Empty unless the answer is answered.' })
+  facts!: readonly RuleFactValue[]
+
+  @Field(() => [RuleNote], {
+    description: "The notes of the rule that applies and of each wider place's rule one of its facts came from, widest first. Empty unless the answer is answered.",
+  })
+  notes!: readonly RuleNote[]
+}
+
 @ObjectType({ description: 'An obligation this guide explains, with its current facts.' })
 export class GuideObligationView {
   @Field(() => String) slug!: string
@@ -90,12 +131,23 @@ export class GuideObligationView {
   })
   resolution!: ObligationResolution
 
-  @Field(() => [GuideObligationFact]) facts!: readonly GuideObligationFact[]
+  @Field(() => [GuideObligationFact], {
+    description:
+      'The facts of the version for everyone. Empty whenever the guide was asked for a reader: read reader then, because the version for everyone beside a question is a provisional answer (SB-176, SB-255).',
+  })
+  facts!: readonly GuideObligationFact[]
 
   @Field(() => [RuleNote], {
-    description: "The notes of the rule this obligation's facts come from, in the language asked for or saying they are not. None where the resolution is contextRequired.",
+    description:
+      "The notes of the rule this obligation's facts come from, in the language asked for or saying they are not. None where the resolution is contextRequired, and none whenever the guide was asked for a reader.",
   })
   notes!: readonly RuleNote[]
+
+  @Field(() => GuideReaderView, {
+    nullable: true,
+    description: 'The answer for the reader the guide was asked for, or null where it was asked for nobody in particular (SB-255).',
+  })
+  reader!: GuideReaderView | null
 }
 
 @ObjectType()

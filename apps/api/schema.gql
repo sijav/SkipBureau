@@ -141,12 +141,20 @@ type GuideObligationFact {
 
 """An obligation this guide explains, with its current facts."""
 type GuideObligationView {
+  """
+  The facts of the version for everyone. Empty whenever the guide was asked for a reader: read reader then, because the version for everyone beside a question is a provisional answer (SB-176, SB-255).
+  """
   facts: [GuideObligationFact!]!
 
   """
-  The notes of the rule this obligation's facts come from, in the language asked for or saying they are not. None where the resolution is contextRequired.
+  The notes of the rule this obligation's facts come from, in the language asked for or saying they are not. None where the resolution is contextRequired, and none whenever the guide was asked for a reader.
   """
   notes: [RuleNote!]!
+
+  """
+  The answer for the reader the guide was asked for, or null where it was asked for nobody in particular (SB-255).
+  """
+  reader: GuideReaderView
 
   """
   contextRequired means every version is scoped to somebody, so there is no general answer to show.
@@ -172,6 +180,36 @@ type GuidePlaceView {
   goalAreas: Int!
   goalSlug: String!
   goalTitle: String!
+}
+
+"""One obligation's answer for the reader a guide was asked for (SB-255)."""
+type GuideReaderView {
+  answer: ReaderAnswer!
+
+  """
+  Each fact with the version, page and day it was read from. Empty unless the answer is answered.
+  """
+  facts: [RuleFactValue!]!
+
+  """
+  Details the reader has not given that could change the answer. Empty unless the answer is needsDetail or needsReview.
+  """
+  needs: [Detail!]!
+
+  """
+  The notes of the rule that applies and of each wider place's rule one of its facts came from, widest first. Empty unless the answer is answered.
+  """
+  notes: [RuleNote!]!
+
+  """
+  Why a person has to decide this one. Null unless the answer is needsReview.
+  """
+  reason: String
+
+  """
+  The most specific rule version that applies. Null unless the answer is answered.
+  """
+  ruleVersionId: String
 }
 
 type GuideSectionView {
@@ -303,6 +341,29 @@ enum ObligationResolution {
   general
 }
 
+"""
+A place in a country that a reader can say they live or work in: a province or state, or a city or area inside one (SB-186).
+"""
+type Place {
+  """
+  A province or state by its ISO 3166-2 code, or a place inside one by its key, such as DE-BY.muenchen.
+  """
+  code: String!
+
+  """In the language asked for where there is one, else the official name."""
+  name: String!
+
+  """
+  The state's own identifier for the place where one exists, such as Germany's Amtlicher Gemeindeschlüssel.
+  """
+  officialCode: String
+
+  """
+  The place this one is inside, or null for a province or state, whose parent is the country.
+  """
+  parentCode: String
+}
+
 type Query {
   """
   What matches a question in one country, grouped by kind; what is popular when it is empty.
@@ -347,7 +408,16 @@ type Query {
   country(code: String!, locale: String = "en-US"): Country
 
   """One guide, or null where we do not have it."""
-  guide(country: String!, locale: String = "en-US", slug: String!): GuideView
+  guide(
+    country: String!
+    locale: String = "en-US"
+
+    """
+    What the reader has said about themselves. Given, even empty, each obligation answers for this reader in reader and carries no facts or notes of the version for everyone; left out or null, the guide is the same for everyone (SB-255).
+    """
+    reader: ReaderInput
+    slug: String!
+  ): GuideView
 
   """Every guide in one country."""
   guides(country: String!, locale: String = "en-US"): [GuideView!]!
@@ -402,6 +472,11 @@ type Query {
     workRegions: [String!]
   ): [DiffEntry!]!
 
+  """
+  Every place in one country that a reader can say they live or work in, each with the place it is inside (SB-255).
+  """
+  places(country: String!, locale: String = "en-US"): [Place!]!
+
   """Common questions in one country, each with its short answer."""
   questions(country: String!, locale: String = "en-US"): [QuestionView!]!
 
@@ -409,6 +484,11 @@ type Query {
   How many versions, places, statuses and groups of this database each research file owns, and the digest its last load wrote, so a publish can be read back.
   """
   researchRows: [ResearchRowCount!]!
+
+  """
+  Every residence status a reader can hold in one country, each with the status it is a kind of (SB-255).
+  """
+  residenceStatuses(country: String!, locale: String = "en-US"): [ResidenceStatus!]!
 
   """Everything a question matches in one country, for the results page."""
   search(country: String!, locale: String = "en-US", text: String!): SearchView!
@@ -441,6 +521,54 @@ type QuestionView {
   translationMissing: Boolean!
 }
 
+"""
+What a guide can tell the reader it was asked for about one obligation (SB-255).
+"""
+enum ReaderAnswer {
+  """
+  One rule applies and no detail the reader has not given could change it.
+  """
+  answered
+
+  """
+  A detail the reader has not given could change the answer, named in needs. No provisional rule is given beside it.
+  """
+  needsDetail
+
+  """
+  Two rules apply and neither is more specific than the other, said in reason.
+  """
+  needsReview
+
+  """
+  No rule held for this obligation in this country applies to what the reader said, including where none is held at all.
+  """
+  noRule
+}
+
+"""
+What a reader has said about themselves, every part optional. A detail left out is asked for where it would change an answer (SB-176, SB-255).
+"""
+input ReaderInput {
+  nationality: String
+
+  """
+  Where this person lives: region codes, one per country, so a move between countries can carry one on each side. A province or state by its ISO 3166-2 code such as TR-34, or a place inside one by its key such as TR-34.kadikoy.
+  """
+  residenceRegions: [String!]
+
+  """
+  What this person holds in each country: residence status codes, one per country, such as tr.residence-permit, or a kind of one such as tr.residence-permit.student.
+  """
+  residenceStatuses: [String!]
+  situation: String
+
+  """
+  Where this person works, the same way. Some rules follow the place of work rather than where a person lives.
+  """
+  workRegions: [String!]
+}
+
 type RelatedGoalView {
   """Whether the goal has anything in this country yet."""
   open: Boolean!
@@ -464,6 +592,22 @@ type ResearchRowCount {
   research: String!
   statuses: Int!
   versions: Int!
+}
+
+"""
+What a reader can hold in a country: a kind of permission to be there, or a kind of one (SB-189).
+"""
+type ResidenceStatus {
+  """Lower case under its country, such as tr.residence-permit.student."""
+  code: String!
+
+  """In the language asked for where there is one, else the canonical name."""
+  name: String!
+
+  """
+  The status this one is a kind of, or null for one with nothing above it.
+  """
+  parentCode: String
 }
 
 type ResolvedRule {

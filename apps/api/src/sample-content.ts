@@ -16,7 +16,9 @@ import type { GuideDetailSeed, Localised } from './sample-types.js'
  *
  * FILL-ONLY: it creates what is missing and never overwrites a row that
  * exists, so an editor's change survives a restart, and it can run on every
- * start at all.
+ * start at all. The one thing it removes is a guide's link to the less
+ * preferred of the address duties it names, so the guide links the researched
+ * one once a research load has written it (SB-255, linkObligations).
  *
  * It keeps the thing that is easy to get wrong: **one task shared between two
  * countries**, with country-specific categories, guides and sources hanging
@@ -100,7 +102,8 @@ type GuideText = { title: string; description?: string; quickAnswer?: string; co
 type GuideSeed = {
   slug: string
   category: string
-  obligation?: string
+  /** The obligations this guide explains a duty through, most preferred first; it links the first the database has. */
+  obligations?: readonly string[]
   verifiedAt?: Date
   position?: number
   readingMinutes?: number
@@ -228,7 +231,7 @@ const COUNTRIES: CountrySeed[] = [
       {
         slug: 'register-your-address',
         category: 'first-week',
-        obligation: 'register-your-address',
+        obligations: ['report-your-address', 'register-your-address'],
         en: {
           title: 'Register your address',
           description: 'What address registration in Turkey involves, and where it is done.',
@@ -302,7 +305,7 @@ const COUNTRIES: CountrySeed[] = [
       {
         slug: 'anmeldung',
         category: 'first-week',
-        obligation: 'register-your-address',
+        obligations: ['report-your-address', 'register-your-address'],
         en: {
           title: 'Register your address',
           description: 'The Anmeldung, which almost everything else in Germany depends on.',
@@ -328,6 +331,29 @@ const COUNTRIES: CountrySeed[] = [
     ],
   },
 ]
+
+/**
+ * Links a guide to the first obligation of its list the database has, and
+ * removes its link to any other obligation of that list, so a guide never
+ * carries two rules for one duty: the researched duty where a research load
+ * wrote it, else the one the test seed writes (SB-255). A link to an obligation
+ * the list does not name is never touched, since a link records no owner.
+ */
+const linkObligations = async (prisma: PrismaClient, guideId: string, preference: readonly string[] | undefined): Promise<void> => {
+  if (!preference || preference.length === 0) return
+  const rows = await prisma.obligation.findMany({ where: { slug: { in: [...preference] } }, select: { id: true, slug: true } })
+  const chosen = preference.map((slug) => rows.find((row) => row.slug === slug)).find((row) => row !== undefined)
+  if (!chosen) return
+
+  const others = rows.filter((row) => row.id !== chosen.id).map((row) => row.id)
+  if (others.length > 0) await prisma.guideObligation.deleteMany({ where: { guideId, obligationId: { in: others } } })
+
+  const linked = await prisma.guideObligation.findUnique({ where: { guideId_obligationId: { guideId, obligationId: chosen.id } } })
+  if (!linked) {
+    const position = await prisma.guideObligation.count({ where: { guideId } })
+    await prisma.guideObligation.create({ data: { guideId, obligationId: chosen.id, position } })
+  }
+}
 
 export const seedContent = async (prisma: PrismaClient): Promise<void> => {
   for (const task of TASKS) {
@@ -400,7 +426,12 @@ export const seedContent = async (prisma: PrismaClient): Promise<void> => {
       // A guide that exists is left alone whole: its options and sources have
       // no natural key, so filling them in again would duplicate them.
       const existing = await prisma.guide.findUnique({ where: { countryCode_slug: { countryCode: country.code, slug: guide.slug } } })
-      if (existing) continue
+      if (existing) {
+        // Its links are kept to what the guide names even so, or a guide made
+        // before a research load would never link the researched duty.
+        await linkObligations(prisma, existing.id, guide.obligations)
+        continue
+      }
 
       const row = await prisma.guide.create({
         data: {
@@ -481,16 +512,7 @@ export const seedContent = async (prisma: PrismaClient): Promise<void> => {
         })
       }
 
-      if (guide.obligation) {
-        const obligation = await prisma.obligation.findUnique({ where: { slug: guide.obligation } })
-        if (obligation) {
-          await prisma.guideObligation.upsert({
-            where: { guideId_obligationId: { guideId: row.id, obligationId: obligation.id } },
-            update: {},
-            create: { guideId: row.id, obligationId: obligation.id, position: 0 },
-          })
-        }
-      }
+      await linkObligations(prisma, row.id, guide.obligations)
     }
 
     // After the guides: a category's recommended one, its checklist and the
