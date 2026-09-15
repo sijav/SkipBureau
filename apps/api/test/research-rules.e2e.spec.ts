@@ -847,6 +847,65 @@ test("a visa-free reader of a nationality §41(1) AufenthV names is told the nin
   expect((await answerFor('us', ['de.schengen-visa']))?.to?.facts).toEqual(factsIn(GERMANY, schengen))
 })
 
+const CARE_ANSWER = `
+  query CareAnswer($toResidenceRegions: [String!], $toWorkRegions: [String!]) {
+    move(from: "xx", to: "de", toResidenceRegions: $toResidenceRegions, toWorkRegions: $toWorkRegions) {
+      obligationSlug
+      verdict
+      needs
+      to {
+        facts { key operator numericValue textValue unit currency sourceUrl sourceName verifiedAt }
+        notes { ruleVersionId text locale translationMissing }
+      }
+    }
+  }
+`
+
+test("a reader who works in Saxony is told Saxony's care split with the federal care facts beside it, one who works in Berlin 1.8% each, one who has not said where they work is asked, and statutory health insurance's facts are told on their pages to a reader anywhere", async () => {
+  const careSlug = 'pay-care-insurance-contributions'
+  const healthSlug = 'join-statutory-health-insurance'
+  const care = GERMANY.versions.filter((version) => version.obligation === careSlug)
+  const federal = care.find((version) => version.criteria.length === 0)
+  const saxony = care.find((version) =>
+    version.criteria.some((criterion) => criterion.dimension === 'workRegion' && criterion.value === 'DE-SN'),
+  )
+  const health = GERMANY.versions.find((version) => version.obligation === healthSlug)
+  if (!federal || !saxony || !health)
+    throw new Error("Germany's file has no federal or Saxon care version, or no statutory health insurance version")
+
+  const answerFor = async (slug: string, toResidenceRegions?: string[], toWorkRegions?: string[]) => {
+    const response = await graphql(CARE_ANSWER, {
+      ...(toResidenceRegions ? { toResidenceRegions } : {}),
+      ...(toWorkRegions ? { toWorkRegions } : {}),
+    })
+    expect(response.body.errors, JSON.stringify(response.body.errors)).toBeUndefined()
+    const entries: Entry[] = response.body.data.move
+    return entries.find((entry) => entry.obligationSlug === slug)
+  }
+  const share = (entry: Entry | undefined, key: string) => Number(entry?.to?.facts.find((fact) => fact.key === key)?.numericValue)
+
+  // Saxony's version states only the two shares, so every other care fact comes from the federal version.
+  const stated = new Set(saxony.facts.map((fact) => fact.key))
+  const rest = { ...federal, facts: federal.facts.filter((fact) => !stated.has(fact.key)) }
+  const inSaxony = await answerFor(careSlug, ['DE-BB'], ['DE-SN'])
+  expect(inSaxony?.verdict).toBe('newInDestination')
+  expect(inSaxony?.to?.facts).toEqual(factsIn(GERMANY, rest, saxony))
+
+  const inBerlin = await answerFor(careSlug, ['DE-SN'], ['DE-BE'])
+  expect(inBerlin?.verdict).toBe('newInDestination')
+  expect(inBerlin?.to?.facts).toEqual(factsIn(GERMANY, federal))
+
+  // The figures the exit names, held to the ministry's page rather than to the file.
+  expect([share(inSaxony, 'employeeCareShare'), share(inSaxony, 'employerCareShare')]).toEqual([2.3, 1.3])
+  expect([share(inBerlin, 'employeeCareShare'), share(inBerlin, 'employerCareShare')]).toEqual([1.8, 1.8])
+
+  expect(await answerFor(careSlug, ['DE-SN'])).toMatchObject({ verdict: 'needsDetail', needs: ['workRegion'], to: null })
+
+  const anywhere = await answerFor(healthSlug)
+  expect(anywhere?.verdict).toBe('newInDestination')
+  expect(anywhere?.to?.facts).toEqual(factsIn(GERMANY, health))
+})
+
 const COMPARED = `
   query Compared($fromResidenceRegions: [String!], $toResidenceRegions: [String!], $residenceStatuses: [String!]) {
     move(from: "de", to: "tr", fromResidenceRegions: $fromResidenceRegions, toResidenceRegions: $toResidenceRegions, residenceStatuses: $residenceStatuses) {
