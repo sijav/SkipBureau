@@ -1,6 +1,8 @@
 # Health insurance in Germany, which is not optional
 
 **Agreed 2026-09-12**, after two turns in `talk/germany/health-insurance.md`.
+**Corrected 2026-09-15** (SB-226), after a sign-off in the same conversation: the child discount's end and compulsory
+membership's start, and five definitions re-read, three of them extended with a condition their figure depends on.
 **Eleven** overclaims found at sign-off, the most of any case. Every sentence
 below is the corrected one.
 
@@ -45,16 +47,16 @@ higher contributions, up to the ceiling.
 **Care insurance is on top, and it is where Saxony differs.** The standard social
 care-insurance rate is **3.6%**[^bmg-care-rate]. Childless members normally pay **4.2%**[^bmg-care-rate] from the
 month after their twenty-third birthday[^sgb11-55-childless-surcharge-age], subject to statutory exceptions.
-Discounts apply for the second through fifth[^sgb11-55-second-to-fifth-child] qualifying children under
-twenty-five[^bmg-care-children-under-25].
+Discounts apply for the second through fifth[^sgb11-55-second-to-fifth-child] qualifying children, until the end of
+the month in which each turns, or would have turned, twenty-five[^bmg-care-children-under-25].
 
 **For employment located in Saxony**, the standard split is **2.3% employee and
 1.3% employer**[^bmg-care-saxony-split]; elsewhere it is 1.8 each[^bmg-care-other-states]. These figures are before child-related
 adjustments and special rules such as midijobs. **The geographic trigger is the
 place of employment, not where the employee lives**[^sgb11-58-place-of-employment] (§58 SGB XI).
 
-**The weeks before your job starts.** Statutory membership through employment
-begins **when the employment begins**[^sgb5-186-membership-begins] (§186(1)), not when you sign the contract.
+**The weeks before your job starts.** Compulsory statutory membership through
+employment begins **when the employment begins**[^sgb5-186-membership-begins] (§186(1)), not when you sign the contract.
 For the gap, the Foreign Office's visa guidance says incoming or travel
 insurance **normally** suffices as a bridge, provided it actually covers the
 interval and is not invalidated by an exclusion for intending to live in
@@ -107,7 +109,7 @@ All read 2026-09-12.
 
 [^sgb5-5-student-until-thirty]: <https://www.gesetze-im-internet.de/sgb_5/__5.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 5 Abs. 1 Nr. 9", "evidence": ["längstens bis zur Vollendung des dreißigsten Lebensjahres"]}
 
-[^sgb5-9-three-months]: <https://www.gesetze-im-internet.de/sgb_5/__9.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 9 Abs. 2 Nr. 3", "evidence": ["(2) Der Beitritt ist der Krankenkasse innerhalb von drei Monaten anzuzeigen", "3. im Falle des Absatzes 1 Satz 1 Nummer 3 nach Aufnahme der Beschäftigung"]}
+[^sgb5-9-three-months]: <https://www.gesetze-im-internet.de/sgb_5/__9.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 9 Abs. 1 Satz 1 Nr. 3 und Abs. 2 Nr. 3", "evidence": ["Personen, die erstmals eine Beschäftigung im Inland aufnehmen und nach § 6 Absatz 1 Nummer 1 versicherungsfrei sind; Beschäftigungen vor oder während der beruflichen Ausbildung bleiben unberücksichtigt", "(2) Der Beitritt ist der Krankenkasse innerhalb von drei Monaten anzuzeigen", "3. im Falle des Absatzes 1 Satz 1 Nummer 3 nach Aufnahme der Beschäftigung"]}
 
 [^bmg-threshold-2026]: <https://www.bundesgesundheitsministerium.de/gesetzlich-versicherte> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Versicherungspflichtgrenze", "evidence": ["Diese Obergrenze wird jährlich angepasst und liegt im Jahr 2026 bei 77.400 Euro."]}
 
@@ -135,17 +137,17 @@ All read 2026-09-12.
 
 [^bmg-minimum-with-sick-pay]: <https://www.bundesgesundheitsministerium.de/beitraege/seite> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Beiträge für freiwillig Versicherte in der GKV", "evidence": ["Personenkreis Anspruch auf Krankengeld* Monatlicher Beitrag", "Mindestbeitrag für Selbstständige (Mindestbemessungsgrundlage: 1.318,33 €) ja 230,71 €**", "** Inklusive Zusatzbeitrag (bei Anwendung des durchschnittlichen Zusatzbeitragssatzes in Höhe von 2,9 %; der kassenindividuelle Zusatzbeitragssatz kann hiervon abweichen)."]}
 
-[^bmg-care-rate]: <https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Beitragssatz", "evidence": ["Seit dem 1. Januar 2025 beträgt der Beitragssatz 3,6 Prozent der beitragspflichtigen Einnahmen, bei Kinderlosen sind es 4,2 Prozent"]}
+[^bmg-care-rate]: <https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "Beitragssatz, und Beitragszuschlag für Kinderlose", "evidence": ["Seit dem 1. Januar 2025 beträgt der Beitragssatz 3,6 Prozent der beitragspflichtigen Einnahmen, bei Kinderlosen sind es 4,2 Prozent", "Arbeitnehmerinnen beziehungsweise Arbeitnehmer und Arbeitgeber tragen den Beitrag – ohne den Kinderlosenzuschlag; diesen tragen die Arbeitnehmerinnen und Arbeitnehmer alleine – grundsätzlich zur Hälfte, also jeweils 1,8 Prozent.", "Ausgenommen sind kinderlose Mitglieder, die vor dem 1. Januar 1940 geboren sind, Mitglieder bis zur Vollendung des 23. Lebensjahres sowie Bezieherinnen und Bezieher von Bürgergeld nach dem SGB II."]}
 
 [^sgb11-55-childless-surcharge-age]: <https://www.gesetze-im-internet.de/sgb_11/__55.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 55 Abs. 3 Satz 1", "evidence": ["erhöht sich für Mitglieder nach Ablauf des Monats, in dem sie das 23. Lebensjahr vollendet haben, um einen Beitragszuschlag in Höhe von 0,6 Beitragssatzpunkten"]}
 
 [^sgb11-55-second-to-fifth-child]: <https://www.gesetze-im-internet.de/sgb_11/__55.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 55 Abs. 3", "evidence": ["für jedes Kind ab dem zweiten Kind bis zum fünften Kind um jeweils einen Abschlag in Höhe von 0,25 Beitragssatzpunkten"]}
 
-[^bmg-care-children-under-25]: <https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Beitragssätze für Eltern mit mehreren Kindern", "evidence": ["Mitglieder mit Kindern erhalten je Kind unter 25 Jahren einen Abschlag in Höhe von 0,25 Beitragssatzpunkten. Dies gilt vom zweiten bis zum fünften Kind."]}
+[^bmg-care-children-under-25]: <https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "Beitragssätze für Eltern mit mehreren Kindern", "evidence": ["Mitglieder mit Kindern erhalten je Kind unter 25 Jahren einen Abschlag in Höhe von 0,25 Beitragssatzpunkten. Dies gilt vom zweiten bis zum fünften Kind.", "Der Abschlag gilt bis zum Ablauf des Monats, in dem das jeweilige Kind das 25. Lebensjahr vollendet hat oder vollendet hätte."]}
 
-[^bmg-care-saxony-split]: <https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Beitragssatz, und die Tabelle Höhe der Beitragssätze", "evidence": ["Dort entfallen von den 3,6 Prozent Pflegeversicherungsbeitrag 2,3 Prozent auf die Beschäftigten und 1,3 Prozent auf die Arbeitgeber.", "Höhe der Beitragssätze in der sozialen Pflegeversicherung Arbeitnehmer Kinderloser Arbeitnehmer Arbeitgeber Bundesland Sachsen 2,3 % 2,9 % 1,3 % Übrige Bundesländer 1,8 % 2,4 % 1,8 %"]}
+[^bmg-care-saxony-split]: <https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "Beitragssatz, und die Tabelle Höhe der Beitragssätze", "evidence": ["Dort entfallen von den 3,6 Prozent Pflegeversicherungsbeitrag 2,3 Prozent auf die Beschäftigten und 1,3 Prozent auf die Arbeitgeber.", "Höhe der Beitragssätze in der sozialen Pflegeversicherung Arbeitnehmer Kinderloser Arbeitnehmer Arbeitgeber Bundesland Sachsen 2,3 % 2,9 % 1,3 % Übrige Bundesländer 1,8 % 2,4 % 1,8 %"]}
 
-[^bmg-care-other-states]: <https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Beitragssatz, und die Tabelle Höhe der Beitragssätze", "evidence": ["grundsätzlich zur Hälfte, also jeweils 1,8 Prozent.", "Höhe der Beitragssätze in der sozialen Pflegeversicherung Arbeitnehmer Kinderloser Arbeitnehmer Arbeitgeber Bundesland Sachsen 2,3 % 2,9 % 1,3 % Übrige Bundesländer 1,8 % 2,4 % 1,8 %"]}
+[^bmg-care-other-states]: <https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "Beitragssatz, und die Tabelle Höhe der Beitragssätze", "evidence": ["grundsätzlich zur Hälfte, also jeweils 1,8 Prozent.", "Höhe der Beitragssätze in der sozialen Pflegeversicherung Arbeitnehmer Kinderloser Arbeitnehmer Arbeitgeber Bundesland Sachsen 2,3 % 2,9 % 1,3 % Übrige Bundesländer 1,8 % 2,4 % 1,8 %"]}
 
 [^sgb11-58-place-of-employment]: <https://www.gesetze-im-internet.de/sgb_11/__58.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 58 Abs. 3 Satz 1", "evidence": ["(3) Die in Absatz 1 genannten Beschäftigten tragen die Beiträge in Höhe von 1 vom Hundert allein, wenn der Beschäftigungsort in einem Land liegt"]}
 

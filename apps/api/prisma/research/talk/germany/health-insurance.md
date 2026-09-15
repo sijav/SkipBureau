@@ -1387,3 +1387,116 @@ https://www.gesetze-im-internet.de/sgb_5/BJNR024820988.html
 Attempted; individual page failed to open:
 
 https://www.gesetze-im-internet.de/sgb_5/__240.html
+
+---
+
+## Asked, 2026-09-15 08:49 UTC
+
+Sign-off, 2026-09-15. We are about to write figures from the agreed document as rules the product serves. Two of its definitions leave out a condition their figure depends on, so we propose extending their evidence with passages from the same pages, read today. Below are those two definitions as extended, the facts, and the notes that go with them. Tell us only which of them claims more than its evidence supports, with the corrected wording and the page that settles it, or the single word "None." The 2.9% average, the 8.75% each, the minimum contributions and the €1,318.33 base are held back on their own open corrections and are not written here. The Ministry's care financing page and the §9 SGB V page were re-read today, so every definition on them (also bmg-care-other-states, bmg-care-saxony-split and bmg-care-children-under-25, evidence unchanged) takes today's read date.
+
+1. sgb5-9-three-months, extended with §9(1) sentence 1 Nr. 3 from the same page:
+
+<https://www.gesetze-im-internet.de/sgb_5/__9.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 9 Abs. 1 Satz 1 Nr. 3 und Abs. 2 Nr. 3", "evidence": ["Personen, die erstmals eine Beschäftigung im Inland aufnehmen und nach § 6 Absatz 1 Nummer 1 versicherungsfrei sind; Beschäftigungen vor oder während der beruflichen Ausbildung bleiben unberücksichtigt", "(2) Der Beitritt ist der Krankenkasse innerhalb von drei Monaten anzuzeigen", "3. im Falle des Absatzes 1 Satz 1 Nummer 3 nach Aufnahme der Beschäftigung"]}
+
+2. bmg-care-rate, extended with who pays and who is exempt from the surcharge, from the same page:
+
+<https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "Beitragssatz, und Beitragszuschlag für Kinderlose", "evidence": ["Seit dem 1. Januar 2025 beträgt der Beitragssatz 3,6 Prozent der beitragspflichtigen Einnahmen, bei Kinderlosen sind es 4,2 Prozent", "Arbeitnehmerinnen beziehungsweise Arbeitnehmer und Arbeitgeber tragen den Beitrag – ohne den Kinderlosenzuschlag; diesen tragen die Arbeitnehmerinnen und Arbeitnehmer alleine – grundsätzlich zur Hälfte, also jeweils 1,8 Prozent.", "Ausgenommen sind kinderlose Mitglieder, die vor dem 1. Januar 1940 geboren sind, Mitglieder bis zur Vollendung des 23. Lebensjahres sowie Bezieherinnen und Bezieher von Bürgergeld nach dem SGB II."]}
+
+3. The facts, each resting on the definition named after it:
+
+Statutory health insurance, for any reader:
+- compulsory insurance threshold: 77,400 euro a year, the annual earnings threshold for 2026 (bmg-threshold-2026)
+- general contribution rate: 14.6 percent (sgb5-241-general-rate)
+- employee and employer share: "half each, of the general and the additional contribution" (bmg-half-each)
+- assessment ceiling: 5,812.50 euro a month (bmg-assessment-ceiling-monthly)
+- voluntary membership notice: within 3 months after starting employment, if you are taking up your first employment in Germany and are exempt from compulsory insurance under §6(1) no. 1; employment before or during vocational training does not count (sgb5-9-three-months)
+- statutory membership for employees begins: "on the day the employment begins" (sgb5-186-membership-begins)
+
+Care insurance, for any reader:
+- care contribution rate: 3.6 percent; for the childless: 4.2 percent (bmg-care-rate)
+- discount per child: 0.25 percentage points, from the second to the fifth child under 25 (bmg-care-children-under-25)
+- employee's and employer's share: 1.8 percent each (bmg-care-other-states)
+
+Care insurance, for a reader whose employment is located in Saxony:
+- employee's share 2.3 percent, employer's share 1.3 percent (bmg-care-saxony-split)
+
+4. The notes:
+
+Statutory health insurance: "You must hold qualifying health insurance while you reside in Germany unless an exception applies (§193(3) VVG); the duty attaches to residing here, not to holding a permit or having a job. An employee is normally compulsorily insured in the statutory system (§5(1)(1) SGB V); someone self-employed as their main occupation normally is not, and a permit on its own does not get you into the statutory system, since §5(11) restricts the uninsured-person fallback for third-country nationals. Someone starting employment above the annual earnings threshold is generally outside compulsory employee membership, and private insurance is then an option, not an obligation. If this is your first employment in Germany and you are exempt for being over the threshold, you can join the statutory system voluntarily without the usual prior-insurance history, but you must tell the fund within three months of starting work (§9(1) Nr. 3). Employer and employee normally split the general and additional contributions equally, up to the monthly assessment ceiling; special contribution-sharing rules apply, including for midijobs. Statutory membership through employment begins on the day the employment begins (§186(1) SGB V), not when you sign the contract. The duty, the earnings threshold, the statutory rates and the assessment limits are federal and the same wherever you live; which funds you can join, what each fund charges as its additional contribution, and what your city's immigration office accepts as evidence differ."
+
+Care insurance, for any reader: "The standard social care insurance rate is 3.6%, and childless members pay 4.2%. The surcharge for the childless is paid by the employee alone, and does not apply to childless members born before 1 January 1940, to members until they turn 23, or to people receiving Bürgergeld under SGB II. Parents get a discount of 0.25 percentage points for each child under 25, from the second to the fifth child. Employee and employer normally share the contribution, without the surcharge, equally at 1.8% each, before child-related adjustments and special rules such as midijobs. Where an employee's share differs, it follows where the employment is located, not where the employee lives."
+
+Care insurance, for employment located in Saxony: "These are the standard care-insurance shares for compulsorily insured employees. In Saxony, the place of employment, not the home address, determines the standard split. The figures do not include the childless surcharge or child-related reductions; special statutory rules can produce different shares."
+
+At the end, list the URLs you opened this turn.
+
+## Answered
+
+- **`bmg-threshold-2026` — the threshold fact:** Restore **“general employee annual earnings threshold: €77,400 in 2026.”** It is not the threshold for every employee: §6(7) preserves a separate threshold for qualifying employees who were already exempt and privately insured on 31 December 2002. [§6(1)(1), (6) and (7) SGB V](https://www.gesetze-im-internet.de/sgb_5/__6.html).
+
+- **`sgb5-186-membership-begins` — the membership-start fact:** Say **“Compulsory statutory membership through employment begins on the day the employment begins.”** The provision specifically says: “Die Mitgliedschaft versicherungspflichtig Beschäftigter beginnt mit dem Tag des Eintritts in das Beschäftigungsverhältnis.” It does not establish that start date for every employed person’s membership. [§186(1), complete SGB V](https://www.gesetze-im-internet.de/sgb_5/BJNR024820988.html).
+
+- **`bmg-care-rate` — the note’s “until they turn 23”:** Say **“The childless surcharge starts from the month after the twenty-third birthday, subject to the statutory exceptions.”** The statute says “nach Ablauf des Monats, in dem sie das 23. Lebensjahr vollendet haben”. Your wording ends the exemption too early. [§55(3), sentence 1 SGB XI](https://www.gesetze-im-internet.de/sgb_11/__55.html).
+
+- **`bmg-care-children-under-25` — the discount’s age cutoff:** For the served rule, say **“The discount continues through the end of the month in which the qualifying child turns—or would have turned—25.”** The page states: “Der Abschlag gilt bis zum Ablauf des Monats, in dem das jeweilige Kind das 25. Lebensjahr vollendet hat oder vollendet hätte.” “Under 25” alone would end it too early. [BMG, “Beitragssätze für Eltern mit mehreren Kindern”](https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung).
+
+URLs opened successfully:
+
+https://www.gesetze-im-internet.de/sgb_5/__9.html
+https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung
+https://www.gesetze-im-internet.de/sgb_5/__6.html
+https://www.bundesgesundheitsministerium.de/beitraege/seite
+https://www.gesetze-im-internet.de/sgb_11/__55.html
+https://www.gesetze-im-internet.de/sgb_5/BJNR024820988.html
+
+Attempted; failed to open:
+
+https://www.gesetze-im-internet.de/sgb_5/__186.html
+
+---
+
+## Asked, 2026-09-15 08:52 UTC
+
+Fixed point, 2026-09-15. Your sign-off's four corrections are applied. Below are the parts of the agreed document it changed, as they now stand, and the facts and notes the product will serve from them. One question: does anything left claim more than its evidence supports, does any marker attach a figure to a page that does not state it, or does any evidence leave out a condition its sentence depends on? Answer with the single line No. if nothing does, or name each with its correction and the page that settles it. At the end, list the URLs you opened this turn.
+
+1. The two corrected sentences of the agreed document:
+
+Discounts apply for the second through fifth[^sgb11-55-second-to-fifth-child] qualifying children, until the end of the month in which each turns, or would have turned, twenty-five[^bmg-care-children-under-25].
+
+**The weeks before your job starts.** Compulsory statutory membership through employment begins **when the employment begins**[^sgb5-186-membership-begins] (§186(1)), not when you sign the contract.
+
+2. The five definitions on the two pages read today, three of them extended:
+
+[^sgb5-9-three-months]: <https://www.gesetze-im-internet.de/sgb_5/__9.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 9 Abs. 1 Satz 1 Nr. 3 und Abs. 2 Nr. 3", "evidence": ["Personen, die erstmals eine Beschäftigung im Inland aufnehmen und nach § 6 Absatz 1 Nummer 1 versicherungsfrei sind; Beschäftigungen vor oder während der beruflichen Ausbildung bleiben unberücksichtigt", "(2) Der Beitritt ist der Krankenkasse innerhalb von drei Monaten anzuzeigen", "3. im Falle des Absatzes 1 Satz 1 Nummer 3 nach Aufnahme der Beschäftigung"]}
+
+[^bmg-care-rate]: <https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "Beitragssatz, und Beitragszuschlag für Kinderlose", "evidence": ["Seit dem 1. Januar 2025 beträgt der Beitragssatz 3,6 Prozent der beitragspflichtigen Einnahmen, bei Kinderlosen sind es 4,2 Prozent", "Arbeitnehmerinnen beziehungsweise Arbeitnehmer und Arbeitgeber tragen den Beitrag – ohne den Kinderlosenzuschlag; diesen tragen die Arbeitnehmerinnen und Arbeitnehmer alleine – grundsätzlich zur Hälfte, also jeweils 1,8 Prozent.", "Ausgenommen sind kinderlose Mitglieder, die vor dem 1. Januar 1940 geboren sind, Mitglieder bis zur Vollendung des 23. Lebensjahres sowie Bezieherinnen und Bezieher von Bürgergeld nach dem SGB II."]}
+
+[^bmg-care-children-under-25]: <https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "Beitragssätze für Eltern mit mehreren Kindern", "evidence": ["Mitglieder mit Kindern erhalten je Kind unter 25 Jahren einen Abschlag in Höhe von 0,25 Beitragssatzpunkten. Dies gilt vom zweiten bis zum fünften Kind.", "Der Abschlag gilt bis zum Ablauf des Monats, in dem das jeweilige Kind das 25. Lebensjahr vollendet hat oder vollendet hätte."]}
+
+[^bmg-care-saxony-split]: <https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "Beitragssatz, und die Tabelle Höhe der Beitragssätze", "evidence": ["Dort entfallen von den 3,6 Prozent Pflegeversicherungsbeitrag 2,3 Prozent auf die Beschäftigten und 1,3 Prozent auf die Arbeitgeber.", "Höhe der Beitragssätze in der sozialen Pflegeversicherung Arbeitnehmer Kinderloser Arbeitnehmer Arbeitgeber Bundesland Sachsen 2,3 % 2,9 % 1,3 % Übrige Bundesländer 1,8 % 2,4 % 1,8 %"]}
+
+[^bmg-care-other-states]: <https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "Beitragssatz, und die Tabelle Höhe der Beitragssätze", "evidence": ["grundsätzlich zur Hälfte, also jeweils 1,8 Prozent.", "Höhe der Beitragssätze in der sozialen Pflegeversicherung Arbeitnehmer Kinderloser Arbeitnehmer Arbeitgeber Bundesland Sachsen 2,3 % 2,9 % 1,3 % Übrige Bundesländer 1,8 % 2,4 % 1,8 %"]}
+
+3. The facts:
+
+Statutory health insurance, for any reader: general annual earnings threshold 77,400 euro a year, 'the general employee annual earnings threshold for 2026' (bmg-threshold-2026); general contribution rate 14.6 percent (sgb5-241-general-rate); employee and employer share 'half each, of the general and the additional contribution' (bmg-half-each); assessment ceiling 5,812.50 euro a month (bmg-assessment-ceiling-monthly); voluntary membership notice within 3 months 'after starting employment, if you are taking up your first employment in Germany and are exempt from compulsory insurance under §6(1) no. 1; employment before or during vocational training does not count' (sgb5-9-three-months); compulsory statutory membership through employment begins 'on the day the employment begins' (sgb5-186-membership-begins).
+
+Care insurance, for any reader: care contribution rate 3.6 percent; childless care contribution rate 4.2 percent (bmg-care-rate); discount per child 0.25 percentage points, 'for each child from the second to the fifth, until the end of the month in which the child turns, or would have turned, 25' (bmg-care-children-under-25); employee's and employer's share 1.8 percent each (bmg-care-other-states).
+
+Care insurance, for a reader whose employment is located in Saxony: employee's share 2.3 percent, employer's share 1.3 percent (bmg-care-saxony-split).
+
+4. The notes:
+
+Statutory health insurance: "You must hold qualifying health insurance while you reside in Germany unless an exception applies (§193(3) VVG); the duty attaches to residing here, not to holding a permit or having a job. An employee is normally compulsorily insured in the statutory system (§5(1)(1) SGB V); someone self-employed as their main occupation normally is not, and a permit on its own does not get you into the statutory system, since §5(11) restricts the uninsured-person fallback for third-country nationals. Someone starting employment above the general annual earnings threshold is generally outside compulsory employee membership, and private insurance is then an option, not an obligation. If this is your first employment in Germany and you are exempt for being over the threshold, you can join the statutory system voluntarily without the usual prior-insurance history, but you must tell the fund within three months of starting work (§9(1) no. 3). Employer and employee normally split the general and additional contributions equally, up to the monthly assessment ceiling; special contribution-sharing rules apply, including for midijobs. Compulsory statutory membership through employment begins on the day the employment begins (§186(1) SGB V), not when you sign the contract. The duty, the earnings threshold, the statutory rates and the assessment limits are federal and the same wherever you live; which funds you can join, what each fund charges as its additional contribution, and what your city's immigration office accepts as evidence differ."
+
+Care insurance, for any reader: "The standard social care insurance rate is 3.6%, and childless members pay 4.2%. The childless surcharge is paid by the employee alone and starts from the month after the twenty-third birthday, subject to the statutory exceptions, which include members born before 1 January 1940 and people receiving Bürgergeld under SGB II. Parents get a discount of 0.25 percentage points for each child from the second to the fifth, until the end of the month in which the child turns, or would have turned, 25. Employee and employer normally share the contribution, without the surcharge, equally at 1.8% each, before child-related adjustments and special rules such as midijobs. Where an employee's share differs, it follows where the employment is located, not where the employee lives."
+
+Care insurance, for employment located in Saxony: "These are the standard care-insurance shares for compulsorily insured employees. In Saxony, the place of employment, not the home address, determines the standard split. The figures do not include the childless surcharge or child-related reductions; special statutory rules can produce different shares."
+
+## Answered
+
+No.
+
+https://www.gesetze-im-internet.de/sgb_5/__9.html
+https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung
+https://www.gesetze-im-internet.de/sgb_11/__55.html
