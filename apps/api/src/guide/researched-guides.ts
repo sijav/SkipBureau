@@ -320,6 +320,394 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
     },
     obligations: ADDRESS_GUIDE,
   },
+  // Written from research/agreed/turkey/tax-number.md (SB-279).
+  {
+    country: 'tr',
+    task: 'banking-and-money',
+    area: { slug: 'tax-number', en: 'Get a tax number', fa: 'دریافت شماره مالیاتی' },
+    guide: {
+      slug: 'tax-number',
+      verifiedAt: '2026-09-14',
+      en: {
+        title: 'The number that makes you exist in Turkey',
+        description:
+          'You may receive a potential tax number before receiving a 99 number; once you have the 99 number, it serves as your tax identifier.',
+      },
+    },
+    detail: {
+      slug: 'tax-number',
+      sections: [
+        {
+          kind: 'beforeYouStart',
+          title: { en: 'Two numbers, and one of them takes over.' },
+          body: {
+            en: 'That has been the rule since 1 July 2010. We could not establish what happens to an earlier potential tax number once the 99 number arrives, so we will not tell you it is merged or cancelled.',
+          },
+        },
+        {
+          kind: 'howToDoIt',
+          title: { en: 'You do not need a residence permit to get a tax number.' },
+          body: {
+            en: "A person who has just arrived can apply. You can apply through the tax administration's foreigners page; the published instructions describe the number appearing after successful submission. At a counter you bring your original passport, a copy of its identity page, and a signed application that includes your address. Istanbul's migration directorate published a notice in 2020 directing applicants online and keeping the counter for cases where identity verification fails; we could not verify whether that is still enforced. GİB documents an intermediary application route for nonresident investors through a bank, broker or custodian. We could not verify whether prior entry into Turkey is necessary, or whether someone abroad can complete the ordinary online application. It is free according to the public university guidance we checked. Published instructions describe online issuance after successful submission, but we could not verify a guaranteed processing time.",
+          },
+        },
+        {
+          kind: 'importantToKnow',
+          title: { en: 'What you actually need it for, which is less than you have been told.' },
+          body: {
+            en: "Türkiye's official country note identifies banking transactions as subject to a legal tax-identifier requirement; we did not verify the operative provision specifically governing account opening. Buying property requires one for the land registry transaction. We could not verify a current tax-number requirement for signing an ordinary residential lease or obtaining a mobile line. A 2021 official decision quotes telecom rules accepting foreigners' passports, but we did not verify the complete current rules. For residence-permit fees, Migration Management expressly provides payment using the residence application number. If somebody tells you to go and get a tax number before doing one of those three, ask them which rule says so.",
+          },
+        },
+        {
+          kind: 'commonProblems',
+          title: { en: 'When it goes wrong.' },
+          body: {
+            en: 'The failure that is documented is identity or passport verification failing even when you entered everything correctly, and the published remedy is to apply at a tax office. We could not verify an official account of somebody receiving duplicate potential tax numbers, or an official procedure for merging duplicates or correcting identity details on an issued tax record.',
+          },
+        },
+      ],
+      sources: [
+        {
+          url: 'https://cdn.gib.gov.tr/api/gibportal-file/file/getFileResources?objectKey=arsiv/fileadmin/kur_mali_beklentiler_raporlari/2010/2010_Kur_Mali_Beklentiler_Raporu.pdf',
+          name: 'Maliye Bakanlığı Gelir İdaresi Başkanlığı, 2010 Yılı Kurumsal Mali Durum ve Beklentiler Raporu',
+        },
+        {
+          url: 'https://www.uludag.edu.tr/en/uluyos/tax-identification-number-information-69202',
+          name: 'Bursa Uludağ University, Tax Identification Number Information',
+        },
+      ],
+    },
+    obligations: [],
+  },
+  // Written from research/agreed/turkey/health-insurance.md (SB-279).
+  {
+    country: 'tr',
+    task: 'health-and-insurance',
+    area: { slug: 'health-insurance', en: 'Join general health insurance', fa: 'ثبت‌نام در بیمه سلامت عمومی' },
+    guide: {
+      slug: 'health-insurance',
+      verifiedAt: '2026-09-14',
+      en: {
+        title: 'Health cover in Turkey',
+        description: 'The insurance regulator sets it, in circular 2016/16 as amended by 2024/34, in force since 1 April 2025.',
+      },
+    },
+    detail: {
+      slug: 'health-insurance',
+      sections: [
+        {
+          kind: 'whatYouNeed',
+          title: { en: 'The policy your permit needs has a legal minimum.' },
+          body: {
+            en: 'Per year: | Where you are treated | Outpatient | Your share | Inpatient | Your share | |---|---:|---:|---:|---:| | A provider your insurer has contracted with | ₺15,000 | 20% | unlimited | 0% | | Non-contracted, and public hospitals outside Annex 1 | ₺15,000 | 40% | ₺150,000 | 20% | | The 20 public hospitals named in Annex 1 | ₺15,000 | 20% | ₺250,000 | 0% | Treatment for sudden illness cannot be excluded, subject to the waiting-period rules. We located the 2022/7 waiting-period amendment but could not read its operative text, so we cannot promise immediate cover for every illness.',
+          },
+        },
+        {
+          kind: 'whatToCheck',
+          title: { en: 'Do not assume the policy you already own counts.' },
+          body: {
+            en: 'For an application made inside Turkey, the policy must be concluded in Turkey with an insurer authorised for the relevant branch, including an authorised Turkish establishment of a foreign insurer. The circular allows a policy concluded with an insurer abroad for a residence application made abroad, provided it supplies the required minimum cover in Turkey; migration management says residence applications are not yet accepted abroad. So do not assume the travel policy you flew in with is the one your permit accepts.',
+          },
+        },
+        {
+          kind: 'beforeYouStart',
+          title: { en: 'SGK, and the year.' },
+          body: {
+            en: 'A foreigner with more than a year of continuous residence under a residence permit may apply for foreign-resident general health insurance, subject to the other eligibility conditions, including their existing insurance status. Official guidance says residence under a residence permit and does not restrict it to a particular permit type. We could not verify exactly how the year is calculated or how many days abroad break it, so ask SGK rather than trusting a number you read. Joining is not automatic on your anniversary: for an eligible applicant, GSS registration starts the day after the request. Routine treatment entitlement normally also requires thirty contribution days in the preceding year and, for this category, no outstanding premium-related debt, subject to statutory exceptions.',
+          },
+        },
+        {
+          kind: 'importantToKnow',
+          title: { en: 'What it costs, and it is not small.' },
+          body: {
+            en: "The premium is 12% of twice the gross minimum wage. With the 2026 minimum wage of ₺33,030 that is a base of ₺66,060 and a premium of ₺7,927.20 a month. Those last two figures were calculated here from the official rate and the official wage; the same calculation also appears in a copy of an SGK circular hosted by an accountants' chamber, which we could not verify on SGK's own host.",
+          },
+        },
+        {
+          kind: 'howToDoIt',
+          title: { en: 'If you get a job, this changes.' },
+          body: {
+            en: 'Employment insurance starts on the day you start work (Law 5510, Art 7). Being insured from day one is not the same as being entitled to routine treatment from day one: SGK normally wants thirty days of contributions in the preceding year, though it waives that when you move between categories or from being a dependant. Somebody posted to Turkey under a social security agreement may stay insured in their home country instead.',
+          },
+        },
+        {
+          kind: 'commonProblems',
+          title: { en: 'Emergency care is not automatically free to an uninsured foreign visitor.' },
+          body: {
+            en: 'Under the 2025 regulation covering visitors, emergency services and emergency transport are chargeable. The regulation requires treatment to be provided unconditionally and without delay, with collection afterwards; that is a legal duty on the provider, not a guarantee of how a given hospital behaves. The exception is a traffic accident, where SGK pays under the applicable legislation and the patient cannot be charged personally. For a residence permit holder without SGK, an official state-hospital pricing page says services are charged under the public tariff; that page does not resolve every emergency exemption for settled residents, and we did not verify them.',
+          },
+        },
+        {
+          kind: 'whereToDoIt',
+          title: { en: 'By province.' },
+          body: {
+            en: 'The verified legal rules are national, with no provincial variation. We could not verify whether office procedures or additional document requests differ locally. For the private permit-policy minimum standard, Annex 1 public hospitals receive more favourable minimum coverage terms than non-listed public hospitals, and provider network status affects the required coverage terms.',
+          },
+        },
+      ],
+      sources: [
+        {
+          url: 'https://www.seddk.gov.tr/upload/Vize%20ve%20%C4%B0kamet%20%C4%B0zni%20Taleplerinde%20Yapt%C4%B1r%C4%B1lacak%20Sa%C4%9Fl%C4%B1k%20Sigortalar%C4%B1na%20%C4%B0li%C5%9Fkin%20Genelgede%20De%C4%9Fi%C5%9Fiklik%20Yap%C4%B1lmas%C4%B1na%20Dair%20Genelge%20%282024-34%29.pdf',
+          name: 'SEDDK, Genelge 2024/34',
+        },
+        { url: 'https://seddk.gov.tr/upload/Bas%C4%B1n%20duyurusu.27-12-24.pdf', name: 'SEDDK basın duyurusu, 27 Aralık 2024' },
+        { url: 'https://www.mevzuat.gov.tr/MevzuatMetin/1.5.5510.pdf', name: '5510 sayılı Kanun, Madde 61' },
+        {
+          url: 'https://www.sgk.gov.tr/Download/DownloadFileStatics?d=YAYINLARIMIZ&f=GSS_Sistemi_Kitabi_TR.pdf',
+          name: 'SGK, Genel Sağlık Sigortası Sistemi kitabı',
+        },
+        {
+          url: 'https://www.sgk.gov.tr/Content/Post/4d85599f-e810-4755-a81b-02be5c253d60/Yurtici-2022-08-23-04-08-30',
+          name: 'SGK, Sağlık Hizmetlerinden Yararlanma Şartları Nelerdir?',
+        },
+        {
+          url: 'https://www.csgb.gov.tr/tr/poco-pages/asgari-ucret/',
+          name: 'Çalışma ve Sosyal Güvenlik Bakanlığı, Asgari Ücretin Net Hesabı ve İşverene Maliyeti',
+        },
+      ],
+    },
+    obligations: [],
+  },
+  // Written from research/agreed/turkey/work-permit.md (SB-279).
+  {
+    country: 'tr',
+    task: 'work',
+    area: { slug: 'work-permit', en: 'Get a work permit', fa: 'دریافت مجوز کار' },
+    guide: {
+      slug: 'work-permit',
+      verifiedAt: '2026-09-14',
+      en: {
+        title: 'Working in Turkey',
+        description: 'Normally your employer applies for you, electronically.',
+      },
+    },
+    detail: {
+      slug: 'work-permit',
+      sections: [
+        {
+          kind: 'beforeYouStart',
+          title: { en: 'Who applies.' },
+          body: {
+            en: 'For the ordinary in-country route, the application is made against a residence permit that was issued for at least six months and is still valid on the day of the application. Note what that does not say: it is not six months *remaining*. A one-year permit with five months left still satisfies it.',
+          },
+        },
+        {
+          kind: 'whatToCheck',
+          title: { en: 'Whether your job can produce a permit at all.' },
+          body: {
+            en: 'The Ministry publishes national criteria, and they are about your employer as much as you. A business keeping a balance sheet needs five Turkish employees for each foreigner. A new business needs 500,000 lira of paid-in capital; an established one needs that, or 8 million lira of net sales, or 150,000 US dollars of exports. Your salary must be at least the applicable multiple of the gross minimum wage in force on the day you apply: five times for senior executives and pilots, four for engineers and architects, three for other managers, twice for jobs requiring expertise or mastery, and once for domestic and other work. The gross minimum wage for 2026 is 33,030 lira a month (net 28,075.50). We give you the multipliers and the wage separately because the Ministry publishes them separately; we did not verify an official page publishing the multiplied figures.',
+          },
+        },
+        {
+          kind: 'importantToKnow',
+          title: { en: 'The exemptions are worth checking before you give up.' },
+          body: {
+            en: 'Fifty million lira of annual net sales waives the employee quota for five foreigners. Since 3 August 2026, domestic applications can receive employment and financial-criteria relief for up to three foreigners who spent at least one year within the preceding three lawfully in Turkey under a work permit, residence permit or international protection; in a workplace using that relief, foreign permit-holders must not outnumber its Turkish employees. (Corrected 2026-09-14 in SB-193: this said "per workplace", which criterion 4.1 does not; the three is its own limit, and the workplace appears only in 4.2\'s headcount limit.) Long-term residence permit holders and foreigners living in a marital union with a Turkish citizen for at least three years are exempt from the employment, financial and salary criteria. There is conditional relief in IT, research, education, public projects, tourism and livestock. For balance-sheet businesses, an applicant partner needs at least a 500,000-lira capital share and twenty per cent ownership, and the business needs at least 500,000 lira paid-in capital; five Turkish employees are required monthly from month seven of the initial permit. A capital share of at least US$100,000 waives these tests.',
+          },
+        },
+        {
+          kind: 'whatYouNeed',
+          title: { en: 'Passing those tests is not the same as being allowed to do the job.' },
+          body: {
+            en: 'Some professions are reserved to Turkish citizens. The Ministry publishes a consolidated list with the law behind each entry, covering dentistry, pharmacy, veterinary medicine, advocacy, notarial work, private security and tourist guiding among others. Check that list, then confirm the provision and any exception that applies to your own profession. Health and education work can need separate authorisation first.',
+          },
+        },
+        {
+          kind: 'commonProblems',
+          title: { en: 'If you leave the job or lose it.' },
+          body: {
+            en: "Your permit does not move with you. Working for a different employer needs a new permit, and the law treats that application as a first application rather than a transfer. When the employment ends the permit is liable to cancellation, and your employer must tell the Ministry within fifteen days. That fifteen days is the employer's reporting duty and it is not a grace period for you. There is a separate ten-day window for a residence-permit application: Article 21(6) of the regulation implementing Law 6458 lets someone whose work permit has been cancelled or has ended apply for a residence permit within ten days. The residence right that came from the work permit ends with it; a separate, still-valid residence permit is not invalidated by that cancellation. We could not verify whether the days before that application count as lawful residence, or exactly which date the ten days run from, and the provision gives neither permission to work nor an unconditional period to look for a job.",
+          },
+        },
+        {
+          kind: 'howToDoIt',
+          title: { en: 'Do not assume a pending application protects you.' },
+          body: {
+            en: 'If your residence permit expires while a first work permit application is being decided, we could not find a rule that extends your stay. The Ministry permits continued work while a timely extension application is assessed, for no more than ninety days and with the same work and workplace; this does not cover a first application. The Presidency says plainly that residence permits are not issued for the purpose of applying for a work permit.',
+          },
+        },
+        {
+          kind: 'whereToDoIt',
+          title: { en: 'Fees.' },
+          body: {
+            en: 'The standard 2026 fee for a fixed-term work permit of up to one year is 12,574.90 lira, plus 964 lira for the card. The tariff distinguishes independent, permanent and temporary-protection permits.',
+          },
+        },
+      ],
+      sources: [
+        {
+          url: 'https://www.csgb.gov.tr/uigm/calisma-izni/calisma-izni-degerlendirme-kriterleri/',
+          name: 'Çalışma ve Sosyal Güvenlik Bakanlığı, Çalışma İzni Değerlendirme Kriterleri',
+        },
+        {
+          url: 'https://www.csgb.gov.tr/sikca-sorulan-sorular/uluslararasi-%C4%B1sgucu-genel-mudurlugu/calisma-%C4%B1zni/',
+          name: 'Çalışma ve Sosyal Güvenlik Bakanlığı, Çalışma İzni Sıkça Sorulan Sorular',
+        },
+        {
+          url: 'https://www.csgb.gov.tr/tr/poco-pages/asgari-ucret/',
+          name: 'Çalışma ve Sosyal Güvenlik Bakanlığı, Asgari Ücretin Net Hesabı ve İşverene Maliyeti',
+        },
+        { url: 'https://www.mevzuat.gov.tr/MevzuatMetin/1.5.6735.pdf', name: '6735 sayılı Kanun, Madde 22' },
+        {
+          url: 'https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/7.5.21460.pdf',
+          name: 'Yabancılar ve Uluslararası Koruma Kanununun Uygulanmasına İlişkin Yönetmelik, Madde 21',
+        },
+        {
+          url: 'https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/7.5.39337.pdf',
+          name: 'Uluslararası İşgücü Kanunu Uygulama Yönetmeliği, Madde 27',
+        },
+        {
+          url: 'https://www.csgb.gov.tr/uigm/genel-bilgi/harc-ve-degerli-k%C3%A2git-bedelinin-odenmesi/',
+          name: 'Çalışma ve Sosyal Güvenlik Bakanlığı, Harç ve Değerli Kâğıt Bedelinin Ödenmesi',
+        },
+        { url: 'https://www.mevzuat.gov.tr/MevzuatMetin/1.5.492.pdf', name: '492 sayılı Harçlar Kanunu' },
+        {
+          url: 'https://ms.hmb.gov.tr/uploads/sites/3/2025/12/2026-Degerli-Kagitlar-Tebligi-a3f95f2236d8ad45.pdf',
+          name: 'Muhasebat Genel Müdürlüğü Genel Tebliği (Sıra No: 97) Değerli Kağıtlar',
+        },
+      ],
+    },
+    obligations: [],
+  },
+  // Written from research/agreed/turkey/company-formation.md (SB-279).
+  {
+    country: 'tr',
+    task: 'start-a-business',
+    area: { slug: 'company-formation', en: 'Form a limited company', fa: 'تأسیس شرکت با مسئولیت محدود' },
+    guide: {
+      slug: 'company-formation',
+      verifiedAt: '2026-09-14',
+      en: {
+        title: 'Starting a limited company in Turkey as a foreigner',
+        description: 'For an ordinary business, yes, and you need no investment permission to do it.',
+      },
+    },
+    detail: {
+      slug: 'company-formation',
+      sections: [
+        {
+          kind: 'beforeYouStart',
+          title: { en: 'Can you even own one?' },
+          body: {
+            en: 'A foreigner can be the sole shareholder, there is no Turkish partner requirement and no minimum foreign shareholding. Living abroad does not disqualify you. Some sectors are different: private security is subject to reciprocity and needs operating permission, and broadcasting caps direct foreign capital at half the paid-up capital and must be an *anonim şirket* rather than a limited one. We verified those two; we did not check every sector, so check yours.',
+          },
+        },
+        {
+          kind: 'importantToKnow',
+          title: { en: 'The five Turkish employees.' },
+          body: {
+            en: 'This is the thing that stops people, and it is misplaced. There is no obligation on a company to employ five Turkish citizens simply because it exists or has a foreign shareholder. The five belongs to the work permit assessment for a foreign partner, and it starts from the seventh month of that first work permit, not from incorporation. A partner with a capital share of US$100,000 or more is exempt from it.',
+          },
+        },
+        {
+          kind: 'whatYouNeed',
+          title: { en: 'What it costs.' },
+          body: {
+            en: "The minimum capital is 50,000 lira. For cash capital, no statutory payment is required before registration; the full subscribed amount must be paid within twenty-four months after registration, or earlier under the payment schedule in the articles or set by the managers. This rule is national. The capital is your company's money, not a fee. The state's own formation fee is zero: formation is exempt from the registry *harç*. What you actually pay is the Competition Authority levy at 0.04 per cent of subscribed capital, which is 20 lira at the minimum; the Trade Registry Gazette at 2.48 lira per word of your announcement; and your chamber's own charges, which differ by city. Istanbul's published 2026 tariff lists 2,160 lira for formation certification, 2,760 for opening-book certification and 250 for publication expenses; chamber registration for a new capital company is 3,305 lira. These are verified tariff entries, not a confirmed complete bill: a signature declaration is separately listed at 1,720 lira in the general tariff, while the limited-company formation cost sheet includes signature declarations in its 2,160 lira service fee. Antalya's equivalent new registration is 4,875 lira. We verified national notarial tariff components, not an all-inclusive formation quote: the notary's fee is 30 per cent of the applicable statutory notarial *harç*, minimum 58.82 lira; writing and copying are 80.68 lira per chargeable page; translation under Article 4 is 667.67 lira per page, halved for pages containing ten lines or fewer. Istanbul's chamber charges a registration fee. Annual dues follow, and none are charged in the year you register. Istanbul assesses annual dues by registered capital or net assets; its 2026 band from 25,001 to 250,000 lira carries 3,500 lira a year, collected in June and October, with supplementary dues of 0.5 per cent of commercial balance-sheet profit, within statutory limits.",
+          },
+        },
+        {
+          kind: 'howToDoIt',
+          title: { en: 'What happens after registration, which is where the deadlines are.' },
+          body: {
+            en: 'Your tax registration is transmitted by the registry, so you do not file a separate commencement notification the way a sole trader does; check that it has actually been established. Apply for electronic tax notifications within fifteen days of commencement. Get your tax certificate within a month of your tax liability starting, then renew it by 31 May each year, or, for a special accounting period, within one month after the declaration deadline. Your SGK workplace registration is created automatically by the registry-based formation. An employee must normally be registered at least a day before they start.',
+          },
+        },
+        {
+          kind: 'whatToCheck',
+          title: { en: 'The municipal licence has no grace period.' },
+          body: {
+            en: 'If your premises and activity need an opening and operating licence, you need it before you open, and premises operating without one can be closed. A 2026 change worth knowing: companies registered from 1 January 2026 keep their share register and general meeting minutes electronically in the ETDS system, opened automatically with registration.',
+          },
+        },
+        {
+          kind: 'whereToDoIt',
+          title: { en: 'Where your company can live.' },
+          body: {
+            en: 'We could not verify a nationwide yes or no on registering at a home address or a virtual office, and we could not verify a universal requirement to hold a commercial lease. What is clear is that registering a company and being allowed to operate from a place are two different permissions, and some activities have premises requirements that a home or a mailbox cannot meet. We did not find a verified comparison of two named cities accepting different facts, so we are not claiming one.',
+          },
+        },
+        {
+          kind: 'commonProblems',
+          title: { en: 'A bookkeeper.' },
+          body: {
+            en: 'We could not establish that every new limited company must retain an external accountant within a fixed period. National rules require professional signatures for specified tax returns from covered taxpayers, subject to exemptions. We could not verify the applicable 2026 asset and net-sales thresholds from a government source. The available evidence does not establish that professional involvement becomes mandatory only above a size threshold.',
+          },
+        },
+      ],
+      sources: [
+        { url: 'https://www.mevzuat.gov.tr/MevzuatMetin/1.5.6112.pdf', name: '6112 sayılı Kanun, Madde 19' },
+        {
+          url: 'https://www.rtuk.gov.tr/izin-ve-tahsisler-dairesi-baskanligi/3923',
+          name: 'RTÜK İzin ve Tahsisler Dairesi Başkanlığı, sıkça sorulan sorular',
+        },
+        {
+          url: 'https://www.csgb.gov.tr/uigm/calisma-izni/calisma-izni-degerlendirme-kriterleri/',
+          name: 'Çalışma ve Sosyal Güvenlik Bakanlığı, Çalışma İzni Değerlendirme Kriterleri',
+        },
+        {
+          url: 'https://www.resmigazete.gov.tr/eskiler/2023/11/20231125-23.pdf',
+          name: 'Resmî Gazete, 25 Kasım 2023, Cumhurbaşkanı Kararı 7887',
+        },
+        {
+          url: 'https://www.resmigazete.gov.tr/eskiler/2023/11/20231126-5.htm',
+          name: 'Resmî Gazete, 26 Kasım 2023, 7887 sayılı Cumhurbaşkanı Kararı ile ilgili düzeltme',
+        },
+        { url: 'https://www.mevzuat.gov.tr/MevzuatMetin/1.5.6102.pdf', name: '6102 sayılı Türk Ticaret Kanunu, Madde 580' },
+        { url: 'https://ticaret.gov.tr/ic-ticaret/sirketler/sirket-bilgiler', name: 'Ticaret Bakanlığı, Şirket Bilgileri' },
+        {
+          url: 'https://www.ito.org.tr/tr/hizmetler/ticaret-sicili-islemleri/tescil-islemleri/limited-sirketler',
+          name: 'İTO, Limited Şirketler',
+        },
+        { url: 'https://www.mevzuat.gov.tr/MevzuatMetin/1.5.492.pdf', name: '492 sayılı Harçlar Kanunu' },
+        {
+          url: 'https://www.ito.org.tr/documents/Ticaret-Sicil/onemli_bilgiler_ve_duyurular/harc.pdf',
+          name: 'İTO, 2026 Yılı Ticaret Sicili Harçları, TTSG İlan Ücretleri, Hizmet Bedelleri',
+        },
+        { url: 'https://www.mevzuat.gov.tr/MevzuatMetin/1.5.4054.pdf', name: '4054 sayılı Kanun, Madde 39' },
+        {
+          url: 'https://www.ito.org.tr/documents/Ticaret-Sicil/ltd_kurulus_surec/teknoktadalimitedsirketkurulususurecmaliyettr.pdf',
+          name: 'İTO, Tek Noktada Limited Şirket Kuruluşu, Süreç ve Maliyet',
+        },
+        { url: 'https://ito.org.tr/tr/hizmetler/aidat-islemleri', name: 'İTO, Aidat İşlemleri' },
+        { url: 'https://www.atso.org.tr/tr/hizmetler/uye-rehberi/uye-ucretleri', name: 'Antalya Ticaret ve Sanayi Odası, Üye Ücretleri' },
+        {
+          url: 'https://higm.adalet.gov.tr/Resimler/SayfaDokuman/202512301701273242026%20YILI%20NOTERL%C4%B0K%20%C3%9CCRET%20TAR%C4%B0FES%C4%B0.pdf',
+          name: '2026 Yılı Noterlik Ücret Tarifesi',
+        },
+        {
+          url: 'https://cdn.gib.gov.tr/api/gibportal-file/file/getFileResources?objectKey=arsiv%2Fonceki-dokumanlar%2Fise_yeni_baslayan_kurumlar_vergisi_mukellefleri_2026.pdf',
+          name: 'Gelir İdaresi Başkanlığı, İşe Yeni Başlayan Kurumlar Vergisi Mükelleflerinin Hak ve Ödevleri',
+        },
+        {
+          url: 'https://gib.gov.tr/mevzuat/kanun/434/teblig/8006',
+          name: "Gelir İdaresi Başkanlığı, 408 Sıra No'lu Vergi Usul Kanunu Genel Tebliği",
+        },
+        {
+          url: 'https://cdn.gib.gov.tr/api/gibportal-file/file/getFileResources?objectKey=arsiv%2Fonceki-dokumanlar%2Fmuk_hak_odev_elektr_uyg_ceza_rehberi.pdf',
+          name: 'Gelir İdaresi Başkanlığı rehberi, Vergi levhasının alınması ve bulundurulması',
+        },
+        {
+          url: 'https://www.sgk.gov.tr/Content/Post/d9d838d8-6585-40f5-bbcc-47bd43c59bb4/Isverenin-Yukumlulukleri-2022-05-15-06-17-29',
+          name: 'SGK, İşverenin Yükümlülükleri',
+        },
+        { url: 'https://www.mevzuat.gov.tr/MevzuatMetin/1.5.5510.pdf', name: '5510 sayılı Kanun, Madde 8' },
+        {
+          url: 'https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=20059207&MevzuatTur=21&MevzuatTertip=5',
+          name: 'İşyeri Açma ve Çalışma Ruhsatlarına İlişkin Yönetmelik (Bakanlar Kurulu Kararı 2005/9207)',
+        },
+        {
+          url: 'https://ticaret.gov.tr/data/5e0f1da813b87658f03c9b74/Bakkall%C4%B1k%20Meslek%20K%C4%B1lavuzu.pdf',
+          name: 'Ticaret Bakanlığı, Bakkallık Meslek Kılavuzu',
+        },
+        {
+          url: 'https://ticaret.gov.tr/haberler/1-ocak-2026-tarihinden-sonra-kurulacak-sirketlerde-elektronik-ticari-defter-sistemi-zorunlu-olacak',
+          name: 'Ticaret Bakanlığı, 1 Ocak 2026 tarihinden sonra kurulacak şirketlerde Elektronik Ticari Defter Sistemi zorunlu olacak',
+        },
+      ],
+    },
+    obligations: [],
+  },
 ]
 
 // As long as the research rules' own load may take, waiting on another container's (src/rules/research/load.ts).

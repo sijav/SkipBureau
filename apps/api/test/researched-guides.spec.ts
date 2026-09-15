@@ -13,6 +13,10 @@ const DOCUMENTS: Readonly<Record<string, string>> = {
   'tr/short-term-residence-permit': 'turkey/short-term-residence-permit.md',
   'de/residence-permit': 'germany/residence-permit.md',
   'tr/register-your-address': 'turkey/address-registration.md',
+  'tr/tax-number': 'turkey/tax-number.md',
+  'tr/health-insurance': 'turkey/health-insurance.md',
+  'tr/work-permit': 'turkey/work-permit.md',
+  'tr/company-formation': 'turkey/company-formation.md',
 }
 
 const keyOf = (guide: (typeof RESEARCHED_GUIDES)[number]): string => `${guide.country}/${guide.guide.slug}`
@@ -70,7 +74,10 @@ test('no researched guide gives a sentence emphasis its document does not: no qu
         undefined,
       ])
       expect(section.kind, label).not.toBe('yourOptions')
-      expect(section.title?.en.endsWith('.'), `${label}: a bold lead keeps its full stop`).toBe(true)
+      // SB-279: a lead can ask, as company formation's first does.
+      expect(/[.?]$/.test(section.title?.en ?? ''), `${label}: a bold lead keeps its closing mark, a full stop or a question mark`).toBe(
+        true,
+      )
     }
   }
 })
