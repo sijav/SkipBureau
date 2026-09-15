@@ -17,6 +17,10 @@ msgstr ""
 msgid "{asks} can change this"
 msgstr "{asks} می‌تواند این را تغییر دهد"
 
+#: src/shared/rule-answer/RuleAnswer.tsx
+msgid "{asks} decides the answer"
+msgstr "{asks} پاسخ را تعیین می‌کند"
+
 #: src/shared/rule-answer/factValue.ts
 msgid "{count, plural, one {# calendar year} other {# calendar years}}"
 msgstr "{count, plural, one {# سال تقویمی} other {# سال تقویمی}}"
@@ -1246,6 +1250,10 @@ msgstr "به ما بگویید"
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Tell us if you have done this in Antalya"
 msgstr "اگر این کار را در آنتالیا انجام داده‌اید، به ما بگویید"
+
+#: src/shared/rule-answer/RuleAnswer.tsx
+msgid "Tell us to show your answer."
+msgstr "به ما بگویید تا پاسخ شما را نشان دهیم."
 
 #: src/screens/suggest/SuggestUpdate.tsx
 msgid "Tell us what looks outdated, incorrect or missing."

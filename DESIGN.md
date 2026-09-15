@@ -1090,7 +1090,9 @@ rule it shows the facts that apply to the reader, each with the page it was read
 on and the day, and the rule's notes. Until the reader has said the detail that
 would change it, it shows the rule for everyone, marked as that, and an
 Information panel `14:26` naming the detail with a button that opens the details
-panel from the header. A guide that links no rule shows nothing new.
+panel from the header. A rule with no version for everyone shows only its title
+and that panel, saying the detail decides the answer, and is never captioned the
+rule for everyone (SB-271). A guide that links no rule shows nothing new.
 
 ### The content model, quoted from `151:995`
 

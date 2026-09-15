@@ -17,15 +17,16 @@ export type RuleNoteLine = { text: string; lang: string }
 export type RuleAnswerProps = {
   title: ReactNode
   /**
-   * `answered`: the reader's own answer. `general`: the rule for everyone in
-   * the country, where a detail the reader has not given can change it.
+   * `answered`: the reader's own answer. `general`: not answered for the reader
+   * yet: the rule for everyone in the country where there is one, and the detail
+   * the reader has not given that can change it, or decides a rule with none.
    * `needsReview`: two rules apply and the reader has to decide. `noRule`: no
    * rule held applies to what the reader has said.
    */
   state: 'answered' | 'general' | 'needsReview' | 'noRule'
   lines: readonly RuleLine[]
   notes: readonly RuleNoteLine[]
-  /** The detail that can change a general answer, in words: "Where you live". */
+  /** The detail that can change the rule for everyone, or decides a rule with none, in words: "Where you live". */
   asks?: ReactNode | undefined
   reason?: ReactNode | undefined
   onAsk?: (() => void) | undefined
@@ -34,11 +35,14 @@ export type RuleAnswerProps = {
 export const RuleAnswer = ({ title, state, lines, notes, asks, reason, onAsk }: RuleAnswerProps) => {
   const { tokens } = useTheme()
   const heading = useId()
+  // SB-271: "The rule for everyone" names the lines and notes under it, so a rule with none on screen, one with no
+  // version for everyone, is never called that, and its question says the detail decides the answer.
+  const showsRule = lines.length > 0 || notes.length > 0
 
   return (
     <Stack component="section" aria-labelledby={heading} spacing="12px">
       <Stack spacing="4px">
-        {state !== 'noRule' && (
+        {(state === 'answered' || (state !== 'noRule' && showsRule)) && (
           <Typography variant="caption" sx={{ color: state === 'answered' ? tokens.accentText : tokens.textSecondary }}>
             {state === 'answered' ? <Trans>For you</Trans> : <Trans>The rule for everyone</Trans>}
           </Typography>
@@ -85,10 +89,17 @@ export const RuleAnswer = ({ title, state, lines, notes, asks, reason, onAsk }: 
       )}
 
       {state === 'general' && asks && (
-        <InfoPanel kind="coverageGap" heading={<Trans>{asks} can change this</Trans>}>
+        <InfoPanel
+          kind="coverageGap"
+          heading={showsRule ? <Trans>{asks} can change this</Trans> : <Trans>{asks} decides the answer</Trans>}
+        >
           <Stack spacing="12px" sx={{ alignItems: 'flex-start' }}>
             <span>
-              <Trans>This is the rule for everyone. Tell us, and we show the answer for you.</Trans>
+              {showsRule ? (
+                <Trans>This is the rule for everyone. Tell us, and we show the answer for you.</Trans>
+              ) : (
+                <Trans>Tell us to show your answer.</Trans>
+              )}
             </span>
             {onAsk && (
               <Button variant="secondary" onClick={onAsk}>

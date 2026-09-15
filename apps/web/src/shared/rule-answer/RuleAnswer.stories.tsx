@@ -66,6 +66,18 @@ export const General: Story = {
   },
 }
 
+/** SB-271: a rule with no version for everyone is never called that; it says what decides the answer, and a way to say it. */
+export const AsksFirst: Story = {
+  args: { title: 'Pay the residence permit charge', lines: [], notes: [], asks: 'Your nationality' },
+  play: async ({ canvasElement, args }) => {
+    const answer = within(canvasElement)
+    await expect(await answer.findByText(/Your nationality decides the answer/, {}, { timeout: 5000 })).toBeVisible()
+    await expect(answer.queryAllByText(/rule for everyone/i)).toHaveLength(0)
+    await userEvent.click(answer.getByRole('button', { name: 'Tell us' }))
+    await expect(args.onAsk).toHaveBeenCalled()
+  },
+}
+
 /** The reader's own answer: Hamburg's fee with the federal deadline and fine it takes from the national rule. */
 export const Answered: Story = {
   args: { state: 'answered', lines: [fee, deadline, fine], asks: undefined },

@@ -10,9 +10,12 @@ label shows no line.
 
 **The rule for everyone** is the country-wide rule, shown where a detail the
 reader has not given can change it, with that detail named and a way to give it.
-It is never presented as the reader's own answer. **For you** is the answer for
-what the reader has said, with the facts it takes from wider places. Two rules
-that both apply show why, and pick neither; a rule that does not apply says so.
+It is never presented as the reader's own answer. The caption names the lines and
+notes under it, so a rule with no version for everyone, which has none, is never
+called that: it shows only the detail that decides the answer and the way to give
+it (SB-271). **For you** is the answer for what the reader has said, with the
+facts it takes from wider places. Two rules that both apply show why, and pick
+neither; a rule that does not apply says so.
 
 ## Props
 
@@ -20,6 +23,6 @@ that both apply show why, and pick neither; a rule that does not apply says so.
 - `state`: `answered`, `general`, `needsReview` or `noRule`.
 - `lines`: Each labelled fact, with its value and its page.
 - `notes`: The rule's notes, each with its language.
-- `asks`: The detail that can change a general answer, in words.
+- `asks`: The detail that can change the rule for everyone, or decides a rule that has no such version, in words.
 - `reason`: Why two rules apply, for `needsReview`.
 - `onAsk`: Opens the details panel, where the reader gives the detail.
