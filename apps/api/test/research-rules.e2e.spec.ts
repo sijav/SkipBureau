@@ -638,12 +638,15 @@ test("a reader moving to Germany is told the Anmeldung's two weeks and fine ceil
   expect(await germanEntryFor(slug)).toMatchObject({ verdict: 'needsDetail', needs: ['residenceRegion'], to: null })
 })
 
-test("a skilled worker with a degree holding a national D visa or a residence permit is told that applying before it expires keeps it valid, in Munich and Berlin also their procedure, in a place no rule names the federal facts alone, is asked where when they have said only a Land holding a named place or nothing, and a reader on a Schengen visa is told nothing of it", async () => {
+test("a skilled worker with a degree holding a national D visa or a residence permit is told that applying before it expires keeps it valid, in Munich and Berlin also their procedure, in a place no rule names the federal facts alone, is asked where when they have said only a Land holding a named place or nothing, and a reader on a Schengen visa is told what the file's version for that visa says, or nothing where it has none", async () => {
   const slug = 'get-a-residence-permit-as-a-skilled-worker-with-a-degree'
   const versions = GERMANY.versions.filter((version) => version.obligation === slug)
   const valueOf = (version: ResearchVersion, dimension: string) => version.criteria.find((criterion) => criterion.dimension === dimension)?.value ?? null
-  const statuses = [...new Set(versions.map((version) => valueOf(version, 'residenceStatus')))].filter((status): status is string => status !== null)
-  expect(statuses, "Germany's file has no status for this permit").not.toEqual([])
+  // Only the statuses a place version names: a status with no place version is never asked where (SB-234).
+  const statuses = [
+    ...new Set(versions.filter((version) => valueOf(version, 'residenceRegion') !== null).map((version) => valueOf(version, 'residenceStatus'))),
+  ].filter((status): status is string => status !== null)
+  expect(statuses, "Germany's file names no place for any status of this permit").not.toEqual([])
   const named = versions.map((version) => valueOf(version, 'residenceRegion')).filter((place): place is string => place !== null)
   const plain = GERMANY.regions.find((region) => region.parent === null && !named.some((place) => place === region.code || place.startsWith(`${region.code}.`)))
   const holding = GERMANY.regions.find((region) => region.parent === null && named.some((place) => place.startsWith(`${region.code}.`)))
@@ -673,8 +676,11 @@ test("a skilled worker with a degree holding a national D visa or a residence pe
     }
   }
 
-  // No rule of this permit is for a Schengen visa, so a reader holding one is told nothing of it.
-  expect(await germanEntryFor(slug, [plain.code], ['de.schengen-visa'])).toBeUndefined()
+  // A Schengen visa holder is told what the file's version for that visa says, and nothing where it has none (SB-241).
+  const schengen = versions.find((version) => valueOf(version, 'residenceStatus') === 'de.schengen-visa')
+  const onSchengen = await germanEntryFor(slug, [plain.code], ['de.schengen-visa'])
+  if (schengen) expect(onSchengen?.to?.facts).toEqual(factsIn(GERMANY, schengen))
+  else expect(onSchengen).toBeUndefined()
 
   // A place inside that Land which no rule names is told the federal facts alone. Germany's file names no such place,
   // so one is added to a copy of it, and the real file loaded again puts every row back.
