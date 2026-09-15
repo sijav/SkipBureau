@@ -809,3 +809,462 @@ All read 2026-09-12.
 ## Answered
 
 No. URLs opened this turn: none.
+
+---
+
+## Asked, 2026-09-15 06:59 UTC
+
+A new question on this case, 2026-09-15. The agreed document is published as rules, and several points in it cannot become rules yet, because no official page we have opened states them; one agreed sentence also looks wrong against the statute. Please research each from official sources.
+
+1. §41 AufenthV. List the nationalities §41(1) and §41(2) name, each with its condition, as the current text on gesetze-im-internet.de states it. §41(1) names the United Kingdom "im Sinne des § 1 Absatz 2 Nummer 6 des Freizügigkeitsgesetzes/EU", and that provision points to the persons Article 2(d) of the Withdrawal Agreement names: which British nationals does that cover, and which forms of British nationality does it leave out, on EUR-Lex or another official page? §41(2) excepts "die in § 17 Abs. 2 genannten Tätigkeiten": which §17 is that, what does it cover, and so can a national of a country §41(2) names use this route to apply inside Germany for a residence permit under §18b AufenthG, as a skilled worker with a degree? State §41(3)'s deadline and when it ends early, and §41(4)'s exclusion.
+
+2. §39 Nr. 3 AufenthV. What does it require of a visa-free reader of a nationality §41 does not name, or of a Schengen visa holder, who wants a §18b residence permit inside Germany? What does an official page say "nach der Einreise entstanden" means for a skilled worker, for instance when the job offer was made before entry (the Federal Foreign Office, the BAMF, make-it-in-germany.com, a Land's immigration authority, or a federal or Land administrative instruction)? How does §5(2) sentence 2 AufenthG bear on it? And is the agreed sentence "arriving visa-free as a tourist is not a general route to applying for a work permit inside Germany: §41 AufenthV opens that route only to specified nationalities" correct, or how must it be corrected?
+
+3. §81(3) AufenthG. Give its two sentences. When is an application late in sentence 2's sense for a §41(1) national, and for a visa-free reader outside §41, given §81(2)? For a reader lawfully in Germany visa-free, without a residence title, who applies: does the application let them work, and does a Fiktionsbescheinigung issued under §81(3) let them leave Germany and come back in? Name the official page, federal or of a Land, that states each.
+
+4. §81(4). Sentence 2 reads "Dies gilt nicht für ein Visum nach § 6 Absatz 1", §6(1) names the Schengen visa and the airport transit visa, and §4(1) Nr. 1 makes the Schengen visa a residence title. For a Schengen C visa holder who applies inside Germany for a §18b permit: does their visa continue until the decision? Can sentence 3, the authority's power to order continuation for a late application to avoid undue hardship, reach a Schengen visa, and which official source says so either way? Does §81(3) reach them? What does an official page tell them about applying inside Germany? Open Berlin's current administrative instructions on the Residence Act (Verfahrenshinweise der Ausländerbehörde Berlin, VAB) at 81.4.2 and 81.4.3, and the Federal Administrative Court's judgment of 19 November 2019, 1 C 22.18, and say what each states about a Schengen visa and an application made while holding one, and whether either addresses sentence 3.
+
+For every claim, give the official URL and the section or paragraph that states it, and say plainly where no official page you opened states it. At the end, list the URLs you opened this turn.
+
+## Answered
+
+The agreed sentence about §41 needs correcting: **§41 is not the only route to obtaining an employment residence permit inside Germany.** Two narrower questions remain unverified: the precise treatment of a pre-entry job offer under §39 no. 3, and a categorical answer about applying §81(4) sentence 3 to Schengen visas.
+
+The statutory rules below apply nationwide. Berlin’s VAB is administrative guidance interpreting those rules, not different Land legislation.
+
+**1. §41 AufenthV**
+
+The current [§41(1)–(2)](https://www.gesetze-im-internet.de/aufenthv/__41.html) names:
+
+| Provision | Nationalities | Condition |
+|---|---|---|
+| §41(1) | Australia, Israel, Japan, Canada, Republic of Korea, New Zealand, United Kingdom as defined below, United States of America | They may enter and stay visa-free even for a stay that is not a short stay, and obtain the required residence title in Germany. |
+| §41(2) | Andorra, Brazil, El Salvador, Honduras, Monaco, San Marino | The same privilege applies only to people “die keine Erwerbstätigkeit mit Ausnahme der in § 17 Abs. 2 genannten Tätigkeiten ausüben wollen.” |
+
+For the British category, [§1(2) no. 6 FreizügG/EU](https://www.gesetze-im-internet.de/freiz_gg_eu_2004/__1.html) expressly refers to Article 2(d) of the Withdrawal Agreement.
+
+The covered categories are:
+
+- **British citizens**.
+- **British subjects under Part IV of the British Nationality Act 1981 who have the right of abode in the UK**, and are therefore exempt from UK immigration control.
+- **British Overseas Territories citizens whose citizenship derives from a connection with Gibraltar**.
+
+The UK government states that definition and the replacement of “British Dependent Territories citizens” with “British overseas territories citizens” in its [glossary, “UK national”](https://www.gov.uk/government/publications/safeguarding-the-position-of-eu-citizens-in-the-uk-and-uk-nationals-in-the-eu/the-united-kingdoms-exit-from-the-european-union-safeguarding-the-position-of-eu-citizens-living-in-the-uk-and-uk-nationals-living-in-the-eu).
+
+Berlin expressly excludes **British Nationals (Overseas), British Overseas Territories citizens without the Gibraltar connection, British Overseas citizens, British Protected Persons, and British subjects without right of abode**. It also expressly says §41 covers qualifying British nationals who are **not** covered by the Withdrawal Agreement’s residence protections. These are nationality categories, not a requirement to have lived in Germany before Brexit. [VAB, B.AufenthV.41, p. 699](https://www.berlin.de/einwanderung/_assets/20191129.pdf?ts=1766489182).
+
+**Access limitation:** EUR-Lex did not reliably expose the Withdrawal Agreement’s text during this check. The British categories above were verified from the opened UK government page and Berlin’s current VAB.
+
+The §17 reference is **§17(2) of the Aufenthaltsverordnung**, not §17 AufenthG. It covers specified activities treated as **not constituting employment for Residence Act purposes**, through its references to §30 BeschV, plus corresponding self-employed activities:
+
+- §30 no. 1 BeschV: specified executives, business travellers and exhibition-related activities, subject to **90 days within 180 days**.
+- §30 no. 2: the activities enumerated in §§5, 14, 15, 17, 18, 19(1), 20, 22, 23 and 24b BeschV, subject to **90 days within twelve months**. These include specified scientific, training, journalistic, performance and other activities.
+- §30 no. 3: qualifying cross-border services under §21 BeschV by people holding EU long-term-resident status in another Member State, subject to **90 days within twelve months**.
+- §17(2) also removes its time restriction for specified drivers merely transporting goods or passengers through Germany without a change of vehicle.
+
+These are limited exceptions with their own conditions, not a general exemption for graduate employment. [§17(2) AufenthV](https://www.gesetze-im-internet.de/aufenthv/__17.html); [§30 BeschV](https://www.gesetze-im-internet.de/beschv_2013/__30.html); [referenced BeschV provisions](https://www.gesetze-im-internet.de/beschv_2013/BJNR149910013.html).
+
+**Consequently, nationality under §41(2) alone does not provide the route for an ordinary ongoing §18b job.** Someone intending that employment does not meet its “keine Erwerbstätigkeit … ausüben wollen” condition. A separate route, such as §39 no. 3 when its conditions are met, must be considered. This conclusion follows from the statutory conditions; it is not a separate Bavarian or Berlin restriction.
+
+[§41(3)](https://www.gesetze-im-internet.de/aufenthv/__41.html) states:
+
+> Ein erforderlicher Aufenthaltstitel ist innerhalb von 90 Tagen nach der Einreise zu beantragen. Die Antragsfrist endet vorzeitig, wenn der Ausländer ausgewiesen wird oder sein Aufenthalt nach § 12 Abs. 4 des Aufenthaltsgesetzes zeitlich beschränkt wird.
+
+[§41(4)](https://www.gesetze-im-internet.de/aufenthv/__41.html) excludes applications for an **ICT card under §19 AufenthG** from paragraphs 1–3.
+
+**2. §39 no. 3 AufenthV and the agreed sentence**
+
+[§39 no. 3](https://www.gesetze-im-internet.de/aufenthv/__39.html) provides two alternatives:
+
+- A national of a state listed in **Annex II to Regulation (EU) 2018/1806**, lawfully present in Germany.
+- A holder of a **valid Schengen visa for a short stay under §6(1) no. 1 AufenthG**.
+
+For either alternative, the decisive additional condition is:
+
+> sofern die Voraussetzungen eines Anspruchs auf Erteilung eines Aufenthaltstitels nach der Einreise entstanden sind
+
+It excludes claims under §§16b, 16e and 19e. **§18b is not excluded.** Its current wording establishes an entitlement to a permit for qualified employment when the applicable requirements are fulfilled; possession of a degree alone is insufficient. [AufenthG, §18b, together with §§18 and 5](https://www.gesetze-im-internet.de/aufenthg_2004/BJNR195010004.html).
+
+Berlin explains “nach der Einreise entstanden” by reference to the **essential event triggering the entitlement**, rather than requiring every prerequisite to arise after entry. Its examples concern marriage and childbirth. Acquiring language skills or securing a livelihood after entry does not cure a marriage that already occurred before entry. [VAB, B.AufenthV.39.1.3, pp. 695–696](https://www.berlin.de/einwanderung/_assets/20191129.pdf?ts=1766489182).
+
+**I did not find an opened official source applying that test specifically to a §18b worker whose job offer was made before entry.** I therefore cannot publish “a pre-entry offer always disqualifies you,” or “signing the contract after arrival cures it,” as verified rules. Where the entitlement’s relevant conditions already existed before entry, §39 no. 3’s statutory post-entry condition is not met; determining precisely which employment event counts remains the gap.
+
+[§5(2) sentence 2 AufenthG](https://www.gesetze-im-internet.de/aufenthg_2004/__5.html) supplies a separate waiver mechanism:
+
+> Von den Voraussetzungen nach Satz 1 kann abgesehen werden, wenn die Voraussetzungen eines Anspruchs auf Erteilung erfüllt sind; von den Voraussetzungen nach Satz 1 ist abzusehen, wenn es auf Grund besonderer Umstände des Einzelfalls nicht zumutbar ist, das Visumverfahren nachzuholen.
+
+Thus:
+
+- Where the entitlement requirements are fulfilled, waiver of the visa requirements is **discretionary**.
+- Where particular circumstances make completing the visa procedure unreasonable, waiver is **mandatory**.
+- Neither branch itself promises protection while an application is pending.
+
+The agreed sentence should say:
+
+> Arriving visa-free as a tourist does not generally entitle you to obtain an employment residence permit inside Germany. §41(1) provides a nationality-based route; §41(2) has additional restrictions on intended work. A separate route exists under §39 no. 3 where its conditions are met, and §5(2) sentence 2 provides for waiver of the visa requirements in specified circumstances.
+
+That correction follows from [§41](https://www.gesetze-im-internet.de/aufenthv/__41.html), [§39 no. 3](https://www.gesetze-im-internet.de/aufenthv/__39.html) and [§5(2)](https://www.gesetze-im-internet.de/aufenthg_2004/__5.html).
+
+**3. §81(3): lawful visa-free stay, late applications, work and travel**
+
+Its two sentences are:
+
+> Beantragt ein Ausländer, der sich rechtmäßig im Bundesgebiet aufhält, ohne einen Aufenthaltstitel zu besitzen, die Erteilung eines Aufenthaltstitels, gilt sein Aufenthalt bis zur Entscheidung der Ausländerbehörde als erlaubt.
+
+> Wird der Antrag verspätet gestellt, gilt ab dem Zeitpunkt der Antragstellung bis zur Entscheidung der Ausländerbehörde die Abschiebung als ausgesetzt.
+
+Source: [§81(3) AufenthG](https://www.gesetze-im-internet.de/aufenthg_2004/__81.html).
+
+There are two related questions: **when the application must be made**, and **whether the stay was still lawful when it was made**.
+
+[§81(2) sentence 1](https://www.gesetze-im-internet.de/aufenthg_2004/__81.html) requires application “unverzüglich nach der Einreise oder innerhalb der in der Rechtsverordnung bestimmten Frist”. The federal administrative instructions expressly say §41(3) contains a fixed deadline; otherwise the requirement is prompt application. [AufenthG-VwV, 81.2.1, PDF p. 334 / printed GMBl p. 1210](https://www.verwaltungsvorschriften-im-internet.de/pdf/BMI-MI3-20091026-SF-A001.pdf).
+
+For “late” under §81(3), the same official instructions say:
+
+> Verspätet gestellt ist ein Antrag auf Erteilung eines Aufenthaltstitels dann, wenn der Aufenthalt im Zeitpunkt der Antragstellung nicht mehr rechtmäßig war.
+
+[AufenthG-VwV, 81.3.2, PDF p. 334 / GMBl p. 1210](https://www.verwaltungsvorschriften-im-internet.de/pdf/BMI-MI3-20091026-SF-A001.pdf).
+
+Applied to the readers in this case:
+
+- **A §41(1) national relying on that provision:** apply within §41(3)’s 90 days, subject to its early-ending conditions. Applying after that permitted stay has ended engages sentence 2, rather than sentence 1.
+- **A visa-free reader outside §41:** §41 does not grant them a 90-day application deadline. The prompt-application requirement applies, and the federal guidance identifies an application after the lawful stay has ended as late for sentence 2.
+
+I did **not** find an official statement that merely breaching “unverzüglich,” while the person’s stay remains independently lawful, automatically converts sentence 1 protection into sentence 2 protection. That should not be asserted.
+
+**Work:** the application alone does not authorise employment. Berlin’s official Fiktionsbescheinigung page says of §81(3):
+
+> Auch die Aufnahme einer Erwerbstätigkeit ist damit nicht gestattet.
+
+**Travel:** the same paragraph says:
+
+> Diese Fiktionsbescheinigung berechtigt hingegen nicht zur Wiedereinreise in das Bundesgebiet.
+
+Both statements appear in the descriptive paragraph beginning “Wenn die Antragstellerin oder der Antragsteller sich rechtmäßig ohne Visum …” on [Berlin’s Fiktionsbescheinigung page](https://service.berlin.de/dienstleistung/326233/). It does not mean departure is prohibited; it means that certificate supplies no right to return.
+
+The separate later work permission under **§81(5a)** remains relevant: it arises when issuance of the qualifying title is initiated and must be recorded on the certificate. It does not arise merely from submitting the application. [§81(5a)](https://www.gesetze-im-internet.de/aufenthg_2004/__81.html).
+
+**4. Schengen visas: §81(4), sentence 3, Berlin’s VAB and the judgment**
+
+**A Schengen C visa does not automatically continue because its holder applies for §18b before it expires.** §81(4) sentence 2 expressly excludes visas under §6(1), which covers Schengen and airport-transit visas. A Schengen visa is nevertheless a residence title under §4(1) sentence 2 no. 1. [§81(4)](https://www.gesetze-im-internet.de/aufenthg_2004/__81.html); [AufenthG, §§4(1) and 6(1)](https://www.gesetze-im-internet.de/aufenthg_2004/BJNR195010004.html).
+
+**§81(3) does not provide an alternative protection for someone applying while holding that visa.** The statutory distinction is possession of a residence title, not whether it is a long-term title. The Federal Administrative Court expressly rejected both direct and analogous application of §81(3), including where another Schengen state issued the visa. [BVerwG, 19 November 2019, 1 C 22.18, paragraphs 15–19 and 24–25](https://www.bverwg.de/191119U1C22.18.0).
+
+I opened the current **VAB, dated 31 August 2026**:
+
+- **81.4.2, p. 587:** all Schengen visas are excluded from automatic continuation. Applicants become obliged to leave when their visa expires despite their permit application, including an application invoking §5(2) sentence 2. It says a Fiktionsbescheinigung is unavailable in those cases.
+- **81.4.3, pp. 587–588:** expressly discusses **sentence 3** as a hardship provision for late applications. It requires an authority’s order and discusses minor negligent delay and the apparent ability to extend or issue a title. **It does not expressly decide whether a Schengen visa can receive that order.**
+
+Source: [VAB, A.81.4.2–81.4.3](https://www.berlin.de/einwanderung/_assets/20191129.pdf?ts=1766489182).
+
+The **2019 judgment** concerns an application made while a Spanish-issued Schengen visa was valid. It holds that the application produced no §81(3) or automatic §81(4) protection. **It does not decide the authority’s power under §81(4) sentence 3.** Its discussion of §39 no. 3 explains that permission to obtain a title domestically does not itself require a statutory right to remain pending the decision. Paragraph 23 identifies a possible **discretionary Duldung under §60a(2) sentence 3**, particularly where the substantive permit requirements probably exist. That is a different provision from §81(4) sentence 3. [BVerwG, paragraphs 17–25, especially 23](https://www.bverwg.de/191119U1C22.18.0).
+
+**Can §81(4) sentence 3 reach a Schengen visa? I cannot verify a categorical answer from these sources.** A further official judgment complicates any confident “never”: the Bavarian Administrative Court of Appeal says, in a tourist-visa case:
+
+> Das am 20. April 2025 abgelaufene Visum gilt auch nicht nach § 81 Abs. 4 Satz 3 AufenthG als fortbestehend, weil die Ausländerbehörde eine entsprechende Fortgeltungswirkung nicht angeordnet hat.
+
+That establishes the absence of an order in that case. It does **not** expressly decide that such an order would legally have been available. [BayVGH, 28 October 2025, 19 ZB 25.1649, paragraph 12](https://www.gesetze-bayern.de/Content/Document/Y-300-Z-BECKRS-B-2025-N-36228).
+
+For the reader applying inside Germany, the verified official position is therefore:
+
+- §39 no. 3 can permit domestic issuance when its conditions are satisfied.
+- Applying while holding a C visa gives no automatic continuation or §81(3) protection.
+- Berlin’s §18b online-application page explicitly excludes C visas from its confirmation that an existing title continues.
+- Any protection beyond visa expiry needs a separately established basis; a pending application alone is insufficient.
+
+Sources: [§39 no. 3](https://www.gesetze-im-internet.de/aufenthv/__39.html); [BVerwG, paragraph 23](https://www.bverwg.de/191119U1C22.18.0); [Berlin §18b page, “Verfahrensablauf”, step 1](https://service.berlin.de/dienstleistung/329328/).
+
+URLs opened and read this turn, one per line:
+
+https://www.gesetze-im-internet.de/aufenthv/__41.html  
+https://www.gesetze-im-internet.de/aufenthv/__17.html  
+https://www.gesetze-im-internet.de/aufenthv/__39.html  
+https://www.gesetze-im-internet.de/beschv_2013/__30.html  
+https://www.gesetze-im-internet.de/beschv_2013/BJNR149910013.html  
+https://www.gesetze-im-internet.de/aufenthg_2004/__5.html  
+https://www.gesetze-im-internet.de/aufenthg_2004/__81.html  
+https://www.gesetze-im-internet.de/aufenthg_2004/__4.html  
+https://www.gesetze-im-internet.de/aufenthg_2004/BJNR195010004.html  
+https://www.gesetze-im-internet.de/freiz_gg_eu_2004/__1.html  
+https://service.berlin.de/dienstleistung/326233/  
+https://service.berlin.de/dienstleistung/329328/  
+https://www.berlin.de/einwanderung/service/downloads/artikel.875097.php  
+https://www.berlin.de/einwanderung/_assets/20191129.pdf?ts=1766489182  
+https://www.bverwg.de/191119U1C22.18.0  
+https://www.verwaltungsvorschriften-im-internet.de/bsvwvbund_26102009_MI31284060.htm  
+https://www.verwaltungsvorschriften-im-internet.de/pdf/BMI-MI3-20091026-SF-A001.pdf  
+https://www.gesetze-bayern.de/Content/Document/Y-300-Z-BECKRS-B-2022-N-1214  
+https://www.gesetze-bayern.de/Content/Document/Y-300-Z-BECKRS-B-2025-N-36228  
+https://www.gov.uk/government/publications/safeguarding-the-position-of-eu-citizens-in-the-uk-and-uk-nationals-in-the-eu/the-united-kingdoms-exit-from-the-european-union-safeguarding-the-position-of-eu-citizens-living-in-the-uk-and-uk-nationals-living-in-the-eu  
+https://www.gov.uk/types-of-british-nationality  
+https://www.asyl.net/rsdb/M24161  
+
+Opening attempts that failed or did not expose readable substantive text; not used as evidence:
+
+https://www.gesetze-im-internet.de/aufenthg_2004/__18b.html  
+https://www.gesetze-im-internet.de/aufenthg_2004/__6.html  
+https://www.berlin.de/einwanderung/_assets/20191129.pdf  
+https://www.berlin.de/einwanderung/_assets/20191129.pdf?ts=1788181350  
+https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:12020W/TXT  
+https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:12020W/TXT  
+https://eur-lex.europa.eu/legal-content/DE/TXT/?uri=CELEX%3A12020W%2FTXT  
+https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:12020W002  
+https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:12020W/TXT  
+https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52020XC0520(05)  
+https://eur-lex.europa.eu/eli/treaty/withd_2020/sign/eng  
+https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A12020W%2FTXT&print=true  
+https://www.bmi.bund.de/SharedDocs/downloads/DE/veroeffentlichungen/themen/verfassung/anwendungshinweise-brexit.html  
+https://www.bmi.bund.de/SharedDocs/downloads/DE/veroeffentlichungen/themen/verfassung/anwendungshinweise-brexit.pdf?__blob=publicationFile&v=7  
+https://www.bmi.bund.de/SharedDocs/downloads/DE/veroeffentlichungen/themen/verfassung/anwendungshinweise-brexit.pdf?__blob=publicationFile&v=2  
+https://germany.iom.int/sites/g/files/tmzbdl806/files/documents/bmi-application-notes-uk.pdf  
+https://germany.iom.int/sites/g/files/tmzbdl806/files/documents/bmi-application-notes-uk.pdf?download=1  
+https://voris.wolterskluwer-online.de/browse/document/a8ff16a4-4a23-45f7-b13e-4a0c07021cc3  
+https://www.bamf.de/SharedDocs/Anlagen/DE/MigrationAufenthalt/anwendungshinweise-bmi.pdf?__blob=publicationFile&v=4
+
+---
+
+## Asked, 2026-09-15 07:06 UTC
+
+Sign-off, 2026-09-15. Below are the sentences we intend to add to the agreed document, the ones they replace, and the short facts the product will show. Tell us only which of them claim more than the evidence supports, and give the corrected sentence and the official page that settles it. Nothing else.
+
+We checked what we will rely on against the pages themselves: §§ 4, 5, 6, 17, 18, 18b, 81 AufenthG, §§ 17, 39, 41 AufenthV and § 30 BeschV on gesetze-im-internet.de, § 1 FreizügG/EU, Berlin's Fiktionsbescheinigung page, the Federal Administrative Court's 1 C 22.18, the Bavarian Administrative Court of Appeal's 19 ZB 25.1649 paragraph 12, and the UK government's glossary entry on "UK national". We could not fetch the VAB or the federal administrative instructions, which are PDFs, so nothing below rests on them. One note on your answer: § 30 no. 1 BeschV lists activities under § 3 nos. 1 and 2, § 16 and § 29(5) sentence 2 BeschV, not a general category of executives, business travellers and exhibitions; we do not use it.
+
+1. Replacing "And arriving visa-free as a tourist is not a general route to applying for a work permit inside Germany: §41 AufenthV opens that route only to specified nationalities, with a ninety day deadline." with:
+
+"Arriving visa-free does not by itself let you get an employment residence permit inside Germany: normally you enter with the visa for that purpose. §41(1) AufenthV lets nationals of Australia, Israel, Japan, Canada, the Republic of Korea, New Zealand and the United States, and British nationals as the Withdrawal Agreement defines them, enter visa-free and apply inside Germany for the residence title they need, within 90 days of entry; that deadline ends earlier if you are expelled or your stay is limited in time. §41(2) gives nationals of Andorra, Brazil, El Salvador, Honduras, Monaco and San Marino the same only if they do not intend to work, apart from a few short activities that do not count as employment, so it is not a route to a skilled worker's permit. Neither applies to an ICT card. Otherwise, §39 No. 3 AufenthV may let a visa-free national of a state in Annex II of Regulation (EU) 2018/1806, or the holder of a valid Schengen visa, get the permit inside Germany, but only if the conditions for it arose after entry; no official page we opened says how that applies when the job offer was made before entry. Separately, the authority may waive the visa requirement where the conditions of an entitlement are met, and must where the particular circumstances make catching up the visa procedure unreasonable (§5(2) sentence 2 AufenthG)."
+
+2. Added after it:
+
+"The Withdrawal Agreement's British nationals are British citizens, British subjects under Part IV of the British Nationality Act 1981 who have the right of abode in the United Kingdom, and British overseas territories citizens whose citizenship comes from a connection with Gibraltar. Other kinds of British nationality, such as British National (Overseas), are not among them."
+
+3. Replacing "applying during a lawful visa-free stay without a residence title protects your stay under §81(3)" with:
+
+"applying during a lawful visa-free stay without a residence title makes your stay count as permitted until the authority decides, if you apply while your stay is still lawful (§81(3)); if the application is late, only your deportation is suspended until the decision. For a national §41(1) names, applying in time means within its 90 days."
+
+4. Replacing "A short-stay C visa does not receive this protection." with:
+
+"Applying while you hold a Schengen (C) visa does not keep that visa valid automatically, and §81(3) does not protect your stay either: once the visa expires, the application alone gives you no permission to stay. Whether an authority can order a late application to keep a Schengen visa valid, to avoid undue hardship under §81(4) sentence 3, is not settled by any official source we opened."
+
+5. The short facts the product will show for a skilled worker's residence permit, each naming the statute page after it:
+
+- A visa-free reader of a nationality §41(1) names, the United Kingdom left out because a country code cannot tell which British nationals §41(1) means: "apply in Germany within 90 days of entry" (§41 AufenthV); "your stay counts as permitted until the decision, if applied for while the stay is still lawful" (§81 AufenthG).
+- Any other visa-free reader, the United Kingdom included: only "your stay counts as permitted until the decision, if applied for while the stay is still lawful" (§81 AufenthG), with sentence 1 above in the notes.
+- A Schengen visa holder: "your visa does not stay valid automatically" (§81 AufenthG), with sentence 4 above in the notes.
+
+Answer with each sentence or fact that claims too much, its correction and the page that settles it, or the single word "None." At the end, list the URLs you opened this turn.
+
+## Answered
+
+- **1 — “Otherwise, §39 No. 3 … but only if the conditions for it arose after entry”** omits lawful presence for the visa-free alternative and the requirement for an **entitlement**.
+
+  **Correction:** “Otherwise, §39 No. 3 AufenthV may let a national of a state in Annex II of Regulation (EU) 2018/1806 who is lawfully in Germany, or the holder of a valid short-stay Schengen visa, obtain the skilled-worker residence permit inside Germany, provided the conditions for an entitlement to its issue arose after entry; no official page we opened says how that applies when the job offer was made before entry.”
+
+  [§39 no. 3 AufenthV](https://www.gesetze-im-internet.de/aufenthv/__39.html) expressly requires “sich rechtmäßig im Bundesgebiet aufhält” and “die Voraussetzungen eines Anspruchs”.
+
+- **3 — “For a national §41(1) names, applying in time means within its 90 days”; and 5 — “apply in Germany within 90 days of entry.”** These omit the early-ending condition already included in paragraph 1, particularly consequential when the short fact is shown independently.
+
+  **Correction for 3:** “For a national §41(1) names, the application deadline is within 90 days of entry, unless it ends earlier because of expulsion or a time restriction imposed under §12(4) AufenthG.”
+
+  **Correction for 5:** “Apply in Germany within 90 days of entry, or before the earlier deadline resulting from expulsion or a time restriction under §12(4) AufenthG.”
+
+  [§41(3) AufenthV](https://www.gesetze-im-internet.de/aufenthv/__41.html) expressly provides for that earlier ending.
+
+URLs opened this turn:
+
+https://www.gesetze-im-internet.de/aufenthv/__41.html  
+https://www.gesetze-im-internet.de/aufenthv/__39.html  
+https://www.gesetze-im-internet.de/aufenthv/__17.html  
+https://www.gesetze-im-internet.de/aufenthg_2004/__5.html  
+https://www.gesetze-im-internet.de/aufenthg_2004/BJNR195010004.html  
+https://www.bverwg.de/191119U1C22.18.0  
+https://www.gesetze-bayern.de/Content/Document/Y-300-Z-BECKRS-B-2025-N-36228  
+https://www.gov.uk/government/publications/safeguarding-the-position-of-eu-citizens-in-the-uk-and-uk-nationals-in-the-eu/the-united-kingdoms-exit-from-the-european-union-safeguarding-the-position-of-eu-citizens-living-in-the-uk-and-uk-nationals-living-in-the-eu  
+
+Attempted but failed; §81 was read in the consolidated statute above:
+
+https://www.gesetze-im-internet.de/aufenthg_2004/__81.html
+
+---
+
+## Asked, 2026-09-15 07:11 UTC
+
+Fixed point, 2026-09-15. Below is the agreed document as it now stands: your sign-off corrections applied, and the definitions for the new facts, each passage copied from its raw page and found there again today. One question: is anything left that claims more than the evidence supports, or does any marker attach a figure to a page that does not state it, or does any evidence leave out a condition its sentence depends on? Answer with the single line No. if nothing is, or name each one with its correction and the page that settles it. At the end, list the URLs you opened this turn.
+
+----- the agreed document -----
+
+# Getting a residence permit in Germany
+
+**Agreed 2026-09-12**, after two turns in `talk/germany/residence-permit.md`.
+Five overclaims found at sign-off. Every sentence below is the corrected one.
+
+**Added 2026-09-15**, after a research turn and a sign-off in the same conversation (SB-234, SB-241): a
+visa-free stay, the nationalities §41 AufenthV names, and a Schengen visa. Two overclaims found at sign-off,
+both corrected below: §39 No. 3's lawful presence and entitlement, and the early end of §41's 90 days.
+
+The correction worth naming: the draft told a reader who cannot get an
+appointment to plead an emergency. The actual answer is that in Berlin you
+**submit the online application before your permission expires and do not need
+to wait for an appointment at all**. Published as drafted, it would have sent
+people to beg for a slot they did not need.
+
+## What a reader is told
+
+**Who decides.** The Ausländerbehörde where you live decides your application
+and issues the permit: in Berlin the **Landesamt für Einwanderung**, in Munich
+the city's **Servicestelle für Zuwanderung und Einbürgerung**. The employment
+agency may have to consent to your job, but it does not issue the permit.
+
+**What it costs, and this one is federal.** A first residence permit for
+employment, issued as an electronic card, costs **€100**[^aufenthv-45-first-permit-fee], whether it runs for a
+year or longer. It is set in the federal **Aufenthaltsverordnung §45(1)**, not
+by your city. If you see **€56**[^berlin-sticker-fee-56][^federal-sticker-fee-56] quoted in Berlin, that is the federal reduction[^aufenthv-45b-sticker-reduction]
+for the exceptional sticker format under §78a, not a Berlin price. Exemptions
+and reductions exist.
+
+**What happens while you wait, and this is the part to read twice.** Applying
+before your national **D visa** or residence permit expires[^aufenthg-81-4-before-expiry] normally preserves
+that title under **§81(4)**; applying during a lawful **visa-free** stay without
+a residence title makes your stay count as permitted until the authority decides,
+if you apply while your stay is still lawful[^aufenthg-81-3-lawful-stay] (**§81(3)**); if the application is
+late, only your deportation is suspended until the decision. For a national §41(1)
+names, the application deadline is within 90 days[^aufenthv-41-ninety-days] of entry, unless it ends earlier
+because of expulsion or a time restriction imposed under §12(4) AufenthG. Applying
+while you hold a Schengen (**C**) visa does not keep that visa valid automatically[^aufenthg-81-4-not-a-schengen-visa],
+and §81(3) does not protect your stay either: once the visa expires, the
+application alone gives you no permission to stay. Whether an authority can order
+a late application to keep a Schengen visa valid, to avoid undue hardship under
+§81(4) sentence 3, is not settled by any official source we opened. These rules
+apply nationwide.
+
+Applying does not automatically let you work, and it does not automatically let
+you travel.
+
+- **Under §81(4)**, your existing permission to work continues with the
+  restrictions it already had, and applying does not let you switch to a
+  different job. With a valid §81(4) Fiktionsbescheinigung and a valid passport,
+  you can travel and come back.
+- **Under §81(3)**, the application by itself does not let you work, and an
+  **§81(3) Fiktionsbescheinigung does not let you re-enter Germany.** Leaving
+  may mean you cannot get back in.
+
+Two more things about working. Under **§81(5a)**, once the authority has started
+issuing your employment permit, the specified work is allowed while the card is
+being produced, and that permission must be recorded on your certificate. And
+arriving visa-free does not by itself let you get an employment residence permit
+inside Germany: normally you enter with the visa for that purpose. **§41(1)
+AufenthV** lets nationals of Australia, Israel, Japan, Canada, the Republic of
+Korea, New Zealand and the United States, and British nationals as the Withdrawal
+Agreement defines them, enter visa-free and apply inside Germany for the residence
+title they need, within **90 days**[^aufenthv-41-ninety-days] of entry; that deadline ends earlier if you
+are expelled or your stay is limited in time. **§41(2)** gives nationals of Andorra,
+Brazil, El Salvador, Honduras, Monaco and San Marino the same only if they do not
+intend to work, apart from a few short activities that do not count as employment,
+so it is not a route to a skilled worker's permit. Neither applies to an ICT card.
+Otherwise, **§39 No. 3 AufenthV** may let a national of a state in Annex II of
+Regulation (EU) 2018/1806 who is lawfully in Germany, or the holder of a valid
+short-stay Schengen visa, obtain the skilled-worker residence permit inside
+Germany, provided the conditions for an entitlement to its issue arose after
+entry; no official page we opened says how that applies when the job offer was
+made before entry. Separately, the authority may waive the visa requirement where
+the conditions of an entitlement are met, and must where the particular
+circumstances make catching up the visa procedure unreasonable (**§5(2)** sentence
+2 AufenthG).
+
+The Withdrawal Agreement's British nationals are British citizens, British
+subjects under Part IV of the British Nationality Act 1981 who have the right of
+abode in the United Kingdom, and British overseas territories citizens whose
+citizenship comes from a connection with Gibraltar. Other kinds of British
+nationality, such as British National (Overseas), are not among them.
+
+**If you cannot get an appointment.** This is real and officially acknowledged:
+Berlin says some departments have nothing available for months. In Berlin,
+**submit the employment-permit application through the dedicated online
+application before your current permission expires[^berlin-online-before-expiry][^aufenthg-81-4-before-expiry]; you do not need to wait for
+an appointment.** For additional help in a documented emergency, use the
+responsible department's contact form. Berlin assesses emergency requests for
+urgent travel within the next four weeks[^berlin-emergency-four-weeks] evidenced by a booking, or threatened
+job loss or benefit termination because of missing valid documentation,
+evidenced by an employer's or Jobcenter/Sozialamt's letter. If it accepts the
+emergency, it can send a Fiktionsbescheinigung or offer a prompt appointment.
+
+**Cities do the same thing differently.** For the same permit, skilled
+employment with a degree (§18b):
+
+| | Berlin | Munich |
+|---|---|---|
+| Applying | online only, payment before submission | online **or by post** |
+| Appointment | after a positive assessment | after review |
+| Published time | 4-6 weeks[^berlin-card-4-to-6-weeks] for the electronic card after the issuance stage; that page gives no numerical estimate for the whole process | **up to seven months**[^munich-up-to-seven-months], with too many applications and not enough staff said plainly |
+| Extra evidence | housing size, and what your rent costs | a declaration about the employment, and a certified translation of a foreign degree |
+
+These are differences in **procedure and in what each office lists**, not
+different eligibility rules, and neither list is a promise that nothing else
+will be asked for. Munich's employment declaration implements **§18(2)(4a)**,
+which is federal: it is not a Bavarian condition.
+
+**The mistake to avoid.** Believing that applying settles all three questions at
+once. Staying, working and travelling are separate. Existing work permission
+continues under §81(4); new work permission under §81(5a) arises when issuance
+of the qualifying title is initiated and must be recorded on the certificate.
+Re-entry requires the appropriate valid travel documents. An application receipt
+is not the same document as a Fiktionsbescheinigung that is valid for travel.
+
+
+## Sources
+
+- <https://www.gesetze-im-internet.de/aufenthg_2004/__81.html>, `__71`, `__18`
+- <https://www.gesetze-im-internet.de/aufenthv/__45.html>, `__45b`, `__52`, `__41`, `__39`, `__17`
+- <https://www.gesetze-im-internet.de/aufenthg_2004/__5.html>, `__4`, `__6`, and <https://www.gesetze-im-internet.de/freiz_gg_eu_2004/__1.html>
+- <https://www.bverwg.de/191119U1C22.18.0> (Federal Administrative Court, 1 C 22.18), <https://www.gesetze-bayern.de/Content/Document/Y-300-Z-BECKRS-B-2025-N-36228> (Bavarian Administrative Court of Appeal, 19 ZB 25.1649)
+- <https://www.gov.uk/government/publications/safeguarding-the-position-of-eu-citizens-in-the-uk-and-uk-nationals-in-the-eu/the-united-kingdoms-exit-from-the-european-union-safeguarding-the-position-of-eu-citizens-living-in-the-uk-and-uk-nationals-living-in-the-eu> (the definition of a UK national)
+- <https://www.gesetze-im-internet.de/gg/art_83.html>, `art_84`
+- <https://service.berlin.de/dienstleistung/329328/> (§18b), <https://service.berlin.de/dienstleistung/326233/> (Fiktionsbescheinigung)
+- <https://www.berlin.de/einwanderung/termine/termin-vereinbaren/>
+- <https://www.berlin.de/einwanderung/service/downloads/artikel.875097.php> (the VAB, unread)
+- <https://stadt.muenchen.de/service/info/servicestelle-fur-zuwanderung-und-einburgerung/10278359/>, <https://stadt.muenchen.de/infos/sze-faq.html>
+
+All read 2026-09-12; the pages for a visa-free stay and a Schengen visa read 2026-09-15.
+
+[^aufenthv-45-first-permit-fee]: <https://www.gesetze-im-internet.de/aufenthv/__45.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 45 Nr. 1 Buchstabe a und b", "evidence": ["für die Erteilung einer Aufenthaltserlaubnis, einer Blauen Karte EU oder einer ICT-Karte a) mit einer Geltungsdauer von bis zu einem Jahr 100 Euro, b) mit einer Geltungsdauer von mehr als einem Jahr 100 Euro"]}
+
+[^berlin-sticker-fee-56]: <https://service.berlin.de/dienstleistung/329328/> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Gebühren", "evidence": ["56,00 Euro: bei erstmaliger Ausstellung der Aufenthaltserlaubnis als Etikett"]}
+
+[^federal-sticker-fee-56]: calculated | {"status": "calculated", "read": "2026-09-14", "inputs": ["aufenthv-45-first-permit-fee", "aufenthv-45b-sticker-reduction"], "formula": "100 Euro minus 44 Euro", "rounding": "none"}
+
+[^aufenthv-45b-sticker-reduction]: <https://www.gesetze-im-internet.de/aufenthv/__45b.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 45b", "evidence": ["Für die Ausstellung eines Aufenthaltstitels nach § 78a Absatz 1 Satz 1 des Aufenthaltsgesetzes ermäßigt sich die nach den §§ 44, 44a oder 45 zu erhebende Gebühr um 44 Euro."]}
+
+[^aufenthg-81-4-before-expiry]: <https://www.gesetze-im-internet.de/aufenthg_2004/__81.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 81 Abs. 4 Satz 1", "evidence": ["Beantragt ein Ausländer vor Ablauf seines Aufenthaltstitels dessen Verlängerung oder die Erteilung eines anderen Aufenthaltstitels, gilt der bisherige Aufenthaltstitel vom Zeitpunkt seines Ablaufs bis zur Entscheidung der Ausländerbehörde als fortbestehend"]}
+
+[^aufenthg-81-3-lawful-stay]: <https://www.gesetze-im-internet.de/aufenthg_2004/__81.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 81 Abs. 3", "evidence": ["Beantragt ein Ausländer, der sich rechtmäßig im Bundesgebiet aufhält, ohne einen Aufenthaltstitel zu besitzen, die Erteilung eines Aufenthaltstitels, gilt sein Aufenthalt bis zur Entscheidung der Ausländerbehörde als erlaubt.", "Wird der Antrag verspätet gestellt, gilt ab dem Zeitpunkt der Antragstellung bis zur Entscheidung der Ausländerbehörde die Abschiebung als ausgesetzt."]}
+
+[^aufenthg-81-4-not-a-schengen-visa]: <https://www.gesetze-im-internet.de/aufenthg_2004/__81.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 81 Abs. 4 Satz 1 bis 3", "evidence": ["Beantragt ein Ausländer vor Ablauf seines Aufenthaltstitels dessen Verlängerung oder die Erteilung eines anderen Aufenthaltstitels, gilt der bisherige Aufenthaltstitel vom Zeitpunkt seines Ablaufs bis zur Entscheidung der Ausländerbehörde als fortbestehend.", "Dies gilt nicht für ein Visum nach § 6 Absatz 1.", "Wurde der Antrag auf Erteilung oder Verlängerung eines Aufenthaltstitels verspätet gestellt, kann die Ausländerbehörde zur Vermeidung einer unbilligen Härte die Fortgeltungswirkung anordnen."]}
+
+[^aufenthv-41-ninety-days]: <https://www.gesetze-im-internet.de/aufenthv/__41.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 41 Abs. 1 und Abs. 3", "evidence": ["Staatsangehörige von Australien, Israel, Japan, Kanada, der Republik Korea, von Neuseeland, des Vereinigten Königreichs Großbritannien und Nordirland im Sinne des § 1 Absatz 2 Nummer 6 des Freizügigkeitsgesetzes/EU und der Vereinigten Staaten von Amerika können auch für einen Aufenthalt, der kein Kurzaufenthalt ist, visumfrei in das Bundesgebiet einreisen und sich darin aufhalten. Ein erforderlicher Aufenthaltstitel kann im Bundesgebiet eingeholt werden.", "Ein erforderlicher Aufenthaltstitel ist innerhalb von 90 Tagen nach der Einreise zu beantragen. Die Antragsfrist endet vorzeitig, wenn der Ausländer ausgewiesen wird oder sein Aufenthalt nach § 12 Abs. 4 des Aufenthaltsgesetzes zeitlich beschränkt wird."]}
+
+[^berlin-online-before-expiry]: <https://service.berlin.de/dienstleistung/329328/> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Verfahrensablauf, Schritt 1", "evidence": ["Am Ende erhalten Sie ein PDF-Dokument als Bestätigung Ihres Antrags. Damit wird bescheinigt, dass Ihr aktueller Aufenthaltstitel (nationales D-Visum oder Aufenthaltserlaubnis) über das bisherige Gültigkeitsdatum hinaus im Bundesgebiet weiter gültig bleibt.", "(Dies gilt nicht, wenn Sie ein Schengen-Visum (C-Visum) für einen kurzfristigen Aufenthalt besitzen oder Ihr aktueller Aufenthaltstitel am Tag der Antragstellung bereits abgelaufen ist.)"]}
+
+[^berlin-emergency-four-weeks]: <https://www.berlin.de/einwanderung/termine/termin-vereinbaren/> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Termin im Notfall", "evidence": ["Wir helfen Ihnen, wenn Sie dringend innerhalb der nächsten vier Wochen verreisen müssen und dies durch eine Buchung nachweisen."]}
+
+[^berlin-card-4-to-6-weeks]: <https://service.berlin.de/dienstleistung/329328/> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Bearbeitungszeit", "evidence": ["Bei Ausstellung als elektronischer Aufenthaltstitel (eAT) dauert es 4 bis 6 Wochen, bis dieser abgeholt werden kann."]}
+
+[^munich-up-to-seven-months]: <https://stadt.muenchen.de/service/info/servicestelle-fur-zuwanderung-und-einburgerung/10278359/> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Dauer und Kosten", "evidence": ["Bearbeitungszeit Bis zu 7 Monate"]}
+
+## Answered
+
+No.
+
+URLs opened this turn:
+
+https://www.gesetze-im-internet.de/aufenthv/__41.html  
+https://www.gesetze-im-internet.de/aufenthv/BJNR294510004.html  
+https://www.gesetze-im-internet.de/aufenthg_2004/BJNR195010004.html  
+https://service.berlin.de/dienstleistung/329328/  
+https://service.berlin.de/dienstleistung/326233/  
+https://www.berlin.de/einwanderung/termine/termin-vereinbaren/  
+https://stadt.muenchen.de/service/info/servicestelle-fur-zuwanderung-und-einburgerung/10278359/
+
+These individual pages failed to reopen; their provisions were checked in the consolidated statutes above:
+
+https://www.gesetze-im-internet.de/aufenthv/__45.html  
+https://www.gesetze-im-internet.de/aufenthv/__45b.html  
+https://www.gesetze-im-internet.de/aufenthg_2004/__81.html

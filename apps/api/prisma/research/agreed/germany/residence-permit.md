@@ -3,6 +3,10 @@
 **Agreed 2026-09-12**, after two turns in `talk/germany/residence-permit.md`.
 Five overclaims found at sign-off. Every sentence below is the corrected one.
 
+**Added 2026-09-15**, after a research turn and a sign-off in the same conversation (SB-234, SB-241): a
+visa-free stay, the nationalities §41 AufenthV names, and a Schengen visa. Two overclaims found at sign-off,
+both corrected below: §39 No. 3's lawful presence and entitlement, and the early end of §41's 90 days.
+
 The correction worth naming: the draft told a reader who cannot get an
 appointment to plead an emergency. The actual answer is that in Berlin you
 **submit the online application before your permission expires and do not need
@@ -26,8 +30,17 @@ and reductions exist.
 **What happens while you wait, and this is the part to read twice.** Applying
 before your national **D visa** or residence permit expires[^aufenthg-81-4-before-expiry] normally preserves
 that title under **§81(4)**; applying during a lawful **visa-free** stay without
-a residence title protects your stay under **§81(3)**. A short-stay **C visa**
-does not receive this protection. These rules apply nationwide.
+a residence title makes your stay count as permitted until the authority decides,
+if you apply while your stay is still lawful[^aufenthg-81-3-lawful-stay] (**§81(3)**); if the application is
+late, only your deportation is suspended until the decision. For a national §41(1)
+names, the application deadline is within 90 days[^aufenthv-41-ninety-days] of entry, unless it ends earlier
+because of expulsion or a time restriction imposed under §12(4) AufenthG. Applying
+while you hold a Schengen (**C**) visa does not keep that visa valid automatically[^aufenthg-81-4-not-a-schengen-visa],
+and §81(3) does not protect your stay either: once the visa expires, the
+application alone gives you no permission to stay. Whether an authority can order
+a late application to keep a Schengen visa valid, to avoid undue hardship under
+§81(4) sentence 3, is not settled by any official source we opened. These rules
+apply nationwide.
 
 Applying does not automatically let you work, and it does not automatically let
 you travel.
@@ -43,9 +56,31 @@ you travel.
 Two more things about working. Under **§81(5a)**, once the authority has started
 issuing your employment permit, the specified work is allowed while the card is
 being produced, and that permission must be recorded on your certificate. And
-arriving visa-free as a tourist is not a general route to applying for a work
-permit inside Germany: **§41 AufenthV** opens that route only to specified
-nationalities, with a **ninety day**[^aufenthv-41-ninety-days] deadline.
+arriving visa-free does not by itself let you get an employment residence permit
+inside Germany: normally you enter with the visa for that purpose. **§41(1)
+AufenthV** lets nationals of Australia, Israel, Japan, Canada, the Republic of
+Korea, New Zealand and the United States, and British nationals as the Withdrawal
+Agreement defines them, enter visa-free and apply inside Germany for the residence
+title they need, within **90 days**[^aufenthv-41-ninety-days] of entry; that deadline ends earlier if you
+are expelled or your stay is limited in time. **§41(2)** gives nationals of Andorra,
+Brazil, El Salvador, Honduras, Monaco and San Marino the same only if they do not
+intend to work, apart from a few short activities that do not count as employment,
+so it is not a route to a skilled worker's permit. Neither applies to an ICT card.
+Otherwise, **§39 No. 3 AufenthV** may let a national of a state in Annex II of
+Regulation (EU) 2018/1806 who is lawfully in Germany, or the holder of a valid
+short-stay Schengen visa, obtain the skilled-worker residence permit inside
+Germany, provided the conditions for an entitlement to its issue arose after
+entry; no official page we opened says how that applies when the job offer was
+made before entry. Separately, the authority may waive the visa requirement where
+the conditions of an entitlement are met, and must where the particular
+circumstances make catching up the visa procedure unreasonable (**§5(2)** sentence
+2 AufenthG).
+
+The Withdrawal Agreement's British nationals are British citizens, British
+subjects under Part IV of the British Nationality Act 1981 who have the right of
+abode in the United Kingdom, and British overseas territories citizens whose
+citizenship comes from a connection with Gibraltar. Other kinds of British
+nationality, such as British National (Overseas), are not among them.
 
 **If you cannot get an appointment.** This is real and officially acknowledged:
 Berlin says some departments have nothing available for months. In Berlin,
@@ -84,14 +119,17 @@ is not the same document as a Fiktionsbescheinigung that is valid for travel.
 ## Sources
 
 - <https://www.gesetze-im-internet.de/aufenthg_2004/__81.html>, `__71`, `__18`
-- <https://www.gesetze-im-internet.de/aufenthv/__45.html>, `__45b`, `__52`, `__41`
+- <https://www.gesetze-im-internet.de/aufenthv/__45.html>, `__45b`, `__52`, `__41`, `__39`, `__17`
+- <https://www.gesetze-im-internet.de/aufenthg_2004/__5.html>, `__4`, `__6`, and <https://www.gesetze-im-internet.de/freiz_gg_eu_2004/__1.html>
+- <https://www.bverwg.de/191119U1C22.18.0> (Federal Administrative Court, 1 C 22.18), <https://www.gesetze-bayern.de/Content/Document/Y-300-Z-BECKRS-B-2025-N-36228> (Bavarian Administrative Court of Appeal, 19 ZB 25.1649)
+- <https://www.gov.uk/government/publications/safeguarding-the-position-of-eu-citizens-in-the-uk-and-uk-nationals-in-the-eu/the-united-kingdoms-exit-from-the-european-union-safeguarding-the-position-of-eu-citizens-living-in-the-uk-and-uk-nationals-living-in-the-eu> (the definition of a UK national)
 - <https://www.gesetze-im-internet.de/gg/art_83.html>, `art_84`
 - <https://service.berlin.de/dienstleistung/329328/> (§18b), <https://service.berlin.de/dienstleistung/326233/> (Fiktionsbescheinigung)
 - <https://www.berlin.de/einwanderung/termine/termin-vereinbaren/>
 - <https://www.berlin.de/einwanderung/service/downloads/artikel.875097.php> (the VAB, unread)
 - <https://stadt.muenchen.de/service/info/servicestelle-fur-zuwanderung-und-einburgerung/10278359/>, <https://stadt.muenchen.de/infos/sze-faq.html>
 
-All read 2026-09-12.
+All read 2026-09-12; the pages for a visa-free stay and a Schengen visa read 2026-09-15.
 
 [^aufenthv-45-first-permit-fee]: <https://www.gesetze-im-internet.de/aufenthv/__45.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 45 Nr. 1 Buchstabe a und b", "evidence": ["für die Erteilung einer Aufenthaltserlaubnis, einer Blauen Karte EU oder einer ICT-Karte a) mit einer Geltungsdauer von bis zu einem Jahr 100 Euro, b) mit einer Geltungsdauer von mehr als einem Jahr 100 Euro"]}
 
@@ -101,9 +139,13 @@ All read 2026-09-12.
 
 [^aufenthv-45b-sticker-reduction]: <https://www.gesetze-im-internet.de/aufenthv/__45b.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 45b", "evidence": ["Für die Ausstellung eines Aufenthaltstitels nach § 78a Absatz 1 Satz 1 des Aufenthaltsgesetzes ermäßigt sich die nach den §§ 44, 44a oder 45 zu erhebende Gebühr um 44 Euro."]}
 
-[^aufenthg-81-4-before-expiry]: <https://www.gesetze-im-internet.de/aufenthg_2004/__81.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 81 Abs. 4 Satz 1", "evidence": ["Beantragt ein Ausländer vor Ablauf seines Aufenthaltstitels dessen Verlängerung oder die Erteilung eines anderen Aufenthaltstitels, gilt der bisherige Aufenthaltstitel vom Zeitpunkt seines Ablaufs bis zur Entscheidung der Ausländerbehörde als fortbestehend"]}
+[^aufenthg-81-4-before-expiry]: <https://www.gesetze-im-internet.de/aufenthg_2004/__81.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 81 Abs. 4 Satz 1", "evidence": ["Beantragt ein Ausländer vor Ablauf seines Aufenthaltstitels dessen Verlängerung oder die Erteilung eines anderen Aufenthaltstitels, gilt der bisherige Aufenthaltstitel vom Zeitpunkt seines Ablaufs bis zur Entscheidung der Ausländerbehörde als fortbestehend"]}
 
-[^aufenthv-41-ninety-days]: <https://www.gesetze-im-internet.de/aufenthv/__41.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 41 Abs. 3 Satz 1", "evidence": ["Ein erforderlicher Aufenthaltstitel ist innerhalb von 90 Tagen nach der Einreise zu beantragen."]}
+[^aufenthg-81-3-lawful-stay]: <https://www.gesetze-im-internet.de/aufenthg_2004/__81.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 81 Abs. 3", "evidence": ["Beantragt ein Ausländer, der sich rechtmäßig im Bundesgebiet aufhält, ohne einen Aufenthaltstitel zu besitzen, die Erteilung eines Aufenthaltstitels, gilt sein Aufenthalt bis zur Entscheidung der Ausländerbehörde als erlaubt.", "Wird der Antrag verspätet gestellt, gilt ab dem Zeitpunkt der Antragstellung bis zur Entscheidung der Ausländerbehörde die Abschiebung als ausgesetzt."]}
+
+[^aufenthg-81-4-not-a-schengen-visa]: <https://www.gesetze-im-internet.de/aufenthg_2004/__81.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 81 Abs. 4 Satz 1 bis 3", "evidence": ["Beantragt ein Ausländer vor Ablauf seines Aufenthaltstitels dessen Verlängerung oder die Erteilung eines anderen Aufenthaltstitels, gilt der bisherige Aufenthaltstitel vom Zeitpunkt seines Ablaufs bis zur Entscheidung der Ausländerbehörde als fortbestehend.", "Dies gilt nicht für ein Visum nach § 6 Absatz 1.", "Wurde der Antrag auf Erteilung oder Verlängerung eines Aufenthaltstitels verspätet gestellt, kann die Ausländerbehörde zur Vermeidung einer unbilligen Härte die Fortgeltungswirkung anordnen."]}
+
+[^aufenthv-41-ninety-days]: <https://www.gesetze-im-internet.de/aufenthv/__41.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 41 Abs. 1 und Abs. 3", "evidence": ["Staatsangehörige von Australien, Israel, Japan, Kanada, der Republik Korea, von Neuseeland, des Vereinigten Königreichs Großbritannien und Nordirland im Sinne des § 1 Absatz 2 Nummer 6 des Freizügigkeitsgesetzes/EU und der Vereinigten Staaten von Amerika können auch für einen Aufenthalt, der kein Kurzaufenthalt ist, visumfrei in das Bundesgebiet einreisen und sich darin aufhalten. Ein erforderlicher Aufenthaltstitel kann im Bundesgebiet eingeholt werden.", "Ein erforderlicher Aufenthaltstitel ist innerhalb von 90 Tagen nach der Einreise zu beantragen. Die Antragsfrist endet vorzeitig, wenn der Ausländer ausgewiesen wird oder sein Aufenthalt nach § 12 Abs. 4 des Aufenthaltsgesetzes zeitlich beschränkt wird."]}
 
 [^berlin-online-before-expiry]: <https://service.berlin.de/dienstleistung/329328/> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Verfahrensablauf, Schritt 1", "evidence": ["Am Ende erhalten Sie ein PDF-Dokument als Bestätigung Ihres Antrags. Damit wird bescheinigt, dass Ihr aktueller Aufenthaltstitel (nationales D-Visum oder Aufenthaltserlaubnis) über das bisherige Gültigkeitsdatum hinaus im Bundesgebiet weiter gültig bleibt.", "(Dies gilt nicht, wenn Sie ein Schengen-Visum (C-Visum) für einen kurzfristigen Aufenthalt besitzen oder Ihr aktueller Aufenthaltstitel am Tag der Antragstellung bereits abgelaufen ist.)"]}
 
