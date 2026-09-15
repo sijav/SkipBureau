@@ -91,7 +91,9 @@ DESIGN.md's address section, and `ContextControl.md`, `ContextPanel.md` and `You
   `en/DE-ZZ/guides/anmeldung` is Not Found; `en/TR/guides/sim-card?status=tr.residence-permit`
   answers 200, hydrates with no error logged, and once the page is up its links carry the status.
   The seed writes no residence status, so the test writes that row through the database the API
-  uses, as `countries.spec.ts` does, and removes it.
+  uses, as `countries.spec.ts` does, skipping a duplicate and leaving it, because the file's tests
+  run in parallel and one removing it would pull it from under another; the e2e database is fresh
+  for each run.
 - Planted: `canonicalPath` dropping the place; the guard not checking it; the status read in the
   hydrated first render, whose links then keep the file's addresses; `samePageAt` keeping the
   status.
