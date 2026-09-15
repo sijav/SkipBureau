@@ -75,28 +75,27 @@ and read. What it found:
   the Finance Ministry's letter, the only definition that states it; self-employment counting
   as work on §2(2) AufenthG; and working on a residence title on §4a(1) and (3) AufenthG. None
   has a rival of the same scope.
-- **Three facts rest on the only definition that states them, on a page that is not a
-  statute, and the plan check read each against the exit's official source.** The first-year
-  €25,000 VAT ceiling and the loss of the exemption for the whole transaction stand on the
-  Finance Ministry's letter of 18 March 2025, since §19 UStG states neither. Hamburg's €25
-  trade registration fee stands on the Handelskammer Hamburg's page, a public-law corporation
-  stating its own fee. The one week to tell the accident insurer does not stand on DGUV's page:
-  DGUV is a registered association, and §192(1) SGB VII states the whole duty, the week and
-  that a trade notification made within it fulfils it, as its page read on 2026-09-15. SB-263
-  adds that definition to the agreed document and moves the fact to it.
+- **Two facts rest on the only definition that states them, on a page that is not a statute,
+  and both stand.** The first-year €25,000 VAT ceiling and the loss of the exemption for the
+  whole transaction, on the Finance Ministry's letter of 18 March 2025, since §19 UStG states
+  neither; and Hamburg's €25 trade registration fee, on the Handelskammer Hamburg's page, a
+  public-law corporation stating its own fee. The first check found a third: the one week to
+  tell the accident insurer rested on DGUV's page, a registered association's, where §192(1)
+  SGB VII states the whole duty. SB-263 added that definition, moved the fact to it with the
+  week's condition the conversation agreed, and published it live in 610cffa; the audit run
+  again after it finds the week on §192(1) and the same six flags.
 - **Every page a fact cites** is on gesetze-im-internet.de, bundesgesundheitsministerium.de,
   bundesfinanzministerium.de, service.berlin.de and berlin.de, hamburg.de, amt24.sachsen.de,
   stadt.muenchen.de, service.duesseldorf.de, wiesbaden.de, freiburg.de, stadt-koeln.de,
-  handelskammer-hamburg.de or dguv.de.
+  or handelskammer-hamburg.de.
 
-So one fact is corrected, by SB-263, before this check is recorded, and nothing else.
+So one fact was corrected, by SB-263, and nothing else.
 
 ## The deployed database, read back
 
 The deployed API's research rows already say the germany file owns 31 versions, 21 places, 4
-statuses and 1 nationality group, and its digest equals the one the build computes from the
-files, `3f10bfe5…` before SB-263, so the database holds what the files say. It is compared
-again after SB-263's publish.
+statuses and 1 nationality group, and its digest, `01166706…` since SB-263's publish, equals
+the one the build computes from the files, so the database holds what the files say.
 
 Then a scratch script asks the deployed API, for each of the 31 versions, as the reader that
 version reaches: its residence status, its situation, a nationality of its group, its place of
@@ -130,8 +129,9 @@ on SB-221 says it covers Germany.
 
 ## What this card does not do
 
-It writes no guide (SB-197, SB-198) and corrects nothing itself: the accident insurer's week is
-SB-263's, a research change published on its own.
+It writes no guide (SB-197, SB-198) and corrects nothing itself: the accident insurer's week was
+SB-263's, a research change published on its own, and the business registration document's
+Sources list is SB-264's.
 
 ## The step I am least sure of
 
@@ -148,5 +148,10 @@ criteria describe; the research spec covers other readers on PGlite.
 The digest comparison above and the live read-back. Then the full API suite, since this card
 has no parent.
 
-Checked once on 2026-09-15, which found the accident insurer's week, SB-263. Checked again
-once SB-263 is live, since the data this reads changes.
+Checked once on 2026-09-15, which found the accident insurer's week, SB-263. Checked again the
+same day with SB-263 live: the audit and the read-back sound, and one limit named, the one this
+plan states, that a rule written outside the file would not show. No query of the API lists
+every version whatever the reader, the research loader is the only code that writes a rule
+version, no migration inserts one and the entrypoint does not run `prisma/seed.ts`; an inventory
+of the deployed database stays SB-221's. The record gives the read-back's query and how each
+reader is built, as the check asked.
