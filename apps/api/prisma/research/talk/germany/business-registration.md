@@ -1658,3 +1658,71 @@ At the end, list the URLs you opened this turn.
 No.
 
 URLs opened this turn: none.
+
+---
+
+## Asked, 2026-09-15 13:25 UTC
+
+Correction, 2026-09-15. A check of Germany's rules as a whole found that the one week to tell the accident insurer rests only on DGUV's page. DGUV is a registered association, the umbrella of the statutory accident insurers, and the statute states the duty itself. I read § 192 SGB VII today on its raw page, https://www.gesetze-im-internet.de/sgb_7/__192.html, and found these passages on it:
+
+- "(1) Die Unternehmer haben binnen einer Woche nach Beginn des Unternehmens dem zuständigen Unfallversicherungsträger"
+- "4. in den Fällen des § 130 Abs. 2 und 3 den Namen und den Wohnsitz oder gewöhnlichen Aufenthalt des Bevollmächtigten mitzuteilen."
+- "Die Mitteilungspflicht gilt als erfüllt, wenn eine Anzeige nach den §§ 14, 55c der Gewerbeordnung binnen einer Woche nach Beginn des Unternehmens gegenüber der zuständigen Stelle erstattet wurde."
+
+The definition I would add, with its marker beside DGUV's on "one week":
+
+[^sgb7-192-one-week]: <https://www.gesetze-im-internet.de/sgb_7/__192.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 192 Abs. 1", "evidence": ["(1) Die Unternehmer haben binnen einer Woche nach Beginn des Unternehmens dem zuständigen Unfallversicherungsträger", "4. in den Fällen des § 130 Abs. 2 und 3 den Namen und den Wohnsitz oder gewöhnlichen Aufenthalt des Bevollmächtigten mitzuteilen.", "Die Mitteilungspflicht gilt als erfüllt, wenn eine Anzeige nach den §§ 14, 55c der Gewerbeordnung binnen einer Woche nach Beginn des Unternehmens gegenüber der zuständigen Stelle erstattet wurde."]}
+
+What is published now:
+
+- The agreed document: "It does complete one: DGUV says the Gewerbeanmeldung **satisfies the business-notification obligation to the statutory accident insurer**; otherwise that notification is due within one week."
+- The rule's fact: within 1 week, "of opening the business; a trade registration already counts as this notification".
+- The rule's note: "This also applies to a freelance practice. Notify the responsible statutory accident insurer within one week of opening, unless you have already made a Gewerbeanmeldung: that satisfies this notification obligation."
+
+Two questions:
+
+1. Should the one week rest on § 192(1) SGB VII, with DGUV's definition kept only as evidence?
+2. § 192(1) sentence 2 counts the duty as met only when the trade notification is made within one week of the business starting. Do the agreed sentence, the fact's text or the note claim more than that? For each that does, give the corrected wording, and change nothing else.
+
+Answer each by number.
+
+## Answered
+
+1. **Yes.** Use [§192(1) SGB VII](https://www.gesetze-im-internet.de/sgb_7/__192.html) as the primary source for both the one-week deadline and the condition under which trade notification satisfies the duty. Keep DGUV as supporting guidance.
+
+2. **All three omit the timing condition.** Correct them to:
+
+   **Agreed document:**  
+   “It does complete one: a Gewerbeanmeldung **made within one week of the business starting satisfies the business-notification obligation to the statutory accident insurer**; otherwise that notification is due within one week.”
+
+   **Rule’s fact:**  
+   Within 1 week, “of opening the business; a trade registration made within that week already counts as this notification”.
+
+   **Rule’s note:**  
+   “This also applies to a freelance practice. Notify the responsible statutory accident insurer within one week of opening, unless you have already made a Gewerbeanmeldung within that week: that satisfies this notification obligation.”
+
+https://www.gesetze-im-internet.de/sgb_7/__192.html
+
+---
+
+## Asked, 2026-09-15 13:27 UTC
+
+Fixed point, 2026-09-15. Your corrections are applied as you wrote them, and the § 192 definition is added with its marker beside DGUV's. One more question over what will be published: does anything below still claim more than its evidence supports, attach a figure to a page that does not state it, or leave out a condition its value depends on? Answer "No." or name each, with the corrected wording.
+
+The agreed document's paragraph now reads:
+
+"**What registering sets off.** Your notification is transmitted, within statutory purpose limits and subject to a recipient waiving regular transmission, to the tax office, the chambers, **DGUV for forwarding to the responsible accident insurer**, the employment agency, customs, the immigration authority and others. Transmission is not the same as somebody contacting you, and it does not complete every separate obligation. It does complete one: a Gewerbeanmeldung **made within one week[^sgb7-192-one-week] of the business starting satisfies the business-notification obligation to the statutory accident insurer**; otherwise that notification is due within one week[^dguv-one-week][^sgb7-192-one-week]."
+
+The rule's fact, resting on § 192 SGB VII's page and no longer on DGUV's: within 1 week, "of opening the business; a trade registration made within that week already counts as this notification".
+
+The rule's note: "This also applies to a freelance practice. Notify the responsible statutory accident insurer within one week of opening, unless you have already made a Gewerbeanmeldung within that week: that satisfies this notification obligation."
+
+The two definitions:
+
+[^dguv-one-week]: <https://www.dguv.de/de/versicherung/unternehmensnummer/anmeldung/index.jsp> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "Neues Unternehmen anmelden", "evidence": ["Wer ein Unternehmen eröffnet, muss dieses binnen einer Woche beim zuständigen Unfallversicherungsträger anmelden.", "Die Meldepflicht (§ 192 Sozialgesetzbuch VII) gilt als erfüllt, wenn für ein Unternehmen eine Gewerbeanmeldung erstattet wurde."]}
+
+[^sgb7-192-one-week]: <https://www.gesetze-im-internet.de/sgb_7/__192.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 192 Abs. 1", "evidence": ["(1) Die Unternehmer haben binnen einer Woche nach Beginn des Unternehmens dem zuständigen Unfallversicherungsträger", "4. in den Fällen des § 130 Abs. 2 und 3 den Namen und den Wohnsitz oder gewöhnlichen Aufenthalt des Bevollmächtigten mitzuteilen.", "Die Mitteilungspflicht gilt als erfüllt, wenn eine Anzeige nach den §§ 14, 55c der Gewerbeordnung binnen einer Woche nach Beginn des Unternehmens gegenüber der zuständigen Stelle erstattet wurde."]}
+
+## Answered
+
+No. I opened no URLs in this pass.

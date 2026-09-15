@@ -8,6 +8,8 @@ researched.
 **Corrected 2026-09-15** (SB-227), after a sign-off in the same conversation: the §4a sentence, which claimed more
 than §4a supports, the IHK exemption's measure and the VAT rule's turnover, with definitions added for §§2(2), 4(1),
 4a(1) and (3) and 6(3) AufenthG and §3(3) sentence 5 IHKG, and every definition on a page re-read that day re-dated.
+**Corrected again 2026-09-15** (SB-263), in the same conversation: a Gewerbeanmeldung meets the accident insurer's
+notification only when made within one week of the business starting, with a definition added for §192(1) SGB VII.
 
 ## What a reader is told
 
@@ -68,10 +70,11 @@ statutory purpose limits and subject to a recipient waiving regular
 transmission, to the tax office, the chambers, **DGUV for forwarding to the
 responsible accident insurer**, the employment agency, customs, the immigration
 authority and others. Transmission is not the same as somebody contacting you,
-and it does not complete every separate obligation. It does complete one:
-DGUV says the Gewerbeanmeldung **satisfies the business-notification obligation
-to the statutory accident insurer**; otherwise that notification is due within
-one week[^dguv-one-week].
+and it does not complete every separate obligation. It does complete one: a
+Gewerbeanmeldung **made within one week[^sgb7-192-one-week] of the business
+starting satisfies the business-notification obligation to the statutory
+accident insurer**; otherwise that notification is due within one
+week[^dguv-one-week][^sgb7-192-one-week].
 
 **Chamber membership** is normally compulsory for an ordinary commercial business
 and there is no general opt-out, **but the contribution can be nothing.** For
@@ -158,6 +161,8 @@ All read 2026-09-12.
 [^koeln-trade-registration-26]: <https://www.stadt-koeln.de/service/produkte/00554/index.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Gebühren", "evidence": ["nach der Tarifstelle 10.1.1.2. des Allgemeinen Gebührentarifs zur Allgemeinen Verwaltungsgebührenordnung NRW: 26 Euro für natürliche Personen"]}
 
 [^dguv-one-week]: <https://www.dguv.de/de/versicherung/unternehmensnummer/anmeldung/index.jsp> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "Neues Unternehmen anmelden", "evidence": ["Wer ein Unternehmen eröffnet, muss dieses binnen einer Woche beim zuständigen Unfallversicherungsträger anmelden.", "Die Meldepflicht (§ 192 Sozialgesetzbuch VII) gilt als erfüllt, wenn für ein Unternehmen eine Gewerbeanmeldung erstattet wurde."]}
+
+[^sgb7-192-one-week]: <https://www.gesetze-im-internet.de/sgb_7/__192.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 192 Abs. 1", "evidence": ["(1) Die Unternehmer haben binnen einer Woche nach Beginn des Unternehmens dem zuständigen Unfallversicherungsträger", "4. in den Fällen des § 130 Abs. 2 und 3 den Namen und den Wohnsitz oder gewöhnlichen Aufenthalt des Bevollmächtigten mitzuteilen.", "Die Mitteilungspflicht gilt als erfüllt, wenn eine Anzeige nach den §§ 14, 55c der Gewerbeordnung binnen einer Woche nach Beginn des Unternehmens gegenüber der zuständigen Stelle erstattet wurde."]}
 
 [^ihkg-3-exempt-up-to-5200]: <https://www.gesetze-im-internet.de/ihkg/__3.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 3 Abs. 3 Satz 3", "evidence": ["Natürliche Personen und Personengesellschaften, die nicht in das Handelsregister eingetragen sind, und eingetragene Vereine, wenn nach Art oder Umfang ein in kaufmännischer Weise eingerichteter Geschäftsbetrieb nicht erforderlich ist, sind vom Beitrag freigestellt, soweit ihr Gewerbeertrag nach dem Gewerbesteuergesetz oder soweit für das Bemessungsjahr ein Gewerbesteuermessbetrag nicht festgesetzt wird, ihr nach dem Einkommensteuergesetz ermittelter Gewinn aus Gewerbebetrieb 5 200 Euro nicht übersteigt."]}
 

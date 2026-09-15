@@ -7,7 +7,7 @@ import type { ResearchCase, ResearchVersion } from '../rows.js'
 // The day SB-174 read the pages Germany's rule documents cite.
 const READ = '2026-09-14'
 
-// The day SB-227 read again the pages whose definitions it extended, and first the ones it added.
+// The day SB-227 read again the pages whose definitions it extended, and first the ones it added, and SB-263 read § 192 SGB VII.
 const REREAD = '2026-09-15'
 
 const FOUNDER: ResearchVersion['criteria'] = [{ dimension: 'situation', value: 'company-founder' }]
@@ -25,7 +25,7 @@ const COLOGNE_NOTES =
   "The fee follows the business's establishment in Cologne, not where you live. Other legal forms and additional representatives can change the charge. The four-week and six-month timings describe possible enforcement measures, not extensions of the registration deadline."
 
 const ACCIDENT_INSURER_NOTES =
-  'This also applies to a freelance practice. Notify the responsible statutory accident insurer within one week of opening, unless you have already made a Gewerbeanmeldung: that satisfies this notification obligation.'
+  'This also applies to a freelance practice. Notify the responsible statutory accident insurer within one week of opening, unless you have already made a Gewerbeanmeldung within that week: that satisfies this notification obligation.'
 
 const QUESTIONNAIRE_NOTES =
   'Do not wait for the tax office to contact you. Submit the questionnaire electronically, normally through ELSTER, within one month of opening or starting your freelance activity. Gewerbeanmeldung does not replace it. On application, the tax office may allow the prescribed paper form to avoid undue hardship. Your tax number is communicated in writing; we could not verify a processing time.'
@@ -136,9 +136,9 @@ export const CASE: ResearchCase = {
       name: 'Stadt Köln, An-, Ab- und Ummeldung eines Gewerbebetriebes',
       read: READ,
     },
-    accidentInsuranceRegistration: {
-      url: 'https://www.dguv.de/de/versicherung/unternehmensnummer/anmeldung/index.jsp',
-      name: 'Deutsche Gesetzliche Unfallversicherung (DGUV), Ein neues Unternehmen anmelden',
+    accidentInsuranceLaw: {
+      url: 'https://www.gesetze-im-internet.de/sgb_7/__192.html',
+      name: 'Sozialgesetzbuch (SGB) Siebtes Buch, § 192 Mitteilungs- und Auskunftspflichten von Unternehmern und Bauherren',
       read: REREAD,
     },
     taxCodeNotification: {
@@ -302,17 +302,17 @@ export const CASE: ResearchCase = {
       document: 'business-registration',
       validFrom: REREAD,
       criteria: FOUNDER,
-      source: 'accidentInsuranceRegistration',
-      labels: ['dguv-one-week'],
+      source: 'accidentInsuranceLaw',
+      labels: ['sgb7-192-one-week'],
       facts: [
         {
           key: 'notifyAccidentInsurerWithin',
           operator: 'within',
           numericValue: 1,
           unit: 'weeks',
-          textValue: 'of opening the business; a trade registration already counts as this notification',
-          source: 'accidentInsuranceRegistration',
-          labels: ['dguv-one-week'],
+          textValue: 'of opening the business; a trade registration made within that week already counts as this notification',
+          source: 'accidentInsuranceLaw',
+          labels: ['sgb7-192-one-week'],
         },
       ],
       notes: { en: ACCIDENT_INSURER_NOTES },
