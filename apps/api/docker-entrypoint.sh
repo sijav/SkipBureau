@@ -35,5 +35,11 @@ node dist/load-research-rules.js
 echo "filling in sample content"
 node dist/sample-content.js
 
+# Guides written from the agreed research, their areas and their links (SB-258).
+# Not sample content: this stays when the line above comes out before a launch,
+# and it makes sure of the goal it hangs its areas on itself.
+echo "loading researched guides"
+node dist/load-researched-guides.js
+
 echo "starting the API on port ${PORT:-4000}"
 exec node dist/main.js

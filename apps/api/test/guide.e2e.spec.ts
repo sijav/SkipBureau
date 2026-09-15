@@ -11,6 +11,7 @@ import { AppModule } from '../src/app.module.js'
 import { PrismaService } from '../src/prisma/prisma.service.js'
 import { seed } from '../prisma/seed.js'
 import { seedContent } from '../src/sample-content.js'
+import { linkObligationGroups } from '../src/guide/guide-fill.js'
 import { startPglite } from '../scripts/pglite-server.mjs'
 
 /**
@@ -449,4 +450,44 @@ test('each address guide links one address duty, and sample content run again ke
   const after = await obligationsFor('de', 'anmeldung')
   expect(after.map((obligation) => obligation.slug)).toContain('hold-health-insurance')
   expect(duties(after)).toEqual(['register-your-address'])
+})
+
+/** A guide's links, by the obligation's slug, in position order. */
+const linksOf = async (guideId: string) =>
+  (await prisma.guideObligation.findMany({ where: { guideId }, include: { obligation: true }, orderBy: { position: 'asc' } })).map(
+    (link) => ({
+      slug: link.obligation.slug,
+      position: link.position,
+    }),
+  )
+
+test("a guide's obligation groups each link their first obligation the database has at the group's index, and a preferred one named later takes its group's place", async () => {
+  const guide = await prisma.guide.findUniqueOrThrow({ where: { countryCode_slug: { countryCode: 'tr', slug: 'sim-card' } } })
+  expect(await linksOf(guide.id)).toEqual([])
+
+  await linkObligationGroups(prisma, guide.id, [['no-such-duty', 'get-a-tax-number'], ['hold-health-insurance']])
+  expect(await linksOf(guide.id)).toEqual([
+    { slug: 'get-a-tax-number', position: 0 },
+    { slug: 'hold-health-insurance', position: 1 },
+  ])
+
+  await linkObligationGroups(prisma, guide.id, [['get-a-residence-permit', 'get-a-tax-number'], ['hold-health-insurance']])
+  expect(await linksOf(guide.id)).toEqual([
+    { slug: 'get-a-residence-permit', position: 0 },
+    { slug: 'hold-health-insurance', position: 1 },
+  ])
+
+  await prisma.guideObligation.deleteMany({ where: { guideId: guide.id } })
+})
+
+test("a slug named in two of a guide's groups is refused, and so is a link the groups do not name sitting where a group links, writing nothing", async () => {
+  const guide = await prisma.guide.findUniqueOrThrow({ where: { countryCode_slug: { countryCode: 'tr', slug: 'sim-card' } } })
+  await expect(linkObligationGroups(prisma, guide.id, [['get-a-tax-number'], ['get-a-tax-number']])).rejects.toThrow(/more than one/)
+
+  const blocked = await prisma.obligation.findUniqueOrThrow({ where: { slug: 'open-a-blocked-account' } })
+  await prisma.guideObligation.create({ data: { guideId: guide.id, obligationId: blocked.id, position: 0 } })
+  await expect(linkObligationGroups(prisma, guide.id, [['get-a-tax-number']])).rejects.toThrow(/do not name/)
+  expect(await linksOf(guide.id)).toEqual([{ slug: 'open-a-blocked-account', position: 0 }])
+
+  await prisma.guideObligation.deleteMany({ where: { guideId: guide.id } })
 })

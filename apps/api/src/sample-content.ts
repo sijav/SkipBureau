@@ -2,7 +2,9 @@ import { PrismaPg } from '@prisma/adapter-pg'
 import { databaseUrl } from './database-url.js'
 import { PrismaClient } from './generated/prisma/client.js'
 import { SIM_CARD } from './sample-sim-card.js'
-import type { GuideDetailSeed, Localised } from './sample-types.js'
+import type { GuideDetailSeed } from './sample-types.js'
+import { fillGuideDetail, linkObligationGroups } from './guide/guide-fill.js'
+import { TASKS } from './tasks.js'
 
 /**
  * Sample content, illustrative and not verified, mostly the design's own
@@ -18,7 +20,7 @@ import type { GuideDetailSeed, Localised } from './sample-types.js'
  * exists, so an editor's change survives a restart, and it can run on every
  * start at all. The one thing it removes is a guide's link to the less
  * preferred of the address duties it names, so the guide links the researched
- * one once a research load has written it (SB-255, linkObligations).
+ * one once a research load has written it (SB-255, linkObligationGroups).
  *
  * It keeps the thing that is easy to get wrong: **one task shared between two
  * countries**, with country-specific categories, guides and sources hanging
@@ -28,46 +30,6 @@ import type { GuideDetailSeed, Localised } from './sample-types.js'
 
 const VERIFIED = new Date('2026-09-10')
 
-// The twelve goals of Home, Figma 67:1261, in its order and with its copy.
-// Where the design names Turkey the text says {country}, and "Hiring Turkish
-// and foreign employees" says local, because this row is the same everywhere.
-const TASKS = [
-  { slug: 'getting-settled', en: 'Getting Settled', fa: 'استقرار اولیه', enSub: 'Essential services to help you start everyday life in {country}.', faSub: 'خدمات ضروری برای شروع زندگی روزمره در {country}.' },
-  { slug: 'get-a-residence-permit', en: 'Get a residence permit', fa: 'دریافت اجازه اقامت', enSub: 'Short-term, student, family and work permits', faSub: 'اقامت کوتاه‌مدت، دانشجویی، خانوادگی و کاری' },
-  { slug: 'study', en: 'Study in {country}', fa: 'تحصیل در {country}', enSub: 'Applications, diploma recognition and student documents', faSub: 'درخواست پذیرش، ارزشیابی مدرک و مدارک دانشجویی' },
-  { slug: 'work', en: 'Work in {country}', fa: 'کار در {country}', enSub: 'Work permits, contracts and social security', faSub: 'مجوز کار، قرارداد و تأمین اجتماعی' },
-  { slug: 'hire-someone', en: 'Hire someone', fa: 'استخدام نیرو', enSub: 'Hiring local and foreign employees', faSub: 'استخدام نیروی محلی و خارجی' },
-  {
-    slug: 'start-a-business',
-    en: 'Start a business',
-    fa: 'راه‌اندازی کسب‌وکار',
-    enSub: 'Company types, registration and first obligations',
-    faSub: 'انواع شرکت، ثبت و نخستین تعهدات',
-    // The task hub's copy, Figma 81:566, 81:585, 81:647 and 81:692.
-    hub: {
-      en: {
-        heading: 'Start a business in {country}',
-        intro: 'Understand the main decisions, registrations and ongoing responsibilities involved in setting up a business in {country}.',
-        areasIntro: 'These are the areas most founders deal with. They are deliberately not numbered — the order that applies to you depends on your situation.',
-        dependsNote: 'Your nationality, residence status, company structure, and whether you plan to work in the company or hire staff can each change which of these areas apply and in what order.',
-        otherRoutesIntro: 'Not part of company registration. These are separate routes some founders look into.',
-      },
-      fa: {
-        heading: 'راه‌اندازی کسب‌وکار در {country}',
-        intro: 'با تصمیم‌های اصلی، ثبت‌ها و مسئولیت‌های مستمری که راه‌اندازی کسب‌وکار در {country} در بر دارد آشنا شوید.',
-        areasIntro: 'این‌ها حوزه‌هایی هستند که بیشتر بنیان‌گذاران با آن‌ها سروکار دارند. عمدا شماره‌گذاری نشده‌اند، چون ترتیبی که برای شما صدق می‌کند به موقعیت شما بستگی دارد.',
-        dependsNote: 'ملیت، وضعیت اقامت، ساختار شرکت، و اینکه قصد دارید در شرکت کار کنید یا نیرو استخدام کنید، هر کدام می‌تواند تعیین کند کدام حوزه‌ها و به چه ترتیبی برای شما صدق می‌کنند.',
-        otherRoutesIntro: 'بخشی از ثبت شرکت نیستند. این‌ها مسیرهای جداگانه‌ای هستند که برخی بنیان‌گذاران بررسی می‌کنند.',
-      },
-    },
-  },
-  { slug: 'banking-and-money', en: 'Banking & money', fa: 'بانک و پول', enSub: 'Tax numbers, bank accounts and moving money', faSub: 'شماره مالیاتی، حساب بانکی و انتقال پول' },
-  { slug: 'taxes', en: 'Taxes', fa: 'مالیات', enSub: 'What you may owe, when and how filing works', faSub: 'چه مالیاتی ممکن است بدهکار باشید، کی، و اظهارنامه چگونه است' },
-  { slug: 'renting-a-home', en: 'Renting a Home', fa: 'اجاره خانه', enSub: 'Contracts, deposits and utility responsibilities.', faSub: 'قرارداد، ودیعه و مسئولیت قبوض.' },
-  { slug: 'transportation', en: 'Transportation', fa: 'حمل‌ونقل', enSub: 'Driving licences, vehicles and getting around.', faSub: 'گواهی‌نامه رانندگی، خودرو و رفت‌وآمد.' },
-  { slug: 'health-and-insurance', en: 'Health & Insurance', fa: 'سلامت و بیمه', enSub: 'Public and private coverage and how to use it', faSub: 'پوشش دولتی و خصوصی و نحوه استفاده از آن' },
-  { slug: 'family', en: 'Family', fa: 'خانواده', enSub: 'Family residence, marriage, births and schooling', faSub: 'اقامت خانوادگی، ازدواج، تولد و مدرسه' },
-].map((task, position) => ({ ...task, position }))
 
 type Kind = 'decision' | 'ifItApplies' | 'ongoing' | 'alternativeRoute'
 
@@ -102,8 +64,8 @@ type GuideText = { title: string; description?: string; quickAnswer?: string; co
 type GuideSeed = {
   slug: string
   category: string
-  /** The obligations this guide explains a duty through, most preferred first; it links the first the database has. */
-  obligations?: readonly string[]
+  /** The duties this guide explains, each a group of alternatives, most preferred first (linkObligationGroups). */
+  obligations?: readonly (readonly string[])[]
   verifiedAt?: Date
   position?: number
   readingMinutes?: number
@@ -231,7 +193,7 @@ const COUNTRIES: CountrySeed[] = [
       {
         slug: 'register-your-address',
         category: 'first-week',
-        obligations: ['report-your-address', 'register-your-address'],
+        obligations: [['report-your-address', 'register-your-address']],
         en: {
           title: 'Register your address',
           description: 'What address registration in Turkey involves, and where it is done.',
@@ -305,7 +267,7 @@ const COUNTRIES: CountrySeed[] = [
       {
         slug: 'anmeldung',
         category: 'first-week',
-        obligations: ['report-your-address', 'register-your-address'],
+        obligations: [['report-your-address', 'register-your-address']],
         en: {
           title: 'Register your address',
           description: 'The Anmeldung, which almost everything else in Germany depends on.',
@@ -331,29 +293,6 @@ const COUNTRIES: CountrySeed[] = [
     ],
   },
 ]
-
-/**
- * Links a guide to the first obligation of its list the database has, and
- * removes its link to any other obligation of that list, so a guide never
- * carries two rules for one duty: the researched duty where a research load
- * wrote it, else the one the test seed writes (SB-255). A link to an obligation
- * the list does not name is never touched, since a link records no owner.
- */
-const linkObligations = async (prisma: PrismaClient, guideId: string, preference: readonly string[] | undefined): Promise<void> => {
-  if (!preference || preference.length === 0) return
-  const rows = await prisma.obligation.findMany({ where: { slug: { in: [...preference] } }, select: { id: true, slug: true } })
-  const chosen = preference.map((slug) => rows.find((row) => row.slug === slug)).find((row) => row !== undefined)
-  if (!chosen) return
-
-  const others = rows.filter((row) => row.id !== chosen.id).map((row) => row.id)
-  if (others.length > 0) await prisma.guideObligation.deleteMany({ where: { guideId, obligationId: { in: others } } })
-
-  const linked = await prisma.guideObligation.findUnique({ where: { guideId_obligationId: { guideId, obligationId: chosen.id } } })
-  if (!linked) {
-    const position = await prisma.guideObligation.count({ where: { guideId } })
-    await prisma.guideObligation.create({ data: { guideId, obligationId: chosen.id, position } })
-  }
-}
 
 export const seedContent = async (prisma: PrismaClient): Promise<void> => {
   for (const task of TASKS) {
@@ -429,7 +368,7 @@ export const seedContent = async (prisma: PrismaClient): Promise<void> => {
       if (existing) {
         // Its links are kept to what the guide names even so, or a guide made
         // before a research load would never link the researched duty.
-        await linkObligations(prisma, existing.id, guide.obligations)
+        await linkObligationGroups(prisma, existing.id, guide.obligations)
         continue
       }
 
@@ -512,7 +451,7 @@ export const seedContent = async (prisma: PrismaClient): Promise<void> => {
         })
       }
 
-      await linkObligations(prisma, row.id, guide.obligations)
+      await linkObligationGroups(prisma, row.id, guide.obligations)
     }
 
     // After the guides: a category's recommended one, its checklist and the
@@ -578,142 +517,6 @@ export const seedContent = async (prisma: PrismaClient): Promise<void> => {
         })
       }
     }
-  }
-}
-
-const LOCALES = [
-  ['en-US', 'en'],
-  ['fa-IR', 'fa'],
-] as const
-
-/** A localised field in one language, or undefined where it has none. */
-const inLocale = (value: Localised | undefined, language: 'en' | 'fa'): string | undefined => value?.[language]
-
-/** The fields of `wanted` that `existing` has empty, and nothing else. Fill-only, a column at a time. */
-const emptyOf = <K extends string>(existing: Partial<Record<K, string | null>> | null, wanted: Partial<Record<K, string | undefined>>): Partial<Record<K, string>> => {
-  const fill: Partial<Record<K, string>> = {}
-  for (const key in wanted) {
-    const value = wanted[key]
-    if (value !== undefined && (existing === null || existing[key] === null || existing[key] === undefined)) fill[key] = value
-  }
-  return fill
-}
-
-/**
- * The body of a guide that exists, filled in where it is missing: its texts'
- * empty columns, sections by kind, steps by position, options by position,
- * sources by address, related guides by pair. Never a value that is there.
- */
-const fillGuideDetail = async (prisma: PrismaClient, countryCode: string, seed: GuideDetailSeed): Promise<void> => {
-  const guide = await prisma.guide.findUnique({ where: { countryCode_slug: { countryCode, slug: seed.slug } }, include: { sources: true } })
-  if (!guide) return
-
-  // Only while the guide is still the bare row this sample content made.
-  if (seed.showDisclaimer && !guide.showDisclaimer && guide.sources.length <= 1) {
-    await prisma.guide.update({ where: { id: guide.id }, data: { showDisclaimer: true } })
-  }
-
-  for (const [locale, language] of LOCALES) {
-    const where = { guideId_locale: { guideId: guide.id, locale } }
-    const existing = await prisma.guideText.findUnique({ where })
-    if (!existing) continue
-    const fill = emptyOf(existing, {
-      intro: inLocale(seed.intro, language),
-      quickAnswer: inLocale(seed.quickAnswer, language),
-      cost: inLocale(seed.cost, language),
-      time: inLocale(seed.time, language),
-      deadlines: inLocale(seed.deadlines, language),
-      costNote: inLocale(seed.costNote, language),
-    })
-    if (Object.keys(fill).length > 0) await prisma.guideText.update({ where, data: fill })
-  }
-
-  for (const [position, section] of seed.sections.entries()) {
-    const row = await prisma.guideSection.upsert({
-      where: { guideId_kind: { guideId: guide.id, kind: section.kind } },
-      update: {},
-      create: { guideId: guide.id, kind: section.kind, position },
-    })
-
-    if (section.link && row.linkGuideId === null) {
-      const target = await prisma.guide.findUnique({ where: { countryCode_slug: { countryCode, slug: section.link } } })
-      if (target) await prisma.guideSection.update({ where: { id: row.id }, data: { linkGuideId: target.id } })
-    }
-
-    for (const [locale, language] of LOCALES) {
-      const wanted = {
-        title: inLocale(section.title, language),
-        body: inLocale(section.body, language),
-        note: inLocale(section.note, language),
-        callout: inLocale(section.callout, language),
-        calloutBody: inLocale(section.calloutBody, language),
-        calloutSource: inLocale(section.calloutSource, language),
-      }
-      if (Object.values(wanted).every((value) => value === undefined)) continue
-      const where = { sectionId_locale: { sectionId: row.id, locale } }
-      const existing = await prisma.guideSectionText.findUnique({ where })
-      const fill = emptyOf(existing, wanted)
-      if (!existing) await prisma.guideSectionText.create({ data: { sectionId: row.id, locale, ...fill } })
-      else if (Object.keys(fill).length > 0) await prisma.guideSectionText.update({ where, data: fill })
-    }
-
-    for (const [stepPosition, step] of (section.steps ?? []).entries()) {
-      const stepRow = await prisma.guideStep.upsert({
-        where: { sectionId_position: { sectionId: row.id, position: stepPosition } },
-        update: {},
-        create: { sectionId: row.id, position: stepPosition },
-      })
-      for (const [locale, language] of LOCALES) {
-        const title = inLocale(step.title, language)
-        if (!title) continue
-        const where = { stepId_locale: { stepId: stepRow.id, locale } }
-        const existing = await prisma.guideStepText.findUnique({ where })
-        const fill = emptyOf(existing, { body: inLocale(step.body, language), note: inLocale(step.note, language), label: inLocale(step.label, language) })
-        if (!existing) await prisma.guideStepText.create({ data: { stepId: stepRow.id, locale, title, ...fill } })
-        else if (Object.keys(fill).length > 0) await prisma.guideStepText.update({ where, data: fill })
-      }
-    }
-  }
-
-  for (const [position, option] of (seed.options ?? []).entries()) {
-    const found = await prisma.guideOption.findFirst({ where: { guideId: guide.id, position } })
-    const row = found ?? (await prisma.guideOption.create({ data: { guideId: guide.id, position } }))
-    for (const [locale, language] of LOCALES) {
-      const title = inLocale(option.title, language)
-      if (!title) continue
-      const where = { optionId_locale: { optionId: row.id, locale } }
-      const existing = await prisma.guideOptionText.findUnique({ where })
-      const fill = emptyOf(existing, { body: inLocale(option.body, language), bestFor: inLocale(option.bestFor, language), caveat: inLocale(option.caveat, language) })
-      if (!existing) await prisma.guideOptionText.create({ data: { optionId: row.id, locale, title, ...fill } })
-      else if (Object.keys(fill).length > 0) await prisma.guideOptionText.update({ where, data: fill })
-    }
-  }
-
-  const known = new Set(guide.sources.map((source) => source.url))
-  for (const [index, source] of seed.sources.entries()) {
-    if (known.has(source.url)) continue
-    await prisma.guideSource.create({
-      data: {
-        guideId: guide.id,
-        url: source.url,
-        name: source.name,
-        publisher: source.publisher ?? null,
-        official: source.official ?? true,
-        note: source.note ?? null,
-        verifiedAt: guide.verifiedAt,
-        position: guide.sources.length + index,
-      },
-    })
-  }
-
-  for (const [position, slug] of (seed.related ?? []).entries()) {
-    const target = await prisma.guide.findUnique({ where: { countryCode_slug: { countryCode, slug } } })
-    if (!target) continue
-    await prisma.relatedGuide.upsert({
-      where: { fromGuideId_toGuideId: { fromGuideId: guide.id, toGuideId: target.id } },
-      update: {},
-      create: { fromGuideId: guide.id, toGuideId: target.id, position },
-    })
   }
 }
 

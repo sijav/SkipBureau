@@ -1,0 +1,278 @@
+import type { PrismaClient } from '../generated/prisma/client.js'
+import type { GuideDetailSeed } from '../sample-types.js'
+import { TASKS } from '../tasks.js'
+import { fillGuideDetail, linkObligationGroups } from './guide-fill.js'
+
+// Guides written from the agreed research, not sample content (SB-258): each section is one of its document's paragraphs
+// under the bold lead that opens it, whole sentences in the document's order with only footnote markers, bold and list
+// markers taken out, and nothing the template would give emphasis the document does not, no quick answer, cost strip,
+// steps, note or callout. The description is the first sentence of the first section, which starts after it.
+// test/researched-guides.spec.ts holds every text to its document.
+
+export type ResearchedGuide = {
+  country: string
+  /** The global goal the area hangs on, from src/tasks.ts. */
+  task: string
+  /** The area of that goal in this country, titled as the research file titles the obligation. */
+  area: { slug: string; en: string; fa: string }
+  guide: { slug: string; verifiedAt: string; en: { title: string; description: string } }
+  detail: GuideDetailSeed
+  /** The duties it explains, each a group of alternatives, most preferred first. */
+  obligations: readonly (readonly string[])[]
+}
+
+export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
+  // Written from research/agreed/turkey/short-term-residence-permit.md.
+  {
+    country: 'tr',
+    task: 'get-a-residence-permit',
+    area: { slug: 'short-term-residence-permit', en: 'Get a short-term residence permit', fa: 'دریافت اجازه اقامت کوتاه‌مدت' },
+    guide: {
+      slug: 'short-term-residence-permit',
+      verifiedAt: '2026-09-14',
+      en: {
+        title: 'Getting a short-term residence permit in Turkey',
+        description: 'Apply online through e-İkamet while your visa or visa-exempt stay is still valid.',
+      },
+    },
+    detail: {
+      slug: 'short-term-residence-permit',
+      sections: [
+        {
+          kind: 'howToDoIt',
+          title: { en: 'When to apply.' },
+          body: {
+            en: 'The deadline is the end of your own permitted stay, not ninety days after you arrive. Under a visa or visa exemption the ceiling is ninety days in any hundred and eighty, and a shorter allowance applies if your visa gives you fewer. Getting a new passport does not restart the allowance.',
+          },
+        },
+        {
+          kind: 'importantToKnow',
+          title: { en: 'If your stay runs out while you wait.' },
+          body: {
+            en: 'The completed application form covers you until your appointment, even if your previous lawful stay ends first. Missing the appointment can leave a first applicant treated as an overstayer. After you submit, the provincial directorate issues a residence permit application document (*İkamet İzni Müracaat Belgesi*). The implementing regulation, Article 21(9)(ç), says that document gives you the right to stay until your application is decided. An older application guide instead describes ninety days. We have not verified what happens when a printed validity runs out during a longer wait.',
+          },
+        },
+        {
+          kind: 'whatToCheck',
+          title: { en: 'Leaving and coming back while you wait.' },
+          body: {
+            en: 'With the directorate-approved application document, your passport, and evidence you paid the fee unless you are recorded as exempt, you may travel within the requested permit period and return without a visa if you return within fifteen days of each departure. Beyond fifteen days, ordinary visa rules apply. The appointment form on its own is not the document that does this.',
+          },
+        },
+        {
+          kind: 'commonProblems',
+          title: { en: 'What it costs.' },
+          body: {
+            en: "Two separate charges, and sometimes a third. The card costs 964 lira in 2026; the fee page lists no nationality-based exemption. The permit charge depends on your nationality. Turkey sets it on a reciprocity basis under Law 492, Schedule 6, section III, and the Migration Presidency publishes the country groups as an image. Most countries are in a main group of 158 at twenty-five US dollars for the first month and five for each month after; four smaller groups pay fourteen, nine, seven and five dollars for the first month (and 3.5, 2.5, 1.5 and 0.5 after). For an adult in the main group, without an applicable exemption or reduction, the twelve-month permit charge is eighty US dollars, collected as its lira equivalent. Countries outside every group, which the fee page names as Serbia, Fiji, Norway and the Northern Mariana Islands, pay the lira tariff instead. Citizens of Czechia, Denmark, Ireland, Kosovo, Nepal, Sri Lanka, Syria, Turkmenistan, Northern Cyprus and Palestine pay no permit charge, though they still pay for the card. If you entered visa-free you may also owe a single-entry visa fee. A 2014 Revenue Administration letter specifies conversion at the central bank effective selling rate on the permit document's issue date. We have not verified how today's e-İkamet assessment implements that instruction. We have not established the image's publication date.",
+          },
+        },
+        {
+          kind: 'whatYouNeed',
+          title: { en: 'Proving you have health cover.' },
+          body: {
+            en: 'Any one of these, and the institutional documents must all carry the prescribed signature or e-signature and stamp or seal: the provincial social security certificate confirming healthcare entitlement under a bilateral agreement; an SGK provision document; an SGK general health insurance application certificate; or a private policy meeting the official minimum coverage requirements (the SEDDK standard). It must cover the period you are asking for. Applicants under eighteen and over sixty-five are exempt from obtaining health insurance for the application; official guidance says existing valid cover must still be submitted.',
+          },
+        },
+        {
+          kind: 'whereToDoIt',
+          title: { en: 'Proving your address.' },
+          body: {
+            en: "A lease is not the only accepted way to prove your accommodation. The checklist accepts a notarised copy of your rental agreement with the landlord's details; or, if you are staying in someone's home, a notarised undertaking from them, and from their spouse if married, with a recent electricity, water, gas or landline-telephone bill, or the corresponding subscription agreement for a new subscriber, in that person's name; or a signed or e-signed and stamped or sealed dormitory document confirming your stay; or, in a hotel, proof of the stay with a receipt covering the requested period; or, if you own the home, the title deed and a house-numbering document.",
+          },
+        },
+        {
+          kind: 'beforeYouStart',
+          title: { en: 'Istanbul, and this is the part we cannot answer.' },
+          body: {
+            en: 'Official notices closed certain Istanbul districts to first applications: Esenyurt and Fatih from January 2021, with exceptions for investment-based short-term permits, for property-based short-term permits where the property is in Esenyurt, and for student residence permits for students registered at universities in the respective district; ten districts from October 2022, restated in July 2023. We could not verify whether any of that is in force today, and we found no maintained official list of what is closed now, which is not the same as knowing none exists. We also could not verify what happens to an application made at such an address today. Ask the Istanbul provincial directorate or YİMER 157 before you commit to a lease.',
+          },
+        },
+      ],
+      sources: [
+        { url: 'https://www.mevzuat.gov.tr/MevzuatMetin/1.5.6458.pdf', name: 'Yabancılar ve Uluslararası Koruma Kanunu (6458), Madde 11' },
+        { url: 'https://www.mfa.gov.tr/vize-genel-bilgileri.tr.mfa', name: 'Dışişleri Bakanlığı, Vize Genel Bilgileri' },
+        {
+          url: 'https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/7.5.21460.pdf',
+          name: 'Yabancılar ve Uluslararası Koruma Kanununun Uygulanmasına İlişkin Yönetmelik, Madde 21',
+        },
+        {
+          url: 'https://e-ikamet.goc.gov.tr/Ikamet/IstenenBelgeler/BasvuruFormuBelgelerIliskinAciklamalar',
+          name: 'e-İkamet, Başvuru Belgelerine İlişkin Açıklamalar',
+        },
+        {
+          url: 'https://ms.hmb.gov.tr/uploads/sites/3/2025/12/2026-Degerli-Kagitlar-Tebligi-a3f95f2236d8ad45.pdf',
+          name: 'Muhasebat Genel Müdürlüğü Genel Tebliği (Sıra No: 97) Değerli Kağıtlar',
+        },
+        { url: 'https://www.goc.gov.tr/belge-bedeli-ve-harc-miktari', name: 'Göç İdaresi Başkanlığı, Belge Bedeli ve Harç Miktarı' },
+        { url: 'https://www.mevzuat.gov.tr/MevzuatMetin/1.5.492.pdf', name: '492 sayılı Harçlar Kanunu' },
+        {
+          url: 'https://www.goc.gov.tr/kurumlar/goc.gov.tr/Kanunlar/u%CC%88lkelere_go%CC%88re_harc_miktarlari.png',
+          name: 'Göç İdaresi Başkanlığı, Ülkelere göre harç miktarları',
+        },
+        {
+          url: 'https://e-ikamet.goc.gov.tr/Ikamet/BasvuruIstenenBelgeler/BasvuruFormuIstenenBelgeler?tur=0',
+          name: 'e-İkamet, Kısa Dönem İkamet İzni Başvurularında İstenen Belgeler',
+        },
+        { url: 'https://www.goc.gov.tr/ikamet-genel-bilgiler', name: 'Göç İdaresi Başkanlığı, İkamet Genel Bilgiler' },
+        {
+          url: 'https://istanbul.goc.gov.tr/ikamet-izni-talepleri-hakkinda',
+          name: 'İstanbul İl Göç İdaresi Müdürlüğü, İkamet İzni Talepleri Hakkında',
+        },
+        {
+          url: 'https://www.goc.gov.tr/istanbulda-39-ilcenin-yabancilarin-ikamet-izinlerine-kapatildigi-iddialarina-iliskin-basin-aciklamasi',
+          name: 'Göç İdaresi Başkanlığı, “İstanbul’da 39 İlçenin Yabancıların İkamet İzinlerine Kapatıldığı” İddialarına İlişkin Basın Açıklaması',
+        },
+        {
+          url: 'https://istanbul.goc.gov.tr/istanbul-ilinde-bulunan-yabancilar-hakkinda-basin-aciklamasi-01112022',
+          name: 'İstanbul İl Göç İdaresi Müdürlüğü, İstanbul İlinde Bulunan Yabancılar Hakkında Basın Açıklaması (01.11.2022)',
+        },
+      ],
+    },
+    obligations: [['get-a-short-term-residence-permit'], ['pay-the-residence-permit-charge']],
+  },
+  // Written from research/agreed/germany/residence-permit.md.
+  {
+    country: 'de',
+    task: 'get-a-residence-permit',
+    area: {
+      slug: 'residence-permit',
+      en: 'Get a residence permit as a skilled worker with a degree',
+      fa: 'دریافت اجازه اقامت به‌عنوان نیروی کار متخصص دارای مدرک دانشگاهی',
+    },
+    guide: {
+      slug: 'residence-permit',
+      verifiedAt: '2026-09-15',
+      en: {
+        title: 'Getting a residence permit in Germany',
+        description:
+          "The Ausländerbehörde where you live decides your application and issues the permit: in Berlin the Landesamt für Einwanderung, in Munich the city's Servicestelle für Zuwanderung und Einbürgerung.",
+      },
+    },
+    detail: {
+      slug: 'residence-permit',
+      sections: [
+        {
+          kind: 'beforeYouStart',
+          title: { en: 'Who decides.' },
+          body: { en: 'The employment agency may have to consent to your job, but it does not issue the permit.' },
+        },
+        {
+          kind: 'whatYouNeed',
+          title: { en: 'What it costs, and this one is federal.' },
+          body: {
+            en: 'A first residence permit for employment, issued as an electronic card, costs €100, whether it runs for a year or longer. It is set in the federal Aufenthaltsverordnung §45(1), not by your city. If you see €56 quoted in Berlin, that is the federal reduction for the exceptional sticker format under §78a, not a Berlin price. Exemptions and reductions exist.',
+          },
+        },
+        {
+          kind: 'importantToKnow',
+          title: { en: 'What happens while you wait, and this is the part to read twice.' },
+          body: {
+            en: "Applying before your national D visa or residence permit expires normally preserves that title under §81(4); applying during a lawful visa-free stay without a residence title makes your stay count as permitted until the authority decides, if you apply while your stay is still lawful (§81(3)); if the application is late, only your deportation is suspended until the decision. For a national §41(1) names, the application deadline is within 90 days of entry, unless it ends earlier because of expulsion or a time restriction imposed under §12(4) AufenthG. Applying while you hold a Schengen (C) visa does not keep that visa valid automatically, and §81(3) does not protect your stay either: once the visa expires, the application alone gives you no permission to stay. Whether an authority can order a late application to keep a Schengen visa valid, to avoid undue hardship under §81(4) sentence 3, is not settled by any official source we opened. These rules apply nationwide. Applying does not automatically let you work, and it does not automatically let you travel. Under §81(4), your existing permission to work continues with the restrictions it already had, and applying does not let you switch to a different job. With a valid §81(4) Fiktionsbescheinigung and a valid passport, you can travel and come back. Under §81(3), the application by itself does not let you work, and an §81(3) Fiktionsbescheinigung does not let you re-enter Germany. Leaving may mean you cannot get back in. Two more things about working. Under §81(5a), once the authority has started issuing your employment permit, the specified work is allowed while the card is being produced, and that permission must be recorded on your certificate. And arriving visa-free does not by itself let you get an employment residence permit inside Germany: normally you enter with the visa for that purpose. §41(1) AufenthV lets nationals of Australia, Israel, Japan, Canada, the Republic of Korea, New Zealand and the United States, and British nationals as the Withdrawal Agreement defines them, enter visa-free and apply inside Germany for the residence title they need, within 90 days of entry; that deadline ends earlier if you are expelled or your stay is limited in time. §41(2) gives nationals of Andorra, Brazil, El Salvador, Honduras, Monaco and San Marino the same only if they do not intend to work, apart from a few short activities that do not count as employment, so it is not a route to a skilled worker's permit. Neither applies to an ICT card. Otherwise, §39 No. 3 AufenthV may let a national of a state in Annex II of Regulation (EU) 2018/1806 who is lawfully in Germany, or the holder of a valid short-stay Schengen visa, obtain the skilled-worker residence permit inside Germany, provided the conditions for an entitlement to its issue arose after entry; no official page we opened says how that applies when the job offer was made before entry. Separately, the authority may waive the visa requirement where the conditions of an entitlement are met, and must where the particular circumstances make catching up the visa procedure unreasonable (§5(2) sentence 2 AufenthG). The Withdrawal Agreement's British nationals are British citizens, British subjects under Part IV of the British Nationality Act 1981 who have the right of abode in the United Kingdom, and British overseas territories citizens whose citizenship comes from a connection with Gibraltar. Other kinds of British nationality, such as British National (Overseas), are not among them.",
+          },
+        },
+        {
+          kind: 'commonProblems',
+          title: { en: 'If you cannot get an appointment.' },
+          body: {
+            en: "This is real and officially acknowledged: Berlin says some departments have nothing available for months. In Berlin, submit the employment-permit application through the dedicated online application before your current permission expires; you do not need to wait for an appointment. For additional help in a documented emergency, use the responsible department's contact form. Berlin assesses emergency requests for urgent travel within the next four weeks evidenced by a booking, or threatened job loss or benefit termination because of missing valid documentation, evidenced by an employer's or Jobcenter/Sozialamt's letter. If it accepts the emergency, it can send a Fiktionsbescheinigung or offer a prompt appointment.",
+          },
+        },
+        {
+          kind: 'whereToDoIt',
+          title: { en: 'The mistake to avoid.' },
+          body: {
+            en: 'Believing that applying settles all three questions at once. Staying, working and travelling are separate. Existing work permission continues under §81(4); new work permission under §81(5a) arises when issuance of the qualifying title is initiated and must be recorded on the certificate. Re-entry requires the appropriate valid travel documents. An application receipt is not the same document as a Fiktionsbescheinigung that is valid for travel.',
+          },
+        },
+      ],
+      sources: [
+        {
+          url: 'https://www.gesetze-im-internet.de/aufenthv/__45.html',
+          name: 'Aufenthaltsverordnung (AufenthV), § 45 Gebühren für die Aufenthaltserlaubnis, die Blaue Karte EU, die ICT-Karte und die Mobiler-ICT-Karte',
+        },
+        {
+          url: 'https://service.berlin.de/dienstleistung/329328/',
+          name: 'Service Berlin, Aufenthaltserlaubnis für Fachkräfte mit akademischer Ausbildung beantragen',
+        },
+        {
+          url: 'https://www.gesetze-im-internet.de/aufenthv/__45b.html',
+          name: 'Aufenthaltsverordnung (AufenthV), § 45b Gebühren für Aufenthaltstitel in Ausnahmefällen',
+        },
+        {
+          url: 'https://www.gesetze-im-internet.de/aufenthg_2004/__81.html',
+          name: 'Aufenthaltsgesetz (AufenthG), § 81 Beantragung des Aufenthaltstitels',
+        },
+        {
+          url: 'https://www.gesetze-im-internet.de/aufenthv/__41.html',
+          name: 'Aufenthaltsverordnung (AufenthV), § 41 Vergünstigung für Angehörige bestimmter Staaten',
+        },
+        {
+          url: 'https://www.berlin.de/einwanderung/termine/termin-vereinbaren/',
+          name: 'Landesamt für Einwanderung Berlin, Termin vereinbaren',
+        },
+      ],
+    },
+    obligations: [['get-a-residence-permit-as-a-skilled-worker-with-a-degree']],
+  },
+]
+
+/**
+ * Each researched guide onto a database, creating only what is missing: its goal with the goal's texts, its area with
+ * the area's titles, the guide with its English title and description, its body, and its links. A start after changes
+ * nothing, and a database with no sample content gets the goal too.
+ */
+export const loadResearchedGuides = async (prisma: PrismaClient): Promise<string[]> => {
+  const loaded: string[] = []
+  for (const researched of RESEARCHED_GUIDES) {
+    const goal = TASKS.find((task) => task.slug === researched.task)
+    if (!goal) throw new Error(`src/tasks.ts has no goal ${researched.task} for ${researched.country}/${researched.guide.slug}.`)
+
+    const task = await prisma.task.upsert({ where: { slug: goal.slug }, update: {}, create: { slug: goal.slug, position: goal.position } })
+    for (const [locale, title, subtitle] of [
+      ['en-US', goal.en, goal.enSub],
+      ['fa-IR', goal.fa, goal.faSub],
+    ] as const) {
+      const where = { taskId_locale: { taskId: task.id, locale } }
+      if (!(await prisma.taskText.findUnique({ where })))
+        await prisma.taskText.create({ data: { taskId: task.id, locale, title, subtitle } })
+    }
+
+    const area = await prisma.category.upsert({
+      where: { countryCode_slug: { countryCode: researched.country, slug: researched.area.slug } },
+      update: {},
+      create: { countryCode: researched.country, taskId: task.id, slug: researched.area.slug, position: 0 },
+    })
+    for (const [locale, title] of [
+      ['en-US', researched.area.en],
+      ['fa-IR', researched.area.fa],
+    ] as const) {
+      const where = { categoryId_locale: { categoryId: area.id, locale } }
+      if (!(await prisma.categoryText.findUnique({ where })))
+        await prisma.categoryText.create({ data: { categoryId: area.id, locale, title } })
+    }
+
+    const found = await prisma.guide.findUnique({
+      where: { countryCode_slug: { countryCode: researched.country, slug: researched.guide.slug } },
+    })
+    const guide =
+      found ??
+      (await prisma.guide.create({
+        data: {
+          countryCode: researched.country,
+          categoryId: area.id,
+          slug: researched.guide.slug,
+          verifiedAt: new Date(researched.guide.verifiedAt),
+          position: 0,
+        },
+      }))
+    const text = { guideId_locale: { guideId: guide.id, locale: 'en-US' } }
+    if (!(await prisma.guideText.findUnique({ where: text }))) {
+      await prisma.guideText.create({ data: { guideId: guide.id, locale: 'en-US', ...researched.guide.en } })
+    }
+
+    await fillGuideDetail(prisma, researched.country, researched.detail)
+    await linkObligationGroups(prisma, guide.id, researched.obligations)
+    loaded.push(`${researched.country}/${researched.guide.slug}`)
+  }
+  return loaded
+}
