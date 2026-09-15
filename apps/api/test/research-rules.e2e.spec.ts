@@ -12,6 +12,8 @@ import { AppModule } from '../src/app.module.js'
 import { PrismaService } from '../src/prisma/prisma.service.js'
 import { loadInto, loadResearchRules, ResearchRulesMismatch } from '../src/rules/research/load.js'
 import type { ResearchMembership, ResearchReading, ResearchRules, ResearchStatus, ResearchVersion } from '../src/rules/research/rows.js'
+import { RESEARCHED } from '../src/rules/research/countries.js'
+import { GERMANY } from '../src/rules/research/germany.js'
 import { TURKEY } from '../src/rules/research/turkey.js'
 import { seed } from '../prisma/seed.js'
 import { startPglite } from '../scripts/pglite-server.mjs'
@@ -25,11 +27,12 @@ import { startPglite } from '../scripts/pglite-server.mjs'
 // SB-210: every region a file names is read back from the two pages that code
 // and name it, and a reader can say they live in any of them. SB-191: the
 // address duty reaches each status it was verified for, and Bursa's procedure
-// reaches only a reader who lives in Bursa.
+// reaches only a reader who lives in Bursa. SB-223: Germany's Länder, read the same way
+// from a list that prints each on a line.
 
 const API = join(dirname(fileURLToPath(import.meta.url)), '..')
 const PORT = 5468
-const COUNTRIES: readonly ResearchRules[] = [TURKEY]
+const COUNTRIES: readonly ResearchRules[] = RESEARCHED
 
 let app: INestApplication
 let prisma: PrismaService
@@ -145,7 +148,13 @@ test('every region a file names is one row of the page that codes it, beside its
     const prefix = `${rules.country.toUpperCase()}-`
     const codesIn = (passage: string) => passage.split(' ').filter((word) => word.startsWith(prefix)).map((word) => word.replace(/\*+$/, ''))
     const rows = readBack(from.codes).filter((passage) => codesIn(passage).length > 0)
-    const names = readBack(from.names)
+    // A page that prints more than the name on each line says how to read the name from it.
+    const pattern = from.names.row === undefined ? null : new RegExp(from.names.row)
+    const names = readBack(from.names).flatMap((passage) => {
+      if (!pattern) return [passage]
+      const found = pattern.exec(passage)?.[1]
+      return found === undefined ? [] : [found]
+    })
 
     const fileCodes = new Set(rules.regions.map((region) => region.code))
     expect(fileCodes.size, 'a code is given twice').toBe(rules.regions.length)
@@ -234,17 +243,24 @@ const factsIn = (...versions: readonly (ResearchVersion | undefined)[]) =>
 /** The facts Turkey's file holds for one obligation, as the move query shows them, in key order. */
 const factsOf = (slug: string) => factsIn(TURKEY.versions.find((version) => version.obligation === slug))
 
+// The regions the seed had written before the first load, by code, with the names it
+// gave them, which a load leaves as they are (SB-223).
+let seededRegions = new Map<string, string>()
+
 test("after a load, Turkey's limited company formation answers with every fact the file holds, each on its own page", async () => {
+  seededRegions = new Map((await prisma.region.findMany({ select: { code: true, name: true } })).map((region) => [region.code, region.name]))
+  const across = (count: (rules: ResearchRules) => number) => COUNTRIES.reduce((sum, rules) => sum + count(rules), 0)
+
   const started = Date.now()
   const report = await loadResearchRules(prisma, COUNTRIES)
   console.log(`a full load of researched rules took ${Date.now() - started} ms`)
   expect(report).toEqual({
-    statusesAdded: TURKEY.statuses.length,
-    regionsAdded: TURKEY.regions.length,
-    groupsAdded: TURKEY.nationalityGroups.length,
-    membershipsAdded: TURKEY.nationalityGroups.reduce((sum, group) => sum + group.members.length, 0),
-    obligationsAdded: TURKEY.obligations.length,
-    versionsAdded: TURKEY.versions.length,
+    statusesAdded: across((rules) => rules.statuses.length),
+    regionsAdded: across((rules) => rules.regions.filter((region) => !seededRegions.has(region.code)).length),
+    groupsAdded: across((rules) => rules.nationalityGroups.length),
+    membershipsAdded: across((rules) => rules.nationalityGroups.reduce((sum, group) => sum + group.members.length, 0)),
+    obligationsAdded: across((rules) => rules.obligations.length),
+    versionsAdded: across((rules) => rules.versions.length),
   })
 
   const formation = await entryFor('form-a-limited-company')
@@ -279,6 +295,33 @@ test("after a load, every province in Turkey's file is stored by its code with i
   // pass because nothing is ever refused.
   const nowhere = await graphql(LIVES, { toResidenceRegions: ['TR-82'] })
   expect(JSON.stringify(nowhere.body.errors)).toMatch(/Not a region: TR-82\./)
+})
+
+const IN_GERMANY = `
+  query InGermany($toResidenceRegions: [String!], $toWorkRegions: [String!]) {
+    move(from: "tr", to: "de", toResidenceRegions: $toResidenceRegions, toWorkRegions: $toWorkRegions) {
+      obligationSlug
+    }
+  }
+`
+
+test("after a load, every Land in Germany's file is a region with nothing above it, named as Destatis names it unless the seed named it first, and a reader can say they will live or work in any one of them", async () => {
+  const byCode = (a: { code: string }, b: { code: string }) => (a.code < b.code ? -1 : 1)
+  const stored = await prisma.region.findMany({ where: { countryCode: 'de' }, select: { code: true, parentCode: true, name: true } })
+  const expected = GERMANY.regions.map((region) => ({ code: region.code, parentCode: region.parent, name: seededRegions.get(region.code) ?? region.name }))
+  expect(stored.sort(byCode)).toEqual(expected.sort(byCode))
+  expect(stored).toHaveLength(16)
+  expect(GERMANY.regions.filter((region) => !seededRegions.has(region.code)), 'the Länder this spec shows Destatis names for').toHaveLength(8)
+
+  for (const region of GERMANY.regions) {
+    for (const where of [{ toResidenceRegions: [region.code] }, { toWorkRegions: [region.code] }]) {
+      const response = await graphql(IN_GERMANY, where)
+      expect(response.body.errors, `${JSON.stringify(where)}: ${JSON.stringify(response.body.errors)}`).toBeUndefined()
+    }
+  }
+
+  const nowhere = await graphql(IN_GERMANY, { toWorkRegions: ['DE-XX'] })
+  expect(JSON.stringify(nowhere.body.errors)).toMatch(/Not a region: DE-XX\./)
 })
 
 test("joining Turkey's general health insurance answers a residence permit holder, or a holder of a kind of one, with its five facts on their pages, asks a reader who has not said what they hold, and is never told to a visitor on a visa exemption", async () => {

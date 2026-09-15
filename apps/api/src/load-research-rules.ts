@@ -2,7 +2,7 @@ import { PrismaPg } from '@prisma/adapter-pg'
 import { databaseUrl } from './database-url.js'
 import { PrismaClient } from './generated/prisma/client.js'
 import { loadResearchRules } from './rules/research/load.js'
-import { TURKEY } from './rules/research/turkey.js'
+import { RESEARCHED } from './rules/research/countries.js'
 
 /**
  * Researched rules onto the deployed database, on every start (SB-190).
@@ -19,7 +19,7 @@ const load = async (): Promise<void> => {
   const started = Date.now()
 
   try {
-    const report = await loadResearchRules(prisma, [TURKEY])
+    const report = await loadResearchRules(prisma, RESEARCHED)
     console.log(
       `research rules: ${report.statusesAdded} residence status(es), ${report.regionsAdded} region(s), ${report.groupsAdded} nationality group(s) with ${report.membershipsAdded} membership(s), ${report.obligationsAdded} obligation(s) and ${report.versionsAdded} version(s) added in ${Date.now() - started} ms, the rest already present`,
     )

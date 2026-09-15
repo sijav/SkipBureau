@@ -33,6 +33,12 @@ export type ResearchReading = {
   /** The key in `sources` of the page. */
   source: string
   label: string
+  /**
+   * Where the page prints more than a name on each line, a pattern whose one group is
+   * the name, and a passage it does not match is not a row. Left out, every passage is a
+   * row and its whole text is the name (SB-223).
+   */
+  row?: string
 }
 
 /** The agreed document a file's regions are read from, and its two definitions, each quoting one passage per region. */
@@ -40,7 +46,7 @@ export type ResearchRegionSource = {
   document: string
   /** Whose passages each hold a region's code beside its name as that page spells it. */
   codes: ResearchReading
-  /** Whose passages are each exactly one region's official name. */
+  /** Whose rows each give exactly one region's official name. */
   names: ResearchReading
 }
 
