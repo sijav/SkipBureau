@@ -19,7 +19,9 @@ const meta = {
     (Story, { parameters, globals }) => (
       <GraphQLProvider>
         <MemoryRouter
-          initialEntries={[`/${localeSegment(isLocale(globals['locale']) ? globals['locale'] : 'en-US')}/TR/guides/${typeof parameters['guide'] === 'string' ? parameters['guide'] : 'sim-card'}`]}
+          initialEntries={[
+            `/${localeSegment(isLocale(globals['locale']) ? globals['locale'] : 'en-US')}/${typeof parameters['country'] === 'string' ? parameters['country'] : 'TR'}/guides/${typeof parameters['guide'] === 'string' ? parameters['guide'] : 'sim-card'}`,
+          ]}
         >
           <AddressShell>
             <AppShell header={<Header />}>
@@ -107,6 +109,38 @@ export const OneLanguage: Story = {
     await within(canvasElement).findByRole('heading', { level: 1 }, { timeout: 5000 })
     await expect(window.document.head.querySelectorAll('link[rel="alternate"]')).toHaveLength(0)
     await expect(window.document.head.querySelector('link[rel="canonical"]')?.getAttribute('href')).toMatch(/\/en\/TR\/guides\/register-your-address$/)
+  },
+}
+
+/**
+ * SB-257: a guide that links a researched rule shows the rule for everyone and
+ * asks where the reader lives; saying Hamburg in the panel its button opens
+ * answers for Hamburg, its fee beside the federal deadline and fine, on the same page.
+ */
+export const RuleAnswers: Story = {
+  parameters: { country: 'DE', guide: 'anmeldung' },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const section = (await canvas.findByRole('heading', { level: 2, name: /The rules that apply/ }, { timeout: 5000 })).closest('section')
+    if (!section) throw new Error('the rules have no section')
+    const rules = within(section)
+    await expect(rules.getByText(/The rule for everyone/)).toBeVisible()
+    await expect(rules.getByText('within 2 weeks')).toBeVisible()
+    await expect(rules.getByText('at most €1,000')).toBeVisible()
+    await expect(rules.getByRole('link', { name: /§ 17 Anmeldung/ })).toHaveAttribute('href', 'https://www.gesetze-im-internet.de/bmg/__17.html')
+    await expect(await rules.findByText(/Where you live can change this/, {}, { timeout: 5000 })).toBeVisible()
+
+    await userEvent.click(rules.getByRole('button', { name: /Tell us/ }))
+    const page = within(window.document.body)
+    const city = (await page.findByText(/^City in Germany$/, {}, { timeout: 5000 })).parentElement
+    if (!city) throw new Error('the panel has no City row')
+    await userEvent.click(within(city).getByRole('button', { name: /^Add$/ }))
+    await userEvent.click(await page.findByRole('option', { name: /Hamburg/ }, { timeout: 5000 }))
+
+    await expect(await canvas.findByText(/Registration fee/, {}, { timeout: 5000 })).toBeVisible()
+    await expect(canvas.getByText('€16')).toBeVisible()
+    await expect(canvas.getByText(/For you/)).toBeVisible()
+    await expect(canvas.queryByText(/can change this/)).toBeNull()
   },
 }
 

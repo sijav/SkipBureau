@@ -6,7 +6,7 @@
     "moduleResolution": "bundler",
     "jsx": "react-jsx",
     "types": ["vite/client"],
-    "paths": { "src/*": ["./src/*"] },
+    "paths": { "src/*": ["./src/*"], "api/*": ["../api/src/*"] },
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,

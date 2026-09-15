@@ -118,6 +118,64 @@ export const guide = {
 /** The same guide asked for in Persian, which this one does not have. */
 export const untranslatedGuide = { ...guide, locale: 'en-US', translationMissing: true }
 
+const readOn = (sourceUrl: string, sourceName: string) => ({ sourceUrl, sourceName, verifiedAt: '2026-09-14' })
+
+/** Germany's Anmeldung facts as the research holds them (SB-257): the federal deadline and fine, and Hamburg's fee. */
+export const anmeldungFacts = {
+  deadline: {
+    key: 'reportAddressChangeWithin',
+    operator: 'within',
+    numericValue: '2',
+    textValue: null,
+    unit: 'weeks',
+    currency: null,
+    ...readOn('https://www.gesetze-im-internet.de/bmg/__17.html', 'Bundesmeldegesetz (BMG), § 17 Anmeldung, Abmeldung'),
+  },
+  fine: {
+    key: 'lateAddressNotificationFine',
+    operator: 'atMost',
+    numericValue: '1000',
+    textValue: null,
+    unit: null,
+    currency: 'EUR',
+    ...readOn('https://www.gesetze-im-internet.de/bmg/__54.html', 'Bundesmeldegesetz (BMG), § 54 Bußgeldvorschriften'),
+  },
+  fee: {
+    key: 'registrationFee',
+    operator: 'equals',
+    numericValue: '16',
+    textValue: null,
+    unit: null,
+    currency: 'EUR',
+    ...readOn('https://www.hamburg.de/service/info/111142065/n0/', 'hamburg.de, Umzug nach Hamburg aus dem Ausland melden'),
+  },
+}
+
+/** The opening sentences of the research's notes on it, for everyone and for Hamburg. */
+export const anmeldungNotes = {
+  everyone: {
+    locale: 'en-US',
+    text: 'For anyone who moves into a dwelling in Germany, unless a statutory exemption or exception applies, whatever their nationality and whether or not they are an EU citizen: register with the registration office (Meldebehörde) within two weeks of moving in.',
+  },
+  hamburg: { locale: 'en-US', text: "In Hamburg, registration costs €16, set by Hamburg's own fee ordinance and raised to that figure on 1 January 2026." },
+}
+
+/** Germany's Anmeldung guide, linking the research's address duty, which is the same for everyone until a place is said. */
+export const anmeldungGuide = {
+  ...guide,
+  slug: 'anmeldung',
+  title: 'Register your address',
+  obligations: [
+    {
+      slug: 'report-your-address',
+      title: 'Report your address and any change to it',
+      resolution: 'general',
+      facts: [anmeldungFacts.deadline, anmeldungFacts.fine],
+      notes: [anmeldungNotes.everyone],
+    },
+  ],
+}
+
 /** Start a business in Turkey, as the API's sample content has it: Figma 81:523. */
 export const taskHub = {
   slug: 'start-a-business',

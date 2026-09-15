@@ -32,6 +32,9 @@ export type Shell = {
    * of a page hydrated from its file, which was rendered without it (SB-256).
    */
   readsStatus: boolean
+  /** Whether the details panel is open, so a page can open it too, as a rule's answer asks for a detail (SB-257). */
+  detailsOpen: boolean
+  setDetailsOpen: (open: boolean) => void
 }
 
 export const ShellContext = createContext<Shell>({
@@ -43,6 +46,8 @@ export const ShellContext = createContext<Shell>({
   place: null,
   status: null,
   readsStatus: true,
+  detailsOpen: false,
+  setDetailsOpen: () => undefined,
 })
 
 export const useShell = () => useContext(ShellContext)

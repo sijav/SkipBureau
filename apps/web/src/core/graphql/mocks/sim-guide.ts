@@ -4,6 +4,8 @@
  */
 export const simGuide = {
   slug: 'sim-card',
+  // The rules the guide links (SB-257): none for the SIM card.
+  obligations: [],
   title: 'Get a SIM Card or eSIM',
   description: 'Compare mobile operators and understand what documents you need.',
   intro:

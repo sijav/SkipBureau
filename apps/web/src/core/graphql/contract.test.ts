@@ -148,6 +148,7 @@ test('the generated types carry the fields the documents select', () => {
         time: null,
         deadlines: null,
         costNote: null,
+        obligations: [],
         place: null,
         sections: [],
         options: [],

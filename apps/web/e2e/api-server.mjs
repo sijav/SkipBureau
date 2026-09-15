@@ -38,6 +38,12 @@ const run = (file, args, env, shell = false) =>
 const { url } = await startPglite(DB_PORT)
 
 await run(process.execPath, [cli, 'migrate', 'deploy'], { DATABASE_URL: url })
+// The deployed entrypoint's order (docker-entrypoint.sh): the countries and the
+// researched rules before the seed (SB-257). The sample content links a guide to
+// the first obligation of each group the database holds, so without the research
+// Germany's Anmeldung links the seed's own address duty, which has no facts.
+await run(process.execPath, ['dist/bootstrap.js'], { DATABASE_URL: url })
+await run(process.execPath, ['dist/load-research-rules.js'], { DATABASE_URL: url })
 await run('npx', ['tsx', 'prisma/seed.ts'], { DATABASE_URL: url }, true)
 
 // The test needs to reach the same database to insert and delete rows.

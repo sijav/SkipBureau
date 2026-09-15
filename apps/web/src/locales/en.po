@@ -13,9 +13,41 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/shared/rule-answer/RuleAnswer.tsx
+msgid "{asks} can change this"
+msgstr "{asks} can change this"
+
+#: src/shared/rule-answer/factValue.ts
+msgid "{count, plural, one {# calendar year} other {# calendar years}}"
+msgstr "{count, plural, one {# calendar year} other {# calendar years}}"
+
+#: src/shared/rule-answer/factValue.ts
+msgid "{count, plural, one {# day} other {# days}}"
+msgstr "{count, plural, one {# day} other {# days}}"
+
+#: src/shared/rule-answer/factValue.ts
+msgid "{count, plural, one {# month} other {# months}}"
+msgstr "{count, plural, one {# month} other {# months}}"
+
+#: src/shared/rule-answer/factValue.ts
+msgid "{count, plural, one {# percentage point} other {# percentage points}}"
+msgstr "{count, plural, one {# percentage point} other {# percentage points}}"
+
 #: src/screens/search/SearchResults.tsx
 msgid "{count, plural, one {# result} other {# results}}"
 msgstr "{count, plural, one {# result} other {# results}}"
+
+#: src/shared/rule-answer/factValue.ts
+msgid "{count, plural, one {# week} other {# weeks}}"
+msgstr "{count, plural, one {# week} other {# weeks}}"
+
+#: src/shared/rule-answer/factValue.ts
+msgid "{count, plural, one {# working day} other {# working days}}"
+msgstr "{count, plural, one {# working day} other {# working days}}"
+
+#: src/shared/rule-answer/factValue.ts
+msgid "{count, plural, one {# year} other {# years}}"
+msgstr "{count, plural, one {# year} other {# years}}"
 
 #: src/shared/deadline-item/DeadlineItem.tsx
 msgid "{days, plural, one {# day late} other {# days late}}"
@@ -32,6 +64,14 @@ msgstr "{done} of {total, plural, one {# step completed} other {# steps complete
 #: src/screens/category-hub/CategoryHub.tsx
 msgid "{minutes} min read"
 msgstr "{minutes} min read"
+
+#: src/shared/rule-answer/factValue.ts
+msgid "{money} a month"
+msgstr "{money} a month"
+
+#: src/shared/rule-answer/factValue.ts
+msgid "{money} a year"
+msgstr "{money} a year"
 
 #: src/shared/page-head/title.ts
 msgid "{named} · Skipbureau"
@@ -84,6 +124,10 @@ msgstr "A few questions about your situation, then only the steps that apply to 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "A student residence permit application must be submitted within one month of arrival, and the appointment is booked through the official e-ikamet system."
 msgstr "A student residence permit application must be submitted within one month of arrival, and the appointment is booked through the official e-ikamet system."
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "A UETS account among the documents"
+msgstr "A UETS account among the documents"
 
 #: src/shared/step-row/StepRow.stories.tsx
 msgid "A working SIM does not mean a registered device."
@@ -202,6 +246,14 @@ msgstr "Ask SkipBureau"
 #: src/shared/header/Header.tsx
 msgid "Ask Skipbureau…"
 msgstr "Ask Skipbureau…"
+
+#: src/shared/rule-answer/factValue.ts
+msgid "at least {number}"
+msgstr "at least {number}"
+
+#: src/shared/rule-answer/factValue.ts
+msgid "at most {number}"
+msgstr "at most {number}"
 
 #: src/shared/text-input/TextInput.stories.tsx
 msgid "Available once you confirm your nationality"
@@ -368,6 +420,14 @@ msgstr "Cost and time"
 msgid "Currently in"
 msgstr "Currently in"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Deadline to apply inside Germany"
+msgstr "Deadline to apply inside Germany"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Deadline to register your address"
+msgstr "Deadline to register your address"
+
 #: src/screens/task-hub/TaskHub.tsx
 #: src/shared/topic-item/TopicItem.stories.tsx
 msgid "Decision"
@@ -422,6 +482,10 @@ msgstr "Every guide for {name}"
 msgid "Every guide shows when it was last verified and links to the official source"
 msgstr "Every guide shows when it was last verified and links to the official source"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Exemption from the card fee by nationality"
+msgstr "Exemption from the card fee by nationality"
+
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Expired 12 Jul 2026 · must cover the full permit period"
 msgstr "Expired 12 Jul 2026 · must cover the full permit period"
@@ -442,9 +506,21 @@ msgstr "Explore"
 msgid "Figures, timings and requirements shown throughout this design are sample content for review, not verified legal information."
 msgstr "Figures, timings and requirements shown throughout this design are sample content for review, not verified legal information."
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Fine for a false address declaration"
+msgstr "Fine for a false address declaration"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Fine for registering late"
+msgstr "Fine for registering late"
+
 #: src/shared/information-disclaimer/InformationDisclaimer.tsx
 msgid "For general information only"
 msgstr "For general information only"
+
+#: src/shared/rule-answer/RuleAnswer.tsx
+msgid "For you"
+msgstr "For you"
 
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Format"
@@ -547,6 +623,18 @@ msgstr "In person, it cannot be done online"
 msgid "In progress"
 msgstr "In progress"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Inpatient cover, at a non-contracted provider or a public hospital outside Annex 1"
+msgstr "Inpatient cover, at a non-contracted provider or a public hospital outside Annex 1"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Inpatient cover, at a provider your insurer has contracted with"
+msgstr "Inpatient cover, at a provider your insurer has contracted with"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Inpatient cover, at a public hospital named in Annex 1"
+msgstr "Inpatient cover, at a public hospital named in Annex 1"
+
 #: src/shared/context-chip/ContextChip.stories.tsx
 msgid "Iranian"
 msgstr "Iranian"
@@ -601,6 +689,10 @@ msgstr "Last verified {0}"
 msgid "Last verified: {verified}"
 msgstr "Last verified: {verified}"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Longest stay on a visa or visa exemption"
+msgstr "Longest stay on a visa or visa exemption"
+
 #: src/shared/header/Header.tsx
 msgid "Main"
 msgstr "Main"
@@ -650,6 +742,10 @@ msgstr "No account needed"
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "No agent can get an appointment faster than the official system, and nobody can guarantee approval. Paying for a “guaranteed” slot buys you nothing you cannot do yourself for free."
 msgstr "No agent can get an appointment faster than the official system, and nobody can guarantee approval. Paying for a “guaranteed” slot buys you nothing you cannot do yourself for free."
+
+#: src/shared/rule-answer/factValue.ts
+msgid "None"
+msgstr "None"
 
 #: src/screens/Placeholder.tsx
 #~ msgid "Not built yet"
@@ -771,6 +867,18 @@ msgstr "Original required"
 msgid "Other routes"
 msgstr "Other routes"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Outpatient cover, at a non-contracted provider or a public hospital outside Annex 1"
+msgstr "Outpatient cover, at a non-contracted provider or a public hospital outside Annex 1"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Outpatient cover, at a provider your insurer has contracted with"
+msgstr "Outpatient cover, at a provider your insurer has contracted with"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Outpatient cover, at a public hospital named in Annex 1"
+msgstr "Outpatient cover, at a public hospital named in Annex 1"
+
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Parental consent"
 msgstr "Parental consent"
@@ -824,6 +932,10 @@ msgstr "Previous residence permit"
 msgid "Process"
 msgstr "Process"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Processing time"
+msgstr "Processing time"
+
 #: src/screens/guide/Guide.tsx
 #: src/shared/ask-result-row/AskResultRow.tsx
 msgid "Quick answer"
@@ -840,6 +952,12 @@ msgstr "Re-verification in progress"
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Read about a topic before you deal with it. Guides explain how something works; the areas above are things you may need to do."
 msgstr "Read about a topic before you deal with it. Guides explain how something works; the areas above are things you may need to do."
+
+#. placeholder {0}: line.source.name
+#. placeholder {1}: line.source.checked
+#: src/shared/rule-answer/RuleAnswer.tsx
+msgid "Read on <0>{0}</0>, checked {1}"
+msgstr "Read on <0>{0}</0>, checked {1}"
 
 #: src/screens/search/SearchResults.tsx
 #: src/screens/task-hub/TaskHub.tsx
@@ -878,6 +996,10 @@ msgstr "Recommended starting point"
 msgid "Register your company"
 msgstr "Register your company"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Registration fee"
+msgstr "Registration fee"
+
 #: src/screens/category-hub/CategoryHub.tsx
 #: src/screens/guide/Guide.tsx
 msgid "Related guides"
@@ -915,6 +1037,14 @@ msgstr "Required at any notary (noter)"
 msgid "Residence and immigration"
 msgstr "Residence and immigration"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Residence permit card fee"
+msgstr "Residence permit card fee"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Residence permit charge"
+msgstr "Residence permit charge"
+
 #: src/shared/deadline-item/DeadlineItem.stories.tsx
 msgid "Residence permit renewal"
 msgstr "Residence permit renewal"
@@ -930,6 +1060,10 @@ msgstr "Results for “{asked}”"
 #: src/shared/ask-panel/useAsk.tsx
 msgid "Results for “{text}”"
 msgstr "Results for “{text}”"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Return while your application is pending"
+msgstr "Return while your application is pending"
 
 #: src/shared/context-control/ContextPanel.tsx
 msgid "Role"
@@ -1105,6 +1239,10 @@ msgstr "Tax filing, Q3"
 msgid "Tax number obtained"
 msgstr "Tax number obtained"
 
+#: src/shared/rule-answer/RuleAnswer.tsx
+msgid "Tell us"
+msgstr "Tell us"
+
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Tell us if you have done this in Antalya"
 msgstr "Tell us if you have done this in Antalya"
@@ -1141,6 +1279,14 @@ msgstr "The page goes here"
 msgid "The reading measure is 720. The design gives a reason for that one number and for no other, so it is the only width here that is about how text reads rather than about how a screen is divided."
 msgstr "The reading measure is 720. The design gives a reason for that one number and for no other, so it is the only width here that is about how text reads rather than about how a screen is divided."
 
+#: src/shared/rule-answer/RuleAnswer.tsx
+msgid "The rule for everyone"
+msgstr "The rule for everyone"
+
+#: src/screens/guide/Guide.tsx
+msgid "The rules that apply"
+msgstr "The rules that apply"
+
 #: src/screens/task-hub/TaskHub.tsx
 msgid "These are the areas most people deal with. They are deliberately not numbered, because the order that applies to you depends on your situation."
 msgstr "These are the areas most people deal with. They are deliberately not numbered, because the order that applies to you depends on your situation."
@@ -1153,6 +1299,10 @@ msgstr "This depends on your situation"
 #: src/screens/guide/Guide.tsx
 msgid "This guide has not been translated yet, so it is shown in {0}."
 msgstr "This guide has not been translated yet, so it is shown in {0}."
+
+#: src/shared/rule-answer/RuleAnswer.tsx
+msgid "This is the rule for everyone. Tell us, and we show the answer for you."
+msgstr "This is the rule for everyone. Tell us, and we show the answer for you."
 
 #: src/screens/NotFound.tsx
 msgid "This page does not exist"
@@ -1177,6 +1327,10 @@ msgstr "Try again"
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Turkish, by a sworn translator (yeminli tercüman)"
 msgstr "Turkish, by a sworn translator (yeminli tercüman)"
+
+#: src/shared/rule-answer/RuleAnswer.tsx
+msgid "Two rules could apply to you"
+msgstr "Two rules could apply to you"
 
 #: src/shared/context-control/ContextPanel.tsx
 msgid "Type a country"
@@ -1216,6 +1370,10 @@ msgstr "Understand the registration process and what needs to be prepared."
 msgid "Unnamed country"
 msgstr "Unnamed country"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Until the card can be collected"
+msgstr "Until the card can be collected"
+
 #: src/shared/roadmap-step/RoadmapStep.tsx
 msgid "Upcoming"
 msgstr "Upcoming"
@@ -1223,6 +1381,10 @@ msgstr "Upcoming"
 #: src/shared/saved-item/SavedItem.stories.tsx
 msgid "Updated 28 Aug 2026"
 msgstr "Updated 28 Aug 2026"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Urgent travel Berlin helps with"
+msgstr "Urgent travel Berlin helps with"
 
 #: src/shared/fact-strip/FactStrip.stories.tsx
 msgid "Usually a short visit in store"
@@ -1276,6 +1438,10 @@ msgstr "We are still writing this guide, and checking it against official source
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "We have not verified this process for Antalya. The steps below are correct for Istanbul, Ankara and Izmir; local document requirements may differ."
 msgstr "We have not verified this process for Antalya. The steps below are correct for Istanbul, Ankara and Izmir; local document requirements may differ."
+
+#: src/shared/rule-answer/RuleAnswer.tsx
+msgid "We hold no rule on this for what you have told us."
+msgstr "We hold no rule on this for what you have told us."
 
 #: src/screens/suggest/SuggestUpdate.tsx
 msgid "We may contact you if we need more information. Your email will not be published."
@@ -1371,17 +1537,37 @@ msgstr "What you need, what it costs, and the two document mistakes that cause m
 msgid "What you’ll need to think about"
 msgstr "What you’ll need to think about"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "What your health cover must cover"
+msgstr "What your health cover must cover"
+
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Where"
 msgstr "Where"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Where the appointment is booked"
+msgstr "Where the appointment is booked"
 
 #: src/screens/guide/GuideSection.tsx
 msgid "Where to do it"
 msgstr "Where to do it"
 
+#: src/screens/guide/Guide.tsx
+msgid "Where you live"
+msgstr "Where you live"
+
+#: src/screens/guide/Guide.tsx
+msgid "Where you work"
+msgstr "Where you work"
+
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "Whether your diploma needs an apostille or consular legalization depends on your country of issue. We cannot show one answer here until you tell us your nationality."
 msgstr "Whether your diploma needs an apostille or consular legalization depends on your country of issue. We cannot show one answer here until you tell us your nationality."
+
+#: src/shared/rule-answer/factValue.ts
+msgid "within {number}"
+msgstr "within {number}"
 
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Yes, bring the original and one copy"
@@ -1403,9 +1589,17 @@ msgstr "You do not need an agent for this step"
 msgid "you@example.com"
 msgstr "you@example.com"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Your current title while the application is decided"
+msgstr "Your current title while the application is decided"
+
 #: src/screens/suggest/SuggestUpdate.tsx
 msgid "Your email"
 msgstr "Your email"
+
+#: src/screens/guide/Guide.tsx
+msgid "Your nationality"
+msgstr "Your nationality"
 
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Your nationality, residence status and plans can each change which of these areas apply to you, and in what order."
@@ -1419,3 +1613,43 @@ msgstr "Your options"
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Your passport must stay valid for at least 60 days beyond the end of the permit you are requesting. Applications are refused on this alone more often than on any other single reason."
 msgstr "Your passport must stay valid for at least 60 days beyond the end of the permit you are requesting. Applications are refused on this alone more often than on any other single reason."
+
+#: src/screens/guide/Guide.tsx
+msgid "Your residence status"
+msgstr "Your residence status"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Your share of inpatient care, at a non-contracted provider or a public hospital outside Annex 1"
+msgstr "Your share of inpatient care, at a non-contracted provider or a public hospital outside Annex 1"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Your share of inpatient care, at a provider your insurer has contracted with"
+msgstr "Your share of inpatient care, at a provider your insurer has contracted with"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Your share of inpatient care, at a public hospital named in Annex 1"
+msgstr "Your share of inpatient care, at a public hospital named in Annex 1"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Your share of outpatient care, at a non-contracted provider or a public hospital outside Annex 1"
+msgstr "Your share of outpatient care, at a non-contracted provider or a public hospital outside Annex 1"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Your share of outpatient care, at a provider your insurer has contracted with"
+msgstr "Your share of outpatient care, at a provider your insurer has contracted with"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Your share of outpatient care, at a public hospital named in Annex 1"
+msgstr "Your share of outpatient care, at a public hospital named in Annex 1"
+
+#: src/screens/guide/Guide.tsx
+msgid "Your situation"
+msgstr "Your situation"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Your stay while the application is decided"
+msgstr "Your stay while the application is decided"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Your title, with the online application's confirmation"
+msgstr "Your title, with the online application's confirmation"

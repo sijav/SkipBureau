@@ -6,7 +6,8 @@ import { fileURLToPath } from 'node:url'
 import { defineConfig, type TestProjectInlineConfiguration } from 'vitest/config'
 
 const here = dirname(fileURLToPath(import.meta.url))
-const alias = { src: join(here, 'src') }
+// `api`: the API workspace's source, for a test that reads its research data (SB-257). Not in vite.config.ts, so app code cannot import it.
+const alias = { src: join(here, 'src'), api: join(here, '..', 'api', 'src') }
 
 const lingui = () => react({ plugins: [['@lingui/swc-plugin', {}]] })
 

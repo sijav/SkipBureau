@@ -1,6 +1,9 @@
 import { graphql, HttpResponse } from 'msw'
 import { endpoint } from 'src/core/graphql'
 import {
+  anmeldungFacts,
+  anmeldungGuide,
+  anmeldungNotes,
   categories,
   categoryHub,
   countries,
@@ -161,12 +164,36 @@ export const handlers = [
     if (variables.country === 'tr' && variables.slug === 'register-your-address') {
       return HttpResponse.json({ data: { guide: persian ? untranslatedGuide : guide } })
     }
+    if (variables.country === 'de' && variables.slug === 'anmeldung') {
+      return HttpResponse.json({ data: { guide: anmeldungGuide } })
+    }
     // Written only in the language the reader did not ask for, whichever that is.
     if (variables.country === 'tr' && variables.slug === 'written-elsewhere') {
       const other = persian ? 'en-US' : 'fa-IR'
       return HttpResponse.json({ data: { guide: { ...guide, slug: 'written-elsewhere', locale: other, translationMissing: true, locales: [other] } } })
     }
     return HttpResponse.json({ data: { guide: null } })
+  }),
+
+  // A guide's rules answered for a reader (SB-257): Germany's Anmeldung asks
+  // where the reader lives until a place is said, and in Hamburg adds its fee to
+  // the federal deadline and fine. Every other guide links no rule here.
+  api.query('GuideAnswers', ({ variables }) => {
+    if (variables['country'] !== 'de' || variables['slug'] !== 'anmeldung') {
+      return HttpResponse.json({ data: { guide: { slug: variables['slug'], obligations: [] } } })
+    }
+    const reader = variables['reader']
+    const places = Array.isArray(reader?.residenceRegions) ? reader.residenceRegions : []
+    const answer = places.includes('DE-HH')
+      ? {
+          answer: 'answered',
+          needs: [],
+          reason: null,
+          facts: [anmeldungFacts.fee, anmeldungFacts.deadline, anmeldungFacts.fine],
+          notes: [anmeldungNotes.everyone, anmeldungNotes.hamburg],
+        }
+      : { answer: 'needsDetail', needs: ['residenceRegion'], reason: null, facts: [], notes: [] }
+    return HttpResponse.json({ data: { guide: { slug: 'anmeldung', obligations: [{ slug: 'report-your-address', reader: answer }] } } })
   }),
 ]
 

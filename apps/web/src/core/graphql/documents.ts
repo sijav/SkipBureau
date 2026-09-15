@@ -101,6 +101,61 @@ export const GuideQuery = graphql(`
         title
         description
       }
+      # The rules the guide links, as they are for everyone: what the prerendered file shows (SB-257).
+      obligations {
+        slug
+        title
+        resolution
+        facts {
+          key
+          operator
+          numericValue
+          textValue
+          unit
+          currency
+          sourceUrl
+          sourceName
+          verifiedAt
+        }
+        notes {
+          locale
+          text
+        }
+      }
+    }
+  }
+`)
+
+// The same guide's rules answered for the reader the link names (SB-257), asked in
+// the browser only, beside the guide itself: its facts are the reader's, and it
+// says which details the reader has not given could change them.
+export const GuideAnswersQuery = graphql(`
+  query GuideAnswers($country: String!, $slug: String!, $locale: String, $reader: ReaderInput!) {
+    guide(country: $country, slug: $slug, locale: $locale, reader: $reader) {
+      slug
+      obligations {
+        slug
+        reader {
+          answer
+          needs
+          reason
+          facts {
+            key
+            operator
+            numericValue
+            textValue
+            unit
+            currency
+            sourceUrl
+            sourceName
+            verifiedAt
+          }
+          notes {
+            locale
+            text
+          }
+        }
+      }
     }
   }
 `)

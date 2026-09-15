@@ -22,6 +22,8 @@ export const ShellProvider = ({ children, place = null, ownsAskAtStart = false, 
   // Where the page starts, from its address, so the first render, the
   // prerender's included, already has it; the scroll handoff moves it after.
   const [pageOwnsAsk, setPageOwnsAsk] = useState(ownsAskAtStart)
+  // The details panel's, here rather than in the header, so a page can open it (SB-257).
+  const [detailsOpen, setDetailsOpen] = useState(false)
   const country = place?.country ?? null
   const countryName = place?.countryName ?? null
   const origin = place?.origin ?? null
@@ -38,8 +40,10 @@ export const ShellProvider = ({ children, place = null, ownsAskAtStart = false, 
       place: placeCode !== null && placeName !== null ? { code: placeCode, name: placeName } : null,
       status,
       readsStatus,
+      detailsOpen,
+      setDetailsOpen,
     }),
-    [pageOwnsAsk, country, countryName, origin, placeCode, placeName, status, readsStatus],
+    [pageOwnsAsk, country, countryName, origin, placeCode, placeName, status, readsStatus, detailsOpen],
   )
   return <ShellContext value={value}>{children}</ShellContext>
 }

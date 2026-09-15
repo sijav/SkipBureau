@@ -1083,6 +1083,15 @@ Related guides `182:1227` · Something changed `182:1251` · Page footer note
 Quick answer comes **third**, before any of the detail. Official sources and the
 footer note both carry the verified date.
 
+**A departure, SB-257: The rules that apply.** The design draws no rule answer.
+Where a guide links researched rules, a section of that name follows the quick
+answer, before the sections the design draws, in the reading measure. For each
+rule it shows the facts that apply to the reader, each with the page it was read
+on and the day, and the rule's notes. Until the reader has said the detail that
+would change it, it shows the rule for everyone, marked as that, and an
+Information panel `14:26` naming the detail with a button that opens the details
+panel from the header. A guide that links no rule shows nothing new.
+
 ### The content model, quoted from `151:995`
 
 > "Every field below is content, not layout: the template must stay coherent

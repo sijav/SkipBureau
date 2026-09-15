@@ -261,6 +261,41 @@ test('a residence status the country does not hold is Not Found', async ({ page 
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(/does not exist/)
 })
 
+test('a guide linking a rule carries the rule for everyone, asks where the reader lives, and answers for Hamburg on the same page', async ({ page, request }) => {
+  // SB-257: the rule for everyone is in the file, for a crawler as for a reader.
+  const source = await (await request.get('en/DE/guides/anmeldung')).text()
+  expect(source).toContain('The rules that apply')
+  expect(source).toContain('within 2 weeks')
+
+  const documents: string[] = []
+  const mismatches: string[] = []
+  page.on('request', (sent) => {
+    if (sent.resourceType() === 'document') documents.push(sent.url())
+  })
+  page.on('console', (message) => {
+    if (message.type() === 'error' && /hydrat|Minified React error #(418|423|425)/i.test(message.text())) mismatches.push(message.text())
+  })
+  await page.goto('en/DE/guides/anmeldung', { waitUntil: 'load' })
+
+  const rules = page.locator('section').filter({ has: page.getByRole('heading', { level: 2, name: 'The rules that apply' }) })
+  await expect(rules.getByText('within 2 weeks')).toBeVisible()
+  await expect(rules.getByText('at most €1,000')).toBeVisible()
+  await expect(rules.getByRole('link', { name: /§ 17 Anmeldung/ })).toHaveAttribute('href', 'https://www.gesetze-im-internet.de/bmg/__17.html')
+  await expect(rules.getByText('Where you live can change this')).toBeVisible()
+
+  await rules.getByRole('button', { name: 'Tell us' }).click()
+  await page.getByText('City in Germany', { exact: true }).locator('..').getByRole('button', { name: 'Add', exact: true }).click()
+  await page.getByRole('option', { name: 'Hamburg', exact: true }).click()
+
+  await expect(page).toHaveURL(/\/en\/DE-HH\/guides\/anmeldung$/)
+  await expect(rules.getByText('Registration fee')).toBeVisible()
+  await expect(rules.getByText('€16', { exact: true })).toBeVisible()
+  await expect(rules.getByText('within 2 weeks')).toBeVisible()
+  // Answered in the page: the one document is the one first opened.
+  expect(documents).toHaveLength(1)
+  expect(mismatches).toEqual([])
+})
+
 test('a status reached from a page already up is in its links at once', async ({ page }) => {
   await ensureStatus()
   await page.goto('en/TR/guides/sim-card', { waitUntil: 'load' })

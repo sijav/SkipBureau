@@ -6,6 +6,7 @@ export {
   CountriesQuery,
   CountryQuery,
   ReaderDetailsQuery,
+  GuideAnswersQuery,
   GuideQuery,
   GuidesQuery,
   HomeQuery,

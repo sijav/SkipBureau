@@ -4,9 +4,10 @@ import { Fragment, startTransition, type ReactNode } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useQuery } from 'urql'
 import { useCountry } from 'src/core/country'
-import { GuideQuery } from 'src/core/graphql'
-import { formatMonth, isLocale, locales, useLocale } from 'src/core/i18n'
+import { GuideAnswersQuery, GuideQuery, overThePage } from 'src/core/graphql'
+import { formatDay, formatMonth, isLocale, locales, useLocale } from 'src/core/i18n'
 import { paths, useJourney } from 'src/core/router'
+import { useShell } from 'src/core/shell'
 import { useSiteOrigin } from 'src/core/site'
 import { spacing, type SourceState } from 'src/core/theme'
 import { Breadcrumb } from 'src/shared/breadcrumb'
@@ -15,6 +16,7 @@ import { InfoPanel } from 'src/shared/info-panel'
 import { InformationDisclaimer } from 'src/shared/information-disclaimer'
 import { Page } from 'src/shared/page'
 import { PageHead } from 'src/shared/page-head'
+import { FACT_LABELS, factValue, RuleAnswer, type FactShape, type RuleLine } from 'src/shared/rule-answer'
 import { SourceCard } from 'src/shared/source-card'
 import { StructuredData } from 'src/shared/structured-data'
 import { TopicItem } from 'src/shared/topic-item'
@@ -33,16 +35,37 @@ const COST_BEFORE = new Set<SectionData['kind']>(['whereToDoIt', 'commonProblems
 
 const BAR = 3
 
+/** A rule fact as the guide queries send it. */
+type RuleFact = FactShape & { key: string; sourceUrl: string; sourceName: string; verifiedAt: string }
+
 export const Guide = () => {
   const { tokens, layout } = useTheme()
-  const { t } = useLingui()
+  const { t, i18n } = useLingui()
   const { locale } = useLocale()
   const { country, name } = useCountry()
   const journey = useJourney()
+  const { setDetailsOpen } = useShell()
   const { guide: slug = '' } = useParams()
   const origin = useSiteOrigin()
 
   const [{ data, fetching, error }, refetch] = useQuery({ query: GuideQuery, variables: { country, slug, locale } })
+
+  // SB-257: the linked rules answered for the reader the link names. Only in the
+  // browser, and never suspending, so the first render is the prerendered
+  // file's, the rule for everyone, and the reader's answer replaces it when it
+  // comes. A place or a status is sent only where the link has one.
+  const obligations = data?.guide?.obligations ?? []
+  const reader = {
+    ...(journey.origin ? { nationality: journey.origin } : {}),
+    ...(journey.place ? { residenceRegions: [journey.place] } : {}),
+    ...(journey.status ? { residenceStatuses: [journey.status] } : {}),
+  }
+  const [{ data: answers }] = useQuery({
+    query: GuideAnswersQuery,
+    variables: { country, slug, locale, reader },
+    pause: typeof window === 'undefined' || obligations.length === 0,
+    context: overThePage,
+  })
 
   // Only while a retry is in flight now (SB-046): the first render either
   // has its data or suspends, and the page before this one stays up.
@@ -93,6 +116,61 @@ export const Guide = () => {
       </SectionFrame>
     ) : null
   const costAt = guide.sections.findIndex((section) => COST_BEFORE.has(section.kind))
+
+  // A fact with no label shows no line: its figure is still in the notes.
+  const lineOf = (fact: RuleFact): RuleLine[] => {
+    const label = FACT_LABELS[fact.key]
+    if (!label) return []
+    const { value, content: words } = factValue(fact, i18n, locale)
+    return [
+      {
+        key: fact.key,
+        label: i18n._(label),
+        value: (
+          <>
+            {value}
+            {value && words ? ' ' : null}
+            {words && <bdi lang="en">{words}</bdi>}
+          </>
+        ),
+        source: { url: fact.sourceUrl, name: <bdi>{fact.sourceName}</bdi>, checked: formatDay(fact.verifiedAt, locale) },
+      },
+    ]
+  }
+  const detailWords = {
+    residenceRegion: t`Where you live`,
+    residenceStatus: t`Your residence status`,
+    nationality: t`Your nationality`,
+    situation: t`Your situation`,
+    workRegion: t`Where you work`,
+  }
+  const answerOf = new Map((answers?.guide?.obligations ?? []).map((row) => [row.slug, row.reader]))
+  const ruleAnswers = obligations.flatMap((obligation) => {
+    const answer = answerOf.get(obligation.slug) ?? null
+    const general = obligation.resolution === 'general'
+    const title = obligation.title ? content(obligation.title) : obligation.slug
+    const notesOf = (notes: readonly { locale: string; text: string }[]) => notes.map((note) => ({ text: note.text, lang: note.locale }))
+    if (answer?.answer === 'answered') {
+      return [
+        <RuleAnswer
+          key={obligation.slug}
+          title={title}
+          state="answered"
+          lines={answer.facts.flatMap(lineOf)}
+          notes={notesOf(answer.notes)}
+        />,
+      ]
+    }
+    if (answer?.answer === 'noRule') return [<RuleAnswer key={obligation.slug} title={title} state="noRule" lines={[]} notes={[]} />]
+    const everyone = { lines: general ? obligation.facts.flatMap(lineOf) : [], notes: general ? notesOf(obligation.notes) : [] }
+    if (answer?.answer === 'needsReview') {
+      return [<RuleAnswer key={obligation.slug} title={title} state="needsReview" {...everyone} reason={answer.reason} />]
+    }
+    const need = answer?.needs[0]
+    const asks = need ? detailWords[need] : undefined
+    if (!general && !asks) return []
+    return [<RuleAnswer key={obligation.slug} title={title} state="general" {...everyone} asks={asks} onAsk={() => setDetailsOpen(true)} />]
+  })
 
   return (
     <Page>
@@ -165,6 +243,13 @@ export const Guide = () => {
                 <Typography variant="subtitle1">{content(guide.quickAnswer)}</Typography>
               </Stack>
             </Box>
+          )}
+
+          {/* SB-257, a departure: the design draws no rule answer. */}
+          {ruleAnswers.length > 0 && (
+            <SectionFrame heading={<Trans>The rules that apply</Trans>} gap={32}>
+              {ruleAnswers}
+            </SectionFrame>
           )}
         </Box>
 

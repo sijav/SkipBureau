@@ -35,12 +35,12 @@ const nested = (rows: readonly Listed[], locale: string): DetailOption[] => {
 export const YourDetails = () => {
   const { t } = useLingui()
   const { locale } = useLocale()
-  const { origin, country, countryName, place, status } = useShell()
+  // The panel's open state is the shell's, so a rule's answer on the page can open it too (SB-257).
+  const { origin, country, countryName, place, status, detailsOpen: open, setDetailsOpen: setOpen } = useShell()
   const location = useLocation()
   const navigate = useNavigate()
   const id = useId()
   const [anchor, setAnchor] = useState<HTMLButtonElement | null>(null)
-  const [open, setOpen] = useState(false)
 
   // The names the product gives the countries it covers, Turkey rather than
   // Intl's Türkiye; every other country is named by Intl in the reader's language.

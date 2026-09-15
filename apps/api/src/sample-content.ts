@@ -4,6 +4,7 @@ import { PrismaClient } from './generated/prisma/client.js'
 import { SIM_CARD } from './sample-sim-card.js'
 import type { GuideDetailSeed } from './sample-types.js'
 import { fillGuideDetail, linkObligationGroups } from './guide/guide-fill.js'
+import { ADDRESS_GUIDE } from './guide/obligation-groups.js'
 import { TASKS } from './tasks.js'
 
 /**
@@ -193,7 +194,7 @@ const COUNTRIES: CountrySeed[] = [
       {
         slug: 'register-your-address',
         category: 'first-week',
-        obligations: [['report-your-address', 'register-your-address']],
+        obligations: ADDRESS_GUIDE,
         en: {
           title: 'Register your address',
           description: 'What address registration in Turkey involves, and where it is done.',
@@ -267,7 +268,7 @@ const COUNTRIES: CountrySeed[] = [
       {
         slug: 'anmeldung',
         category: 'first-week',
-        obligations: [['report-your-address', 'register-your-address']],
+        obligations: ADDRESS_GUIDE,
         en: {
           title: 'Register your address',
           description: 'The Anmeldung, which almost everything else in Germany depends on.',
