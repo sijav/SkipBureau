@@ -470,9 +470,21 @@ npm run research:publish -w @skipbureau/api -- src/rules/research/germany/anmeld
 It checks the types and the research specs, commits exactly the case's files as
 `Research publish: <case>`, pushes, waits until the deployed database's digest for
 the country equals the files', and reads the case back through the deployed API.
-A mistaken command or file ends in one line saying what failed; that is fixed and
-the command run again. The research is finished when it reports live, and the next
-item starts after that.
+It will not start while anything else the API is built from has changes that are
+not committed, since the checks would read them and the deploy would carry them
+unchecked: commit those first. A mistaken command or file ends in one line saying
+what failed; that is fixed and the command run again. The research is finished when
+it reports live, and the next item starts after that.
+
+Northflank can build nothing for a push that lands while another build runs. When
+no build of the publish's commit has started three minutes after its push, the
+command starts one through `.github/workflows/northflank-build.yml` and waits for
+it, so there is nothing to do by hand. The same workflow starts a build of any
+commit when one is needed:
+
+```bash
+gh workflow run northflank-build.yml -f sha=<the full commit id>
+```
 
 While it runs, every commit names its paths, `git commit -- <paths>`, and no
 `git stash`, `git pull` or `git merge` runs, because the publish moves the branch
