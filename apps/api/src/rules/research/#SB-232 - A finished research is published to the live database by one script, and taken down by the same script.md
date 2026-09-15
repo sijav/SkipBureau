@@ -63,8 +63,9 @@ failure ends in one line saying what failed and what to do, and a non-zero exit.
 
 1. **Find its files**: the data file, its country's composing file, `prisma/research/agreed/<country>/<case>.md`
    and `talk/<country>/<case>.md`, `sessions.json`, and the research README, and hash each. A missing
-   agreed document is an error. Other changed files under `apps/api/src` and `apps/api/prisma` are an
-   error too, naming them, because the publish would push data without the code it needs.
+   agreed document is an error. Other changed code under `apps/api/src` and `apps/api/prisma`, a `.ts`,
+   `.prisma` or `.sql` file, is an error too, naming it, because the publish would push data without the
+   code it needs; a note such as a plan file is not.
 2. **Check**: `lint:tsc` and the two research specs, whose failures are printed.
 3. **Commit** exactly the bytes that were checked, even when nothing changed, as
    `Research publish: <case>`, ending with `Research-Case: <case>`, `Research-Action: publish` and
@@ -110,6 +111,13 @@ order and changed by one fact; composing refusing a place two cases list; and a 
 version; and, in a temporary repository with git's file monitor off, a commit built from checked bytes
 that leaves the main index exactly as it was, a change another process staged included, and goes ahead
 while that index is locked. The live run above is the rest.
+
+## Specs that follow the data
+
+A spec that pins today's data fails the next research published, and the publish's own checks then
+refuse it. So the research specs read Germany's expectations from the file: which Land is told the
+federal facts alone, which is asked where in it a reader will live, and how many versions step aside
+when a Land moves. SB-229's data showed the need, by failing three tests that pinned the data before it.
 
 ## The research guide
 
