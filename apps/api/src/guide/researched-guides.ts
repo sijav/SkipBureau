@@ -327,14 +327,14 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
     },
     obligations: ADDRESS_GUIDE,
   },
-  // Written from research/agreed/turkey/tax-number.md (SB-279).
+  // Written from research/agreed/turkey/tax-number.md (SB-279), its charge from Law 492 (SB-206).
   {
     country: 'tr',
     task: 'banking-and-money',
     area: { slug: 'tax-number', en: 'Get a tax number', fa: 'دریافت شماره مالیاتی' },
     guide: {
       slug: 'tax-number',
-      verifiedAt: '2026-09-14',
+      verifiedAt: '2026-09-16',
       en: {
         title: 'The number that makes you exist in Turkey',
         description:
@@ -355,7 +355,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
           kind: 'howToDoIt',
           title: { en: 'You do not need a residence permit to get a tax number.' },
           body: {
-            en: "A person who has just arrived can apply. You can apply through the tax administration's foreigners page; the published instructions describe the number appearing after successful submission. At a counter you bring your original passport, a copy of its identity page, and a signed application that includes your address. Istanbul's migration directorate published a notice in 2020 directing applicants online and keeping the counter for cases where identity verification fails; we could not verify whether that is still enforced. GİB documents an intermediary application route for nonresident investors through a bank, broker or custodian. We could not verify whether prior entry into Turkey is necessary, or whether someone abroad can complete the ordinary online application. It is free according to the public university guidance we checked. Published instructions describe online issuance after successful submission, but we could not verify a guaranteed processing time.",
+            en: "A person who has just arrived can apply. You can apply through the tax administration's foreigners page; the published instructions describe the number appearing after successful submission. At a counter you bring your original passport, a copy of its identity page, and a signed application that includes your address. Istanbul's migration directorate published a notice in 2020 directing applicants online and keeping the counter for cases where identity verification fails; we could not verify whether that is still enforced. GİB documents an intermediary application route for nonresident investors through a bank, broker or custodian. We could not verify whether prior entry into Turkey is necessary, or whether someone abroad can complete the ordinary online application. Law 492 lists no fee for issuing a tax identification number. We have not verified whether another rule imposes a charge. Published instructions describe online issuance after successful submission, but we could not verify a guaranteed processing time.",
           },
         },
         {
@@ -379,8 +379,8 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
           name: 'Maliye Bakanlığı Gelir İdaresi Başkanlığı, 2010 Yılı Kurumsal Mali Durum ve Beklentiler Raporu',
         },
         {
-          url: 'https://www.uludag.edu.tr/en/uluyos/tax-identification-number-information-69202',
-          name: 'Bursa Uludağ University, Tax Identification Number Information',
+          url: 'https://www.mevzuat.gov.tr/MevzuatMetin/1.5.492.pdf',
+          name: 'Presidency’s legislation system, 492 sayılı Harçlar Kanunu',
         },
       ],
     },

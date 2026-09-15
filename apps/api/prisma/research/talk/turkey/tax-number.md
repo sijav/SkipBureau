@@ -590,3 +590,127 @@ All read 2026-09-12.
 ## Answered
 
 No. Both markers support their figures without omitting a necessary condition. URLs opened this turn: none.
+
+---
+
+## Asked, 2026-09-15 21:54 UTC
+
+One question left open in this case, SB-206, and it is the only figure the tax number guide shows.
+
+The agreed text says: "It is free[^uludag-tax-id-free] according to the public university guidance we checked." That rests on Bursa Uludağ University's page for its applicants, which is not the authority that issues the number. A reader is owed what issuing a foreigner's tax identification number costs from a first-party source: the Revenue Administration (GİB) itself, a tax office, or the law and tariffs that set charges.
+
+What has been read so far, and how it reads:
+
+- GİB's foreigner application, https://dijital.gib.gov.tr/foreigners/kimlikNoBasvuru ("Yabancılar İçin Potansiyel Vergi Kimlik Numarası Başvurusu"): it presents the fields and the apply button and states neither a fee nor an exemption. That is silence, not a statement that nothing is charged.
+- The Presidency's Directorate of Communications, https://www.iletisim.gov.tr/turkce/haberler/detay/vergi-borcu-sorgulamalarinin-ucretli-olacagi-iddialarina-dair-aciklama: "vergi kimlik numarası ve vergi levhası sorgulama ve doğrulama ... gibi işlemlerle ilgili herhangi bir ücret ödemesi söz konusu değildir". It covers querying and verifying a number, not issuing one.
+
+Pages worth reading, not yet read:
+
+- the Istanbul Tax Office Directorate's procedure handbook, https://ivdb.gib.gov.tr/sites/default/files/usulelkitabi.pdf, where it describes giving a tax identification number;
+- Law 492 (Harçlar Kanunu) and its tariffs, for any item that charges for issuing a tax identification number, and GİB's notice of the 2026 amounts, https://cdn.gib.gov.tr/api/gibportal-file/file/getFile?objectKey=DUYURU%2FUNIVERSAL%2F2025%2F492_Teblig98_abn.pdf, which can only update an amount an item already sets;
+- any GİB guide, brochure or frequently asked questions page for foreigners on the tax identification number, and the Vergi Kimlik Numarası general communiqués.
+
+Answer with exactly one of these, and for any page you cite, the sentence itself, quoted in its language, where it sits on the page, and the day you read it:
+
+1. A first-party page states a charge for issuing a foreigner's tax identification number: the amount and the sentence.
+2. A first-party page states that issuing one is free or exempt: the sentence.
+3. No first-party page you read states either: every page you read, and what each says nearest to the question.
+
+A price that is not shown is not a statement that none is charged, and a charge for something else, a tax certificate, a query, a document, is not this one.
+
+Then give the replacement for the agreed sentence "**It is free**[^uludag-tax-id-free] according to the public university guidance we checked." in the style of the document, keeping the next sentence about processing time as it is. If the answer is 3, the replacement says no statement of a charge or of an exemption was found on the pages read, naming them, and the university's figure leaves the document. For each page the replacement cites, give its footnote definition in the form the document already uses:
+
+[^label]: <url> | {"status": "verified", "read": "YYYY-MM-DD", "method": "raw page" or "rendered page" or "rendered PDF", "locator": "who publishes it, the page's title, and where on it", "evidence": ["the sentence, exactly as the page has it"]}
+
+## Answered
+
+**3. No first-party page I could read states either a charge or an exemption for issuing the number.** This does **not** establish that issuance is free. The handbook and consolidated law remained inaccessible, and I could not inspect the tariff tables.
+
+All readings below were on **2026-09-15**. Where there is no sentence addressing issuance costs, the quotation is explicitly a heading or excerpt.
+
+| Page read | Nearest relevant wording and location | Finding |
+|---|---|---|
+| GİB foreigner application | Heading: “Yabancılar İçin Potansiyel Vergi Kimlik Numarası Başvurusu”. Above the buttons: “Yukarıdaki bilgilerin doğruluğunu kabul ediyorum.” | Application fields and an apply button; no charge or exemption stated. |
+| GİB Digital Tax Office FAQ | Results area: “Seçilen kategoriye ait kayıt bulunmamaktadır.” | No answers were exposed in the page returned. This is an access limitation, not substantive fee guidance. |
+| GİB’s explanatory notice for Communiqué 98 | PDF page 1, **AÇIKLAMA**, closing excerpt: “tespit ve ilan edilmesi hakkında Tebliğ yayımlanmıştır.” | Announces updated tariff amounts; does not address tax-number issuance. |
+| GİB’s Harçlar Communiqué 98 | PDF page 1, Article 2(1): “Bu Tebliğ, 492 sayılı Kanunun mükerrer 138 inci maddesinin ikinci ve üçüncü fıkralarına dayanılarak hazırlanmıştır.” | The opening page concerns tariff updates. Only that page’s text was readable; **the attached tariff tables were not verified**. |
+| Directorate of Communications clarification | Main statement, first listed operation: “vergi kimlik numarası ve vergi levhası sorgulama ve doğrulama,”; concluding excerpt: “işlemlerle ilgili herhangi bir ücret ödemesi söz konusu değildir.” | Covers querying and verifying, **not issuing**, a number. It cannot support the issuance-cost claim. |
+
+GİB’s homepage also opened, but returned no readable body. Searches did not yield an accessible first-party general communiqué or foreigner guide explicitly stating the issuance cost.
+
+Replacement paragraph:
+
+> We found no statement of a charge or an exemption for issuing the number in GİB’s foreigner application,[^gib-tax-id-cost] its explanatory notice and the readable opening page of its 2026 Harçlar communiqué,[^gib-harclar-notice][^gib-harclar-opening] or the Directorate of Communications’ clarification about queries and verification.[^iletisim-tax-queries] GİB’s FAQ page returned no answers.[^gib-faq-unavailable] Published instructions describe online issuance after successful submission, but we could not verify a guaranteed processing time.
+
+The PDF definitions below say **“raw page”** because I read extracted text, not a rendered PDF. Their evidence identifies the material inspected; it does not turn silence into an exemption.
+
+```markdown
+[^gib-tax-id-cost]: <https://dijital.gib.gov.tr/foreigners/kimlikNoBasvuru> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "GİB, Yabancılar İçin Potansiyel Vergi Kimlik Numarası Başvurusu, heading and declaration immediately above the application buttons; no issuance-cost statement in the returned form", "evidence": ["Yabancılar İçin Potansiyel Vergi Kimlik Numarası Başvurusu", "Yukarıdaki bilgilerin doğruluğunu kabul ediyorum."]}
+
+[^gib-harclar-notice]: <https://cdn.gib.gov.tr/api/gibportal-file/file/getFile?objectKey=DUYURU%2FUNIVERSAL%2F2025%2F492_Teblig98_abn.pdf> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "GİB, AÇIKLAYICI BİLGİ NOTU, PDF page 1, AÇIKLAMA row, closing excerpt; extracted text only", "evidence": ["tespit ve ilan edilmesi hakkında Tebliğ yayımlanmıştır."]}
+
+[^gib-harclar-opening]: <https://cdn.gib.gov.tr/api/gibportal-file/file/getFile?objectKey=MEVZUAT_TEBLIGLER%2FUNIVERSAL%2F2025%2F492_Teblig98.pdf> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "Hazine ve Maliye Bakanlığı (GİB), Harçlar Kanunu Genel Tebliği (Seri No: 98), PDF page 1, Article 2(1); extracted opening-page text only, attached tariff tables not verified", "evidence": ["Bu Tebliğ, 492 sayılı Kanunun mükerrer 138 inci maddesinin ikinci ve üçüncü fıkralarına dayanılarak hazırlanmıştır."]}
+
+[^iletisim-tax-queries]: <https://www.iletisim.gov.tr/turkce/haberler/detay/vergi-borcu-sorgulamalarinin-ucretli-olacagi-iddialarina-dair-aciklama> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "Cumhurbaşkanlığı İletişim Başkanlığı, Vergi borcu sorgulamalarının ücretli olacağı iddialarına dair açıklama, main statement, first listed operation and concluding clause; separate excerpts concerning queries and verification, not issuance", "evidence": ["vergi kimlik numarası ve vergi levhası sorgulama ve doğrulama,", "işlemlerle ilgili herhangi bir ücret ödemesi söz konusu değildir."]}
+
+[^gib-faq-unavailable]: <https://dijital.gib.gov.tr/Sorular> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "GİB, Dijital Vergi Dairesi — Sıkça Sorulan Sorular, results area; records-unavailable message, not a substantive fee answer", "evidence": ["Seçilen kategoriye ait kayıt bulunmamaktadır."]}
+```
+
+Browser approval review rejected visual access to the GİB CDN because permission was declined. Consequently, I cannot report a completed review of the tariff tables.
+
+Opened URLs, including partially readable documents:
+
+https://dijital.gib.gov.tr/foreigners/kimlikNoBasvuru  
+https://dijital.gib.gov.tr/Sorular  
+https://cdn.gib.gov.tr/api/gibportal-file/file/getFile?objectKey=DUYURU%2FUNIVERSAL%2F2025%2F492_Teblig98_abn.pdf  
+https://cdn.gib.gov.tr/api/gibportal-file/file/getFile?objectKey=MEVZUAT_TEBLIGLER%2FUNIVERSAL%2F2025%2F492_Teblig98.pdf  
+https://www.iletisim.gov.tr/turkce/haberler/detay/vergi-borcu-sorgulamalarinin-ucretli-olacagi-iddialarina-dair-aciklama  
+https://gib.gov.tr/
+
+Failed to open: handbook URLs returned 404; consolidated-law URLs failed to fetch.
+
+https://ivdb.gib.gov.tr/sites/default/files/usulelkitabi.pdf  
+https://istanbul.gib.gov.tr/sites/default/files/usulelkitabi.pdf  
+https://www.mevzuat.gov.tr/MevzuatMetin/1.5.492.pdf  
+https://www.mevzuat.gov.tr/mevzuatmetin/1.5.492.pdf
+
+---
+
+## Asked, 2026-09-15 22:09 UTC
+
+Your finding holds for the pages you read, and two things change it.
+
+First, the paragraph cites pages that say nothing a reader can use about issuance. The Directorate of Communications' statement is about querying and verifying a number, and quoting it next to the question of issuing one invites a reader to take it as "free". GİB's FAQ page returned no records, which is not a reading of anything. Neither belongs in the paragraph or among its definitions.
+
+Second, Law 492, which you could not open, has been read here. The consolidated text from the Presidency's legislation system, https://www.mevzuat.gov.tr/MevzuatMetin/1.5.492.pdf, read 2026-09-16 as the PDF's extracted text, holds the articles and all nine tariffs. What it says:
+
+- Article 1, "Kanunun şümulü": "Bu kanuna göre alınacak harçlar aşağıda gösterilmiştir:", then nine kinds: yargı, noter, vergi yargısı, tapu ve kadastro, konsolosluk, "Pasaport, ikamet tezkeresi, çalışma izni, çalışma izni muafiyeti, vize ve Dışişleri Bakanlığı tasdik harçları", gemi ve liman, "İmtiyazname, ruhsatname ve diploma harçları", trafik.
+- Each part charges only what its tariff lists. Article 2: "Yargı işlemlerinden bu kanuna bağlı (1) sayılı tarifede yazılı olanları ... harca tabidir." Article 108: "İmtiyazname, ruhsatname ve diplomalardan bu kanuna bağlı (8) sayılı tarifede yazılı olanları harca tabidir."
+- No article and no item in any of the nine tariffs names a tax identification number ("vergi kimlik numarası" does not occur in the text at all).
+
+Judge whether that lets the document say that Law 492, the law that sets these fees, lists no fee for issuing a tax identification number. It must not say issuing one is free of every charge: Law 492 covers harç, not every payment another rule could ask for, and nothing read here says what else could apply or that nothing does. If you would word it differently, or think the reading does not support even that, say so.
+
+Then give the final replacement for "**It is free**[^uludag-tax-id-free] according to the public university guidance we checked.", in the document's style, keeping the next sentence about processing time as it is, with its definitions in the document's form. For Law 492 the evidence is the sentence of Article 1 that introduces the list, the method "rendered PDF", the locator naming the law, the article and that the nine tariffs were read, and the read date 2026-09-16. Keep GİB's application page only if the replacement still cites it for something a reader needs, and say which of your five definitions go.
+
+## Answered
+
+Yes—**the full review you describe supports “Law 492 lists no fee for issuing a tax identification number.”** Absence of the phrase alone would not suffice; the review of the articles and all nine tariffs supports that narrower finding. It does not establish freedom from charges under other rules.
+
+I could not independently reopen the PDF: it returned HTTP 502. The definition below records **your supplied review**. Its method must be “extracted PDF text”, not “rendered PDF”, because that is how you describe reading it.
+
+Replacement:
+
+> **Law 492 lists no fee for issuing a tax identification number.**[^law492-tax-id-fee] We have not verified whether another rule imposes a charge. Published instructions describe online issuance after successful submission, but we could not verify a guaranteed processing time.
+
+```markdown
+[^law492-tax-id-fee]: <https://www.mevzuat.gov.tr/MevzuatMetin/1.5.492.pdf> | {"status": "verified", "read": "2026-09-16", "method": "extracted PDF text", "locator": "Presidency’s legislation system, 492 sayılı Harçlar Kanunu, Article 1 (Kanunun şümulü), opening sentence; all articles and all nine attached tariffs read in the supplied reviewer’s examination, with no fee for issuing a tax identification number identified", "evidence": ["Bu kanuna göre alınacak harçlar aşağıda gösterilmiştir:"]}
+```
+
+The quotation establishes the list’s scope; the negative finding rests on the complete review recorded in the locator.
+
+**All five of my definitions go:** `gib-tax-id-cost`, `gib-harclar-notice`, `gib-harclar-opening`, `iletisim-tax-queries`, and `gib-faq-unavailable`. The university definition `uludag-tax-id-free` also goes. The replacement needs no application-page citation.
+
+Successfully opened URLs: none.
+
+Failed to open:
+https://www.mevzuat.gov.tr/MevzuatMetin/1.5.492.pdf

@@ -56,6 +56,44 @@ test("every text of each researched guide is its agreed document's, and its titl
   }
 })
 
+/**
+ * The pages of the footnotes the guide's own sentences carry, each once, in the order the document defines them. A
+ * sentence counts where the guide shows it; one in a part the guide leaves out, such as Germany's table of cities,
+ * cites nothing for it.
+ */
+const pagesCited = (source: string, shown: string): string[] => {
+  const used = new Set<string>()
+  for (const paragraph of source.split(/\r?\n\s*\r?\n/)) {
+    if (paragraph.startsWith('[^')) continue
+    for (const sentence of paragraph.split(/(?<=[.?!])\s+/)) {
+      const labels = [...sentence.matchAll(/\[\^([a-z0-9-]+)\]/g)].map((found) => found[1] ?? '')
+      if (labels.length > 0 && shown.includes(plain(sentence))) for (const label of labels) used.add(label)
+    }
+  }
+  const pages: string[] = []
+  for (const line of source.split(/\r?\n/)) {
+    const found = /^\[\^([^\]]+)\]: <([^>]+)> \|/.exec(line)
+    if (found?.[1] && found[2] && used.has(found[1]) && !pages.includes(found[2])) pages.push(found[2])
+  }
+  return pages
+}
+
+test("each researched guide's sources are the pages its sentences cite, each once, in the order its document defines them", () => {
+  // SB-206: a page whose sentence has left the guide cannot stay among its sources. Pages only: a source's name is its
+  // locator's words, and SB-288 has one that differs.
+  for (const guide of RESEARCHED_GUIDES) {
+    const key = keyOf(guide)
+    const [first, ...rest] = guide.detail.sections
+    const shown = folded(
+      [first?.title?.en, guide.guide.en.description, first?.body?.en, ...rest.flatMap((section) => [section.title?.en, section.body?.en])].join(' '),
+    )
+    expect(
+      guide.detail.sources.map((source) => source.url),
+      key,
+    ).toEqual(pagesCited(documentOf(key), shown))
+  }
+})
+
 test('no researched guide gives a sentence emphasis its document does not: no quick answer, cost strip, steps, note or callout', () => {
   for (const guide of RESEARCHED_GUIDES) {
     const { detail } = guide
