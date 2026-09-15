@@ -28,7 +28,8 @@ import { startPglite } from '../scripts/pglite-server.mjs'
 // and name it, and a reader can say they live in any of them. SB-191: the
 // address duty reaches each status it was verified for, and Bursa's procedure
 // reaches only a reader who lives in Bursa. SB-223: Germany's Länder, read the same way
-// from a list that prints each on a line.
+// from a list that prints each on a line. SB-224: Germany's Anmeldung, federally and in
+// three Länder, compared with Turkey's address duty.
 
 const API = join(dirname(fileURLToPath(import.meta.url)), '..')
 const PORT = 5468
@@ -55,6 +56,10 @@ beforeAll(async () => {
 
   prisma = app.get(PrismaService)
   await seed(prisma)
+
+  // A country no research covers and no production reader can choose, so a move from it
+  // reads one country's answer alone (SB-224).
+  await prisma.country.create({ data: { code: 'xx', name: 'No researched country' } })
 }, 180_000)
 
 afterAll(async () => {
@@ -181,7 +186,7 @@ test('every region a file names is one row of the page that codes it, beside its
 
 const MOVE = `
   query Move($residenceStatuses: [String!], $nationality: String, $situation: String, $locale: String, $toResidenceRegions: [String!]) {
-    move(from: "de", to: "tr", residenceStatuses: $residenceStatuses, nationality: $nationality, situation: $situation, locale: $locale, toResidenceRegions: $toResidenceRegions) {
+    move(from: "xx", to: "tr", residenceStatuses: $residenceStatuses, nationality: $nationality, situation: $situation, locale: $locale, toResidenceRegions: $toResidenceRegions) {
       obligationSlug
       verdict
       needs
@@ -212,7 +217,7 @@ type Entry = { obligationSlug: string; verdict: string; needs: string[]; to: { f
 /** What a reader has said about themselves, where they will live, and the language they asked in. */
 type Asked = { residenceStatuses?: string[]; nationality?: string; situation?: string; locale?: string; toResidenceRegions?: string[] }
 
-/** Turkey's answer for one obligation to a reader arriving from Germany, or undefined where no rule of it applies to them. */
+/** Turkey's answer for one obligation to a reader arriving from a country no research covers, or undefined where no rule of it applies to them. */
 const entryFor = async (slug: string, asked: Asked = {}): Promise<Entry | undefined> => {
   const response = await graphql(MOVE, asked)
   expect(response.body.errors, JSON.stringify(response.body.errors)).toBeUndefined()
@@ -220,12 +225,12 @@ const entryFor = async (slug: string, asked: Asked = {}): Promise<Entry | undefi
   return entries.find((entry) => entry.obligationSlug === slug)
 }
 
-/** The facts some versions of Turkey's file hold together, as the move query shows them, in key order. */
-const factsIn = (...versions: readonly (ResearchVersion | undefined)[]) =>
+/** The facts some versions of one country's file hold together, as the move query shows them, in key order. */
+const factsIn = (rules: ResearchRules, ...versions: readonly (ResearchVersion | undefined)[]) =>
   versions
     .flatMap((version) => version?.facts ?? [])
     .map((fact) => {
-      const page = TURKEY.sources[fact.source]
+      const page = rules.sources[fact.source]
       return {
         key: fact.key,
         operator: fact.operator,
@@ -241,7 +246,7 @@ const factsIn = (...versions: readonly (ResearchVersion | undefined)[]) =>
     .sort((a, b) => (a.key < b.key ? -1 : 1))
 
 /** The facts Turkey's file holds for one obligation, as the move query shows them, in key order. */
-const factsOf = (slug: string) => factsIn(TURKEY.versions.find((version) => version.obligation === slug))
+const factsOf = (slug: string) => factsIn(TURKEY, TURKEY.versions.find((version) => version.obligation === slug))
 
 // The regions the seed had written before the first load, by code, with the names it
 // gave them, which a load leaves as they are (SB-223).
@@ -259,7 +264,8 @@ test("after a load, Turkey's limited company formation answers with every fact t
     regionsAdded: across((rules) => rules.regions.filter((region) => !seededRegions.has(region.code)).length),
     groupsAdded: across((rules) => rules.nationalityGroups.length),
     membershipsAdded: across((rules) => rules.nationalityGroups.reduce((sum, group) => sum + group.members.length, 0)),
-    obligationsAdded: across((rules) => rules.obligations.length),
+    // An obligation two countries share is added once.
+    obligationsAdded: new Set(COUNTRIES.flatMap((rules) => rules.obligations.map((obligation) => obligation.slug))).size,
     versionsAdded: across((rules) => rules.versions.length),
   })
 
@@ -458,16 +464,16 @@ test("each status the address duty was verified for is told its 20 working days 
     expect(national?.facts.find((fact) => fact.key === 'reportAddressChangeWithin')?.labels, status).toEqual([label])
     expect(national?.notes.en.startsWith(opening), `${status}'s notes open with who they bind`).toBe(true)
     expect(bursa?.notes.en.startsWith("Where you register your address at Bursa's provincial migration directorate"), status).toBe(true)
-    expect(factsIn(national, bursa), status).toHaveLength(5)
+    expect(factsIn(TURKEY, national, bursa), status).toHaveLength(5)
 
     const inBursa = await entryFor(slug, { residenceStatuses: [status], toResidenceRegions: ['TR-16'] })
     expect(inBursa?.verdict, status).toBe('newInDestination')
-    expect(inBursa?.to?.facts, status).toEqual(factsIn(national, bursa))
+    expect(inBursa?.to?.facts, status).toEqual(factsIn(TURKEY, national, bursa))
     expect(inBursa?.to?.notes.map((note) => note.text), status).toEqual([national?.notes.en, bursa?.notes.en])
 
     const inIstanbul = await entryFor(slug, { residenceStatuses: [status], toResidenceRegions: ['TR-34'] })
     expect(inIstanbul?.verdict, status).toBe('newInDestination')
-    expect(inIstanbul?.to?.facts, status).toEqual(factsIn(national))
+    expect(inIstanbul?.to?.facts, status).toEqual(factsIn(TURKEY, national))
     expect(inIstanbul?.to?.notes.map((note) => note.text), status).toEqual([national?.notes.en])
 
     expect(await entryFor(slug, { residenceStatuses: [status] }), status).toMatchObject({
@@ -482,6 +488,84 @@ test("each status the address duty was verified for is told its 20 working days 
     expect(visitor, `a visitor in ${place ?? 'no place they have named'}`).toBeUndefined()
   }
   expect((await entryFor(slug, { toResidenceRegions: ['TR-34'] }))?.needs).toContain('residenceStatus')
+})
+
+const GERMAN_ANSWER = `
+  query GermanAnswer($toResidenceRegions: [String!]) {
+    move(from: "xx", to: "de", toResidenceRegions: $toResidenceRegions) {
+      obligationSlug
+      verdict
+      needs
+      to {
+        facts { key operator numericValue textValue unit currency sourceUrl sourceName verifiedAt }
+        notes { ruleVersionId text locale translationMissing }
+      }
+    }
+  }
+`
+
+/** Germany's answer for one obligation to a reader who will live where they say, or undefined where no rule of it applies. */
+const germanEntryFor = async (slug: string, toResidenceRegions?: string[]): Promise<Entry | undefined> => {
+  const response = await graphql(GERMAN_ANSWER, toResidenceRegions ? { toResidenceRegions } : {})
+  expect(response.body.errors, JSON.stringify(response.body.errors)).toBeUndefined()
+  const entries: Entry[] = response.body.data.move
+  return entries.find((entry) => entry.obligationSlug === slug)
+}
+
+// Each Land the Anmeldung's fee was found for, and how its notes open (SB-224).
+const ANMELDUNG_FEES: readonly [place: string, opening: string][] = [
+  ['DE-HH', 'In Hamburg'],
+  ['DE-BE', 'In Berlin'],
+  ['DE-SN', 'In Saxony'],
+]
+
+test("a reader moving to Germany is told the Anmeldung's two weeks and fine ceiling from the federal law, in Hamburg also its fee, in Berlin and Saxony that it is free, elsewhere no fee, and a reader who has not said where is asked", async () => {
+  const slug = 'report-your-address'
+  const versionIn = (place: string | null) =>
+    GERMANY.versions.find(
+      (version) => version.obligation === slug && (version.criteria.find((criterion) => criterion.dimension === 'residenceRegion')?.value ?? null) === place,
+    )
+  const federal = versionIn(null)
+  expect(federal?.facts.map((fact) => fact.key)).toEqual(['reportAddressChangeWithin', 'lateAddressNotificationFine'])
+  expect(federal?.notes.en.startsWith('For anyone who moves into a dwelling in Germany')).toBe(true)
+
+  for (const [place, opening] of ANMELDUNG_FEES) {
+    const local = versionIn(place)
+    expect(local?.facts.map((fact) => fact.key), place).toEqual(['registrationFee'])
+    expect(local?.notes.en.startsWith(opening), place).toBe(true)
+
+    const answer = await germanEntryFor(slug, [place])
+    expect(answer?.verdict, place).toBe('newInDestination')
+    expect(answer?.to?.facts, place).toEqual(factsIn(GERMANY, federal, local))
+    expect(answer?.to?.notes.map((note) => note.text), place).toEqual([federal?.notes.en, local?.notes.en])
+  }
+
+  // What the exit names, held to the pages themselves rather than to the file.
+  const feeIn = async (place: string) => (await germanEntryFor(slug, [place]))?.to?.facts.find((fact) => fact.key === 'registrationFee')
+  expect(await feeIn('DE-HH')).toMatchObject({ operator: 'equals', numericValue: '16', currency: 'EUR', sourceUrl: 'https://www.hamburg.de/service/info/111142065/n0/' })
+  expect(await feeIn('DE-BE')).toMatchObject({ operator: 'none', sourceUrl: 'https://service.berlin.de/dienstleistung/120686/' })
+
+  expect((await germanEntryFor(slug, ['DE-BY']))?.to?.facts).toEqual(factsIn(GERMANY, federal))
+  expect(await germanEntryFor(slug)).toMatchObject({ verdict: 'needsDetail', needs: ['residenceRegion'], to: null })
+})
+
+const COMPARED = `
+  query Compared($fromResidenceRegions: [String!], $toResidenceRegions: [String!], $residenceStatuses: [String!]) {
+    move(from: "de", to: "tr", fromResidenceRegions: $fromResidenceRegions, toResidenceRegions: $toResidenceRegions, residenceStatuses: $residenceStatuses) {
+      obligationSlug
+      verdict
+      differences { key }
+    }
+  }
+`
+
+test('a residence permit holder moving from Hamburg to Bursa is shown the address duty compared, with the deadline among what changes', async () => {
+  const response = await graphql(COMPARED, { fromResidenceRegions: ['DE-HH'], toResidenceRegions: ['TR-16'], residenceStatuses: ['tr.residence-permit'] })
+  expect(response.body.errors, JSON.stringify(response.body.errors)).toBeUndefined()
+  const entries: { obligationSlug: string; verdict: string; differences: { key: string }[] }[] = response.body.data.move
+  const address = entries.find((entry) => entry.obligationSlug === 'report-your-address')
+  expect(address?.verdict).toBe('changed')
+  expect(address?.differences.map((difference) => difference.key)).toContain('reportAddressChangeWithin')
 })
 
 const counts = () =>
