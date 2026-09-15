@@ -446,6 +446,55 @@ until research finds one that is not. Turkey's tax number is the first: its fee
 rests only on a university's guidance for its own applicants, which does not set
 what the Revenue Administration charges, so no fee is written (SB-195).
 
+## Turkey's rules checked as a whole (SB-169)
+
+Once SB-191 to SB-196 had written Turkey's agreed documents into rows, all 19 versions
+and 69 facts in `src/rules/research/turkey.ts` were read against the rule above together,
+on 2026-09-15.
+
+**How.** A script set each fact's chosen definition beside every other verified definition
+of the same document whose evidence spells the same value, as a figure, with Turkish
+separators or in Turkish words, and flagged a chosen passage that did not spell it and a
+page of one place cited for all of Turkey. Every flag and every pair was then read in the
+evidence. The 16 flags were the script's reach, not the rows': English values against
+Turkish text, `yirmidört` written as one word, `on binde dördü` for 0.04 per cent,
+`28.075,50`, and a UETS account in a list of required documents. The three calculated
+definitions are named by no fact and no version, and no page is narrower than its fact.
+
+**Where two pages state a figure, the chosen one wins by the rule:**
+
+- the minimum capital, the Ministry of Trade's page, which states the current 50,000, over
+  Article 580's 10,000 with its note and decision 7887's raise;
+- the 30 premium days, SGK's page, which states them in one sentence and its debt
+  condition and exemptions in the paragraphs after it, over Law 5510's Article 67(1)(a), a
+  clause of a longer list;
+- the premium base, SGK's guide, twice the minimum wage, over Article 80's twice the floor,
+  which needs Article 82 to become the minimum wage;
+- the residence and work permit card fees and the work permit fee, the Migration
+  Presidency's and the Labour Ministry's 2026 fee pages, over rows of the Treasury
+  communiqué's table and of Law 492's tariff;
+- returning while a residence application is pending, the regulation's Article 21(9)(d),
+  over a 2016 e-İkamet guide and İstanbul's notice, which is narrower.
+
+**Ties the rule does not rank**, where two pages each state the whole figure and either is a
+correct citation: cover from the day after the request, Law 5510's Article 61(1)(c) and SGK's
+guide; 90 days in any 180, Law 6458's Article 11(1) and the foreign ministry's page;
+reporting employment within 15 days, Law 6735's Article 22(1) and the Labour Ministry's FAQ
+59; working while an extension is assessed, the regulation's Article 27(5) and FAQ 21; and
+renewing the tax certificate by 31 May, GİB's April 2026 brochure, Communiqué 408 and GİB's
+rights guide. The check adds no tie-break, because one would be a preference the rule does
+not state.
+
+**Every page a fact cites is on a Turkish government host**, and nothing was corrected.
+
+**The deployed database, read back.** The deployed API was asked, for each of the 19
+versions, as the reader that version reaches: its residence status, its situation, a
+nationality of its group, its place, and for a national address version a province other
+than Bursa. Every version answered with each of its facts on the file's page, page name and
+read day, 78 facts in all counting the ones Bursa inherits, none without a page or a day and
+none off a `.gov.tr` host, and each Bursa version with its two facts and the national
+version's three.
+
 ## What it has changed about the product
 
 **SB-168, twice.** Turkey answered three times that the law is national and
