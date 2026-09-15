@@ -21,6 +21,12 @@ const COMBINATIONS = [
   { mode: 'dark', direction: 'rtl' },
 ] as const
 
+// SB-284: CI's coverage run holds the unit project and the four below in one Vitest run, instrumented, and there a
+// screen story took 11 to 15 seconds (Home's Ask, 2026-09-15) against Vitest's 15 second browser default, failing the
+// check the Pages deploy needs. Thirty seconds on CI; locally, uninstrumented and one project at a time, the default
+// still catches a story creeping towards it.
+const STORYBOOK_TEST_TIMEOUT = process.env['CI'] ? 30_000 : 15_000
+
 export default defineConfig({
   resolve: { alias },
   test: {
@@ -78,6 +84,7 @@ export default defineConfig({
         optimizeDeps: { include: ['expect-type'] },
         test: {
           name: `storybook:${mode}-${direction}`,
+          testTimeout: STORYBOOK_TEST_TIMEOUT,
           browser: {
             enabled: true,
             headless: true,
