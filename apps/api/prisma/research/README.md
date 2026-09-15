@@ -554,6 +554,62 @@ read day, 78 facts in all counting the ones Bursa inherits, none without a page 
 none off a `.gov.tr` host, and each Bursa version with its two facts and the national
 version's three.
 
+## Germany's rules checked as a whole (SB-170)
+
+Once SB-223 to SB-227 had written Germany's agreed documents into rows, all 31 versions and 59 facts
+`src/rules/research/germany.ts` composes were read against the rule above together, on 2026-09-15.
+
+**How.** A script set each fact's chosen definitions beside every other verified definition of the same document
+whose evidence spells the same value, as a figure, with German separators or in German words, and flagged a chosen
+passage that did not spell it, a page of one Land or city cited by a version with no place, and a label not verified
+or on another page than its fact. A text or none fact has no value to match (SB-222), so each of the 21 was read
+against every verified definition of its document. The 6 flags were condition labels beside a label that states the
+value on the same page; the other matches were the script's reach, `2` in "Abs. 2", `ein` in every article, `25`
+inside `25.000`. No fact rests on a calculated definition, and no page is narrower than its fact.
+
+**Where two pages state a figure, the chosen one wins by the rule:**
+
+- the €5,200 chamber contribution exemption, §3(3) sentence 3 IHKG, over IHK Rhein-Neckar's table, which is one
+  chamber's own rates;
+- Hamburg's €16 registration fee, hamburg.de's service page, over the 2025 gazette's amendment of the fee tariff, a
+  change to it;
+- the 0.25 care discount per child, the Health Ministry's care page, which states it whole, over §55(3) SGB XI's
+  clause in a longer sentence;
+- the two weeks to register, §17(1) BMG, over Saxony's page, which is narrower, and §27(2) BMG's two weeks, which is
+  another duty;
+- the €1,000 fine for registering late, §54(2) No. 1 BMG, over the fictitious address and the landlord's
+  confirmation offences, which share paragraph 3's ceilings;
+- the €100,000 current-year VAT threshold, §19(1) UStG, over the Finance Ministry's letter, which names it inside its
+  first-year and loss-of-exemption rules.
+
+**Two facts rest on the only definition that states them, on a page that is not a statute, and stand:** the
+first-year €25,000 VAT ceiling and the loss of the exemption for the whole transaction, on the Finance Ministry's
+letter of 18 March 2025, since §19 UStG states neither; and Hamburg's €25 trade registration fee, on the Handelskammer
+Hamburg's page, a public-law corporation stating its own fee. **One did not:** the week to tell the accident insurer
+rested on DGUV's page, a registered association's, where §192(1) SGB VII states the whole duty. SB-263 moved it there,
+with the condition the statute sets, that a trade registration counts only when it is made within that week.
+
+**Every page a fact cites** is on gesetze-im-internet.de, bundesgesundheitsministerium.de, bundesfinanzministerium.de,
+service.berlin.de and berlin.de, hamburg.de, amt24.sachsen.de, stadt.muenchen.de, service.duesseldorf.de, wiesbaden.de,
+freiburg.de, stadt-koeln.de or handelskammer-hamburg.de. Nothing else was corrected.
+
+**The deployed database, read back.** The germany research row holds 31 versions, 21 places, 4 statuses and 1
+nationality group, with the digest the files give. Then the deployed API was asked, once for each version,
+`move(from: "tr", to: "de")` as the reader that version reaches: its residence status, its situation, a nationality of
+its group (Australia for §41(1)'s), its place of residence (`toResidenceRegions`) or of work (`toWorkRegions`); where
+another version of the same obligation narrows a detail this one does not state, a value no version names,
+Niedersachsen for a place and Brazil for a nationality; and on Turkey's side Ankara (`fromResidenceRegions`) and
+`tr.residence-permit`, since Turkey has `report-your-address` too and a move's needs cover both sides. Every version
+answered with nothing left to ask, each of its facts and each fact it takes from the versions it narrows by place
+alone on the file's page, page name and read day, compared by key, value and page: 86 facts, 27 of them inherited,
+among them Hamburg's €16 with the federal two weeks and €1,000, Saxony's care shares with the federal rates and the
+child discount, Cologne's fee and its four weeks and six months with the federal duty and fine, and Munich's seven
+months and Berlin's card, confirmation and emergency weeks with their status's own §81(4) answer.
+
+A rule written on the deployed database outside the file would not show here. No query of the API lists every version
+whatever the reader, the research loader is the only code that writes a rule version, no migration inserts one and the
+entrypoint does not run `prisma/seed.ts`; an inventory of the deployed database is SB-221's, for both countries.
+
 ## What it has changed about the product
 
 **SB-168, twice.** Turkey answered three times that the law is national and
