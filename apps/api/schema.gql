@@ -406,7 +406,7 @@ type Query {
   questions(country: String!, locale: String = "en-US"): [QuestionView!]!
 
   """
-  How many versions, places, statuses and groups of this database each research file owns, so a publish can be read back.
+  How many versions, places, statuses and groups of this database each research file owns, and the digest its last load wrote, so a publish can be read back.
   """
   researchRows: [ResearchRowCount!]!
 
@@ -449,8 +449,14 @@ type RelatedGoalView {
   title: String!
 }
 
-"""The rows of this database one research file owns, counted (SB-202)."""
+"""
+The rows of this database one research file owns, counted, with the receipt of its last load (SB-202, SB-232).
+"""
 type ResearchRowCount {
+  """
+  The digest of the file its last load wrote, or null where no load has written one.
+  """
+  digest: String
   groups: Int!
   places: Int!
 

@@ -1,4 +1,5 @@
 import { Prisma, type PrismaClient } from '../../generated/prisma/client.js'
+import { digestOf } from './digest.js'
 import type { ResearchFact, ResearchRules, ResearchSource, ResearchVersion } from './rows.js'
 
 /** What a load wrote. A row claimed from another owner, or none, counts as changed. */
@@ -148,7 +149,8 @@ const deepestFirst = <Row extends Node>(rows: readonly Row[], tree: readonly Nod
  * and those naming a place or status the files move or drop, or one inside it,
  * because the tree triggers refuse to move or remove a row a rule names. Then
  * statuses and places, parents before what is inside them and removed the other
- * way round, then groups, obligations, and the versions the files list.
+ * way round, then groups, obligations, the versions the files list, and last each
+ * file's receipt (SB-232).
  *
  * It takes the research lock and sets `skipbureau.research_load`, which only this
  * transaction sees and which lets it past the history triggers, and it uses that
@@ -373,6 +375,13 @@ export const loadInto = async (tx: Prisma.TransactionClient, files: readonly Res
     })
     if (steppedAside.has(key)) report.versionsChanged += 1
     else report.versionsAdded += 1
+  }
+
+  // 7. The receipt: the digest of each file of this load, written in this transaction with its rows,
+  // which researchRows reads back so a publish can tell the database holds its file (SB-232).
+  for (const rules of files) {
+    const digest = digestOf(rules)
+    await tx.researchLoad.upsert({ where: { research: rules.research }, create: { research: rules.research, digest }, update: { digest, loadedAt: new Date() } })
   }
 
   return report

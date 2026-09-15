@@ -15,6 +15,7 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate diff --from-empty --to-schema-datamodel prisma/schema.prisma --script",
     "db:seed": "tsx prisma/seed.ts",
+    "research:publish": "tsx scripts/publish-research.ts",
     "schema:emit": "node --import @swc-node/register/esm-register src/schema-emit.ts"
   },
   "devDependencies": {

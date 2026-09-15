@@ -431,7 +431,8 @@ so did the two drawn again for company formation:
 ## How an agreed figure reaches a reader (SB-190)
 
 A figure in `agreed/` becomes a rule only through `src/rules/research/`, one
-module per country, loaded onto the deployed database on every start. After a
+module per research case, composed per country (SB-232), loaded onto the deployed
+database on every start. After a
 load every row a module owns says exactly what the module says: what is new is
 added, what changed is written again, and what the module no longer lists is
 removed, so loading the earlier module puts the database back, and git holds
@@ -453,6 +454,44 @@ A figure whose only verified page is narrower than the fact stays unwritten
 until research finds one that is not. Turkey's tax number is the first: its fee
 rests only on a university's guidance for its own applicants, which does not set
 what the Revenue Administration charges, so no fee is written (SB-195).
+
+## A research is finished when it is live (SB-232)
+
+The owner's order of 2026-09-15: a research that passes is turned into data and
+pushed to the live database before the next item starts. Its data is one file,
+`src/rules/research/<country>/<case>.ts`, which the country's file composes. Once
+the sign-off and the fixed-point turn are done and that file says what the agreed
+document says, run one command in the background, from the repository root:
+
+```bash
+npm run research:publish -w @skipbureau/api -- src/rules/research/germany/anmeldung.ts
+```
+
+It checks the types and the research specs, commits exactly the case's files as
+`Research publish: <case>`, pushes, waits until the deployed database's digest for
+the country equals the files', and reads the case back through the deployed API.
+A mistaken command or file ends in one line saying what failed; that is fixed and
+the command run again. The research is finished when it reports live, and the next
+item starts after that.
+
+While it runs, every commit names its paths, `git commit -- <paths>`, and no
+`git stash`, `git pull` or `git merge` runs, because the publish moves the branch
+without touching the index. When it reports, run the `git reset -q -- <paths>`
+line it prints.
+
+To take a publish back:
+
+```bash
+npm run research:publish -w @skipbureau/api -- --down src/rules/research/germany/anmeldung.ts
+```
+
+It restores the data file to what it was before the case's last publish that no
+down has reverted, and publishes that. The trace is git's:
+
+```bash
+git log --grep "Research-Case: germany/anmeldung"
+git log --grep "Research-Action: down"
+```
 
 ## Turkey's rules checked as a whole (SB-169)
 

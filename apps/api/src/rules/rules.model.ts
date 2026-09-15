@@ -14,13 +14,15 @@ registerEnumType(Detail, {
   description: 'A detail about a person that can change which rule applies to them.',
 })
 
-@ObjectType({ description: 'The rows of this database one research file owns, counted (SB-202).' })
+@ObjectType({ description: 'The rows of this database one research file owns, counted, with the receipt of its last load (SB-202, SB-232).' })
 export class ResearchRowCount {
   @Field(() => String, { description: 'The research file, such as turkey.' }) research!: string
   @Field(() => Int) versions!: number
   @Field(() => Int) places!: number
   @Field(() => Int) statuses!: number
   @Field(() => Int) groups!: number
+  @Field(() => String, { nullable: true, description: 'The digest of the file its last load wrote, or null where no load has written one.' })
+  digest!: string | null
 }
 
 @ObjectType()

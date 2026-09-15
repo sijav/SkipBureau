@@ -118,6 +118,21 @@ export type ResearchVersion = {
 }
 
 /**
+ * One research case's part of its country's rules, from one agreed document (SB-232). The country's file
+ * composes its cases, in order, into `ResearchRules`; `document` names the case and is written nowhere.
+ */
+export type ResearchCase = {
+  document: string
+  statuses?: readonly ResearchStatus[]
+  regions?: readonly ResearchRegion[]
+  regionsFrom?: ResearchRegionSource
+  nationalityGroups?: readonly ResearchNationalityGroup[]
+  obligations?: readonly ResearchObligation[]
+  sources?: Readonly<Record<string, ResearchSource>>
+  versions?: readonly ResearchVersion[]
+}
+
+/**
  * One country's researched rules (SB-190): only what its agreed research
  * supports, as the rows the loader writes, every version and fact naming the
  * definitions of the agreed document it rests on so a test can read them back.

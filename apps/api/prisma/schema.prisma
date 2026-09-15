@@ -186,6 +186,15 @@ model NationalityGroup {
   members  NationalityGroupMember[]
 }
 
+/// What the research load last wrote for each research file: the digest of the composed file, written
+/// in the load's own transaction, which `researchRows` reads back so a publish can tell the database
+/// holds its file (SB-232).
+model ResearchLoad {
+  research String   @id
+  digest   String
+  loadedAt DateTime @default(now())
+}
+
 /// Membership is dated, or a historical question is answered with today's
 /// groups. Which countries were in a group in 2019 is not which are today.
 model NationalityGroupMember {

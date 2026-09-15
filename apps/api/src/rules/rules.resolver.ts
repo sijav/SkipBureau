@@ -32,7 +32,7 @@ export class RulesResolver {
   constructor(private readonly rules: RulesService) {}
 
   @Query(() => [ResearchRowCount], {
-    description: 'How many versions, places, statuses and groups of this database each research file owns, so a publish can be read back.',
+    description: 'How many versions, places, statuses and groups of this database each research file owns, and the digest its last load wrote, so a publish can be read back.',
   })
   async researchRows(): Promise<ResearchRowCount[]> {
     return this.rules.researchRows()

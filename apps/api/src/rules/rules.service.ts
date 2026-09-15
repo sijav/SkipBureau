@@ -100,8 +100,8 @@ export type Place = { country: string; profile: Profile }
 export class RulesService {
   constructor(private readonly prisma: PrismaService) {}
 
-  /** How many versions, places, statuses and groups each research file owns, by file (SB-202). */
-  async researchRows(): Promise<{ research: string; versions: number; places: number; statuses: number; groups: number }[]> {
+  /** How many versions, places, statuses and groups each research file owns, and the digest its last load wrote, by file (SB-202, SB-232). */
+  async researchRows(): Promise<{ research: string; versions: number; places: number; statuses: number; groups: number; digest: string | null }[]> {
     const counted = (rows: readonly { research: string | null }[]) => {
       const counts = new Map<string, number>()
       for (const { research } of rows) if (research !== null) counts.set(research, (counts.get(research) ?? 0) + 1)
@@ -111,12 +111,14 @@ export class RulesService {
     const places = counted(await this.prisma.region.findMany({ where: { research: { not: null } }, select: { research: true } }))
     const statuses = counted(await this.prisma.residenceStatus.findMany({ where: { research: { not: null } }, select: { research: true } }))
     const groups = counted(await this.prisma.nationalityGroup.findMany({ where: { research: { not: null } }, select: { research: true } }))
-    return [...new Set([...versions.keys(), ...places.keys(), ...statuses.keys(), ...groups.keys()])].sort().map((research) => ({
+    const receipts = new Map((await this.prisma.researchLoad.findMany({ select: { research: true, digest: true } })).map((row) => [row.research, row.digest]))
+    return [...new Set([...versions.keys(), ...places.keys(), ...statuses.keys(), ...groups.keys(), ...receipts.keys()])].sort().map((research) => ({
       research,
       versions: versions.get(research) ?? 0,
       places: places.get(research) ?? 0,
       statuses: statuses.get(research) ?? 0,
       groups: groups.get(research) ?? 0,
+      digest: receipts.get(research) ?? null,
     }))
   }
 

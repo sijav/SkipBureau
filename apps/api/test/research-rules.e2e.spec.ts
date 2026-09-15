@@ -13,6 +13,7 @@ import { PrismaService } from '../src/prisma/prisma.service.js'
 import { loadInto, loadResearchRules, type LoadReport } from '../src/rules/research/load.js'
 import type { ResearchMembership, ResearchReading, ResearchRules, ResearchStatus, ResearchVersion } from '../src/rules/research/rows.js'
 import { RESEARCHED } from '../src/rules/research/countries.js'
+import { digestOf } from '../src/rules/research/digest.js'
 import { GERMANY } from '../src/rules/research/germany.js'
 import { TURKEY } from '../src/rules/research/turkey.js'
 import { seed } from '../prisma/seed.js'
@@ -905,11 +906,11 @@ test("a Land whose city a rule names is moved inside another Land, that rule wri
   expect(await ownedBy('germany')).toEqual(before)
 })
 
-test("researchRows counts each file's own versions, places, statuses and groups, and a place written outside research is in none of them and stays after a load", async () => {
+test("researchRows counts each file's own versions, places, statuses and groups, gives the digest its load wrote as its receipt, and a place written outside research is in none of them and stays after a load", async () => {
   await prisma.region.create({ data: { code: 'TR-34.sb202-outside', countryCode: 'tr', parentCode: 'TR-34', name: 'Written outside research' } })
   expect(await loadResearchRules(prisma, COUNTRIES)).toEqual(NOTHING_CHANGED)
 
-  const response = await graphql('{ researchRows { research versions places statuses groups } }')
+  const response = await graphql('{ researchRows { research versions places statuses groups digest } }')
   expect(response.body.errors).toBeUndefined()
   expect(response.body.data.researchRows).toEqual(
     COUNTRIES.map((rules) => ({
@@ -918,6 +919,7 @@ test("researchRows counts each file's own versions, places, statuses and groups,
       places: rules.regions.length,
       statuses: rules.statuses.length,
       groups: rules.nationalityGroups.length,
+      digest: digestOf(rules),
     })).sort((a, b) => a.research.localeCompare(b.research)),
   )
   expect((await prisma.region.findUniqueOrThrow({ where: { code: 'TR-34.sb202-outside' } })).research).toBeNull()
