@@ -1,7 +1,7 @@
 import type { Prisma, PrismaClient } from '../generated/prisma/client.js'
 import type { GuideDetailSeed } from '../sample-types.js'
 import { TASKS } from '../tasks.js'
-import { GERMANY_RESIDENCE_PERMIT, TURKEY_SHORT_TERM_RESIDENCE_PERMIT } from './obligation-groups.js'
+import { ADDRESS_GUIDE, GERMANY_RESIDENCE_PERMIT, TURKEY_SHORT_TERM_RESIDENCE_PERMIT } from './obligation-groups.js'
 
 // Guides written from the agreed research, not sample content (SB-258): each section is one of its document's paragraphs
 // under the bold lead that opens it, whole sentences in the document's order with only footnote markers, bold and list
@@ -213,6 +213,112 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
       ],
     },
     obligations: GERMANY_RESIDENCE_PERMIT,
+  },
+  // Written from research/agreed/turkey/address-registration.md, in the sample address guide's own row (SB-281).
+  {
+    country: 'tr',
+    task: 'getting-settled',
+    area: { slug: 'register-your-address', en: 'Report your address and any change to it', fa: 'اعلام نشانی محل سکونت و هر تغییر آن' },
+    guide: {
+      slug: 'register-your-address',
+      verifiedAt: '2026-09-14',
+      en: {
+        title: 'Telling Turkey where you live',
+        description:
+          'Residence-permit holders, international-protection applicants and status holders, and temporary-protection beneficiaries must report address changes within 20 working days.',
+      },
+    },
+    detail: {
+      slug: 'register-your-address',
+      sections: [
+        {
+          kind: 'beforeYouStart',
+          title: { en: 'Who this applies to.' },
+          body: {
+            en: 'An initial address-registration duty for work-permit holders is verified; their subsequent-move rule was not independently established. For someone here solely on a visa or visa exemption, outside those categories, we could not verify the same registration and change-notification duty. Article 8 of Population Services Law 5490 authorises the Interior Ministry to assign identity numbers to foreigners covered by Law 6458 and record them in the foreigners register; diplomatic mission members are outside this provision. The validity of foreigner identity numbers, the documents required during and after an application, and other details are determined by an Interior Ministry regulation.',
+          },
+        },
+        {
+          kind: 'importantToKnow',
+          title: { en: 'When the clock starts.' },
+          body: {
+            en: 'Moving house: the notification period is 20 working days, but we could not verify an explicit starting event for foreigners from a current official source. A residence permit, work permit or work-permit exemption confirmation obtained from a consulate: from the day you enter Turkey. An ordinary first residence permit issued in Turkey: the regulation starts the period when the permit document is delivered. A humanitarian residence permit: the statutory period starts on issuance. The national short-term application checklist instead says "following approval"; that wording conflicts with the regulation\'s delivery trigger, and we are not hiding the conflict.',
+          },
+        },
+        {
+          kind: 'whatToCheck',
+          title: { en: 'Your application is not your registration.' },
+          body: {
+            en: 'Do not assume that giving your address in e-İkamet completes address registration. The national short-term application checklist expressly requires first applicants to complete address-registration transactions after approval. We did not verify the categorical claim that an application never propagates an address.',
+          },
+        },
+        {
+          kind: 'whereToDoIt',
+          title: { en: 'One office or two.' },
+          body: {
+            en: "The population directorate's FAQ says the population directorate or the provincial migration directorate. The Migration Presidency's page reads as though you file with both. We found official references to two potentially relevant instructions, an 8 December 2022 instruction no. 130606 and Article 33 of a 15 January 2025 implementation directive, but could not locate publicly accessible copies or verify whether they resolve this conflict. Ask at whichever you go to first whether you also need the other.",
+          },
+        },
+        {
+          kind: 'howToDoIt',
+          title: { en: 'Online.' },
+          body: {
+            en: "An e-Devlet service for foreigners' address registration was announced officially in 2022. We could not confirm what it does today, nor whether completing it there leaves no office visit owing.",
+          },
+        },
+        {
+          kind: 'whatYouNeed',
+          title: { en: 'Bursa.' },
+          body: {
+            en: 'Bursa publishes an appointment-and-document procedure for address registration, effective 1 June 2026, notice dated 19 May 2026: an appointment through `randevu.goc.gov.tr`, and among the documents a UETS account. We could not verify a national UETS requirement for address registration; the national requirement we verified concerns renewal and transfer applications from 15 April 2024, and applicants under 18 need not provide their own UETS account. We found no other matching provincial notice dated 2025 or 2026, which is not the same as knowing Bursa is alone.',
+          },
+        },
+        {
+          kind: 'commonProblems',
+          title: { en: 'If you are late.' },
+          body: {
+            en: '814 lira for late notification, 17,051 lira for a false address declaration, at 2026 rates. National figures, usually revised each January.',
+          },
+        },
+      ],
+      sources: [
+        {
+          url: 'https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/7.5.21460.pdf',
+          name: 'Yabancılar ve Uluslararası Koruma Kanununun Uygulanmasına İlişkin Yönetmelik, Madde 22, 23, 44 ve 110',
+        },
+        { url: 'https://nvi.gov.tr/sss-adres-hizmetleri', name: 'Nüfus ve Vatandaşlık İşleri, Adres Hizmetleri sıkça sorulan sorular' },
+        {
+          url: 'https://www.mevzuat.gov.tr/MevzuatMetin/1.5.6458.pdf',
+          name: 'Yabancılar ve Uluslararası Koruma Kanunu (6458), Madde 26, 46 ve 90',
+        },
+        {
+          url: 'https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=20146883&MevzuatTur=21&MevzuatTertip=5',
+          name: 'Geçici Koruma Yönetmeliği (Bakanlar Kurulu Kararı 2014/6883), Madde 33',
+        },
+        { url: 'https://www.mevzuat.gov.tr/MevzuatMetin/1.5.5490.pdf', name: 'Nüfus Hizmetleri Kanunu (5490), Madde 8' },
+        {
+          url: 'https://www.icisleri.gov.tr/kurumlar/icisleri.gov.tr/IcSite/mulkiyeteftis/Teftis-Rehberleri/IL-GOC-IDARESI-MUDURLUGU-TEFTIS-REHBERI.pdf',
+          name: 'İçişleri Bakanlığı Mülkiye Teftiş Kurulu, İl Göç İdaresi Müdürlüğü Teftiş Rehberi',
+        },
+        {
+          url: 'https://e-ikamet.goc.gov.tr/Ikamet/BasvuruIstenenBelgeler/BasvuruFormuIstenenBelgeler?tur=0',
+          name: 'e-İkamet, Kısa Dönem İkamet İzni Başvurularında İstenen Belgeler',
+        },
+        {
+          url: 'https://hatay.goc.gov.tr/e-devlet-kapisi-httpswwwturkiyegovtr-uzerinden-adres-tescil-islemleri-hizmetinin-acilmasi',
+          name: 'Hatay İl Göç İdaresi Müdürlüğü, E-Devlet Kapısı Üzerinden Adres Tescil İşlemleri Hizmetinin Açılması',
+        },
+        { url: 'https://bursa.goc.gov.tr/adreskayit', name: 'Bursa İl Göç İdaresi Müdürlüğü, Adres Kayıt İşlemleri' },
+        {
+          url: 'https://www.goc.gov.tr/ikamet-izni-uzatma-basvurularinda-ulusal-elektronik-tebligat-sistemi-hakkinda-duyuru',
+          name: 'Göç İdaresi Başkanlığı, İkamet İzni Uzatma Başvurularında Ulusal Elektronik Tebligat Sistemi Hakkında Duyuru',
+        },
+        { url: 'https://www.nvi.gov.tr/adres-hizmetleri', name: 'Nüfus ve Vatandaşlık İşleri, Adres Hizmetleri' },
+        { url: 'https://www.nvi.gov.tr/istanbul/adres-islemleri', name: 'İstanbul İl Nüfus ve Vatandaşlık Müdürlüğü, Adres İşlemleri' },
+        { url: 'https://www.mevzuat.gov.tr/MevzuatMetin/1.5.5326.pdf', name: 'Kabahatler Kanunu (5326), Madde 17' },
+      ],
+    },
+    obligations: ADDRESS_GUIDE,
   },
 ]
 

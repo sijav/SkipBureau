@@ -13,10 +13,12 @@ import { PrismaService } from '../src/prisma/prisma.service.js'
 import { RESEARCHED } from '../src/rules/research/countries.js'
 import { loadResearchRules } from '../src/rules/research/load.js'
 import { TURKEY } from '../src/rules/research/turkey.js'
+import { seedContent } from '../src/sample-content.js'
 import { startPglite } from '../scripts/pglite-server.mjs'
 
 // SB-258: the guides written from the agreed research, on a database as a start without sample content leaves it:
-// migrated, Turkey and Germany as bootstrap writes them, the research loaded, and no seed.
+// migrated, Turkey and Germany as bootstrap writes them, the research loaded, and no seed. The last test then runs
+// sample content first, as a deployed database had it, and takes its address guide over (SB-281).
 
 const API = join(dirname(fileURLToPath(import.meta.url)), '..')
 const PORT = 5501
@@ -140,7 +142,12 @@ test("on a database no sample content has touched, the loader writes each resear
     `,
     { country: 'tr' },
   )
-  expect(areas.body.data.categories).toEqual([{ slug: 'short-term-residence-permit', taskSlug: 'get-a-residence-permit' }])
+  const byArea = (a: { slug: string }, b: { slug: string }) => a.slug.localeCompare(b.slug)
+  expect([...areas.body.data.categories].sort(byArea)).toEqual(
+    RESEARCHED_GUIDES.filter((researched) => researched.country === 'tr')
+      .map((researched) => ({ slug: researched.area.slug, taskSlug: researched.task }))
+      .sort(byArea),
+  )
 
   const before = await rows()
   await loadResearchedGuides(prisma)
@@ -148,9 +155,12 @@ test("on a database no sample content has touched, the loader writes each resear
 })
 
 test("a later start serves what the file now says: a section's new title and body, a source and a group taken out, and a link the file does not name replaced, with no row of the old left", async () => {
-  const [turkish, german] = RESEARCHED_GUIDES
+  const turkish = RESEARCHED_GUIDES.find(
+    (researched) => researched.country === 'tr' && researched.guide.slug === 'short-term-residence-permit',
+  )
+  const german = RESEARCHED_GUIDES.find((researched) => researched.country === 'de')
   const [first, ...rest] = turkish?.detail.sections ?? []
-  if (!turkish || !german || !first) throw new Error('RESEARCHED_GUIDES no longer has a Turkish and a German guide')
+  if (!turkish || !german || !first) throw new Error("RESEARCHED_GUIDES no longer has Turkey's residence permit guide and a German guide")
   const changed: ResearchedGuide = {
     ...turkish,
     detail: {
@@ -163,7 +173,10 @@ test("a later start serves what the file now says: a section's new title and bod
 
   try {
     await loadResearchedGuides(prisma)
-    await loadResearchedGuides(prisma, [changed, german])
+    await loadResearchedGuides(
+      prisma,
+      RESEARCHED_GUIDES.map((researched) => (researched === turkish ? changed : researched)),
+    )
 
     const served = await guideFor('tr', turkish.guide.slug)
     expect(served.sections).toEqual(
@@ -239,4 +252,39 @@ test("Germany's residence permit guide tells a visa-free reader of the United St
   const brazilian = await permitFor('br')
   expect(brazilian?.answer).toBe('answered')
   expect(brazilian?.facts.map((fact) => fact.key)).not.toContain('applyInGermanyWithin')
+})
+
+test('a start after sample content takes the sample address guide over in its own row: the same id, the researched area, English only, and nothing of the sample left', async () => {
+  // SB-281: a deployed database had the sample address guide before the research wrote one under its slug.
+  const address = RESEARCHED_GUIDES.find((researched) => researched.country === 'tr' && researched.guide.slug === 'register-your-address')
+  if (!address) throw new Error('RESEARCHED_GUIDES has no Turkish address guide')
+  const where = { countryCode_slug: { countryCode: 'tr', slug: address.guide.slug } }
+
+  await prisma.guide.deleteMany({ where: { countryCode: 'tr', slug: address.guide.slug } })
+  await seedContent(prisma)
+  const sample = await prisma.guide.findUniqueOrThrow({ where, include: { texts: true, sections: { include: { steps: true } } } })
+  expect(sample.texts.map((text) => text.locale).sort(), 'the sample guide as sample content writes it').toEqual(['en-US', 'fa-IR'])
+  expect(sample.sections.flatMap((section) => section.steps).length, 'the sample guide as sample content writes it').toBeGreaterThan(0)
+
+  await loadResearchedGuides(prisma)
+
+  const taken = await prisma.guide.findUniqueOrThrow({
+    where,
+    include: { category: true, texts: true, options: true, relatedTo: true, sections: { include: { steps: true } } },
+  })
+  expect(taken.id, 'the same row').toBe(sample.id)
+  expect(taken.category?.slug).toBe(address.area.slug)
+  expect(taken.texts.map(({ locale, quickAnswer, cost, time }) => ({ locale, quickAnswer, cost, time }))).toEqual([
+    { locale: 'en-US', quickAnswer: null, cost: null, time: null },
+  ])
+  expect(taken.sections.flatMap((section) => section.steps)).toEqual([])
+  expect(taken.options).toEqual([])
+  expect(taken.relatedTo).toEqual([])
+
+  const served = await guideFor('tr', address.guide.slug)
+  expect(served.title).toBe(address.guide.en.title)
+  expect(served.sections).toEqual(
+    address.detail.sections.map((section) => ({ kind: section.kind, title: section.title?.en ?? null, body: section.body?.en ?? null })),
+  )
+  expect(served.sources).toEqual(address.detail.sources.map(({ url, name }) => ({ url, name })))
 })
