@@ -3,21 +3,39 @@ import { Suspense, useId, useMemo, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useQuery } from 'urql'
 import { REGIONS, regionName } from 'src/core/country'
-import { CountriesQuery, overThePage } from 'src/core/graphql'
+import { CountriesQuery, overThePage, ReaderDetailsQuery } from 'src/core/graphql'
 import { useLocale } from 'src/core/i18n'
-import { samePageAt, samePageFrom } from 'src/core/router'
+import { samePageAs, samePageAt, samePageCleared, samePageFrom, samePageWhere } from 'src/core/router'
 import { useShell } from 'src/core/shell'
 import { lazyPart } from 'src/shared/lazy-part'
 import { ContextControl } from './ContextControl'
+import type { DetailOption } from './ContextPanel'
 
 // SB-159: the panel, with the Autocomplete and Popper it is built on, arrives
 // the first time it opens.
 const ContextPopper = lazyPart(() => import('./ContextPopper').then((popper) => popper.ContextPopper))
 
+type Listed = { code: string; parentCode: string | null; name: string }
+
+/** A country's places or statuses as a row lists them: by name, each followed by the ones inside it, a level further in. */
+const nested = (rows: readonly Listed[], locale: string): DetailOption[] => {
+  const collator = new Intl.Collator(locale)
+  const sorted = [...rows].sort((a, b) => collator.compare(a.name, b.name))
+  const listed: DetailOption[] = []
+  const inside = (parent: string | null, depth: number) => {
+    for (const row of sorted.filter((candidate) => candidate.parentCode === parent)) {
+      listed.push({ code: row.code, name: row.name, depth })
+      inside(row.code, depth + 1)
+    }
+  }
+  inside(null, 0)
+  return listed
+}
+
 export const YourDetails = () => {
   const { t } = useLingui()
   const { locale } = useLocale()
-  const { origin, country, countryName } = useShell()
+  const { origin, country, countryName, place, status } = useShell()
   const location = useLocation()
   const navigate = useNavigate()
   const id = useId()
@@ -39,13 +57,33 @@ export const YourDetails = () => {
     return REGIONS.map((code) => ({ code, name: ours.get(code) ?? regionName(code, locale) })).sort((a, b) => collator.compare(a.name, b.name))
   }, [open, ours, locale])
 
+  // The country's places and statuses once the panel opens. The route guard
+  // asks the same, with the same variables, when an address names one, so it
+  // is one answer (SB-256).
+  const [{ data: details }] = useQuery({
+    query: ReaderDetailsQuery,
+    variables: { country: country ?? '', locale },
+    pause: !open || !country,
+    context: overThePage,
+  })
+  const places = useMemo(() => nested(details?.places ?? [], locale), [details, locale])
+  const statuses = useMemo(() => nested(details?.residenceStatuses ?? [], locale), [details, locale])
+  const statusName = status ? details?.residenceStatuses.find((row) => row.code === status)?.name : undefined
+
   const originName = origin ? (ours.get(origin) ?? regionName(origin, locale)) : null
+
+  const go = (to: string) => {
+    setOpen(false)
+    void navigate(to)
+  }
 
   return (
     <>
       <ContextControl
         ref={setAnchor}
         known={originName ? t`From ${originName}` : undefined}
+        place={place ? <bdi>{place.name}</bdi> : undefined}
+        missing={originName && !place ? t`Add city` : undefined}
         open={open}
         controls={id}
         onClick={() => setOpen(!open)}
@@ -63,14 +101,15 @@ export const YourDetails = () => {
             countries={data?.countries ?? []}
             countryName={countryName ?? ''}
             options={options}
-            onOrigin={(code) => {
-              setOpen(false)
-              void navigate(samePageFrom(location, code))
-            }}
-            onCountry={(code) => {
-              setOpen(false)
-              void navigate(samePageAt(location, code))
-            }}
+            place={place}
+            places={places}
+            status={status && statusName ? { code: status, name: statusName } : null}
+            statuses={statuses}
+            onOrigin={(code) => go(samePageFrom(location, code))}
+            onCountry={(code) => go(samePageAt(location, code))}
+            onPlace={(code) => go(samePageWhere(location, code))}
+            onStatus={(code) => go(samePageAs(location, code))}
+            onClear={() => go(samePageCleared(location))}
           />
         </Suspense>
       )}

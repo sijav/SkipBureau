@@ -8,6 +8,10 @@ export type CountryContext = {
   name: string
   /** Where the reader comes from, when they have said: part of the address, like the country. */
   origin: string | null
+  /** The place in the country where the reader lives, when they have said, as the API codes it and confirmed (SB-256). */
+  place: string | null
+  /** The residence status the reader holds there, when they have said, confirmed by the API (SB-256). */
+  status: string | null
 }
 
 /**

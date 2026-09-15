@@ -299,6 +299,16 @@ it looks like in a URL. Every older form still resolves, by redirecting: lowerca
 countries, and the `/t/` and `/g/` markers pages had before, so a link already
 shared keeps working while one page keeps one address.
 
+A reader who has said where in the country they live has that place where the
+country was, spelled as the API codes it, `/en-IR/TR-35/guides/register-your-address`
+or `/en/DE-BY.muenchen`, the owner's choice of 2026-09-15 (SB-256). A residence
+status they hold is `?status=` with its code, `?status=tr.residence-permit`.
+Either is Not Found where the country does not have it, as an unknown country
+is. Every link keeps both; changing country drops both, and Clear all drops them
+with the nationality. A page's canonical and alternates never carry them. A
+status on a page that has a prerendered file is read just after the file is
+hydrated, never in its first render, because the file was rendered without it.
+
 **Country is in the path because a guide is about a country.** "Get a SIM card
 in Turkey" and the same guide for Germany are different documents with different
 sources and different verified dates, not one document filtered two ways. This
@@ -359,7 +369,8 @@ runs in a transition, in slices, with the browser free between them.
 
 `404.html`, a copy of the app shell, stays for everything else: a guide listed
 but not written yet, the Coming soon pages, search results, the Suggest dialog,
-an address carrying the reader's origin, and the old `/t/` and `/g/` forms.
+an address carrying the reader's origin or a place in the country, and the old
+`/t/` and `/g/` forms.
 Those open for a person, with a 404 that keeps them out of search results,
 where none of them belongs.
 

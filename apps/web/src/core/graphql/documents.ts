@@ -114,6 +114,24 @@ export const CountryQuery = graphql(`
   }
 `)
 
+// The places a reader can say they live in and the residence statuses they can
+// hold in one country (SB-256): asked by the route guard when an address names
+// one, and by the details panel when it opens, so both read one answer.
+export const ReaderDetailsQuery = graphql(`
+  query ReaderDetails($country: String!, $locale: String) {
+    places(country: $country, locale: $locale) {
+      code
+      parentCode
+      name
+    }
+    residenceStatuses(country: $country, locale: $locale) {
+      code
+      parentCode
+      name
+    }
+  }
+`)
+
 // Home in one request: the twelve goals, which of them this country has
 // content for, and its common questions.
 export const HomeQuery = graphql(`

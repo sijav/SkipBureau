@@ -101,6 +101,10 @@ msgstr "فعال‌سازی و آزمایش"
 msgid "Add"
 msgstr "افزودن"
 
+#: src/shared/context-control/YourDetails.tsx
+msgid "Add city"
+msgstr "افزودن شهر"
+
 #: src/shared/context-chip/ContextChip.stories.tsx
 msgid "Add to sharpen answers"
 msgstr "برای پاسخ دقیق‌تر اضافه کنید"
@@ -1177,6 +1181,14 @@ msgstr "به ترکی، توسط مترجم رسمی (yeminli tercüman)"
 #: src/shared/context-control/ContextPanel.tsx
 msgid "Type a country"
 msgstr "نام کشور را بنویسید"
+
+#: src/shared/context-control/ContextPanel.tsx
+msgid "Type a place"
+msgstr "نام مکان را بنویسید"
+
+#: src/shared/context-control/ContextPanel.tsx
+msgid "Type a status"
+msgstr "نام وضعیت را بنویسید"
 
 #: src/screens/guide/Guide.tsx
 #: src/shared/fact-strip/FactStrip.stories.tsx

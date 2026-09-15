@@ -101,6 +101,10 @@ msgstr "Activate and test it"
 msgid "Add"
 msgstr "Add"
 
+#: src/shared/context-control/YourDetails.tsx
+msgid "Add city"
+msgstr "Add city"
+
 #: src/shared/context-chip/ContextChip.stories.tsx
 msgid "Add to sharpen answers"
 msgstr "Add to sharpen answers"
@@ -1177,6 +1181,14 @@ msgstr "Turkish, by a sworn translator (yeminli tercüman)"
 #: src/shared/context-control/ContextPanel.tsx
 msgid "Type a country"
 msgstr "Type a country"
+
+#: src/shared/context-control/ContextPanel.tsx
+msgid "Type a place"
+msgstr "Type a place"
+
+#: src/shared/context-control/ContextPanel.tsx
+msgid "Type a status"
+msgstr "Type a status"
 
 #: src/screens/guide/Guide.tsx
 #: src/shared/fact-strip/FactStrip.stories.tsx

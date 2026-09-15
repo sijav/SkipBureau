@@ -11,7 +11,7 @@ import { homeStructuredData, type StructuredDatum } from 'src/shared/structured-
 export const homeHead = (i18n: I18n, country: CountryCode, name: string): PageHeadProps => ({
   title: i18n._(msg`What do you need to do in ${name}?`),
   description: i18n._(msg`Clear, step-by-step guidance for living, studying, working and doing business in ${name}.`),
-  path: (locale) => paths.home({ locale, origin: null, country }),
+  path: (locale) => paths.home({ locale, origin: null, country, place: null, status: null }),
   languages: Object.keys(locales),
 })
 

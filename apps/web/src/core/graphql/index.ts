@@ -5,6 +5,7 @@ export {
   CategoryHubQuery,
   CountriesQuery,
   CountryQuery,
+  ReaderDetailsQuery,
   GuideQuery,
   GuidesQuery,
   HomeQuery,

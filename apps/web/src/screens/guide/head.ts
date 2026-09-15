@@ -21,7 +21,7 @@ export const guideHead = (guide: GuideHeadData, country: CountryCode): PageHeadP
   title: guide.title,
   // Several guides have no description of their own; their intro says the same.
   description: guide.description ?? guide.intro,
-  path: (locale) => paths.guide({ locale, origin: null, country }, guide.slug),
+  path: (locale) => paths.guide({ locale, origin: null, country, place: null, status: null }, guide.slug),
   languages: guide.locales,
   shown: guide.locale,
   // An article to a link preview, dated by its verification (SB-089).
@@ -58,7 +58,7 @@ export const guideData = (
 ): StructuredDatum[] => {
   const { canonical } = pageLanguages(guideHead(guide, country), locale)
   const url = absolute(canonical, origin)
-  const area = absolute(guideArea(guide.place, { locale, origin: null, country }), origin)
+  const area = absolute(guideArea(guide.place, { locale, origin: null, country, place: null, status: null }), origin)
   return guideStructuredData(guide, {
     url,
     site: absolute('/', origin),

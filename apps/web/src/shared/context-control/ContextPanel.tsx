@@ -5,6 +5,9 @@ import { radius, withOpacity } from 'src/core/theme'
 
 export type Origin = { code: string; name: string }
 
+/** A choice in a row's list: a place inside another, or a kind of a status, is `depth` levels in and follows it. */
+export type DetailOption = Origin & { depth?: number | undefined }
+
 export type ContextPanelProps = {
   id: string
   origin: Origin | null
@@ -12,8 +15,15 @@ export type ContextPanelProps = {
   countries: readonly Origin[]
   countryName: string
   options: readonly Origin[]
+  place?: Origin | null | undefined
+  places?: readonly DetailOption[] | undefined
+  status?: Origin | null | undefined
+  statuses?: readonly DetailOption[] | undefined
   onOrigin: (code: string | null) => void
   onCountry: (code: string) => void
+  onPlace?: ((code: string) => void) | undefined
+  onStatus?: ((code: string) => void) | undefined
+  onClear?: (() => void) | undefined
 }
 
 const STROKE = 1
@@ -42,23 +52,26 @@ const Row = ({ label, children }: { label: ReactNode; children: ReactNode }) => 
 }
 
 /**
- * A country, said as text until it is tapped, then an Autocomplete over the
- * countries this row allows. Nationality offers every country somebody can come
- * from; Currently in offers only the ones SkipBureau covers (SB-172).
+ * What a row knows, said as text until it is tapped, then an Autocomplete over
+ * what the row allows. Nationality offers every country somebody can come from;
+ * Currently in only the ones SkipBureau covers (SB-172); City and Residence
+ * status the country's places and statuses, each after the one it is inside
+ * (SB-256).
  */
-const CountryChoice = ({
+const Choice = ({
   label,
+  placeholder,
   value,
   options,
   onChoose,
 }: {
   label: string
+  placeholder: string
   value: Origin | null
-  options: readonly Origin[]
+  options: readonly DetailOption[]
   onChoose: (code: string) => void
 }) => {
   const { tokens } = useTheme()
-  const { t } = useLingui()
   const [editing, setEditing] = useState(false)
 
   if (editing) {
@@ -69,9 +82,14 @@ const CountryChoice = ({
         autoHighlight
         size="small"
         options={options}
-        value={value && options.find((option) => option.code === value.code) ? value : null}
+        value={value ? (options.find((option) => option.code === value.code) ?? null) : null}
         getOptionLabel={(option) => option.name}
         isOptionEqualToValue={(option, chosen) => option.code === chosen.code}
+        renderOption={({ key, ...props }, option) => (
+          <Box component="li" key={key} {...props} sx={{ '&&': { paddingInlineStart: `${16 + (option.depth ?? 0) * 16}px` } }}>
+            <bdi>{option.name}</bdi>
+          </Box>
+        )}
         onChange={(_, chosen) => {
           setEditing(false)
           if (chosen) onChoose(chosen.code)
@@ -84,7 +102,7 @@ const CountryChoice = ({
             // The row was showing the chosen name, so typing replaces it rather than
             // adding to it. Autocomplete selects it on a click in the field, not on autoFocus.
             onFocus={(event) => event.target.select()}
-            placeholder={t`Type a country`}
+            placeholder={placeholder}
             slotProps={{ ...params.slotProps, htmlInput: { ...params.slotProps.htmlInput, 'aria-label': label } }}
           />
         )}
@@ -110,7 +128,23 @@ const CountryChoice = ({
   )
 }
 
-export const ContextPanel = ({ id, origin, country, countries, countryName, options, onOrigin, onCountry }: ContextPanelProps) => {
+export const ContextPanel = ({
+  id,
+  origin,
+  country,
+  countries,
+  countryName,
+  options,
+  place = null,
+  places = [],
+  status = null,
+  statuses = [],
+  onOrigin,
+  onCountry,
+  onPlace,
+  onStatus,
+  onClear,
+}: ContextPanelProps) => {
   const { tokens } = useTheme()
   const { t } = useLingui()
 
@@ -145,11 +179,12 @@ export const ContextPanel = ({ id, origin, country, countries, countryName, opti
       </Box>
 
       <Row label={<Trans>Nationality</Trans>}>
-        <CountryChoice label={t`Nationality`} value={origin} options={options} onChoose={onOrigin} />
+        <Choice label={t`Nationality`} placeholder={t`Type a country`} value={origin} options={options} onChoose={onOrigin} />
       </Row>
       <Row label={<Trans>Currently in</Trans>}>
-        <CountryChoice
+        <Choice
           label={t`Currently in`}
+          placeholder={t`Type a country`}
           value={country}
           options={countries}
           onChoose={(code) => {
@@ -157,8 +192,36 @@ export const ContextPanel = ({ id, origin, country, countries, countryName, opti
           }}
         />
       </Row>
-      <Row label={<Trans>City in {countryName}</Trans>}>{soon}</Row>
-      <Row label={<Trans>Residence status</Trans>}>{soon}</Row>
+      <Row label={<Trans>City in {countryName}</Trans>}>
+        {onPlace ? (
+          <Choice
+            label={t`City in ${countryName}`}
+            placeholder={t`Type a place`}
+            value={place}
+            options={places}
+            onChoose={(code) => {
+              if (code !== place?.code) onPlace(code)
+            }}
+          />
+        ) : (
+          soon
+        )}
+      </Row>
+      <Row label={<Trans>Residence status</Trans>}>
+        {onStatus ? (
+          <Choice
+            label={t`Residence status`}
+            placeholder={t`Type a status`}
+            value={status}
+            options={statuses}
+            onChoose={(code) => {
+              if (code !== status?.code) onStatus(code)
+            }}
+          />
+        ) : (
+          soon
+        )}
+      </Row>
       <Row label={<Trans>Role</Trans>}>{soon}</Row>
 
       <Box
@@ -176,8 +239,8 @@ export const ContextPanel = ({ id, origin, country, countries, countryName, opti
         </Typography>
         <ButtonBase
           disableRipple
-          disabled={!origin}
-          onClick={() => onOrigin(null)}
+          disabled={!origin && !place && !status}
+          onClick={() => (onClear ? onClear() : onOrigin(null))}
           sx={{
             padding: 0,
             color: tokens.textSecondary,

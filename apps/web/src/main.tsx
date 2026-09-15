@@ -59,7 +59,7 @@ if (seed) {
 const mount = () => {
   const app = (
     <StrictMode>
-      <AppRoot client={seed ? createClient(undefined, { seed }) : undefined} />
+      <AppRoot client={seed ? createClient(undefined, { seed }) : undefined} hydrating={Boolean(seed)} />
     </StrictMode>
   )
 

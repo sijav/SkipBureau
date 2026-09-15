@@ -23,19 +23,37 @@ export const Default: Story = {
   },
 }
 
-/** The three states side by side, as the design draws them. */
+// The ink of each part of a control's text, in order.
+const inks = (control: HTMLElement | undefined): string[] =>
+  [...(control?.querySelectorAll('span') ?? [])].map((part) => window.getComputedStyle(part).color)
+
+/**
+ * The states side by side, as the design draws them: none, Partial 44:527 with
+ * the gap said inline in the quieter ink, Complete 44:532 with the place in the
+ * ink of what is known, and open.
+ */
 export const States: Story = {
   render: (args) => (
     <Stack direction="row" spacing={3} sx={{ pointerEvents: 'none' }}>
       <ContextControl {...args} />
-      <ContextControl {...args} known="From Iran" />
+      <ContextControl {...args} known="From Iran" missing="Add city" />
+      <ContextControl {...args} known="From Iran" place="Hamburg" />
       <ContextControl {...args} known="From Iran" open controls="panel" />
     </Stack>
   ),
   play: async ({ canvasElement }) => {
-    const [none, known, open] = await within(canvasElement).findAllByRole('button')
+    const [none, partial, complete, open] = await within(canvasElement).findAllByRole('button')
     await expect(window.getComputedStyle(none ?? canvasElement).borderTopStyle).toBe('dashed')
-    await expect(window.getComputedStyle(known ?? canvasElement).borderTopStyle).toBe('solid')
+    await expect(window.getComputedStyle(partial ?? canvasElement).borderTopStyle).toBe('solid')
+
+    await expect(partial).toHaveTextContent(/From Iran\s*· Add city/)
+    const [known, gap] = inks(partial)
+    await expect(gap).not.toBe(known)
+
+    await expect(complete).toHaveTextContent(/From Iran\s*· Hamburg/)
+    const [nationality, place] = inks(complete)
+    await expect(place).toBe(nationality)
+
     await expect(open).toHaveAttribute('aria-expanded', 'true')
     await expect(open).toHaveAttribute('aria-controls', 'panel')
   },

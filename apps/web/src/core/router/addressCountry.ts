@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom'
 import { useQuery } from 'urql'
-import { CountryQuery } from 'src/core/graphql'
-import { canonicalPath, countryFromSegment, readerFromSegment } from './paths'
+import { CountryQuery, overThePage, ReaderDetailsQuery } from 'src/core/graphql'
+import { canonicalPath, destinationFromSegment, readerFromSegment, statusFromSearch } from './paths'
 
 /**
  * The reader and the country an address names, `/en-IR/TR/...`, and the
@@ -18,12 +18,22 @@ import { canonicalPath, countryFromSegment, readerFromSegment } from './paths'
  * shows. Nor `cache-and-network`: urql runs a query once for the first render
  * and again when it subscribes, and the second is a cache hit, which that
  * policy answers with a request anyway.
+ *
+ * SB-256: the place in the country the address names, `/en-IR/DE-HH/...`, and
+ * the residence status in its query, with the country's places and statuses
+ * to check them against, asked only when there is one to check and never
+ * suspending, so a status applied after hydration leaves the page as it is
+ * until they are in. `readsStatus` is false for the first render of a page
+ * hydrated from its file, which was rendered without the status.
  */
-export const useAddressCountry = () => {
+export const useAddressCountry = ({ readsStatus = true }: { readsStatus?: boolean } = {}) => {
   const location = useLocation()
-  const [, readerSegment = '', countrySegment = ''] = location.pathname.split('/')
+  const [, readerSegment = '', destinationSegment = ''] = location.pathname.split('/')
   const reader = readerFromSegment(readerSegment)
-  const code = countryFromSegment(countrySegment)
+  const destination = destinationFromSegment(destinationSegment)
+  const code = destination?.country ?? null
+  const place = destination?.place ?? null
+  const status = readsStatus ? statusFromSearch(location.search) : null
   // One page, one address: `/en/tr/t/x` and `/EN/TR/tasks/x` are both
   // `/en/TR/tasks/x`, and links shared before the markers were spelled out
   // still arrive.
@@ -40,5 +50,13 @@ export const useAddressCountry = () => {
     requestPolicy: 'cache-first',
   })
 
-  return { location, reader, code, canonical, moved, result, refetch }
+  const [details, refetchDetails] = useQuery({
+    query: ReaderDetailsQuery,
+    variables: { country: code ?? '', locale: reader?.locale },
+    pause: !reader || !code || moved || (place === null && status === null),
+    requestPolicy: 'cache-first',
+    context: overThePage,
+  })
+
+  return { location, reader, code, place, status, canonical, moved, result, refetch, details, refetchDetails }
 }

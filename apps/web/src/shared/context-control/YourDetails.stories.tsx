@@ -58,6 +58,52 @@ export const ChangeDestination: Story = {
   },
 }
 
+/** Saying where you live puts the place where the country was, keeps the page and the reader, and the control names it (SB-256). */
+export const ChooseCity: Story = {
+  parameters: { at: '/en-IR/DE/guides/anmeldung' },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    // Partial, Figma 44:527: the nationality, and the gap said inline.
+    await userEvent.click(await canvas.findByRole('button', { name: /From Iran\s*· Add city/ }, { timeout: 5000 }))
+    const page = within(window.document.body)
+    const city = (await page.findByText(/^City in Germany$/, {}, { timeout: 5000 })).parentElement
+    if (!city) throw new Error('the panel has no City row')
+    await userEvent.click(within(city).getByRole('button', { name: /^Add$/ }))
+    await userEvent.click(await page.findByRole('option', { name: /Hamburg/ }, { timeout: 5000 }))
+    await waitFor(() => expect(canvas.getByTestId('address')).toHaveTextContent(/^\/en-IR\/DE-HH\/guides\/anmeldung$/), { timeout: 5000 })
+    // Complete, Figma 44:532: the nationality and the place.
+    await expect(await canvas.findByRole('button', { name: /From Iran\s*· Hamburg/ }, { timeout: 5000 })).toBeVisible()
+  },
+}
+
+/** Saying what you hold adds it to the address, beside the page's own query (SB-256). */
+export const ChooseStatus: Story = {
+  parameters: { at: '/en/TR/search?q=residence' },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await userEvent.click(await canvas.findByRole('button', { name: /Add your details/ }, { timeout: 5000 }))
+    const page = within(window.document.body)
+    const row = (await page.findByText(/^Residence status$/, {}, { timeout: 5000 })).parentElement
+    if (!row) throw new Error('the panel has no Residence status row')
+    await userEvent.click(within(row).getByRole('button', { name: /^Add$/ }))
+    await userEvent.click(await page.findByRole('option', { name: /^Residence permit$/ }, { timeout: 5000 }))
+    await waitFor(() => expect(canvas.getByTestId('address')).toHaveTextContent('/en/TR/search?q=residence&status=tr.residence-permit'), {
+      timeout: 5000,
+    })
+  },
+}
+
+/** Clear all takes back the nationality, the place and the status, and keeps the country and the page (SB-256). */
+export const ClearAll: Story = {
+  parameters: { at: '/en-IR/DE-HH/guides/anmeldung?status=de.visa-free' },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await userEvent.click(await canvas.findByRole('button', { name: /From Iran\s*· Hamburg/ }, { timeout: 5000 }))
+    await userEvent.click(await within(window.document.body).findByRole('button', { name: /Clear all/ }, { timeout: 5000 }))
+    await waitFor(() => expect(canvas.getByTestId('address')).toHaveTextContent(/^\/en\/DE\/guides\/anmeldung$/), { timeout: 5000 })
+  },
+}
+
 /**
  * A guide belongs to one country, so changing where you are goes to the new
  * country's home rather than to a guide that may not exist there, and the row

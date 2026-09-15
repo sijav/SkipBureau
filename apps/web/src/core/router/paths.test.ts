@@ -6,20 +6,28 @@ import {
   canonicalPath,
   countryFromSegment,
   countrySegment,
+  destinationFromSegment,
+  destinationSegment,
   localeFromSegment,
   localeSegment,
   paths,
   readerFromSegment,
   readerSegment,
+  samePageAs,
   samePageAt,
+  samePageCleared,
   samePageFrom,
   samePageIn,
+  samePageWhere,
+  statusFromSearch,
   type Journey,
 } from './paths'
 
 const tr = validated('tr')
-const inEnglish: Journey = { locale: 'en-US', origin: null, country: tr }
-const fromIran: Journey = { locale: 'fa-IR', origin: 'ir', country: tr }
+const de = validated('de')
+const inEnglish: Journey = { locale: 'en-US', origin: null, country: tr, place: null, status: null }
+const fromIran: Journey = { locale: 'fa-IR', origin: 'ir', country: tr, place: null, status: null }
+const inHamburg: Journey = { locale: 'en-US', origin: 'ir', country: de, place: 'DE-HH', status: 'de.visa-free' }
 
 test('a URL carries the short public form of a language, not the lingui tag', () => {
   assert.equal(localeSegment('en-US'), 'en')
@@ -165,4 +173,75 @@ test('changing where you are reads a trailing slash as the same page', () => {
 test('changing where you are leaves an address that is not a country page alone', () => {
   assert.equal(samePageAt({ pathname: '/' }, 'de'), '/')
   assert.equal(samePageAt({ pathname: '/not-a-locale/TR' }, 'de'), '/not-a-locale/TR')
+})
+
+test('a place stands where the country was, read in any casing and written the way the API codes it', () => {
+  // The owner's shape, 2026-09-15: /en-IR/TR-35/guides/register-your-address (SB-256).
+  assert.deepEqual(destinationFromSegment('TR'), { country: 'tr', place: null })
+  assert.deepEqual(destinationFromSegment('TR-35'), { country: 'tr', place: 'TR-35' })
+  assert.deepEqual(destinationFromSegment('de-hh'), { country: 'de', place: 'DE-HH' })
+  assert.deepEqual(destinationFromSegment('de-By.MUENCHEN'), { country: 'de', place: 'DE-BY.muenchen' })
+  assert.equal(countryFromSegment('DE-BY.muenchen'), 'de', 'a place is inside its country')
+
+  for (const segment of ['', 'DE-', 'DE-HHHH', 'D1-HH', 'DE-HH.', 'DE.HH', 'DEU', 'DE-HH.mü']) {
+    assert.equal(destinationFromSegment(segment), null, segment)
+  }
+
+  assert.equal(destinationSegment({ country: 'tr', place: null }), 'TR')
+  assert.equal(destinationSegment({ country: 'de', place: 'DE-BY.muenchen' }), 'DE-BY.muenchen')
+})
+
+test('an address with a place arrives at the one address its page has, as the API spells the place', () => {
+  assert.equal(canonicalPath('/en/de-hh/guides/anmeldung'), '/en/DE-HH/guides/anmeldung')
+  assert.equal(canonicalPath('/en-ir/DE-BY.MUENCHEN'), '/en-IR/DE-BY.muenchen')
+  assert.equal(canonicalPath('/en/DE-HH/g/anmeldung'), '/en/DE-HH/guides/anmeldung')
+  // Already canonical: unchanged, which is what stops a redirect loop.
+  assert.equal(canonicalPath('/en-IR/DE-BY.muenchen/guides/anmeldung'), '/en-IR/DE-BY.muenchen/guides/anmeldung')
+  assert.equal(canonicalPath('/en/DE-/guides/anmeldung'), null)
+})
+
+test('every path keeps the place and the status the reader has said', () => {
+  assert.equal(paths.home(inHamburg), '/en-IR/DE-HH?status=de.visa-free')
+  assert.equal(paths.guide(inHamburg, 'anmeldung'), '/en-IR/DE-HH/guides/anmeldung?status=de.visa-free')
+  assert.equal(paths.categoryHub(inHamburg, 'getting-settled', 'first-week'), '/en-IR/DE-HH/tasks/getting-settled/first-week?status=de.visa-free')
+  assert.equal(paths.search(inHamburg, 'bank account & IBAN'), '/en-IR/DE-HH/search?q=bank%20account%20%26%20IBAN&status=de.visa-free')
+  assert.equal(paths.guide({ ...inHamburg, status: null }, 'anmeldung'), '/en-IR/DE-HH/guides/anmeldung')
+  assert.equal(statusFromSearch('?q=sim&status=tr.residence-permit'), 'tr.residence-permit')
+  assert.equal(statusFromSearch('?q=sim'), null)
+  assert.equal(statusFromSearch('?status='), null)
+})
+
+test('saying where you live, or taking it back, keeps the reader, the page, the status and the fragment', () => {
+  assert.equal(
+    samePageWhere({ pathname: '/en-IR/DE/guides/anmeldung', search: '?status=de.visa-free', hash: '#sources' }, 'DE-HH'),
+    '/en-IR/DE-HH/guides/anmeldung?status=de.visa-free#sources',
+  )
+  assert.equal(samePageWhere({ pathname: '/en-IR/DE-HH/guides/anmeldung' }, 'DE-BY.muenchen'), '/en-IR/DE-BY.muenchen/guides/anmeldung')
+  assert.equal(samePageWhere({ pathname: '/en-IR/DE-HH/guides/anmeldung' }, null), '/en-IR/DE/guides/anmeldung')
+  assert.equal(samePageWhere({ pathname: '/' }, 'DE-HH'), '/')
+})
+
+test('saying what you hold, or taking it back, changes only the status in the query', () => {
+  assert.equal(samePageAs({ pathname: '/en/TR/search', search: '?q=bank%20account' }, 'tr.residence-permit'), '/en/TR/search?q=bank%20account&status=tr.residence-permit')
+  assert.equal(samePageAs({ pathname: '/en/TR/guides/sim-card', search: '?status=tr.short-stay', hash: '#sources' }, 'tr.residence-permit'), '/en/TR/guides/sim-card?status=tr.residence-permit#sources')
+  assert.equal(samePageAs({ pathname: '/en/TR/search', search: '?status=tr.short-stay&q=sim' }, null), '/en/TR/search?q=sim')
+  assert.equal(samePageAs({ pathname: '/en/TR/guides/sim-card', search: '?status=tr.short-stay' }, null), '/en/TR/guides/sim-card')
+  assert.equal(samePageAs({ pathname: '/' }, 'tr.residence-permit'), '/')
+})
+
+test('changing country leaves the place and the status behind, and switching language keeps both', () => {
+  assert.equal(samePageAt({ pathname: '/en-IR/DE-HH/search', search: '?q=bank&status=de.visa-free' }, 'tr'), '/en-IR/TR/search?q=bank')
+  assert.equal(samePageAt({ pathname: '/en/DE-HH', search: '?status=de.visa-free' }, 'tr'), '/en/TR')
+  assert.equal(samePageAt({ pathname: '/en/DE-HH/guides/anmeldung', search: '?status=de.visa-free' }, 'tr'), '/en/TR')
+  assert.equal(samePageIn({ pathname: '/en-IR/DE-HH/guides/anmeldung', search: '?status=de.visa-free' }, 'fa-IR'), '/fa-IR/DE-HH/guides/anmeldung?status=de.visa-free')
+  assert.equal(samePageFrom({ pathname: '/en/DE-HH/guides/anmeldung', search: '?status=de.visa-free' }, 'ir'), '/en-IR/DE-HH/guides/anmeldung?status=de.visa-free')
+})
+
+test('clearing everything takes back the nationality, the place and the status, and nothing else', () => {
+  assert.equal(
+    samePageCleared({ pathname: '/fa-IR/DE-HH/search', search: '?q=bank&status=de.visa-free', hash: '#results' }),
+    '/fa/DE/search?q=bank#results',
+  )
+  assert.equal(samePageCleared({ pathname: '/en/TR' }), '/en/TR')
+  assert.equal(samePageCleared({ pathname: '/' }), '/')
 })

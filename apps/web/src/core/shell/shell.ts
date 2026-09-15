@@ -23,6 +23,15 @@ export type Shell = {
   countryName: string | null
   /** Where the reader comes from, as the address says, for links and the context control above the route. */
   origin: string | null
+  /** The place where the reader lives, once the database has confirmed it, with its name, for the context control (SB-256). */
+  place: { code: string; name: string } | null
+  /** The residence status the reader holds, once confirmed, for links built above the route (SB-256). */
+  status: string | null
+  /**
+   * Whether the address's status is read yet: false only for the first render
+   * of a page hydrated from its file, which was rendered without it (SB-256).
+   */
+  readsStatus: boolean
 }
 
 export const ShellContext = createContext<Shell>({
@@ -31,6 +40,9 @@ export const ShellContext = createContext<Shell>({
   country: null,
   countryName: null,
   origin: null,
+  place: null,
+  status: null,
+  readsStatus: true,
 })
 
 export const useShell = () => useContext(ShellContext)

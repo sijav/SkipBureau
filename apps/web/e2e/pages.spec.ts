@@ -1,4 +1,7 @@
 import { expect, test } from '@playwright/test'
+import { readFileSync } from 'node:fs'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 /**
  * A guide's address opened cold, on the built site served the way GitHub
@@ -189,4 +192,85 @@ test('an address for a guide that does not exist reads as absent, never as a bla
   expect(response?.status()).toBe(404)
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(/does not exist/)
   await expect(page.locator('header')).toBeVisible()
+})
+
+// SB-256: where in the country the reader lives, and what they hold there, in the address.
+
+const HERE = dirname(fileURLToPath(import.meta.url))
+const LIVE = Boolean(process.env.PAGES_URL)
+const STATUS = 'tr.residence-permit'
+// A page's links are built from the reader's status once it applies: the header's wordmark links home with it.
+const HOME_WITH_STATUS = `a[href$="/en/TR?status=${STATUS}"]`
+
+/**
+ * The residence status these tests name. The live site has it from the
+ * research. The e2e seed writes none, so it is written through the database
+ * the API reads, as countries.spec.ts changes rows: skipping a duplicate,
+ * because this file's tests run in parallel, and never removed, because one
+ * test removing it would pull it from under another. e2e/api-server.mjs makes
+ * that database fresh for each run.
+ */
+const ensureStatus = async (): Promise<void> => {
+  if (LIVE) return
+  const { PrismaPg } = await import('@prisma/adapter-pg')
+  const { PrismaClient } = await import('../../api/src/generated/prisma/client.js')
+  const prisma = new PrismaClient({ adapter: new PrismaPg({ connectionString: readFileSync(join(HERE, '.database-url'), 'utf8').trim() }) })
+  try {
+    await prisma.residenceStatus.createMany({ data: [{ code: STATUS, countryCode: 'tr', name: 'Residence permit' }], skipDuplicates: true })
+  } finally {
+    await prisma.$disconnect()
+  }
+}
+
+test('an address naming a place opens from 404.html, names the place, and gives the plain page as its canonical', async ({ page }) => {
+  // No file is written for an address with a place, so Pages answers 404.html
+  // with a 404, as it does for an address with a nationality.
+  const response = await page.goto('en-IR/DE-HH/guides/anmeldung', { waitUntil: 'load' })
+
+  expect(response?.status()).toBe(404)
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 1 })).not.toHaveText(/does not exist/)
+  // Complete, Figma 44:532: the nationality and the place.
+  await expect(page.getByRole('button', { name: /From Iran\s*· Hamburg/ })).toBeVisible()
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', /\/en\/DE\/guides\/anmeldung$/)
+})
+
+test('a place the country does not have is Not Found', async ({ page }) => {
+  await page.goto('en/DE-ZZ/guides/anmeldung', { waitUntil: 'load' })
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(/does not exist/)
+})
+
+test("a residence status in a prerendered page's address is in its links once the page is up, with no hydration mismatch logged", async ({ page }) => {
+  const mismatches: string[] = []
+  page.on('console', (message) => {
+    if (message.type() === 'error' && /hydrat|Minified React error #(418|423|425)/i.test(message.text())) mismatches.push(message.text())
+  })
+
+  await ensureStatus()
+  const response = await page.goto(`en/TR/guides/sim-card?status=${STATUS}`, { waitUntil: 'load' })
+
+  // The file answers, as it does for the page without a status.
+  expect(response?.status()).toBe(200)
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(GUIDE)
+  await expect(page.locator(HOME_WITH_STATUS).first()).toBeAttached()
+  expect(mismatches).toEqual([])
+})
+
+test('a residence status the country does not hold is Not Found', async ({ page }) => {
+  await page.goto('en/TR/guides/sim-card?status=tr.nothing', { waitUntil: 'load' })
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(/does not exist/)
+})
+
+test('a status reached from a page already up is in its links at once', async ({ page }) => {
+  await ensureStatus()
+  await page.goto('en/TR/guides/sim-card', { waitUntil: 'load' })
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(GUIDE)
+  await expect(page.locator(HOME_WITH_STATUS)).toHaveCount(0)
+
+  // Within the same document, as following a link would be.
+  await page.evaluate((status) => {
+    window.history.pushState({}, '', `${window.location.pathname}?status=${status}`)
+    window.dispatchEvent(new PopStateEvent('popstate'))
+  }, STATUS)
+  await expect(page.locator(HOME_WITH_STATUS).first()).toBeAttached()
 })

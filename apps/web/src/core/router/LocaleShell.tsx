@@ -12,9 +12,11 @@ import { readerFromSegment } from './paths'
 export type LocaleShellProps = {
   children: ReactNode
   client?: Client | undefined
+  /** The page is being hydrated from its prerendered file (SB-256). */
+  hydrating?: boolean | undefined
 }
 
-export const LocaleShell = ({ children, client }: LocaleShellProps) => {
+export const LocaleShell = ({ children, client, hydrating = false }: LocaleShellProps) => {
   const { pathname } = useLocation()
   const segment = pathname.split('/')[1] ?? ''
   const locale = readerFromSegment(segment)?.locale ?? defaultLocale
@@ -23,7 +25,7 @@ export const LocaleShell = ({ children, client }: LocaleShellProps) => {
     <GraphQLProvider client={client}>
       <I18nProvider locale={locale}>
         <AppTheme direction={locales[locale].dir}>
-          <AddressShell>
+          <AddressShell hydrating={hydrating}>
             {/* The site's name, for a page that has none of its own: Not Found,
                 search, Coming soon. A page's PageHead title goes in ahead of
                 it, and the first title in the document is the one shown. Not

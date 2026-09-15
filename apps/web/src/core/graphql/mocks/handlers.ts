@@ -1,6 +1,19 @@
 import { graphql, HttpResponse } from 'msw'
 import { endpoint } from 'src/core/graphql'
-import { categories, categoryHub, countries, guide, persianNames, questions, simGuide, taskHub, tasks, untranslatedGuide } from './fixtures'
+import {
+  categories,
+  categoryHub,
+  countries,
+  guide,
+  persianNames,
+  questions,
+  readerPlaces,
+  readerStatuses,
+  simGuide,
+  taskHub,
+  tasks,
+  untranslatedGuide,
+} from './fixtures'
 
 /**
  * The network, faked at the network.
@@ -39,6 +52,12 @@ export const handlers = [
     const match = countries.find((country) => country.code === variables['code'])
     const name = match && variables['locale'] === 'fa-IR' ? (persianNames[match.code] ?? match.name) : match?.name
     return HttpResponse.json({ data: { country: match ? { ...match, name } : null } })
+  }),
+
+  // Keyed on the country: another country has its own places and statuses, or none (SB-256).
+  api.query('ReaderDetails', ({ variables }) => {
+    const country = typeof variables['country'] === 'string' ? variables['country'] : ''
+    return HttpResponse.json({ data: { places: readerPlaces[country] ?? [], residenceStatuses: readerStatuses[country] ?? [] } })
   }),
 
   // Getting Settled has one area, so its goal opens that area's hub directly.

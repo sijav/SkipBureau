@@ -16,6 +16,35 @@ export const countries = [
 /** The names the API's bootstrap gives in Persian. */
 export const persianNames: Record<string, string> = { tr: 'ترکیه', de: 'آلمان' }
 
+type Listed = { code: string; parentCode: string | null; name: string }
+
+/** A few of each country's places, as the research loads them: provinces for Turkey, Länder and a city inside one for Germany (SB-256). */
+export const readerPlaces: Record<string, Listed[]> = {
+  tr: [
+    { code: 'TR-06', parentCode: null, name: 'Ankara' },
+    { code: 'TR-34', parentCode: null, name: 'İstanbul' },
+    { code: 'TR-35', parentCode: null, name: 'İzmir' },
+  ],
+  de: [
+    { code: 'DE-BY', parentCode: null, name: 'Bayern' },
+    { code: 'DE-BY.muenchen', parentCode: 'DE-BY', name: 'München' },
+    { code: 'DE-HH', parentCode: null, name: 'Hamburg' },
+  ],
+}
+
+/** A few of each country's residence statuses, a kind under one of them. */
+export const readerStatuses: Record<string, Listed[]> = {
+  tr: [
+    { code: 'tr.residence-permit', parentCode: null, name: 'Residence permit' },
+    { code: 'tr.short-stay', parentCode: null, name: 'A stay on a visa or visa exemption' },
+    { code: 'tr.short-stay.visa', parentCode: 'tr.short-stay', name: 'Visa' },
+  ],
+  de: [
+    { code: 'de.residence-permit', parentCode: null, name: 'Residence permit' },
+    { code: 'de.visa-free', parentCode: null, name: 'Visa-free stay' },
+  ],
+}
+
 // The twelve goals as the API's sample content has them, `{country}` included.
 export const tasks = [
   ['getting-settled', 'Getting Settled', 'Essential services to help you start everyday life in {country}.'],

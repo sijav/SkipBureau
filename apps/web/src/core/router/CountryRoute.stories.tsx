@@ -28,11 +28,11 @@ const meta = {
   component: CountryRoute,
   parameters: { layout: 'fullscreen', msw: { handlers } },
   decorators: [
-    (Story) => (
+    (Story, { parameters }) => (
       // No client passed, so the provider makes its own and memoises it: one
       // client per story, so a cached answer cannot leak into the next.
       <GraphQLProvider>
-        <MemoryRouter initialEntries={[AT]}>
+        <MemoryRouter initialEntries={[typeof parameters['at'] === 'string' ? parameters['at'] : AT]}>
           <Routes>
             <Route path=":reader/:country" element={<Story />}>
               <Route index element={<CountryName variant="h6" />} />
@@ -50,6 +50,30 @@ type Story = StoryObj<typeof meta>
 export const Found: Story = {
   play: async ({ canvasElement }) => {
     await expect(await within(canvasElement).findByTestId('country-name')).toHaveTextContent('Turkey')
+  },
+}
+
+/** A place the country has (SB-256): the page draws, in that country. */
+export const FoundPlace: Story = {
+  parameters: { at: '/en/DE-HH' },
+  play: async ({ canvasElement }) => {
+    await expect(await within(canvasElement).findByTestId('country-name')).toHaveTextContent('Germany')
+  },
+}
+
+/** A place the country does not have is the same stale link as a country we do not cover. */
+export const UnknownPlace: Story = {
+  parameters: { at: '/en/DE-ZZ' },
+  play: async ({ canvasElement }) => {
+    await expect(await within(canvasElement).findByRole('heading', { level: 1 })).toHaveTextContent(/does not exist/)
+  },
+}
+
+/** And so is a residence status the country does not hold. */
+export const UnknownStatus: Story = {
+  parameters: { at: '/en/TR?status=tr.nothing' },
+  play: async ({ canvasElement }) => {
+    await expect(await within(canvasElement).findByRole('heading', { level: 1 })).toHaveTextContent(/does not exist/)
   },
 }
 

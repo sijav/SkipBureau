@@ -10,7 +10,7 @@ type CategoryHubHeadData = { slug: string; goalSlug: string; title: string; desc
 export const categoryHubHead = (hub: CategoryHubHeadData, country: CountryCode, name: string): PageHeadProps => ({
   title: hub.title,
   description: hub.description ? withCountry(hub.description, name) : null,
-  path: (locale) => paths.categoryHub({ locale, origin: null, country }, hub.goalSlug, hub.slug),
+  path: (locale) => paths.categoryHub({ locale, origin: null, country, place: null, status: null }, hub.goalSlug, hub.slug),
   languages: Object.keys(locales),
 })
 
@@ -28,7 +28,7 @@ export const categoryHubData = (
   home: string,
   name: string,
 ): StructuredDatum[] => {
-  const journey = { locale, origin: null, country }
+  const journey = { locale, origin: null, country, place: null, status: null }
   const goal = showsGoal(hub) ? [{ name: withCountry(hub.goalTitle, name), url: absolute(paths.taskHub(journey, hub.goalSlug), origin) }] : []
   return [
     breadcrumbList([
