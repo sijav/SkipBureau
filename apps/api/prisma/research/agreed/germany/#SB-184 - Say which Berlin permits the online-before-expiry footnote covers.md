@@ -101,7 +101,14 @@ transcript under `talk/`, which is the record. These are only the way a long mes
 script." So `ask-sb184-germany-berlin-online.txt` is scratch, and the pass is recorded in
 **`apps/api/prisma/research/talk/germany/residence-permit.md`**, which is tracked.
 
-**The exit's clause about "the residence-permit conversation" cannot be met as written, and this
+**Corrected 2026-09-16: it COULD have been met, and I was wrong to say otherwise.** `roast.mjs`
+has no flag for a session, but line 497 reads the id from `sessions["${kind}:${brand}"]` in
+`.claude/roast-sessions.json`, which is ordinary project state. Writing the subject's id there
+before firing resumes that exact thread. I only read the flag list and concluded it was impossible.
+SB-357 carries the sign-off that is still owed, and names the method. What follows is what I
+believed at the time and acted on.
+
+**The exit's clause about "the residence-permit conversation" was not met, and this
 plan does not pretend it was.** `roast.mjs` takes the session id only from the shared slot for its
 kind, `const sessionId = args.fresh ? null : (sessions[sessionKey] ?? null)`, and its whole flag list
 is `--title --why --exit-condition --did --files --diff --model --ask --fresh`. There is no way to

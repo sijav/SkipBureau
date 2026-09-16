@@ -1456,11 +1456,18 @@ https://media.frag-den-staat.de/files/foi/705554/anwendungshinweise-zum-assoziat
 
 ## Asked, 2026-09-16 11:30 UTC
 
-**Not this conversation.** `roast.mjs` takes its session id only from the shared slot for its kind,
-and its whole flag list is `--title --why --exit-condition --did --files --diff --model --ask
---fresh`. There is no way to name a conversation, so this pass went to
-`01a09371-2c9c-7e33-a46c-8bcb6e01c583`, the current `search:codex`, not to `01a093c2-...` above. It
-is recorded here because this is the subject's record, not because the thread continued.
+**Not this conversation, and that was avoidable.** This pass went to
+`01a09371-2c9c-7e33-a46c-8bcb6e01c583`, the current `search:codex`, not to `01a093c2-...` above.
+
+When I wrote this I said there was no way to name a conversation. That was wrong, and it is
+corrected here rather than left standing. `roast.mjs` has no FLAG for it, but line 497 reads the id
+from `sessions["${kind}:${brand}"]` in `.claude/roast-sessions.json`, which is ordinary project
+state. Writing this subject's id into `sessions["search:codex"]` before firing a search roast
+resumes THIS conversation. The owner's rule of 2026-09-12, one conversation per subject, resumed,
+is achievable today and always was.
+
+So this pass is recorded here because this is the subject's record, not because the thread
+continued. SB-357 owes the real sign-off, and now names the method.
 
 SB-184, from SB-174's check. The Berlin paragraph says "submit the employment-permit application
 through the dedicated online application before your current permission expires", and its footnote
