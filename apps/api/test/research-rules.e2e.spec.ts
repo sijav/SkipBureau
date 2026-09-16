@@ -507,6 +507,21 @@ test('the workplace licence note says only what Articles 4 and 6 of its regulati
   expect(text, 'the clause no article of the regulation states must not come back').not.toContain('issues it depends on where the premises are')
 })
 
+// SB-215. The note said "The approved application document", which a reader can read as a decision on their
+// application when no decision has been made. The Presidency's FAQ says the document itself must be approved by the
+// provincial directorate, so the word is right and was unsourced; the sentence now says which is approved and that a
+// decision is still pending, and drops the passport, which no page it cites states (that gap is SB-333).
+const PERMIT_NOTE =
+  "Only while your visa or visa-exempt stay is still valid: apply through e-İkamet before your own permitted stay ends, which is not ninety days after you arrive when your visa gives you fewer. While your application is awaiting a decision, the residence permit application document approved by the provincial migration directorate, with the residence charge receipts unless you are recorded as exempt, lets you leave and come back without a visa within fifteen days of each departure, within the period you asked for; beyond fifteen days, ordinary visa rules apply. The card fee is the same for every nationality, while the permit charge depends on yours. Your health cover must span the period you ask for and meet the insurance regulator's minimum, in force since 1 April 2025, by kind of provider; applicants under eighteen or over sixty-five need not obtain cover, but must submit any valid cover they have."
+
+test('the short-term permit note says the application document is what the directorate approves, not the application', async () => {
+  const reader = await entryFor('get-a-short-term-residence-permit', { residenceStatuses: ['tr.short-stay'] })
+  const text = reader?.to?.notes[0]?.text ?? ''
+
+  expect(text).toBe(PERMIT_NOTE)
+  expect(text, 'the wording a reader can take for a decision must not come back').not.toContain('The approved application document')
+})
+
 test("a reader who works in Turkey is told each moment of the work permit, its figures on their pages and its condition first in its notes, a reader who has not said is asked, and a student is not told them", async () => {
   expect(factsOf('get-a-work-permit')).toHaveLength(16)
   await toldInSituation(WORKER_DUTIES, 'worker')

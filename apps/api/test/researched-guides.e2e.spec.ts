@@ -155,6 +155,28 @@ test("on a database no sample content has touched, the loader writes each resear
   expect(await rows()).toEqual(before)
 })
 
+// SB-215: a guide cites pages read on different days. GuideSource has always had its own verifiedAt column, and the
+// writer stamped the guide's day onto every row, so a page read after its guide was verified was shown to a reader as
+// checked on a day nobody read it. The file's own day where it gives one, the guide's otherwise.
+test("a source read after its guide was verified carries its own day, and every other carries the guide's", async () => {
+  const FAQ = 'https://www.goc.gov.tr/ikamet-sss'
+  const where = { slug: 'short-term-residence-permit', countryCode: 'tr' }
+  const day = (at: Date): string => at.toISOString().slice(0, 10)
+
+  const guide = await prisma.guide.findFirstOrThrow({ where, select: { verifiedAt: true } })
+  const sources = await prisma.guideSource.findMany({ where: { guide: where }, select: { url: true, verifiedAt: true }, orderBy: { position: 'asc' } })
+
+  expect(day(guide.verifiedAt), 'the guide keeps the oldest day its sentences were read on').toBe('2026-09-14')
+
+  const faq = sources.find((source) => source.url === FAQ)
+  expect(faq, 'the page the note rests on is one of the guide sources').toBeDefined()
+  expect(faq && day(faq.verifiedAt), 'read for SB-215, after this guide was verified').toBe('2026-09-16')
+
+  const others = sources.filter((source) => source.url !== FAQ)
+  expect(others.length, 'the guide cites more than that one page').toBeGreaterThan(0)
+  expect(others.map((source) => day(source.verifiedAt)), "every other source keeps the guide's day").toEqual(others.map(() => '2026-09-14'))
+})
+
 test("a later start serves what the file now says: a section's new title and body, a source and a group taken out, and a link the file does not name replaced, with no row of the old left", async () => {
   const turkish = RESEARCHED_GUIDES.find(
     (researched) => researched.country === 'tr' && researched.guide.slug === 'short-term-residence-permit',

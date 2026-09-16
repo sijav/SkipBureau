@@ -20,7 +20,12 @@ export type SectionSeed = {
 
 export type OptionSeed = { title: Localised; body?: Localised; bestFor?: Localised; caveat?: Localised }
 
-export type SourceSeed = { url: string; name: string; publisher?: string; official?: boolean; note?: string }
+/**
+ * `read` is the day this page was read, where that is not the day its guide was verified: a guide
+ * cites pages read on different days, and a card that stamps the guide's day on all of them tells a
+ * reader a page was checked when it was not (SB-215). Left out, the source takes the guide's day.
+ */
+export type SourceSeed = { url: string; name: string; publisher?: string; official?: boolean; note?: string; read?: string }
 
 /**
  * The body of a guide that already has a row: everything the guide page draws

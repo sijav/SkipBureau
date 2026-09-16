@@ -65,7 +65,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
           kind: 'whatToCheck',
           title: { en: 'Leaving and coming back while you wait.' },
           body: {
-            en: 'With the directorate-approved application document, your passport, and evidence you paid the fee unless you are recorded as exempt, you may travel within the requested permit period and return without a visa if you return within fifteen days of each departure. Beyond fifteen days, ordinary visa rules apply. The appointment form on its own is not the document that does this.',
+            en: 'While your residence permit application is awaiting a decision, you may travel during the requested permit period with the residence permit application document approved by the provincial migration directorate and the required residence-charge receipts. You may return without a visa if you return within fifteen days of each departure. Beyond fifteen days, ordinary visa rules apply. The appointment form on its own is not the document that does this.',
           },
         },
         {
@@ -107,6 +107,12 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
         {
           url: 'https://e-ikamet.goc.gov.tr/Ikamet/IstenenBelgeler/BasvuruFormuBelgelerIliskinAciklamalar',
           name: 'e-İkamet, Başvuru Belgelerine İlişkin Açıklamalar',
+        },
+        {
+          url: 'https://www.goc.gov.tr/ikamet-sss',
+          name: 'Göç İdaresi Başkanlığı, İkamet İzni Sıkça Sorulan Sorular',
+          // Read for SB-215, after this guide was verified, so its card carries its own day rather than the guide's.
+          read: '2026-09-16',
         },
         {
           url: 'https://ms.hmb.gov.tr/uploads/sites/3/2025/12/2026-Degerli-Kagitlar-Tebligi-a3f95f2236d8ad45.pdf',
@@ -1195,7 +1201,17 @@ const writeGuide = async (tx: Prisma.TransactionClient, taskId: string, research
   const stored = await tx.guideSource.findMany({ where: { guideId: guide.id }, orderBy: { position: 'asc' } })
   const kept = new Set<string>()
   for (const [position, source] of detail.sources.entries()) {
-    const written = { url: source.url, name: source.name, publisher: null, official: true, note: null, verifiedAt, position }
+    // SB-215: a guide cites pages read on different days, and a card stamping the guide's day on all of them tells a
+    // reader a page was checked when it was not. A source's own day where it has one, the guide's otherwise.
+    const written = {
+      url: source.url,
+      name: source.name,
+      publisher: null,
+      official: true,
+      note: null,
+      verifiedAt: source.read ? new Date(source.read) : verifiedAt,
+      position,
+    }
     const row = stored.find((candidate) => candidate.url === source.url && !kept.has(candidate.id))
     if (row) {
       kept.add(row.id)
