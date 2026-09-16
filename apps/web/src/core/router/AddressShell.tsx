@@ -32,9 +32,22 @@ export const AddressShell = ({ children, hydrating = false }: { children: ReactN
   // render that would already have drawn from the cache. A set during render re-runs this component before its
   // children, so the route below reads the latch on the same navigation that tripped it, and the `!latched` guard
   // means it happens once rather than every render.
-  const [openedAt] = useState(location.pathname)
+  //
+  // SB-406: the whole address, the path AND the query, not the path alone. Three of this app's navigations change
+  // only the query: `samePageAs`, `samePageInRole` and `samePageAtWork` in paths.ts each return the pathname verbatim
+  // and rewrite only the search, for `?status`, `?situation` and `?work`. Comparing paths therefore missed the
+  // commonest thing a reader does on a seeded page, answering a rule's question in the details panel, and kept
+  // serving the country the file was built with. Choosing a place is different and already worked, because a place
+  // goes into the path.
+  //
+  // The hash is left out on purpose: neither the country query nor the reader details read it, so a jump to #sources
+  // is not a new page to this guard and should not start asking the API. Not `location.key` either, which looks like
+  // the general answer and is not: react-router takes its key from `history.state.key`, and a `history.pushState({},
+  // ...)` navigation sets none, so the opening entry and that navigation both read as "default".
+  const address = location.pathname + location.search
+  const [openedAt] = useState(address)
   const [latched, setLatched] = useState(false)
-  const wentAway = latched || location.pathname !== openedAt
+  const wentAway = latched || address !== openedAt
   if (wentAway && !latched) setLatched(true)
   // `readsQuery` is NOT this, despite the shape: it governs whether the query string is read (SB-256, SB-286) and it
   // flips in an effect immediately after mount, which would send the first hydrated render to the network.

@@ -337,3 +337,23 @@ what the network actually carried, and it matches the three that blanket
 `network-only` put through `pages.spec.ts:79`. SB-405 carries the measured
 number, so the card that shares the query starts from what happened rather than
 from what was expected.
+
+## Corrected by SB-406: "from the first navigation onwards" was too broad
+
+This plan says the policy becomes `network-only` "the moment the pathname first
+differs" and "from the first navigation onwards". The second phrase promises more
+than the first delivers, and the gap is real rather than rhetorical.
+
+The latch compares **paths**, and three of this app's navigations change only the
+query: `paths.ts`'s `samePageAs`, `samePageInRole` and `samePageAtWork` each
+return the pathname verbatim and rewrite only the search, for `?status`,
+`?situation` and `?work`. So a reader who opens a prerendered page and then
+answers a rule's question in the details panel, which is the commonest
+interaction this product has, never tripped the latch and kept the country the
+file was built with.
+
+The task roast on this card found it and it was verified at the line rather than
+inferred. It is fixed under **SB-406**, which keys the latch on the whole address,
+`pathname + search`, and adds the `pages.spec.ts` case that catches it. The rule
+as built here is correct for path navigations and incomplete for query ones; the
+record is corrected here rather than the closed card being reopened.

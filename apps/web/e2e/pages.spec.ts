@@ -155,6 +155,38 @@ test('a seeded page trusts its file only while the reader stays on it', async ({
   expect(countries.length, 'returning to the seeded address asks again rather than replaying the seed').toBeGreaterThan(onLeaving)
 })
 
+test('a seeded page asks again when the reader changes only a query detail', async ({ page }) => {
+  // SB-406, the case the one above cannot see. SB-403's latch compared the PATH, and the three details a reader gives
+  // are query parameters: paths.ts's samePageAs, samePageInRole and samePageAtWork each return the pathname verbatim
+  // and rewrite only the search. So the commonest interaction on a seeded page, answering a rule's question in the
+  // details panel, never tripped the latch, and the country stayed on the answer the FILE was built with. A country
+  // deleted since that build is then shown to the reader, which is precisely what SB-403 exists to refuse.
+  const countries: string[] = []
+  page.on('request', (sent) => {
+    if (!sent.url().includes('graphql') || sent.method() !== 'POST') return
+    if ((sent.postData() ?? '').includes('query Country(')) countries.push(sent.url())
+  })
+
+  await page.goto(`en/${ADDRESS}`, { waitUntil: 'networkidle' })
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(GUIDE)
+  expect(countries, 'the seeded first render asks for the country it was given').toEqual([])
+
+  // Only the query changes. The path is character for character the one the document opened at, which is the whole
+  // point: a role is a real navigation to the reader and was invisible to a latch that compared paths.
+  await page.evaluate(() => {
+    window.history.pushState({}, '', `${window.location.pathname}?situation=worker`)
+    window.dispatchEvent(new PopStateEvent('popstate'))
+  })
+
+  // Polled rather than read once. urql keeps the previous result while the network-only operation starts and
+  // subscribes asynchronously, so the request leaves after the navigation has rendered. Nothing visible changes here
+  // to await first, unlike the path case above, so reading the array immediately would race and fail for a timing
+  // reason that has nothing to do with the defect.
+  await expect
+    .poll(() => countries.length, { message: 'a query-only navigation must ask for the country again' })
+    .toBeGreaterThan(0)
+})
+
 test('the file draws the shell as the page renders it: the country known, one Ask', async ({ request }) => {
   // SB-161: the shell reads the country and who owns Ask from the address, so
   // the prerender has both. The header links to the country, not the site root,
