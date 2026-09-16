@@ -410,6 +410,65 @@ test('a place a rule reaches through the place it is inside cannot be moved out 
   expect(await prisma.region.findUniqueOrThrow({ where: { code: 'TR-53.pazar' } })).toMatchObject({ parentCode: null })
 })
 
+// SB-361: the upward walk reads the tree as the statement has left it so far, because a row-level
+// BEFORE trigger sees rows already processed by the same command. One statement pointing two places
+// at each other therefore puts a cycle in front of a third row's walk. Before this was fixed the
+// statement below never returned and the probe had to be killed.
+test('one update that points two places at each other terminates, and is refused rather than hanging', async () => {
+  await prisma.region.createMany({
+    data: [
+      { code: 'TR-70', countryCode: 'tr', name: 'Ordu named' },
+      { code: 'TR-70.p', countryCode: 'tr', name: 'P' },
+      { code: 'TR-70.q', countryCode: 'tr', name: 'Q' },
+      { code: 'TR-70.r', countryCode: 'tr', parentCode: 'TR-70.p', name: 'R' },
+    ],
+  })
+  await version(await obligation(), [lives('TR-70')], [{ key: 'fee', numericValue: 1 }])
+
+  // p and q point at each other, and r, whose parent is p, moves. r's walk meets that cycle. The
+  // refusal comes from the tree guard, which owns cycles, and the point of the test is that it
+  // ARRIVES at all.
+  await expect(
+    prisma.$executeRawUnsafe(
+      `UPDATE "Region" AS reg SET "parentCode" = v.parent
+       FROM (VALUES ('TR-70.p','TR-70.q'),('TR-70.q','TR-70.p'),('TR-70.r','TR-70')) AS v(code,parent)
+       WHERE reg.code = v.code`,
+    ),
+  ).rejects.toThrow(/cannot be inside/)
+
+  expect(await prisma.region.findUniqueOrThrow({ where: { code: 'TR-70.r' } })).toMatchObject({ parentCode: 'TR-70.p' })
+  expect(await prisma.region.findUniqueOrThrow({ where: { code: 'TR-70.p' } })).toMatchObject({ parentCode: null })
+})
+
+// SB-361, the harder half. A temporary cycle stops the upward walk, so in principle a statement could
+// use one to hide a named ancestor, then undo it before the AFTER guard looks at the final tree. It
+// cannot, and this holds that down: every row on the path between the moved row and the named
+// ancestor is itself protected by the same walk, so the statement is refused at whichever of them the
+// executor visits first, and a row with no parent is on nobody's upward path until it is moved onto
+// one, which means moving a protected row again.
+test('a statement cannot hide a named ancestor behind a temporary cycle and move a place out from under it', async () => {
+  await prisma.region.createMany({
+    data: [
+      { code: 'TR-71', countryCode: 'tr', name: 'Rize named' },
+      { code: 'TR-71.b', countryCode: 'tr', parentCode: 'TR-71', name: 'B' },
+      { code: 'TR-71.c', countryCode: 'tr', parentCode: 'TR-71.b', name: 'C' },
+      { code: 'TR-71.d', countryCode: 'tr', parentCode: 'TR-71.b', name: 'D' },
+    ],
+  })
+  await version(await obligation(), [lives('TR-71')], [{ key: 'fee', numericValue: 2 }])
+
+  await expect(
+    prisma.$executeRawUnsafe(
+      `UPDATE "Region" AS reg SET "parentCode" = v.parent
+       FROM (VALUES ('TR-71.b','TR-71.c'),('TR-71.d',NULL::varchar),('TR-71.c','TR-71')) AS v(code,parent)
+       WHERE reg.code = v.code`,
+    ),
+  ).rejects.toThrow(/TR-71.b is inside TR-71, which a rule's criteria name/)
+
+  expect(await prisma.region.findUniqueOrThrow({ where: { code: 'TR-71.d' } })).toMatchObject({ parentCode: 'TR-71.b' })
+  expect(await prisma.region.findUniqueOrThrow({ where: { code: 'TR-71.c' } })).toMatchObject({ parentCode: 'TR-71.b' })
+})
+
 test('a region a rule names through a place inside it keeps its code, country and parent until that rule is removed', async () => {
   await prisma.region.createMany({
     data: [
