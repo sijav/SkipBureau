@@ -189,7 +189,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
           kind: 'commonProblems',
           title: { en: 'If you cannot get an appointment.' },
           body: {
-            en: "This is real and officially acknowledged: Berlin says some departments have nothing available for months. In Berlin, submit the employment-permit application through the dedicated online application before your current permission expires; you do not need to wait for an appointment. For additional help in a documented emergency, use the responsible department's contact form. Berlin assesses emergency requests for urgent travel within the next four weeks evidenced by a booking, or threatened job loss or benefit termination because of missing valid documentation, evidenced by an employer's or Jobcenter/Sozialamt's letter. If it accepts the emergency, it can send a Fiktionsbescheinigung or offer a prompt appointment.",
+            en: "This is real and officially acknowledged: Berlin says some departments have nothing available for months. In Berlin, applicants for the residence permits for academic skilled workers, skilled workers with vocational training, research employment and employment of certain nationalities submit the online application \"Befristeter Aufenthaltstitel zur Beschäftigung\" while their current title is still valid. The LEA reviews the application and, if it is positively reviewed, you receive an appointment to attend in person. For additional help in a documented emergency, use the responsible department's contact form. Berlin assesses emergency requests for urgent travel within the next four weeks evidenced by a booking, or threatened job loss or benefit termination because of missing valid documentation, evidenced by an employer's or Jobcenter/Sozialamt's letter. If it accepts the emergency, it can send a Fiktionsbescheinigung or offer a prompt appointment.",
           },
         },
         {
@@ -220,6 +220,21 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
         {
           url: 'https://www.gesetze-im-internet.de/aufenthv/__41.html',
           name: 'Aufenthaltsverordnung (AufenthV), § 41 Vergünstigung für Angehörige bestimmter Staaten',
+        },
+        // SB-370: the three Berlin permits beside the academic one, which the restored sentence names. Their place here
+        // is the order their footnotes are DEFINED in the document, which is what pagesCited emits, and each name is
+        // the page's own heading, as the academic permit's already is.
+        {
+          url: 'https://service.berlin.de/dienstleistung/305304/',
+          name: 'Service Berlin, Aufenthaltserlaubnis für Fachkräfte mit Berufsausbildung beantragen',
+        },
+        {
+          url: 'https://service.berlin.de/dienstleistung/328457/',
+          name: 'Service Berlin, Aufenthaltserlaubnis für eine Beschäftigung zum Zweck der Forschung beantragen',
+        },
+        {
+          url: 'https://service.berlin.de/dienstleistung/350471/',
+          name: 'Service Berlin, Aufenthaltserlaubnis zur Beschäftigung bestimmter Staatsangehöriger beantragen',
         },
         {
           url: 'https://www.berlin.de/einwanderung/termine/termin-vereinbaren/',
