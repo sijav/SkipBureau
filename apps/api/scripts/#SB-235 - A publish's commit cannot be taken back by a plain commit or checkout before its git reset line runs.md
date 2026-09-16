@@ -18,8 +18,9 @@ In that window:
 
 - a bare `git commit`, or `git add` of anything followed by one, commits those old entries and is an
   immediate revert of the publish;
-- `git checkout -- <path>` or `git restore <path>` writes the old bytes back into the working tree, so
-  the next commit reverts it even after the reset.
+- `git checkout -- <path>` or `git restore <path>` copies the index's version into the working tree,
+  so in this window it writes the old bytes back there, and a reset afterwards repairs the index
+  without touching them (SB-381, which corrected the same sentence in the guide).
 
 ## The first branch of the exit is unreachable, and deliberately so
 

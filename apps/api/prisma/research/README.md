@@ -526,12 +526,23 @@ temporary index and the branch is moved with `update-ref`, so for exactly the
 committed paths the repository's own index still holds the bytes from before the
 publish. Until that reset runs, a bare `git commit`, or a `git add` of anything
 else followed by one, commits those old entries and is an immediate revert of the
-publish. `git checkout -- <path>` and `git restore <path>` are worse in their own
-way: they write the old bytes back into the working tree, so the next commit
-reverts it even after the reset has run. The index is deliberately left alone,
-because git has no compare-and-swap for a single entry and a write from the
-background could swallow something staged in the foreground (SB-232), so the
-reset is the whole of the remedy and it is not optional.
+publish. The reset itself updates those named index entries from the now published
+`HEAD`, and it does not touch the working tree.
+
+`git checkout -- <path>` and `git restore <path>` copy the index's version into the
+working tree, so the order decides what they do (SB-381). Before the reset the index
+still holds the pre-publish bytes, so either command restores stale content; the
+reset then repairs the index and leaves that working tree file as it was, where a
+later `git add <path>`, or a broad add that includes it, can publish it again. After
+the reset the index holds the published bytes, so the same commands restore those,
+and neither can take a publish back. This is the path only worktree form:
+`git checkout <tree-ish> -- <path>` and `git restore --staged <path>` read a named
+tree or `HEAD` instead.
+
+The index is deliberately left alone, because git has no compare-and-swap for a
+single entry and a write from the background could swallow something staged in the
+foreground (SB-232). So the reset is not optional, and it is the whole of the remedy
+only while nothing has written to the working tree first.
 
 To take a publish back:
 
