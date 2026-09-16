@@ -12,9 +12,9 @@ const alias = { src: join(here, 'src'), api: join(here, '..', 'api', 'src') }
 
 const lingui = () => react({ plugins: [['@lingui/swc-plugin', {}]] })
 
-// The matrix moved to ./story-matrix, which scripts/story-tests.ts reads too, so the projects this file makes and the
-// projects that script runs are the same four and cannot drift apart (SB-314). Its own comment carries the owner's
-// decision that direction is not a language.
+// The matrix moved to ./src/story-matrix, which scripts/story-tests.ts reads too, so the projects this file makes and
+// the projects that script runs are the same four (SB-314), each named by that module's storyProjectName (SB-346).
+// Its own comment carries the owner's decision that direction is not a language, and why it sits under src.
 
 // SB-284: CI's coverage run holds the unit project and the four below in one Vitest run, instrumented, and there a
 // screen story took 11 to 15 seconds (Home's Ask, 2026-09-15) against Vitest's 15 second browser default, failing the

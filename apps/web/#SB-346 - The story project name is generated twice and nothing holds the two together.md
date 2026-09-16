@@ -58,9 +58,13 @@ prove nothing.
 
 **The exit's proof, and what it costs.** The naming inside `storyProjectName` is changed, and
 `npm run test:storybook` is watched **still running four projects**, because the config follows the
-same function. The unit test **fails during that plant**, by design, since its literal names are
-exactly the decision point a rename should stop at; that is recorded rather than worked around, and
-the plant is reverted after.
+same function. The plant is reverted after.
+
+**This plan said the unit test fails during that plant. It cannot.** `test:storybook` runs only the
+four story projects, and `story-matrix.test.ts` is in the `unit` project, so the command exits zero
+and that is the correct outcome rather than a contradiction. A separate unit run during the rename
+would fail, which is the deliberate decision point the literal names exist to be; the claim was
+true of that run and this plan did not say so. Corrected after SB-346's roast.
 
 ## How it is checked
 
