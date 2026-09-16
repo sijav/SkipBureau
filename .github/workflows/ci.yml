@@ -76,6 +76,67 @@ jobs:
       - name: Build the API
         run: npm run build -w @skipbureau/api
 
+  # SB-401. The owner, 2026-09-16, asked whether CI should run the browser
+  # tests: "Yes, the whole suite". Both projects, dev and pages, not a subset.
+  # Until now the only Playwright line in this file was the install-deps step
+  # above, so every one of these assertions had never run here, including the
+  # whole pages project, which is where this product's SEO claims are checked.
+  #
+  # A job of its own rather than a step in `check`, so it runs beside it instead
+  # of extending the path that `pages` waits on, and so a failure names itself
+  # without anyone reading a log to see whether a linter or a browser broke.
+  #
+  # It deliberately does NOT gate the deployment: `pages` still needs only
+  # [check, secrets]. The owner asked for the suite to RUN, and turning that
+  # into "a red suite holds the site" is a second decision that is theirs to
+  # make rather than mine to imply.
+  e2e:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      # `postinstall` in apps/web is `playwright install chromium`, and npm ci
+      # runs a workspace's lifecycle scripts, so the browser binary arrives with
+      # the install and needs no step of its own.
+      - run: npm ci
+
+      # The libraries the binary does not carry, exactly as the check job does.
+      - name: Chromium system libraries
+        run: npx playwright install-deps chromium
+
+      # Neither of these is committed. e2e/api-server.mjs spawns the built API,
+      # which imports the Prisma client, and countries.spec.ts imports it
+      # directly to insert and delete a country row mid test.
+      - name: Generate the Prisma client
+        run: npm run db:generate -w @skipbureau/api
+
+      # The pages web server runs `npm run build`, which is `tsc -b && vite
+      # build`, so the web app's generated types must exist before a browser
+      # opens.
+      - name: The GraphQL contract
+        run: npm run contract -w @skipbureau/web
+
+      # Both projects: `dev` against Vite, and `pages` against the built site
+      # served the way GitHub Pages serves it, which is the only one that can
+      # prove a deep link, a 200 from a real file, and the head a crawler reads
+      # before any script runs.
+      #
+      # No database service. e2e/api-server.mjs starts PGlite in process and
+      # applies the committed migrations, the same reason the API tests above
+      # need none.
+      #
+      # The servers are this run's own (SB-397): reuseExistingServer is false,
+      # so anything already answering on 4500, 5190 or 5191 stops the run during
+      # web server setup rather than being tested in place of this app.
+      - name: The browser suite, both projects
+        run: npm run test:e2e -w @skipbureau/web
+
   # History, not the working tree. A secret added in one commit and deleted in
   # the next is absent from the tree and still in the object database, which is
   # exactly the case a working-tree scan reports clean.
