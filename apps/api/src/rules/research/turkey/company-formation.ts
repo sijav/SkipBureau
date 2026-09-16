@@ -27,6 +27,14 @@ const SCOPED = '2026-09-17'
 // version for a founder opens its notes with the condition that does (SB-196).
 const FOUNDER: ResearchVersion['criteria'] = [{ dimension: 'situation', value: 'company-founder' }]
 
+// SB-212: somebody who RUNS a limited company rather than starting one. Turkey's research conversation,
+// 2026-09-16, on which of the six duties bind a company for as long as it exists: the tax certificate is
+// the only one that splits by who the reader is, into a newly established taxpayer's first certificate
+// and an existing capital company's annual one. It is deliberately NOT called company-owner, because a
+// founder is an owner in ordinary speech and fitOne matches a situation with ===, so two overlapping
+// names would silently cost a reader their duties.
+const EXISTING_OWNER: ResearchVersion['criteria'] = [{ dimension: 'situation', value: 'existing-company-owner' }]
+
 export const CASE: ResearchCase = {
   document: 'company-formation',
   obligations: [
@@ -344,6 +352,42 @@ export const CASE: ResearchCase = {
       ],
       notes: {
         en: "For a corporate taxpayer, which a limited company is: get the tax certificate within a month of the company's tax liability being set up, then again each year by 31 May. A company with a special accounting period renews it within a month after its own declaration deadline instead of by 31 May.",
+      },
+    },
+    {
+      // SB-212: the same duty for a company that already exists. The conversation of 2026-09-16 put it
+      // plainly: the first certificate belongs only with a newly established tax liability, and the
+      // annual one applies to an existing capital company. So this carries the two annual facts and NOT
+      // firstAfterLiability, whose month ran out long ago for this reader.
+      //
+      // It ADDS rather than replacing. skipbureau_rule_version_clash reports a clash only for identical
+      // criteria sets, so a version for a founder and one for an existing owner stand side by side, as
+      // work-permit.ts already has employment reporting for a worker and for a founder.
+      obligation: 'get-a-tax-certificate',
+      document: 'company-formation',
+      validFrom: READ,
+      criteria: EXISTING_OWNER,
+      source: 'taxBrochureCertificate',
+      labels: ['gib-brochure-2026-certificate-may'],
+      facts: [
+        {
+          key: 'renewEachYearBy',
+          operator: 'equals',
+          textValue: '31 May',
+          source: 'taxBrochureCertificate',
+          labels: ['gib-brochure-2026-certificate-may'],
+        },
+        {
+          key: 'renewAfterDeclarationDeadlineInSpecialPeriod',
+          operator: 'within',
+          numericValue: 1,
+          unit: 'months',
+          source: 'taxProcedureCommunique408',
+          labels: ['gib-teblig-408-special-period'],
+        },
+      ],
+      notes: {
+        en: 'For a limited company that already exists: renew its tax certificate each year by 31 May. A company with a special accounting period renews it within a month after its own declaration deadline instead of by 31 May.',
       },
     },
     {

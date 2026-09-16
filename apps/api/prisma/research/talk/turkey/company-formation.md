@@ -1720,3 +1720,49 @@ No.
 
 The document is closed. Three rounds, two real findings, both of them mine, and the second one
 introduced by the fix for the first.
+
+---
+
+## Asked, 2026-09-16 15:25 UTC
+
+SB-212, from SB-196's roast. A scoping question about the document rather than a correction to it.
+Our rules scope six duties to a reader whose situation is `company-founder`, so somebody who RUNS an
+existing limited company and says so is told none of them, the yearly tax certificate included. That
+looked wrong, because each duty's note opens by naming what binds it and none of those conditions is
+founding. Asked: for each of the six, does it bind a company for as long as it exists or only at
+formation; is my reading right that ETDS binds only companies registered from 1 January 2026 and that
+a reader saying they run a company cannot tell us whether theirs qualifies; and should an existing
+company's tax certificate carry the annual renewal alone.
+
+## Answered
+
+**The six do not share a founder-only scope**, and three of them do not turn on the reader at all.
+
+- **Electronic tax notifications**: a start-of-taxpayer duty, within fifteen days of the company's
+  start date. The source requires use of the system afterwards but establishes no repeat request for
+  an already established company.
+- **Tax certificate**: two separate conditions. The first certificate is only for a corporate taxpayer
+  newly established during the year, within a month of tax registration. The annual certificate
+  applies to an existing capital company, by 31 May or within a month after the declaration deadline
+  in a special accounting period.
+- **Register an employee for social insurance**: binds when a person covered by Article 4(1)(a) starts
+  work, not because the reader founded or runs the company.
+- **Workplace licence**: binds when the premises and the activity require one and the premises open or
+  operate. The source does not settle renewals, transfers or changes to an existing licence.
+- **Keep company books electronically**: ongoing for a company whose establishment was registered with
+  the trade registry from 1 January 2026. **Registration is the qualifying event, not the reader's
+  status**, and it should NOT be limited to somebody forming a company now.
+- **Report employment starting and ending**: binds on employment events, before an Article 4(1)(a)
+  employee starts and within ten days after their contract ends.
+
+On ETDS specifically: the reading is right, and what a reader would have to tell us is the company's
+**trade-registry registration date**. No other fact in the cited source decides it for a limited
+company.
+
+## What a reader is told
+
+Nothing in the document changes: this was a question about how our rules reach a reader, and the
+answer is that our situation criterion is a proxy in five of the six cases. Only the tax certificate
+splits cleanly by who the reader is, and it splits into the founder's first certificate and an
+existing company's annual one. ETDS needs a reader detail we do not hold, and three duties bind on
+events we do not model, so scoping them to an owner would swap one proxy for another.
