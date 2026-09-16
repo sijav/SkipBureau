@@ -213,6 +213,37 @@ const TREE_LOCKS = `
 
 type Held = { tree: string; mode: string; granted: boolean }[]
 
+// SB-180: the same two guards for the status tree. The lock is EXCLUSIVE: a shared one conflicts
+// only with an exclusive one, so a criterion writer holding it shared and a country move holding it
+// shared would each validate without seeing the other and both commit the cross-country criterion.
+test("a draft does not leave its status criteria in another country, a status code names its country, and a country move locks both trees exclusively", async () => {
+  const moving = await obligation()
+  const turkish = await version(moving.id, [holds('tr.residence-permit')], [], { validFrom: NEXT_MONTH })
+  await expect(prisma.ruleVersion.update({ where: { id: turkish.id }, data: { countryCode: 'de' } })).rejects.toThrow(/cannot move to/)
+  expect(await prisma.ruleVersion.findUnique({ where: { id: turkish.id } })).toMatchObject({ countryCode: 'tr' })
+  await prisma.ruleVersion.delete({ where: { id: turkish.id } })
+
+  await expect(prisma.residenceStatus.create({ data: { code: 'de.wrong-country', countryCode: 'tr', name: 'Wrong' } })).rejects.toThrow(
+    /ResidenceStatus_code_names_its_country/,
+  )
+  expect(await prisma.residenceStatus.findUnique({ where: { code: 'de.wrong-country' } })).toBeNull()
+
+  // A move that succeeds, so the locks it took can be read: both trees, exclusively, for the
+  // country being left. Taken before the criteria are walked, so a move that will be refused holds
+  // them too, which is the whole point of them.
+  const held = await prisma.$transaction(async (tx) => {
+    const free = await tx.ruleVersion.create({
+      data: { countryCode: 'tr', obligationId: moving.id, validFrom: NEXT_MONTH, ...source, criteria: { create: [{ dimension: 'nationality', value: 'ir' }] } },
+    })
+    await tx.ruleVersion.update({ where: { id: free.id }, data: { countryCode: 'de' } })
+    return tx.$queryRawUnsafe<Held>(TREE_LOCKS, 'tr')
+  })
+  expect(held).toEqual([
+    { tree: 'region', mode: 'ExclusiveLock', granted: true },
+    { tree: 'status', mode: 'ExclusiveLock', granted: true },
+  ])
+})
+
 test("a status criterion holds the status tree's lock shared, a change to the status tree holds it exclusively, and neither holds the region tree's", async () => {
   const locked = await obligation()
   await prisma.residenceStatus.createMany({

@@ -370,7 +370,11 @@ test('the tree refuses a parent in another country and a place inside itself, an
   await expect(prisma.region.update({ where: { code: 'TR-06' }, data: { parentCode: 'TR-06.cankaya.kizilay' } })).rejects.toThrow(
     /cannot be inside TR-06.cankaya.kizilay, which is inside it/,
   )
-  await expect(prisma.region.update({ where: { code: 'TR-06' }, data: { countryCode: 'de' } })).rejects.toThrow(/while a place inside it is in another country/)
+  // SB-180 refuses this one step earlier now, and with its own words: a CHECK is evaluated before
+  // an AFTER trigger, and TR-06 in Germany breaks the rule that a code names the country its row is
+  // in. The row is still refused. The tree's own branch, a region leaving its places behind, is
+  // reached only by changing the code and the country together, which is SB-352.
+  await expect(prisma.region.update({ where: { code: 'TR-06' }, data: { countryCode: 'de' } })).rejects.toThrow(/Region_code_names_its_country/)
 
   expect(await prisma.region.count()).toBe(regions)
   expect(await prisma.region.findUniqueOrThrow({ where: { code: 'TR-06' } })).toMatchObject({ countryCode: 'tr', parentCode: null })

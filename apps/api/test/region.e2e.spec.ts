@@ -156,6 +156,38 @@ test("regions that contradict each other, or are not regions, are refused as the
   expect(unknown.body.errors[0].message).toContain('DE-XX')
 })
 
+// SB-180: the criterion trigger fires on EligibilityCriterion only, so nothing watched the version
+// move out from under its criteria, and nothing tied a region's code to the country it is in.
+test("a draft does not leave its region criteria in another country, and a region's code names its country", async () => {
+  const saxon = await draft('de', 'hold-health-insurance', 'workRegion', 'DE-SN')
+  await expect(prisma.ruleVersion.update({ where: { id: saxon.id }, data: { countryCode: 'tr' } })).rejects.toThrow(/cannot move to/)
+  expect(await prisma.ruleVersion.findUnique({ where: { id: saxon.id } })).toMatchObject({ countryCode: 'de' })
+  await prisma.ruleVersion.delete({ where: { id: saxon.id } })
+
+  // Not a freeze on the column: a draft whose criteria name no tree still moves.
+  const anyone = await prisma.ruleVersion.create({
+    data: {
+      countryCode: 'de',
+      obligationId: await obligationId('hold-health-insurance'),
+      validFrom: NEXT_MONTH,
+      ...source,
+      criteria: { create: [{ dimension: 'nationality', value: 'ir' }] },
+    },
+  })
+  await prisma.ruleVersion.update({ where: { id: anyone.id }, data: { countryCode: 'tr' } })
+  expect(await prisma.ruleVersion.findUnique({ where: { id: anyone.id } })).toMatchObject({ countryCode: 'tr' })
+  await prisma.ruleVersion.delete({ where: { id: anyone.id } })
+
+  // A code names its country on the way in, and on the way through.
+  await expect(prisma.region.create({ data: { code: 'DE-ZZ', countryCode: 'tr', name: 'Wrong' } })).rejects.toThrow(/Region_code_names_its_country/)
+  expect(await prisma.region.findUnique({ where: { code: 'DE-ZZ' } })).toBeNull()
+
+  await prisma.region.create({ data: { code: 'TR-90', countryCode: 'tr', name: 'Nowhere' } })
+  await expect(prisma.region.update({ where: { code: 'TR-90' }, data: { code: 'DE-90' } })).rejects.toThrow(/Region_code_names_its_country/)
+  expect(await prisma.region.findUnique({ where: { code: 'TR-90' } })).toMatchObject({ countryCode: 'tr' })
+  await prisma.region.delete({ where: { code: 'TR-90' } })
+})
+
 test('a region criterion must name a region of its own country, and a region a rule names keeps its code', async () => {
   await prisma.region.upsert({ where: { code: 'TR-35' }, update: {}, create: { code: 'TR-35', countryCode: 'tr', name: 'Izmir' } })
   const versions = await prisma.ruleVersion.count()
