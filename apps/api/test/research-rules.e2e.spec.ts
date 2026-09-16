@@ -252,8 +252,8 @@ test("every place below the first level a file names is read from its own page, 
 })
 
 const MOVE = `
-  query Move($residenceStatuses: [String!], $nationality: String, $situation: String, $locale: String, $toResidenceRegions: [String!]) {
-    move(from: "xx", to: "tr", residenceStatuses: $residenceStatuses, nationality: $nationality, situation: $situation, locale: $locale, toResidenceRegions: $toResidenceRegions) {
+  query Move($residenceStatuses: [String!], $nationality: String, $situation: String, $locale: String, $toResidenceRegions: [String!], $at: String) {
+    move(from: "xx", to: "tr", residenceStatuses: $residenceStatuses, nationality: $nationality, situation: $situation, locale: $locale, toResidenceRegions: $toResidenceRegions, at: $at) {
       obligationSlug
       verdict
       needs
@@ -282,7 +282,10 @@ type Note = { ruleVersionId: string; text: string; locale: string; translationMi
 type Entry = { obligationSlug: string; verdict: string; needs: string[]; to: { facts: Shown[]; notes: Note[] } | null }
 
 /** What a reader has said about themselves, where they will live, and the language they asked in. */
-type Asked = { residenceStatuses?: string[]; nationality?: string; situation?: string; locale?: string; toResidenceRegions?: string[] }
+// SB-207: `at` is a real argument of the move query, defaulting to today when it is left out, and no
+// test asked with it until a version began in the future. A helper that cannot ask what the API can
+// answer is the narrower mistake, so it goes on the query every test here shares.
+type Asked = { residenceStatuses?: string[]; nationality?: string; situation?: string; locale?: string; toResidenceRegions?: string[]; at?: string }
 
 /** Turkey's answer for one obligation to a reader arriving from a country no research covers, or undefined where no rule of it applies to them. */
 const entryFor = async (slug: string, asked: Asked = {}): Promise<Entry | undefined> => {
@@ -348,7 +351,11 @@ test("after a load, Turkey's limited company formation answers with every fact t
     versionsAdded: across((rules) => rules.versions.length),
   })
 
-  const formation = await entryFor('form-a-limited-company')
+  // SB-207: asked as a FOUNDER, which holds on both sides of the day this obligation becomes scoped.
+  // Asked with no situation this passed today and would have failed on 2026-09-17, when factsOf picks
+  // the scoped version and a reader who has not said is asked instead of told. A test that starts
+  // failing on a date nobody set is worse than one that fails now.
+  const formation = await entryFor('form-a-limited-company', { situation: 'company-founder' })
   expect(formation?.verdict).toBe('newInDestination')
   const expected = factsOf('form-a-limited-company')
   expect(expected).toHaveLength(4)
@@ -361,6 +368,24 @@ test("after a load, Turkey's limited company formation answers with every fact t
   const served = (formation?.to?.facts ?? []).map((fact) => fact.key)
   expect(served).toContain('feesUnderLaw492')
   expect(served).not.toContain('formationFee')
+
+  // SB-207: from 2026-09-17 this obligation is told only to someone starting a company. The day
+  // decides the answer, so each case names the day it means rather than depending on when the suite
+  // runs. Before then the unscoped version still answers everyone, which is what was published.
+  const SCOPED_FROM = '2026-09-17'
+  expect((await entryFor('form-a-limited-company', { at: '2026-09-16' }))?.verdict, 'unscoped the day before').toBe('newInDestination')
+
+  const founder = await entryFor('form-a-limited-company', { at: SCOPED_FROM, situation: 'company-founder' })
+  expect(founder?.verdict, 'a founder is told it').toBe('newInDestination')
+  expect(founder?.to?.facts).toEqual(expected)
+
+  expect(await entryFor('form-a-limited-company', { at: SCOPED_FROM }), 'a reader who has not said is asked').toMatchObject({
+    verdict: 'needsDetail',
+    needs: ['situation'],
+    to: null,
+  })
+
+  expect(await entryFor('form-a-limited-company', { at: SCOPED_FROM, situation: 'student' }), 'a student is not told it').toBeUndefined()
 })
 
 const LIVES = `
