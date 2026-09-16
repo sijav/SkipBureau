@@ -21,7 +21,8 @@ order named in each locator's words. Its JSON becomes an entry in `researched-gu
 
 - `country: 'de'`, and the goal each belongs to: `getting-settled`, `start-a-business`, `health-and-insurance`.
 - an area of its own, `anmeldung`, `business-registration` and `health-insurance`, each named in English and Persian.
-- `verifiedAt`: the newest read among the document's definitions.
+- `verifiedAt`: the oldest read among the definitions the guide's own sentences cite, corrected by the check below,
+  which refused the newest.
 - `obligations`: none for business registration and health insurance, which SB-300 links. **The Anmeldung guide keeps
   `ADDRESS_GUIDE`**, which the sample row it takes over links today, so the rules a reader sees on that page, and the
   pages test that proves them (SB-257), do not disappear between this card and the next.
