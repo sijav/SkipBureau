@@ -10,7 +10,8 @@ import { afterAll, beforeAll, expect, test } from 'vitest'
 import { AppModule } from '../src/app.module.js'
 import { PrismaService } from '../src/prisma/prisma.service.js'
 import { seed } from '../prisma/seed.js'
-import { COUNTRIES, seedContent } from '../src/sample-content.js'
+import { seedContent } from '../src/sample-content.js'
+import { GERMANY_SAMPLE } from '../prisma/sample-germany.js'
 import { TURKEY_SAMPLE } from '../prisma/sample-turkey.js'
 import { linkObligationGroups } from '../src/guide/guide-fill.js'
 import { startPglite } from '../scripts/pglite-server.mjs'
@@ -453,7 +454,7 @@ test('each address guide links one address duty, and sample content run again ke
   const guide = await prisma.guide.findUniqueOrThrow({ where: { countryCode_slug: { countryCode: 'de', slug: 'anmeldung' } } })
   const insurance = await prisma.obligation.findUniqueOrThrow({ where: { slug: 'hold-health-insurance' } })
   await prisma.guideObligation.create({ data: { guideId: guide.id, obligationId: insurance.id, position: 9 } })
-  await seedContent(prisma, [TURKEY_SAMPLE, ...COUNTRIES])
+  await seedContent(prisma, [TURKEY_SAMPLE, GERMANY_SAMPLE])
 
   const after = await obligationsFor('de', 'anmeldung')
   expect(after.map((obligation) => obligation.slug)).toContain('hold-health-insurance')

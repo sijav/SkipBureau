@@ -65,10 +65,10 @@ The wording above is the intent; each is written as `` msg`…` `` against its d
 edited. Persian goes into `src/locales/fa.po` by hand after `npm run i18n:extract`, then `i18n:compile`, as SB-280 did
 for Turkey's thirty-five.
 
-## Two facts nobody can be shown yet, and that is this card's limit
+## Two rules nobody can be answered on yet, and that is this card's limit
 
 The trade registration fee is keyed to where the business is established and Saxony's care split to the place of
-employment. The journey carries one place, where the reader lives, so the resolver answers both with
+employment, which is two obligations and several facts between them, not two facts. The journey carries one place, where the reader lives, so the resolver answers both with
 `needsDetail: workRegion` and the guide shows the question **Where you work** with nothing to answer it. This card
 does not invent a work place, and it does not reuse the residence city for it: the research says plainly that the fee
 follows the business, not the reader's home. **SB-313** adds the field, the link value, the panel row and the

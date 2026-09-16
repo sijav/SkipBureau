@@ -3,7 +3,6 @@ import { databaseUrl } from './database-url.js'
 import { PrismaClient } from './generated/prisma/client.js'
 import type { GuideDetailSeed } from './sample-types.js'
 import { fillGuideDetail, linkObligationGroups } from './guide/guide-fill.js'
-import { ADDRESS_GUIDE } from './guide/obligation-groups.js'
 import { RESEARCHED_GUIDES } from './guide/researched-guides.js'
 import { TASKS } from './tasks.js'
 
@@ -106,52 +105,10 @@ export type CountrySeed = {
 
 // Germany's sample until SB-198. Turkey's was retired by the owner's answer of 2026-09-15 (SB-282) and is a test
 // fixture now, prisma/sample-turkey.ts.
-export const COUNTRIES: CountrySeed[] = [
-  {
-    code: 'de',
-    categories: [
-      {
-        slug: 'first-week',
-        task: 'getting-settled',
-        position: 0,
-        en: 'Getting Settled',
-        fa: 'استقرار اولیه',
-        enDesc: 'Essential services to help you start everyday life in Germany.',
-        faDesc: 'خدمات ضروری برای شروع زندگی روزمره در آلمان.',
-        was: WAS_FIRST_WEEK,
-      },
-    ],
-    guides: [
-      {
-        slug: 'anmeldung',
-        category: 'first-week',
-        obligations: ADDRESS_GUIDE,
-        en: {
-          title: 'Register your address',
-          description: 'The Anmeldung, which almost everything else in Germany depends on.',
-          quickAnswer:
-            'Book a Buergeramt appointment and bring the confirmation your landlord signs. Without this you cannot open a bank account or get a tax id.',
-          cost: 'Free',
-          time: 'One appointment, but the wait for it can be weeks',
-        },
-        // Deliberately English only. A Persian reader must be told this exists
-        // in English rather than shown a blank page, which is SB-049.
-        sections: [
-          {
-            kind: 'whatYouNeed',
-            en: 'Your passport, and a Wohnungsgeberbestaetigung signed by whoever provides the flat.',
-          },
-          {
-            kind: 'importantToKnow',
-            en: 'Appointments are scarce. Book before you have moved if you can.',
-          },
-        ],
-        options: [{ en: 'Book online at any Buergeramt in the city, not only your own district.' }],
-        sources: [{ url: 'https://www.berlin.de/einwohnermeldeamt/', name: 'Berlin Einwohnermeldeamt' }],
-      },
-    ],
-  },
-]
+// Both countries' samples are test fixtures now, prisma/sample-turkey.ts and prisma/sample-germany.ts: the owner's
+// answer of 2026-09-15 was that every sample row goes from the deployed database (SB-282, SB-301). Production fills
+// no country's sample content, and seedContent still writes the global goals, which nothing else does.
+export const COUNTRIES: CountrySeed[] = []
 
 export const seedContent = async (prisma: PrismaClient, countries: readonly CountrySeed[] = COUNTRIES): Promise<void> => {
   for (const task of TASKS) {
@@ -447,6 +404,9 @@ export const TURKEY_SAMPLE_SLUGS: SampleSlugs = {
   questions: ['company-without-residence', 'student-residence-documents', 'hire-an-iranian-employee', 'residence-by-buying-a-house'],
 }
 
+/** Germany's sample rows by slug: the area only, since the researched loader owns the anmeldung guide's row (SB-299, SB-301). */
+export const GERMANY_SAMPLE_SLUGS: SampleSlugs = { guides: [], areas: ['first-week'], questions: [] }
+
 /**
  * A country's retired sample rows deleted by slug, in one transaction (SB-282): its questions, then its guides, whose
  * texts, sections, sources, links and visitors' suggestions go with them, then its areas, whose texts, checklist and
@@ -481,8 +441,15 @@ const main = async (): Promise<void> => {
   try {
     await seedContent(prisma)
     console.log('sample content: filled in whatever was missing')
-    const retired = await retireSample(prisma, 'tr', TURKEY_SAMPLE_SLUGS)
-    console.log(`sample content: retired Turkey's ${retired.questions} questions, ${retired.guides} guides and ${retired.areas} areas`)
+    for (const [countryCode, slugs] of [
+      ['tr', TURKEY_SAMPLE_SLUGS],
+      ['de', GERMANY_SAMPLE_SLUGS],
+    ] as const) {
+      const retired = await retireSample(prisma, countryCode, slugs)
+      console.log(
+        `sample content: retired ${countryCode}'s ${retired.questions} questions, ${retired.guides} guides and ${retired.areas} areas`,
+      )
+    }
   } finally {
     await prisma.$disconnect()
   }

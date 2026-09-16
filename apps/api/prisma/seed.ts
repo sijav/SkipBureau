@@ -1,6 +1,7 @@
 import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient } from '../src/generated/prisma/client.js'
-import { COUNTRIES, seedContent } from '../src/sample-content.js'
+import { seedContent } from '../src/sample-content.js'
+import { GERMANY_SAMPLE } from './sample-germany.js'
 import { TURKEY_SAMPLE } from './sample-turkey.js'
 
 /**
@@ -332,7 +333,7 @@ export const seed = async (prisma = client()): Promise<void> => {
     })
   }
 
-  await seedContent(prisma, [TURKEY_SAMPLE, ...COUNTRIES])
+  await seedContent(prisma, [TURKEY_SAMPLE, GERMANY_SAMPLE])
 }
 
 if (process.argv[1]?.endsWith('seed.ts') || process.argv[1]?.endsWith('seed.js')) {

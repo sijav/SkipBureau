@@ -28,13 +28,13 @@ node dist/bootstrap.js
 echo "loading researched rules"
 node dist/load-research-rules.js
 
-# Sample content, so the screens can be seen: the owner's order of 2026-09-10,
-# on a database the owner calls test-only. Fill-only, so it is safe on every
-# start, except that it retires Turkey's sample rows, which the owner chose on
-# 2026-09-15 to delete (SB-282). Remove this line before a real launch; see
-# PHASE-NEXT.md. NOT the rules in prisma/seed.ts, whose history is append-only
-# and would duplicate.
-echo "filling in sample content, and retiring Turkey's"
+# The global goals, and the retirement of both countries' sample rows, which the
+# owner chose on 2026-09-15 to delete (SB-282 for Turkey, SB-301 for Germany).
+# It fills no country's sample content any more: both samples are test fixtures
+# under prisma/ now. What it still writes is the twelve goals and their text,
+# which nothing else does. NOT the rules in prisma/seed.ts, whose history is
+# append-only and would duplicate.
+echo "writing the goals, and retiring the sample rows"
 node dist/sample-content.js
 
 # Guides written from the agreed research, their areas and their links (SB-258).
