@@ -117,6 +117,37 @@ export const ChooseRole: Story = {
   },
 }
 
+/**
+ * SB-318: where the reader works is remembered by the panel that asked for it, and Clear all can take it back. The row
+ * reads the shell rather than the address, so a shell that does not carry the work place shows Add here even though
+ * the address has it, which is what SB-313 shipped.
+ */
+export const ChooseWorkPlace: Story = {
+  parameters: { at: '/en/TR' },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const page = within(window.document.body)
+    const workRow = async () => {
+      const row = (await page.findByText(/^Where you work$/, {}, { timeout: 5000 })).parentElement
+      if (!row) throw new Error('the panel has no Where you work row')
+      return within(row)
+    }
+
+    await userEvent.click(await canvas.findByRole('button', { name: /Add your details/ }, { timeout: 5000 }))
+    await userEvent.click((await workRow()).getByRole('button', { name: /^Add$/ }))
+    await userEvent.click(await page.findByRole('option', { name: /^İstanbul$/ }, { timeout: 5000 }))
+    await waitFor(() => expect(canvas.getByTestId('address')).toHaveTextContent('/en/TR?work=TR-34'), { timeout: 5000 })
+
+    // Closed by the navigation, then opened again: the row says what the reader chose.
+    await userEvent.click(await canvas.findByRole('button', { name: /Add your details|From / }, { timeout: 5000 }))
+    await expect(await (await workRow()).findByRole('button', { name: /^İstanbul$/ }, { timeout: 5000 })).toBeVisible()
+
+    // And the one way back is offered to a reader whose only detail is where they work.
+    await userEvent.click(await page.findByRole('button', { name: /Clear all/ }, { timeout: 5000 }))
+    await waitFor(() => expect(canvas.getByTestId('address')).toHaveTextContent(/^\/en\/TR$/), { timeout: 5000 })
+  },
+}
+
 /** Clear all takes back the nationality, the place, the status and the role, and keeps the country and the page (SB-256, SB-286). */
 export const ClearAll: Story = {
   parameters: { at: '/en-IR/DE-HH/guides/anmeldung?status=de.visa-free&situation=company-founder' },

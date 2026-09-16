@@ -281,7 +281,8 @@ export const ContextPanel = ({
         </Typography>
         <ButtonBase
           disableRipple
-          disabled={!origin && !place && !status && !situation}
+          // SB-318: every detail a reader can give, the work place included, or the one way back is dead for them.
+          disabled={!origin && !place && !status && !situation && !work}
           onClick={() => (onClear ? onClear() : onOrigin(null))}
           sx={{
             padding: 0,

@@ -1,7 +1,7 @@
 import { startTransition, useEffect, useState, type ReactNode } from 'react'
 import { validated } from 'src/core/country'
 import { ShellProvider } from 'src/core/shell'
-import { useAddressCountry } from './addressCountry'
+import { confirmDetails, useAddressCountry } from './addressCountry'
 import { ownsAskAt } from './routes'
 
 export const AddressShell = ({ children, hydrating = false }: { children: ReactNode; hydrating?: boolean }) => {
@@ -13,11 +13,19 @@ export const AddressShell = ({ children, hydrating = false }: { children: ReactN
     if (!readsQuery) startTransition(() => setReadsQuery(true))
   }, [readsQuery])
 
-  const { location, reader, result, place, status, situation, details } = useAddressCountry({ readsQuery })
+  const { location, reader, result, place, status, situation, work, details } = useAddressCountry({ readsQuery })
   const confirmed = result.data?.country
-  const placeRow = place === null ? undefined : details.data?.places.find((row) => row.code === place)
-  const statusKnown = status !== null && Boolean(details.data?.residenceStatuses.some((row) => row.code === status))
-  const situationKnown = situation !== null && Boolean(details.data?.situations.includes(situation))
+  // SB-318: the same confirmation the route makes, so the panel cannot show a detail the route rejected, or
+  // forget one it accepted, which is what happened to the work place.
+  const said = confirmDetails(
+    {
+      places: details.data?.places,
+      residenceStatuses: details.data?.residenceStatuses,
+      situations: details.data?.situations,
+    },
+    { place, status, situation, work },
+  )
+  const placeRow = said.place === null ? undefined : details.data?.places.find((row) => row.code === said.place)
   const shellPlace =
     confirmed && reader
       ? {
@@ -25,8 +33,9 @@ export const AddressShell = ({ children, hydrating = false }: { children: ReactN
           countryName: confirmed.name,
           origin: reader.origin,
           place: placeRow ? { code: placeRow.code, name: placeRow.name } : null,
-          status: statusKnown ? status : null,
-          situation: situationKnown ? situation : null,
+          status: said.status,
+          situation: said.situation,
+          work: said.work,
         }
       : null
 

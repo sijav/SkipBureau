@@ -30,6 +30,58 @@ import { canonicalPath, destinationFromSegment, readerFromSegment, situationFrom
  * from its file, which was rendered without them, so they are read together
  * after.
  */
+/** What a country has, as the reader details query answers it, while any of it may still be on its way. */
+type CountryLists = {
+  places?: readonly { code: string }[] | undefined
+  residenceStatuses?: readonly { code: string }[] | undefined
+  situations?: readonly string[] | undefined
+}
+
+/** What an address says about the reader, before the country has confirmed any of it. */
+export type AddressDetails = { place: string | null; status: string | null; situation: string | null; work: string | null }
+
+export type ConfirmedDetails = AddressDetails & {
+  /** What the address named and the country does not have, which is a stale link rather than a page. */
+  unknown: readonly (keyof AddressDetails)[]
+  /** True while the list a named detail needs has not arrived, so nothing should be drawn from it yet. */
+  waiting: boolean
+}
+
+/**
+ * SB-318: one confirmation, used by both the route and the shell above it. The shell cannot read the route's context,
+ * so both have to check what the address says against the country's own lists, and doing it twice by hand is how the
+ * work place came to be confirmed in one and forgotten in the other. Where a place lives and where a reader works are
+ * the same list.
+ */
+export const confirmDetails = (lists: CountryLists, said: AddressDetails): ConfirmedDetails => {
+  const { places, residenceStatuses, situations } = lists
+  const has = {
+    place: places ? (code: string) => places.some((row) => row.code === code) : undefined,
+    status: residenceStatuses ? (code: string) => residenceStatuses.some((row) => row.code === code) : undefined,
+    situation: situations ? (code: string) => situations.includes(code) : undefined,
+    work: places ? (code: string) => places.some((row) => row.code === code) : undefined,
+  }
+  const unknown: (keyof AddressDetails)[] = []
+  let waiting = false
+  const settle = (key: keyof AddressDetails): string | null => {
+    const value = said[key]
+    if (value === null) return null
+    const known = has[key]
+    // A place is in the address itself, so the page waits for its list rather than drawing without it; the rest are in
+    // the query, which a page hydrated from its file reads after its first render anyway (SB-256).
+    if (!known) {
+      if (key === 'place') waiting = true
+      return null
+    }
+    if (!known(value)) {
+      unknown.push(key)
+      return null
+    }
+    return value
+  }
+  return { place: settle('place'), status: settle('status'), situation: settle('situation'), work: settle('work'), unknown, waiting }
+}
+
 export const useAddressCountry = ({ readsQuery = true }: { readsQuery?: boolean } = {}) => {
   const location = useLocation()
   const [, readerSegment = '', destinationSegment = ''] = location.pathname.split('/')

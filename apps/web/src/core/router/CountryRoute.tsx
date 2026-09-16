@@ -4,7 +4,7 @@ import { CountryProvider, validated } from 'src/core/country'
 import { useShell } from 'src/core/shell'
 import { NotFound } from 'src/screens/NotFound'
 import { Unreachable } from 'src/screens/Unreachable'
-import { useAddressCountry } from './addressCountry'
+import { confirmDetails, useAddressCountry } from './addressCountry'
 
 export const CountryRoute = () => {
   const { readsQuery } = useShell()
@@ -12,10 +12,10 @@ export const CountryRoute = () => {
     location,
     reader,
     code,
-    place,
-    status,
-    situation,
-    work,
+    place: saidPlace,
+    status: saidStatus,
+    situation: saidSituation,
+    work: saidWork,
     canonical,
     moved,
     result: { data, fetching, error },
@@ -43,31 +43,31 @@ export const CountryRoute = () => {
   // (SB-286). A place is checked before the page draws; a status and a role
   // once their answer is in, so a page hydrated from its file stays on screen
   // meanwhile, without them.
-  const places = details.data?.places
-  const statuses = details.data?.residenceStatuses
-  const situations = details.data?.situations
   if (details.error && !details.data) {
     return <Unreachable onRetry={() => startTransition(() => refetchDetails({ requestPolicy: 'network-only' }))} />
   }
-  if (place !== null && !places) return null
-  if (place !== null && !places?.some((row) => row.code === place)) return <NotFound />
-  if (status !== null && statuses && !statuses.some((row) => row.code === status)) return <NotFound />
-  if (situation !== null && situations && !situations.includes(situation)) return <NotFound />
-  // SB-313: where the reader works is a place of the same country, so the same list answers for it.
-  if (work !== null && places && !places.some((row) => row.code === work)) return <NotFound />
-  const confirmedStatus = status !== null && statuses?.some((row) => row.code === status) ? status : null
-  const confirmedSituation = situation !== null && situations?.includes(situation) ? situation : null
-  const confirmedWork = work !== null && places?.some((row) => row.code === work) ? work : null
+  // SB-318: one confirmation, shared with the shell above this route, so the two cannot disagree about what the
+  // reader has said. Where they work is a place of the same country, so the same list answers for it (SB-313).
+  const said = confirmDetails(
+    {
+      places: details.data?.places,
+      residenceStatuses: details.data?.residenceStatuses,
+      situations: details.data?.situations,
+    },
+    { place: saidPlace, status: saidStatus, situation: saidSituation, work: saidWork },
+  )
+  if (said.waiting) return null
+  if (said.unknown.length > 0) return <NotFound />
 
   return (
     <CountryProvider
       country={validated(data.country.code)}
       name={data.country.name}
       origin={reader.origin}
-      place={place}
-      status={confirmedStatus}
-      situation={confirmedSituation}
-      work={confirmedWork}
+      place={said.place}
+      status={said.status}
+      situation={said.situation}
+      work={said.work}
     >
       <Outlet />
     </CountryProvider>
