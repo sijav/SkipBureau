@@ -18,9 +18,18 @@ export type ShellProviderProps = {
   place?: ShellPlace | null
   ownsAskAtStart?: boolean
   readsQuery?: boolean
+  requiresFreshCountry?: boolean
 }
 
-export const ShellProvider = ({ children, place = null, ownsAskAtStart = false, readsQuery = true }: ShellProviderProps) => {
+export const ShellProvider = ({
+  children,
+  place = null,
+  ownsAskAtStart = false,
+  readsQuery = true,
+  // SB-403: published rather than derived here, because the address the document opened at is known to AddressShell
+  // above and not to this provider. True by default, so a provider that says nothing gets the strict answer.
+  requiresFreshCountry = true,
+}: ShellProviderProps) => {
   // Where the page starts, from its address, so the first render, the
   // prerender's included, already has it; the scroll handoff moves it after.
   const [pageOwnsAsk, setPageOwnsAsk] = useState(ownsAskAtStart)
@@ -68,12 +77,27 @@ export const ShellProvider = ({ children, place = null, ownsAskAtStart = false, 
       situation,
       work,
       readsQuery,
+      requiresFreshCountry,
       detailsOpen,
       setDetailsOpen,
     }),
     // SB-275: setDetailsOpen is listed because it is now a useCallback rather than a useState setter, which the rule
     // knows is stable and this is not. Its own dependency list is empty, so it never changes and the memo never churns.
-    [pageOwnsAsk, country, countryName, origin, placeCode, placeName, status, situation, work, readsQuery, detailsOpen, setDetailsOpen],
+    [
+      pageOwnsAsk,
+      country,
+      countryName,
+      origin,
+      placeCode,
+      placeName,
+      status,
+      situation,
+      work,
+      readsQuery,
+      requiresFreshCountry,
+      detailsOpen,
+      setDetailsOpen,
+    ],
   )
   return <ShellContext value={value}>{children}</ShellContext>
 }

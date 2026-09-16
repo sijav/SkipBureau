@@ -31,7 +31,9 @@ test('a guide opens cold, left to right', async ({ page }) => {
   expect(source).toMatch(/<link rel="canonical" href="[^"]*\/en\/TR\/guides\/short-term-residence-permit"/)
   // What the guide is, to a machine (SB-087): each block parses, and the Article
   // is dated by the verification. A guide with no steps is no HowTo.
-  const blocks = [...source.matchAll(/<script type="application\/ld\+json"[^>]*>(.*?)<\/script>/gs)].map((match) => JSON.parse(match[1] ?? ''))
+  const blocks = [...source.matchAll(/<script type="application\/ld\+json"[^>]*>(.*?)<\/script>/gs)].map((match) =>
+    JSON.parse(match[1] ?? ''),
+  )
   expect(blocks.map((block) => block['@type'])).toEqual(['Article', 'BreadcrumbList'])
   expect(blocks[0].dateModified).toMatch(/^\d{4}-\d{2}-\d{2}$/)
   // What a link preview shows (SB-089): no preview bot runs a script.
@@ -63,6 +65,11 @@ test('a guide opens cold, right to left', async ({ page }) => {
   // Written in English only, so its canonical and its preview are the English page's (SB-049).
   expect(source).toMatch(/<link rel="canonical" href="[^"]*\/en\/TR\/guides\/short-term-residence-permit"/)
   expect(source).toContain('<meta property="og:locale" content="en_US"')
+  // SB-291: and it is titled as the guide titles itself. The country suffix is a translated template, so putting it on
+  // a title written in another language names the country twice, in two languages, in every Persian search result and
+  // link preview. English constants on purpose: this asserts that nothing was added, not a translation.
+  expect(source).toContain(`>${TITLE}</title>`)
+  expect(source).toContain(`<meta property="og:title" content="${GUIDE}"`)
 
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
   await expect(page).toHaveURL(/\/fa\/TR\/guides\/short-term-residence-permit$/)
@@ -102,6 +109,50 @@ test('the file carries the page itself, and the page asks for none of it again',
   // hold an answer for a reader it has never met (SB-257).
   expect(asked.filter((body) => !body.includes('GuideAnswers'))).toEqual([])
   expect(errors).toEqual([])
+})
+
+test('a seeded page trusts its file only while the reader stays on it', async ({ page }) => {
+  // SB-403, and the case neither of this card's two other tests can fail. The test above proves the opening render asks
+  // for nothing, because ssrExchange seeds the client from the file (SB-155). The moment the reader navigates, that seed
+  // is an answer of unknown age: a country deleted since the file was built is still in it, and countries.spec.ts:56 is
+  // what a reader sees when it is served back to them. So every navigation asks the API again, INCLUDING the one that
+  // returns to the address the document opened at. An implementation that simply stays cache-first for a hydrated
+  // document passes the other two and fails here, which is the whole reason this exists.
+  const countries: string[] = []
+  page.on('request', (sent) => {
+    if (!sent.url().includes('graphql') || sent.method() !== 'POST') return
+    // The document in documents.ts line 164. It matches neither ReaderDetails nor Home, which the page also asks for.
+    if ((sent.postData() ?? '').includes('query Country(')) countries.push(sent.url())
+  })
+
+  await page.goto(`en/${ADDRESS}`, { waitUntil: 'networkidle' })
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(GUIDE)
+  expect(countries, 'the seeded first render asks for the country it was given').toEqual([])
+
+  // Within the same document, as following a link would be. Not page.goto, which builds a fresh client and an empty
+  // cache and so proves nothing about what this session is holding.
+  const opened = new URL(page.url()).pathname
+  const base = opened.slice(0, opened.indexOf('/en/'))
+  const follow = (to: string) =>
+    page.evaluate((path) => {
+      window.history.pushState({}, '', path)
+      window.dispatchEvent(new PopStateEvent('popstate'))
+    }, to)
+
+  await follow(`${base}/en/DE`)
+  // By what it is not, rather than by a country's name: the e2e seed and the deployment do not spell every name alike,
+  // and this is waiting for the navigation to have rendered, not asserting a translation.
+  await expect(page.getByRole('heading', { level: 1 })).not.toHaveText(GUIDE)
+  // At least one, never exactly one. Both callers of useAddressCountry ask, so a pinned count would make the card that
+  // shares the query between them a breaking change.
+  expect(countries.length, 'leaving the seeded address asks for the country it arrives at').toBeGreaterThan(0)
+
+  const onLeaving = countries.length
+  await follow(opened)
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(GUIDE)
+  // The latch itself. A comparison against the opening address would call this "back where we started" and answer it
+  // from the document cache, which is the deleted country served after all.
+  expect(countries.length, 'returning to the seeded address asks again rather than replaying the seed').toBeGreaterThan(onLeaving)
 })
 
 test('the file draws the shell as the page renders it: the country known, one Ask', async ({ request }) => {
@@ -176,9 +227,11 @@ test('the sitemap lists the guide, dated', async ({ request }) => {
 test('a guide written with steps and in Persian says so to a machine, and the sitemap names its other language', async ({ request }) => {
   // The SIM card guide, which only the e2e seed fills since SB-282 retired Turkey's sample from the live site: the one
   // Turkish guide with steps and Persian text, so the only one that can show a HowTo block and a Persian alternate.
-  test.skip(LIVE, "the SIM card guide is a fixture of the e2e seed, retired from the live site")
+  test.skip(LIVE, 'the SIM card guide is a fixture of the e2e seed, retired from the live site')
   const source = await (await request.get('en/TR/guides/sim-card')).text()
-  const blocks = [...source.matchAll(/<script type="application\/ld\+json"[^>]*>(.*?)<\/script>/gs)].map((match) => JSON.parse(match[1] ?? ''))
+  const blocks = [...source.matchAll(/<script type="application\/ld\+json"[^>]*>(.*?)<\/script>/gs)].map((match) =>
+    JSON.parse(match[1] ?? ''),
+  )
   expect(blocks.map((block) => block['@type'])).toEqual(['Article', 'BreadcrumbList', 'HowTo'])
   expect(source).toContain('<meta property="og:locale:alternate" content="fa_IR"')
 
@@ -263,7 +316,9 @@ test('a place the country does not have is Not Found', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(/does not exist/)
 })
 
-test("a residence status in a prerendered page's address is in its links once the page is up, with no hydration mismatch logged", async ({ page }) => {
+test("a residence status in a prerendered page's address is in its links once the page is up, with no hydration mismatch logged", async ({
+  page,
+}) => {
   const mismatches: string[] = []
   page.on('console', (message) => {
     if (message.type() === 'error' && /hydrat|Minified React error #(418|423|425)/i.test(message.text())) mismatches.push(message.text())
@@ -284,7 +339,10 @@ test('a residence status the country does not hold is Not Found', async ({ page 
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(/does not exist/)
 })
 
-test('a guide linking a rule carries the rule for everyone, asks where the reader lives, and answers for Hamburg on the same page', async ({ page, request }) => {
+test('a guide linking a rule carries the rule for everyone, asks where the reader lives, and answers for Hamburg on the same page', async ({
+  page,
+  request,
+}) => {
   // SB-257: the rule for everyone is in the file, for a crawler as for a reader.
   const source = await (await request.get('en/DE/guides/anmeldung')).text()
   expect(source).toContain('The rules that apply')
@@ -303,7 +361,10 @@ test('a guide linking a rule carries the rule for everyone, asks where the reade
   const rules = page.locator('section').filter({ has: page.getByRole('heading', { level: 2, name: 'The rules that apply' }) })
   await expect(rules.getByText('within 2 weeks')).toBeVisible()
   await expect(rules.getByText('at most €1,000')).toBeVisible()
-  await expect(rules.getByRole('link', { name: /§ 17 Anmeldung/ })).toHaveAttribute('href', 'https://www.gesetze-im-internet.de/bmg/__17.html')
+  await expect(rules.getByRole('link', { name: /§ 17 Anmeldung/ })).toHaveAttribute(
+    'href',
+    'https://www.gesetze-im-internet.de/bmg/__17.html',
+  )
   await expect(rules.getByText('Where you live can change this')).toBeVisible()
 
   await rules.getByRole('button', { name: 'Tell us' }).click()
@@ -447,7 +508,8 @@ test('the work permit guide asks for the role, and shows a worker the permit fee
 /** The panel, wherever it is open. */
 const detailsPanel = (page: Page) => page.locator('[aria-label="What Skipbureau knows about you"]')
 const workRow = (page: Page) => detailsPanel(page).getByText('Where you work', { exact: true }).locator('..')
-const rulesOn = (page: Page) => page.locator('section').filter({ has: page.getByRole('heading', { level: 2, name: 'The rules that apply' }) })
+const rulesOn = (page: Page) =>
+  page.locator('section').filter({ has: page.getByRole('heading', { level: 2, name: 'The rules that apply' }) })
 const cardFor = (page: Page, rule: string) => rulesOn(page).locator('section[aria-labelledby]').filter({ hasText: rule }).last()
 
 test('a reader says where they work in the panel, the panel remembers it, and the fee that turns on it answers', async ({ page }) => {
@@ -465,7 +527,10 @@ test('a reader says where they work in the panel, the panel remembers it, and th
 
   // SB-318: the row reads the shell, not the address, so only a reopened panel shows whether the shell carries it.
   // Without this the case passes with the shell empty, because the guide answers from the country context.
-  await page.getByRole('button', { name: /Add your details|From / }).first().click()
+  await page
+    .getByRole('button', { name: /Add your details|From / })
+    .first()
+    .click()
   await expect(workRow(page).getByRole('button', { name: 'Berlin', exact: true })).toBeVisible()
 
   // A fact's line is the figure and the research's own words after it, so the figure is read inside the card.
@@ -484,7 +549,10 @@ test("a reader who works in Saxony gets Saxony's share of the care contribution,
   await workRow(page).getByRole('button', { name: 'Add', exact: true }).click()
   // The deployment names Germany's states in German and the e2e build names some of them in English, so the option
   // is matched by either spelling rather than by the one this machine happens to see.
-  await page.getByRole('option', { name: /^(Sachsen|Saxony)$/ }).first().click()
+  await page
+    .getByRole('option', { name: /^(Sachsen|Saxony)$/ })
+    .first()
+    .click()
   await expect(page).toHaveURL(/[?&]work=DE-SN/)
 
   await expect(care).toContainText('2.3%')

@@ -7,7 +7,9 @@ import { Unreachable } from 'src/screens/Unreachable'
 import { confirmDetails, useAddressCountry } from './addressCountry'
 
 export const CountryRoute = () => {
-  const { readsQuery } = useShell()
+  // SB-403: both from the shell above, which owns the one decision about whether the session's cache may answer for
+  // the country. Deriving it here as well would be a second latch, free to drift from the first.
+  const { readsQuery, requiresFreshCountry } = useShell()
   const {
     location,
     reader,
@@ -22,7 +24,7 @@ export const CountryRoute = () => {
     refetch,
     details,
     refetchDetails,
-  } = useAddressCountry({ readsQuery })
+  } = useAddressCountry({ readsQuery, requiresFreshCountry })
 
   if (canonical !== null && moved) return <Navigate replace to={{ pathname: canonical, search: location.search, hash: location.hash }} />
   if (!reader || !code) return <NotFound />

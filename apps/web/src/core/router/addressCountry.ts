@@ -9,15 +9,31 @@ import { canonicalPath, destinationFromSegment, readerFromSegment, situationFrom
  * above the routes alike: both ask the same thing, so urql asks once, and on a
  * prerendered page both first renders have the answer (SB-161).
  *
- * `cache-first`, and the cache is the session's alone: a stale link to a
- * country removed since opens a new session with nothing cached, reaches the
- * network and is Not Found, which is the case the guard exists for. Not
- * `network-only`: a prerendered page carries the answer it was built with
- * (SB-155), urql's ssrExchange never gives that to a `network-only` query, and
- * the guard would ask again and render nothing over a page the file already
- * shows. Nor `cache-and-network`: urql runs a query once for the first render
- * and again when it subscribes, and the second is a cache hit, which that
- * policy answers with a request anyway.
+ * SB-403: the country is asked for again once the reader has navigated, and
+ * read from the cache only on the render a prerendered file seeded. It was
+ * `cache-first` throughout, and this cache is a DOCUMENT cache, so a second
+ * render with the same variables replayed the stored answer and no request
+ * left the browser: a country deleted while the reader was on the site kept
+ * rendering its page, which is the one case this guard exists to refuse.
+ *
+ * Not `network-only` throughout either, which was tried and measured. A
+ * prerendered page carries the answer it was built with (SB-155) and urql's
+ * ssrExchange seeds the client from it; `network-only` bypasses that seed, and
+ * `e2e/pages.spec.ts` counted three country requests on a page that promises
+ * to ask for nothing it was given. Nor `cache-and-network`, which answers with
+ * the cached document and revalidates behind it, so a deleted country is served
+ * as the answer and corrected afterwards.
+ *
+ * What `network-only` refuses is exactly that: the stored document is never the
+ * answer. It is not a promise of an instant fresh one, and the plan check
+ * corrected an earlier claim here that read like one. urql keeps the last
+ * result for a key while a request for it is in flight, which is why a page
+ * already on screen does not blank when the reader changes their details; what
+ * it does not do is present a cached country as a settled answer.
+ *
+ * So the caller decides, and the decision is a one-way latch owned by
+ * `AddressShell`: trust the seed while the document is still at the address its
+ * file was built for, and ask the network from the first navigation onwards.
  *
  * SB-256: the place in the country the address names, `/en-IR/DE-HH/...`, and
  * the residence status in its query, with the country's places and statuses
@@ -82,7 +98,10 @@ export const confirmDetails = (lists: CountryLists, said: AddressDetails): Confi
   return { place: settle('place'), status: settle('status'), situation: settle('situation'), work: settle('work'), unknown, waiting }
 }
 
-export const useAddressCountry = ({ readsQuery = true }: { readsQuery?: boolean } = {}) => {
+export const useAddressCountry = ({
+  readsQuery = true,
+  requiresFreshCountry = true,
+}: { readsQuery?: boolean; requiresFreshCountry?: boolean } = {}) => {
   const location = useLocation()
   const [, readerSegment = '', destinationSegment = ''] = location.pathname.split('/')
   const reader = readerFromSegment(readerSegment)
@@ -105,7 +124,10 @@ export const useAddressCountry = ({ readsQuery = true }: { readsQuery?: boolean 
     // Two letters before asking. It costs the API nothing to refuse `/en/xyz`
     // and it means a typo does not become a request.
     pause: !reader || !code || moved,
-    requestPolicy: 'cache-first',
+    // SB-403: the caller's latch, never this hook's own guess. Both callers render on a normal route and pass the same
+    // value, so the shell and the guard cannot disagree about whether the cache may answer. The default is the strict
+    // one: a caller that says nothing gets a question put to the API.
+    requestPolicy: requiresFreshCountry ? 'network-only' : 'cache-first',
   })
 
   const [details, refetchDetails] = useQuery({

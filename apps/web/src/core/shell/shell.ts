@@ -37,6 +37,13 @@ export type Shell = {
    * rendered without them (SB-256, SB-286).
    */
   readsQuery: boolean
+  /**
+   * Whether the country the address names has to be asked for again rather than read from the session's cache
+   * (SB-403). False only while a document hydrated from its prerendered file is still at the address that file was
+   * built for, where the seed is the answer and asking again would undo SB-155. True everywhere else, the default
+   * included: a document with no file behind it was given no seed, so there is nothing to trust.
+   */
+  requiresFreshCountry: boolean
   /** Whether the details panel is open, so a page can open it too, as a rule's answer asks for a detail (SB-257). */
   detailsOpen: boolean
   /**
@@ -58,6 +65,7 @@ export const ShellContext = createContext<Shell>({
   situation: null,
   work: null,
   readsQuery: true,
+  requiresFreshCountry: true,
   detailsOpen: false,
   setDetailsOpen: () => undefined,
 })
