@@ -9,6 +9,7 @@ import {
   changedSince,
   commitBytes,
   dispatchArgs,
+  dispatchChoice,
   emptyCase,
   expectedOf,
   inForceOn,
@@ -20,6 +21,7 @@ import {
   publishLog,
   readerFor,
   runVerdict,
+  tipIn,
 } from '../scripts/publish-research.js'
 import { compose } from '../src/rules/research/compose.js'
 import { RESEARCHED } from '../src/rules/research/countries.js'
@@ -274,6 +276,36 @@ test('the dispatch that starts a skipped build names the branch, passes the comm
     '-F',
     'return_run_details=true',
   ])
+})
+
+// SB-236: that dispatch is for the publish's own commit, so it may only be made while the branch still points at it.
+// A newer push under apps/api carries the publish too, and starting the older commit's build deploys older code over
+// the newer one with the digest matching either way.
+test("a skipped build is started only while the publish's commit is still the branch's tip", () => {
+  const commit = 'ab4966fcc8bbfd57d8bd843c6b5b6ff89d3a61a2'
+  const newer = '3c45927a0f1b4d2e8c7a6b5d4e3f2a1b0c9d8e7f'
+
+  expect(dispatchChoice(commit, commit)).toEqual({ dispatch: true })
+
+  const moved = dispatchChoice(newer, commit)
+  expect(moved.dispatch).toBe(false)
+  expect(moved.dispatch === false && moved.reason).toContain(newer)
+
+  const unknown = dispatchChoice(null, commit)
+  expect(unknown.dispatch).toBe(false)
+  expect(unknown.dispatch === false && unknown.reason).toContain('could not be read')
+})
+
+// git ls-remote exits successfully when a ref matches nothing, so an empty answer must not read as a tip: that is the
+// one way a dispatch could still be made blind.
+test('a tip is read only from a well formed line for the ref that was asked for', () => {
+  const sha = 'ab4966fcc8bbfd57d8bd843c6b5b6ff89d3a61a2'
+  const branch = 'refs/heads/main'
+
+  expect(tipIn(`${sha}\t${branch}\n`, branch)).toBe(sha)
+  expect(tipIn('', branch), 'a ref matching nothing still exits zero').toBeNull()
+  expect(tipIn(`${sha.slice(0, 20)}\t${branch}\n`, branch), 'not forty hex characters').toBeNull()
+  expect(tipIn(`${sha}\trefs/heads/other\n`, branch), 'another ref').toBeNull()
 })
 
 test('a file changed after the publish read it is named, so what is committed is what was checked', () => {

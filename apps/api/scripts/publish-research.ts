@@ -405,6 +405,45 @@ export const runVerdict = (record: unknown, dispatchedAt: number, runningSince: 
     : { outcome: 'waiting', runningSince: null }
 }
 
+/** Whether a skipped build may be started for a commit (SB-236). */
+export type DispatchChoice = { dispatch: true } | { dispatch: false; reason: string }
+
+/**
+ * The build below is started for the publish's own commit, so it may only be started while that commit is still what
+ * the branch points at. A newer push under `apps/api` carries this publish too and its build deploys newer code;
+ * starting the older commit's build then deploys that older code over it, and nothing says it happened, because the
+ * digest is of the research file, which both commits satisfy. A tip that cannot be read counts as moved: dispatching
+ * on an unknown tip is the thing this refuses.
+ */
+export const dispatchChoice = (tip: string | null, commit: string): DispatchChoice =>
+  tip === commit
+    ? { dispatch: true }
+    : {
+        dispatch: false,
+        reason:
+          tip === null
+            ? `the branch's tip on origin could not be read, so ${commit} may no longer be it`
+            : `the branch has moved to ${tip}, whose build carries this publish`,
+      }
+
+/**
+ * The sha a `git ls-remote origin <ref>` answer gives for that ref, or null.
+ *
+ * `ls-remote` exits successfully when a ref matches nothing, so an empty answer must not read as a tip: only a line
+ * of forty hex characters against the ref that was asked for counts.
+ */
+export const tipIn = (output: string, branch: string): string | null => {
+  const [line] = output.split('\n')
+  const [sha, ref] = (line ?? '').split('\t')
+  return sha !== undefined && ref === branch && /^[0-9a-f]{40}$/.test(sha) ? sha : null
+}
+
+/** What the branch points at on origin, or null where that cannot be read: this runs inside the wait and never throws. */
+const tipOf = (branch: string): string | null => {
+  const answer = run('git', ['ls-remote', 'origin', branch])
+  return answer.status === 0 ? tipIn(answer.stdout, branch) : null
+}
+
 /** A `gh` answer as JSON; a failure is the error. */
 const ghJson = (args: readonly string[]): unknown => {
   const answer = run('gh', args)
@@ -535,6 +574,8 @@ const main = async (): Promise<void> => {
   const pushedAt = Date.now()
   let deadline = pushedAt + DIGEST_WAIT
   let fallback: { runId: number; dispatchedAt: number; runningSince: number | null; built: boolean } | null = null
+  // Said once per reason rather than every twenty seconds, since the loop already prints a line each time round.
+  let declined: string | null = null
   let deployed = await receiptOf(rules.research).catch(() => null)
   while (deployed !== digest) {
     const now = Date.now()
@@ -547,11 +588,19 @@ const main = async (): Promise<void> => {
         )
       }
       if (build === null && now - pushedAt > NO_BUILD_WAIT) {
-        const runId = startBuild(branch.replace(/^refs\/heads\//, ''), commit)
-        fallback = { runId, dispatchedAt: now, runningSince: null, built: false }
-        console.log(
-          `Northflank had not started building ${commit} three minutes after the push; started it through northflank-build.yml, run ${runId}`,
-        )
+        // Only while this commit is still the branch's tip (SB-236): a build started for it after a newer push would
+        // deploy older code over the newer, and the digest would match either way.
+        const choice = dispatchChoice(tipOf(branch), commit)
+        if (choice.dispatch) {
+          const runId = startBuild(branch.replace(/^refs\/heads\//, ''), commit)
+          fallback = { runId, dispatchedAt: now, runningSince: null, built: false }
+          console.log(
+            `Northflank had not started building ${commit} three minutes after the push; started it through northflank-build.yml, run ${runId}`,
+          )
+        } else if (declined !== choice.reason) {
+          declined = choice.reason
+          console.log(`not starting a build of ${commit}: ${choice.reason}; waiting for that build's digest instead`)
+        }
       }
     } else if (!fallback.built) {
       const record = readRun(fallback.runId)

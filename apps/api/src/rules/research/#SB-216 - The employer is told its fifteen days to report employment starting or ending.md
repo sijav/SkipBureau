@@ -57,8 +57,12 @@ expected opening moves to `For a worker` with the note itself.
   so every open version counts and `needs` is `['situation']`. That is exactly today's answer and
   the existing assertion keeps holding.
 - **A reader who has said is given one.** `fitToProfile` contradicts the version whose situation
-  is not theirs, and `if (fit.contradicted) continue` drops it before resolution, so a worker sees
-  today's answer and note unchanged and a founder sees the new one.
+  is not theirs, and `if (fit.contradicted) continue` drops it before resolution, so a worker is
+  answered from the worker's version and a founder from the founder's. This said "a worker sees
+  today's answer and note unchanged", which stopped being true when the notes were split: the
+  worker's answer and facts are unchanged, and their **note was rewritten** to address them
+  instead of describing the employer's duty in the third person. Its meaning survived; its text
+  did not. Corrected here after SB-216's roast caught the sentence.
 - **Neither version completes the other.** `scopeOf` is equal for both, one non-place criterion,
   and `strictlyCovers` is false in both directions between differing values of one dimension, so
   `answerOf`'s chain is empty for each and `mostSpecific` never returns both.
