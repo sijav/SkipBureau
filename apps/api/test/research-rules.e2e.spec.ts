@@ -1057,8 +1057,15 @@ test("a reader starting a business is told the trade office's duty and fine, wit
   const slug = 'register-a-trade'
   const placeOf = (version: ResearchVersion) => version.criteria.find((criterion) => criterion.dimension === 'workRegion')?.value
   const trade = GERMANY.versions.filter((version) => version.obligation === slug)
-  const federal = trade.find((version) => placeOf(version) === undefined)
-  if (!federal) throw new Error("Germany's file has no trade registration version for everywhere")
+  // SB-266: the national version in force today, not simply the first one. This obligation now has two, the ended one
+  // first, so a bare find would build the expectation from the retired version and compare it with what the API serves.
+  // That is the trap SB-204 recorded when Turkey's company formation gained its second version.
+  const federal = trade.find((version) => placeOf(version) === undefined && inForceOn(version, TODAY))
+  if (!federal) throw new Error("Germany's file has no trade registration version in force for everywhere")
+  expect(
+    federal.facts.find((fact) => fact.key === 'notifyTradeOfficeWhen')?.textValue,
+    'the trade office deadline carries § 14(1) scope in its own text, as the conversation agreed on 2026-09-16',
+  ).toBe('at the same time as you start the independent operation of a standing trade')
 
   type Said = { situation?: string; toWorkRegions?: string[]; residenceStatuses?: string[] }
   const answerFor = async (obligation: string, said: Said) => {

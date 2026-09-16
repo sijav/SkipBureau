@@ -1726,3 +1726,71 @@ The two definitions:
 ## Answered
 
 No. I opened no URLs in this pass.
+
+---
+
+## Asked, 2026-09-16 17:10 UTC
+
+Fixed point, 2026-09-16. Everything you corrected on 2026-09-15 is applied and published, including the § 192 SGB VII definition and the accident insurer fact's wording.
+
+One question, about registering a trade, and where a condition belongs.
+
+This is what the deployed product serves a company founder in a German state that has no city rule of its own, today:
+
+- notify the trade office: "at the same time as you start the business" (gewo-14-at-the-same-time)
+- fine for a late or missing notification: at most 1,000 euro (gewo-146-late-notification-fine)
+- reader note: "This applies only if your activity is a trade under trade law. Calling yourself a freelancer settles neither trade registration nor IHK membership. The tax office and trade office classify your activity separately; the tax classification does not bind the trade office. If unsure, give both authorities your actual services, qualifications and representative projects. Register where the business is established when you start; there is no nationwide grace period. Registration does not complete every separate obligation."
+
+In Berlin the same two facts arrive with the local fees beside them, and those fees carry their conditions inside the fact itself:
+
+- sole trade registration fee: 26 euro, "for each sole trade, or each partner of a partnership; other legal forms can cost differently"
+- online registration fee: 15 euro, "where Berlin's online procedure is available for the legal form"
+
+So in one answer the fee facts state their conditions, and the deadline fact, which decides whether any of it applies to this reader at all, states none. A reader who takes the facts and not the note is told they must notify at once or risk 1,000 euro, when § 14(1) puts that duty on somebody who starts the independent operation of a standing trade, and the trade office, not the reader, decides whether that is them. You worded both of these in the same turn, so I am asking about the difference rather than assuming it was an oversight.
+
+Three questions.
+
+1. Should "notify the trade office" carry the statutory scope in its own text, for instance "at the same time as you start the business, when what you are starting is a standing trade"? Or is the note the right home, because the classification is a prior question about who the duty falls on rather than a qualifier on the deadline, and putting it in the fact would make a deadline that is itself unconditional read as conditional?
+
+2. § 146 GewO punishes failing to give the § 14 notice, so the same scope governs the fine. If the scope belongs in the deadline's text, does it belong in the fine's text too, and what should each then say?
+
+3. If your answer to either is yes, give the exact wording you want, in the form the other facts take, and say what the reader note should then say so that it does not simply repeat the fact.
+
+If your answer is that the current shape is already right, say so plainly and I will record that and close the question.
+
+## Answered
+
+1. **Yes.** The scope belongs in the fact. It is an applicability condition for the rule, even though "simultaneously" is not itself a conditional deadline. A reader taking a fact without its note needs to see that it concerns the independent operation of a standing trade.
+
+2. **Yes.** The fine fact needs the same scope. It should also retain that the offence requires intentional or negligent non-notification.
+
+3. Use:
+
+- **Notify the trade office:** at the same time as you start the independent operation of a standing trade.
+
+- **Possible fine for intentionally or negligently giving a late or missing notification when you start the independent operation of a standing trade:** at most €1,000.
+
+Use this reader note:
+
+> Calling yourself a freelancer settles neither trade registration nor IHK membership. The tax office and trade office classify your activity separately; the tax classification does not bind the trade office. If unsure, give both authorities your actual services, qualifications and representative projects. Register where the business is established when you start; there is no nationwide grace period. Registration does not complete every separate obligation.
+
+https://www.gesetze-im-internet.de/gewo/BJNR002450869.html
+
+### How this round was run, and what was taken from it
+
+Resumed as a one shot `codex exec resume` against this file's own session rather than through the roast
+tool's shared map, which keys one session per brand and would have sent this question into another
+document's thread (SB-364). Verified afterwards rather than assumed: the only codex session file
+written by that run was this conversation's own,
+`rollout-2026-09-12T06-12-45-01a093d1-58d0-7601-bc64-fbf538cca3f1.jsonl`, and no new session was
+created. Asked at terra medium, where this conversation's earlier rounds record `gpt-6-astra` at high
+effort.
+
+The answer's wording is taken as given. Its prose form names the fine's label and its value together;
+this repository keeps the label in the interface and the qualifier in the fact's `textValue`, as
+SB-263's accident insurer fact and Berlin's fee facts both do, so the words go into `textValue`
+unchanged and the labels are not touched.
+
+The citation given was the whole GewO act page. The two existing definitions, on the § 14 and § 146
+pages, are narrower and already verified, so they stay as the facts' sources and no definition changed
+in this round.
