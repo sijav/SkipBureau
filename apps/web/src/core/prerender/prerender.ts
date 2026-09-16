@@ -68,7 +68,7 @@ const pagesIn = async (client: Client, locale: Locale, origin: string): Promise<
       pages.push({
         address,
         locale,
-        title: documentTitle(i18n, head.title, name),
+        title: documentTitle(i18n, { title: head.title, place: name, shown: head.shown, locale }),
         description: head.description ?? null,
         links: pageLanguages(head, locale),
         structuredData,

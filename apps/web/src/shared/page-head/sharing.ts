@@ -57,7 +57,7 @@ type Reading = { i18n: I18n; place: string; locale: Locale; origin: string }
 export const pageSharing = (head: PageHeadProps, { i18n, place, locale, origin }: Reading): MetaTag[] => {
   const links = pageLanguages(head, locale)
   return sharingTags({
-    title: pageName(i18n, head.title, place),
+    title: pageName(i18n, { title: head.title, place, shown: head.shown, locale }),
     description: head.description,
     url: absolute(links.canonical, origin),
     locale: links.canonicalLocale,

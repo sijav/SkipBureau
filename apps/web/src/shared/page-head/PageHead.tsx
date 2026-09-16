@@ -34,7 +34,7 @@ export const PageHead = (props: PageHeadProps) => {
 
   return (
     <>
-      <title>{documentTitle(i18n, title, name)}</title>
+      <title>{documentTitle(i18n, { title, place: name, shown: languages.shown, locale })}</title>
       {description && <meta name="description" content={description} />}
       <PageLanguages {...languages} />
       {sharing.map((tag) =>
