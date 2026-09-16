@@ -10,10 +10,21 @@ const READ = '2026-09-14'
 // The day SB-227 read again the pages whose definitions it extended, and first the ones it added, and SB-263 read § 192 SGB VII.
 const REREAD = '2026-09-15'
 
+// The day the conversation put § 14(1)'s standing trade into the trade office's own facts (SB-266). No page was read
+// again and no definition changed: the duty always rested on a standing trade, and the facts simply did not say so.
+// This ends the version served until now rather than rewriting it, because a version's range is the product's answer
+// history and the load deletes and recreates any stored version whose facts no longer match the file.
+const SCOPED = '2026-09-16'
+
 const FOUNDER: ResearchVersion['criteria'] = [{ dimension: 'situation', value: 'company-founder' }]
 
 const TRADE_NOTES =
   'This applies only if your activity is a trade under trade law. Calling yourself a freelancer settles neither trade registration nor IHK membership. The tax office and trade office classify your activity separately; the tax classification does not bind the trade office. If unsure, give both authorities your actual services, qualifications and representative projects. Register where the business is established when you start; there is no nationwide grace period. Registration does not complete every separate obligation.'
+
+// SB-266: the same note once the facts carry § 14(1)'s scope themselves, so it no longer opens by saying the duty
+// applies only to a trade. Everything after that first sentence is unchanged, and the conversation worded it.
+const TRADE_NOTES_SCOPED =
+  'Calling yourself a freelancer settles neither trade registration nor IHK membership. The tax office and trade office classify your activity separately; the tax classification does not bind the trade office. If unsure, give both authorities your actual services, qualifications and representative projects. Register where the business is established when you start; there is no nationwide grace period. Registration does not complete every separate obligation.'
 
 const BERLIN_NOTES =
   "The fee follows the business's establishment in Berlin, not where you live. Other legal forms and additional representatives can change the charge. The online fee applies where Berlin's online procedure supports your legal form."
@@ -189,6 +200,7 @@ export const CASE: ResearchCase = {
       obligation: 'register-a-trade',
       document: 'business-registration',
       validFrom: READ,
+      validTo: SCOPED,
       criteria: FOUNDER,
       source: 'tradeCodeNotification',
       labels: ['gewo-14-at-the-same-time'],
@@ -210,6 +222,36 @@ export const CASE: ResearchCase = {
         },
       ],
       notes: { en: TRADE_NOTES },
+    },
+    // SB-266: the same duty, with § 14(1)'s scope in the facts rather than only in the note. The conversation's answer
+    // of 2026-09-16: a reader taking a fact without its note needs to see that it concerns the independent operation of
+    // a standing trade, and the fine carries the same scope because § 146 punishes failing to give the § 14 notice.
+    {
+      obligation: 'register-a-trade',
+      document: 'business-registration',
+      validFrom: SCOPED,
+      criteria: FOUNDER,
+      source: 'tradeCodeNotification',
+      labels: ['gewo-14-at-the-same-time'],
+      facts: [
+        {
+          key: 'notifyTradeOfficeWhen',
+          operator: 'equals',
+          textValue: 'at the same time as you start the independent operation of a standing trade',
+          source: 'tradeCodeNotification',
+          labels: ['gewo-14-at-the-same-time'],
+        },
+        {
+          key: 'lateOrMissingTradeNotificationFine',
+          operator: 'atMost',
+          numericValue: 1000,
+          currency: 'EUR',
+          textValue: 'for intentionally or negligently giving a late or missing notification when you start the independent operation of a standing trade',
+          source: 'tradeCodeFines',
+          labels: ['gewo-146-late-notification-fine'],
+        },
+      ],
+      notes: { en: TRADE_NOTES_SCOPED },
     },
     {
       obligation: 'register-a-trade',
