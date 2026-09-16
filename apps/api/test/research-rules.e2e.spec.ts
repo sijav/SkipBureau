@@ -1417,6 +1417,34 @@ test("a province the file puts inside another place is moved there, the versions
   expect(await ownedBy('turkey')).toEqual(before)
 })
 
+// SB-231: a place already stored keeps whatever it was loaded with unless the load compares every
+// field of it. It does compare officialCode, at load.ts's places step, and this is the case that
+// would notice if it stopped: a city deployed with a missing or wrong Gemeindeschlüssel, or renamed
+// after it was loaded, is set back to what its research says. A GERMAN city, because Germany's are
+// the only researched places that carry an official code at all, so Turkey's TR-16 case above cannot
+// prove this half. Loading Germany's file alone is safe: a load owns only the files it is handed, so
+// it cannot touch a Turkish row.
+test("a place stored with a missing or different official code, or with a name an editor changed, is set back to its research's", async () => {
+  const muenchen = GERMANY.regions.find((region) => region.code === 'DE-BY.muenchen')
+  if (!muenchen) throw new Error("Germany's file has no DE-BY.muenchen")
+  const before = await ownedBy('germany')
+  const stored = () => prisma.region.findUniqueOrThrow({ where: { code: muenchen.code }, select: { name: true, officialCode: true } })
+  const asTheFileSaysIt = { name: muenchen.name, officialCode: muenchen.officialCode ?? null }
+
+  for (const broken of [{ officialCode: null }, { officialCode: '09999999' }, { name: 'Munich, as an editor wrote it' }]) {
+    const what = JSON.stringify(broken)
+    await prisma.region.update({ where: { code: muenchen.code }, data: broken })
+    expect(await loadResearchRules(prisma, [GERMANY]), what).toEqual({ ...NOTHING_CHANGED, regionsChanged: 1 })
+    expect(await stored(), what).toEqual(asTheFileSaysIt)
+  }
+
+  // The other half: with nothing left to correct, the load counts nothing and no researched row moves.
+  // It does write its own receipt either way, which is why this says the rows and the report rather
+  // than that the load changed nothing at all.
+  expect(await loadResearchRules(prisma, [GERMANY])).toEqual(NOTHING_CHANGED)
+  expect(await ownedBy('germany')).toEqual(before)
+})
+
 test('a kind listed before the status it is a kind of stops the load, and nothing is written', async () => {
   const misordered: ResearchRules = { ...TURKEY, statuses: [status('tr.protection.applicant', 'tr.protection'), status('tr.protection', null), ...TURKEY.statuses] }
   const before = await counts()
