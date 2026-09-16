@@ -495,6 +495,17 @@ unchecked: commit those first. A mistaken command or file ends in one line sayin
 what failed; that is fixed and the command run again. The research is finished when
 it reports live, and the next item starts after that.
 
+**One successor per publish, and never a rewrite afterwards** (SB-207). Before
+publishing, look for open cards that touch the same obligation, and combine the
+editorial corrections that are already agreed into ONE successor where they share a
+source and an effective date. After the publish, that successor is history: the next
+correction gets its own version, however small it is. Turkey's limited company
+formation earned this rule by taking three versions in two days, two of the
+transitions editorial rather than legal, because SB-204 renamed a fee key and
+published, and SB-207 then scoped the same version to a situation a day later. Each
+card was right on its own and the board picked them in its own order; what was
+missing was the look across them before the first publish.
+
 Northflank can build nothing for a push that lands while another build runs. When
 no build of the publish's commit has started three minutes after its push, the
 command starts one through `.github/workflows/northflank-build.yml` and waits for

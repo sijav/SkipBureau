@@ -16,6 +16,13 @@ const RUHSAT_READ = '2026-09-16'
 // the work was done, and means something else, so it is named separately.
 const ENDED = '2026-09-16'
 
+// SB-207: the day formation stops being told to every reader arriving in Turkey and is told only to
+// someone starting a company. The day AFTER the version above starts, deliberately: ending that one
+// on the day it started would give it an empty period, and a version that was published, deployed
+// and read back through the live API would have been in force on no day at all. The history trigger
+// permits closing a started version from today on, but permitted is not the same as true.
+const SCOPED = '2026-09-17'
+
 // Where a reader is in their journey, not whether each duty binds them: each
 // version for a founder opens its notes with the condition that does (SB-196).
 const FOUNDER: ResearchVersion['criteria'] = [{ dimension: 'situation', value: 'company-founder' }]
@@ -189,7 +196,61 @@ export const CASE: ResearchCase = {
       obligation: 'form-a-limited-company',
       document: 'company-formation',
       validFrom: ENDED,
+      // SB-207: ended in turn, and replaced by the scoped version below. It said the right fees to
+      // the wrong people: every reader arriving in Turkey, not only one starting a company.
+      validTo: SCOPED,
       criteria: [],
+      source: 'commercialCodeFormation',
+      labels: ['ttk-585-1-limited'],
+      facts: [
+        {
+          key: 'minimumCapital',
+          operator: 'atLeast',
+          numericValue: 50000,
+          currency: 'TRY',
+          source: 'companyTypes',
+          labels: ['ticaret-limited-50000'],
+        },
+        {
+          key: 'cashCapitalPaidWithin',
+          operator: 'within',
+          numericValue: 24,
+          unit: 'months',
+          source: 'commercialCodeCashCapital',
+          labels: ['ttk-585-1-limited', 'ttk-344-1-twenty-four-months'],
+        },
+        {
+          key: 'feesUnderLaw492',
+          operator: 'none',
+          source: 'feesLaw',
+          labels: ['law492-123-formation-exempt'],
+        },
+        {
+          key: 'competitionLevy',
+          operator: 'equals',
+          numericValue: 0.04,
+          unit: 'percent',
+          source: 'competitionLaw',
+          labels: ['law4054-39-c-levy'],
+        },
+      ],
+      notes: {
+        en: 'Forming a limited company, the same everywhere in Turkey: the minimum capital, how long cash capital may take to pay, the fees of Law 492 that formation is exempt from, and the Competition Authority levy on the subscribed capital. That exemption is not the cost of forming a company: the levy, the Trade Registry Gazette and your chamber all charge, and each chamber charges its own fees, which follow where the company registers and are not here.',
+      },
+    },
+    {
+      // SB-207: the same rule, told only to someone starting a company. Written with no criteria, it
+      // reached every reader arriving in Turkey, so a student was told to form a company they have no
+      // reason to form while the duties that FOLLOW registration, which SB-196 scoped, first asked
+      // them what they were doing. The owner, 2026-09-14: what is shown follows what the reader needs.
+      //
+      // The note is unchanged, deliberately. The five duties after registration each open by naming
+      // the separate legal trigger that binds them, because each has one; here the act is the scope,
+      // so 'Forming a limited company' already says who it is for and a rewrite would add no accuracy.
+      obligation: 'form-a-limited-company',
+      document: 'company-formation',
+      validFrom: SCOPED,
+      criteria: FOUNDER,
       source: 'commercialCodeFormation',
       labels: ['ttk-585-1-limited'],
       facts: [
