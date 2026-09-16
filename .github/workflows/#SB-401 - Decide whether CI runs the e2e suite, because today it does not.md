@@ -146,11 +146,61 @@ says a run appears on a push, so the push is the proof.
    A CI job nobody has watched fail is exactly the same untested claim as the
    suite that was never wired up.
 
-## The step I am least sure of
+## What the runs proved, 2026-09-17, on a scratch branch
+
+Both proofs are done, and the second one arrived without being planted.
+
+**Run one, `bc033a7` on `ci-e2e-proof`: the job went red on a real defect.**
+
+```
+1) [pages] e2e/pages.spec.ts:59 a guide opens cold, right to left
+   1 failed
+   48 passed (1.7m)
+```
+
+The plan said to break an assertion by hand. That was never needed, because the
+job caught something true on its first run: `e2e/pages.spec.ts` had been
+committed with SB-291's title assertions inside it, staged wholesale as part of
+SB-403's commit, while SB-291's fix in `title.ts` was still uncommitted. The
+suite passed locally because the working tree held the fix, and failed in CI
+because the repository did not. That is exactly the class of problem this card
+exists to catch, found within minutes of the job existing.
+
+Worth keeping: **a job that has only ever been green is an untested claim.** This
+one has now been watched failing, on a defect rather than on sabotage.
+
+**Run two, `7422911`, with the fix committed: green, and counted.**
+
+```
+Running 49 tests using 2 workers
+49 passed (1.2m)
+```
+
+Read by count rather than colour, as this card requires: **18 `[dev]` lines and
+31 `[pages]` lines**, so both projects genuinely ran. Named individually, the
+guarantees this session turned on all pass in CI:
+`countries.spec.ts:56` (a deleted country is Not Found), `pages.spec.ts:79` (the
+seeded page asks for nothing it was given), `pages.spec.ts:114` (the latch), and
+`pages.spec.ts:59` (the Persian title), which was the red one.
+
+`retries: 2` is confirmed live: the failing run shows retry #1 and retry #2
+before recording the failure.
+
+## The step I was least sure of, now measured
 
 **Whether the `pages` web server survives a CI runner inside Playwright's
 timeout.** Its command is `npm run build && npm run prerender && node
 e2e/pages-server.mjs` with a 360 second timeout, and the prerender waits for the
-API that the same run starts. Locally that is comfortable; a cold runner with no
-npm cache for the API build is slower, and if it times out the whole job fails on
-setup rather than on a test, which reads as a broken suite rather than a slow one.
+API that the same run starts. A cold runner with no npm cache for the API build
+is slower than this machine, and a timeout would fail the job on setup rather
+than on a test, which reads as a broken suite rather than a slow one.
+
+**It was not close.** The whole `e2e` job ran 23:00:46 to 23:02:40, under two
+minutes including both web server builds and the prerender, against the 9 to 11
+minutes `check` takes. The 360 seconds has a wide margin. If that ever changes,
+the symptom to look for is named above, `Timed out waiting 360000ms from
+config.webServer.`, and the fix is the timeout rather than the suite.
+
+**So the cost of the owner's decision is small**, which the plan could not
+promise beforehand: the job runs beside `check` and finishes long before it, so
+it adds no wall clock to a run at all.
