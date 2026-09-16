@@ -1151,11 +1151,16 @@ const writeGuide = async (tx: Prisma.TransactionClient, taskId: string, research
     update: areaRow,
     create: { countryCode, slug: researched.area.slug, ...areaRow },
   })
-  for (const [locale, title] of [
-    ['en-US', researched.area.en],
-    ['fa-IR', researched.area.fa],
+  // SB-260: the area's English row carries the guide's own description, so its hub page has a meta
+  // description instead of leaving a search engine to write one from whatever is on the page. No
+  // sentence is invented: the agreed documents state none for an area, and this one is already agreed
+  // and already served as the guide's. Persian stays null deliberately, since there is no agreed
+  // Persian sentence and this loader keeps no translated guide text either.
+  for (const [locale, title, description] of [
+    ['en-US', researched.area.en, researched.guide.en.description],
+    ['fa-IR', researched.area.fa, null],
   ] as const) {
-    const written = { title, description: null, startReason: null, askPrompt: null }
+    const written = { title, description, startReason: null, askPrompt: null }
     await tx.categoryText.upsert({
       where: { categoryId_locale: { categoryId: area.id, locale } },
       update: written,

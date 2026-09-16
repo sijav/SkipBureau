@@ -138,15 +138,19 @@ test("on a database no sample content has touched, the loader writes each resear
         categories(country: $country) {
           slug
           taskSlug
+          description
         }
       }
     `,
     { country: 'tr' },
   )
   const byArea = (a: { slug: string }, b: { slug: string }) => a.slug.localeCompare(b.slug)
+  // SB-260: the description too, because an area with none leaves its hub page with no meta
+  // description at all. It is the guide's own sentence rather than one written for the area: the
+  // agreed documents state none for an area, so none is invented.
   expect([...areas.body.data.categories].sort(byArea)).toEqual(
     RESEARCHED_GUIDES.filter((researched) => researched.country === 'tr')
-      .map((researched) => ({ slug: researched.area.slug, taskSlug: researched.task }))
+      .map((researched) => ({ slug: researched.area.slug, taskSlug: researched.task, description: researched.guide.en.description }))
       .sort(byArea),
   )
 
