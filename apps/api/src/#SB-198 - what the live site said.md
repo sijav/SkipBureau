@@ -125,6 +125,17 @@ works there, where the national page says 1.8%.
 
 ## What this does not say
 
+Its roast named two more gaps, and they are written here rather than left in the wording. The comparison is **not**
+the whole of what a reader sees: the guide's breadcrumb and its structured data show the **area's title**, which this
+read-back never asked for, since it compared the area by slug (**SB-322**); and a rule card's facts, labels, values
+and notes come from the research data through the rules resolver rather than from these entries, so only the slugs of
+the rules each guide links were compared (**SB-323**). The answers named above were proved when SB-300 and SB-313
+shipped them, which is history, not this check. Each source's publisher, official flag, note and date are what the
+loader writes rather than anything the agreed document says, so comparing them holds the loader to itself.
+
+The checker itself is not committed, only its queries and its output, so this record can be repeated by hand but not
+re-run (**SB-324**).
+
 The public API lists what a reader can reach. A guide, area or question with **no text row at all** would be invisible
 to `guides`, `categories` and `questions`, so this proves no sample content is **served**, not that no unexpected row
 exists in the database; reading raw tables would need the database's credentials, which are not in this repository.

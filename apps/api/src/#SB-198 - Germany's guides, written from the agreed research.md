@@ -35,10 +35,11 @@ card so the proof is a record rather than a memory. It asserts all of:
 1. **Nothing but the research reaches a reader.** `guides(country: "de")`, `categories(country: "de")` and
    `questions(country: "de")` return exactly the four researched guides, their four areas, and no question.
 2. **`sampleQuestions(country: "de")` is false**, and every goal and area Germany has says `sample: false` (SB-302).
-3. **Each guide is its entry, whole.** Not only the sections, sources and verified date, which the first version of
-   this plan stopped at, but the reader-visible projection: title, description, the area and goal it sits in, every
-   emphasis field, its related guides, each source's name, publisher, official flag, note and date, and the
-   obligations it links. The researched guides spec holds those entries to the agreed documents sentence by sentence,
+3. **Each guide is its entry**, in more than the sections, sources and verified date the first version of this plan
+   stopped at: title, description, the area and goal it sits in, every emphasis field, its related guides, each
+   source's name, publisher, official flag, note and date, and the obligations it links. Not the whole of what a
+   reader sees, which this card first claimed: the area's title behind the breadcrumb (SB-322) and the rule cards'
+   own facts and notes (SB-323) are outside it. The researched guides spec holds those entries to the agreed documents sentence by sentence,
    so the chain is: the document holds the entry, and this holds the deployment to the entry.
 4. **No emphasis the documents do not give**: no quick answer, cost, time, intro, deadlines, cost note, options or
    steps on any German guide, which is SB-258's rule, checked on what is served.
@@ -57,8 +58,13 @@ nothing to build, and no gate is added, per the owner's order.
 
 The check made three corrections, all taken. The public API does not enumerate database rows, so the exit now says no
 sample content is **served**, with the reason written down. The guide comparison was too narrow and now covers the
-whole reader-visible projection, including the obligations and the source metadata. And the surviving proposal is
-named as SB-317's, not as something this card can show absent.
+obligations and the source metadata as well as the sections and dates. And the surviving proposal is named as
+SB-317's, not as something this card can show absent.
+
+Its own roast, after the card closed, refused the phrase **whole reader-visible projection**, and it was right: the
+area title a breadcrumb shows (SB-322) and a rule card's facts and notes (SB-323) are outside what was compared, and
+the checker itself was never committed (SB-324). The record says so in its own words rather than leaving the claim
+standing.
 
 It also asked that the proof be a record rather than a scratchpad memory: the queries, the expected values, the
 commit and the result are committed beside this plan. It agreed no CI gate is wanted.
