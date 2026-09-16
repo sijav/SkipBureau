@@ -12,11 +12,29 @@ import { defineConfig, devices } from '@playwright/test'
 const BASE = '/SkipBureau/'
 const PAGES_PORT = 5190
 const API_PORT = 4500
+// SB-397: this project's own dev port, not Vite's default 5173. A KarNama Vite
+// server had held 5173 for two days, and every `dev` test asserted against that
+// app until a page snapshot showed its login screen. vite.config.ts pins the
+// same number with `strictPort`, so the two cannot drift.
+const DEV_PORT = 5191
 
 // The deployed site, when the pages suite is pointed at it: the proof a local
 // mimic cannot give, since only the real thing shows how Pages is configured.
 // PAGES_URL=https://sijav.github.io/SkipBureau/ npx playwright test --project pages
 const LIVE = process.env.PAGES_URL
+
+/**
+ * SB-397: never adopt a server this run did not start.
+ *
+ * Playwright decides to reuse from an HTTP readiness probe alone: it follows
+ * redirects and accepts a final status from 200 to 403, and it identifies
+ * neither the process nor the application. So any other project's app
+ * answering on one of these ports qualifies, and its pages are what the suite
+ * then tests. Starting our own every time costs about a minute of rebuild,
+ * which CI already paid because this was `!process.env.CI`, and it turns a
+ * clash into Playwright's own error before a single test runs.
+ */
+const reuseExistingServer = false
 
 export default defineConfig({
   testDir: './e2e',
@@ -30,7 +48,7 @@ export default defineConfig({
       name: 'dev',
       // The built-site suites, which need the subpath and the real 404.
       testIgnore: /(pages|phone)\.spec\.ts$/,
-      use: { ...devices['Desktop Chrome'], baseURL: 'http://localhost:5173' },
+      use: { ...devices['Desktop Chrome'], baseURL: `http://localhost:${DEV_PORT}` },
     },
     {
       name: 'pages',
@@ -45,15 +63,15 @@ export default defineConfig({
       // MSW prove the component; only this can prove the data.
       command: 'npm run build -w @skipbureau/api && node e2e/api-server.mjs',
       url: `http://localhost:${API_PORT}/graphql?query=%7Bhealth%7D`,
-      reuseExistingServer: !process.env.CI,
+      reuseExistingServer,
       timeout: 240_000,
-      env: { E2E_API_PORT: String(API_PORT), E2E_WEB_PORT: '5173' },
+      env: { E2E_API_PORT: String(API_PORT), E2E_WEB_PORT: String(DEV_PORT) },
     },
     {
       command: 'npm run dev',
       env: { VITE_GRAPHQL_URL: `http://localhost:${API_PORT}/graphql` },
-      url: 'http://localhost:5173',
-      reuseExistingServer: !process.env.CI,
+      url: `http://localhost:${DEV_PORT}`,
+      reuseExistingServer,
       timeout: 120_000,
     },
     {
@@ -61,7 +79,7 @@ export default defineConfig({
       // served without any SPA fallback.
       command: `npm run build && npm run prerender && node e2e/pages-server.mjs`,
       url: `http://localhost:${PAGES_PORT}${BASE}`,
-      reuseExistingServer: !process.env.CI,
+      reuseExistingServer,
       // The prerender waits for the API above when it is still starting.
       timeout: 360_000,
       // The API url too: the country guard asks the API before a page

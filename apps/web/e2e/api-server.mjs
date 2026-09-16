@@ -62,7 +62,7 @@ const api = spawn(process.execPath, ['dist/main.js'], {
     PORT: String(PORT),
     // Both origins the tests browse from: the Vite dev server and the
     // static server that mimics GitHub Pages.
-    CORS_ORIGINS: [`http://localhost:${process.env.E2E_WEB_PORT ?? 5173}`, 'http://localhost:5190'].join(','),
+    CORS_ORIGINS: [`http://localhost:${process.env.E2E_WEB_PORT ?? 5191}`, 'http://localhost:5190'].join(','),
   },
   stdio: ['ignore', 'inherit', 'inherit'],
 })

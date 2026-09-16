@@ -12,7 +12,9 @@ const PORT = Number(process.env.PORT ?? 4000)
  * not an allow-list at all. `CORS_ORIGINS` carries the deployed site.
  */
 const origins = (): string[] => [
-  'http://localhost:5173',
+  // The web app's dev server and Storybook. 5191 rather than Vite's default
+  // 5173, which any other Vite project on the machine may already hold (SB-397).
+  'http://localhost:5191',
   'http://localhost:6016',
   // The published site. Listed here as well as reachable through
   // CORS_ORIGINS, so a deployment that forgets the variable still serves the

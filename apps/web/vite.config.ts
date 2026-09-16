@@ -49,6 +49,12 @@ const themeColour = (): Plugin => ({
 export default defineConfig({
   plugins: [lingui(), pagesFallback(), themeColour()],
   resolve: { alias: { src: join(here, 'src') } },
+  // SB-397: this project's own port, not Vite's default 5173, which every Vite
+  // project on a machine wants. `strictPort` because the default behaviour is
+  // to take the next free number instead, and the API's allow-list names this
+  // one, so a server that slid to 5192 would be refused by CORS with nothing
+  // saying why.
+  server: { port: 5191, strictPort: true },
   // GitHub Pages serves the site from a repository subpath, so the built asset
   // URLs have to carry it. SB-013 sets this from CI; it is root in development.
   base: process.env.SKIPBUREAU_BASE ?? '/',
