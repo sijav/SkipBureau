@@ -149,9 +149,13 @@ what makes an address fictitious (§19(6), now a second definition on the €50,
 fine), a business itself and not only its branches, "actual" turnover in the
 first year, and the €25,000 ceiling beside the €100,000 one. Health insurance
 settled the one question I could not: the Ministry's table never writes
-"monatlich" beside the €1,318.33 base and a Bundestag research paper does, so
-that figure carries both, and §240(4) sentence 1 SGB V sets the same minimum for
-a self-employed member. With those applied, all three came back no.
+"monatlich" beside the €1,318.33 base. A Bundestag research paper did, but its
+section is about voluntarily insured pensioners, so SB-185 replaced it with a
+calculated definition whose inputs are all statute: §240(4) sentence 1 SGB V for
+the daily floor, §223(2) sentence 2 for the thirty day month that §240(2) last
+sentence carries to voluntary members, and §1 SVBezGrV 2026 for the €3,955
+monthly reference value. The Ministry's table stays, for the figure and for who
+it applies to. With those applied, all three came back no.
 
 **Compare in Unicode's composed form.** The Ministry of Health's care page writes
 `fünften` as `u` followed by a combining mark, and a literal search for the

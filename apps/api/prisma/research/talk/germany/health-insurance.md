@@ -1599,3 +1599,55 @@ No.
 
 https://www.bundesgesundheitsministerium.de/beitraege/seite
 https://www.bundesgesundheitsministerium.de/finanzierung-gkv
+
+## Asked, 2026-09-16 12:30 UTC
+
+**This conversation, for the first time.** The session id went into
+`sessions["search:codex"]` in `.claude/roast-sessions.json` before the roast was fired, and the run
+reported `resuming 01a093c8-fa43-7c12-90e6-57f1465c3219`, the id this file's header names. Reading
+that file afterwards proves nothing, since the roast writes the map back on the way through. The
+stderr line is the evidence.
+
+SB-185, from SB-174's check. The agreed document says a voluntarily insured self-employed member is
+assessed on at least 1.318,33 Euro MONTHLY. Only one of its two footnotes states the period, and it
+is Bundestag WD 6-3000-015/26, a paper about Altersrentner. Asked: is there an official page stating
+the base as monthly for the self-employed or for all voluntary members; which provision states the
+thirty day month, since 3.955 divided by 3 is exactly 1.318,33 and I would not hide an unsourced
+step in a formula; and whether a calculated definition is legitimate when neither input states the
+period.
+
+## Answered
+
+1. Yes, a BKK24 leaflet for 2026 states "Mindestbemessungsgrenze in Höhe von monatlich 1.318,33 €".
+   No equally direct BMG, GKV-Spitzenverband or statutory statement was found. The
+   GKV-Spitzenverband factsheet labels the figure as the minimum base but does not say monthly.
+2. § 223 Abs. 2 SGB V: "Für die Berechnung ist die Woche zu sieben, der Monat zu dreißig und das
+   Jahr zu dreihundertsechzig Tagen anzusetzen", which § 240 Abs. 2 carries to voluntary members.
+   So the whole calculation is statutory: 3.955 ÷ 90 × 30 = 1.318,33.
+3. A calculated definition is legitimate where it is labelled calculated and gives the formula and
+   inputs, because each step is prescribed in law rather than inferred.
+
+## What a reader is told
+
+The sentence is unchanged. Its second footnote is now a calculated definition with three statutory
+inputs, each read here on 2026-09-16 rather than taken from the answer: § 240 Abs. 4 Satz 1 for the
+daily floor and § 240 Abs. 2 letzter Satz for what carries § 223, § 223 Abs. 2 Satz 2 for the thirty
+day month, and § 1 SVBezGrV 2026 for the 3.955 Euro monthly reference value. The Ministry's table
+stays for the figure and for who it applies to.
+
+**The BKK24 leaflet is deliberately not used.** It is one statutory insurer's information sheet, not
+an official page in the sense this repository means, and a chain every step of which is statute is
+stronger than one Kasse's leaflet. Recorded here so the choice is visible rather than silent.
+
+One correction to the answer, found by reading the provisions rather than trusting the citation:
+§ 240 Abs. 2's cross reference to § 223 is its LAST SENTENCE, not the paragraph's subject, which is
+economic capacity. The locator says so.
+
+## Sources
+
+- <https://www.gesetze-im-internet.de/sgb_5/__240.html> (Abs. 4 Satz 1, Abs. 2 letzter Satz)
+- <https://www.gesetze-im-internet.de/sgb_5/__223.html> (Abs. 2 Satz 2)
+- <https://www.gesetze-im-internet.de/svbezgrv_2026/BJNR1160A0025.html> (§ 1)
+- <https://www.bundesgesundheitsministerium.de/beitraege/seite> (kept, for the figure and the reader)
+
+All read 2026-09-16.

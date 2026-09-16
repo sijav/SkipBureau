@@ -42,7 +42,7 @@ illustration, not a prediction of your own contribution, up to the monthly asses
 including for midijobs.
 
 An ordinarily voluntarily insured **self-employed** GKV member pays the whole
-contribution, assessed on at least **€1,318.33**[^bmg-minimum-assessment-base][^bundestag-wd-minimum-base-monthly] monthly even with lower income.
+contribution, assessed on at least **€1,318.33**[^bmg-minimum-assessment-base][^minimum-base-monthly] monthly even with lower income.
 At the **announced** average additional rate the monthly minimum is about
 **€222.80**[^bmg-minimum-without-sick-pay] without sickness cash benefit or
 **€230.71**[^bmg-minimum-with-sick-pay] with it, which is the rate the Ministry's table assumes; your fund's
@@ -101,6 +101,8 @@ split.
 
 - <https://www.gesetze-im-internet.de/vvg_2008/__193.html>
 - <https://www.gesetze-im-internet.de/sgb_5/__5.html>, `__6`, `__9`, `__173`, `__186`, `__249`, `__256a`
+- <https://www.gesetze-im-internet.de/sgb_5/__223.html>, `__240` (the daily minimum and the thirty day month)
+- <https://www.gesetze-im-internet.de/svbezgrv_2026/BJNR1160A0025.html> (§1, the 2026 Bezugsgröße)
 - <https://www.gesetze-im-internet.de/sgb_11/__55.html>, `__58`
 - <https://www.gesetze-im-internet.de/aufenthg_2004/__2.html> (§2(3)), `BJNR195010004` (§5)
 - <https://www.bundesgesundheitsministerium.de/gesetzlich-versicherte>, <https://www.bundesgesundheitsministerium.de/beitraege/seite>
@@ -109,7 +111,7 @@ split.
 - <https://welcome.hamburg.de/resource/blob/17560/c987410a6f2d85efdd62e238305eac16/merkblatt-der-bis-zum-nachweis-kv-data.pdf>
 - <https://www.berlin.de/einwanderung/_assets/merkblatt_zur_krankenversicherung.pdf>
 
-All read 2026-09-12.
+All read 2026-09-12; §§ 223 and 240 SGB V and the 2026 Bezugsgröße regulation read 2026-09-16.
 
 [^sgb5-5-student-until-thirty]: <https://www.gesetze-im-internet.de/sgb_5/__5.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 5 Abs. 1 Nr. 9", "evidence": ["längstens bis zur Vollendung des dreißigsten Lebensjahres"]}
 
@@ -137,7 +139,13 @@ All read 2026-09-12.
 
 [^bmg-minimum-assessment-base]: <https://www.bundesgesundheitsministerium.de/beitraege/seite> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Beiträge für freiwillig Versicherte in der GKV", "evidence": ["Personenkreis Anspruch auf Krankengeld* Monatlicher Beitrag", "Mindestbeitrag für Selbstständige/sonstige freiwillig Versicherte (Mindestbemessungsgrundlage: 1.318,33 €)"]}
 
-[^bundestag-wd-minimum-base-monthly]: <https://www.bundestag.de/resource/blob/1170364/WD-6-015-26.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "Wissenschaftliche Dienste des Deutschen Bundestages, WD 6 - 3000 - 015/26, Beiträge von Altersrentnern zur Krankenversicherung in unterschiedlichen Fallkonstellationen, Seite 8, Abschnitt 4 Freiwillige Versicherung", "evidence": ["Für die Beitragsberechnung gilt als beitragspflichtige Einnahme für den Kalendertag mindestens der 1/90 der monatlichen Bezugsgröße (Mindesteinnahme § 240 Abs. 4 Satz 1 SGB V), sodass im Jahr 2026 die freiwilligen Beiträge mindestens aus einer „fiktiven“ Einnahme von monatlich 1.318,33 Euro berechnet werden."]}
+[^minimum-base-monthly]: calculated | {"status": "calculated", "read": "2026-09-16", "inputs": ["sgb5-240-daily-minimum", "sgb5-223-thirty-day-month", "svbezgrv-2026-bezugsgroesse-monthly"], "formula": "the 3,955 Euro monthly reference value divided by ninety for the calendar day, times a month of thirty days", "rounding": "none"}
+
+[^sgb5-240-daily-minimum]: <https://www.gesetze-im-internet.de/sgb_5/__240.html> | {"status": "verified", "read": "2026-09-16", "method": "raw page", "locator": "§ 240 Abs. 4 Satz 1, and Abs. 2 letzter Satz for what carries § 223 to voluntary members", "evidence": ["Als beitragspflichtige Einnahmen gilt für den Kalendertag mindestens der neunzigste Teil der monatlichen Bezugsgröße.", "Die §§ 223 und 228 Abs. 2, § 229 Abs. 2 und die §§ 238a, 247 Satz 1 und 2 und § 248 Satz 1 und 2 dieses Buches sowie § 23a des Vierten Buches gelten entsprechend."]}
+
+[^sgb5-223-thirty-day-month]: <https://www.gesetze-im-internet.de/sgb_5/__223.html> | {"status": "verified", "read": "2026-09-16", "method": "raw page", "locator": "§ 223 Abs. 2 Satz 2", "evidence": ["Für die Berechnung ist die Woche zu sieben, der Monat zu dreißig und das Jahr zu dreihundertsechzig Tagen anzusetzen."]}
+
+[^svbezgrv-2026-bezugsgroesse-monthly]: <https://www.gesetze-im-internet.de/svbezgrv_2026/BJNR1160A0025.html> | {"status": "verified", "read": "2026-09-16", "method": "raw page", "locator": "§ 1 Bezugsgröße in der Sozialversicherung", "evidence": ["Die Bezugsgröße nach § 18 des Vierten Buches Sozialgesetzbuch für das Jahr 2026 beträgt 47 460 Euro. Umgerechnet auf den Monat ergeben sich 3 955 Euro."]}
 
 [^bmg-minimum-without-sick-pay]: <https://www.bundesgesundheitsministerium.de/beitraege/seite> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Beiträge für freiwillig Versicherte in der GKV", "evidence": ["Personenkreis Anspruch auf Krankengeld* Monatlicher Beitrag", "Mindestbeitrag für Selbstständige/sonstige freiwillig Versicherte (Mindestbemessungsgrundlage: 1.318,33 €) nein 222,80 €**", "** Inklusive Zusatzbeitrag (bei Anwendung des durchschnittlichen Zusatzbeitragssatzes in Höhe von 2,9 %; der kassenindividuelle Zusatzbeitragssatz kann hiervon abweichen)."]}
 
