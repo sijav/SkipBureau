@@ -54,6 +54,20 @@ export const caseOf = (dataFile: string): Case => {
   }
 }
 
+/**
+ * What the report says when the publish is done (SB-235).
+ *
+ * The commit is built in a temporary index and the branch moved with `update-ref`, so the repository's
+ * own index still holds the bytes from before the publish for exactly these paths. Until the reset
+ * runs, a bare `git commit` commits those old entries as an immediate revert, and `git checkout --` or
+ * `git restore` writes them back into the working tree so the next commit does. Exported so the spec
+ * can hold the wording: a warning nobody can assert is a warning that rots, which is how the guide came
+ * to say what to do without saying why.
+ */
+export const resetNotice = (paths: readonly string[]): string =>
+  `now, in the foreground: git reset -q -- ${paths.map((path) => `"${path}"`).join(' ')}\n` +
+  'Before any commit, checkout or restore, run that line: the main index still holds the pre-publish bytes, and a plain commit would take this publish back.'
+
 /** The commit message: a subject to read, and trailers `git log --grep` finds. */
 export const messageOf = (action: 'publish' | 'down', name: string, id: string): string =>
   [
@@ -718,7 +732,7 @@ const main = async (): Promise<void> => {
   console.log(
     `live: ${the.name} ${down ? `taken down, reverting ${reverts}` : `published as ${id}`} in ${commit}, digest ${digest}; ${current.versions?.length ?? 0} versions and ${current.regions?.length ?? 0} places read back`,
   )
-  console.log(`now, in the foreground: git reset -q -- ${snapshot.map((file) => `"${inRepo(file.path)}"`).join(' ')}`)
+  console.log(resetNotice(snapshot.map((file) => inRepo(file.path))))
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

@@ -521,6 +521,18 @@ While it runs, every commit names its paths, `git commit -- <paths>`, and no
 without touching the index. When it reports, run the `git reset -q -- <paths>`
 line it prints.
 
+**And this is what happens if you do not** (SB-235). The commit is built in a
+temporary index and the branch is moved with `update-ref`, so for exactly the
+committed paths the repository's own index still holds the bytes from before the
+publish. Until that reset runs, a bare `git commit`, or a `git add` of anything
+else followed by one, commits those old entries and is an immediate revert of the
+publish. `git checkout -- <path>` and `git restore <path>` are worse in their own
+way: they write the old bytes back into the working tree, so the next commit
+reverts it even after the reset has run. The index is deliberately left alone,
+because git has no compare-and-swap for a single entry and a write from the
+background could swallow something staged in the foreground (SB-232), so the
+reset is the whole of the remedy and it is not optional.
+
 To take a publish back:
 
 ```bash

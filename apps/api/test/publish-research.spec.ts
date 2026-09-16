@@ -21,6 +21,7 @@ import {
   PublishError,
   publishLog,
   readerFor,
+  resetNotice,
   runVerdict,
   tipIn,
   uncommittedLabels,
@@ -61,6 +62,22 @@ test('a publish and a down carry the trailers git log --grep finds, and the down
   expect(down.split('\n')[0]).toBe('Research down: germany/anmeldung')
   expect(down).toMatch(/^Research-Action: down$/m)
   expect(down).toMatch(/^Research-Reverts: id-1$/m)
+})
+
+// SB-235: the commit is built in a temporary index and the branch moved with update-ref, so the
+// repository's own index still holds the bytes from before the publish for exactly these paths. Until
+// the reset runs, a bare commit commits those old entries as a revert, and checkout or restore writes
+// them back into the working tree so the next commit does. The report is where somebody meets that, so
+// its wording is held here rather than trusted: the guide had said what to do without saying why, and
+// nothing would have failed if the why had never been written.
+test('the report names the reset, its paths, and the commands that take a publish back before it runs', () => {
+  const notice = resetNotice(['apps/api/src/rules/research/turkey/company-formation.ts', 'apps/api/prisma/research/README.md'])
+
+  expect(notice).toContain(
+    'git reset -q -- "apps/api/src/rules/research/turkey/company-formation.ts" "apps/api/prisma/research/README.md"',
+  )
+  for (const command of ['commit', 'checkout', 'restore']) expect(notice, `the report names ${command}`).toContain(command)
+  expect(notice, 'the report says what ignoring it costs').toMatch(/take this publish back/)
 })
 
 /** `git log --format=%H%x00%B%x1e` output, newest first. */
