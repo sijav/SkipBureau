@@ -48,6 +48,7 @@ const meta = {
     onPlace: fn(),
     onStatus: fn(),
     onSituation: fn(),
+    onWork: fn(),
     onClear: fn(),
   },
 } satisfies Meta<typeof ContextPanel>
@@ -141,6 +142,15 @@ export const Role: Story = {
   },
 }
 
+/** SB-313: where the reader works, which is not where they live, chosen from the same places the country has. */
+export const WhereYouWork: Story = {
+  play: async ({ canvasElement, args }) => {
+    await userEvent.click(addIn(canvasElement, /^Where you work$/))
+    await userEvent.click(await within(window.document.body).findByRole('option', { name: /^Ankara$/ }))
+    await expect(args.onWork).toHaveBeenCalledWith('TR-06')
+  },
+}
+
 /** Figma 47:663, Complete: every row the reader has said, as text. */
 export const Complete: Story = {
   args: {
@@ -148,6 +158,7 @@ export const Complete: Story = {
     place: { code: 'TR-35', name: 'İzmir' },
     status: { code: 'tr.residence-permit', name: 'Residence permit' },
     situation: { code: 'worker', name: 'Worker' },
+    work: { code: 'TR-06', name: 'Ankara' },
   },
   play: async ({ canvasElement, args }) => {
     const panel = within(canvasElement)

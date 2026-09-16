@@ -15,6 +15,7 @@ export const CountryRoute = () => {
     place,
     status,
     situation,
+    work,
     canonical,
     moved,
     result: { data, fetching, error },
@@ -52,8 +53,11 @@ export const CountryRoute = () => {
   if (place !== null && !places?.some((row) => row.code === place)) return <NotFound />
   if (status !== null && statuses && !statuses.some((row) => row.code === status)) return <NotFound />
   if (situation !== null && situations && !situations.includes(situation)) return <NotFound />
+  // SB-313: where the reader works is a place of the same country, so the same list answers for it.
+  if (work !== null && places && !places.some((row) => row.code === work)) return <NotFound />
   const confirmedStatus = status !== null && statuses?.some((row) => row.code === status) ? status : null
   const confirmedSituation = situation !== null && situations?.includes(situation) ? situation : null
+  const confirmedWork = work !== null && places?.some((row) => row.code === work) ? work : null
 
   return (
     <CountryProvider
@@ -63,6 +67,7 @@ export const CountryRoute = () => {
       place={place}
       status={confirmedStatus}
       situation={confirmedSituation}
+      work={confirmedWork}
     >
       <Outlet />
     </CountryProvider>

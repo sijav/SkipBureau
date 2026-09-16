@@ -14,6 +14,8 @@ export type CountryContext = {
   status: string | null
   /** Their role there, a situation the country's rules name, such as `worker`, when they have said, confirmed by the API (SB-286). */
   situation: string | null
+  /** The place in the country where they WORK, when they have said, confirmed against the same places as where they live (SB-313). */
+  work: string | null
 }
 
 /**

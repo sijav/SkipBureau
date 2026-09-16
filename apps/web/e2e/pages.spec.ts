@@ -439,3 +439,24 @@ test('the work permit guide asks for the role, and shows a worker the permit fee
   await expect(permit.getByText('₺964', { exact: true })).toBeVisible()
   await expect(permit.getByRole('link', { name: /Harç ve Değerli Kâğıt Bedelinin Ödenmesi/ }).first()).toBeVisible()
 })
+
+test('a reader says where they work in the panel, and the rule that turns on it answers', async ({ page }) => {
+  // SB-313: the trade registration fee follows where the business is, not where the reader lives, so the panel asks
+  // for it on its own row. Live only: the e2e build seeds the sample fixtures and the research rules, not the
+  // researched German guides.
+  test.skip(!LIVE, 'the researched German guides are on the live site only')
+
+  await page.goto('en/DE/guides/business-registration?situation=company-founder', { waitUntil: 'load' })
+  const rules = page.locator('section').filter({ has: page.getByRole('heading', { level: 2, name: 'The rules that apply' }) })
+  const trade = rules.locator('section[aria-labelledby]').filter({ hasText: 'Where you work' }).last()
+
+  // The card asks, and now it offers the way in that SB-300 withheld.
+  await trade.getByRole('button', { name: 'Tell us' }).click()
+  const panel = page.locator('[aria-label="What Skipbureau knows about you"]')
+  await panel.getByText('Where you work', { exact: true }).locator('..').getByRole('button', { name: 'Add', exact: true }).click()
+  await page.getByRole('option', { name: 'Berlin', exact: true }).click()
+
+  await expect(page).toHaveURL(/[?&]work=DE-BE/)
+  await expect(rules.getByText('Registration fee for a sole business')).toBeVisible()
+  await expect(rules.getByText('€26', { exact: true }).first()).toBeVisible()
+})

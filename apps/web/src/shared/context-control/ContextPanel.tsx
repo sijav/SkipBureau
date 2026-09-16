@@ -21,11 +21,14 @@ export type ContextPanelProps = {
   statuses?: readonly DetailOption[] | undefined
   situation?: Origin | null | undefined
   situations?: readonly DetailOption[] | undefined
+  /** Where the reader works, a place of the same country, which is not where they live (SB-313). */
+  work?: Origin | null | undefined
   onOrigin: (code: string | null) => void
   onCountry: (code: string) => void
   onPlace?: ((code: string) => void) | undefined
   onStatus?: ((code: string) => void) | undefined
   onSituation?: ((code: string) => void) | undefined
+  onWork?: ((code: string) => void) | undefined
   onClear?: (() => void) | undefined
 }
 
@@ -144,11 +147,13 @@ export const ContextPanel = ({
   statuses = [],
   situation = null,
   situations = [],
+  work = null,
   onOrigin,
   onCountry,
   onPlace,
   onStatus,
   onSituation,
+  onWork,
   onClear,
 }: ContextPanelProps) => {
   const { tokens } = useTheme()
@@ -237,6 +242,23 @@ export const ContextPanel = ({
             options={situations}
             onChoose={(code) => {
               if (code !== situation?.code) onSituation(code)
+            }}
+          />
+        ) : (
+          soon
+        )}
+      </Row>
+      {/* SB-313: a rule can turn on where the reader works rather than where they live, so it is asked for on its own,
+          from the same places the country has. */}
+      <Row label={<Trans>Where you work</Trans>}>
+        {onWork ? (
+          <Choice
+            label={t`Where you work`}
+            placeholder={t`Type a place`}
+            value={work}
+            options={places}
+            onChoose={(code) => {
+              if (code !== work?.code) onWork(code)
             }}
           />
         ) : (

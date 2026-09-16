@@ -2,7 +2,7 @@ import { useMemo, useState, type ReactNode } from 'react'
 import type { CountryCode } from 'src/core/country'
 import { ShellContext } from './shell'
 
-/** The country an address names, once the database has answered for it, and what the reader has said of their place, status and role in it. */
+/** The country an address names, once the database has answered for it, and what the reader has said of their place, status, role and workplace in it. */
 export type ShellPlace = {
   country: CountryCode
   countryName: string
@@ -10,6 +10,7 @@ export type ShellPlace = {
   place?: { code: string; name: string } | null | undefined
   status?: string | null | undefined
   situation?: string | null | undefined
+  work?: string | null | undefined
 }
 
 export type ShellProviderProps = {
@@ -32,6 +33,7 @@ export const ShellProvider = ({ children, place = null, ownsAskAtStart = false, 
   const placeName = place?.place?.name ?? null
   const status = place?.status ?? null
   const situation = place?.situation ?? null
+  const work = place?.work ?? null
   const value = useMemo(
     () => ({
       pageOwnsAsk,
@@ -42,11 +44,12 @@ export const ShellProvider = ({ children, place = null, ownsAskAtStart = false, 
       place: placeCode !== null && placeName !== null ? { code: placeCode, name: placeName } : null,
       status,
       situation,
+      work,
       readsQuery,
       detailsOpen,
       setDetailsOpen,
     }),
-    [pageOwnsAsk, country, countryName, origin, placeCode, placeName, status, situation, readsQuery, detailsOpen],
+    [pageOwnsAsk, country, countryName, origin, placeCode, placeName, status, situation, work, readsQuery, detailsOpen],
   )
   return <ShellContext value={value}>{children}</ShellContext>
 }

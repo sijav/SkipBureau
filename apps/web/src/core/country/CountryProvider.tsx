@@ -10,8 +10,17 @@ export type CountryProviderProps = {
   place?: string | null
   status?: string | null
   situation?: string | null
+  /** Where the reader works, which is not where they live (SB-313). */
+  work?: string | null
 }
 
-export const CountryProvider = ({ children, country, name, origin = null, place = null, status = null, situation = null }: CountryProviderProps) => (
-  <Context value={{ country, name, origin, place, status, situation }}>{children}</Context>
-)
+export const CountryProvider = ({
+  children,
+  country,
+  name,
+  origin = null,
+  place = null,
+  status = null,
+  situation = null,
+  work = null,
+}: CountryProviderProps) => <Context value={{ country, name, origin, place, status, situation, work }}>{children}</Context>

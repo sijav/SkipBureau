@@ -57,7 +57,7 @@ const newest = (dates: readonly string[]): string | null => dates.reduce<string 
 /** Every page a search engine should find in one language, asked of the API the built site calls. */
 const pagesIn = async (client: Client, locale: Locale, origin: string): Promise<Page[]> => {
   const i18n: I18n = setupI18n({ locale, messages: { [locale]: await loadCatalog(locale) } })
-  const at = (country: CountryCode) => ({ locale, origin: null, country, place: null, status: null, situation: null })
+  const at = (country: CountryCode) => ({ locale, origin: null, country, place: null, status: null, situation: null, work: null })
   const { countries } = await ask(client, CountriesQuery, { locale })
   const pages: Page[] = []
 

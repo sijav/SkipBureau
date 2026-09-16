@@ -1850,6 +1850,7 @@ msgid "Where you live"
 msgstr "Where you live"
 
 #: src/screens/guide/Guide.tsx
+#: src/shared/context-control/ContextPanel.tsx
 msgid "Where you work"
 msgstr "Where you work"
 

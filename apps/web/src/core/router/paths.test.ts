@@ -19,17 +19,19 @@ import {
   samePageFrom,
   samePageIn,
   samePageInRole,
+  samePageAtWork,
   samePageWhere,
   situationFromSearch,
+  workFromSearch,
   statusFromSearch,
   type Journey,
 } from './paths'
 
 const tr = validated('tr')
 const de = validated('de')
-const inEnglish: Journey = { locale: 'en-US', origin: null, country: tr, place: null, status: null, situation: null }
-const fromIran: Journey = { locale: 'fa-IR', origin: 'ir', country: tr, place: null, status: null, situation: null }
-const inHamburg: Journey = { locale: 'en-US', origin: 'ir', country: de, place: 'DE-HH', status: 'de.visa-free', situation: null }
+const inEnglish: Journey = { locale: 'en-US', origin: null, country: tr, place: null, status: null, situation: null, work: null }
+const fromIran: Journey = { locale: 'fa-IR', origin: 'ir', country: tr, place: null, status: null, situation: null, work: null }
+const inHamburg: Journey = { locale: 'en-US', origin: 'ir', country: de, place: 'DE-HH', status: 'de.visa-free', situation: null, work: null }
 
 test('a URL carries the short public form of a language, not the lingui tag', () => {
   assert.equal(localeSegment('en-US'), 'en')
@@ -279,4 +281,31 @@ test('clearing everything takes back the nationality, the place and the status, 
   )
   assert.equal(samePageCleared({ pathname: '/en/TR' }), '/en/TR')
   assert.equal(samePageCleared({ pathname: '/' }), '/')
+})
+
+test('where the reader works rides in the query, beside their status and their role, and leaves when they do', () => {
+  // SB-313: a rule can turn on where they work rather than where they live, and that is a detail about them, so it is
+  // in the query as the status and the role are, and never in the path, which says where they are going.
+  assert.equal(paths.guide({ ...inEnglish, work: 'TR-34' }, 'company-formation'), '/en/TR/guides/company-formation?work=TR-34')
+  assert.equal(
+    paths.home({ ...inHamburg, situation: 'company-founder', work: 'DE-BE' }),
+    '/en-IR/DE-HH?status=de.visa-free&situation=company-founder&work=DE-BE',
+  )
+  assert.equal(paths.search({ ...inEnglish, work: 'TR-34' }, 'permit'), '/en/TR/search?q=permit&work=TR-34')
+
+  assert.equal(workFromSearch('?status=de.visa-free&work=DE-SN'), 'DE-SN')
+  assert.equal(workFromSearch('?status=de.visa-free'), null)
+  assert.equal(workFromSearch('?work='), null)
+
+  // The row writes it, and takes it back, leaving the rest of the query alone.
+  assert.equal(
+    samePageAtWork({ pathname: '/en/DE/guides/business-registration', search: '?situation=company-founder' }, 'DE-BE'),
+    '/en/DE/guides/business-registration?situation=company-founder&work=DE-BE',
+  )
+  assert.equal(samePageAtWork({ pathname: '/en/DE/guides/business-registration', search: '?work=DE-BE' }, null), '/en/DE/guides/business-registration')
+
+  // It belongs to the country they are reading about, so Clear all and a change of country both take it.
+  // Clear all takes the nationality with everything else, so the reader segment loses its origin too.
+  assert.equal(samePageCleared({ pathname: '/en-IR/DE-HH/guides/anmeldung', search: '?status=de.visa-free&work=DE-BE' }), '/en/DE/guides/anmeldung')
+  assert.equal(samePageAt({ pathname: '/en/DE/guides/anmeldung', search: '?work=DE-BE' }, 'tr'), '/en/TR')
 })

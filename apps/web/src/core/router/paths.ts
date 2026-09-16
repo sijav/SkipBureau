@@ -25,7 +25,14 @@ export type Reader = {
  * `tr.residence-permit`, each once they have said (SB-256), and their role, a situation the country's rules name, such
  * as `worker` (SB-286).
  */
-export type Journey = Reader & { country: CountryCode; place: string | null; status: string | null; situation: string | null }
+export type Journey = Reader & {
+  country: CountryCode
+  place: string | null
+  status: string | null
+  situation: string | null
+  /** Where they work, which is not where they live, and which some rules turn on (SB-313). */
+  work: string | null
+}
 
 /** Where an address points below the reader: a country, and a place in it where one is named. */
 export type Destination = { country: string; place: string | null }
@@ -81,18 +88,23 @@ export const statusFromSearch = (search: string): string | null => new URLSearch
 /** The role an address carries in its query, a situation the country's rules name, or null (SB-286). */
 export const situationFromSearch = (search: string): string | null => new URLSearchParams(search).get('situation') || null
 
-// What the reader has said of their status and role, after whatever query a page has of its own.
-const readerQuery = ({ status, situation }: Pick<Journey, 'status' | 'situation'>, joiner: '?' | '&'): string => {
-  const parts = [status ? `status=${encodeURIComponent(status)}` : '', situation ? `situation=${encodeURIComponent(situation)}` : ''].filter(
-    (part) => part !== '',
-  )
+/** The place an address carries in its query as where the reader works, a place in the same country, or null (SB-313). */
+export const workFromSearch = (search: string): string | null => new URLSearchParams(search).get('work') || null
+
+// What the reader has said of their status, role and workplace, after whatever query a page has of its own.
+const readerQuery = ({ status, situation, work }: Pick<Journey, 'status' | 'situation' | 'work'>, joiner: '?' | '&'): string => {
+  const parts = [
+    status ? `status=${encodeURIComponent(status)}` : '',
+    situation ? `situation=${encodeURIComponent(situation)}` : '',
+    work ? `work=${encodeURIComponent(work)}` : '',
+  ].filter((part) => part !== '')
   return parts.length > 0 ? `${joiner}${parts.join('&')}` : ''
 }
 
 /** The prefix every page below the root sits under. */
 const at = (journey: Journey) => `/${readerSegment(journey)}/${destinationSegment(journey)}`
 
-/** What follows a page that has no query of its own: the reader's status and role, if they have said them. */
+/** What follows a page that has no query of its own: the reader's status, role and workplace, where they have said them. */
 const tail = (journey: Journey) => readerQuery(journey, '?')
 
 export const paths = {
@@ -138,9 +150,9 @@ const withReader = ({ pathname, search = '', hash = '' }: Address, change: (read
   return `${['', readerSegment(change(reader)), ...rest].join('/')}${search}${hash}`
 }
 
-// A query with one thing the reader has said, their status or their role, set or taken out, and every other part of it
-// as it was written.
-const searchWith = (search: string, key: 'status' | 'situation', value: string | null): string => {
+// A query with one thing the reader has said, their status, their role or where they work, set or taken out, and
+// every other part of it as it was written.
+const searchWith = (search: string, key: 'status' | 'situation' | 'work', value: string | null): string => {
   const kept = search
     .replace(/^\?/, '')
     .split('&')
@@ -149,8 +161,10 @@ const searchWith = (search: string, key: 'status' | 'situation', value: string |
   return parts.length > 0 ? `?${parts.join('&')}` : ''
 }
 
-// A query with neither the reader's status nor their role, for a page that no longer has them.
-const searchWithout = (search: string): string => searchWith(searchWith(search, 'status', null), 'situation', null)
+// A query with none of what the reader has said of themselves, their status, their role or where they work, for a
+// page that no longer has them.
+const searchWithout = (search: string): string =>
+  searchWith(searchWith(searchWith(search, 'status', null), 'situation', null), 'work', null)
 
 /**
  * The same page in another language, for the language control. Where the
@@ -192,8 +206,19 @@ export const samePageInRole = ({ pathname, search = '', hash = '' }: Address, si
 }
 
 /**
+ * The same page for a reader who says where they work, or takes it back, for the Where you work row (SB-313). It is
+ * a place of the same country as the one they are reading about, and it is not where they live: the rules that turn
+ * on it, a trade registration fee and Saxony's care insurance split, follow the business and the job.
+ */
+export const samePageAtWork = ({ pathname, search = '', hash = '' }: Address, work: string | null): string => {
+  const [, first = '', second = ''] = pathname.split('/')
+  if (!readerFromSegment(first) || !destinationFromSegment(second)) return `${pathname}${search}${hash}`
+  return `${pathname}${searchWith(search, 'work', work)}${hash}`
+}
+
+/**
  * The same page with nothing the reader has said about themselves, for Clear
- * all: no nationality, place, status or role. The language, the country, the
+ * all: no nationality, place, status, role or workplace. The language, the country, the
  * page, the rest of the query and the fragment stay.
  */
 export const samePageCleared = ({ pathname, search = '', hash = '' }: Address): string => {

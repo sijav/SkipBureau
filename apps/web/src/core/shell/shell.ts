@@ -29,8 +29,10 @@ export type Shell = {
   status: string | null
   /** The reader's role, a situation the country's rules name, once confirmed, for the same (SB-286). */
   situation: string | null
+  /** Where the reader works, a place of the country, once confirmed, which is not where they live (SB-313). */
+  work: string | null
   /**
-   * Whether the address's query, the status and the role, is read yet: false
+   * Whether the address's query, the status, the role and the workplace, is read yet: false
    * only for the first render of a page hydrated from its file, which was
    * rendered without them (SB-256, SB-286).
    */
@@ -49,6 +51,7 @@ export const ShellContext = createContext<Shell>({
   place: null,
   status: null,
   situation: null,
+  work: null,
   readsQuery: true,
   detailsOpen: false,
   setDetailsOpen: () => undefined,

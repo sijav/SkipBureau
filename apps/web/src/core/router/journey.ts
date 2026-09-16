@@ -6,8 +6,8 @@ import type { Journey } from './paths'
 /** The reader and destination the page's address names, for building links inside a country's routes. */
 export const useJourney = (): Journey => {
   const { locale } = useLocale()
-  const { country, origin, place, status, situation } = useCountry()
-  return { locale, origin, country, place, status, situation }
+  const { country, origin, place, status, situation, work } = useCountry()
+  return { locale, origin, country, place, status, situation, work }
 }
 
 /**
@@ -17,6 +17,6 @@ export const useJourney = (): Journey => {
  */
 export const useShellJourney = (): Journey | null => {
   const { locale } = useLocale()
-  const { country, origin, place, status, situation } = useShell()
-  return country ? { locale, origin, country, place: place?.code ?? null, status, situation } : null
+  const { country, origin, place, status, situation, work } = useShell()
+  return country ? { locale, origin, country, place: place?.code ?? null, status, situation, work } : null
 }

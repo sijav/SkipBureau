@@ -5,7 +5,7 @@ import { useQuery } from 'urql'
 import { REGIONS, regionName } from 'src/core/country'
 import { CountriesQuery, overThePage, ReaderDetailsQuery } from 'src/core/graphql'
 import { useLocale } from 'src/core/i18n'
-import { samePageAs, samePageAt, samePageCleared, samePageFrom, samePageInRole, samePageWhere } from 'src/core/router'
+import { samePageAs, samePageAt, samePageAtWork, samePageCleared, samePageFrom, samePageInRole, samePageWhere } from 'src/core/router'
 import { useShell } from 'src/core/shell'
 import { lazyPart } from 'src/shared/lazy-part'
 import { ContextControl } from './ContextControl'
@@ -37,7 +37,7 @@ export const YourDetails = () => {
   const { t, i18n } = useLingui()
   const { locale } = useLocale()
   // The panel's open state is the shell's, so a rule's answer on the page can open it too (SB-257).
-  const { origin, country, countryName, place, status, situation, detailsOpen: open, setDetailsOpen: setOpen } = useShell()
+  const { origin, country, countryName, place, status, situation, work, detailsOpen: open, setDetailsOpen: setOpen } = useShell()
   const location = useLocation()
   const navigate = useNavigate()
   const id = useId()
@@ -82,6 +82,8 @@ export const YourDetails = () => {
       .sort((a, b) => collator.compare(a.name, b.name))
   }, [details, locale, i18n])
   const situationName = situation ? situations.find((row) => row.code === situation)?.name : undefined
+  // SB-313: where the reader works is one of the same places, so the City row's list names it too.
+  const workName = work ? places.find((row) => row.code === work)?.name : undefined
 
   const originName = origin ? (ours.get(origin) ?? regionName(origin, locale)) : null
 
@@ -120,11 +122,13 @@ export const YourDetails = () => {
             statuses={statuses}
             situation={situation && situationName ? { code: situation, name: situationName } : null}
             situations={situations}
+            work={work && workName ? { code: work, name: workName } : null}
             onOrigin={(code) => go(samePageFrom(location, code))}
             onCountry={(code) => go(samePageAt(location, code))}
             onPlace={(code) => go(samePageWhere(location, code))}
             onStatus={(code) => go(samePageAs(location, code))}
             onSituation={(code) => go(samePageInRole(location, code))}
+            onWork={(code) => go(samePageAtWork(location, code))}
             onClear={() => go(samePageCleared(location))}
           />
         </Suspense>
