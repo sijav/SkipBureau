@@ -53,6 +53,10 @@ halves of that and was right:
 So one pure `canonicalNationality` in `eligibility.ts`, beside `Profile` and the fit helpers,
 applied at the top of `RulesService.resolveChecked`.
 
+**SB-341 renamed it `canonicalProfile`** and gave it the reader's situation too, which had the same
+silent fault, so the name would otherwise have described half of what it does. The placement and
+the reasoning below are unchanged.
+
 **That is the single funnel every resolution passes through**, which was read rather than assumed:
 `resolve` reaches it once, `move` twice, one profile per side, `changes` twice, once per date, and
 `guide.service.ts` reaches it through `resolve` whenever a guide links obligations. Where a guide

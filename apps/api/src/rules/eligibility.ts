@@ -117,14 +117,27 @@ export const fitToProfile = (
 }
 
 /**
- * A reader's nationality as the rules hold it (SB-277).
+ * A reader's codes as the rules hold them (SB-277, SB-341).
  *
- * An ISO 3166 code is the same code in either case, and memberships are stored lower case, so a caller sending the
- * conventional upper-case code matched no group and was told there was no rule. A nationality is the one reader code
- * nothing validates: a region or a status in the wrong case is refused by name, and this was answered silently.
+ * The nationality and the situation are the two a caller gives that nothing validates, and both are stored lower
+ * case: an ISO 3166 code is the same code in either case, and the situations are `worker` and `company-founder`. An
+ * upper-case nationality therefore matched no membership and the reader was told there was no rule, and an upper-case
+ * situation contradicted every version scoped to it, which took the duty out of the answer altogether, with no
+ * question and no error. A region or a status in the wrong case is refused by name instead, because those are checked
+ * against stored rows.
+ *
+ * Only these two. A field added here is a field nobody is validating, which is a decision to take rather than a
+ * tidy-up to make.
  */
-export const canonicalNationality = (profile: Profile): Profile =>
-  profile.nationality === undefined ? profile : { ...profile, nationality: profile.nationality.toLowerCase() }
+export const canonicalProfile = (profile: Profile): Profile => {
+  const nationality = profile.nationality?.toLowerCase()
+  const situation = profile.situation?.toLowerCase()
+  return {
+    ...profile,
+    ...(nationality === undefined ? {} : { nationality }),
+    ...(situation === undefined ? {} : { situation }),
+  }
+}
 
 export const matchesProfile = (criteria: readonly Criterion[], profile: Profile, groups: GroupsAt, trees: Trees): boolean => {
   const fit = fitToProfile(criteria, profile, groups, trees)

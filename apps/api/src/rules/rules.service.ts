@@ -3,7 +3,7 @@ import { FALLBACK } from '../locale.js'
 import { PrismaService } from '../prisma/prisma.service.js'
 import { compare, sameFacts, type Entry, type Fact, type Note, type Side } from './diff.js'
 import {
-  canonicalNationality,
+  canonicalProfile,
   fitToProfile,
   inConflict,
   mostSpecific,
@@ -152,7 +152,7 @@ export class RulesService {
     // through resolve, so the nationality is canonicalised here rather than at the resolvers, where the next caller
     // to take a reader would simply miss it. It is the one reader code nothing validates: a region or a status in
     // the wrong case is refused by name, and this was answered silently with no rule at all.
-    const profile = canonicalNationality(given)
+    const profile = canonicalProfile(given)
     const groups = await this.groupsAt(profile.nationality, at)
     const trees = await this.treesOf(countryCode)
 

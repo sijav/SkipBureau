@@ -500,6 +500,23 @@ const toldInSituation = async (duties: readonly [slug: string, opening: string][
 test("a reader starting a company is told each duty that follows registration, its facts on their pages and its condition first in its notes, a reader who has not said is asked, and a student is not told them", () =>
   toldInSituation(COMPANY_DUTIES, 'company-founder'))
 
+// SB-341: fitOne compares a reader's situation with ===, and situations are stored lower case, so an upper-case one
+// contradicted every situation-scoped version and the duty left the answer entirely: not a question, not an error,
+// absent. Nothing validates a situation, so nothing refused it either. Whole entries rather than their presence: a
+// case that answers something else is as wrong as one that answers nothing.
+test('a duty scoped to a situation answers the same whether the situation is given in upper or lower case', async () => {
+  const founderDuty = COMPANY_DUTIES[0]?.[0] ?? ''
+  const workerDuty = WORKER_DUTIES[0]?.[0] ?? ''
+
+  const founder = await entryFor(founderDuty, { situation: 'company-founder' })
+  expect(founder, `${founderDuty} answers a founder at all`).toBeDefined()
+  expect(await entryFor(founderDuty, { situation: 'COMPANY-FOUNDER' }), 'COMPANY-FOUNDER is company-founder').toEqual(founder)
+
+  const worker = await entryFor(workerDuty, { situation: 'worker' })
+  expect(worker, `${workerDuty} answers a worker at all`).toBeDefined()
+  expect(await entryFor(workerDuty, { situation: 'WORKER' }), 'WORKER is worker').toEqual(worker)
+})
+
 // SB-213. Every assertion above compares the served note with the file's own note, so it passes for any wording at
 // all, which is how a sentence the regulation does not state was served from SB-196 until now. This one states the
 // text the regulation supports, so changing the note means deciding it here too, and names the withdrawn clause:

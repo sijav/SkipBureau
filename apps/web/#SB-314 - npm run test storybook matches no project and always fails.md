@@ -51,9 +51,20 @@ on the first that fails, so its failure names the project and the story rather t
 
 **The matrix moves to a module both sides read.** The check refused the two shapes that drift or
 guess: parsing `vitest list` output, and typing the four names into `package.json`. So
-`COMBINATIONS` leaves `vitest.config.ts` for a small `story-matrix.ts` at the web root, which both
-the config and the wrapper import, each generating `storybook:${mode}-${direction}` from it. A
-fifth combination then reaches the script by existing, not by being remembered.
+`COMBINATIONS` leaves `vitest.config.ts` for a small matrix module which both the config and the
+wrapper import, each generating `storybook:${mode}-${direction}` from it. A fifth combination then
+reaches the script by existing, not by being remembered.
+
+**Two corrections to this plan, from SB-314's roast.** It said the module sits at the web root: it
+does not, it is `src/story-matrix.ts`, because eslint's `no-restricted-imports` refuses a relative
+parent import from a test in `src` and the rule was obeyed rather than suppressed. And it said both
+new files were added to `tsconfig.node.json`'s include: only `scripts/story-tests.ts` was, the
+matrix being covered as a `src` file by the app project and pulled in by the runner's import. The
+type coverage is real; the sentence describing it was not.
+
+The roast also found the drift is only **partly** removed, which this plan claimed outright: the
+matrix is shared, but the project NAME is still generated twice, once in the module and once in the
+config. That is **SB-346**.
 
 The wrapper is `scripts/story-tests.ts`, run by `tsx`, which this workspace already has and which
 the API's own scripts already use. It must do three things the check named: run each project by its
