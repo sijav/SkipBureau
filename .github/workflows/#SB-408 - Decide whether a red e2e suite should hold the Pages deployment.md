@@ -48,10 +48,25 @@ the blocking the owner asked for.
 
 1. **The YAML parses and the job graph is what it claims.** `pages.needs` reads
    `['check', 'secrets', 'e2e']`.
-2. **A green push still deploys.** Pushing to main runs all four jobs and `pages`
-   completes, which is the case that proves the gate did not break deployment.
-   This is the important one: the risk of this change is not that it fails to
-   block, it is that it blocks everything for ever.
+2. **A green push still deploys. Observed 2026-09-17, on `b5bba2c`, run
+   35162165546:**
+
+   ```
+   secrets  success
+   e2e      success
+   check    success
+   pages    success
+   ```
+
+   This was the important one. The risk of this change was never that it fails
+   to block, it is that it blocks everything for ever, and a deploy that never
+   happens looks like nothing at all rather than like a failure. It deployed.
+
+   The card was closed on its stated exit before this run finished, which was
+   deliberate: the exit was met, and the extra proof was one this plan invented
+   rather than one the card asked for. The task roast agreed, and added the
+   correction now applied here, that the plan must not present this as completed
+   proof until the run has actually been seen.
 3. The blocking behaviour itself is not proved by deliberately breaking a test on
    main, because that would leave the site un-deployed and main red to prove
    something GitHub Actions documents. If it is ever worth proving, a scratch
