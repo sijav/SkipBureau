@@ -610,6 +610,10 @@ msgstr "Explore"
 msgid "Exports for an established business"
 msgstr "Exports for an established business"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Fees under Law 492 that company formation is exempt from"
+msgstr "Fees under Law 492 that company formation is exempt from"
+
 #: src/screens/home/Home.tsx
 msgid "Figures, timings and requirements shown throughout this design are sample content for review, not verified legal information."
 msgstr "Figures, timings and requirements shown throughout this design are sample content for review, not verified legal information."

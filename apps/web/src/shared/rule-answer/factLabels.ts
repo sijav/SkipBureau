@@ -68,7 +68,11 @@ export const FACT_LABELS: Readonly<Record<string, MessageDescriptor>> = {
   // Turkey's limited company, and the duties after forming one.
   minimumCapital: msg`Minimum capital for a limited company`,
   cashCapitalPaidWithin: msg`Deadline to pay cash capital after registration`,
+  // SB-204: the fee fact's key now names the scope of the law it rests on. formationFee stays
+  // because the version carrying it is history rather than deleted, and an answer asked for a day
+  // in 2026-09-14 to 15 is still served from it.
   formationFee: msg`Registry charge on company formation`,
+  feesUnderLaw492: msg`Fees under Law 492 that company formation is exempt from`,
   competitionLevy: msg`Competition Authority levy on subscribed capital`,
   requestAfterCommencement: msg`Deadline to request electronic tax notifications after starting business`,
   firstAfterLiability: msg`Deadline for the first tax certificate after tax liability begins`,

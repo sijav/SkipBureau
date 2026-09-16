@@ -610,6 +610,10 @@ msgstr "کاوش"
 msgid "Exports for an established business"
 msgstr "صادرات کسب‌وکار موجود"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Fees under Law 492 that company formation is exempt from"
+msgstr "هزینه‌هایی از قانون ۴۹۲ که تأسیس شرکت از آن‌ها معاف است"
+
 #: src/screens/home/Home.tsx
 msgid "Figures, timings and requirements shown throughout this design are sample content for review, not verified legal information."
 msgstr "ارقام، زمان‌بندی‌ها و الزاماتی که در سراسر این طرح نشان داده شده‌اند محتوای نمونه برای بازبینی هستند، نه اطلاعات حقوقی تأییدشده."
