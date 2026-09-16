@@ -1,10 +1,8 @@
-import { PrismaPg } from '@prisma/adapter-pg'
-import { databaseUrl } from './database-url.js'
-import { PrismaClient } from './generated/prisma/client.js'
+import type { PrismaClient } from './generated/prisma/client.js'
 import type { GuideDetailSeed } from './sample-types.js'
 import { fillGuideDetail, linkObligationGroups } from './guide/guide-fill.js'
 import { RESEARCHED_GUIDES } from './guide/researched-guides.js'
-import { TASKS } from './tasks.js'
+import { writeGoals } from './goals.js'
 
 /**
  * Sample content, illustrative and not verified, mostly the design's own
@@ -87,8 +85,6 @@ export const WAS_FIRST_WEEK = { en: 'Your first week', fa: 'هفته اول شم
 
 const CATEGORY_TEXT_FILLS = ['startReason', 'askPrompt'] as const
 
-const HUB_FIELDS = ['heading', 'intro', 'areasIntro', 'dependsNote', 'otherRoutesIntro'] as const
-type HubCopy = Record<(typeof HUB_FIELDS)[number], string>
 
 type QuestionText = { question: string; answer: string }
 
@@ -109,32 +105,7 @@ export type CountrySeed = {
 export const COUNTRIES: CountrySeed[] = []
 
 export const seedContent = async (prisma: PrismaClient, countries: readonly CountrySeed[] = COUNTRIES): Promise<void> => {
-  for (const task of TASKS) {
-    const row = await prisma.task.upsert({
-      where: { slug: task.slug },
-      update: {},
-      create: { slug: task.slug, position: task.position },
-    })
-
-    for (const [locale, title, subtitle, hub] of [
-      ['en-US', task.en, task.enSub, 'hub' in task ? task.hub.en : null],
-      ['fa-IR', task.fa, task.faSub, 'hub' in task ? task.hub.fa : null],
-    ] as const) {
-      const where = { taskId_locale: { taskId: row.id, locale } }
-      const existing = await prisma.taskText.findUnique({ where })
-      if (!existing) {
-        await prisma.taskText.create({ data: { taskId: row.id, locale, title, subtitle, ...hub } })
-        continue
-      }
-
-      // The hub's copy came after the goals did, so a row that exists may
-      // still have it empty. Fill-only means empty columns too, never a
-      // column an editor has written.
-      const missing: Partial<HubCopy> = {}
-      for (const field of HUB_FIELDS) if (hub && existing[field] === null) missing[field] = hub[field]
-      if (Object.keys(missing).length > 0) await prisma.taskText.update({ where, data: missing })
-    }
-  }
+  await writeGoals(prisma)
 
   for (const country of countries) {
     for (const category of country.categories) {
@@ -433,24 +404,3 @@ export const retireSample = async (
     { timeout: 120_000 },
   )
 }
-
-const main = async (): Promise<void> => {
-  const prisma = new PrismaClient({ adapter: new PrismaPg({ connectionString: databaseUrl() }) })
-  try {
-    await seedContent(prisma)
-    console.log('sample content: the goals are written, and no country sample content is filled')
-    for (const [countryCode, slugs] of [
-      ['tr', TURKEY_SAMPLE_SLUGS],
-      ['de', GERMANY_SAMPLE_SLUGS],
-    ] as const) {
-      const retired = await retireSample(prisma, countryCode, slugs)
-      console.log(
-        `sample content: retired ${countryCode}'s ${retired.questions} questions, ${retired.guides} guides and ${retired.areas} areas`,
-      )
-    }
-  } finally {
-    await prisma.$disconnect()
-  }
-}
-
-if (process.argv[1]?.includes('sample-content')) void main()

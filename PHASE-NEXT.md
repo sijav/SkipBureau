@@ -3,27 +3,36 @@
 Deliberate scope decisions, recorded so they are undone on purpose rather than
 forgotten. Debt, meaning things that are wrong, goes in `TECH-DEBT.md`.
 
-## Sample content is published on the test deployment
+## Sample content was published on the test deployment, and is gone
 
 **Decided 2026-09-10**, from the owner's order to build the screens and publish
-them so they can be seen, on a database the owner calls test-only.
+them so they can be seen, on a database the owner calls test-only. **Undone on
+2026-09-16** (SB-199): nothing fills sample content on a deployed database any
+more, and nothing on the start path could.
 
-`apps/api/docker-entrypoint.sh` runs `node dist/sample-content.js` on every
-start. It writes the twelve goals and retires the sample rows listed below. It
-creates no country's sample content any more.
+`apps/api/docker-entrypoint.sh` runs, in order: the migration recovery, the
+migrations, `dist/bootstrap.js`, `dist/load-research-rules.js`,
+`dist/load-researched-guides.js`, then the server. **`dist/sample-content.js` is
+not among them.** The twelve goals and their text, which are names rather than
+advice, moved into the bootstrap beside the countries, which is where the
+minimum a deployed database needs already lived.
 
 **Both countries' samples are retired.** The owner, asked on 2026-09-15 what
 happens to Turkey's sample rows once researched guides land, answered to delete
 all of them, and any visitor's suggestion on a sample guide with them, and said
-Germany's goes the same way. Turkey's went in SB-282 and Germany's in SB-301:
-the same start deletes their sample areas, guides and common questions by slug
-and never fills them again, and `apps/api/prisma/sample-turkey.ts` and
-`sample-germany.ts` keep them as test fixtures only. Germany's Anmeldung guide
-is not on that list, because the researched loader owns its row (SB-299).
+Germany's goes the same way. Turkey's went in SB-282 and Germany's in SB-301,
+deleted by slug and never filled again, and `apps/api/prisma/sample-turkey.ts`
+and `sample-germany.ts` keep them as test fixtures only. Germany's Anmeldung
+guide is not on those lists, because the researched loader owns its row
+(SB-299). SB-198 read the deployment back and found only the research.
 
-**Before a real launch:** nothing is left to remove here, since the step now
-writes only the twelve goals, which are names and not advice. What remains is
-SB-198, the proof that no sample row is served.
+**If a database ever carries those rows again**, restored from a backup taken
+before the retirement or seeded by hand, `node dist/retire-sample.js` deletes
+them by the same lists and says what it deleted. It runs only when somebody
+runs it, and `sample-content.ts` is not executable at all, so nothing in the
+image can refill a sample row by being run in error.
+
+**Before a real launch:** nothing here is left to remove.
 
 ## Task tile availability comes from content
 

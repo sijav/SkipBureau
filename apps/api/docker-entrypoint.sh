@@ -28,15 +28,6 @@ node dist/bootstrap.js
 echo "loading researched rules"
 node dist/load-research-rules.js
 
-# The global goals, and the retirement of both countries' sample rows, which the
-# owner chose on 2026-09-15 to delete (SB-282 for Turkey, SB-301 for Germany).
-# It fills no country's sample content any more: both samples are test fixtures
-# under prisma/ now. What it still writes is the twelve goals and their text,
-# which nothing else does. NOT the rules in prisma/seed.ts, whose history is
-# append-only and would duplicate.
-echo "writing the goals, and retiring the sample rows"
-node dist/sample-content.js
-
 # Guides written from the agreed research, their areas and their links (SB-258).
 # Not sample content: this stays when the line above comes out before a launch,
 # and it makes sure of the goal it hangs its areas on itself.

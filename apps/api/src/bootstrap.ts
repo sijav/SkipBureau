@@ -1,6 +1,7 @@
 import { PrismaPg } from '@prisma/adapter-pg'
 import { databaseUrl } from './database-url.js'
 import { PrismaClient } from './generated/prisma/client.js'
+import { writeGoals } from './goals.js'
 
 /**
  * The minimum a deployed database needs to answer anything, and nothing more.
@@ -41,17 +42,22 @@ const NAMES = [
   { countryCode: 'de', locale: 'fa-IR', name: 'آلمان' },
 ]
 
-const bootstrap = async (): Promise<void> => {
-  const prisma = new PrismaClient({ adapter: new PrismaPg({ connectionString: databaseUrl() }) })
+export const bootstrap = async (prisma: PrismaClient): Promise<void> => {
+  const { count } = await prisma.country.createMany({ data: COUNTRIES, skipDuplicates: true })
+  console.log(`bootstrap: ${count} country row(s) added, ${COUNTRIES.length - count} already present`)
+  const names = await prisma.countryText.createMany({ data: NAMES, skipDuplicates: true })
+  console.log(`bootstrap: ${names.count} country name(s) added`)
+  // SB-199: the twelve goals, which the sample content used to write on every start and which nothing else writes.
+  console.log(`bootstrap: ${await writeGoals(prisma)} goal(s) written or already present`)
+}
 
+const main = async (): Promise<void> => {
+  const prisma = new PrismaClient({ adapter: new PrismaPg({ connectionString: databaseUrl() }) })
   try {
-    const { count } = await prisma.country.createMany({ data: COUNTRIES, skipDuplicates: true })
-    console.log(`bootstrap: ${count} country row(s) added, ${COUNTRIES.length - count} already present`)
-    const names = await prisma.countryText.createMany({ data: NAMES, skipDuplicates: true })
-    console.log(`bootstrap: ${names.count} country name(s) added`)
+    await bootstrap(prisma)
   } finally {
     await prisma.$disconnect()
   }
 }
 
-void bootstrap()
+if (process.argv[1]?.includes('bootstrap')) void main()
