@@ -64,8 +64,10 @@ test('a country added to the database becomes browsable, and removing it takes i
 
   // A row, and nothing else. No rebuild, no file, no restart.
   await page.goto(`/en/${code}`)
-  await expect(page.getByTestId('resolved-country')).toHaveText(code)
-  await expect(page.getByTestId('country-name')).toHaveText('Portugal')
+  // SB-400: the country is read from what a reader sees. This waited on `resolved-country` and `country-name`, one a
+  // test id no screen has rendered since 2026-09-10 and the other a component nothing composes (SB-402), so it could
+  // never pass. The country home puts the country's name in its heading, which is the same fact a reader receives.
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Portugal')
 
   await withPrisma((prisma) => prisma.country.deleteMany({ where: { code } }))
 
@@ -73,7 +75,7 @@ test('a country added to the database becomes browsable, and removing it takes i
   // answer. A cached result here renders a country that no longer exists,
   // which is the guard being wrong in exactly the case it exists for.
   await navigate(page, '/en/tr')
-  await expect(page.getByTestId('country-name')).toHaveText('Turkey')
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Turkey')
 
   await navigate(page, `/en/${code}`)
   await expect(page.getByRole('heading', { level: 1 }), 'a deleted country was served from cache').toHaveText(
@@ -91,5 +93,7 @@ test('a country that never existed is Not Found, in both languages', async ({ pa
 
 test('a country we do have renders its name in the running app', async ({ page }) => {
   await page.goto('/en/tr')
-  await expect(page.getByTestId('country-name')).toHaveText('Turkey')
+  // SB-400: the heading, not `country-name`. That test id belongs to CountryName, which no screen composes (SB-402),
+  // so this waited for an element the running app never renders.
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Turkey')
 })

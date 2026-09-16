@@ -8,7 +8,10 @@ import { expect, test, type Page } from '@playwright/test'
  */
 const WIDTHS = [360, 390, 599, 600, 768, 899, 900, 1199, 1200, 1440]
 
-const ROUTES = ['/en/tr', '/fa/tr', '/en/tr/g/get-a-sim-card', '/fa/tr/t/start-a-business', '/en/nope']
+// SB-400: the guide address named a slug that does not exist, so it canonicalised to Not Found and this list has been
+// checking the 404 page's overflow twice while claiming to check a guide's. The Persian one keeps the retired `/t/`
+// segment on purpose: `start-a-business` is a real task, so it proves a shared short link still lays out at every width.
+const ROUTES = ['/en/tr', '/fa/tr', '/en/TR/guides/sim-card', '/fa/tr/t/start-a-business', '/en/nope']
 
 /** Nothing may stick out past the viewport, in either direction. */
 const overflowing = (page: Page) =>
@@ -46,13 +49,16 @@ for (const route of ROUTES) {
 }
 
 test('the reading measure is a cap, and gives way on a phone', async ({ page }) => {
+  // SB-400: on a guide, not on Home. DESIGN.md states the 720 measure inside the Guide Detail spec, and Guide.tsx puts
+  // the h1 in a Stack with maxWidth readingWidth. Home promises no such cap: its design gives it a 1280 content column
+  // and a 760 ask field, so asserting 720 there was asking a page to honour another page's rule, and it measured 1280.
   await page.setViewportSize({ width: 1440, height: 900 })
-  await page.goto('/en/tr')
+  await page.goto('/en/TR/guides/sim-card')
   const wide = await page.getByRole('heading', { level: 1 }).boundingBox()
   expect(wide?.width ?? 0).toBeLessThanOrEqual(720)
 
   await page.setViewportSize({ width: 390, height: 844 })
-  await page.goto('/en/tr')
+  await page.goto('/en/TR/guides/sim-card')
   const narrow = await page.getByRole('heading', { level: 1 }).boundingBox()
   expect(narrow?.width ?? 0).toBeLessThan(390)
   expect(narrow?.width ?? 0).toBeGreaterThan(300)
