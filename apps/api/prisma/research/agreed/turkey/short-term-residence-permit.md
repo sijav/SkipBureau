@@ -23,9 +23,10 @@ until your application is decided[^yukk-reg-21-9-cc-until-decided]. An older app
 ninety days[^eikamet-guide-90-days]. We have not verified what happens when a printed validity runs out
 during a longer wait.
 
-**Leaving and coming back while you wait.** With the directorate-approved
-application document, your passport, and evidence you paid the fee unless you
-are recorded as exempt, you may travel within the requested permit period and
+**Leaving and coming back while you wait.** While your residence permit
+application is awaiting a decision, you may travel during the requested permit
+period with the residence permit application document approved by the provincial
+migration directorate[^goc-sss-belge-onay] and the required residence-charge receipts. You may
 return without a visa if you return within fifteen days of each departure[^yukk-reg-21-9-d-fifteen-days][^eikamet-guide-fifteen-days].
 Beyond fifteen days[^yukk-reg-21-9-d-fifteen-days], ordinary visa rules apply. The appointment form on its own
 is not the document that does this.
@@ -119,6 +120,8 @@ All read 2026-09-12.
 [^yukk-reg-21-9-d-fifteen-days]: <https://www.mevzuat.gov.tr/MevzuatMetin/yonetmelik/7.5.21460.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "Yabancılar ve Uluslararası Koruma Kanununun Uygulanmasına İlişkin Yönetmelik, mevzuat.gov.tr birleştirilmiş metin, PDF sayfa 10, Madde 21 dokuzuncu fıkra (d) bendi", "evidence": ["(9) İkamet izni müracaat belgesinin düzenlenmesine ilişkin esaslar ve belgenin yabancıya sağladığı haklar şunlardır:", "d) Yabancılar, harçtan muaf olduğu belgede belirtilenler hariç, ikamet izni başvurusunun sonucunu beklemeksizin ikamet harçlarını ödediklerini kanıtlamak ve talep ettikleri ikamet izni süresinin içinde olmak kaydıyla başvuru belgeleriyle birlikte sınır kapılarından birden fazla çıkış yapabilirler ve her defasında on beş gün içinde döndükleri takdirde ülkeye girişlerinde vize koşulundan muaf tutulurlar. On beş günü aşmaları halinde vize genel hükümlerine göre işlem yapılır. 10 uncu madde gereğince yüz seksen günde doksan gün kalma hükmü saklıdır."]}
 
 [^eikamet-guide-fifteen-days]: <https://e-ikamet.goc.gov.tr/Ikamet/IstenenBelgeler/BasvuruFormuBelgelerIliskinAciklamalar> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "e-İkamet başvuru belgelerine ilişkin açıklamalar, 9 Kasım 2016 tarihli PDF, sayfa 4, 13. İkamet izni müracaat belgesi, üçüncü paragraf", "evidence": ["İkamet izni için müracaat ettikten sonra, ikamet izni belgesinin çıkmasını beklemeden tekrar dönmek üzere kısa süreliğine Türkiye'den ayrılacak yabancılar, talep ettikleri ikamet izni süresinin içinde olmak ve harç makbuzlarını (harçtan muaf olduğu belgede belirtilenler hariç olmak üzere) ibraz etmek kaydıyla ikamet izni müracaat belgeleriyle sınır kapılarından çıkışta cezalı ikamet harcı ödemeden ülkeden çıkış; on beş (15) gün içinde döndükleri takdirde de vizeye tabi ülke vatandaşları olsalar dahi vize almadan ülkeye giriş yapabileceklerdir."]}
+
+[^goc-sss-belge-onay]: <https://www.goc.gov.tr/ikamet-sss> | {"status": "verified", "read": "2026-09-16", "method": "raw page", "locator": "İkamet İzni Sıkça Sorulan Sorular, ikamet izni belgesi düzenlenme süreci içerisinde yurt dışına çıkmak mümkün müdür sorusunun cevabı", "evidence": ["İlk başvuruda bulunan yabancılara randevu gününde il göç idaresi müdürlüğü tarafından ikamet izni müracaat belgesi düzenlenmektedir.", "Bu belgenin il göç idaresi müdürlüğü tarafından onaylanması gerekmektedir.", "Bu müracaat belgesi ve harç makbuzlarının onaylı örnekleri kişilere her defasında 15 gün içerisinde dönmek şartıyla çoklu çıkış-giriş hakkı sağlamaktadır."]}
 
 [^hmb-97-residence-card-964]: <https://ms.hmb.gov.tr/uploads/sites/3/2025/12/2026-Degerli-Kagitlar-Tebligi-a3f95f2236d8ad45.pdf> | {"status": "verified", "read": "2026-09-14", "method": "rendered PDF", "locator": "Muhasebat Genel Müdürlüğü Genel Tebliği (Sıra No: 97) Değerli Kağıtlar, PDF sayfa 1 Madde 3 tablosu satır 4, PDF sayfa 2 Madde 5", "evidence": ["MADDE 3- (1) 210 sayılı Kanuna ekli Değerli Kağıtlar Tablosunda yer alan değerli kağıtların bedelleri aşağıdaki şekilde belirlenmiştir:", "4 - İkamet İzni (Değişik:28/7/2016-6735/27 md.) 964,00", "MADDE 5- (1) Bu Tebliğ 1/1/2026 tarihinde yürürlüğe girer."]}
 

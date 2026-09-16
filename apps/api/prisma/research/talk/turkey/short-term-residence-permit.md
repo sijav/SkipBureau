@@ -1154,3 +1154,99 @@ Confirm each, or give the wording you would put instead. Change no other sentenc
 No other mismatch in the supplied markers and quotations.
 
 URLs opened: none.
+
+---
+
+## Asked, 2026-09-16 06:30 UTC
+
+SB-215, on the short-term residence permit note this case produced.
+
+The deployed API serves this, and the agreed document and the guide a reader reads carry the same
+claim in their own words. The note:
+
+  "... The approved application document, with your passport and proof the charges are paid unless
+  you are recorded as exempt, lets you leave and come back without a visa within fifteen days of
+  each departure, within the period you asked for; beyond fifteen days, ordinary visa rules apply.
+  ..."
+
+The agreed document's paragraph, which the guide repeats word for word:
+
+  "**Leaving and coming back while you wait.** With the directorate-approved application document,
+  your passport, and evidence you paid the fee unless you are recorded as exempt, you may travel
+  within the requested permit period and return without a visa if you return within fifteen days
+  of each departure. Beyond fifteen days, ordinary visa rules apply. The appointment form on its
+  own is not the document that does this."
+
+Both say the document is approved. The provision they rest on says the opposite condition applies.
+yukk-reg-21-9-d-fifteen-days, recorded in the same document, reads:
+
+  "d) Yabancılar, harçtan muaf olduğu belgede belirtilenler hariç, ikamet izni başvurusunun
+  sonucunu beklemeksizin ikamet harçlarını ödediklerini kanıtlamak ve talep ettikleri ikamet izni
+  süresinin içinde olmak kaydıyla başvuru belgeleriyle birlikte sınır kapılarından birden fazla
+  çıkış yapabilirler ve her defasında on beş gün içinde döndükleri takdirde ülkeye girişlerinde
+  vize koşulundan muaf tutulurlar. On beş günü aşmaları halinde vize genel hükümlerine göre işlem
+  yapılır."
+
+Without waiting for the result, with the application documents. Two other definitions already in
+the document bear on it: yukk-reg-21-9-cc-until-decided, "Başvuru sonuçlanıncaya kadar, bu belge
+Türkiye'de kalma hakkı sağlar", and eikamet-guide-90-days, "Başvurusu alınan şahsa idare
+tarafından 'İkamet İzni Müracaat Belgesi' verilir."
+
+Nothing new has been read for this. No definition is added and no read date moves; this is our
+English being corrected against evidence already recorded.
+
+The wording proposed, for the document sentence, with the note's first sentence to match and keep
+its own surrounding conditions:
+
+  "With the residence permit application document the administration issues, your passport, and
+  proof that you paid the residence charges unless the document records you as exempt, you may
+  leave more than once during the period requested and return without a visa if you return within
+  fifteen days each time. This travel right does not wait for the result of your application."
+
+Three questions.
+
+1. Is that the wording you would use, and does the second sentence earn its place? My doubt is
+   whether "the application document the administration issues" alone still lets a reader infer a
+   decision, since the same part of the guide tells them the document covers them until the
+   application is decided. If the condition is better carried inside the first sentence, or in
+   fewer words, say so and give it.
+
+2. Does anything else in that paragraph or in the note overstate what these three definitions
+   support? Check "The appointment form on its own is not the document that does this", and the
+   note's own opening about applying through e-İkamet before the permitted stay ends.
+
+3. The note and the document must say the same thing in their own registers, the note addressed to
+   one reader in a rule answer and the document as the agreed research. Give the note's sentence
+   too, if it should differ from the document's.
+
+If a round raises nothing new, answer with a single "No."
+
+## Answered
+
+The proposed correction rests on a distinction: **approval of the application document is not approval of the residence permit application.** “Without waiting for the result” does not contradict “directorate-approved document.”
+
+The Presidency’s FAQ opened in our earlier pass expressly says: “Bu belgenin il göç idaresi müdürlüğü tarafından onaylanması gerekmektedir.” I would therefore retain that condition. [Previously opened FAQ, question 3](https://www.goc.gov.tr/ikamet-sss).
+
+1. **Document wording:**
+
+   > While awaiting a decision on your residence permit application, you may travel within the requested permit period using your directorate-approved residence permit application document, your passport, and proof that you paid the residence permit charge unless the document records you as exempt. You may return without a visa within fifteen days of each departure.
+
+   This carries the pending-decision point directly; your proposed additional sentence is unnecessary. Keep “Beyond fifteen days, ordinary visa rules apply.”
+
+2. **Limits of the three definitions:** They do not independently establish the passport requirement, directorate approval, the distinction from the appointment form, or applying online before lawful stay expires. That is an attribution limitation, not evidence that those statements are wrong. The previously opened FAQ supports directorate approval and issuance of the application document at the first applicant’s appointment. **I would retain the appointment-form distinction.** The online application deadline needs its separate supporting source; these three definitions cannot establish it.
+
+3. **Note wording:**
+
+   > While you wait for a decision, your directorate-approved residence permit application document, together with your passport and proof that you paid the residence permit charge unless the document records you as exempt, lets you leave and return without a visa within fifteen days of each departure, during the period you requested; beyond fifteen days, ordinary visa rules apply.
+
+URLs opened this turn: none.
+
+---
+
+## Asked, 2026-09-16 06:33 UTC
+
+You are right and I was wrong to treat approval as the defect. I fetched the Presidency FAQ myself today from the official host and matched its passages verbatim: the directorate issues the application document at the appointment for a first application, the document must be approved by the provincial directorate, and it is the approved copies of that document with the fee receipts that give the multiple exit and entry right on returning within fifteen days. So the phrase is accurate. The real fault is that this page is not a recorded definition in our agreed document at all: it is listed only under Sources as consulted on 2026-09-12, so the word directorate-approved has been standing on nothing our own rules would accept, while the two definitions the sentence does cite say only the application document. I am therefore recording a new definition for that FAQ, read 2026-09-16, with those three passages as evidence, attaching its marker to the sentence, and taking both of your wordings, the document sentence and the note, which carry the pending decision directly and so remove the ambiguity that started this. Your point that the passport requirement, the appointment-form distinction and the online deadline are not established by the three definitions is accepted as an attribution gap and will be filed as its own card rather than fixed by inventing sources here. If that raises nothing new, answer No.
+
+## Answered
+
+No.
