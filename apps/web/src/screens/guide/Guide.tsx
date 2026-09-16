@@ -169,11 +169,24 @@ export const Guide = () => {
     }
     if (answer?.answer === 'noRule') return [<RuleAnswer key={obligation.slug} title={title} state="noRule" lines={[]} notes={[]} />]
     const everyone = { lines: general ? obligation.facts.flatMap(lineOf) : [], notes: general ? notesOf(obligation.notes) : [] }
-    if (answer?.answer === 'needsReview') {
-      return [<RuleAnswer key={obligation.slug} title={title} state="needsReview" {...everyone} reason={answer.reason} />]
-    }
+    // SB-276: hoisted above needsReview, because a review can name the detail that could settle it and the API sends
+    // it (guide.service.ts returns side.needs with the ambiguity). A pure lookup, so the !general && !asks guard below
+    // is unchanged by moving it earlier.
     const need = answer?.needs[0]
     const asks = need ? detailWords[need] : undefined
+    if (answer?.answer === 'needsReview') {
+      return [
+        <RuleAnswer
+          key={obligation.slug}
+          title={title}
+          state="needsReview"
+          {...everyone}
+          reason={answer.reason}
+          asks={asks}
+          onAsk={() => setDetailsOpen(true)}
+        />,
+      ]
+    }
     if (!general && !asks) return []
     return [
       <RuleAnswer

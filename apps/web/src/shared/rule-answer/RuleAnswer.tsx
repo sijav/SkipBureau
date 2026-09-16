@@ -120,7 +120,27 @@ export const RuleAnswer = ({ title, state, lines, notes, asks, reason, onAsk }: 
 
       {state === 'needsReview' && reason && (
         <InfoPanel kind="warning" heading={<Trans>Two rules could apply to you</Trans>}>
-          {reason}
+          {/* SB-393: spans, not a Stack. InfoPanel puts its children in a Typography paragraph, and a div inside a p
+              is a hydration error; a button is phrasing content, so it is valid here. */}
+          <Box component="span" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '12px' }}>
+            <span>{reason}</span>
+            {/* SB-276: the detail that could settle it. "Could help" rather than a promise: needs says a detail may
+                break the ambiguity, and the resolver can still answer needsReview once it is given. */}
+            {asks && (
+              <span>
+                {onAsk ? (
+                  <Trans>{asks} could help settle which rule applies. Tell us and we will check again.</Trans>
+                ) : (
+                  <Trans>{asks} could help settle which rule applies. We cannot take this detail from you yet.</Trans>
+                )}
+              </span>
+            )}
+            {asks && onAsk && (
+              <Button variant="secondary" onClick={onAsk}>
+                <Trans>Tell us</Trans>
+              </Button>
+            )}
+          </Box>
         </InfoPanel>
       )}
     </Stack>

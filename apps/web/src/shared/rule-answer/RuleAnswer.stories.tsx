@@ -103,11 +103,22 @@ export const Answered: Story = {
   },
 }
 
-/** Two rules apply and neither is more specific: the reason, and no answer picked for the reader. */
+/**
+ * Two rules apply and neither is more specific: the reason, and no answer picked for the reader.
+ *
+ * SB-276: and the detail that could settle it, with a way to give it. `asks` and `onAsk` come from the meta, so this
+ * state was already being handed both and ignoring them. The wording says "could help" rather than promising a
+ * resolution: a detail may narrow the ambiguity and the resolver can still come back needing review.
+ */
 export const NeedsReview: Story = {
   args: { state: 'needsReview', lines: [], notes: [], reason: 'A student permit and a work permit both apply to what you have said.' },
-  play: async ({ canvasElement }) => {
-    await expect(await within(canvasElement).findByText(/Two rules could apply to you/, {}, { timeout: 5000 })).toBeVisible()
+  play: async ({ canvasElement, args }) => {
+    const answer = within(canvasElement)
+    await expect(await answer.findByText(/Two rules could apply to you/, {}, { timeout: 5000 })).toBeVisible()
+    await expect(answer.getByText(/A student permit and a work permit both apply/)).toBeVisible()
+    await expect(answer.getByText(/Where you live could help settle which rule applies/)).toBeVisible()
+    await userEvent.click(answer.getByRole('button', { name: 'Tell us' }))
+    await expect(args.onAsk).toHaveBeenCalled()
   },
 }
 

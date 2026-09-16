@@ -18,6 +18,14 @@ msgid "{asks} can change this"
 msgstr "{asks} can change this"
 
 #: src/shared/rule-answer/RuleAnswer.tsx
+msgid "{asks} could help settle which rule applies. Tell us and we will check again."
+msgstr "{asks} could help settle which rule applies. Tell us and we will check again."
+
+#: src/shared/rule-answer/RuleAnswer.tsx
+msgid "{asks} could help settle which rule applies. We cannot take this detail from you yet."
+msgstr "{asks} could help settle which rule applies. We cannot take this detail from you yet."
+
+#: src/shared/rule-answer/RuleAnswer.tsx
 msgid "{asks} decides the answer"
 msgstr "{asks} decides the answer"
 

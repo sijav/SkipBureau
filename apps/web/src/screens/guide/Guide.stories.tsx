@@ -216,6 +216,52 @@ export const TellUsMovesFocusIntoTheDetails: Story = {
   },
 }
 
+/**
+ * SB-276: a rule two versions could answer names the detail that could settle it, and offers a way to give it.
+ *
+ * This story exists because the component one cannot replace it. RuleAnswer's NeedsReview story is handed `asks`
+ * directly through its args, so it proves the component renders the question; it stays green even if Guide.tsx stops
+ * passing `answer.needs[0]`. Only a Guide-level story proves the pass-through.
+ */
+export const ReviewAsksForTheDetail: Story = {
+  parameters: {
+    country: 'DE',
+    guide: 'anmeldung',
+    msw: {
+      handlers: [
+        graphql.link(endpoint()).query('GuideAnswers', () =>
+          HttpResponse.json({
+            data: {
+              guide: {
+                slug: 'anmeldung',
+                obligations: [
+                  {
+                    slug: 'report-your-address',
+                    reader: {
+                      answer: 'needsReview',
+                      needs: ['residenceRegion'],
+                      reason: 'A student permit and a work permit both apply to what you have said.',
+                      facts: [],
+                      notes: [],
+                    },
+                  },
+                ],
+              },
+            },
+          }),
+        ),
+        ...handlers,
+      ],
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(await canvas.findByText(/Two rules could apply to you/, {}, { timeout: 5000 })).toBeVisible()
+    await expect(await canvas.findByText(/Where you live could help settle which rule applies/, {}, { timeout: 5000 })).toBeVisible()
+    await expect(canvas.getByRole('button', { name: /Tell us/ })).toBeVisible()
+  },
+}
+
 /** Its own counter, not Unreachable's: two stories sharing one would couple their runs. */
 let answersAsked = 0
 
