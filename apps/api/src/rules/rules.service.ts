@@ -3,6 +3,7 @@ import { FALLBACK } from '../locale.js'
 import { PrismaService } from '../prisma/prisma.service.js'
 import { compare, sameFacts, type Entry, type Fact, type Note, type Side } from './diff.js'
 import {
+  canonicalNationality,
   fitToProfile,
   inConflict,
   mostSpecific,
@@ -146,7 +147,12 @@ export class RulesService {
   }
 
   /** `resolve` for a profile already checked, so a caller resolving twice checks once. */
-  private async resolveChecked(countryCode: string, profile: Profile, at: Date, locale: string): Promise<Map<string, Side>> {
+  private async resolveChecked(countryCode: string, given: Profile, at: Date, locale: string): Promise<Map<string, Side>> {
+    // SB-277: every resolution passes through here, resolve once, move once a side, changes once a date, and a guide
+    // through resolve, so the nationality is canonicalised here rather than at the resolvers, where the next caller
+    // to take a reader would simply miss it. It is the one reader code nothing validates: a region or a status in
+    // the wrong case is refused by name, and this was answered silently with no rule at all.
+    const profile = canonicalNationality(given)
     const groups = await this.groupsAt(profile.nationality, at)
     const trees = await this.treesOf(countryCode)
 

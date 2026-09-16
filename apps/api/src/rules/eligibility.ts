@@ -116,6 +116,16 @@ export const fitToProfile = (
   return { contradicted: false, open: [...new Set(fits.filter(isDetail))].sort() }
 }
 
+/**
+ * A reader's nationality as the rules hold it (SB-277).
+ *
+ * An ISO 3166 code is the same code in either case, and memberships are stored lower case, so a caller sending the
+ * conventional upper-case code matched no group and was told there was no rule. A nationality is the one reader code
+ * nothing validates: a region or a status in the wrong case is refused by name, and this was answered silently.
+ */
+export const canonicalNationality = (profile: Profile): Profile =>
+  profile.nationality === undefined ? profile : { ...profile, nationality: profile.nationality.toLowerCase() }
+
 export const matchesProfile = (criteria: readonly Criterion[], profile: Profile, groups: GroupsAt, trees: Trees): boolean => {
   const fit = fitToProfile(criteria, profile, groups, trees)
   return !fit.contradicted && fit.open.length === 0

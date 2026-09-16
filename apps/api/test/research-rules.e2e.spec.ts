@@ -566,6 +566,12 @@ test('a reader of a nationality the fee page exempts is told there is no permit 
 
   expect(await entryFor(slug, { nationality: 'ir' })).toBeUndefined()
   expect(await entryFor(slug)).toMatchObject({ verdict: 'needsDetail', needs: ['nationality'], to: null })
+
+  // SB-277: the same code in the case everyone writes it in. A nationality is the one reader code nothing validates,
+  // so an upper-case one matched no membership and answered no rule at all, with nothing refusing it.
+  const exempt = await entryFor(slug, { nationality: 'cz' })
+  expect(exempt?.to?.facts.map((fact) => [fact.key, fact.operator])).toEqual([['charge', 'none']])
+  expect(await entryFor(slug, { nationality: 'CZ' }), 'CZ is cz').toEqual(exempt)
 })
 
 // Each status the address duty was verified for, the provision its 20 working
@@ -886,6 +892,11 @@ test("a visa-free reader of a nationality §41(1) AufenthV names is told the nin
     expect(answer?.verdict, nationality).toBe('newInDestination')
     expect(answer?.to?.facts, nationality).toEqual(factsIn(GERMANY, general))
   }
+  // SB-277: US is us. The ninety days reached the lower-case code and not the one a caller conventionally sends.
+  const american = await answerFor('us', ['de.visa-free'])
+  expect(american?.to?.facts.map((fact) => fact.key)).toContain('applyInGermanyWithin')
+  expect(await answerFor('US', ['de.visa-free']), 'US is us').toEqual(american)
+
   expect(await answerFor(undefined, ['de.visa-free'])).toMatchObject({ verdict: 'needsDetail', needs: ['nationality'], to: null })
   expect((await answerFor('us', ['de.schengen-visa']))?.to?.facts).toEqual(factsIn(GERMANY, schengen))
 })
