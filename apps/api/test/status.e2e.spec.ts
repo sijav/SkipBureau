@@ -213,6 +213,26 @@ const TREE_LOCKS = `
 
 type Held = { tree: string; mode: string; granted: boolean }[]
 
+// SB-181: a reader holds one residence status per country, which checkProfile already enforces, so
+// two status criteria on one version are as unsatisfiable as two regions. The card names four
+// dimensions and is silent on this one; the refusal covers all five.
+test('a version cannot carry two residence statuses, which no reader could hold at once', async () => {
+  const both = await obligation()
+  const twoStatuses = prisma.ruleVersion.create({
+    data: {
+      countryCode: 'tr',
+      obligationId: both.id,
+      validFrom: NEXT_MONTH,
+      ...source,
+      // Both are real Turkish statuses this spec plants, so SB-189's trigger passes them and the
+      // only thing left that can refuse the write is the one value per dimension rule.
+      criteria: { create: [holds('tr.residence-permit'), holds('tr.visa-exemption')] },
+    },
+  })
+  await expect(twoStatuses).rejects.toThrow(/one_value_per_single_valued_dimension/)
+  expect(await prisma.ruleVersion.count({ where: { obligationId: both.id } })).toBe(0)
+})
+
 // SB-180: the same two guards for the status tree. The lock is EXCLUSIVE: a shared one conflicts
 // only with an exclusive one, so a criterion writer holding it shared and a country move holding it
 // shared would each validate without seeing the other and both commit the cross-country criterion.

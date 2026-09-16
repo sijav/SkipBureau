@@ -156,6 +156,79 @@ test("regions that contradict each other, or are not regions, are refused as the
   expect(unknown.body.errors[0].message).toContain('DE-XX')
 })
 
+// SB-181: a version can carry two values of a detail a reader has only one of, so resolve asks a
+// question no answer could settle. The unique triple permits it by construction, since the values
+// differ. A partial unique index refuses it, and refuses it under concurrency, which a trigger that
+// queries for a competing row would not.
+test('a version cannot carry two values of one single valued detail, nor a blank value', async () => {
+  const held = await obligationId('hold-health-insurance')
+  const versions = await prisma.ruleVersion.count()
+
+  const twoPlaces = prisma.ruleVersion.create({
+    data: {
+      countryCode: 'de',
+      obligationId: held,
+      validFrom: NEXT_MONTH,
+      ...source,
+      criteria: {
+        create: [
+          { dimension: 'workRegion', value: 'DE-SN' },
+          { dimension: 'workRegion', value: 'DE-BB' },
+        ],
+      },
+    },
+  })
+  await expect(twoPlaces).rejects.toThrow(/one_value_per_single_valued_dimension/)
+
+  const twoNationalities = prisma.ruleVersion.create({
+    data: {
+      countryCode: 'de',
+      obligationId: held,
+      validFrom: NEXT_MONTH,
+      ...source,
+      criteria: {
+        create: [
+          { dimension: 'nationality', value: 'ir' },
+          { dimension: 'nationality', value: 'tr' },
+        ],
+      },
+    },
+  })
+  await expect(twoNationalities).rejects.toThrow(/one_value_per_single_valued_dimension/)
+
+  const blank = prisma.ruleVersion.create({
+    data: {
+      countryCode: 'de',
+      obligationId: held,
+      validFrom: NEXT_MONTH,
+      ...source,
+      criteria: { create: [{ dimension: 'situation', value: '  ' }] },
+    },
+  })
+  await expect(blank).rejects.toThrow(/value_is_not_blank/)
+
+  expect(await prisma.ruleVersion.count()).toBe(versions)
+
+  // The exception, proved rather than assumed: one nationality can belong to several groups, so two
+  // group criteria on one version can both match a real reader and must still be allowed.
+  const groups = await prisma.ruleVersion.create({
+    data: {
+      countryCode: 'de',
+      obligationId: held,
+      validFrom: NEXT_MONTH,
+      ...source,
+      criteria: {
+        create: [
+          { dimension: 'nationalityGroup', value: 'eu' },
+          { dimension: 'nationalityGroup', value: 'eea' },
+        ],
+      },
+    },
+  })
+  expect(await prisma.eligibilityCriterion.count({ where: { ruleVersionId: groups.id } })).toBe(2)
+  await prisma.ruleVersion.delete({ where: { id: groups.id } })
+})
+
 // SB-180: the criterion trigger fires on EligibilityCriterion only, so nothing watched the version
 // move out from under its criteria, and nothing tied a region's code to the country it is in.
 test("a draft does not leave its region criteria in another country, and a region's code names its country", async () => {

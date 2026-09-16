@@ -90,6 +90,13 @@ export class RulesService {
    * reader included (SB-255).
    */
   async checkProfile(profile: Profile): Promise<void> {
+    // SB-181: a detail given as blank is refused here rather than read as unanswered. fitOne tests
+    // `!profile.situation`, so an empty string would be asked for again; treating it instead as a
+    // detail the reader gave would silently drop the duties scoped to their real one. Neither is
+    // honest to a caller that sent an empty string by accident, so it is the caller's mistake.
+    const blank = (['nationality', 'situation'] as const).filter((detail) => profile[detail] !== undefined && profile[detail]?.trim() === '')
+    if (blank.length > 0) throw new ProfileError(blank, `Left blank, which is not an answer: ${blank.join(', ')}.`)
+
     const regionCodes = [...new Set([...(profile.residenceRegions ?? []), ...(profile.workRegions ?? [])])]
     const statusCodes = [...new Set(profile.residenceStatuses ?? [])]
 

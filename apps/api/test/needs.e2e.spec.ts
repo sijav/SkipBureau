@@ -100,6 +100,26 @@ const moveFromTurkey = async (variables: Record<string, unknown>): Promise<Entry
   return response.body.data.move
 }
 
+// SB-181: a detail given as blank is the caller's mistake, not an unanswered detail. fitOne tests
+// `!profile.situation`, so an empty string used to read as "not said" and the reader was asked for
+// it again; reading it instead as a situation they gave would silently drop the duties scoped to
+// their real one. checkProfile refuses it, so neither happens.
+test('a blank situation is refused as the caller\'s mistake, and is never asked for', async () => {
+  const response = await request(app.getHttpServer())
+    .post('/graphql')
+    .send({ query: MOVE, variables: { from: 'tr', to: 'de', situation: '   ' } })
+
+  expect(response.body.data).toBeNull()
+  expect(response.body.errors[0].extensions.code).toBe('BAD_USER_INPUT')
+  expect(response.body.errors[0].message).toMatch(/situation/)
+
+  // And a situation left out entirely is still just unanswered, which is asked for, not refused.
+  const absent = await request(app.getHttpServer())
+    .post('/graphql')
+    .send({ query: MOVE, variables: { from: 'tr', to: 'de' } })
+  expect(absent.body.errors, JSON.stringify(absent.body.errors)).toBeUndefined()
+})
+
 const entryFor = async (slug: string, variables: Record<string, unknown>): Promise<Entry> => {
   const found = (await moveFromTurkey(variables)).find((entry) => entry.obligationSlug === slug)
   expect(found, `no entry for ${slug}`).toBeDefined()
