@@ -40,7 +40,8 @@ const meta = {
     ],
     situation: null,
     situations: [
-      { code: 'company-founder', name: 'Company founder' },
+      { code: 'company-founder', name: 'I am starting a company' },
+      { code: 'existing-company-owner', name: 'I run an existing company' },
       { code: 'worker', name: 'Worker' },
     ],
     onOrigin: fn(),

@@ -8,5 +8,10 @@ import { msg } from '@lingui/core/macro'
  */
 export const SITUATION_LABELS: Record<string, MessageDescriptor> = {
   worker: msg`Worker`,
-  'company-founder': msg`Company founder`,
+  // SB-212: the two company states name what the reader is DOING, and are deliberately exclusive.
+  // "Company founder" read as "I own a company" to somebody who founded theirs years ago, and a
+  // situation is matched with ===, so picking the wrong one of two overlapping names silently costs
+  // a reader the duties scoped to the other.
+  'company-founder': msg`I am starting a company`,
+  'existing-company-owner': msg`I run an existing company`,
 }

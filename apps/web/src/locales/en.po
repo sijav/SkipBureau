@@ -416,8 +416,8 @@ msgid "Common questions"
 msgstr "Common questions"
 
 #: src/shared/context-control/situationLabels.ts
-msgid "Company founder"
-msgstr "Company founder"
+#~ msgid "Company founder"
+#~ msgstr "Company founder"
 
 #: src/shared/task-tile/TaskTile.stories.tsx
 msgid "Company types, registration and first obligations"
@@ -742,6 +742,14 @@ msgstr "How to do it"
 #: src/shared/ask-result-row/AskResultRow.stories.tsx
 msgid "How to register a company"
 msgstr "How to register a company"
+
+#: src/shared/context-control/situationLabels.ts
+msgid "I am starting a company"
+msgstr "I am starting a company"
+
+#: src/shared/context-control/situationLabels.ts
+msgid "I run an existing company"
+msgstr "I run an existing company"
 
 #: src/screens/task-hub/TaskHub.tsx
 msgid "If it applies to you"

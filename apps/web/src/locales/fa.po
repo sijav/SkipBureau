@@ -416,8 +416,8 @@ msgid "Common questions"
 msgstr "پرسش‌های رایج"
 
 #: src/shared/context-control/situationLabels.ts
-msgid "Company founder"
-msgstr "بنیان‌گذار شرکت"
+#~ msgid "Company founder"
+#~ msgstr "بنیان‌گذار شرکت"
 
 #: src/shared/task-tile/TaskTile.stories.tsx
 msgid "Company types, registration and first obligations"
@@ -742,6 +742,14 @@ msgstr "چگونه انجام دهید"
 #: src/shared/ask-result-row/AskResultRow.stories.tsx
 msgid "How to register a company"
 msgstr "چگونه شرکت ثبت کنیم"
+
+#: src/shared/context-control/situationLabels.ts
+msgid "I am starting a company"
+msgstr "در حال تأسیس شرکت هستم"
+
+#: src/shared/context-control/situationLabels.ts
+msgid "I run an existing company"
+msgstr "شرکتی فعال را اداره می‌کنم"
 
 #: src/screens/task-hub/TaskHub.tsx
 msgid "If it applies to you"
