@@ -4,6 +4,7 @@ import { playwright } from '@vitest/browser-playwright'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { defineConfig, type TestProjectInlineConfiguration } from 'vitest/config'
+import { COMBINATIONS } from './src/story-matrix'
 
 const here = dirname(fileURLToPath(import.meta.url))
 // `api`: the API workspace's source, for a test that reads its research data (SB-257). Not in vite.config.ts, so app code cannot import it.
@@ -11,15 +12,9 @@ const alias = { src: join(here, 'src'), api: join(here, '..', 'api', 'src') }
 
 const lingui = () => react({ plugins: [['@lingui/swc-plugin', {}]] })
 
-// Mode x direction, in the base language. Direction is not a language: RTL
-// is shared by many, and the product is multi-language, so nothing is tested
-// per language. The owner, 2026-09-10.
-const COMBINATIONS = [
-  { mode: 'light', direction: 'ltr' },
-  { mode: 'light', direction: 'rtl' },
-  { mode: 'dark', direction: 'ltr' },
-  { mode: 'dark', direction: 'rtl' },
-] as const
+// The matrix moved to ./story-matrix, which scripts/story-tests.ts reads too, so the projects this file makes and the
+// projects that script runs are the same four and cannot drift apart (SB-314). Its own comment carries the owner's
+// decision that direction is not a language.
 
 // SB-284: CI's coverage run holds the unit project and the four below in one Vitest run, instrumented, and there a
 // screen story took 11 to 15 seconds (Home's Ask, 2026-09-15) against Vitest's 15 second browser default, failing the

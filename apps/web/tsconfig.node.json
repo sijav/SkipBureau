@@ -11,5 +11,13 @@
     "isolatedModules": true,
     "moduleDetection": "force"
   },
-  "include": ["eslint.config.mjs", "lingui.config.ts", "vite.config.ts", "vitest.config.ts", "playwright.config.ts", ".storybook"]
+  "include": [
+    "eslint.config.mjs",
+    "lingui.config.ts",
+    "vite.config.ts",
+    "vitest.config.ts",
+    "playwright.config.ts",
+    ".storybook",
+    "scripts/story-tests.ts"
+  ]
 }

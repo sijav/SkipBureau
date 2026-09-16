@@ -20,7 +20,7 @@
     "test:watch": "vitest",
     "test:unit": "vitest run --project unit",
     "pretest:unit": "npm run i18n:compile",
-    "test:storybook": "vitest run --project storybook",
+    "test:storybook": "tsx scripts/story-tests.ts",
     "pretest:storybook": "npm run i18n:compile",
     "test:coverage": "vitest run --coverage",
     "pretest:coverage": "npm run i18n:compile",
