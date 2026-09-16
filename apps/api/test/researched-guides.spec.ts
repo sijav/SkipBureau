@@ -33,12 +33,19 @@ const OMITTED: Readonly<Record<string, readonly string[]>> = {
 
 const keyOf = (guide: (typeof RESEARCHED_GUIDES)[number]): string => `${guide.country}/${guide.guide.slug}`
 
-/** A document as a reader of a guide meets it: footnote markers, bold and list markers out, composed, whitespace folded. */
+/**
+ * A document as a reader of a guide meets it: footnote markers and every Markdown marker out, composed, whitespace
+ * folded. SB-283: italic and code markers go too, so a guide can never show one literally. Paired markers only, before
+ * the whitespace fold, so a stray unpaired marker stays visible to the comparison and a pair cannot form across a
+ * paragraph. `[^*]` already matches a newline, which is what lets a span wrapped over two lines be taken out.
+ */
 const plain = (text: string): string =>
   text
     .replace(/^- /gm, '')
     .replace(/\[\^[a-z0-9-]+\]/g, '')
     .replaceAll('**', '')
+    .replace(/(?<!\*)\*(?!\*)([^*]+?)\*(?!\*)/g, '$1')
+    .replace(/(?<!`)`(?!`)([^`]+?)`(?!`)/g, '$1')
     .normalize('NFC')
     .replace(/\s+/g, ' ')
     .trim()

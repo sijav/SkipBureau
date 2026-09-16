@@ -58,7 +58,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
           kind: 'importantToKnow',
           title: { en: 'If your stay runs out while you wait.' },
           body: {
-            en: 'The completed application form covers you until your appointment, even if your previous lawful stay ends first. Missing the appointment can leave a first applicant treated as an overstayer. After you submit, the provincial directorate issues a residence permit application document (*İkamet İzni Müracaat Belgesi*). The implementing regulation, Article 21(9)(ç), says that document gives you the right to stay until your application is decided. An older application guide instead describes ninety days. We have not verified what happens when a printed validity runs out during a longer wait.',
+            en: 'The completed application form covers you until your appointment, even if your previous lawful stay ends first. Missing the appointment can leave a first applicant treated as an overstayer. After you submit, the provincial directorate issues a residence permit application document (İkamet İzni Müracaat Belgesi). The implementing regulation, Article 21(9)(ç), says that document gives you the right to stay until your application is decided. An older application guide instead describes ninety days. We have not verified what happens when a printed validity runs out during a longer wait.',
           },
         },
         {
@@ -300,7 +300,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
           kind: 'whatYouNeed',
           title: { en: 'Bursa.' },
           body: {
-            en: 'Bursa publishes an appointment-and-document procedure for address registration, effective 1 June 2026, notice dated 19 May 2026: an appointment through `randevu.goc.gov.tr`, and among the documents a UETS account. We could not verify a national UETS requirement for address registration; the national requirement we verified concerns renewal and transfer applications from 15 April 2024, and applicants under 18 need not provide their own UETS account. We found no other matching provincial notice dated 2025 or 2026, which is not the same as knowing Bursa is alone.',
+            en: 'Bursa publishes an appointment-and-document procedure for address registration, effective 1 June 2026, notice dated 19 May 2026: an appointment through randevu.goc.gov.tr, and among the documents a UETS account. We could not verify a national UETS requirement for address registration; the national requirement we verified concerns renewal and transfer applications from 15 April 2024, and applicants under 18 need not provide their own UETS account. We found no other matching provincial notice dated 2025 or 2026, which is not the same as knowing Bursa is alone.',
           },
         },
         {
@@ -518,7 +518,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
           kind: 'beforeYouStart',
           title: { en: 'Who applies.' },
           body: {
-            en: 'For the ordinary in-country route, the application is made against a residence permit that was issued for at least six months and is still valid on the day of the application. Note what that does not say: it is not six months *remaining*. A one-year permit with five months left still satisfies it.',
+            en: 'For the ordinary in-country route, the application is made against a residence permit that was issued for at least six months and is still valid on the day of the application. Note what that does not say: it is not six months remaining. A one-year permit with five months left still satisfies it.',
           },
         },
         {
@@ -619,7 +619,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
           kind: 'beforeYouStart',
           title: { en: 'Can you even own one?' },
           body: {
-            en: 'A foreigner can be the sole shareholder, there is no Turkish partner requirement and no minimum foreign shareholding. Living abroad does not disqualify you. Some sectors are different: private security is subject to reciprocity and needs operating permission, and broadcasting caps direct foreign capital at half the paid-up capital and must be an *anonim şirket* rather than a limited one. We verified those two; we did not check every sector, so check yours.',
+            en: 'A foreigner can be the sole shareholder, there is no Turkish partner requirement and no minimum foreign shareholding. Living abroad does not disqualify you. Some sectors are different: private security is subject to reciprocity and needs operating permission, and broadcasting caps direct foreign capital at half the paid-up capital and must be an anonim şirket rather than a limited one. We verified those two; we did not check every sector, so check yours.',
           },
         },
         {
@@ -633,7 +633,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
           kind: 'whatYouNeed',
           title: { en: 'What it costs.' },
           body: {
-            en: "The minimum capital is 50,000 lira. For cash capital, no statutory payment is required before registration; the full subscribed amount must be paid within twenty-four months after registration, or earlier under the payment schedule in the articles or set by the managers. This rule is national. The capital is your company's money, not a fee. The fees written in Law 492 for forming the company are zero: Article 123 exempts the formation of a limited company from the fees written in that Law, and Istanbul's registry tariff shows the formation *harç* line as exempt. That exemption is Law 492's own fees, wider than a registry charge and narrower than the cost of forming a company, which the levy, the Gazette and your chamber all add to below. What you actually pay is the Competition Authority levy at 0.04 per cent of subscribed capital, which is 20 lira at the minimum; the Trade Registry Gazette at 2.48 lira per word of your announcement; and your chamber's own charges, which differ by city. Istanbul's published 2026 tariff lists 2,160 lira for formation certification, 2,760 for opening-book certification and 250 for publication expenses; chamber registration for a new capital company is 3,305 lira. These are verified tariff entries, not a confirmed complete bill: a signature declaration is separately listed at 1,720 lira in the general tariff, while the limited-company formation cost sheet includes signature declarations in its 2,160 lira service fee. Antalya's equivalent new registration is 4,875 lira. We verified national notarial tariff components, not an all-inclusive formation quote: the notary's fee is 30 per cent of the applicable statutory notarial *harç*, minimum 58.82 lira; writing and copying are 80.68 lira per chargeable page; translation under Article 4 is 667.67 lira per page, halved for pages containing ten lines or fewer. Istanbul's chamber charges a registration fee. Annual dues follow, and none are charged in the year you register. Istanbul assesses annual dues by registered capital or net assets; its 2026 band from 25,001 to 250,000 lira carries 3,500 lira a year, collected in June and October, with supplementary dues of 0.5 per cent of commercial balance-sheet profit, within statutory limits.",
+            en: "The minimum capital is 50,000 lira. For cash capital, no statutory payment is required before registration; the full subscribed amount must be paid within twenty-four months after registration, or earlier under the payment schedule in the articles or set by the managers. This rule is national. The capital is your company's money, not a fee. The fees written in Law 492 for forming the company are zero: Article 123 exempts the formation of a limited company from the fees written in that Law, and Istanbul's registry tariff shows the formation harç line as exempt. That exemption is Law 492's own fees, wider than a registry charge and narrower than the cost of forming a company, which the levy, the Gazette and your chamber all add to below. What you actually pay is the Competition Authority levy at 0.04 per cent of subscribed capital, which is 20 lira at the minimum; the Trade Registry Gazette at 2.48 lira per word of your announcement; and your chamber's own charges, which differ by city. Istanbul's published 2026 tariff lists 2,160 lira for formation certification, 2,760 for opening-book certification and 250 for publication expenses; chamber registration for a new capital company is 3,305 lira. These are verified tariff entries, not a confirmed complete bill: a signature declaration is separately listed at 1,720 lira in the general tariff, while the limited-company formation cost sheet includes signature declarations in its 2,160 lira service fee. Antalya's equivalent new registration is 4,875 lira. We verified national notarial tariff components, not an all-inclusive formation quote: the notary's fee is 30 per cent of the applicable statutory notarial harç, minimum 58.82 lira; writing and copying are 80.68 lira per chargeable page; translation under Article 4 is 667.67 lira per page, halved for pages containing ten lines or fewer. Istanbul's chamber charges a registration fee. Annual dues follow, and none are charged in the year you register. Istanbul assesses annual dues by registered capital or net assets; its 2026 band from 25,001 to 250,000 lira carries 3,500 lira a year, collected in June and October, with supplementary dues of 0.5 per cent of commercial balance-sheet profit, within statutory limits.",
           },
         },
         {
@@ -916,7 +916,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
           kind: 'howToDoIt',
           title: { en: 'The tax questionnaire.' },
           body: {
-            en: 'Do not wait for the tax office to send you anything. Within one month of starting you must submit the *Fragebogen zur steuerlichen Erfassung* electronically, normally through ELSTER (§138 AO); a hardship exception is available on application. Registering the Gewerbe does not replace it. The tax office then communicates your Steuernummer in writing. We could not verify how long that takes.',
+            en: 'Do not wait for the tax office to send you anything. Within one month of starting you must submit the Fragebogen zur steuerlichen Erfassung electronically, normally through ELSTER (§138 AO); a hardship exception is available on application. Registering the Gewerbe does not replace it. The tax office then communicates your Steuernummer in writing. We could not verify how long that takes.',
           },
         },
         {
