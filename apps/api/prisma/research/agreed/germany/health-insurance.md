@@ -32,17 +32,21 @@ the statutory system voluntarily without the usual prior-insurance history, but
 you must tell the fund **within three months**[^sgb5-9-three-months] of starting work (§9(1)(3)).
 
 **What it costs.** The general statutory rate is **14.6%**[^sgb5-241-general-rate], plus an additional
-contribution each fund sets for itself; the official 2026 average is **2.9%**[^bmg-average-additional-2026].
-Employer and employee normally split the general and additional contributions
-equally[^bmg-half-each], giving **8.75% each**[^share-at-average] at the official average, up to the monthly
-assessment ceiling of **€5,812.50**[^bmg-assessment-ceiling-monthly]. Special contribution-sharing rules apply,
+contribution each fund sets for itself. The Ministry announces an average additional rate ahead of each
+year, and for 2026 that is **2.9%**[^bmg-average-additional-2026]; the rates the funds were charging
+averaged **3.13%** as of 1 April 2026[^bmg-charged-average-2026], and your contribution normally uses your
+own fund's rate. Employer and employee normally split the general and additional contributions
+equally[^bmg-half-each], which at the announced average is **8.75% each**[^share-at-average], an
+illustration, not a prediction of your own contribution, up to the monthly assessment ceiling of
+**€5,812.50**[^bmg-assessment-ceiling-monthly]. Special contribution-sharing rules apply,
 including for midijobs.
 
 An ordinarily voluntarily insured **self-employed** GKV member pays the whole
 contribution, assessed on at least **€1,318.33**[^bmg-minimum-assessment-base][^bundestag-wd-minimum-base-monthly] monthly even with lower income.
-At the average additional rate the monthly minimum is about **€222.80**[^bmg-minimum-without-sick-pay] without
-sickness cash benefit or **€230.71**[^bmg-minimum-with-sick-pay] with it; higher assessable income means
-higher contributions, up to the ceiling.
+At the **announced** average additional rate the monthly minimum is about
+**€222.80**[^bmg-minimum-without-sick-pay] without sickness cash benefit or
+**€230.71**[^bmg-minimum-with-sick-pay] with it, which is the rate the Ministry's table assumes; your fund's
+rate can differ, and higher assessable income means higher contributions, up to the ceiling.
 
 **Care insurance is on top, and it is where Saxony differs.** The standard social
 care-insurance rate is **3.6%**[^bmg-care-rate]. Childless members normally pay **4.2%**[^bmg-care-rate] from the
@@ -122,6 +126,8 @@ All read 2026-09-12.
 [^sgb5-241-general-rate]: <https://www.gesetze-im-internet.de/sgb_5/__241.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 241", "evidence": ["Der allgemeine Beitragssatz beträgt 14,6 Prozent der beitragspflichtigen Einnahmen der Mitglieder."]}
 
 [^bmg-average-additional-2026]: <https://www.bundesgesundheitsministerium.de/beitraege/seite> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Zusatzbeitrag", "evidence": ["Für das Jahr 2026 beträgt der durchschnittliche Zusatzbeitragssatz 2,9 Prozent."]}
+
+[^bmg-charged-average-2026]: <https://www.bundesgesundheitsministerium.de/finanzierung-gkv> | {"status": "verified", "read": "2026-09-16", "method": "raw page", "locator": "Einkommensabhängige Beiträge", "evidence": ["Im Durchschnitt liegt der derzeit von den Krankenkassen erhobene Zusatzbeitragssatz bei 3,13 Prozent (Stand 1. April 2026)."]}
 
 [^bmg-half-each]: <https://www.bundesgesundheitsministerium.de/finanzierung-gkv> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Einkommensabhängige Beiträge", "evidence": ["Den allgemeinen Beitrag und den Zusatzbeitrag tragen Arbeitgeber und Arbeitnehmer je zur Hälfte."]}
 

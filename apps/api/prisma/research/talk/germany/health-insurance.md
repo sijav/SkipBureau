@@ -1500,3 +1500,102 @@ No.
 https://www.gesetze-im-internet.de/sgb_5/__9.html
 https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung
 https://www.gesetze-im-internet.de/sgb_11/__55.html
+
+---
+
+## Asked, 2026-09-16 04:35 UTC
+
+A correction to what we agreed, 2026-09-16, and one question about it.
+
+In the agreed document, under **What it costs**, we wrote that the general rate is 14.6% "plus an additional contribution each fund sets for itself; the official 2026 average is 2.9%", and that employer and employee split both, "giving 8.75% each at the official average". In the same passage we give the self-employed monthly minimums as "at the average additional rate ... about €222.80 without sickness cash benefit or €230.71 with it".
+
+Reading those two pages again today, that passage tells a reader who wants to know what they will pay something that is true of the announcement and not of their bill:
+
+- <https://www.bundesgesundheitsministerium.de/beitraege/seite> says: "Für das Jahr 2026 beträgt der durchschnittliche Zusatzbeitragssatz 2,9 Prozent." That is the rate the Ministry announces ahead of the year.
+- <https://www.bundesgesundheitsministerium.de/finanzierung-gkv>, which we already cite for the half-each split, says: "Im Durchschnitt liegt der derzeit von den Krankenkassen erhobene Zusatzbeitragssatz bei 3,13 Prozent (Stand 1. April 2026)." That is what the funds were actually charging.
+
+So "the official 2026 average" reads as what a reader pays, and the funds' average is higher. Our own sign-off missed it.
+
+This is what I propose the document should say instead. Every other sentence, figure and marker in the passage stays as it is.
+
+The first sentences of **What it costs**:
+
+**What it costs.** The general statutory rate is **14.6%**[^sgb5-241-general-rate], plus an additional contribution each fund sets for itself. The Ministry announces an average additional rate ahead of each year, and for 2026 that is **2.9%**[^bmg-average-additional-2026]; what the funds were actually charging averaged **3.13%** on 1 April 2026[^bmg-charged-average-2026], and your own fund sets its own rate. Employer and employee normally split the general and additional contributions equally[^bmg-half-each], which at the announced average would be **8.75% each**[^share-at-average], an illustration rather than a rate you will be charged, up to the monthly assessment ceiling of **€5,812.50**[^bmg-assessment-ceiling-monthly]. Special contribution-sharing rules apply, including for midijobs.
+
+The self-employed sentence in the same passage:
+
+At the **announced** average additional rate the monthly minimum works out at about **€222.80**[^bmg-minimum-without-sick-pay] without sickness cash benefit or **€230.71**[^bmg-minimum-with-sick-pay] with it, which is how the Ministry's own table presents them, and your fund's rate can differ; higher assessable income means higher contributions, up to the ceiling.
+
+The one new definition, from the page as read today:
+
+[^bmg-charged-average-2026]: <https://www.bundesgesundheitsministerium.de/finanzierung-gkv> | {"status": "verified", "read": "2026-09-16", "method": "raw page", "locator": "Einkommensabhängige Beiträge", "evidence": ["Im Durchschnitt liegt der derzeit von den Krankenkassen erhobene Zusatzbeitragssatz bei 3,13 Prozent (Stand 1. April 2026)."]}
+
+The questions, and the wording is yours where it keeps the meaning:
+
+1. Does that wording now claim only what those two pages support, and does naming both averages serve a reader better than naming one with a caveat? If one is better, say which and write the sentence.
+2. Is "announces ahead of each year" right for what the Ministry does with the average additional rate, or does it set it by another mechanism whose name matters here?
+3. Is 3.13% safe to print at all, given it is dated and is an average of what funds charge rather than anybody's rate, and if it is, does it need its date in the sentence as I have written it?
+4. Does anything else in this document rest on the 2.9% figure in a way that now reads as a promise, that I have not listed?
+5. Anything else in it that claims more than its evidence supports.
+
+At the end, list the URLs you opened this turn.
+
+## Answered
+
+1. **The distinction is now supported. For the practical guide, I recommend keeping only 2.9%, clearly labelled**, because it explains the examples that follow. The historical charged average does not determine the reader’s bill. Suggested sentence:
+
+   “The Ministry’s announced average additional rate for 2026 is **2.9%**; the examples below use that rate, but your contribution normally uses your own fund’s additional rate.” [BMG contributions page, “Zusatzbeiträge”](https://www.bundesgesundheitsministerium.de/beitraege/seite).
+
+2. **“Announces ahead of each year” is accurate shorthand.** More precisely, the Ministry **sets and announces** the following year’s rate after evaluating the *Schätzerkreis* forecasts, publishing it in the Bundesanzeiger by 1 November. The statutory calculation uses projected expenditure, available funding and contribution income; it is not an observed average of fund rates. The mechanism’s technical name need not enter the reader-facing sentence. [§242a(1)–(2) SGB V](https://www.gesetze-im-internet.de/sgb_5/__242a.html).
+
+3. **3.13% is safe as a dated historical statistic.** Your new definition accurately reproduces the page. If retained, keep **“as of 1 April 2026” in the sentence**, and do not describe it as the current rate or an individual’s rate. [BMG financing page, “Einkommensabhängige Beiträge”](https://www.bundesgesundheitsministerium.de/finanzierung-gkv).
+
+4. **No other dependency in the document supplied here.** The dependent figures are **8.75%, €222.80 and €230.71**, which you have listed. The **€1,318.33 assessment base does not depend on 2.9%**. The two minimum contributions remain figures directly published in the Ministry’s table, whose footnote specifies the assumed additional rate. [BMG contributions page, “Beiträge für freiwillig Versicherte”](https://www.bundesgesundheitsministerium.de/beitraege/seite).
+
+5. **One small overstatement remains:** “an illustration rather than a rate you will be charged” suggests the reader cannot actually pay that rate. Replace it with **“an illustration, not a prediction of your own contribution.”** A fund’s rate can coincide with the announced average; the Ministry also identifies groups for whom the announced average applies directly. Otherwise, I find no further overclaim in these replacements. [BMG contributions page, “Durchschnittlicher Zusatzbeitragssatz”](https://www.bundesgesundheitsministerium.de/beitraege/seite).
+
+URLs opened:
+
+https://www.bundesgesundheitsministerium.de/beitraege/seite
+https://www.bundesgesundheitsministerium.de/finanzierung-gkv
+https://www.gesetze-im-internet.de/sgb_5/__242a.html
+
+---
+
+## Asked, 2026-09-16 04:37 UTC
+
+Fixed point, 2026-09-16. Your five answers are applied, with one departure I want you to judge rather than assume I got right. Below are the passages of the agreed document as they now stand, and the one new definition. The question is the usual one: does anything here claim more than its evidence supports, does any marker attach a figure to a page that does not state it, or does any evidence leave out a condition its sentence depends on? Answer with the single line No. if nothing does, or name each with its correction and the page that settles it. At the end, list the URLs you opened this turn.
+
+The departure: you recommended printing only 2.9%, and also said 3.13% is safe as a dated historical statistic if its date stays in the sentence. I kept both, because the reason this correction exists is that a reader anchored on 2.9% expects to pay about that and the funds charge more on average, so removing the second figure fixes the false precision and leaves the low anchor. Both carry your qualifiers. If you still judge that the second figure misleads more than it corrects, say so plainly and write the sentence you would print.
+
+1. The corrected passage, as it now stands:
+
+**What it costs.** The general statutory rate is **14.6%**[^sgb5-241-general-rate], plus an additional
+contribution each fund sets for itself. The Ministry announces an average additional rate ahead of each
+year, and for 2026 that is **2.9%**[^bmg-average-additional-2026]; the rates the funds were charging
+averaged **3.13%** as of 1 April 2026[^bmg-charged-average-2026], and your contribution normally uses your
+own fund's rate. Employer and employee normally split the general and additional contributions
+equally[^bmg-half-each], which at the announced average is **8.75% each**[^share-at-average], an
+illustration, not a prediction of your own contribution, up to the monthly assessment ceiling of
+**€5,812.50**[^bmg-assessment-ceiling-monthly]. Special contribution-sharing rules apply,
+including for midijobs.
+
+2. The self-employed sentence in the same passage, corrected as you said it must be:
+
+At the **announced** average additional rate the monthly minimum is about
+**€222.80**[^bmg-minimum-without-sick-pay] without sickness cash benefit or
+**€230.71**[^bmg-minimum-with-sick-pay] with it, which is the rate the Ministry's table assumes; your fund's
+rate can differ, and higher assessable income means higher contributions, up to the ceiling.
+
+3. The one new definition, from the page as read today:
+
+[^bmg-charged-average-2026]: <https://www.bundesgesundheitsministerium.de/finanzierung-gkv> | {"status": "verified", "read": "2026-09-16", "method": "raw page", "locator": "Einkommensabhängige Beiträge", "evidence": ["Im Durchschnitt liegt der derzeit von den Krankenkassen erhobene Zusatzbeitragssatz bei 3,13 Prozent (Stand 1. April 2026)."]}
+
+4. Unchanged, and listed so you can say if any of them now reads differently beside the corrected sentences: the assessment base **€1,318.33**, which you confirmed does not depend on the average; the general rate **14.6%**; the ceiling **€5,812.50**; the threshold **€77,400**; and the care insurance figures, which have their own rates and their own pages.
+
+## Answered
+
+No.
+
+https://www.bundesgesundheitsministerium.de/beitraege/seite
+https://www.bundesgesundheitsministerium.de/finanzierung-gkv
