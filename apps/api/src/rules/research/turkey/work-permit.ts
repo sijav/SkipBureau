@@ -8,6 +8,11 @@ const READ = '2026-09-14'
 // The same for a reader who works, or is coming to work, in Turkey (SB-193).
 const WORKER: ResearchVersion['criteria'] = [{ dimension: 'situation', value: 'worker' }]
 
+// SB-216: Law 6735 Article 22(1) puts the fifteen day report on the employer, so a founder who employs a foreigner
+// is told it as well, by a version of their own. Neither scope covers the other, so a reader who has said which they
+// are gets one of them and a reader who has said neither is still asked.
+const FOUNDER: ResearchVersion['criteria'] = [{ dimension: 'situation', value: 'company-founder' }]
+
 export const CASE: ResearchCase = {
   document: 'work-permit',
   obligations: [
@@ -239,7 +244,31 @@ export const CASE: ResearchCase = {
         },
       ],
       notes: {
-        en: 'For the employer, or a foreigner holding an indefinite or independent work permit: tell the Ministry within fifteen days when work under the permit starts or ends, or when something happens that requires the permit to be cancelled. It is a reporting duty and not a grace period for the worker, whose permit is liable to cancellation when the employment ends.',
+        en: 'For a worker: your employer must tell the Ministry within fifteen days when work under your permit or exemption starts or ends, or when cancellation is required. If you hold an indefinite or independent work permit, you have that reporting duty yourself. It is a reporting duty and not a grace period for the worker, whose permit is liable to cancellation when the employment ends.',
+      },
+    },
+    {
+      // SB-216: the same duty as the employer's own, since Article 22(1) puts it on them. Its own version rather than
+      // a wider scope, because neither situation covers the other and a reader who has said neither must still be
+      // asked which they are.
+      obligation: 'report-employment-starting-and-ending',
+      document: 'work-permit',
+      validFrom: READ,
+      criteria: FOUNDER,
+      source: 'internationalLabourLaw',
+      labels: ['law6735-22-1-fifteen-days'],
+      facts: [
+        {
+          key: 'reportWithin',
+          operator: 'within',
+          numericValue: 15,
+          unit: 'days',
+          source: 'internationalLabourLaw',
+          labels: ['law6735-22-1-fifteen-days'],
+        },
+      ],
+      notes: {
+        en: "For the employer: tell the Ministry within fifteen days when work under a foreign employee's permit or exemption starts or ends, or when cancellation is required. This is your reporting duty.",
       },
     },
     {
