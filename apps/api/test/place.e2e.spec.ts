@@ -380,6 +380,36 @@ test('the tree refuses a parent in another country and a place inside itself, an
   expect(await prisma.region.findUniqueOrThrow({ where: { code: 'TR-06' } })).toMatchObject({ countryCode: 'tr', parentCode: null })
 })
 
+// SB-200: the freeze walks DOWN from the row being changed, so it catches a named descendant and
+// misses a named ancestor. With a version naming Ordu, moving Altınordu under Rize takes every
+// reader in Altınordu out of Ordu's rule and into Rize's, without any version changing.
+//
+// On places of its own, because every seeded place is already named by an earlier test's criteria.
+// The downward walk refuses those first, with its own message, so a case built on them would pass
+// without the guard under test ever running.
+test('a place a rule reaches through the place it is inside cannot be moved out from under it', async () => {
+  await prisma.region.createMany({
+    data: [
+      { code: 'TR-52', countryCode: 'tr', name: 'Ordu' },
+      { code: 'TR-52.altinordu', countryCode: 'tr', parentCode: 'TR-52', name: 'Altınordu' },
+      { code: 'TR-53', countryCode: 'tr', name: 'Rize' },
+      { code: 'TR-53.pazar', countryCode: 'tr', parentCode: 'TR-53', name: 'Pazar' },
+    ],
+  })
+  await version(await obligation(), [lives('TR-52')], [{ key: 'fee', numericValue: 10 }])
+
+  await expect(prisma.region.update({ where: { code: 'TR-52.altinordu' }, data: { parentCode: 'TR-53' } })).rejects.toThrow(
+    /Region TR-52.altinordu is inside TR-52, which a rule's criteria name, so it cannot be moved/,
+  )
+  expect(await prisma.region.findUniqueOrThrow({ where: { code: 'TR-52.altinordu' } })).toMatchObject({ parentCode: 'TR-52' })
+
+  // Not a blanket freeze: a rename keeps the parent, so the rule still reaches it, and a place no
+  // criterion names above, at or below still moves.
+  await prisma.region.update({ where: { code: 'TR-52.altinordu' }, data: { name: 'Altınordu District' } })
+  await prisma.region.update({ where: { code: 'TR-53.pazar' }, data: { parentCode: null } })
+  expect(await prisma.region.findUniqueOrThrow({ where: { code: 'TR-53.pazar' } })).toMatchObject({ parentCode: null })
+})
+
 test('a region a rule names through a place inside it keeps its code, country and parent until that rule is removed', async () => {
   await prisma.region.createMany({
     data: [

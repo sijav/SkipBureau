@@ -184,15 +184,27 @@ before the fees SB-229 and SB-227 write for them, so that reading a place below
 the first level from its own page was a change of its own. Nothing else is added
 ahead of a rule, and no country's municipalities are loaded wholesale.
 
+**Amended 2026-09-16**, building SB-200. A place a rule reaches from ABOVE keeps
+its parent too: while a rule names a place, nothing inside it moves out from
+under it, at any depth. The guard written with SB-186 walked only downward, from
+the row being changed to the rows inside it, so a rule naming a province did not
+stop one of its districts being moved to another province, which takes every
+reader in that district to another rule's answer without any version changing.
+Rule reach follows the parent links and not the readable key, so it is the link
+that is frozen and only a change of parent is refused: a rename or a recode
+leaves the links alone. The same holds for a status and the statuses inside it.
+
 ## Residence statuses exist only where a rule names them
 
 **Decided 2026-09-14**, building SB-189.
 
 A residence status is a row with a product-owned key under its country, added
 with the researched rule that names it or the test that needs it, as places
-are, so no country's catalogue of permits is loaded wholesale. A status is
-scope and is never inherited: a version for one kind of permit states every
-fact it means to show. `move` takes no per-side status lists, because a move
+are, so no country's catalogue of permits is loaded wholesale. Its key never
+changes, as a place's does not: a rename changes the name, and a status that is
+replaced, split, or made a kind of another status is a new status, with the
+rules that follow it recorded as new versions. A status is scope and is never
+inherited: a version for one kind of permit states every fact it means to show. `move` takes no per-side status lists, because a move
 between two places in one country does not change what a reader holds, and a
 mover between countries already names one status for each.
 

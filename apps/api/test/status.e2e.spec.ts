@@ -273,6 +273,35 @@ test("a draft does not leave its status criteria in another country, a status co
   expect(entered).toEqual(bothTreesExclusive)
 })
 
+// SB-200: the same hole in the status tree. With a version naming a permit, moving a kind of it out
+// from under it takes that kind's holders out of every rule for the permit, and the downward walk
+// from the kind never reaches the named parent.
+//
+// On statuses of its own, for the reason the places test gives: tr.residence-permit.student is
+// already named by an earlier test's criteria, which the downward walk refuses first.
+test('a status a rule reaches through the status it is a kind of cannot be moved out from under it', async () => {
+  await prisma.residenceStatus.createMany({
+    data: [
+      { code: 'tr.reach', countryCode: 'tr', name: 'Reached permit' },
+      { code: 'tr.reach.kind', countryCode: 'tr', parentCode: 'tr.reach', name: 'Kind of reached permit' },
+      { code: 'tr.free', countryCode: 'tr', name: 'Unreached permit' },
+      { code: 'tr.free.kind', countryCode: 'tr', parentCode: 'tr.free', name: 'Kind of unreached permit' },
+    ],
+  })
+  await version((await obligation()).id, [holds('tr.reach')], [{ key: 'deadline', numericValue: 20 }], { validFrom: NEXT_MONTH })
+
+  await expect(prisma.residenceStatus.update({ where: { code: 'tr.reach.kind' }, data: { parentCode: null } })).rejects.toThrow(
+    /Residence status tr.reach.kind is inside tr.reach, which a rule's criteria name, so it cannot be moved/,
+  )
+  expect(await prisma.residenceStatus.findUniqueOrThrow({ where: { code: 'tr.reach.kind' } })).toMatchObject({ parentCode: 'tr.reach' })
+
+  // Not a blanket freeze: a rename keeps the parent, so the rule still reaches it, and a status no
+  // criterion names above, at or below still moves.
+  await prisma.residenceStatus.update({ where: { code: 'tr.reach.kind' }, data: { name: 'A kind of reached permit' } })
+  await prisma.residenceStatus.update({ where: { code: 'tr.free.kind' }, data: { parentCode: null } })
+  expect(await prisma.residenceStatus.findUniqueOrThrow({ where: { code: 'tr.free.kind' } })).toMatchObject({ parentCode: null })
+})
+
 test("a status criterion holds the status tree's lock shared, a change to the status tree holds it exclusively, and neither holds the region tree's", async () => {
   const locked = await obligation()
   await prisma.residenceStatus.createMany({
