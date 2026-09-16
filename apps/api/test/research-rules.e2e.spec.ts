@@ -491,6 +491,22 @@ const toldInSituation = async (duties: readonly [slug: string, opening: string][
 test("a reader starting a company is told each duty that follows registration, its facts on their pages and its condition first in its notes, a reader who has not said is asked, and a student is not told them", () =>
   toldInSituation(COMPANY_DUTIES, 'company-founder'))
 
+// SB-213. Every assertion above compares the served note with the file's own note, so it passes for any wording at
+// all, which is how a sentence the regulation does not state was served from SB-196 until now. This one states the
+// text the regulation supports, so changing the note means deciding it here too, and names the withdrawn clause:
+// Article 6 says the licence comes from the authorised administrations and that they close premises opened without
+// one, and Article 4 is what allocates them, by the premises' setting and by the matter the law assigns.
+const LICENCE_NOTE =
+  'Where the premises and what is done there need an opening and operating licence: get it from the authorised administration before the premises open or operate. Premises opened without one are closed by that administration. Which administration issues the licence depends on where the premises are and which authority the law makes responsible.'
+
+test('the workplace licence note says only what Articles 4 and 6 of its regulation state', async () => {
+  const reader = await entryFor('get-a-workplace-licence', { situation: 'company-founder' })
+  const text = reader?.to?.notes[0]?.text ?? ''
+
+  expect(text).toBe(LICENCE_NOTE)
+  expect(text, 'the clause no article of the regulation states must not come back').not.toContain('issues it depends on where the premises are')
+})
+
 test("a reader who works in Turkey is told each moment of the work permit, its figures on their pages and its condition first in its notes, a reader who has not said is asked, and a student is not told them", async () => {
   expect(factsOf('get-a-work-permit')).toHaveLength(16)
   await toldInSituation(WORKER_DUTIES, 'worker')
