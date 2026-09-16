@@ -542,6 +542,26 @@ const toldInSituation = async (duties: readonly [slug: string, opening: string][
 test("a reader starting a company is told each duty that follows registration, its facts on their pages and its condition first in its notes, a reader who has not said is asked, and a student is not told them", () =>
   toldInSituation(COMPANY_DUTIES, 'company-founder'))
 
+// SB-212: the tax certificate is the one duty of the six that splits by who the reader is, and the
+// assertion has to name the facts as literals. factsOf compares the API with the file, so it would
+// pass whatever the file said, which cannot decide whether an existing company is correctly told the
+// renewal without the first certificate whose month ran out long ago.
+test('a company that already exists is told the yearly tax certificate without the first one, and a founder is still told both', async () => {
+  const slug = 'get-a-tax-certificate'
+
+  const owner = await entryFor(slug, { situation: 'existing-company-owner' })
+  expect(owner?.verdict, 'an existing company is told the duty').toBe('newInDestination')
+  expect((owner?.to?.facts ?? []).map((fact) => fact.key)).toEqual(['renewAfterDeclarationDeadlineInSpecialPeriod', 'renewEachYearBy'])
+
+  const founder = await entryFor(slug, { situation: 'company-founder' })
+  expect(founder?.verdict, 'a founder is told it too').toBe('newInDestination')
+  expect((founder?.to?.facts ?? []).map((fact) => fact.key)).toEqual([
+    'firstAfterLiability',
+    'renewAfterDeclarationDeadlineInSpecialPeriod',
+    'renewEachYearBy',
+  ])
+})
+
 // SB-341: fitOne compares a reader's situation with ===, and situations are stored lower case, so an upper-case one
 // contradicted every situation-scoped version and the duty left the answer entirely: not a question, not an error,
 // absent. Nothing validates a situation, so nothing refused it either. Whole entries rather than their presence: a
