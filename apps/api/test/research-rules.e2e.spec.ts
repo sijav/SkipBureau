@@ -312,8 +312,17 @@ const factsIn = (rules: ResearchRules, ...versions: readonly (ResearchVersion | 
     })
     .sort((a, b) => (a.key < b.key ? -1 : 1))
 
-/** The facts Turkey's file holds for one obligation, as the move query shows them, in key order. */
-const factsOf = (slug: string) => factsIn(TURKEY, TURKEY.versions.find((version) => version.obligation === slug))
+/** The day these tests ask about, so a version the file has ENDED is never taken for the one in force (SB-204). */
+const TODAY = new Date().toISOString().slice(0, 10)
+
+/**
+ * The facts Turkey's file holds for one obligation, as the move query shows them, in key order.
+ *
+ * SB-204: `find` on the obligation alone was right only while every obligation had exactly one
+ * version. Company formation now has two, the ended one first, so without `inForceOn` this would
+ * build its expectation from the retired version and compare it with what the API serves today.
+ */
+const factsOf = (slug: string) => factsIn(TURKEY, TURKEY.versions.find((version) => version.obligation === slug && inForceOn(version, TODAY)))
 
 // The regions the seed had written before the first load, by code, with the names it
 // gave them, which a load leaves as they are (SB-223).
@@ -344,6 +353,14 @@ test("after a load, Turkey's limited company formation answers with every fact t
   const expected = factsOf('form-a-limited-company')
   expect(expected).toHaveLength(4)
   expect(formation?.to?.facts).toEqual(expected)
+
+  // SB-204: named as literals, because the line above proves only that the API agrees with the file.
+  // It would pass just as happily if the file called this fact anything at all, so it cannot be what
+  // decides the key. The fee fact says the scope of the law it rests on, Law 492's own fees, and the
+  // key that read as company formation costing nothing is served to nobody.
+  const served = (formation?.to?.facts ?? []).map((fact) => fact.key)
+  expect(served).toContain('feesUnderLaw492')
+  expect(served).not.toContain('formationFee')
 })
 
 const LIVES = `
@@ -1291,17 +1308,25 @@ test("a group the file declares keeps exactly the file's memberships, a member d
 })
 
 test('a version the file changes is written again as the file says, and the file loaded again puts it back', async () => {
+  // SB-204: the version IN FORCE, not every version that carries the key. Company formation now has
+  // an ended version and its successor, and both state the minimum capital, so changing the fact
+  // wherever it appears rewrote two versions and made this read two rows. Both counts are what this
+  // test is about, so it says which version it means rather than assuming there is only one.
   const changed: ResearchRules = {
     ...TURKEY,
-    versions: TURKEY.versions.map((version) => ({
-      ...version,
-      facts: version.facts.map((fact) => (fact.key === 'minimumCapital' ? { ...fact, numericValue: 60000 } : fact)),
-    })),
+    versions: TURKEY.versions.map((version) =>
+      version.validTo === undefined
+        ? { ...version, facts: version.facts.map((fact) => (fact.key === 'minimumCapital' ? { ...fact, numericValue: 60000 } : fact)) }
+        : version,
+    ),
   }
   const capital = async () =>
-    (await prisma.ruleFact.findMany({ where: { key: 'minimumCapital', ruleVersion: { research: 'turkey' } }, select: { numericValue: true } })).map((fact) =>
-      fact.numericValue?.toString(),
-    )
+    (
+      await prisma.ruleFact.findMany({
+        where: { key: 'minimumCapital', ruleVersion: { research: 'turkey', validTo: null } },
+        select: { numericValue: true },
+      })
+    ).map((fact) => fact.numericValue?.toString())
   const before = await ownedBy('turkey')
 
   expect(await loadResearchRules(prisma, [changed])).toEqual({ ...NOTHING_CHANGED, versionsChanged: 1 })
