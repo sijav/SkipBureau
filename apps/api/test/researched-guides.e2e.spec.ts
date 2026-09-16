@@ -289,3 +289,61 @@ test('a start after sample content takes the sample address guide over in its ow
   )
   expect(served.sources).toEqual(address.detail.sources.map(({ url, name }) => ({ url, name })))
 })
+
+// SB-307: a guide's sections are ordered rows, so a document that says something twice keeps both of its headings.
+
+/** One researched guide rewritten with the sections given, so a load can be watched against a file of our own making. */
+const withSections = (sections: ResearchedGuide['detail']['sections']): ResearchedGuide => {
+  const first = RESEARCHED_GUIDES[0]
+  if (!first) throw new Error('RESEARCHED_GUIDES is empty')
+  return { ...first, detail: { ...first.detail, sections } }
+}
+
+test("a guide keeps a section for every lead its file has, two of one kind included, in the file's order", async () => {
+  const twice = withSections([
+    { kind: 'importantToKnow', title: { en: 'The first thing to know.' }, body: { en: 'One.' } },
+    { kind: 'importantToKnow', title: { en: 'The second thing to know.' }, body: { en: 'Two.' } },
+  ])
+
+  try {
+    await loadResearchedGuides(prisma, [twice])
+    const served = await guideFor(twice.country, twice.guide.slug)
+    expect(served.sections).toEqual([
+      { kind: 'importantToKnow', title: 'The first thing to know.', body: 'One.' },
+      { kind: 'importantToKnow', title: 'The second thing to know.', body: 'Two.' },
+    ])
+
+    const before = await rows()
+    await loadResearchedGuides(prisma, [twice])
+    expect(await rows(), 'a second load of the same file changes nothing').toEqual(before)
+  } finally {
+    await loadResearchedGuides(prisma)
+  }
+})
+
+test('a file that reorders its sections is followed, and a language it does not write is left behind by neither', async () => {
+  const sections: ResearchedGuide['detail']['sections'] = [
+    { kind: 'beforeYouStart', title: { en: 'What to do first.' }, body: { en: 'First.' } },
+    { kind: 'commonProblems', title: { en: 'What goes wrong.' }, body: { en: 'Second.' } },
+  ]
+  const one = withSections(sections)
+  const other = withSections([...sections].reverse())
+
+  try {
+    await loadResearchedGuides(prisma, [one])
+    const guideId = (await prisma.guide.findUniqueOrThrow({ where: { countryCode_slug: { countryCode: one.country, slug: one.guide.slug } } })).id
+    const section = await prisma.guideSection.findFirstOrThrow({ where: { guideId }, orderBy: { position: 'asc' } })
+    // A language the file does not write, as an older load or another writer could have left.
+    await prisma.guideSectionText.create({ data: { sectionId: section.id, locale: 'de-DE', title: 'Was zuerst zu tun ist.', body: 'Erstens.' } })
+
+    await loadResearchedGuides(prisma, [other])
+    const served = await guideFor(other.country, other.guide.slug)
+    expect(served.sections).toEqual([
+      { kind: 'commonProblems', title: 'What goes wrong.', body: 'Second.' },
+      { kind: 'beforeYouStart', title: 'What to do first.', body: 'First.' },
+    ])
+    expect(await prisma.guideSectionText.count({ where: { section: { guideId }, locale: { not: 'en-US' } } }), 'a language the file does not write is gone').toBe(0)
+  } finally {
+    await loadResearchedGuides(prisma)
+  }
+})

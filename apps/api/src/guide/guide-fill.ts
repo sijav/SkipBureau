@@ -55,11 +55,14 @@ export const fillGuideDetail = async (prisma: PrismaClient, countryCode: string,
   }
 
   for (const [position, section] of seed.sections.entries()) {
-    const row = await prisma.guideSection.upsert({
-      where: { guideId_kind: { guideId: guide.id, kind: section.kind } },
-      update: {},
-      create: { guideId: guide.id, kind: section.kind, position },
-    })
+    // SB-307: the position is the row's identity, and this writer only fills what is missing. A row holding another
+    // kind at this position keeps it: attaching one section's words to another's presentation is worse than a gap.
+    const standing = await prisma.guideSection.findUnique({ where: { guideId_position: { guideId: guide.id, position } } })
+    if (standing && standing.kind !== section.kind) {
+      console.log(`sample content: ${seed.slug}'s section ${position} is ${standing.kind}, not ${section.kind}, so it was left alone`)
+      continue
+    }
+    const row = standing ?? (await prisma.guideSection.create({ data: { guideId: guide.id, kind: section.kind, position } }))
 
     if (section.link && row.linkGuideId === null) {
       const target = await prisma.guide.findUnique({ where: { countryCode_slug: { countryCode, slug: section.link } } })

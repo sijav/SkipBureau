@@ -289,11 +289,12 @@ export const seedContent = async (prisma: PrismaClient, countries: readonly Coun
       }
 
       for (const [position, section] of guide.sections.entries()) {
-        const sectionRow = await prisma.guideSection.upsert({
-          where: { guideId_kind: { guideId: row.id, kind: section.kind } },
-          update: {},
-          create: { guideId: row.id, kind: section.kind, position },
-        })
+        // SB-307: the position is the row's identity, and this writer fills rather than rewrites. A row holding
+        // another kind at this position keeps it, since one section's words under another's presentation is worse
+        // than a gap.
+        const standing = await prisma.guideSection.findUnique({ where: { guideId_position: { guideId: row.id, position } } })
+        if (standing && standing.kind !== section.kind) continue
+        const sectionRow = standing ?? (await prisma.guideSection.create({ data: { guideId: row.id, kind: section.kind, position } }))
 
         const bodies: [string, string][] = [['en-US', section.en]]
         if (section.fa) bodies.push(['fa-IR', section.fa])

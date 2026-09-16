@@ -801,14 +801,17 @@ const writeGuide = async (tx: Prisma.TransactionClient, taskId: string, research
   })
   await tx.guideText.deleteMany({ where: { guideId: guide.id, locale: { not: 'en-US' } } })
 
-  await tx.guideSection.deleteMany({ where: { guideId: guide.id, kind: { notIn: detail.sections.map((section) => section.kind) } } })
+  // SB-307: the position is a section's identity, so the file's order is what stands and the tail beyond it goes.
+  await tx.guideSection.deleteMany({ where: { guideId: guide.id, position: { gte: detail.sections.length } } })
   for (const [position, section] of detail.sections.entries()) {
     const row = await tx.guideSection.upsert({
-      where: { guideId_kind: { guideId: guide.id, kind: section.kind } },
-      update: { position, linkGuideId: null },
+      where: { guideId_position: { guideId: guide.id, position } },
+      update: { kind: section.kind, linkGuideId: null },
       create: { guideId: guide.id, kind: section.kind, position },
     })
     await tx.guideStep.deleteMany({ where: { sectionId: row.id } })
+    // The file writes English. Any other language on this row described whatever used to sit at this position.
+    await tx.guideSectionText.deleteMany({ where: { sectionId: row.id, locale: { not: 'en-US' } } })
     for (const [locale, language] of LOCALES) {
       const title = section.title?.[language]
       const body = section.body?.[language]

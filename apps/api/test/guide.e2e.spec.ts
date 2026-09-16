@@ -179,17 +179,24 @@ test('sections and steps come back in the order the design draws them', async ()
   const positions = guide.sections.map((s: { position: number }) => s.position)
   expect(positions).toEqual([...positions].sort((a, b) => a - b))
 
-  const howTo = guide.sections.find((s: { kind: string }) => s.kind === 'howToDoIt')
+  // SB-307: a guide can hold more than one section of a kind, so this names the one the fixture writes.
+  const howTos = guide.sections.filter((s: { kind: string }) => s.kind === 'howToDoIt')
+  expect(howTos, 'the fixture writes one how-to section').toHaveLength(1)
+  const howTo = howTos[0]
   expect(howTo.steps.map((s: { position: number }) => s.position)).toEqual([0, 1, 2])
   expect(howTo.steps[0].title).toContain('tax number')
 })
 
-test('one section of each kind per guide, refused by the database', async () => {
+test('one section per position in a guide, refused by the database, and a kind may repeat (SB-307)', async () => {
   const guide = await prisma.guide.findUniqueOrThrow({ where: { countryCode_slug: { countryCode: 'tr', slug: 'register-your-address' } } })
+  const standing = await prisma.guideSection.findFirstOrThrow({ where: { guideId: guide.id }, orderBy: { position: 'asc' } })
 
   await expect(
-    prisma.guideSection.create({ data: { guideId: guide.id, kind: 'howToDoIt', position: 9 } }),
+    prisma.guideSection.create({ data: { guideId: guide.id, kind: 'commonProblems', position: standing.position } }),
   ).rejects.toThrow()
+
+  const second = await prisma.guideSection.create({ data: { guideId: guide.id, kind: standing.kind, position: 99 } })
+  await prisma.guideSection.delete({ where: { id: second.id } })
 })
 
 test('a guide we do not have is null, not an error', async () => {

@@ -256,7 +256,7 @@ export const Guide = () => {
         </Box>
 
         {guide.sections.map((section, index) => (
-          <Fragment key={section.kind}>
+          <Fragment key={section.position}>
             {index === costAt && <Box sx={{ maxWidth: layout.readingWidth }}>{costAndTime}</Box>}
             {/* The options grid runs the full column; every other section keeps the reading measure. */}
             <Box sx={{ maxWidth: section.kind === 'yourOptions' ? 'none' : layout.readingWidth }}>

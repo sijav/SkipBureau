@@ -379,9 +379,11 @@ model GuideSection {
   texts       GuideSectionText[]
   steps       GuideStep[]
 
-  /// One of each kind per guide. The template renders a section, not a list of
-  /// sections that happen to share a name.
-  @@unique([guideId, kind])
+  /// A guide's sections are an ordered list, and the position is a section's
+  /// identity in it (SB-307). A document that says something twice, as
+  /// Germany's business registration research does, keeps both of its
+  /// headings, so a kind can repeat; each section carries its own title.
+  @@unique([guideId, position])
 }
 
 model GuideSectionText {
