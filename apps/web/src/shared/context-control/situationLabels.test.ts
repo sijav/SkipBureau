@@ -14,5 +14,9 @@ test('every situation a researched rule names has a name', () => {
   )
 
   expect(situations.size, 'the research names no situation at all').toBeGreaterThan(0)
-  expect([...situations].filter((situation) => !(situation in SITUATION_LABELS))).toEqual([])
+
+  // SB-297: named in the message, because the research publish runs this test and keeps only the lines that say what
+  // failed. A diff of two arrays is not one of them, so without this the publish would refuse and not say what for.
+  const unnamed = [...situations].filter((situation) => !(situation in SITUATION_LABELS))
+  expect(unnamed, `situationLabels.ts has no name for: ${unnamed.join(', ')}`).toEqual([])
 })

@@ -17,5 +17,9 @@ test('every fact of every obligation a guide links has a label', () => {
   )
 
   expect(facts.length, 'the linked obligations hold no researched facts at all').toBeGreaterThan(0)
-  expect(facts.filter((fact) => !((fact.split('.')[1] ?? '') in FACT_LABELS))).toEqual([])
+
+  // SB-297: named in the message, because the research publish runs this test and keeps only the lines that say what
+  // failed. A diff of two arrays is not one of them, so without this the publish would refuse and not say what for.
+  const unlabelled = facts.filter((fact) => !((fact.split('.')[1] ?? '') in FACT_LABELS))
+  expect(unlabelled, `factLabels.ts has no label for: ${unlabelled.join(', ')}`).toEqual([])
 })

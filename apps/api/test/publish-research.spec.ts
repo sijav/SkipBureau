@@ -13,6 +13,7 @@ import {
   emptyCase,
   expectedOf,
   inForceOn,
+  labelTestArgs,
   lastUnreverted,
   messageOf,
   NO_RULE_NATIONALITY,
@@ -22,6 +23,7 @@ import {
   readerFor,
   runVerdict,
   tipIn,
+  uncommittedLabels,
 } from '../scripts/publish-research.js'
 import { compose } from '../src/rules/research/compose.js'
 import { RESEARCHED } from '../src/rules/research/countries.js'
@@ -298,6 +300,31 @@ test("a skipped build is started only while the publish's commit is still the br
 
 // git ls-remote exits successfully when a ref matches nothing, so an empty answer must not read as a tip: that is the
 // one way a dispatch could still be made blind.
+// SB-297: the publish writes research to the live database and checked nothing web-side, so a situation or a fact
+// with no name went live and the deployed site showed a raw code or dropped the line. The web's two label tests read
+// the research itself, through the api alias, so running them here catches it before anything is written.
+test("the web's label tests are run from the web, by project, as two named files", () => {
+  expect(labelTestArgs('/x/vitest.mjs')).toEqual([
+    '/x/vitest.mjs',
+    'run',
+    '--project=unit',
+    'src/shared/context-control/situationLabels.test.ts',
+    'src/shared/rule-answer/factLabels.test.ts',
+  ])
+})
+
+// The publish carries only the API's research files, so a label added but not committed would let the gate pass while
+// the live site stayed unnamed: passing against a tree the publish will not carry is worse than not checking.
+test('a label source the publish would leave behind is named, and a committed one is not', () => {
+  const situations = 'apps/web/src/shared/context-control/situationLabels.ts'
+  const facts = 'apps/web/src/shared/rule-answer/factLabels.ts'
+
+  expect(uncommittedLabels([])).toEqual([])
+  expect(uncommittedLabels(['apps/api/src/rules/research/turkey/work-permit.ts'])).toEqual([])
+  expect(uncommittedLabels([facts])).toEqual([facts])
+  expect(uncommittedLabels([facts, situations, 'apps/api/src/tasks.ts'])).toEqual([situations, facts])
+})
+
 test('a tip is read only from a well formed line for the ref that was asked for', () => {
   const sha = 'ab4966fcc8bbfd57d8bd843c6b5b6ff89d3a61a2'
   const branch = 'refs/heads/main'

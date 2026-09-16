@@ -444,6 +444,40 @@ const tipOf = (branch: string): string | null => {
   return answer.status === 0 ? tipIn(answer.stdout, branch) : null
 }
 
+/** The web, where the label tests a research file can break live (SB-297). */
+const WEB = resolve(API, '..', 'web')
+
+/**
+ * The web sources naming what a research file adds, as paths in the repository.
+ *
+ * A research file that adds a situation, or a fact to an obligation a guide links, needs a name here or the deployed
+ * site shows the raw code and drops the unnamed fact's line. The publish carries neither file, so both have to be
+ * committed before it runs: a gate passing against a working tree the publish will not carry reports a safety it has
+ * not established.
+ */
+export const LABEL_SOURCES: readonly string[] = [
+  'apps/web/src/shared/context-control/situationLabels.ts',
+  'apps/web/src/shared/rule-answer/factLabels.ts',
+]
+
+/** Those label sources this publish would leave behind: changed or untracked, and so not in what it commits. */
+export const uncommittedLabels = (changed: readonly string[]): string[] => LABEL_SOURCES.filter((path) => changed.includes(path))
+
+/**
+ * The web's label tests, run from the web so its own config, alias and lingui plugin are the ones in force.
+ *
+ * `--project=unit` and not the whole run: the web has four storybook projects beside it, which need a browser and
+ * race over one pre-bundle here. Two named files and not the whole unit project: a publish must refuse for the thing
+ * it is checking, and an unrelated web failure stopping a research publish is a worse kind of stop.
+ */
+export const labelTestArgs = (vitest: string): string[] => [
+  vitest,
+  'run',
+  '--project=unit',
+  'src/shared/context-control/situationLabels.test.ts',
+  'src/shared/rule-answer/factLabels.test.ts',
+]
+
 /** A `gh` answer as JSON; a failure is the error. */
 const ghJson = (args: readonly string[]): unknown => {
   const answer = run('gh', args)
@@ -543,6 +577,25 @@ const main = async (): Promise<void> => {
     const plain = specs.stdout + specs.stderr
     const failing = plain.split('\n').filter((line) => /FAIL|AssertionError|Error:|Tests\s/.test(line))
     throw new PublishError(`the research specs failed:\n${failing.slice(0, 20).join('\n')}`)
+  }
+
+  // SB-297: the web is what names a situation or a fact this research adds, and the publish carries neither label
+  // file, so both have to be committed already: a gate that passes against a tree the publish will not carry reports
+  // a safety it has not established. BUILD_INPUTS never sees them, being the API's own, so they are read by name.
+  const dirtyLabels = uncommittedLabels([
+    ...listed(['diff', '--name-only', 'HEAD', '--', ...LABEL_SOURCES]),
+    ...listed(['ls-files', '--others', '--exclude-standard', '--', ...LABEL_SOURCES]),
+  ])
+  if (dirtyLabels.length > 0) {
+    throw new PublishError(
+      `the web's names for what this research adds are not committed: ${dirtyLabels.join(', ')}. Commit them first, or this publish carries the research and the site keeps no name for it.`,
+    )
+  }
+  const labels = run(process.execPath, labelTestArgs(vitest), { cwd: WEB, env: { ...process.env, NO_COLOR: '1', FORCE_COLOR: '0' } })
+  if (labels.status !== 0) {
+    const plain = labels.stdout + labels.stderr
+    const failing = plain.split('\n').filter((line) => /FAIL|AssertionError|Error:|Tests\s/.test(line))
+    throw new PublishError(`the web has no name for what this research adds:\n${failing.slice(0, 20).join('\n')}`)
   }
 
   const moved = changedSince(snapshot, (path) => readFileSync(resolve(API, path)))
