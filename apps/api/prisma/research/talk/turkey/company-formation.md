@@ -1559,3 +1559,102 @@ All read 2026-09-12.
 ## Answered
 
 No—I find no remaining mismatch between the figures, their markers and the supplied evidence. I opened no URLs this turn.
+
+---
+
+## Asked, 2026-09-16 06:05 UTC
+
+SB-213, one point, on the workplace licence note this case already produced.
+
+The deployed API serves this note for get-a-workplace-licence, written from our agreed document:
+
+  "Where the premises and what is done there need an opening and operating licence: get it from
+  the authorised administration before the premises open or operate. Premises opened without one
+  are closed by that administration, and which administration issues it depends on where the
+  premises are."
+
+The only definition it cites is isyeri-ruhsat-reg-6-before-open, Article 6 first paragraph of the
+İşyeri Açma ve Çalışma Ruhsatlarına İlişkin Yönetmelik, whose recorded evidence is:
+
+  "Madde 6- (Değişik birinci fıkra: 19/3/2007 – 2007/11882 K.) Yetkili idarelerden usulüne uygun
+  olarak işyeri açma ve çalışma ruhsatı alınmadan işyeri açılamaz ve çalıştırılamaz. ... İşyeri
+  açma ve çalışma ruhsatı alınmadan açılan işyerleri yetkili idareler tarafından kapatılır."
+
+Article 6 states that the licence comes from the authorised administrations and that premises
+opened without one are closed by them. It does not state how the authorised administration is
+decided. So the note's last clause is ours, not the page's, and it cannot stand as it is.
+
+Read today, 2026-09-16, from the consolidated text on mevzuat.gov.tr
+(https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=20059207&MevzuatTur=21&MevzuatTertip=5, the
+MevzuatFihristDetayIframe frame), Article 4(a) defines the term, and it was amended in 2021, so
+the 2005 Resmî Gazete wording is not the rule today:
+
+  "a) (Değişik:RG-17/4/2021-31457-C.K.-3835/1 md.) Yetkili idare: Belediye sınırları ve mücavir
+  alanlar dışı ile kanunlarda münhasıran il özel idaresine yetki verilen hususlarda il özel
+  idaresini, büyükşehir belediyesi sınırları içinde büyükşehir belediyesinin yetkili olduğu
+  konularda büyükşehir belediyesini, bunların dışında kalan hususlarda büyükşehir ilçe
+  belediyesini, belediye sınırları ve mücavir alanlar içinde belediyeyi, organize sanayi bölgesi
+  sınırları içinde organize sanayi bölgesi tüzel kişiliğini, endüstri bölgesi sınırları içinde
+  Sanayi ve Teknoloji Bakanlığını ve teknoloji geliştirme bölgesi yönetici şirketi ile bölgede
+  yer alan AR-GE ve tasarım faaliyetinde bulunan firmalar için Sanayi ve Teknoloji Bakanlığı il
+  müdürlüklerini,"
+
+The clause would then rest on Articles 4 and 6 of one regulation, one URL, two definitions, and
+the version's displayed source name becomes "İşyeri Açma ve Çalışma Ruhsatlarına İlişkin
+Yönetmelik, Madde 4 ve 6".
+
+Three questions.
+
+1. Does Article 4(a) as consolidated support this English, and is it the wording you would use?
+
+     "Which authorised administration issues the licence depends on the premises' setting and on
+     any authority the law assigns for that kind of premises."
+
+   My doubt is whether "setting" plus "any authority the law assigns for that kind of premises"
+   covers the paragraph honestly, since it allocates by where the premises are (outside municipal
+   boundaries, metropolitan, municipal, organised industrial zone, industry zone, technology
+   development zone) AND by the matter (what the law assigns exclusively to the special provincial
+   administration, and what the metropolitan municipality is competent for). If that is two ideas
+   a founder cannot read in one sentence, give the shorter honest clause instead, even if it says
+   less. We would rather say less than overstate.
+
+2. Which exact substrings of Article 4(a) should be recorded as the definition's evidence? Give
+   them as they appear in the consolidated text, so they can be matched against the page verbatim
+   before the line is written. Two or three is enough; they must carry the allocation, not the
+   whole list.
+
+3. With that clause replaced, does the note as a whole say only what Articles 4 and 6 state?
+   Check the first two sentences too, not just the one being fixed.
+
+If a round raises nothing new, answer with a single "No."
+
+## Answered
+
+1. Article 4(a) supports both location and legal competence. “For that kind of premises” is narrower than its references to *hususlar* and *konular*. I would use:
+
+   **“Which administration issues the licence depends on where the premises are and which authority the law makes responsible.”**
+
+2. These two substrings carry both aspects:
+
+   > Belediye sınırları ve mücavir alanlar dışı ile kanunlarda münhasıran il özel idaresine yetki verilen hususlarda il özel idaresini
+
+   > büyükşehir belediyesi sınırları içinde büyükşehir belediyesinin yetkili olduğu konularda büyükşehir belediyesini, bunların dışında kalan hususlarda büyükşehir ilçe belediyesini
+
+3. **Yes.** With that replacement, the note stays within Articles 4 and 6: the licence must precede opening or operation; the authorised administration closes premises opened without it; Article 4 allocates responsibility. The first two sentences need no change.
+
+These conclusions use the consolidated passages you supplied. I could not independently reopen the page today: it returned **502 Bad Gateway**. The substrings above are copied exactly from your supplied transcription.
+
+URLs successfully opened: none.
+
+Failed:
+https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=20059207&MevzuatTur=21&MevzuatTertip=5
+
+---
+
+## Asked, 2026-09-16 06:05 UTC
+
+Taking your wording exactly: Which administration issues the licence depends on where the premises are and which authority the law makes responsible. Recording the two substrings you gave as the evidence of a new definition for Article 4, read 2026-09-16 from the consolidated text on mevzuat.gov.tr, the MevzuatFihristDetayIframe frame, beside the existing Article 6 definition on the same URL. Noted that you could not reopen the page today, 502, and worked from the transcription supplied. I fetched that frame myself today from the official host and matched both substrings verbatim in composed form before writing the line, which is the rule this project uses before any definition is recorded, so the evidence is checked against the page rather than against the transcription alone. The version will cite Articles 4 and 6 of the one regulation, one URL, two definitions, and its displayed source name becomes the regulation named with Madde 4 ve 6. Nothing else in the note changes. If that raises nothing new, answer No.
+
+## Answered
+
+No.

@@ -5,6 +5,11 @@ import type { ResearchCase, ResearchVersion } from '../rows.js'
 
 const READ = '2026-09-14'
 
+// SB-213: the licence regulation was read again, for Article 4, which is the article that says who issues the
+// licence. Its two definitions carry that day rather than READ, since every label of a version has to have been
+// read on the day the version's source names.
+const RUHSAT_READ = '2026-09-16'
+
 // Where a reader is in their journey, not whether each duty binds them: each
 // version for a founder opens its notes with the condition that does (SB-196).
 const FOUNDER: ResearchVersion['criteria'] = [{ dimension: 'situation', value: 'company-founder' }]
@@ -103,8 +108,10 @@ export const CASE: ResearchCase = {
     },
     workplaceLicenceRegulation: {
       url: 'https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=20059207&MevzuatTur=21&MevzuatTertip=5',
-      name: 'İşyeri Açma ve Çalışma Ruhsatlarına İlişkin Yönetmelik, Madde 6',
-      read: READ,
+      name: 'İşyeri Açma ve Çalışma Ruhsatlarına İlişkin Yönetmelik, Madde 4 ve 6',
+      // SB-213: this page was read again for Article 4, which is what says who issues the licence, so both of its
+      // definitions carry that day. Every label of a version must be read on the day its source names.
+      read: RUHSAT_READ,
     },
     electronicBooksAnnouncement: {
       url: 'https://ticaret.gov.tr/haberler/1-ocak-2026-tarihinden-sonra-kurulacak-sirketlerde-elektronik-ticari-defter-sistemi-zorunlu-olacak',
@@ -240,7 +247,9 @@ export const CASE: ResearchCase = {
       validFrom: READ,
       criteria: FOUNDER,
       source: 'workplaceLicenceRegulation',
-      labels: ['isyeri-ruhsat-reg-6-before-open'],
+      // Article 6 says the licence comes from the authorised administrations and that they close premises opened
+      // without one; Article 4 is what allocates them. The note rests on both, so the version names both (SB-213).
+      labels: ['isyeri-ruhsat-reg-6-before-open', 'isyeri-ruhsat-reg-4-yetkili-idare'],
       facts: [
         {
           key: 'obtainBefore',
@@ -251,7 +260,7 @@ export const CASE: ResearchCase = {
         },
       ],
       notes: {
-        en: 'Where the premises and what is done there need an opening and operating licence: get it from the authorised administration before the premises open or operate. Premises opened without one are closed by that administration, and which administration issues it depends on where the premises are.',
+        en: 'Where the premises and what is done there need an opening and operating licence: get it from the authorised administration before the premises open or operate. Premises opened without one are closed by that administration. Which administration issues the licence depends on where the premises are and which authority the law makes responsible.',
       },
     },
     {
