@@ -715,6 +715,364 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
     },
     obligations: TURKEY_COMPANY_FORMATION,
   },
+  // Written from research/agreed/germany/anmeldung.md (SB-299).
+  {
+    country: 'de',
+    task: 'getting-settled',
+    area: { slug: 'anmeldung', en: 'Register where you live', fa: 'ثبت نشانی محل سکونت' },
+    guide: {
+      slug: 'anmeldung',
+      verifiedAt: '2026-09-14',
+      en: {
+        title: 'Registering where you live in Germany',
+        description:
+          'Unless a statutory exemption or exception applies, anyone who moves into a dwelling must register with the Meldebehörde within two weeks of moving in.',
+      },
+    },
+    detail: {
+      slug: 'anmeldung',
+      sections: [
+        {
+          kind: 'beforeYouStart',
+          title: { en: 'The rule, and it is the same everywhere.' },
+          body: {
+            en: 'It is §17(1) Bundesmeldegesetz, it is federal, and no Land can lengthen or shorten it. Your nationality does not matter and neither does being an EU citizen. For a child under sixteen, the person whose dwelling they move into registers them.',
+          },
+        },
+        {
+          kind: 'importantToKnow',
+          title: { en: 'Two weeks, not three months.' },
+          body: {
+            en: 'If you are moving to Germany to live and you take a flat, you have two weeks from moving in. The three-month figure is real but it describes other situations: a temporary stay by somebody who otherwise lives abroad and is not registered in Germany, where registration falls due within two weeks after the stay passes three months (§27(2)); and a stay in a hotel or similar by somebody with no registered German dwelling, on the same pattern (§29(1)). The temporary-stay exception under §27(2) does not apply to asylum seekers or other foreign nationals who move temporarily into a reception facility or other assigned accommodation (§27(3)).',
+          },
+        },
+        {
+          kind: 'commonProblems',
+          title: { en: 'If you miss it.' },
+          body: {
+            en: 'Failing to register on time, deliberately or carelessly, can be fined up to €1,000 (§54(2)(1), (3)). That is a ceiling, not a standard charge. The €50,000 figure you may read about is for offering somebody a fictitious registration address and has nothing to do with being late.',
+          },
+        },
+        {
+          kind: 'whatYouNeed',
+          title: { en: 'The landlord confirmation, and what to do without one.' },
+          body: {
+            en: "The person who provides your accommodation, which for a subtenant is the main tenant rather than the owner, must confirm your move within two weeks, either in a signed written confirmation or electronically directly to the Meldebehörde through the procedure under §19(4). It must carry their name and address, the owner's name if that is somebody else, the date you actually moved in, the address, and the names of everyone registering. If they refuse or are late you must tell the registration office without delay (§19(2)), and federal guidance says the registration must go ahead anyway if you really did move in, with the confirmation supplied afterwards. A lease is not a substitute for it. A provider who refuses, delays or confirms falsely can also be fined up to €1,000.",
+          },
+        },
+        {
+          kind: 'whatYouNeed',
+          title: { en: 'What it costs, and this is where Germany differs from itself.' },
+          body: {
+            en: "Registration is free in Berlin, Munich, Düsseldorf, Wiesbaden, Freiburg and under Saxony's state guidance. Hamburg charges €16, set by its own fee ordinance and raised to that figure on 1 January 2026. The charge is for one person or for a family who share both the address they left and the address they are arriving at, so a qualifying family pays €16 once, not each. We could not establish which relationships count as a family for that tariff, so do not assume it covers housemates or relatives arriving separately. Hamburg's fee comes from Hamburg's general fee legislation rather than from the federal registration law, which is why it can exist at all while the two-week deadline cannot vary.",
+          },
+        },
+        {
+          kind: 'importantToKnow',
+          title: { en: 'What registering gets you.' },
+          body: {
+            en: 'Your tax identification number arrives on its own after your first registration and is yours for life; if no letter comes within three months the Federal Central Tax Office has a procedure for asking again. A bank account is a separate application and, as a matter of law, registration is not a precondition: the financial regulator expressly includes people with no fixed residence among those who may be entitled to a basic account. Health insurance is also separate and registering does not enrol you in health insurance. Official guidance for newcomers expects you to be covered from the day you arrive, so do not wait for your Anmeldung to arrange it.',
+          },
+        },
+        {
+          kind: 'whereToDoIt',
+          title: { en: 'Cities differ in their registration procedures.' },
+          body: {
+            en: "Berlin registers by appointment, in person or through an authorised representative, and its online route is for moves within Germany rather than a first arrival from abroad. Munich also allows a representative and publishes a form for a missing landlord confirmation. Hamburg's page for arrivals from abroad says everyone moving in must attend in person, which sits awkwardly with federal guidance allowing representation, and we could not find a Hamburg rule that overrides it. The service pages we checked for Berlin, Munich and Hamburg do not offer ordinary registration by post.",
+          },
+        },
+      ],
+      sources: [
+        { url: 'https://www.gesetze-im-internet.de/bmg/__17.html', name: 'Bundesmeldegesetz (BMG), § 17' },
+        { url: 'https://www.gesetze-im-internet.de/bmg/__27.html', name: 'Bundesmeldegesetz (BMG), § 27' },
+        { url: 'https://www.gesetze-im-internet.de/bmg/__54.html', name: 'Bundesmeldegesetz (BMG), § 54' },
+        { url: 'https://www.gesetze-im-internet.de/bmg/__19.html', name: 'Bundesmeldegesetz (BMG), § 19' },
+        { url: 'https://service.berlin.de/dienstleistung/120686/', name: 'Service Berlin, Alleinige Wohnung oder Hauptwohnung anmelden' },
+        {
+          url: 'https://www.verwaltungsvorschriften-im-internet.de/bsvwvbund_27092022_VII2201041418.htm',
+          name: 'Allgemeine Verwaltungsvorschrift zur Durchführung des Bundesmeldegesetzes (BMGVwV)',
+        },
+        {
+          url: 'https://stadt.muenchen.de/service/info/wohnsitzanmeldung/1063475/n0/',
+          name: 'Landeshauptstadt München, Wohnsitzanmeldung',
+        },
+        {
+          url: 'https://service.duesseldorf.de/suche/-/egov-bis-detail/dienstleistung/227/show',
+          name: 'Serviceportal Düsseldorf, Anmeldung eines Wohnsitzes',
+        },
+        { url: 'https://www.wiesbaden.de/vv/produkte/34/Wohnungsanmeldung', name: 'Landeshauptstadt Wiesbaden, Wohnungsanmeldung' },
+        { url: 'https://www.freiburg.de/pb/-/205332/vbid6020109', name: 'Stadt Freiburg, Wohnsitz anmelden' },
+        { url: 'https://amt24.sachsen.de/zufi/leistungen/6007623', name: 'Amt24 Sachsen, Serviceportal Zuständigkeitsfinder' },
+        { url: 'https://www.hamburg.de/service/info/111142065/n0/', name: 'hamburg.de, Umzug nach Hamburg aus dem Ausland melden' },
+        {
+          url: 'https://www.luewu.de/gvbl/ausgabe-nr-43-vom-16-12-2025-seiten-723-786-groesse-48-mb/',
+          name: 'Hamburgisches Gesetz- und Verordnungsblatt Nr. 43 vom 16. Dezember 2025, Elfte Verordnung zur Änderung von Gebührenordnungen aus dem Bereich der Behörde für Inneres und Sport',
+        },
+        {
+          url: 'https://www.luewu.de/wp-content/uploads/2025/08/GVBL_HH_2015-42.pdf',
+          name: 'Hamburgisches Gesetz- und Verordnungsblatt Nr. 42 vom 13. Oktober 2015, Seite 274, Tarifnummer 2',
+        },
+        {
+          url: 'https://online.portal.bzst.de/SharedDocs/Leistungsbeschreibung/DE/erneute_mitteilung_der_ID-Nr.html',
+          name: 'BZSt online.portal, Steueridentifikationsnummer erhalten',
+        },
+        {
+          url: 'https://www.make-it-in-germany.com/de/leben-in-deutschland/geld-versicherung/krankenversicherung',
+          name: 'Make it in Germany, Krankenversicherung',
+        },
+      ],
+    },
+    obligations: ADDRESS_GUIDE,
+  },
+  // Written from research/agreed/germany/business-registration.md (SB-299).
+  {
+    country: 'de',
+    task: 'start-a-business',
+    area: { slug: 'business-registration', en: 'Register a business', fa: 'ثبت کسب‌وکار' },
+    guide: {
+      slug: 'business-registration',
+      verifiedAt: '2026-09-14',
+      en: {
+        title: 'Registering a business in Germany',
+        description: 'The tax office decides whether your income is from a liberal profession under §18 EStG or from a trade.',
+      },
+    },
+    detail: {
+      slug: 'business-registration',
+      sections: [
+        {
+          kind: 'beforeYouStart',
+          title: { en: 'There are two questions, not one, and two authorities answer them separately.' },
+          body: {
+            en: 'The trade office decides, on its own, whether you must register a Gewerbe. The Federal Administrative Court has held that the tax classification does not bind the trade authority, so you can be freiberuflich for the tax office and still have to register. Calling yourself a "freelancer" does not determine which you are.',
+          },
+        },
+        {
+          kind: 'whatToCheck',
+          title: { en: 'If you work as a self-employed software developer, you need to establish which classifications apply.' },
+          body: {
+            en: 'Engineering-like work can qualify as a liberal profession. What matters is both the work you actually do and the breadth and depth of your knowledge. A relevant degree helps and self-taught people can qualify, but they have to show comparable knowledge. Having a degree, programming professionally or calling yourself an IT consultant settles neither question. If you are unsure, put your actual services, your qualifications and some representative projects to both authorities. A tax number is not a ruling, and the binding ruling you can ask the tax office for under §89 AO does not settle the trade question.',
+          },
+        },
+        {
+          kind: 'commonProblems',
+          title: { en: 'Getting it wrong.' },
+          body: {
+            en: 'If you should have registered a Gewerbe and did not, registration can be required retrospectively and a late or missing notification can be fined up to €1,000 (§146 GewO); a tax reclassification can create trade tax for earlier years, though the nationwide €24,500 Gewerbeertrag allowance for individuals and partnerships means reclassification does not automatically mean trade tax to pay. If you registered something that was never a trade, the registration does not put you into commercial tax treatment. Ask the trade office to correct it and the tax office to classify you correctly. We could not verify a uniform official procedure for cancelling retrospectively or refunding fees and chamber contributions.',
+          },
+        },
+        {
+          kind: 'howToDoIt',
+          title: { en: 'Registering the Gewerbe.' },
+          body: {
+            en: "You notify the trade office where the business is located, and the federal deadline is at the same time as you start the business (§14 GewO). There is no nationwide grace period. Cologne's published guidance says a warning fine may be imposed when commencement was more than four weeks ago, and fine proceedings may be initiated after more than six months. These are possible enforcement measures, not extensions of the deadline.",
+          },
+        },
+        {
+          kind: 'whatYouNeed',
+          title: { en: 'There is no uniform federal registration fee.' },
+          body: {
+            en: "In these three examples the fees come from Land ordinances, and each concerns an individual registering a sole business; other legal forms and additional representatives can change the charge. The examples do not establish who fixes the amount everywhere in Germany. | City | Fee | Set by | |---|---|---| | Berlin | €26, or €15 online | Berlin's Land administrative-fee ordinance | | Hamburg | €25 | Hamburg's economic-administration fee ordinance | | Cologne | €26 | NRW's tariff, collected by the city | Whether you can do it online depends on the responsible authority, and sometimes on your legal form; Berlin lists forms for which there is no online route.",
+          },
+        },
+        {
+          kind: 'importantToKnow',
+          title: { en: 'What registering sets off.' },
+          body: {
+            en: "Your notification is transmitted, within statutory purpose limits and subject to a recipient waiving regular transmission, to the tax office, the chambers, DGUV for forwarding to the responsible accident insurer, the employment agency, customs, the immigration authority and others. Transmission is not the same as somebody contacting you, and it does not complete every separate obligation. It does complete one: a Gewerbeanmeldung made within one week of the business starting satisfies the business-notification obligation to the statutory accident insurer; otherwise that notification is due within one week. Chamber membership is normally compulsory for an ordinary commercial business and there is no general opt-out, but the contribution can be nothing. For IHK contributions: an eligible individual or partnership not in the commercial register is exempt where its Gewerbeertrag, or its business profit under income-tax law where no Gewerbesteuermessbetrag is assessed for that year, is no more than €5,200. A qualifying non-register individual pays no basic contribution and no levy in the opening year and the year after, and no levy in years three and four, provided trade income or profit is no more than €25,000, provided they had no income from agriculture or forestry, a commercial business or self-employment in the preceding five financial years, and no direct or indirect corporate holding above ten per cent in that period. These are profit tests, not turnover tests, and §3 IHKG permits a chamber to lower the €5,200 and €25,000 exemption thresholds under a specified condition, so check its annual rules. One chamber's 2026 rates charge a non-register business with €10,000 of profit €35 a year, or nothing with founder relief.",
+          },
+        },
+        {
+          kind: 'whatYouNeed',
+          title: { en: 'What a foreigner needs.' },
+          body: {
+            en: "A German residence permit or national (D) visa generally allows work, including self-employment, unless the law prohibits or restricts it. Check the document's work conditions before starting. You need permission for activity beyond a prohibition or restriction. A title issued for a particular job does not allow other work unless and to the extent the competent authority permits it. You do not always need a separate self-employment permit: §21(6) lets self-employment be authorised while you keep another residence purpose. We would not tell you that the trade office will refuse your registration without that authorisation, because we could not verify it.",
+          },
+        },
+        {
+          kind: 'howToDoIt',
+          title: { en: 'The tax questionnaire.' },
+          body: {
+            en: 'Do not wait for the tax office to send you anything. Within one month of starting you must submit the *Fragebogen zur steuerlichen Erfassung* electronically, normally through ELSTER (§138 AO); a hardship exception is available on application. Registering the Gewerbe does not replace it. The tax office then communicates your Steuernummer in writing. We could not verify how long that takes.',
+          },
+        },
+        {
+          kind: 'importantToKnow',
+          title: { en: 'The small business rule.' },
+          body: {
+            en: 'For a business established in Germany that has not waived the exemption, qualifying domestic supplies are VAT-exempt where relevant turnover under §19(2) was no more than €25,000 in the previous calendar year and remains no more than €100,000 in the current calendar year. In the year the business first starts, the ceiling is €25,000 of actual relevant turnover. These are turnover, not profit, and the thresholds are nationwide.',
+          },
+        },
+        {
+          kind: 'whatToCheck',
+          title: {
+            en: 'The transaction that crosses the applicable current-year ceiling loses the exemption in full, not merely for the excess.',
+          },
+          body: {
+            en: 'Ordinary VAT rules then apply, including any other applicable exemption. The exemption applies automatically and you can waive it, but a waiver binds you for at least five calendar years. Simply using the exemption does not impose that five-year commitment.',
+          },
+        },
+      ],
+      sources: [
+        { url: 'https://www.gesetze-im-internet.de/gewo/__146.html', name: 'Gewerbeordnung (GewO), § 146' },
+        { url: 'https://www.gesetze-im-internet.de/gewstg/__11.html', name: 'Gewerbesteuergesetz (GewStG), § 11' },
+        { url: 'https://www.gesetze-im-internet.de/gewo/__14.html', name: 'Gewerbeordnung (GewO), § 14' },
+        {
+          url: 'https://www.stadt-koeln.de/service/produkte/00554/index.html',
+          name: 'Stadt Köln, An-, Ab- und Ummeldung eines Gewerbebetriebes',
+        },
+        { url: 'https://service.berlin.de/dienstleistung/121921/', name: 'Service Berlin, Gewerbe anmelden' },
+        {
+          url: 'https://www.handelskammer-hamburg.de/gruendung-sicherung-nachfolge/gewerbe-an-um-melden/gewerbeanmeldung-6598040',
+          name: 'Handelskammer Hamburg, Gewerbeanmeldung, -ummeldung und -abmeldung',
+        },
+        { url: 'https://www.dguv.de/de/versicherung/unternehmensnummer/anmeldung/index.jsp', name: 'DGUV, Ein neues Unternehmen anmelden' },
+        { url: 'https://www.gesetze-im-internet.de/sgb_7/__192.html', name: 'Sozialgesetzbuch Siebtes Buch (SGB VII), § 192' },
+        { url: 'https://www.gesetze-im-internet.de/ihkg/__3.html', name: 'IHK-Gesetz (IHKG), § 3' },
+        {
+          url: 'https://www.ihk.de/rhein-neckar/ueber-uns/beitrag/beitragsaetze-2017-2026-4653446',
+          name: 'IHK Rhein-Neckar, Beitragssätze 2017 bis 2026',
+        },
+        { url: 'https://www.gesetze-im-internet.de/ao_1977/__138.html', name: 'Abgabenordnung (AO), § 138' },
+        { url: 'https://www.gesetze-im-internet.de/ustg_1980/__19.html', name: 'Umsatzsteuergesetz (UStG), § 19' },
+        {
+          url: 'https://www.bundesfinanzministerium.de/Content/DE/Downloads/BMF_Schreiben/Steuerarten/Umsatzsteuer/Umsatzsteuer-Anwendungserlass/2025-03-18-sonderregelung-kleinunternehmer.pdf?__blob=publicationFile&v=4',
+          name: 'Bundesministerium der Finanzen, BMF-Schreiben vom 18. März 2025, Sonderregelung für Kleinunternehmer',
+        },
+        { url: 'https://www.gesetze-im-internet.de/aufenthg_2004/__2.html', name: 'Aufenthaltsgesetz (AufenthG), § 2' },
+        { url: 'https://www.gesetze-im-internet.de/aufenthg_2004/__4.html', name: 'Aufenthaltsgesetz (AufenthG), § 4' },
+        { url: 'https://www.gesetze-im-internet.de/aufenthg_2004/__6.html', name: 'Aufenthaltsgesetz (AufenthG), § 6' },
+        { url: 'https://www.gesetze-im-internet.de/aufenthg_2004/__4a.html', name: 'Aufenthaltsgesetz (AufenthG), § 4a' },
+      ],
+    },
+    obligations: [],
+  },
+  // Written from research/agreed/germany/health-insurance.md (SB-299).
+  {
+    country: 'de',
+    task: 'health-and-insurance',
+    area: { slug: 'health-insurance', en: 'Get health insurance', fa: 'تهیه بیمه درمانی' },
+    guide: {
+      slug: 'health-insurance',
+      verifiedAt: '2026-09-14',
+      en: {
+        title: 'Health insurance in Germany, which is not optional',
+        description: 'Anyone with a residence in Germany must hold qualifying health insurance unless an exception applies.',
+      },
+    },
+    detail: {
+      slug: 'health-insurance',
+      sections: [
+        {
+          kind: 'beforeYouStart',
+          title: { en: 'You must have it, and living here is what triggers it.' },
+          body: {
+            en: 'It is §193(3) VVG, and it attaches to residing here, not to holding a permit and not to having a job. Not working does not excuse you.',
+          },
+        },
+        {
+          kind: 'importantToKnow',
+          title: { en: 'Which system you are in is mostly decided for you.' },
+          body: {
+            en: 'An employee is normally compulsorily in the statutory system (§5(1)(1) SGB V). A student at a recognised university normally is too, until thirty (§5(1)(9)). Someone self-employed as their main occupation normally is not. A permit on its own does not get you into the statutory system: the uninsured-person fallback in §5(1)(13) is restricted by §5(11) for third-country nationals and is not a general door for newcomers. Cross-border rules may also leave you insured by another country.',
+          },
+        },
+        {
+          kind: 'whatToCheck',
+          title: { en: 'The threshold, and a three month window.' },
+          body: {
+            en: "The general employee threshold is €77,400 in 2026, equivalent to €6,450 a month. Someone starting employment above it is generally outside compulsory employee membership. Someone crossing it during an existing compulsory membership normally leaves only at year-end, provided their pay also exceeds the following year's threshold. Private insurance is an option above the threshold, not an obligation. If this is your first employment in Germany and you are over the threshold, you can join the statutory system voluntarily without the usual prior-insurance history, but you must tell the fund within three months of starting work (§9(1)(3)).",
+          },
+        },
+        {
+          kind: 'whatYouNeed',
+          title: { en: 'What it costs.' },
+          body: {
+            en: 'The general statutory rate is 14.6%, plus an additional contribution each fund sets for itself; the official 2026 average is 2.9%. Employer and employee normally split the general and additional contributions equally, giving 8.75% each at the official average, up to the monthly assessment ceiling of €5,812.50. Special contribution-sharing rules apply, including for midijobs. An ordinarily voluntarily insured self-employed GKV member pays the whole contribution, assessed on at least €1,318.33 monthly even with lower income. At the average additional rate the monthly minimum is about €222.80 without sickness cash benefit or €230.71 with it; higher assessable income means higher contributions, up to the ceiling.',
+          },
+        },
+        {
+          kind: 'whereToDoIt',
+          title: { en: 'Care insurance is on top, and it is where Saxony differs.' },
+          body: {
+            en: 'The standard social care-insurance rate is 3.6%. Childless members normally pay 4.2% from the month after their twenty-third birthday, subject to statutory exceptions. Discounts apply for the second through fifth qualifying children, until the end of the month in which each turns, or would have turned, twenty-five. For employment located in Saxony, the standard split is 2.3% employee and 1.3% employer; elsewhere it is 1.8 each. These figures are before child-related adjustments and special rules such as midijobs. The geographic trigger is the place of employment, not where the employee lives (§58 SGB XI).',
+          },
+        },
+        {
+          kind: 'importantToKnow',
+          title: { en: 'The weeks before your job starts.' },
+          body: {
+            en: "Compulsory statutory membership through employment begins when the employment begins (§186(1)), not when you sign the contract. For the gap, the Foreign Office's visa guidance says incoming or travel insurance normally suffices as a bridge, provided it actually covers the interval and is not invalidated by an exclusion for intending to live in Germany; ending the policy when statutory cover starts is permitted, not required. That is visa-administration guidance; it is not certification that such a product satisfies §193 VVG.",
+          },
+        },
+        {
+          kind: 'commonProblems',
+          title: { en: 'Do not carry that assumption into the permit office.' },
+          body: {
+            en: "Travel insurance accepted for your visa is not automatically enough for the first residence permit issued inside Germany. Hamburg's guidance separates those two stages explicitly. Berlin and Hamburg publish different requirements, which is not the same as verified acceptance decisions: Berlin's leaflet generally wants an annual deductible of no more than €300, with more allowed after individual assessment; Hamburg refers to a €5,000 ceiling and, for statutory insurance, says a copy of your health card is not enough on its own, it wants a current membership certificate.",
+          },
+        },
+        {
+          kind: 'commonProblems',
+          title: { en: 'Being late is not automatically a bill back to your arrival.' },
+          body: {
+            en: 'Whether you owe back contributions depends on when your membership legally began; if it begins with your employment, that does not create contributions for the weeks before it. Where the uninsured-person route applies, late notification can produce contributions owed from the legal membership start; §256a provides for appropriately reducing those back contributions and fully waiving the associated late-payment surcharges, subject to its implementing rules. For the private-insurance duty, §193(4) VVG provides a separate premium surcharge when the application to conclude the required contract is made more than one month after that duty arose.',
+          },
+        },
+        {
+          kind: 'whereToDoIt',
+          title: { en: 'What is the same everywhere.' },
+          body: {
+            en: "The duty, the earnings threshold, the statutory rates and the assessment limits are federal and identical wherever you live. What differs is which funds you can join, since some depend on where you live or work (§173 SGB V); what each fund charges as its additional contribution; what your city's immigration office accepts as evidence; and the Saxon care-insurance split.",
+          },
+        },
+      ],
+      sources: [
+        { url: 'https://www.gesetze-im-internet.de/sgb_5/__5.html', name: 'Sozialgesetzbuch Fünftes Buch (SGB V), § 5' },
+        { url: 'https://www.gesetze-im-internet.de/sgb_5/__9.html', name: 'Sozialgesetzbuch Fünftes Buch (SGB V), § 9' },
+        {
+          url: 'https://www.bundesgesundheitsministerium.de/gesetzlich-versicherte',
+          name: 'Bundesministerium für Gesundheit, Versicherte in der gesetzlichen Krankenversicherung',
+        },
+        { url: 'https://www.gesetze-im-internet.de/sgb_5/__6.html', name: 'Sozialgesetzbuch Fünftes Buch (SGB V), § 6' },
+        { url: 'https://www.gesetze-im-internet.de/sgb_5/__241.html', name: 'Sozialgesetzbuch Fünftes Buch (SGB V), § 241' },
+        {
+          url: 'https://www.bundesgesundheitsministerium.de/beitraege/seite',
+          name: 'Bundesministerium für Gesundheit, Beiträge der gesetzlichen Krankenversicherung (GKV)',
+        },
+        {
+          url: 'https://www.bundesgesundheitsministerium.de/finanzierung-gkv',
+          name: 'Bundesministerium für Gesundheit, Finanzierung der gesetzlichen Krankenversicherung',
+        },
+        {
+          url: 'https://www.bundesgesundheitsministerium.de/service/begriffe-von-a-z/b/beitragsbemessungsgrenze/seite',
+          name: 'Bundesministerium für Gesundheit, Beitragsbemessungsgrenze',
+        },
+        {
+          url: 'https://www.bundestag.de/resource/blob/1170364/WD-6-015-26.pdf',
+          name: 'Wissenschaftliche Dienste des Deutschen Bundestages, WD 6 - 3000 - 015/26, Beiträge von Altersrentnern zur Krankenversicherung in unterschiedlichen Fallkonstellationen',
+        },
+        {
+          url: 'https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung',
+          name: 'Bundesministerium für Gesundheit, Finanzierung der Pflegeversicherung',
+        },
+        { url: 'https://www.gesetze-im-internet.de/sgb_11/__55.html', name: 'Sozialgesetzbuch Elftes Buch (SGB XI), § 55' },
+        { url: 'https://www.gesetze-im-internet.de/sgb_11/__58.html', name: 'Sozialgesetzbuch Elftes Buch (SGB XI), § 58' },
+        { url: 'https://www.gesetze-im-internet.de/sgb_5/__186.html', name: 'Sozialgesetzbuch Fünftes Buch (SGB V), § 186' },
+        {
+          url: 'https://welcome.hamburg.de/resource/blob/17560/c987410a6f2d85efdd62e238305eac16/merkblatt-der-bis-zum-nachweis-kv-data.pdf',
+          name: 'welcome.hamburg.de, Merkblatt zum Nachweis der Krankenversicherung',
+        },
+        {
+          url: 'https://www.berlin.de/einwanderung/_assets/merkblatt_zur_krankenversicherung.pdf',
+          name: 'Landesamt für Einwanderung Berlin, Merkblatt zur Krankenversicherung',
+        },
+        { url: 'https://www.gesetze-im-internet.de/sgb_5/__256a.html', name: 'Sozialgesetzbuch Fünftes Buch (SGB V), § 256a' },
+        { url: 'https://www.gesetze-im-internet.de/vvg_2008/__193.html', name: 'Versicherungsvertragsgesetz (VVG), § 193' },
+      ],
+    },
+    obligations: [],
+  },
 ]
 
 // As long as the research rules' own load may take, waiting on another container's (src/rules/research/load.ts).

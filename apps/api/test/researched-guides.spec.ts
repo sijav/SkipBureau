@@ -17,6 +17,18 @@ const DOCUMENTS: Readonly<Record<string, string>> = {
   'tr/health-insurance': 'turkey/health-insurance.md',
   'tr/work-permit': 'turkey/work-permit.md',
   'tr/company-formation': 'turkey/company-formation.md',
+  'de/anmeldung': 'germany/anmeldung.md',
+  'de/business-registration': 'germany/business-registration.md',
+  'de/health-insurance': 'germany/health-insurance.md',
+}
+
+/**
+ * A lead a guide deliberately does not carry, by document, with why. Germany's residence permit document compares two
+ * cities in a table, which a guide's sections cannot draw yet (SB-290), so that lead and its table are left out whole
+ * rather than shown as prose that reads as a paragraph.
+ */
+const OMITTED: Readonly<Record<string, readonly string[]>> = {
+  'de/residence-permit': ['Cities do the same thing differently.'],
 }
 
 const keyOf = (guide: (typeof RESEARCHED_GUIDES)[number]): string => `${guide.country}/${guide.guide.slug}`
@@ -85,7 +97,12 @@ test("each researched guide's sources are the pages its sentences cite, each onc
     const key = keyOf(guide)
     const [first, ...rest] = guide.detail.sections
     const shown = folded(
-      [first?.title?.en, guide.guide.en.description, first?.body?.en, ...rest.flatMap((section) => [section.title?.en, section.body?.en])].join(' '),
+      [
+        first?.title?.en,
+        guide.guide.en.description,
+        first?.body?.en,
+        ...rest.flatMap((section) => [section.title?.en, section.body?.en]),
+      ].join(' '),
     )
     expect(
       guide.detail.sources.map((source) => source.url),
@@ -117,5 +134,23 @@ test('no researched guide gives a sentence emphasis its document does not: no qu
         true,
       )
     }
+  }
+})
+
+test("every bold lead of a document is a section title of its guide, in the document's order", () => {
+  // SB-299 and SB-307: a guide keeps a section for every lead, so a heading that is lost, merged into a body or moved
+  // fails here. The containment check above cannot see any of that.
+  for (const guide of RESEARCHED_GUIDES) {
+    const key = keyOf(guide)
+    const told = documentOf(key).split('## What a reader is told')[1]?.split('\n## ')[0] ?? ''
+    const leads = [...told.matchAll(/(?:^|\n\s*\n)\*\*([^*]+[.?])\*\*/g)]
+      .map((found) => plain(found[1] ?? ''))
+      .filter((lead) => !(OMITTED[key] ?? []).includes(lead))
+
+    expect(leads.length, `${key}: its document has no bold lead`).toBeGreaterThan(0)
+    expect(
+      guide.detail.sections.map((section) => section.title?.en ?? ''),
+      key,
+    ).toEqual(leads)
   }
 })
