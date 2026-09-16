@@ -29,8 +29,11 @@ must be paid within **twenty-four months after registration**[^ttk-344-1-twenty-
 the payment schedule in the articles or set by the managers[^ito-limited-24-months]. This rule is
 national. The capital is your company's money, not a fee.
 
-The state's own formation fee is **zero**[^law492-123-formation-exempt][^ito-harc-formation-exempt]: formation is exempt from the registry
-*harç*. What you actually pay is the **Competition Authority levy at 0.04 per
+The fees written in Law 492 for forming the company are **zero**[^law492-123-formation-exempt][^ito-harc-formation-exempt]:
+Article 123 exempts the formation of a limited company from the fees written in that Law, and
+Istanbul's registry tariff shows the formation *harç* line as exempt. That exemption is Law 492's own
+fees, wider than a registry charge and narrower than the cost of forming a company, which the levy,
+the Gazette and your chamber all add to below. What you actually pay is the **Competition Authority levy at 0.04 per
 cent**[^law4054-39-c-levy][^ito-limited-levy] of subscribed capital, which is 20 lira at the minimum[^ito-ltd-cost-sheet-levy-20]; the **Trade
 Registry Gazette at 2.48 lira per word**[^ito-harc-gazette-2-48] of your announcement; and your
 chamber's own charges, **which differ by city**.

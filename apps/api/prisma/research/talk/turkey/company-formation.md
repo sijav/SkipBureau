@@ -1658,3 +1658,65 @@ Taking your wording exactly: Which administration issues the licence depends on 
 ## Answered
 
 No.
+
+---
+
+## Asked, 2026-09-16 14:08 UTC
+
+SB-204, from SB-190's review. The structured rule gave the fee fact the key `formationFee` with
+operator `none`, which reads, to anything taking the key at its word rather than the note beside it,
+as forming a company being free. The key was corrected to `feesUnderLaw492`, and this document's own
+sentence went with it, because it was narrower than the statute it cites in the same way the key was
+wider: it said the state's own formation fee is zero because formation is exempt from the registry
+*harç*, while Madde 123 exempts the listed transactions from the fees written in Law 492.
+
+Sent by path, and told to judge the text on disk rather than its memory of this conversation.
+Reviewer codex gpt-5.6-terra, session `01a093b1-8cc5-7ed1-bb67-c6d984ec7fba` resumed, taken from the
+written report.
+
+## Answered
+
+Not a no. The corrected sentence still opened by calling the state's own charge for forming the
+company zero, which claims more than Article 123 supports: the Article exempts only the fees written
+in Law 492, and the sentence after it charges the Competition Authority levy, so the two conflicted.
+Proposed: "The fees written in Law 492 for forming the company are zero, judicial fees excepted."
+
+## What a reader is told
+
+The wording was taken, near enough verbatim. I had narrowed the scope clause and left the subject
+broad, which is the same error one clause to the left.
+
+---
+
+## Asked, 2026-09-16 14:10 UTC
+
+The same closing question, on the sentence as rewritten from that answer.
+
+## Answered
+
+Not a no. "Judicial fees excepted" does not qualify the company formation clause. In the quoted text
+that parenthesis belongs to the separate credit transactions clause, "kredilere, bunların
+teminatlarına ve geri ödenmelerine ilişkin işlemler (yargı harçları hariç)".
+
+## What a reader is told
+
+Removed, from the sentence and from the structured rule's note. **The exception was mine**: it was
+not in this document before this round, and I introduced it while correcting the previous sentence.
+The definition's own footnote 50 settles it without the reviewer, since the 6322 amendment added that
+parenthesis inside the credit clause. A comment in `company-formation.ts` records this so nobody
+restores it from the quote alone.
+
+---
+
+## Asked, 2026-09-16 14:11 UTC
+
+The same closing question again, with the exception removed and nothing else changed.
+
+## Answered
+
+No.
+
+## What a reader is told
+
+The document is closed. Three rounds, two real findings, both of them mine, and the second one
+introduced by the fix for the first.

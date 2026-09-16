@@ -10,6 +10,12 @@ const READ = '2026-09-14'
 // read on the day the version's source names.
 const RUHSAT_READ = '2026-09-16'
 
+// SB-204: the day the formation version stating a fee key wider than its evidence stops holding, and
+// the day its successor starts. Half open, as the database reads a version's period, so there is no
+// gap day and no day on which both answer. It is the same date as RUHSAT_READ by coincidence of when
+// the work was done, and means something else, so it is named separately.
+const ENDED = '2026-09-16'
+
 // Where a reader is in their journey, not whether each duty binds them: each
 // version for a founder opens its notes with the condition that does (SB-196).
 const FOUNDER: ResearchVersion['criteria'] = [{ dimension: 'situation', value: 'company-founder' }]
@@ -124,6 +130,9 @@ export const CASE: ResearchCase = {
       obligation: 'form-a-limited-company',
       document: 'company-formation',
       validFrom: READ,
+      // SB-204: ended, and replaced by the successor below. Kept exactly as it was published,
+      // because an answer asked for a day in this period is still served from it.
+      validTo: ENDED,
       criteria: [],
       source: 'commercialCodeFormation',
       labels: ['ttk-585-1-limited'],
@@ -161,6 +170,62 @@ export const CASE: ResearchCase = {
       ],
       notes: {
         en: 'Forming a limited company, the same everywhere in Turkey: the minimum capital, how long cash capital may take to pay, the registry fee formation is exempt from, and the Competition Authority levy on the subscribed capital. Each chamber charges its own fees, which follow where the company registers and are not here.',
+      },
+    },
+    {
+      // SB-204: the same rule, stated with a fee key as wide as its evidence. Madde 123 exempts the
+      // listed formation transactions from the fees written in LAW 492, not from a charge called the
+      // registry fee, so formationFee told anything reading the key alone that forming a company is
+      // free. It is not: the levy, the Gazette and the chamber all charge.
+      //
+      // The paragraph's "yargi harclari haric" is NOT an exception to this one, and reading it as
+      // ours put a condition into the document that its own evidence does not carry. Footnote 50 of
+      // the consolidated text shows the 6322 amendment adding that parenthesis inside the CREDIT
+      // transactions clause, so it qualifies those and not company formation. The research
+      // conversation caught it; it is written here so nobody restores it from the quote alone.
+      // A started version is history, so the correction is this successor and not an edit, and the
+      // version above is ended on the day this one starts. The law did not change on 2026-09-16: a
+      // version records what this product served from a date, which is what changed.
+      obligation: 'form-a-limited-company',
+      document: 'company-formation',
+      validFrom: ENDED,
+      criteria: [],
+      source: 'commercialCodeFormation',
+      labels: ['ttk-585-1-limited'],
+      facts: [
+        {
+          key: 'minimumCapital',
+          operator: 'atLeast',
+          numericValue: 50000,
+          currency: 'TRY',
+          source: 'companyTypes',
+          labels: ['ticaret-limited-50000'],
+        },
+        {
+          key: 'cashCapitalPaidWithin',
+          operator: 'within',
+          numericValue: 24,
+          unit: 'months',
+          source: 'commercialCodeCashCapital',
+          labels: ['ttk-585-1-limited', 'ttk-344-1-twenty-four-months'],
+        },
+        {
+          key: 'feesUnderLaw492',
+          operator: 'none',
+          source: 'feesLaw',
+          labels: ['law492-123-formation-exempt'],
+        },
+        {
+          key: 'competitionLevy',
+          operator: 'equals',
+          numericValue: 0.04,
+          unit: 'percent',
+          source: 'competitionLaw',
+          labels: ['law4054-39-c-levy'],
+        },
+      ],
+      notes: {
+        en: 'Forming a limited company, the same everywhere in Turkey: the minimum capital, how long cash capital may take to pay, the fees of Law 492 that formation is exempt from, and the Competition Authority levy on the subscribed capital. That exemption is not the cost of forming a company: the levy, the Trade Registry Gazette and your chamber all charge, and each chamber charges its own fees, which follow where the company registers and are not here.',
       },
     },
     {
