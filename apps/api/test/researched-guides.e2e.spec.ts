@@ -86,6 +86,16 @@ type Served = {
   obligations: { slug: string; reader: Answer | null }[]
 }
 
+const AREAS = `
+  query Areas($country: String!) {
+    categories(country: $country) {
+      slug
+      taskSlug
+      description
+    }
+  }
+`
+
 const guideFor = async (country: string, slug: string, reader?: Record<string, unknown>): Promise<Served> => {
   const response = await graphql(GUIDE, { country, slug, ...(reader ? { reader } : {}) })
   expect(response.body.errors, JSON.stringify(response.body.errors)).toBeUndefined()
@@ -132,27 +142,23 @@ test("on a database no sample content has touched, the loader writes each resear
     ).toEqual(researched.obligations.map((group) => group[0]))
   }
 
-  const areas = await graphql(
-    `
-      query Areas($country: String!) {
-        categories(country: $country) {
-          slug
-          taskSlug
-          description
-        }
-      }
-    `,
-    { country: 'tr' },
-  )
   const byArea = (a: { slug: string }, b: { slug: string }) => a.slug.localeCompare(b.slug)
   // SB-260: the description too, because an area with none leaves its hub page with no meta
   // description at all. It is the guide's own sentence rather than one written for the area: the
   // agreed documents state none for an area, so none is invented.
-  expect([...areas.body.data.categories].sort(byArea)).toEqual(
-    RESEARCHED_GUIDES.filter((researched) => researched.country === 'tr')
-      .map((researched) => ({ slug: researched.area.slug, taskSlug: researched.task, description: researched.guide.en.description }))
-      .sort(byArea),
-  )
+  // SB-385: every country the research names, rather than Turkey alone, which is all this asserted
+  // when Germany's residence permit hub was one of the two pages SB-260 was about. The whole list is
+  // compared rather than a subset because this suite's fixture is only the two country rows and the
+  // researched load, so a category nobody expected is as much a defect as a missing description, and
+  // seeding sample content here later should fail this and be reconsidered rather than be absorbed.
+  for (const country of [...new Set(RESEARCHED_GUIDES.map((researched) => researched.country))]) {
+    const areas = await graphql(AREAS, { country })
+    expect([...areas.body.data.categories].sort(byArea), country).toEqual(
+      RESEARCHED_GUIDES.filter((researched) => researched.country === country)
+        .map((researched) => ({ slug: researched.area.slug, taskSlug: researched.task, description: researched.guide.en.description }))
+        .sort(byArea),
+    )
+  }
 
   const before = await rows()
   await loadResearchedGuides(prisma)
