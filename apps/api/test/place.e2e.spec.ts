@@ -457,13 +457,17 @@ test('a statement cannot hide a named ancestor behind a temporary cycle and move
   })
   await version(await obligation(), [lives('TR-71')], [{ key: 'fee', numericValue: 2 }])
 
+  // SB-362: the refusal names the ancestor and its own kind, never which row was visited first. An
+  // UPDATE may visit its rows in any order, and b, c and d each name themselves while all three
+  // correctly name TR-71. This still fails if the upward walk is removed: the final tree here is
+  // acyclic, so the AFTER cycle guard would not refuse it either and the statement would commit.
   await expect(
     prisma.$executeRawUnsafe(
       `UPDATE "Region" AS reg SET "parentCode" = v.parent
        FROM (VALUES ('TR-71.b','TR-71.c'),('TR-71.d',NULL::varchar),('TR-71.c','TR-71')) AS v(code,parent)
        WHERE reg.code = v.code`,
     ),
-  ).rejects.toThrow(/TR-71.b is inside TR-71, which a rule's criteria name/)
+  ).rejects.toThrow(/is inside TR-71, which a rule's criteria name, so it cannot be moved/)
 
   expect(await prisma.region.findUniqueOrThrow({ where: { code: 'TR-71.d' } })).toMatchObject({ parentCode: 'TR-71.b' })
   expect(await prisma.region.findUniqueOrThrow({ where: { code: 'TR-71.c' } })).toMatchObject({ parentCode: 'TR-71.b' })
