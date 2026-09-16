@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test'
+import { expect, test, type Page } from '@playwright/test'
 import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -440,23 +440,52 @@ test('the work permit guide asks for the role, and shows a worker the permit fee
   await expect(permit.getByRole('link', { name: /Harç ve Değerli Kâğıt Bedelinin Ödenmesi/ }).first()).toBeVisible()
 })
 
-test('a reader says where they work in the panel, and the rule that turns on it answers', async ({ page }) => {
+// SB-320: these ran nowhere until now. SB-313 wrote the first of them and skipped it unless the run was against the
+// live site, saying the e2e build has no researched German guides; e2e/api-server.mjs loads them after the seed, in
+// production's own order, so both run here and against the live site.
+
+/** The panel, wherever it is open. */
+const detailsPanel = (page: Page) => page.locator('[aria-label="What Skipbureau knows about you"]')
+const workRow = (page: Page) => detailsPanel(page).getByText('Where you work', { exact: true }).locator('..')
+const rulesOn = (page: Page) => page.locator('section').filter({ has: page.getByRole('heading', { level: 2, name: 'The rules that apply' }) })
+const cardFor = (page: Page, rule: string) => rulesOn(page).locator('section[aria-labelledby]').filter({ hasText: rule }).last()
+
+test('a reader says where they work in the panel, the panel remembers it, and the fee that turns on it answers', async ({ page }) => {
   // SB-313: the trade registration fee follows where the business is, not where the reader lives, so the panel asks
-  // for it on its own row. Live only: the e2e build seeds the sample fixtures and the research rules, not the
-  // researched German guides.
-  test.skip(!LIVE, 'the researched German guides are on the live site only')
-
+  // for it on its own row.
   await page.goto('en/DE/guides/business-registration?situation=company-founder', { waitUntil: 'load' })
-  const rules = page.locator('section').filter({ has: page.getByRole('heading', { level: 2, name: 'The rules that apply' }) })
-  const trade = rules.locator('section[aria-labelledby]').filter({ hasText: 'Where you work' }).last()
+  const trade = cardFor(page, 'Register a trade')
+  await expect(trade).toContainText('Where you work')
 
-  // The card asks, and now it offers the way in that SB-300 withheld.
+  // The card asks, and offers the way in that SB-300 withheld while nothing could take the answer.
   await trade.getByRole('button', { name: 'Tell us' }).click()
-  const panel = page.locator('[aria-label="What Skipbureau knows about you"]')
-  await panel.getByText('Where you work', { exact: true }).locator('..').getByRole('button', { name: 'Add', exact: true }).click()
+  await workRow(page).getByRole('button', { name: 'Add', exact: true }).click()
   await page.getByRole('option', { name: 'Berlin', exact: true }).click()
-
   await expect(page).toHaveURL(/[?&]work=DE-BE/)
-  await expect(rules.getByText('Registration fee for a sole business')).toBeVisible()
-  await expect(rules.getByText('€26', { exact: true }).first()).toBeVisible()
+
+  // SB-318: the row reads the shell, not the address, so only a reopened panel shows whether the shell carries it.
+  // Without this the case passes with the shell empty, because the guide answers from the country context.
+  await page.getByRole('button', { name: /Add your details|From / }).first().click()
+  await expect(workRow(page).getByRole('button', { name: 'Berlin', exact: true })).toBeVisible()
+
+  // A fact's line is the figure and the research's own words after it, so the figure is read inside the card.
+  await expect(trade).toContainText('Registration fee for a sole business')
+  await expect(trade).toContainText('€26')
+})
+
+test("a reader who works in Saxony gets Saxony's share of the care contribution, not the national one", async ({ page }) => {
+  // A different rule and a different version of it: the care insurance split follows the place of employment, which
+  // the research says in as many words, and Saxony is the one state where it differs.
+  await page.goto('en/DE/guides/health-insurance', { waitUntil: 'load' })
+  const care = cardFor(page, 'Pay care insurance contributions')
+  await expect(care).toContainText('1.8%')
+
+  await care.getByRole('button', { name: 'Tell us' }).click()
+  await workRow(page).getByRole('button', { name: 'Add', exact: true }).click()
+  // The deployment names Germany's states in German and the e2e build names some of them in English, so the option
+  // is matched by either spelling rather than by the one this machine happens to see.
+  await page.getByRole('option', { name: /^(Sachsen|Saxony)$/ }).first().click()
+  await expect(page).toHaveURL(/[?&]work=DE-SN/)
+
+  await expect(care).toContainText('2.3%')
 })
