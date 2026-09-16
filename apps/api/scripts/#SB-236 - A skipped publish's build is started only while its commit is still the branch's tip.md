@@ -34,7 +34,12 @@ export const dispatchChoice = (tip: string | null, commit: string): DispatchChoi
 - the tip is **another commit**: do not dispatch, because a newer push is on the branch and its
   build carries this publish; keep waiting for that build's digest;
 - the tip could **not be read**: do not dispatch. Dispatching on an unknown tip is the very thing
-  this card exists to stop, and waiting costs at worst the fifteen minutes the loop already allows.
+  this card exists to stop.
+
+  **This refusal is not permanent**, which this plan first implied. The loop recomputes the choice
+  every twenty seconds, so a read that fails once and succeeds later still dispatches, as long as
+  the tip is then still this commit. Only reads that keep failing until the deadline end in a
+  timeout, and that is the right outcome. Corrected after SB-236's roast pointed it out.
 
 At the call site the tip is read with `git ls-remote origin <branch>`, whose output is
 `SHA<TAB>ref`, through a wrapper that returns `null` rather than throwing, because this runs inside
