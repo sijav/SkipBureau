@@ -14,5 +14,18 @@ export const COMBINATIONS = [
   { mode: 'dark', direction: 'rtl' },
 ] as const
 
-/** The name vitest gives each combination's project, generated the one way, here. */
-export const STORY_PROJECTS: readonly string[] = COMBINATIONS.map(({ mode, direction }) => `storybook:${mode}-${direction}`)
+/** One of the combinations above, so nothing can name a project for a combination this matrix does not hold. */
+export type StoryCombination = (typeof COMBINATIONS)[number]
+
+/**
+ * The name vitest gives a combination's project, built here and nowhere else (SB-346).
+ *
+ * vitest.config.ts named its projects with the same template this module used, so the two agreed by coincidence:
+ * changing the prefix or the separator in the config would have sent scripts/story-tests.ts after projects that do
+ * not exist. It would have failed loudly, since vitest throws on a project it cannot find and the runner passes that
+ * status out, but loudly wrong is still wrong. One function, both callers.
+ */
+export const storyProjectName = ({ mode, direction }: StoryCombination): string => `storybook:${mode}-${direction}`
+
+/** Every project the matrix makes, in its order. */
+export const STORY_PROJECTS: readonly string[] = COMBINATIONS.map(storyProjectName)

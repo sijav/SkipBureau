@@ -4,7 +4,7 @@ import { playwright } from '@vitest/browser-playwright'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { defineConfig, type TestProjectInlineConfiguration } from 'vitest/config'
-import { COMBINATIONS } from './src/story-matrix'
+import { COMBINATIONS, storyProjectName } from './src/story-matrix'
 
 const here = dirname(fileURLToPath(import.meta.url))
 // `api`: the API workspace's source, for a test that reads its research data (SB-257). Not in vite.config.ts, so app code cannot import it.
@@ -68,9 +68,14 @@ export default defineConfig({
       // is not contextually typed: without it `browser: 'chromium'` widens to
       // string and `tsc -b` rejects the config, which a plain `tsc --noEmit`
       // never sees because this file sits in the node project.
-      ...COMBINATIONS.map(({ mode, direction }): TestProjectInlineConfiguration => ({
+      // The whole combination, not its parts: the project's name comes from storyProjectName, which takes one of the
+      // matrix's own combinations, so this file cannot name a project the runner does not know about (SB-346).
+      ...COMBINATIONS.map((combination): TestProjectInlineConfiguration => ({
         resolve: { alias },
-        plugins: [lingui(), storybookTest({ configDir: join(here, '.storybook'), initialGlobals: { mode, direction } })],
+        plugins: [
+          lingui(),
+          storybookTest({ configDir: join(here, '.storybook'), initialGlobals: { mode: combination.mode, direction: combination.direction } }),
+        ],
         // Pre-bundled up front. The lockfile is part of Vite's cache key, so
         // any install rebuilds the cache, and expect-type, which Vitest's
         // browser client imports, was then found only after the page loaded:
@@ -78,7 +83,7 @@ export default defineConfig({
         // with "Browser connection was closed". Seen adding the font packages.
         optimizeDeps: { include: ['expect-type'] },
         test: {
-          name: `storybook:${mode}-${direction}`,
+          name: storyProjectName(combination),
           testTimeout: STORYBOOK_TEST_TIMEOUT,
           browser: {
             enabled: true,
