@@ -84,9 +84,13 @@ nationality, such as British National (Overseas), are not among them.
 
 **If you cannot get an appointment.** This is real and officially acknowledged:
 Berlin says some departments have nothing available for months. In Berlin,
-**submit the employment-permit application through the dedicated online
-application before your current permission expires[^berlin-online-before-expiry][^aufenthg-81-4-before-expiry]; you do not need to wait for
-an appointment.** For additional help in a documented emergency, use the
+**applicants for the residence permits for academic skilled
+workers[^berlin-online-before-expiry], skilled workers with vocational
+training[^berlin-online-vocational], research employment[^berlin-online-research] and employment of
+certain nationalities[^berlin-online-nationalities] submit the online application "Befristeter
+Aufenthaltstitel zur Beschäftigung" while their current title is still
+valid[^aufenthg-81-4-before-expiry]. The LEA reviews the application and, if it is positively
+reviewed, you receive an appointment to attend in person.** For additional help in a documented emergency, use the
 responsible department's contact form. Berlin assesses emergency requests for
 urgent travel within the next four weeks[^berlin-emergency-four-weeks] evidenced by a booking, or threatened
 job loss or benefit termination because of missing valid documentation,
@@ -124,16 +128,16 @@ is not the same document as a Fiktionsbescheinigung that is valid for travel.
 - <https://www.bverwg.de/191119U1C22.18.0> (Federal Administrative Court, 1 C 22.18), <https://www.gesetze-bayern.de/Content/Document/Y-300-Z-BECKRS-B-2025-N-36228> (Bavarian Administrative Court of Appeal, 19 ZB 25.1649)
 - <https://www.gov.uk/government/publications/safeguarding-the-position-of-eu-citizens-in-the-uk-and-uk-nationals-in-the-eu/the-united-kingdoms-exit-from-the-european-union-safeguarding-the-position-of-eu-citizens-living-in-the-uk-and-uk-nationals-living-in-the-eu> (the definition of a UK national)
 - <https://www.gesetze-im-internet.de/gg/art_83.html>, `art_84`
-- <https://service.berlin.de/dienstleistung/329328/> (§18b), <https://service.berlin.de/dienstleistung/326233/> (Fiktionsbescheinigung)
+- <https://service.berlin.de/dienstleistung/329328/> (§18b), <https://service.berlin.de/dienstleistung/305304/> (§18a), <https://service.berlin.de/dienstleistung/328457/> (§18d, §18e, §18f), <https://service.berlin.de/dienstleistung/350471/> (§19c, §26 BeschV), <https://service.berlin.de/dienstleistung/326233/> (Fiktionsbescheinigung)
 - <https://www.berlin.de/einwanderung/termine/termin-vereinbaren/>
 - <https://www.berlin.de/einwanderung/service/downloads/artikel.875097.php> (the VAB, unread)
 - <https://stadt.muenchen.de/service/info/servicestelle-fur-zuwanderung-und-einburgerung/10278359/>, <https://stadt.muenchen.de/infos/sze-faq.html>
 
-All read 2026-09-12; the pages for a visa-free stay and a Schengen visa read 2026-09-15.
+All read 2026-09-12; the pages for a visa-free stay and a Schengen visa read 2026-09-15; Berlin's four employment permit pages read 2026-09-16.
 
 [^aufenthv-45-first-permit-fee]: <https://www.gesetze-im-internet.de/aufenthv/__45.html> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "§ 45 Nr. 1 Buchstabe a und b", "evidence": ["für die Erteilung einer Aufenthaltserlaubnis, einer Blauen Karte EU oder einer ICT-Karte a) mit einer Geltungsdauer von bis zu einem Jahr 100 Euro, b) mit einer Geltungsdauer von mehr als einem Jahr 100 Euro"]}
 
-[^berlin-sticker-fee-56]: <https://service.berlin.de/dienstleistung/329328/> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Gebühren", "evidence": ["56,00 Euro: bei erstmaliger Ausstellung der Aufenthaltserlaubnis als Etikett"]}
+[^berlin-sticker-fee-56]: <https://service.berlin.de/dienstleistung/329328/> | {"status": "verified", "read": "2026-09-16", "method": "raw page", "locator": "Gebühren", "evidence": ["56,00 Euro: bei erstmaliger Ausstellung der Aufenthaltserlaubnis als Etikett"]}
 
 [^federal-sticker-fee-56]: calculated | {"status": "calculated", "read": "2026-09-14", "inputs": ["aufenthv-45-first-permit-fee", "aufenthv-45b-sticker-reduction"], "formula": "100 Euro minus 44 Euro", "rounding": "none"}
 
@@ -147,10 +151,16 @@ All read 2026-09-12; the pages for a visa-free stay and a Schengen visa read 202
 
 [^aufenthv-41-ninety-days]: <https://www.gesetze-im-internet.de/aufenthv/__41.html> | {"status": "verified", "read": "2026-09-15", "method": "raw page", "locator": "§ 41 Abs. 1 und Abs. 3", "evidence": ["Staatsangehörige von Australien, Israel, Japan, Kanada, der Republik Korea, von Neuseeland, des Vereinigten Königreichs Großbritannien und Nordirland im Sinne des § 1 Absatz 2 Nummer 6 des Freizügigkeitsgesetzes/EU und der Vereinigten Staaten von Amerika können auch für einen Aufenthalt, der kein Kurzaufenthalt ist, visumfrei in das Bundesgebiet einreisen und sich darin aufhalten. Ein erforderlicher Aufenthaltstitel kann im Bundesgebiet eingeholt werden.", "Ein erforderlicher Aufenthaltstitel ist innerhalb von 90 Tagen nach der Einreise zu beantragen. Die Antragsfrist endet vorzeitig, wenn der Ausländer ausgewiesen wird oder sein Aufenthalt nach § 12 Abs. 4 des Aufenthaltsgesetzes zeitlich beschränkt wird."]}
 
-[^berlin-online-before-expiry]: <https://service.berlin.de/dienstleistung/329328/> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Verfahrensablauf, Schritt 1", "evidence": ["Am Ende erhalten Sie ein PDF-Dokument als Bestätigung Ihres Antrags. Damit wird bescheinigt, dass Ihr aktueller Aufenthaltstitel (nationales D-Visum oder Aufenthaltserlaubnis) über das bisherige Gültigkeitsdatum hinaus im Bundesgebiet weiter gültig bleibt.", "(Dies gilt nicht, wenn Sie ein Schengen-Visum (C-Visum) für einen kurzfristigen Aufenthalt besitzen oder Ihr aktueller Aufenthaltstitel am Tag der Antragstellung bereits abgelaufen ist.)"]}
+[^berlin-online-before-expiry]: <https://service.berlin.de/dienstleistung/329328/> | {"status": "verified", "read": "2026-09-16", "method": "raw page", "locator": "Verfahrensablauf, Schritte 1 bis 3", "evidence": ["Stellen Sie den Online-Antrag „Befristeter Aufenthaltstitel zur Beschäftigung“.", "Am Ende erhalten Sie ein PDF-Dokument als Bestätigung Ihres Antrags. Damit wird bescheinigt, dass Ihr aktueller Aufenthaltstitel (nationales D-Visum oder Aufenthaltserlaubnis) über das bisherige Gültigkeitsdatum hinaus im Bundesgebiet weiter gültig bleibt.", "(Dies gilt nicht, wenn Sie ein Schengen-Visum (C-Visum) für einen kurzfristigen Aufenthalt besitzen oder Ihr aktueller Aufenthaltstitel am Tag der Antragstellung bereits abgelaufen ist.)", "Nachdem Sie den Online-Antrag „Befristeter Aufenthaltstitel zur Beschäftigung“ gestellt haben, wird das LEA den Antrag prüfen und sich schnellstmöglich bei Ihnen melden.", "Wenn Ihr Antrag positiv geprüft wurde, erhalten Sie einen Termin zur Vorsprache."]}
+
+[^berlin-online-vocational]: <https://service.berlin.de/dienstleistung/305304/> | {"status": "verified", "read": "2026-09-16", "method": "raw page", "locator": "Verfahrensablauf, Schritte 1 bis 3", "evidence": ["Stellen Sie den Online-Antrag „Befristeter Aufenthaltstitel zur Beschäftigung“.", "Am Ende erhalten Sie ein PDF-Dokument als Bestätigung Ihres Antrags. Damit wird bescheinigt, dass Ihr aktueller Aufenthaltstitel (nationales D-Visum oder Aufenthaltserlaubnis) über das bisherige Gültigkeitsdatum hinaus im Bundesgebiet weiter gültig bleibt.", "(Dies gilt nicht, wenn Sie ein Schengen-Visum (C-Visum) für einen kurzfristigen Aufenthalt besitzen oder Ihr aktueller Aufenthaltstitel am Tag der Antragstellung bereits abgelaufen ist.)", "Nachdem Sie den Online-Antrag „Befristeter Aufenthaltstitel zur Beschäftigung“ gestellt haben, wird das LEA den Antrag prüfen und sich schnellstmöglich bei Ihnen melden.", "Wenn Ihr Antrag positiv geprüft wurde, erhalten Sie einen Termin zur Vorsprache."]}
+
+[^berlin-online-research]: <https://service.berlin.de/dienstleistung/328457/> | {"status": "verified", "read": "2026-09-16", "method": "raw page", "locator": "Verfahrensablauf, Schritte 1 bis 3", "evidence": ["Stellen Sie den Online-Antrag „Befristeter Aufenthaltstitel zur Beschäftigung“.", "Am Ende erhalten Sie ein PDF-Dokument als Bestätigung Ihres Antrags. Damit wird bescheinigt, dass Ihr aktueller Aufenthaltstitel (nationales D-Visum oder Aufenthaltserlaubnis) über das bisherige Gültigkeitsdatum hinaus im Bundesgebiet weiter gültig bleibt.", "(Dies gilt nicht, wenn Sie ein Schengen-Visum (C-Visum) für einen kurzfristigen Aufenthalt besitzen oder Ihr aktueller Aufenthaltstitel am Tag der Antragstellung bereits abgelaufen ist.)", "Nachdem Sie den Online-Antrag „Befristeter Aufenthaltstitel zur Beschäftigung“ gestellt haben, wird das LEA den Antrag prüfen und sich schnellstmöglich bei Ihnen melden.", "Wenn Ihr Antrag positiv geprüft wurde, erhalten Sie einen Termin zur Vorsprache."]}
+
+[^berlin-online-nationalities]: <https://service.berlin.de/dienstleistung/350471/> | {"status": "verified", "read": "2026-09-16", "method": "raw page", "locator": "Verfahrensablauf, Schritte 1 bis 3", "evidence": ["Stellen Sie den Online-Antrag „Befristeter Aufenthaltstitel zur Beschäftigung“.", "Am Ende erhalten Sie ein PDF-Dokument als Bestätigung Ihres Antrags. Damit wird bescheinigt, dass Ihr aktueller Aufenthaltstitel (nationales D-Visum oder Aufenthaltserlaubnis) über das bisherige Gültigkeitsdatum hinaus im Bundesgebiet weiter gültig bleibt.", "(Dies gilt nicht, wenn Ihr aktueller Aufenthaltstitel am Tag der Antragstellung bereits abgelaufen ist.)", "Nachdem Sie den Online-Antrag „Befristeter Aufenthaltstitel zur Beschäftigung“ gestellt haben, wird das LEA den Antrag prüfen und sich schnellstmöglich bei Ihnen melden.", "Wenn Ihr Antrag positiv geprüft wurde, erhalten Sie einen Termin zur Vorsprache."]}
 
 [^berlin-emergency-four-weeks]: <https://www.berlin.de/einwanderung/termine/termin-vereinbaren/> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Termin im Notfall", "evidence": ["Wir helfen Ihnen, wenn Sie dringend innerhalb der nächsten vier Wochen verreisen müssen und dies durch eine Buchung nachweisen."]}
 
-[^berlin-card-4-to-6-weeks]: <https://service.berlin.de/dienstleistung/329328/> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Bearbeitungszeit", "evidence": ["Bei Ausstellung als elektronischer Aufenthaltstitel (eAT) dauert es 4 bis 6 Wochen, bis dieser abgeholt werden kann."]}
+[^berlin-card-4-to-6-weeks]: <https://service.berlin.de/dienstleistung/329328/> | {"status": "verified", "read": "2026-09-16", "method": "raw page", "locator": "Bearbeitungszeit", "evidence": ["Bei Ausstellung als elektronischer Aufenthaltstitel (eAT) dauert es 4 bis 6 Wochen, bis dieser abgeholt werden kann."]}
 
 [^munich-up-to-seven-months]: <https://stadt.muenchen.de/service/info/servicestelle-fur-zuwanderung-und-einburgerung/10278359/> | {"status": "verified", "read": "2026-09-14", "method": "raw page", "locator": "Dauer und Kosten", "evidence": ["Bearbeitungszeit Bis zu 7 Monate"]}

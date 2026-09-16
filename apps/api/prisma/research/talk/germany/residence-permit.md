@@ -1453,3 +1453,55 @@ https://curia.europa.eu/common/recdoc/repertoire_jurisp/bull_6/data/6_07_15_01.h
 https://www.bverwg.de/190313U1C12.12.0  
 https://ssl.bverwg.de/1C4.14  
 https://media.frag-den-staat.de/files/foi/705554/anwendungshinweise-zum-assoziationsrecht-ewg-tuerkei.pdf
+
+## Asked, 2026-09-16 11:30 UTC
+
+**Not this conversation.** `roast.mjs` takes its session id only from the shared slot for its kind,
+and its whole flag list is `--title --why --exit-condition --did --files --diff --model --ask
+--fresh`. There is no way to name a conversation, so this pass went to
+`01a09371-2c9c-7e33-a46c-8bcb6e01c583`, the current `search:codex`, not to `01a093c2-...` above. It
+is recorded here because this is the subject's record, not because the thread continued.
+
+SB-184, from SB-174's check. The Berlin paragraph says "submit the employment-permit application
+through the dedicated online application before your current permission expires", and its footnote
+cites page 329328, which is the permit for skilled workers with academic training. Asked whether
+four pages each naming the same online application prove it is the application for employment
+permits as a class; whether Berlin states the form's scope anywhere; and whether the Chancenkarte,
+which uses the same form, belongs.
+
+## Answered
+
+1. No. Four pages prove the form for those four services, not a class. Berlin also routes a
+   job-search permit through it, which shows the form is procedurally broader than an employment
+   permit. Enumerate the four routes instead of naming a class.
+2. No single official Berlin source gives an exhaustive scope. The form's landing page supplies only
+   its title; the LEA appointments page says non-exhaustively that residence titles for employment
+   or training use special online applications.
+3. Leave the Chancenkarte out. Berlin calls it a permit "to search for employment"; sharing the form
+   is procedural routing, not evidence that it is an employment permit.
+
+## What a reader is told
+
+The sentence now enumerates: academic skilled workers, skilled workers with vocational training,
+research employment, and employment of certain nationalities submit the online application
+"Befristeter Aufenthaltstitel zur Beschäftigung" while their current title is still valid; the LEA
+reviews it and, if positively reviewed, an appointment to attend in person follows.
+
+Every quote was read from the official pages here on 2026-09-16, not taken from the answer. One
+difference the pages have and a copy-paste would have hidden: 329328, 305304 and 328457 exclude both
+a Schengen C-visa and an already expired title, while 350471 excludes only the expired title. Each
+definition carries its own page's wording.
+
+"the LEA assigns any necessary in-person appointment" was rejected: no page says "any necessary".
+The wording follows steps 2 and 3, which are identical on all four pages.
+
+## Sources
+
+- <https://service.berlin.de/dienstleistung/329328/> (§18b)
+- <https://service.berlin.de/dienstleistung/305304/> (§18a)
+- <https://service.berlin.de/dienstleistung/328457/> (§18d, §18e, §18f)
+- <https://service.berlin.de/dienstleistung/350471/> (§19c, §26 BeschV)
+- <https://service.berlin.de/dienstleistung/354301/> (Chancenkarte, considered and left out)
+- <https://service.berlin.de/dienstleistung/328332/> (§21, names a different form, not used as a boundary)
+
+All read 2026-09-16.

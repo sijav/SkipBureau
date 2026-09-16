@@ -8,6 +8,10 @@ const READ = '2026-09-14'
 
 const STATUTES_READ = '2026-09-15'
 
+// SB-184: Berlin's permit page was read again to say which permits its online application covers,
+// so its definitions carry that day rather than READ. The appointments page was not re-read.
+const BERLIN_PERMIT_READ = '2026-09-16'
+
 const SLUG = 'get-a-residence-permit-as-a-skilled-worker-with-a-degree'
 
 const FEDERAL_NOTES =
@@ -220,7 +224,7 @@ export const CASE: ResearchCase = {
     berlinSkilledWorkers: {
       url: 'https://service.berlin.de/dienstleistung/329328/',
       name: 'Service Berlin, Aufenthaltserlaubnis für Fachkräfte mit akademischer Ausbildung beantragen',
-      read: READ,
+      read: BERLIN_PERMIT_READ,
     },
     berlinAppointments: {
       url: 'https://www.berlin.de/einwanderung/termine/termin-vereinbaren/',
