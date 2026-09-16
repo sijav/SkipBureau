@@ -23,6 +23,7 @@ import { TopicItem } from 'src/shared/topic-item'
 import { ComingSoon } from 'src/screens/coming-soon'
 import { NotFound } from 'src/screens/NotFound'
 import { Unreachable } from 'src/screens/Unreachable'
+import { RetryNotice } from 'src/shared/retry-notice'
 import { GuideSection, SectionFrame, type GuideData, type SectionData } from './GuideSection'
 import { guideArea, guideData, guideHead, isWritten } from './head'
 
@@ -62,7 +63,7 @@ export const Guide = () => {
     ...(journey.situation ? { situation: journey.situation } : {}),
     ...(journey.work ? { workRegions: [journey.work] } : {}),
   }
-  const [{ data: answers }] = useQuery({
+  const [{ data: answers, error: answersError }, refetchAnswers] = useQuery({
     query: GuideAnswersQuery,
     variables: { country, slug, locale, reader },
     pause: typeof window === 'undefined' || obligations.length === 0,
@@ -260,8 +261,16 @@ export const Guide = () => {
           )}
 
           {/* SB-257, a departure: the design draws no rule answer. */}
-          {ruleAnswers.length > 0 && (
+          {/* SB-272: answersError opens this section too. When that request fails every obligation falls to the rule
+              for everyone, and one whose rule is reader-specific renders nothing at all, so without this the section
+              and its notice would both vanish and the failure would be silent twice over. */}
+          {(ruleAnswers.length > 0 || answersError) && (
             <SectionFrame heading={<Trans>The rules that apply</Trans>} gap={32}>
+              {answersError && (
+                <RetryNotice onRetry={() => startTransition(() => refetchAnswers({ requestPolicy: 'network-only' }))}>
+                  <Trans>We could not load the answer for you.</Trans>
+                </RetryNotice>
+              )}
               {ruleAnswers}
             </SectionFrame>
           )}

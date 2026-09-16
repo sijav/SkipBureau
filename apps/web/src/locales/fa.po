@@ -1593,6 +1593,7 @@ msgid "Try"
 msgstr "امتحان کنید"
 
 #: src/screens/Unreachable.tsx
+#: src/shared/retry-notice/RetryNotice.tsx
 msgid "Try again"
 msgstr "تلاش دوباره"
 
@@ -1730,6 +1731,10 @@ msgstr "هنوز این راهنما را می‌نویسیم و با منابع
 #: src/shared/rule-answer/RuleAnswer.tsx
 msgid "We cannot take this detail from you yet."
 msgstr "هنوز نمی‌توانیم این اطلاعات را از شما بگیریم."
+
+#: src/screens/guide/Guide.tsx
+msgid "We could not load the answer for you."
+msgstr "نتوانستیم پاسخ مخصوص شما را بارگذاری کنیم."
 
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "We have not verified this process for Antalya. The steps below are correct for Istanbul, Ankara and Izmir; local document requirements may differ."

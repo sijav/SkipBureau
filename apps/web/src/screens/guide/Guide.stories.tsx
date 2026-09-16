@@ -189,3 +189,60 @@ export const Unreachable: Story = {
     await expect(await canvas.findByRole('heading', { level: 1, name: /Get a SIM Card or eSIM/ }, { timeout: 5000 })).toBeVisible()
   },
 }
+
+/** Its own counter, not Unreachable's: two stories sharing one would couple their runs. */
+let answersAsked = 0
+
+/**
+ * SB-272: the guide loaded and the reader's own answer did not. The rule for everyone stays, a notice
+ * says what is missing, and asking again brings Hamburg's fee and takes the notice away.
+ *
+ * The request that fails is the first one CARRYING Hamburg, not the first of all. The answers query
+ * fires once at load with an empty reader, so failing that one would leave the retry asking with an
+ * empty reader too, and the fee would arrive from picking the city rather than from the retry, which is
+ * not what this is meant to prove.
+ */
+export const AnswersUnreachable: Story = {
+  parameters: {
+    country: 'DE',
+    guide: 'anmeldung',
+    msw: {
+      handlers: [
+        graphql.link(endpoint()).query('GuideAnswers', ({ variables }) => {
+          const reader = variables['reader']
+          const places = Array.isArray(reader?.residenceRegions) ? reader.residenceRegions : []
+          if (!places.includes('DE-HH')) return undefined
+          answersAsked += 1
+          return answersAsked > 1 ? undefined : HttpResponse.json({ errors: [{ message: 'the API is unreachable' }] }, { status: 500 })
+        }),
+        ...handlers,
+      ],
+    },
+  },
+  beforeEach: () => {
+    answersAsked = 0
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const section = (await canvas.findByRole('heading', { level: 2, name: /The rules that apply/ }, { timeout: 5000 })).closest('section')
+    if (!section) throw new Error('the rules have no section')
+    const rules = within(section)
+
+    await userEvent.click(await rules.findByRole('button', { name: /Tell us/ }, { timeout: 5000 }))
+    const page = within(window.document.body)
+    const city = (await page.findByText(/^City in Germany$/, {}, { timeout: 5000 })).parentElement
+    if (!city) throw new Error('the panel has no City row')
+    await userEvent.click(within(city).getByRole('button', { name: /^Add$/ }))
+    await userEvent.click(await page.findByRole('option', { name: /Hamburg/ }, { timeout: 5000 }))
+
+    await expect(await canvas.findByText(/could not load the answer for you/, {}, { timeout: 5000 })).toBeVisible()
+    await expect(canvas.getByText(/The rule for everyone/)).toBeVisible()
+    await expect(canvas.queryByText('€16')).toBeNull()
+
+    await userEvent.click(canvas.getByRole('button', { name: /Try again/ }))
+
+    await expect(await canvas.findByText(/Registration fee/, {}, { timeout: 5000 })).toBeVisible()
+    await expect(canvas.getByText('€16')).toBeVisible()
+    await expect(canvas.queryByText(/could not load the answer for you/)).toBeNull()
+  },
+}
