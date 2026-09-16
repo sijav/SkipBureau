@@ -107,6 +107,36 @@ export const CurrentlyIn: Story = {
   },
 }
 
+/**
+ * SB-178: the countries query starts as the panel opens, so on a slow connection this row is handed an empty list
+ * while it answers. It says it is still looking. It used to say MUI's own "No options", which is a dead end, and in
+ * English inside a Persian panel.
+ */
+export const StillLoading: Story = {
+  args: { countries: [], loadingCountries: true },
+  play: async ({ canvasElement }) => {
+    const panel = within(canvasElement)
+    await userEvent.click(await panel.findByRole('button', { name: /^Turkey$/ }))
+    const page = within(window.document.body)
+    await expect(await page.findByText(/Loading/)).toBeVisible()
+    // The words this replaced. A story cannot prove a string came from the catalog rather than from a hard-coded
+    // copy of it, but it can prove MUI's default is gone, which is the fault (SB-178).
+    await expect(page.queryByText('No options')).toBeNull()
+  },
+}
+
+/** A typed name that matches nothing says so in the product's own words, in whatever language the reader is in. */
+export const NothingMatches: Story = {
+  play: async ({ canvasElement }) => {
+    const panel = within(canvasElement)
+    await userEvent.click(await panel.findByRole('button', { name: /^Turkey$/ }))
+    await userEvent.keyboard('zzzz')
+    const page = within(window.document.body)
+    await expect(await page.findByText(/Nothing matches/)).toBeVisible()
+    await expect(page.queryByText('No options')).toBeNull()
+  },
+}
+
 /** Where in the country the reader lives (SB-256): Add in the accent, and choosing names the place. */
 export const City: Story = {
   play: async ({ canvasElement, args }) => {

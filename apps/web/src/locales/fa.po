@@ -825,6 +825,10 @@ msgstr "آخرین تأیید {0}"
 msgid "Last verified: {verified}"
 msgstr "آخرین تأیید: {verified}"
 
+#: src/shared/context-control/ContextPanel.tsx
+msgid "Loading…"
+msgstr "در حال بارگذاری…"
+
 #: src/shared/rule-answer/factLabels.ts
 msgid "Longest stay on a visa or visa exemption"
 msgstr "بیشترین مدت اقامت با ویزا یا معافیت از ویزا"
@@ -970,6 +974,10 @@ msgstr "محضری · گام نوبت را متوقف می‌کند"
 #: src/shared/context-control/ContextPanel.tsx
 msgid "Nothing here is required."
 msgstr "هیچ‌کدام از این‌ها الزامی نیست."
+
+#: src/shared/context-control/ContextPanel.tsx
+msgid "Nothing matches"
+msgstr "چیزی پیدا نشد"
 
 #: src/screens/search/SearchResults.tsx
 msgid "Nothing matches yet"

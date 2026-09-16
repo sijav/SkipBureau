@@ -825,6 +825,10 @@ msgstr "Last verified {0}"
 msgid "Last verified: {verified}"
 msgstr "Last verified: {verified}"
 
+#: src/shared/context-control/ContextPanel.tsx
+msgid "Loading…"
+msgstr "Loading…"
+
 #: src/shared/rule-answer/factLabels.ts
 msgid "Longest stay on a visa or visa exemption"
 msgstr "Longest stay on a visa or visa exemption"
@@ -970,6 +974,10 @@ msgstr "Notarised · blocks the appointment step"
 #: src/shared/context-control/ContextPanel.tsx
 msgid "Nothing here is required."
 msgstr "Nothing here is required."
+
+#: src/shared/context-control/ContextPanel.tsx
+msgid "Nothing matches"
+msgstr "Nothing matches"
 
 #: src/screens/search/SearchResults.tsx
 msgid "Nothing matches yet"

@@ -47,7 +47,14 @@ export const YourDetails = () => {
   // Intl's Türkiye; every other country is named by Intl in the reader's language.
   // `overThePage`: the header asks this for a reader who already has an
   // origin, while a page is on screen. Suspending here would blank that page.
-  const [{ data }] = useQuery({ query: CountriesQuery, variables: { locale }, pause: !open && !origin, context: overThePage })
+  // `fetching`: the query starts as the panel opens, so on a first open with no origin the list is empty until it
+  // answers, and the row said No options to a reader who could still choose in a moment (SB-178).
+  const [{ data, fetching: fetchingCountries }] = useQuery({
+    query: CountriesQuery,
+    variables: { locale },
+    pause: !open && !origin,
+    context: overThePage,
+  })
   const ours = useMemo(() => new Map((data?.countries ?? []).map((row) => [row.code, row.name])), [data])
   // Every country there is, named and sorted, only once the panel is open: on
   // every page this header is on, building it closed cost 100 ms on a phone
@@ -61,7 +68,7 @@ export const YourDetails = () => {
   // The country's places, statuses and situations once the panel opens. The
   // route guard asks the same, with the same variables, when an address names
   // one, so it is one answer (SB-256).
-  const [{ data: details }] = useQuery({
+  const [{ data: details, fetching: fetchingDetails }] = useQuery({
     query: ReaderDetailsQuery,
     variables: { country: country ?? '', locale },
     pause: !open || !country,
@@ -114,6 +121,10 @@ export const YourDetails = () => {
             // The countries the API covers, which is all a reader can be in. Not
             // `options`: that is every country somebody can come from.
             countries={data?.countries ?? []}
+            // Each row says it is still looking rather than saying nothing matches, until its own query answers
+            // (SB-178). Two flags, because the two queries finish at different times.
+            loadingCountries={fetchingCountries}
+            loadingDetails={fetchingDetails}
             countryName={countryName ?? ''}
             options={options}
             place={place}

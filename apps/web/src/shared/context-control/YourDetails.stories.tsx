@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { graphql, HttpResponse } from 'msw'
 import { MemoryRouter, useLocation } from 'react-router-dom'
 import { expect, userEvent, waitFor, within } from 'storybook/test'
-import { GraphQLProvider } from 'src/core/graphql'
+import { endpoint, GraphQLProvider } from 'src/core/graphql'
 import { handlers } from 'src/core/graphql/mocks'
 import { AddressShell } from 'src/core/router'
 import { YourDetails } from './YourDetails'
@@ -45,6 +46,59 @@ const choose = async (canvasElement: HTMLElement, from: RegExp, country: RegExp)
   // nationality list by mistake would offer it.
   await expect(page.queryByRole('option', { name: /Afghanistan/ })).toBeNull()
   await userEvent.click(page.getByRole('option', { name: country }))
+}
+
+// SB-178: a response this story holds back, so the row can be read while its query is still in flight. A deferred
+// promise rather than a delay: msw's delay('infinite') is a maximum-duration timer with no handle to let it go, so
+// the play function could never release it. Released in `finally` too, or a failed assertion leaves the request open
+// for the rest of the run.
+const deferred = () => {
+  let release = () => {}
+  const waited = new Promise<void>((resolve) => {
+    release = resolve
+  })
+  return { waited, release: () => release() }
+}
+const heldCountries = deferred()
+
+/** The row while its countries are still on their way: it says so, rather than offering nothing (SB-178). */
+export const CountriesHeldBack: Story = {
+  parameters: {
+    msw: {
+      handlers: [
+        graphql.link(endpoint()).query('Countries', async () => {
+          await heldCountries.waited
+          return HttpResponse.json({
+            data: {
+              countries: [
+                { code: 'de', name: 'Germany' },
+                { code: 'tr', name: 'Turkey' },
+              ],
+            },
+          })
+        }),
+        ...handlers,
+      ],
+    },
+  },
+  play: async ({ canvasElement }) => {
+    try {
+      const canvas = within(canvasElement)
+      await userEvent.click(await canvas.findByRole('button', { name: /Add your details|From /, }, { timeout: 5000 }))
+      const page = within(window.document.body)
+      await userEvent.click(await page.findByRole('button', { name: /^Turkey$/ }, { timeout: 5000 }))
+
+      await expect(await page.findByText(/Loading/, {}, { timeout: 5000 })).toBeVisible()
+      await expect(page.queryByText('No options')).toBeNull()
+
+      // And it becomes choosable the moment the answer lands, which is the half a loading text is worth nothing
+      // without: a reader who waits must still be able to choose.
+      heldCountries.release()
+      await expect(await page.findByRole('option', { name: /Germany/ }, { timeout: 5000 })).toBeVisible()
+    } finally {
+      heldCountries.release()
+    }
+  },
 }
 
 /** A search keeps its question, and who is reading, when the reader says they are in Germany (SB-172). */

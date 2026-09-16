@@ -15,6 +15,10 @@ export type ContextPanelProps = {
   countries: readonly Origin[]
   countryName: string
   options: readonly Origin[]
+  /** Whether the countries query is still in flight, so Currently in says so rather than No options (SB-178). */
+  loadingCountries?: boolean | undefined
+  /** The same for the reader details query, which feeds City, Residence status, Role and Where you work. */
+  loadingDetails?: boolean | undefined
   place?: Origin | null | undefined
   places?: readonly DetailOption[] | undefined
   status?: Origin | null | undefined
@@ -69,15 +73,20 @@ const Choice = ({
   placeholder,
   value,
   options,
+  loading = false,
   onChoose,
 }: {
   label: string
   placeholder: string
   value: Origin | null
   options: readonly DetailOption[]
+  /** Whether the query feeding this row is still in flight (SB-178). Not "the list is empty": a query that has come
+   * back with nothing says nothing matches, which is true, rather than saying it is still looking, which is not. */
+  loading?: boolean
   onChoose: (code: string) => void
 }) => {
   const { tokens } = useTheme()
+  const { t } = useLingui()
   const [editing, setEditing] = useState(false)
 
   if (editing) {
@@ -88,6 +97,12 @@ const Choice = ({
         autoHighlight
         size="small"
         options={options}
+        // SB-178: MUI's own words here are English, and nothing in this app set an MUI locale, so a Persian reader
+        // read "No options" in the middle of a Persian panel. It shows the loading text only while `loading` is true
+        // AND the list is empty, so a query that has answered with nothing falls through to the no-match text.
+        loading={loading}
+        loadingText={t`Loading…`}
+        noOptionsText={t`Nothing matches`}
         value={value ? (options.find((option) => option.code === value.code) ?? null) : null}
         getOptionLabel={(option) => option.name}
         isOptionEqualToValue={(option, chosen) => option.code === chosen.code}
@@ -105,8 +120,9 @@ const Choice = ({
           <TextField
             {...params}
             autoFocus
-            // The row was showing the chosen name, so typing replaces it rather than
-            // adding to it. Autocomplete selects it on a click in the field, not on autoFocus.
+            // The row was showing the chosen name, so typing replaces it rather than adding to it. Autocomplete
+            // selects the text itself when the field is clicked, and not when focus arrives on its own as it does
+            // here, so this selects it by hand (SB-178: the old wording read as though it never selected at all).
             onFocus={(event) => event.target.select()}
             placeholder={placeholder}
             slotProps={{ ...params.slotProps, htmlInput: { ...params.slotProps.htmlInput, 'aria-label': label } }}
@@ -141,6 +157,8 @@ export const ContextPanel = ({
   countries,
   countryName,
   options,
+  loadingCountries = false,
+  loadingDetails = false,
   place = null,
   places = [],
   status = null,
@@ -198,6 +216,7 @@ export const ContextPanel = ({
           placeholder={t`Type a country`}
           value={country}
           options={countries}
+          loading={loadingCountries}
           onChoose={(code) => {
             if (code !== country?.code) onCountry(code)
           }}
@@ -210,6 +229,7 @@ export const ContextPanel = ({
             placeholder={t`Type a place`}
             value={place}
             options={places}
+            loading={loadingDetails}
             onChoose={(code) => {
               if (code !== place?.code) onPlace(code)
             }}
@@ -225,6 +245,7 @@ export const ContextPanel = ({
             placeholder={t`Type a status`}
             value={status}
             options={statuses}
+            loading={loadingDetails}
             onChoose={(code) => {
               if (code !== status?.code) onStatus(code)
             }}
@@ -240,6 +261,7 @@ export const ContextPanel = ({
             placeholder={t`Type a role`}
             value={situation}
             options={situations}
+            loading={loadingDetails}
             onChoose={(code) => {
               if (code !== situation?.code) onSituation(code)
             }}
@@ -257,6 +279,7 @@ export const ContextPanel = ({
             placeholder={t`Type a place`}
             value={work}
             options={places}
+            loading={loadingDetails}
             onChoose={(code) => {
               if (code !== work?.code) onWork(code)
             }}

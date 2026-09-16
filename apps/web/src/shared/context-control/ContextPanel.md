@@ -33,6 +33,10 @@ never the destination.
 - `onCountry`: Called with the code chosen under Currently in, only when it is a different country.
 - `countryName`: Where they are, for "City in Turkey".
 - `options`: Every country someone can come from, named in the reader's language.
+- `loadingCountries`: Whether the countries query is still in flight. Currently in then says it is still looking, rather
+  than that nothing matches, which is what an empty list says on its own.
+- `loadingDetails`: The same for the query behind City, Residence status, Role and Where you work. Two flags rather than
+  one, because the two queries answer at different times.
 - `place`: The place where the reader lives, once said.
 - `places`: The country's places, in the order the row lists them, each with how far in it is.
 - `onPlace`: Called with the place chosen under City, only when it is a different one. Without it the row is Coming soon.
