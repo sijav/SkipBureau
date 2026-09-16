@@ -1651,3 +1651,70 @@ economic capacity. The locator says so.
 - <https://www.bundesgesundheitsministerium.de/beitraege/seite> (kept, for the figure and the reader)
 
 All read 2026-09-16.
+
+---
+
+## Asked, 2026-09-16 13:26 UTC
+
+SB-358, from SB-167's roast. The round above closed on the answer that PROPOSED the change, not on a
+pass over the result of it. SB-185 then rewrote the footnote, and nothing had been put to the
+document as it now stands, so this file recorded a fixed point it had not reached.
+
+So: the closing question the other three German documents were closed with, put to this one. Against
+the file on disk rather than against this conversation's memory of what it recommended, and with the
+two decisions taken AGAINST that recommendation named so they would be tested rather than assumed,
+that the BKK24 leaflet is deliberately not used and that the cross reference carrying § 223 to
+voluntary members is § 240 Abs. 2's LAST SENTENCE.
+
+**Sent by path, not pasted.** German quotes passed as command line arguments on this machine arrive
+as U+FFFD, and a reviewer judging mangled text is worse than no pass at all.
+
+Reviewer codex gpt-5.6-terra, effort medium, session `01a093c8-fa43-7c12-90e6-57f1465c3219` resumed,
+taken from the written report rather than from the stderr line, which is printed before an attempt
+succeeds and so would survive a fallback to a different reviewer.
+
+## Answered
+
+Not a no. One thing, and it is right.
+
+`minimum-base-monthly` claimed `"rounding": "none"`. 3.955 ÷ 90 × 30 is 1.318,333 recurring, so the
+published 1.318,33 is rounded to two decimal places. The BMG definition separately states the
+published amount, so the document was never wrong about the figure, only about its own account of
+how it reached it.
+
+The two decisions were confirmed on the text of the provisions: § 240 Abs. 2's last sentence does
+carry § 223 to voluntary members, and § 223 Abs. 2 does supply the thirty day month. No other gap in
+the sentence or in the five definitions.
+
+## What a reader is told
+
+Nothing changes for the reader. The figure, the sentence and the other four definitions stand.
+`minimum-base-monthly`'s `rounding` now reads "to the nearest cent, the unrounded result being
+1,318.333 recurring", which is what the arithmetic actually does.
+
+---
+
+## Asked, 2026-09-16 13:27 UTC
+
+The same closing question again, on the corrected file, saying plainly what had changed and that a
+clean no closes the document and is as useful to me as a finding, so it would not look harder because
+a short answer feels thin.
+
+## Answered
+
+No.
+
+## What a reader is told
+
+The document is closed. That is the fixed point the owner's order of 2026-09-12 asks for, reached in
+this same conversation, and `research/README.md` now records it for this document separately from the
+two that closed on 2026-09-15.
+
+## Sources
+
+- <https://www.bundesgesundheitsministerium.de/beitraege/seite>
+- <https://www.gesetze-im-internet.de/sgb_5/__240.html>
+- <https://www.gesetze-im-internet.de/sgb_5/__223.html>
+- <https://www.gesetze-im-internet.de/svbezgrv_2026/BJNR1160A0025.html>
+
+All read 2026-09-16.

@@ -155,7 +155,22 @@ calculated definition whose inputs are all statute: §240(4) sentence 1 SGB V fo
 the daily floor, §223(2) sentence 2 for the thirty day month that §240(2) last
 sentence carries to voluntary members, and §1 SVBezGrV 2026 for the €3,955
 monthly reference value. The Ministry's table stays, for the figure and for who
-it applies to. With those applied, all three came back no.
+it applies to. With those applied, Anmeldung and business registration came back
+no on 2026-09-15.
+
+**Health insurance came back no a day later, and only after a further round**
+(SB-358). What closed on 2026-09-15 was the answer that proposed the change, not
+a pass on the result of it, and this file credited it with a fixed point it had
+not reached. Put to the corrected document on 2026-09-16, the same conversation
+found one thing: the calculated definition claimed `"rounding": "none"` while
+€3,955 divided by ninety, times thirty, is €1,318.333 recurring, so the
+published €1,318.33 is rounded to the cent. With that field corrected the next
+pass came back no. Two decisions taken against that conversation's own earlier
+answer were put to it in the same round and confirmed: that the BKK24 leaflet it
+offered is not used, one statutory insurer's information sheet not being an
+official source in the sense this repository means, and that the cross reference
+carrying §223 to voluntary members is §240(2)'s last sentence rather than the
+paragraph itself.
 
 **Compare in Unicode's composed form.** The Ministry of Health's care page writes
 `fünften` as `u` followed by a combining mark, and a literal search for the
