@@ -456,13 +456,16 @@ const COMPANY_DUTIES: readonly [slug: string, opening: string][] = [
   ['register-an-employee-for-social-insurance', 'Once the company employs someone under a service contract'],
   ['get-a-workplace-licence', 'Where the premises and what is done there need an opening and operating licence'],
   ['keep-company-books-electronically', 'For a company registered from 1 January 2026'],
+  // SB-216: Law 6735 Article 22(1) puts the fifteen day report on the employer, so a founder is told it too, by a
+  // version of its own. The worker keeps theirs, since their permit is what hangs on the report being made.
+  ['report-employment-starting-and-ending', 'For the employer'],
 ]
 
 // Each moment of the work permit, and the condition its notes must open with,
 // since every figure binds only under one (SB-193).
 const WORKER_DUTIES: readonly [slug: string, opening: string][] = [
   ['get-a-work-permit', 'Where your employer applies for your work permit, as it normally does'],
-  ['report-employment-starting-and-ending', 'For the employer, or a foreigner holding an indefinite or independent work permit'],
+  ['report-employment-starting-and-ending', 'For a worker'],
   ['apply-for-a-residence-permit-after-a-work-permit', 'Once your work permit has been cancelled or has ended'],
   ['keep-working-while-an-extension-is-assessed', 'Only while a timely application to extend your work permit is assessed, for the same work at the same workplace'],
 ]
@@ -474,12 +477,18 @@ const WORKER_DUTIES: readonly [slug: string, opening: string][] = [
  */
 const toldInSituation = async (duties: readonly [slug: string, opening: string][], situation: string) => {
   for (const [slug, opening] of duties) {
-    const version = TURKEY.versions.find((candidate) => candidate.obligation === slug)
-    expect(version, `${slug} is in Turkey's file`).toBeDefined()
+    // SB-216: an obligation can have a version for each situation it binds, so the one this reader gets is found by
+    // the situation as well as the slug. Taking the first version of the slug, which this did, asserted a reader's
+    // facts and note against whichever came first in the file, and passed while the two said the same thing.
+    const version = TURKEY.versions.find(
+      (candidate) =>
+        candidate.obligation === slug && candidate.criteria.some((criterion) => criterion.dimension === 'situation' && criterion.value === situation),
+    )
+    expect(version, `${slug} is in Turkey's file for ${situation}`).toBeDefined()
 
     const reader = await entryFor(slug, { situation })
     expect(reader?.verdict, slug).toBe('newInDestination')
-    expect(reader?.to?.facts, slug).toEqual(factsOf(slug))
+    expect(reader?.to?.facts, slug).toEqual(factsIn(TURKEY, version))
     expect(reader?.to?.notes, slug).toEqual([{ ruleVersionId: expect.any(String), text: version?.notes.en, locale: 'en-US', translationMissing: false }])
     expect(reader?.to?.notes[0]?.text.startsWith(opening), `${slug}'s notes open with its condition`).toBe(true)
 
