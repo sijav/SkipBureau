@@ -3,6 +3,8 @@ import type { GuideDetailSeed } from '../sample-types.js'
 import { TASKS } from '../tasks.js'
 import {
   ADDRESS_GUIDE,
+  GERMANY_BUSINESS_REGISTRATION,
+  GERMANY_HEALTH_INSURANCE,
   GERMANY_RESIDENCE_PERMIT,
   TURKEY_COMPANY_FORMATION,
   TURKEY_HEALTH_INSURANCE,
@@ -945,7 +947,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
         { url: 'https://www.gesetze-im-internet.de/aufenthg_2004/__4a.html', name: 'Aufenthaltsgesetz (AufenthG), § 4a' },
       ],
     },
-    obligations: [],
+    obligations: GERMANY_BUSINESS_REGISTRATION,
   },
   // Written from research/agreed/germany/health-insurance.md (SB-299).
   {
@@ -1071,7 +1073,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
         { url: 'https://www.gesetze-im-internet.de/vvg_2008/__193.html', name: 'Versicherungsvertragsgesetz (VVG), § 193' },
       ],
     },
-    obligations: [],
+    obligations: GERMANY_HEALTH_INSURANCE,
   },
 ]
 

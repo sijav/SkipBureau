@@ -32,6 +32,20 @@ export const TURKEY_COMPANY_FORMATION = [
 /** Germany's residence permit guide. */
 export const GERMANY_RESIDENCE_PERMIT = [['get-a-residence-permit-as-a-skilled-worker-with-a-degree']] as const
 
+/** Germany's business registration guide: the trade notification, then the six duties it sets off (SB-300). */
+export const GERMANY_BUSINESS_REGISTRATION = [
+  ['register-a-trade'],
+  ['notify-the-accident-insurer'],
+  ['send-the-tax-registration-questionnaire'],
+  ['pay-trade-tax'],
+  ['pay-chamber-of-commerce-contributions'],
+  ['use-the-vat-small-business-rule'],
+  ['check-your-title-allows-self-employment'],
+] as const
+
+/** Germany's health insurance guide: joining the statutory system, and the care insurance charged on top (SB-300). */
+export const GERMANY_HEALTH_INSURANCE = [['join-statutory-health-insurance'], ['pay-care-insurance-contributions']] as const
+
 /** Every group any guide links. */
 export const LINKED_OBLIGATION_GROUPS: readonly (readonly (readonly string[])[])[] = [
   ADDRESS_GUIDE,
@@ -40,4 +54,6 @@ export const LINKED_OBLIGATION_GROUPS: readonly (readonly (readonly string[])[])
   TURKEY_WORK_PERMIT,
   TURKEY_COMPANY_FORMATION,
   GERMANY_RESIDENCE_PERMIT,
+  GERMANY_BUSINESS_REGISTRATION,
+  GERMANY_HEALTH_INSURANCE,
 ]

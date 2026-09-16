@@ -79,6 +79,20 @@ export const AsksFirst: Story = {
 }
 
 /** The reader's own answer: Hamburg's fee with the federal deadline and fine it takes from the national rule. */
+/**
+ * SB-300: a detail nothing can take yet, where the card says so plainly and offers no way into a panel that has no row
+ * for it. Typed from the component rather than from the meta, whose `onAsk` is a mock that cannot be left out.
+ */
+export const AsksWhatNothingCanTakeYet: StoryObj<typeof RuleAnswer> = {
+  args: { title: 'Register a trade', lines: [], notes: [], asks: 'Where you work', onAsk: undefined },
+  play: async ({ canvasElement }) => {
+    const answer = within(canvasElement)
+    await expect(await answer.findByText(/Where you work decides the answer/, {}, { timeout: 5000 })).toBeVisible()
+    await expect(answer.getByText(/We cannot take this detail from you yet/)).toBeVisible()
+    await expect(answer.queryByRole('button', { name: 'Tell us' })).toBeNull()
+  },
+}
+
 export const Answered: Story = {
   args: { state: 'answered', lines: [fee, deadline, fine], asks: undefined },
   play: async ({ canvasElement }) => {

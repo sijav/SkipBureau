@@ -146,6 +146,10 @@ export const Guide = () => {
     situation: t`Your role`,
     workRegion: t`Where you work`,
   }
+  // The context panel has a row for every one of these but where the reader works, which SB-313 adds. A detail
+  // with no row cannot be given at all, so a card that needs it says so rather than offering a way in that
+  // leads nowhere.
+  const canBeGiven = (detail: keyof typeof detailWords) => detail !== 'workRegion'
   const answerOf = new Map((answers?.guide?.obligations ?? []).map((row) => [row.slug, row.reader]))
   const ruleAnswers = obligations.flatMap((obligation) => {
     const answer = answerOf.get(obligation.slug) ?? null
@@ -171,7 +175,19 @@ export const Guide = () => {
     const need = answer?.needs[0]
     const asks = need ? detailWords[need] : undefined
     if (!general && !asks) return []
-    return [<RuleAnswer key={obligation.slug} title={title} state="general" {...everyone} asks={asks} onAsk={() => setDetailsOpen(true)} />]
+    // SB-300: the panel has a row for four of these and none for where the reader works, so that card asks its
+    // question without a button that opens a panel which cannot answer it. SB-313 adds the row.
+    const canTell = need !== undefined && canBeGiven(need)
+    return [
+      <RuleAnswer
+        key={obligation.slug}
+        title={title}
+        state="general"
+        {...everyone}
+        asks={asks}
+        onAsk={canTell ? () => setDetailsOpen(true) : undefined}
+      />,
+    ]
   })
 
   return (

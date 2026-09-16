@@ -173,6 +173,10 @@ msgstr "Add your details"
 msgid "Address registration"
 msgstr "Address registration"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Allowance deducted from the levy base"
+msgstr "Allowance deducted from the levy base"
+
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Alternative route"
 msgstr "Alternative route"
@@ -331,6 +335,18 @@ msgstr "Cap"
 msgid "Card fee"
 msgstr "Card fee"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Care insurance contribution rate"
+msgstr "Care insurance contribution rate"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Care insurance discount for each child"
+msgstr "Care insurance discount for each child"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Care insurance rate for a childless member"
+msgstr "Care insurance rate for a childless member"
+
 #: src/shared/document-card/DocumentCard.stories.tsx
 msgid "Certificate of enrolment for the current academic year, with the stamp of the faculty"
 msgstr "Certificate of enrolment for the current academic year, with the stamp of the faculty"
@@ -469,6 +485,14 @@ msgid "Deadline to apply inside Germany"
 msgstr "Deadline to apply inside Germany"
 
 #: src/shared/rule-answer/factLabels.ts
+msgid "Deadline to join voluntarily in your first employment"
+msgstr "Deadline to join voluntarily in your first employment"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Deadline to notify the accident insurer"
+msgstr "Deadline to notify the accident insurer"
+
+#: src/shared/rule-answer/factLabels.ts
 msgid "Deadline to pay cash capital after registration"
 msgstr "Deadline to pay cash capital after registration"
 
@@ -483,6 +507,10 @@ msgstr "Deadline to register your address"
 #: src/shared/rule-answer/factLabels.ts
 msgid "Deadline to request electronic tax notifications after starting business"
 msgstr "Deadline to request electronic tax notifications after starting business"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Deadline to send the tax questionnaire"
+msgstr "Deadline to send the tax questionnaire"
 
 #: src/screens/task-hub/TaskHub.tsx
 #: src/shared/topic-item/TopicItem.stories.tsx
@@ -522,8 +550,20 @@ msgid "Due in 12 days"
 msgstr "Due in 12 days"
 
 #: src/shared/rule-answer/factLabels.ts
+msgid "Earnings threshold for compulsory insurance"
+msgstr "Earnings threshold for compulsory insurance"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Employee’s share of the care contribution"
+msgstr "Employee’s share of the care contribution"
+
+#: src/shared/rule-answer/factLabels.ts
 msgid "Employer’s deadline to notify the Ministry of employment changes"
 msgstr "Employer’s deadline to notify the Ministry of employment changes"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Employer’s share of the care contribution"
+msgstr "Employer’s share of the care contribution"
 
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Estimated cost"
@@ -579,6 +619,10 @@ msgid "Fine for a false address declaration"
 msgstr "Fine for a false address declaration"
 
 #: src/shared/rule-answer/factLabels.ts
+msgid "Fine for a late or missing trade notification"
+msgstr "Fine for a late or missing trade notification"
+
+#: src/shared/rule-answer/factLabels.ts
 msgid "Fine for registering late"
 msgstr "Fine for registering late"
 
@@ -605,6 +649,10 @@ msgstr "From {originName}"
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "From applicant reports, not an official rule"
 msgstr "From applicant reports, not an official rule"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "General contribution rate"
+msgstr "General contribution rate"
 
 #: src/shared/breadcrumb/Breadcrumb.stories.tsx
 msgid "Getting Settled"
@@ -817,6 +865,10 @@ msgstr "Minimum salary for senior executives and pilots"
 msgid "Minimum salary for work requiring expertise or mastery"
 msgstr "Minimum salary for work requiring expertise or mastery"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Minimum waiver period"
+msgstr "Minimum waiver period"
+
 #: src/shared/checklist-item/ChecklistItem.tsx
 #: src/shared/document-card/DocumentCard.tsx
 msgid "Missing"
@@ -825,6 +877,10 @@ msgstr "Missing"
 #: src/shared/document-card/DocumentCard.stories.tsx
 msgid "Missing, blocks step 4"
 msgstr "Missing, blocks step 4"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Monthly contribution assessment ceiling"
+msgstr "Monthly contribution assessment ceiling"
 
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Must be dated within the last 30 days"
@@ -1072,6 +1128,14 @@ msgstr "Process"
 msgid "Processing time"
 msgstr "Processing time"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Profit below which the chamber contribution is nothing"
+msgstr "Profit below which the chamber contribution is nothing"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Profit ceiling for founder relief"
+msgstr "Profit ceiling for founder relief"
+
 #: src/screens/guide/Guide.tsx
 #: src/shared/ask-result-row/AskResultRow.tsx
 msgid "Quick answer"
@@ -1135,6 +1199,14 @@ msgstr "Register your company"
 #: src/shared/rule-answer/factLabels.ts
 msgid "Registration fee"
 msgstr "Registration fee"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Registration fee for a sole business"
+msgstr "Registration fee for a sole business"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Registration fee online"
+msgstr "Registration fee online"
 
 #: src/shared/rule-answer/factLabels.ts
 msgid "Registry charge on company formation"
@@ -1237,6 +1309,10 @@ msgstr "Search the guides"
 msgid "Select a city"
 msgstr "Select a city"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Self-employment under the Residence Act"
+msgstr "Self-employment under the Residence Act"
+
 #: src/screens/suggest/SuggestUpdate.tsx
 msgid "Send suggestion"
 msgstr "Send suggestion"
@@ -1290,6 +1366,10 @@ msgstr "Source or link (optional)"
 msgid "Sources are listed above with the date we last checked them. Tell us if something here no longer matches what you found."
 msgstr "Sources are listed above with the date we last checked them. Tell us if something here no longer matches what you found."
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Split of the general and additional contribution"
+msgstr "Split of the general and additional contribution"
+
 #: src/shared/breadcrumb/Breadcrumb.stories.tsx
 #: src/shared/task-row/TaskRow.stories.tsx
 #: src/shared/task-tile/TaskTile.stories.tsx
@@ -1317,6 +1397,10 @@ msgstr "Start guided setup"
 #: src/screens/category-hub/RecommendedStart.tsx
 msgid "Start here"
 msgstr "Start here"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Start of compulsory membership through employment"
+msgstr "Start of compulsory membership through employment"
 
 #: src/shared/button/Button.stories.tsx
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
@@ -1460,6 +1544,10 @@ msgstr "This guide has not been translated yet, so it is shown in {0}."
 msgid "This is the rule for everyone. Tell us, and we show the answer for you."
 msgstr "This is the rule for everyone. Tell us, and we show the answer for you."
 
+#: src/shared/rule-answer/RuleAnswer.tsx
+msgid "This is the rule for everyone. We cannot take this detail from you yet."
+msgstr "This is the rule for everyone. We cannot take this detail from you yet."
+
 #: src/screens/NotFound.tsx
 msgid "This page does not exist"
 msgstr "This page does not exist"
@@ -1467,6 +1555,14 @@ msgstr "This page does not exist"
 #: src/shared/deadline-item/DeadlineItem.tsx
 msgid "Today"
 msgstr "Today"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Trade income allowance"
+msgstr "Trade income allowance"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Transaction losing the exemption"
+msgstr "Transaction losing the exemption"
 
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Translation"
@@ -1487,6 +1583,18 @@ msgstr "Turkish employees for each foreigner"
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Turkish, by a sworn translator (yeminli tercüman)"
 msgstr "Turkish, by a sworn translator (yeminli tercüman)"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Turnover ceiling for the current year"
+msgstr "Turnover ceiling for the current year"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Turnover ceiling for the previous year"
+msgstr "Turnover ceiling for the previous year"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Turnover ceiling in the year the business starts"
+msgstr "Turnover ceiling in the year the business starts"
 
 #: src/shared/rule-answer/RuleAnswer.tsx
 msgid "Two rules could apply to you"
@@ -1599,6 +1707,10 @@ msgstr "Warning"
 msgid "We are still writing this guide, and checking it against official sources."
 msgstr "We are still writing this guide, and checking it against official sources."
 
+#: src/shared/rule-answer/RuleAnswer.tsx
+msgid "We cannot take this detail from you yet."
+msgstr "We cannot take this detail from you yet."
+
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "We have not verified this process for Antalya. The steps below are correct for Istanbul, Ankara and Izmir; local document requirements may differ."
 msgstr "We have not verified this process for Antalya. The steps below are correct for Istanbul, Ankara and Izmir; local document requirements may differ."
@@ -1705,6 +1817,18 @@ msgstr "What you’ll need to think about"
 msgid "What your health cover must cover"
 msgstr "What your health cover must cover"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "When a warning fine can be charged"
+msgstr "When a warning fine can be charged"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "When fine proceedings can start"
+msgstr "When fine proceedings can start"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "When to notify the trade office"
+msgstr "When to notify the trade office"
+
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Where"
 msgstr "Where"
@@ -1736,6 +1860,10 @@ msgstr "Whether your diploma needs an apostille or consular legalization depends
 #: src/shared/rule-answer/factValue.ts
 msgid "within {number}"
 msgstr "within {number}"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Work allowed by your residence title"
+msgstr "Work allowed by your residence title"
 
 #: src/shared/context-control/situationLabels.ts
 msgid "Worker"

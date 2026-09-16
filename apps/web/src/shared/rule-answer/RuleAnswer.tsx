@@ -94,11 +94,19 @@ export const RuleAnswer = ({ title, state, lines, notes, asks, reason, onAsk }: 
           heading={showsRule ? <Trans>{asks} can change this</Trans> : <Trans>{asks} decides the answer</Trans>}
         >
           <Stack spacing="12px" sx={{ alignItems: 'flex-start' }}>
+            {/* SB-300: a detail nothing can take yet is said plainly, rather than asking the reader for something
+                they have no way to give. The caller says which by giving or withholding onAsk. */}
             <span>
-              {showsRule ? (
-                <Trans>This is the rule for everyone. Tell us, and we show the answer for you.</Trans>
+              {onAsk ? (
+                showsRule ? (
+                  <Trans>This is the rule for everyone. Tell us, and we show the answer for you.</Trans>
+                ) : (
+                  <Trans>Tell us to show your answer.</Trans>
+                )
+              ) : showsRule ? (
+                <Trans>This is the rule for everyone. We cannot take this detail from you yet.</Trans>
               ) : (
-                <Trans>Tell us to show your answer.</Trans>
+                <Trans>We cannot take this detail from you yet.</Trans>
               )}
             </span>
             {onAsk && (

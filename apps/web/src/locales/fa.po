@@ -173,6 +173,10 @@ msgstr "مشخصات خود را وارد کنید"
 msgid "Address registration"
 msgstr "ثبت نشانی"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Allowance deducted from the levy base"
+msgstr "معافیت کسرشده از پایهٔ عوارض"
+
 #: src/screens/task-hub/TaskHub.tsx
 msgid "Alternative route"
 msgstr "مسیر جایگزین"
@@ -331,6 +335,18 @@ msgstr "سقف"
 msgid "Card fee"
 msgstr "هزینهٔ کارت"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Care insurance contribution rate"
+msgstr "نرخ حق بیمهٔ مراقبت"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Care insurance discount for each child"
+msgstr "تخفیف بیمهٔ مراقبت برای هر فرزند"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Care insurance rate for a childless member"
+msgstr "نرخ بیمهٔ مراقبت برای عضو بدون فرزند"
+
 #: src/shared/document-card/DocumentCard.stories.tsx
 msgid "Certificate of enrolment for the current academic year, with the stamp of the faculty"
 msgstr "گواهی ثبت‌نام برای سال تحصیلی جاری، با مهر دانشکده"
@@ -469,6 +485,14 @@ msgid "Deadline to apply inside Germany"
 msgstr "مهلت درخواست از داخل آلمان"
 
 #: src/shared/rule-answer/factLabels.ts
+msgid "Deadline to join voluntarily in your first employment"
+msgstr "مهلت عضویت داوطلبانه در نخستین اشتغال شما"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Deadline to notify the accident insurer"
+msgstr "مهلت اطلاع دادن به بیمهٔ حوادث"
+
+#: src/shared/rule-answer/factLabels.ts
 msgid "Deadline to pay cash capital after registration"
 msgstr "مهلت پرداخت سرمایهٔ نقدی پس از ثبت"
 
@@ -483,6 +507,10 @@ msgstr "مهلت ثبت نشانی"
 #: src/shared/rule-answer/factLabels.ts
 msgid "Deadline to request electronic tax notifications after starting business"
 msgstr "مهلت درخواست ابلاغ الکترونیکی مالیاتی پس از شروع فعالیت"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Deadline to send the tax questionnaire"
+msgstr "مهلت فرستادن پرسش‌نامهٔ ثبت مالیاتی"
 
 #: src/screens/task-hub/TaskHub.tsx
 #: src/shared/topic-item/TopicItem.stories.tsx
@@ -522,8 +550,20 @@ msgid "Due in 12 days"
 msgstr "۱۲ روز تا موعد"
 
 #: src/shared/rule-answer/factLabels.ts
+msgid "Earnings threshold for compulsory insurance"
+msgstr "آستانهٔ درآمد برای بیمهٔ اجباری"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Employee’s share of the care contribution"
+msgstr "سهم کارمند از حق بیمهٔ مراقبت"
+
+#: src/shared/rule-answer/factLabels.ts
 msgid "Employer’s deadline to notify the Ministry of employment changes"
 msgstr "مهلت کارفرما برای اطلاع به وزارتخانه از تغییرات کار"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Employer’s share of the care contribution"
+msgstr "سهم کارفرما از حق بیمهٔ مراقبت"
 
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Estimated cost"
@@ -579,6 +619,10 @@ msgid "Fine for a false address declaration"
 msgstr "جریمهٔ اعلام نشانی نادرست"
 
 #: src/shared/rule-answer/factLabels.ts
+msgid "Fine for a late or missing trade notification"
+msgstr "جریمهٔ اعلام دیرهنگام یا نکردن ثبت کسب‌وکار"
+
+#: src/shared/rule-answer/factLabels.ts
 msgid "Fine for registering late"
 msgstr "جریمهٔ ثبت دیرهنگام"
 
@@ -605,6 +649,10 @@ msgstr "از {originName}"
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "From applicant reports, not an official rule"
 msgstr "از گزارش متقاضیان، نه یک قاعدهٔ رسمی"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "General contribution rate"
+msgstr "نرخ عمومی حق بیمه"
 
 #: src/shared/breadcrumb/Breadcrumb.stories.tsx
 msgid "Getting Settled"
@@ -817,6 +865,10 @@ msgstr "حداقل حقوق مدیران ارشد و خلبانان"
 msgid "Minimum salary for work requiring expertise or mastery"
 msgstr "حداقل حقوق کارِ نیازمند تخصص یا مهارت"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Minimum waiver period"
+msgstr "کمترین مدت پایبندی به صرف‌نظر از معافیت"
+
 #: src/shared/checklist-item/ChecklistItem.tsx
 #: src/shared/document-card/DocumentCard.tsx
 msgid "Missing"
@@ -825,6 +877,10 @@ msgstr "ناموجود"
 #: src/shared/document-card/DocumentCard.stories.tsx
 msgid "Missing, blocks step 4"
 msgstr "ناموجود، گام ۴ را متوقف می‌کند"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Monthly contribution assessment ceiling"
+msgstr "سقف ماهانهٔ محاسبهٔ حق بیمه"
 
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Must be dated within the last 30 days"
@@ -1072,6 +1128,14 @@ msgstr "روند"
 msgid "Processing time"
 msgstr "زمان رسیدگی"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Profit below which the chamber contribution is nothing"
+msgstr "سودی که تا آن اندازه حق عضویت اتاق صفر است"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Profit ceiling for founder relief"
+msgstr "سقف سود برای تخفیف بنیان‌گذاران"
+
 #: src/screens/guide/Guide.tsx
 #: src/shared/ask-result-row/AskResultRow.tsx
 msgid "Quick answer"
@@ -1135,6 +1199,14 @@ msgstr "ثبت شرکت"
 #: src/shared/rule-answer/factLabels.ts
 msgid "Registration fee"
 msgstr "هزینهٔ ثبت"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Registration fee for a sole business"
+msgstr "هزینهٔ ثبت برای کسب‌وکار انفرادی"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Registration fee online"
+msgstr "هزینهٔ ثبت به‌صورت آنلاین"
 
 #: src/shared/rule-answer/factLabels.ts
 msgid "Registry charge on company formation"
@@ -1237,6 +1309,10 @@ msgstr "جست‌وجو در راهنماها"
 msgid "Select a city"
 msgstr "یک شهر انتخاب کنید"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Self-employment under the Residence Act"
+msgstr "خوداشتغالی بر پایهٔ قانون اقامت"
+
 #: src/screens/suggest/SuggestUpdate.tsx
 msgid "Send suggestion"
 msgstr "ارسال پیشنهاد"
@@ -1290,6 +1366,10 @@ msgstr "منبع یا پیوند (اختیاری)"
 msgid "Sources are listed above with the date we last checked them. Tell us if something here no longer matches what you found."
 msgstr "منابع همراه با تاریخ آخرین بررسی در بالا آمده‌اند. اگر چیزی در اینجا دیگر با آنچه یافته‌اید مطابقت ندارد، به ما بگویید."
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "Split of the general and additional contribution"
+msgstr "تقسیم حق بیمهٔ عمومی و تکمیلی"
+
 #: src/shared/breadcrumb/Breadcrumb.stories.tsx
 #: src/shared/task-row/TaskRow.stories.tsx
 #: src/shared/task-tile/TaskTile.stories.tsx
@@ -1317,6 +1397,10 @@ msgstr "شروع راه‌اندازی راهنمایی‌شده"
 #: src/screens/category-hub/RecommendedStart.tsx
 msgid "Start here"
 msgstr "از اینجا شروع کنید"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Start of compulsory membership through employment"
+msgstr "آغاز عضویت اجباری از راه اشتغال"
 
 #: src/shared/button/Button.stories.tsx
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
@@ -1460,6 +1544,10 @@ msgstr "این راهنما هنوز ترجمه نشده است، بنابرای
 msgid "This is the rule for everyone. Tell us, and we show the answer for you."
 msgstr "این قاعده برای همه است. به ما بگویید تا پاسخ مخصوص شما را نشان دهیم."
 
+#: src/shared/rule-answer/RuleAnswer.tsx
+msgid "This is the rule for everyone. We cannot take this detail from you yet."
+msgstr "این قاعدهٔ همگانی است. هنوز نمی‌توانیم این اطلاعات را از شما بگیریم."
+
 #: src/screens/NotFound.tsx
 msgid "This page does not exist"
 msgstr "این صفحه وجود ندارد"
@@ -1467,6 +1555,14 @@ msgstr "این صفحه وجود ندارد"
 #: src/shared/deadline-item/DeadlineItem.tsx
 msgid "Today"
 msgstr "امروز"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Trade income allowance"
+msgstr "معافیت درآمد کسب‌وکار"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Transaction losing the exemption"
+msgstr "معامله‌ای که معافیت را از بین می‌برد"
 
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Translation"
@@ -1487,6 +1583,18 @@ msgstr "کارکنان ترک برای هر خارجی"
 #: src/shared/checklist-item/ChecklistItem.stories.tsx
 msgid "Turkish, by a sworn translator (yeminli tercüman)"
 msgstr "به ترکی، توسط مترجم رسمی (yeminli tercüman)"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Turnover ceiling for the current year"
+msgstr "سقف گردش مالی برای سال جاری"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Turnover ceiling for the previous year"
+msgstr "سقف گردش مالی برای سال گذشته"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Turnover ceiling in the year the business starts"
+msgstr "سقف گردش مالی در سال آغاز کسب‌وکار"
 
 #: src/shared/rule-answer/RuleAnswer.tsx
 msgid "Two rules could apply to you"
@@ -1599,6 +1707,10 @@ msgstr "هشدار"
 msgid "We are still writing this guide, and checking it against official sources."
 msgstr "هنوز این راهنما را می‌نویسیم و با منابع رسمی بررسی می‌کنیم."
 
+#: src/shared/rule-answer/RuleAnswer.tsx
+msgid "We cannot take this detail from you yet."
+msgstr "هنوز نمی‌توانیم این اطلاعات را از شما بگیریم."
+
 #: src/shared/info-panel/InfoPanel.stories.tsx
 msgid "We have not verified this process for Antalya. The steps below are correct for Istanbul, Ankara and Izmir; local document requirements may differ."
 msgstr "این روند را برای آنتالیا تأیید نکرده‌ایم. مراحل زیر برای استانبول، آنکارا و ازمیر درست است؛ مدارک لازم در هر شهر ممکن است فرق کند."
@@ -1705,6 +1817,18 @@ msgstr "آنچه باید به آن فکر کنید"
 msgid "What your health cover must cover"
 msgstr "آنچه بیمهٔ درمانی شما باید پوشش دهد"
 
+#: src/shared/rule-answer/factLabels.ts
+msgid "When a warning fine can be charged"
+msgstr "زمانی که جریمهٔ اخطار ممکن است اعمال شود"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "When fine proceedings can start"
+msgstr "زمانی که روند رسیدگی به جریمه می‌تواند آغاز شود"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "When to notify the trade office"
+msgstr "زمان اعلام به ادارهٔ کسب‌وکار"
+
 #: src/shared/roadmap-step/RoadmapStep.stories.tsx
 msgid "Where"
 msgstr "کجا"
@@ -1736,6 +1860,10 @@ msgstr "اینکه مدرک تحصیلی شما آپوستیل لازم دارد
 #: src/shared/rule-answer/factValue.ts
 msgid "within {number}"
 msgstr "ظرف {number}"
+
+#: src/shared/rule-answer/factLabels.ts
+msgid "Work allowed by your residence title"
+msgstr "کاری که مجوز اقامت شما اجازه می‌دهد"
 
 #: src/shared/context-control/situationLabels.ts
 msgid "Worker"

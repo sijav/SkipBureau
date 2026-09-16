@@ -25,4 +25,7 @@ neither; a rule that does not apply says so.
 - `notes`: The rule's notes, each with its language.
 - `asks`: The detail that can change the rule for everyone, or decides a rule that has no such version, in words.
 - `reason`: Why two rules apply, for `needsReview`.
-- `onAsk`: Opens the details panel, where the reader gives the detail.
+- `onAsk`: Opens the details panel, where the reader gives the detail. Left out
+  when nothing can take that detail yet, and then the card says so in place of
+  asking: a button that opens a panel with no row for the question is worse than
+  no button (SB-300).
