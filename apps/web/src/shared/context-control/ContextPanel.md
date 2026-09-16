@@ -24,6 +24,14 @@ rather than adding to it: tapping Turkey and typing Ger finds Germany.
 **Clear all** takes back the nationality, the place, the status and the role,
 never the destination.
 
+**It takes focus when it mounts** (SB-275), at its own heading rather than at
+the first row. The panel is rendered only while it is open, so mounting is
+opening, and a reader who opened it from the keyboard has to arrive inside it:
+before this, focus stayed on whatever they pressed, Tab walked on past the
+panel, and Escape reached nothing. The heading is the focus target rather than a
+wrapper because it has a name to announce, which is what the WAI-ARIA dialog
+pattern asks for, and Escape still bubbles from there to the popper.
+
 ## Props
 
 - `origin`: Where the reader comes from, once they have said.

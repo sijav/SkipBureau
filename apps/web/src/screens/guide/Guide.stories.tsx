@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { HttpResponse, graphql } from 'msw'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
-import { expect, userEvent, within } from 'storybook/test'
+import { expect, userEvent, waitFor, within } from 'storybook/test'
 import { GraphQLProvider, endpoint } from 'src/core/graphql'
 import { handlers } from 'src/core/graphql/mocks'
 import { isLocale } from 'src/core/i18n'
@@ -187,6 +187,32 @@ export const Unreachable: Story = {
     const canvas = within(canvasElement)
     await userEvent.click(await canvas.findByRole('button', { name: /Try again/ }, { timeout: 5000 }))
     await expect(await canvas.findByRole('heading', { level: 1, name: /Get a SIM Card or eSIM/ }, { timeout: 5000 })).toBeVisible()
+  },
+}
+
+/**
+ * SB-275: Tell us opens the header's details panel from the page, so a keyboard reader must arrive inside it and be
+ * handed back the button they pressed. Before this, focus stayed on Tell us, Tab walked on down the guide, and Escape
+ * reached nothing, so the question the page asks could not be answered without a mouse.
+ */
+export const TellUsMovesFocusIntoTheDetails: Story = {
+  parameters: { country: 'DE', guide: 'anmeldung' },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const page = within(window.document.body)
+    const named = { name: /What Skipbureau knows about you/ }
+    const tellUs = await canvas.findByRole('button', { name: /Tell us/ }, { timeout: 5000 })
+
+    tellUs.focus()
+    await expect(tellUs).toHaveFocus()
+    await userEvent.keyboard('{Enter}')
+
+    await expect(await page.findByRole('dialog', named, { timeout: 5000 })).toBeVisible()
+    await expect(await page.findByRole('heading', { level: 2, name: /What Skipbureau knows about you/ }, { timeout: 5000 })).toHaveFocus()
+
+    await userEvent.keyboard('{Escape}')
+    await waitFor(() => expect(page.queryByRole('dialog', named)).toBeNull(), { timeout: 5000 })
+    await expect(tellUs).toHaveFocus()
   },
 }
 

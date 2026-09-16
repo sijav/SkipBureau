@@ -39,7 +39,12 @@ export type Shell = {
   readsQuery: boolean
   /** Whether the details panel is open, so a page can open it too, as a rule's answer asks for a detail (SB-257). */
   detailsOpen: boolean
-  setDetailsOpen: (open: boolean) => void
+  /**
+   * Opening remembers what had focus, so closing can put it back (SB-275). A close that navigates, or one caused by
+   * the reader clicking something else, passes `restoreFocus: false`: the opener may belong to a page that is leaving,
+   * and taking focus back from a target the reader just chose is worse than leaving it alone.
+   */
+  setDetailsOpen: (open: boolean, options?: { restoreFocus?: boolean }) => void
 }
 
 export const ShellContext = createContext<Shell>({

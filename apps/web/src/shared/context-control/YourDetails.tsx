@@ -95,7 +95,9 @@ export const YourDetails = () => {
   const originName = origin ? (ours.get(origin) ?? regionName(origin, locale)) : null
 
   const go = (to: string) => {
-    setOpen(false)
+    // SB-275: no focus restore. React Router can defer the navigation into a later commit, so the opener is still
+    // connected when this runs, and a restore would land on a control belonging to the page that is leaving.
+    setOpen(false, { restoreFocus: false })
     void navigate(to)
   }
 
@@ -114,7 +116,7 @@ export const YourDetails = () => {
         <Suspense fallback={null}>
           <ContextPopper
             anchor={anchor}
-            onClose={() => setOpen(false)}
+            onClose={(restoreFocus) => setOpen(false, { restoreFocus })}
             id={id}
             origin={origin && originName ? { code: origin, name: originName } : null}
             country={country && countryName ? { code: country, name: countryName } : null}

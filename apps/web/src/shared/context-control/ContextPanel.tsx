@@ -1,6 +1,6 @@
 import { Trans, useLingui } from '@lingui/react/macro'
 import { Autocomplete, Box, ButtonBase, Paper, TextField, Typography, useTheme } from '@mui/material'
-import { useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { radius, withOpacity } from 'src/core/theme'
 
 export type Origin = { code: string; name: string }
@@ -183,6 +183,14 @@ export const ContextPanel = ({
     </Typography>
   )
 
+  // SB-275: this panel is rendered only while it is open, so mounting is opening. Focus starts at the dialog's own
+  // named heading rather than at an unlabelled wrapper, which is what the WAI-ARIA dialog pattern asks for, and
+  // Escape still bubbles from there to the popper's handler.
+  const heading = useRef<HTMLHeadingElement>(null)
+  useEffect(() => {
+    heading.current?.focus()
+  }, [])
+
   return (
     <Paper
       id={id}
@@ -199,7 +207,9 @@ export const ContextPanel = ({
       }}
     >
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: '4px', padding: `${PAD}px ${PAD}px 12px` }}>
-        <Typography variant="button" component="h2">
+        {/* SB-275: focus starts here when the panel opens. The dialog's own named heading rather than an unlabelled
+            wrapper, as the WAI-ARIA dialog pattern asks, and Escape still reaches the popper's handler from here. */}
+        <Typography variant="button" component="h2" tabIndex={-1} ref={heading}>
           <Trans>What Skipbureau knows about you</Trans>
         </Typography>
         <Typography variant="body2" sx={{ color: tokens.textSecondary }}>

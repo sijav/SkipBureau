@@ -35,6 +35,81 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
+const PANEL = { name: /What Skipbureau knows about you/ }
+
+/**
+ * SB-275: the header's own keyboard path. An earlier form of this story was written against the UNCHANGED code, to
+ * establish what "behaves as before" meant, and it asserted that focus stays on the control while the panel is open.
+ * That was true then and is deliberately false now: moving focus into the dialog is the card.
+ *
+ * The header is better off for it. Before, Enter left a keyboard reader stranded on the control with the panel
+ * unreachable and Escape doing nothing, which is the same defect the card reports for a rule's Tell us. Opening still
+ * opens and clicking the control still closes; what changes is that Escape now closes and hands the control back.
+ */
+export const HeaderOpensIntoThePanel: Story = {
+  parameters: { at: '/en/TR' },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const page = within(window.document.body)
+    const control = await canvas.findByRole('button', { name: /Add your details|From / }, { timeout: 5000 })
+
+    control.focus()
+    await expect(control).toHaveFocus()
+    await userEvent.keyboard('{Enter}')
+
+    await expect(await page.findByRole('dialog', PANEL, { timeout: 5000 })).toBeVisible()
+    await expect(await page.findByRole('heading', { level: 2, name: /What Skipbureau knows about you/ }, { timeout: 5000 })).toHaveFocus()
+
+    await userEvent.keyboard('{Escape}')
+    await waitFor(() => expect(page.queryByRole('dialog', PANEL)).toBeNull(), { timeout: 5000 })
+    await expect(control).toHaveFocus()
+  },
+}
+
+/**
+ * SB-275: a close that navigates does not put focus back. React Router can defer the navigation into a later commit,
+ * so the opener is still connected when the close runs and a restore would land on a control of the page that is
+ * leaving. Nothing in the exit says this, which is why it is here: a universal restore would satisfy the exit and
+ * still regress this.
+ */
+export const ChoosingACityDoesNotRestoreFocus: Story = {
+  parameters: { at: '/en/DE' },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const page = within(window.document.body)
+    const control = await canvas.findByRole('button', { name: /Add your details|From / }, { timeout: 5000 })
+
+    await userEvent.click(control)
+    const city = (await page.findByText(/^City in Germany$/, {}, { timeout: 5000 })).parentElement
+    if (!city) throw new Error('the panel has no City row')
+    await userEvent.click(within(city).getByRole('button', { name: /^Add$/ }))
+    await userEvent.click(await page.findByRole('option', { name: /Hamburg/ }, { timeout: 5000 }))
+
+    await waitFor(() => expect(page.queryByRole('dialog', PANEL)).toBeNull(), { timeout: 5000 })
+    await expect(control).not.toHaveFocus()
+  },
+}
+
+/**
+ * SB-275: clicking elsewhere does not put focus back either. MUI's ClickAwayListener fires on the trailing click,
+ * after the reader has already pressed another target, so restoring would take focus from something they chose.
+ */
+export const ClickingAwayDoesNotRestoreFocus: Story = {
+  parameters: { at: '/en/TR' },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const page = within(window.document.body)
+    const control = await canvas.findByRole('button', { name: /Add your details|From / }, { timeout: 5000 })
+
+    await userEvent.click(control)
+    await expect(await page.findByRole('dialog', PANEL, { timeout: 5000 })).toBeVisible()
+
+    await userEvent.click(canvas.getByTestId('address'))
+    await waitFor(() => expect(page.queryByRole('dialog', PANEL)).toBeNull(), { timeout: 5000 })
+    await expect(control).not.toHaveFocus()
+  },
+}
+
 const choose = async (canvasElement: HTMLElement, from: RegExp, country: RegExp) => {
   const canvas = within(canvasElement)
   await userEvent.click(await canvas.findByRole('button', { name: /Add your details|From / }, { timeout: 5000 }))

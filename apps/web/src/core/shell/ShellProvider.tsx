@@ -1,4 +1,4 @@
-import { useMemo, useState, type ReactNode } from 'react'
+import { useCallback, useMemo, useRef, useState, type ReactNode } from 'react'
 import type { CountryCode } from 'src/core/country'
 import { ShellContext } from './shell'
 
@@ -25,7 +25,29 @@ export const ShellProvider = ({ children, place = null, ownsAskAtStart = false, 
   // prerender's included, already has it; the scroll handoff moves it after.
   const [pageOwnsAsk, setPageOwnsAsk] = useState(ownsAskAtStart)
   // The details panel's, here rather than in the header, so a page can open it (SB-257).
-  const [detailsOpen, setDetailsOpen] = useState(false)
+  const [detailsOpen, setDetailsOpenState] = useState(false)
+  // SB-275: what had focus when the panel opened, so closing can put it back on whatever opened it, the header's
+  // control or a rule's Tell us far down a page. Refs rather than state: both are read and written synchronously at
+  // the moment of the change and nothing renders from them. The focus call is here and not in the state updater,
+  // which React may run twice.
+  const wasOpen = useRef(false)
+  const openedFrom = useRef<HTMLElement | null>(null)
+  const setDetailsOpen = useCallback((open: boolean, options?: { restoreFocus?: boolean }) => {
+    const was = wasOpen.current
+    wasOpen.current = open
+    if (open && !was) {
+      const active = window.document.activeElement
+      openedFrom.current = active instanceof HTMLElement ? active : null
+    }
+    if (!open && was) {
+      const opener = openedFrom.current
+      openedFrom.current = null
+      // `contains` is not the whole guard: a close that navigates asks for no restore, because the opener can still
+      // be connected while its page is on the way out.
+      if (options?.restoreFocus !== false && opener && window.document.contains(opener)) opener.focus()
+    }
+    setDetailsOpenState(open)
+  }, [])
   const country = place?.country ?? null
   const countryName = place?.countryName ?? null
   const origin = place?.origin ?? null
@@ -49,7 +71,9 @@ export const ShellProvider = ({ children, place = null, ownsAskAtStart = false, 
       detailsOpen,
       setDetailsOpen,
     }),
-    [pageOwnsAsk, country, countryName, origin, placeCode, placeName, status, situation, work, readsQuery, detailsOpen],
+    // SB-275: setDetailsOpen is listed because it is now a useCallback rather than a useState setter, which the rule
+    // knows is stable and this is not. Its own dependency list is empty, so it never changes and the memo never churns.
+    [pageOwnsAsk, country, countryName, origin, placeCode, placeName, status, situation, work, readsQuery, detailsOpen, setDetailsOpen],
   )
   return <ShellContext value={value}>{children}</ShellContext>
 }
