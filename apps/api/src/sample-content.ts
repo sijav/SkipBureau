@@ -103,8 +103,6 @@ export type CountrySeed = {
   questions?: QuestionSeed[]
 }
 
-// Germany's sample until SB-198. Turkey's was retired by the owner's answer of 2026-09-15 (SB-282) and is a test
-// fixture now, prisma/sample-turkey.ts.
 // Both countries' samples are test fixtures now, prisma/sample-turkey.ts and prisma/sample-germany.ts: the owner's
 // answer of 2026-09-15 was that every sample row goes from the deployed database (SB-282, SB-301). Production fills
 // no country's sample content, and seedContent still writes the global goals, which nothing else does.
@@ -440,7 +438,7 @@ const main = async (): Promise<void> => {
   const prisma = new PrismaClient({ adapter: new PrismaPg({ connectionString: databaseUrl() }) })
   try {
     await seedContent(prisma)
-    console.log('sample content: filled in whatever was missing')
+    console.log('sample content: the goals are written, and no country sample content is filled')
     for (const [countryCode, slugs] of [
       ['tr', TURKEY_SAMPLE_SLUGS],
       ['de', GERMANY_SAMPLE_SLUGS],

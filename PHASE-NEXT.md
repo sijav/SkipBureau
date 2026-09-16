@@ -9,8 +9,8 @@ forgotten. Debt, meaning things that are wrong, goes in `TECH-DEBT.md`.
 them so they can be seen, on a database the owner calls test-only.
 
 `apps/api/docker-entrypoint.sh` runs `node dist/sample-content.js` on every
-start. It fills in the twelve goals, and nothing else: no country's sample
-content is written any more.
+start. It writes the twelve goals and retires the sample rows listed below. It
+creates no country's sample content any more.
 
 **Both countries' samples are retired.** The owner, asked on 2026-09-15 what
 happens to Turkey's sample rows once researched guides land, answered to delete
