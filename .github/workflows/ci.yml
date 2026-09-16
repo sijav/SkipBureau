@@ -206,7 +206,22 @@ jobs:
   # default GITHUB_TOKEN does not carry.
   pages:
     if: github.ref == 'refs/heads/main'
-    needs: [check, secrets]
+    # SB-408. The owner, 2026-09-17, asked whether a failing browser suite should
+    # stop the site deploying, with the measured timing in front of them: "Block
+    # the deploy". So the site updates only when the browser suite passes.
+    #
+    # It costs no wall clock. The e2e job finishes in about two minutes and this
+    # job already waits on check, which takes nine to eleven, so the gate is free.
+    #
+    # SB-401 deliberately did NOT do this. The owner had asked only that CI RUN
+    # the suite, and turning that into "a red suite holds the site" is a second
+    # decision; its plan check refused to let it be implied. This is that
+    # decision, made rather than assumed.
+    #
+    # `needs` alone is enough: a job's `if` does not override the default
+    # success() status check unless it uses a status function such as always(),
+    # so a failed or skipped e2e skips this job and nothing deploys.
+    needs: [check, secrets, e2e]
     runs-on: ubuntu-latest
 
     permissions:
