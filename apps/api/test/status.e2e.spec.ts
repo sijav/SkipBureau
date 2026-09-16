@@ -248,20 +248,29 @@ test("a draft does not leave its status criteria in another country, a status co
   )
   expect(await prisma.residenceStatus.findUnique({ where: { code: 'de.wrong-country' } })).toBeNull()
 
-  // A move that succeeds, so the locks it took can be read: both trees, exclusively, for the
-  // country being left. Taken before the criteria are walked, so a move that will be refused holds
-  // them too, which is the whole point of them.
-  const held = await prisma.$transaction(async (tx) => {
+  // A move that succeeds, so the locks it took can be read: both trees, exclusively, for the country
+  // being left AND the one being moved into (SB-353). Taken before the criteria are walked, so a
+  // move that will be refused holds them too, which is the whole point of them.
+  //
+  // Both reads are inside the transaction because these are pg_advisory_xact_lock locks: they are
+  // released at commit, so a read afterwards sees nothing and would pass for the wrong reason.
+  const [left, entered] = await prisma.$transaction(async (tx) => {
     const free = await tx.ruleVersion.create({
       data: { countryCode: 'tr', obligationId: moving.id, validFrom: NEXT_MONTH, ...source, criteria: { create: [{ dimension: 'nationality', value: 'ir' }] } },
     })
     await tx.ruleVersion.update({ where: { id: free.id }, data: { countryCode: 'de' } })
-    return tx.$queryRawUnsafe<Held>(TREE_LOCKS, 'tr')
+    return Promise.all([tx.$queryRawUnsafe<Held>(TREE_LOCKS, 'tr'), tx.$queryRawUnsafe<Held>(TREE_LOCKS, 'de')])
   })
-  expect(held).toEqual([
+
+  const bothTreesExclusive = [
     { tree: 'region', mode: 'ExclusiveLock', granted: true },
     { tree: 'status', mode: 'ExclusiveLock', granted: true },
-  ])
+  ]
+  expect(left).toEqual(bothTreesExclusive)
+  // The half SB-180 proved by reading the migration rather than by a test. It is what makes a move
+  // wait on a transaction writing a criterion under the country being moved INTO, so an edit that
+  // dropped it would leave the suite green and reopen the race the exclusive locks closed.
+  expect(entered).toEqual(bothTreesExclusive)
 })
 
 test("a status criterion holds the status tree's lock shared, a change to the status tree holds it exclusively, and neither holds the region tree's", async () => {
