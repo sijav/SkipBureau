@@ -207,6 +207,35 @@ test('a version cannot carry two values of one single valued detail, nor a blank
   })
   await expect(blank).rejects.toThrow(/value_is_not_blank/)
 
+  // SB-354: the CHECK was btrim(value) with no character set, which strips U+0020 and nothing else, while
+  // checkProfile refuses what JavaScript's trim() strips. So a criterion made of a tab or a no-break space was
+  // stored and could never be matched by any reader: the rule it scoped silently applied to nobody. Both sides now
+  // mean the same thing, and this covers every character they disagreed about rather than the three the card named.
+  //
+  // Each is asserted twice on purpose: the database refuses it, and JavaScript agrees it is whitespace. That is what
+  // shows the two contracts meet, rather than asserting that they do.
+  const BLANK = [
+    0x20, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0xa0, 0x1680, 0x2000, 0x2001, 0x2002, 0x2003, 0x2004,
+    0x2005, 0x2006, 0x2007, 0x2008, 0x2009, 0x200a, 0x2028, 0x2029, 0x202f, 0x205f, 0x3000, 0xfeff,
+  ]
+  for (const code of BLANK) {
+    const only = String.fromCharCode(code)
+    const named = `U+${code.toString(16).toUpperCase().padStart(4, '0')}`
+    expect(only.trim(), `${named} is whitespace to JavaScript, so checkProfile refuses it`).toBe('')
+    await expect(
+      prisma.ruleVersion.create({
+        data: {
+          countryCode: 'de',
+          obligationId: held,
+          validFrom: NEXT_MONTH,
+          ...source,
+          criteria: { create: [{ dimension: 'situation', value: only }] },
+        },
+      }),
+      `${named} alone is not a value the database keeps`,
+    ).rejects.toThrow(/value_is_not_blank/)
+  }
+
   expect(await prisma.ruleVersion.count()).toBe(versions)
 
   // The exception, proved rather than assumed: one nationality can belong to several groups, so two
