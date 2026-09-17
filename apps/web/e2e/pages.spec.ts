@@ -596,3 +596,22 @@ test("a reader who works in Saxony gets Saxony's share of the care contribution,
 
   await expect(care).toContainText('2.3%')
 })
+
+// SB-336: Law 6735 Article 22(1) puts the fifteen day report on the employer, and SB-216 gave it a version scoped to a
+// company founder, but TURKEY_COMPANY_FORMATION never listed it. A guide's linked obligations are the only surface
+// that renders rule answers, so the duty was answered by the API and met by no reader. This is the only place the
+// linking is observable: the researched guides spec derives both sides of its obligation comparison from that same
+// constant, so it follows the group rather than checking it.
+test("a founder forming a company meets the fifteen day report, in the employer's own terms", async ({ page }) => {
+  await page.goto('en/TR/guides/company-formation?situation=company-founder', { waitUntil: 'load' })
+  const report = cardFor(page, 'Report when employment starts or ends')
+
+  // Answered for this reader rather than still asking: the founder version's sole criterion is satisfied and the
+  // worker version is contradicted by the same situation, so no open candidate remains to make the card ask.
+  await expect(report.getByText('For you', { exact: true })).toBeVisible()
+  // The fact, by its label and the words factValue builds for a within operator.
+  await expect(report).toContainText('deadline to notify the Ministry of employment changes')
+  await expect(report).toContainText('within 15 days')
+  // The employer's note, not the worker's, which is the half that makes this the right version for a founder.
+  await expect(report).toContainText('This is your reporting duty.')
+})

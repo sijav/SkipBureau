@@ -23,12 +23,17 @@ export const TURKEY_WORK_PERMIT = [
   ['keep-working-while-an-extension-is-assessed'],
 ] as const
 
-/** Turkey's company formation guide: forming a limited company, then the five duties after it (SB-280). */
+/**
+ * Turkey's company formation guide: forming a limited company, then the six duties after it (SB-280). The fifteen day
+ * report follows registering an employee, which is the point at which a founder has somebody to report (SB-336). Law
+ * 6735 Article 22(1) puts it on the employer, and work-permit.ts scopes a version of it to the founder for that reason.
+ */
 export const TURKEY_COMPANY_FORMATION = [
   ['form-a-limited-company'],
   ['request-electronic-tax-notifications'],
   ['get-a-tax-certificate'],
   ['register-an-employee-for-social-insurance'],
+  ['report-employment-starting-and-ending'],
   ['get-a-workplace-licence'],
   ['keep-company-books-electronically'],
 ] as const
