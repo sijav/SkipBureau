@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { LINKED_OBLIGATION_GROUPS } from 'api/guide/obligation-groups'
+import { RESEARCHED_GUIDES } from 'api/guide/researched-guides'
 import { RESEARCHED } from 'api/rules/research/countries'
 import { FACT_LABELS } from './factLabels'
 
@@ -9,7 +9,7 @@ import { FACT_LABELS } from './factLabels'
 // new link or a new fact without one fails here rather than shipping a line
 // that says "yes" or "20%" with no subject.
 test('every fact of every obligation a guide links has a label', () => {
-  const linked = new Set(LINKED_OBLIGATION_GROUPS.flat(2))
+  const linked = new Set(RESEARCHED_GUIDES.flatMap((guide) => guide.obligations.flat()))
   const facts = RESEARCHED.flatMap((rules) =>
     rules.versions
       .filter((version) => linked.has(version.obligation))

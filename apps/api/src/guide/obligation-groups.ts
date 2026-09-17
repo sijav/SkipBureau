@@ -1,6 +1,10 @@
 // The obligations each guide links, as groups of alternatives, most preferred first (SB-255, SB-258), written once.
-// sample-content.ts and researched-guides.ts link from here, and the web's label test reads it to know which rule facts
-// a guide can show (SB-257), so this module imports nothing: a web test cannot load Prisma.
+// prisma/sample-turkey.ts, prisma/sample-germany.ts and researched-guides.ts link from here, so this module imports
+// nothing and stays cheap for any of them to load.
+//
+// It no longer holds a list of every group a guide links (SB-316). That list had one reader, the web's label test, and
+// a guide could link a group left out of it while the test silently stopped checking that group's facts. The test now
+// takes its slugs from the guides' own obligations, so there is nothing to keep in step.
 
 /** The address guides: the research's duty where it is loaded, else the sample obligation, which has no researched facts. */
 export const ADDRESS_GUIDE = [['report-your-address', 'register-your-address']] as const
@@ -46,14 +50,3 @@ export const GERMANY_BUSINESS_REGISTRATION = [
 /** Germany's health insurance guide: joining the statutory system, and the care insurance charged on top (SB-300). */
 export const GERMANY_HEALTH_INSURANCE = [['join-statutory-health-insurance'], ['pay-care-insurance-contributions']] as const
 
-/** Every group any guide links. */
-export const LINKED_OBLIGATION_GROUPS: readonly (readonly (readonly string[])[])[] = [
-  ADDRESS_GUIDE,
-  TURKEY_SHORT_TERM_RESIDENCE_PERMIT,
-  TURKEY_HEALTH_INSURANCE,
-  TURKEY_WORK_PERMIT,
-  TURKEY_COMPANY_FORMATION,
-  GERMANY_RESIDENCE_PERMIT,
-  GERMANY_BUSINESS_REGISTRATION,
-  GERMANY_HEALTH_INSURANCE,
-]
