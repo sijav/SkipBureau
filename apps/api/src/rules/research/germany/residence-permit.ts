@@ -8,9 +8,10 @@ const READ = '2026-09-14'
 
 const STATUTES_READ = '2026-09-15'
 
-// SB-184: Berlin's permit page was read again to say which permits its online application covers,
-// so its definitions carry that day rather than READ. The appointments page was not re-read.
-const BERLIN_PERMIT_READ = '2026-09-16'
+// Berlin's permit page carries its own date because it has been read after READ, last on this day, when
+// every claim this file takes from it was checked again against the live page. The appointments page was
+// not re-read.
+const BERLIN_PERMIT_READ = '2026-09-17'
 
 const SLUG = 'get-a-residence-permit-as-a-skilled-worker-with-a-degree'
 
