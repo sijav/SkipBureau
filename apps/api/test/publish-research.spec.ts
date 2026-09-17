@@ -281,7 +281,9 @@ test("Northflank's state of a commit is its newest status in Northflank's own co
   expect(buildStateOf({ message: 'Not Found' })).toBeNull()
 })
 
-test('the dispatch that starts a skipped build names the branch, passes the commit as the workflow input and asks GitHub to name the run', () => {
+// SB-338: require_tip is what the workflow refuses a stale sha on, and only the publish sends it, so this list is
+// the record of that. A build of an older commit by hand leaves it off and still builds.
+test('the dispatch names the branch, passes the commit, asks the workflow to hold the tip and asks GitHub to name the run', () => {
   const commit = 'c5b8b25d2304e71d0529474c0b4ff62c74fcbd85'
   expect(dispatchArgs('main', commit)).toEqual([
     'api',
@@ -292,6 +294,8 @@ test('the dispatch that starts a skipped build names the branch, passes the comm
     'ref=main',
     '-f',
     `inputs[sha]=${commit}`,
+    '-f',
+    'inputs[require_tip]=true',
     '-F',
     'return_run_details=true',
   ])

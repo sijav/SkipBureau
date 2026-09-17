@@ -14,6 +14,10 @@ on:
         description: The full 40-character commit id to build
         type: string
         required: true
+      require_tip:
+        description: Refuse unless sha is the commit this ref points at. The publish sets it; a build of an older commit by hand leaves it off.
+        type: boolean
+        default: false
 
 permissions: {}
 
@@ -30,6 +34,22 @@ jobs:
       SERVICE: buildfromgithub
       SHA: ${{ inputs.sha }}
     steps:
+      # SB-338: the publish reads the branch's tip and then dispatches, which is two calls with a gap a push can
+      # land in, so its check narrows that race and cannot close it. GitHub captured the dispatched ref's commit as
+      # github.sha when it accepted this run, so comparing against that closes the window with no read of its own and
+      # no second instant to race. Left off, which is the default, this step is skipped and a build of an older
+      # commit by hand still works. inputs.require_tip is a real boolean here; github.event.inputs.require_tip would
+      # be the string false, which a shell test reads as true.
+      - name: Refuse a sha the ref has moved past
+        if: ${{ inputs.require_tip && inputs.sha != github.sha }}
+        env:
+          GIVEN: ${{ inputs.sha }}
+          TIP: ${{ github.sha }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          echo "::error::$GIVEN is not $BRANCH's commit $TIP, so a newer push is on the branch and its own build carries this change"
+          exit 1
+
       - name: Start the build and wait until it concludes
         run: |
           set -euo pipefail

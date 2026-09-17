@@ -105,3 +105,26 @@ SB-236 came out of SB-232's roast, so it is a child: the tests covering the file
 `publish-research.spec.ts`, plus the API's lint and `lint:tsc`. There is no deployment to read
 back: this changes when a build is started, not what is served, and the next research publish
 exercises it in its ordinary course. The planted case is what proves it.
+
+## Corrected by SB-338: this narrows the race, it does not close it
+
+**The title of this card overclaims, and so does the plan above.** A build is not
+started "only while its commit is still the branch's tip", because `tipOf` and the
+dispatch are two separate calls. A push landing between them is dispatched anyway,
+and the decision here cannot see it. What this card actually built is a check that
+narrows the window to the gap between those two calls, which is worth having and is
+not the guarantee the title states.
+
+**What closes it is in the workflow.** SB-338 gives `northflank-build.yml` an input,
+`require_tip`, that the publish sets and a build of an older commit by hand leaves
+off. When it is set, the job refuses unless `inputs.sha` is `github.sha`, the commit
+GitHub recorded for the dispatched ref when it accepted the run. That comparison
+reads nothing, so there is no second instant for a push to land in.
+
+A first draft of SB-338 had the job run `git ls-remote` itself, which would have
+moved this same race rather than removing it: a push can land between the job's read
+and its call to Northflank exactly as it can between the two calls here. That is
+recorded because it is the mistake this correction exists to stop being repeated.
+
+The record above is left as it was written. It is corrected here rather than edited,
+so what was believed at the time stays readable next to what turned out to be true.

@@ -516,6 +516,13 @@ commit when one is needed:
 gh workflow run northflank-build.yml -f sha=<the full commit id>
 ```
 
+That leaves `require_tip` off, which is what building an older commit by hand needs:
+the workflow builds whatever commit it is given. The publish sets it instead, and the
+workflow then refuses a sha that is not the commit GitHub recorded for the branch when
+it accepted the dispatch. That is what stops a publish deploying older code over a push
+that landed while it was waiting, which the publish's own tip check narrows and cannot
+close (SB-338).
+
 While it runs, every commit names its paths, `git commit -- <paths>`, and no
 `git stash`, `git pull` or `git merge` runs, because the publish moves the branch
 without touching the index. When it reports, run the `git reset -q -- <paths>`

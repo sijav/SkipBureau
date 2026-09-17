@@ -385,6 +385,11 @@ export const dispatchArgs = (branch: string, commit: string): string[] => [
   `ref=${branch}`,
   '-f',
   `inputs[sha]=${commit}`,
+  // SB-338: the tip check above is two calls with a gap a push can land in, so it narrows this race and cannot
+  // close it. The workflow refuses a sha that is not the commit GitHub recorded for the ref when it accepted the
+  // dispatch, which has no gap. Only the publish sets this; a build of an older commit by hand leaves it off.
+  '-f',
+  'inputs[require_tip]=true',
   '-F',
   'return_run_details=true',
 ]
