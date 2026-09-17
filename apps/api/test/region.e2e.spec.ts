@@ -207,13 +207,45 @@ test('a version cannot carry two values of one single valued detail, nor a blank
   })
   await expect(blank).rejects.toThrow(/value_is_not_blank/)
 
-  // SB-354: the CHECK was btrim(value) with no character set, which strips U+0020 and nothing else, while
-  // checkProfile refuses what JavaScript's trim() strips. So a criterion made of a tab or a no-break space was
-  // stored and could never be matched by any reader: the rule it scoped silently applied to nobody. Both sides now
-  // mean the same thing, and this covers every character they disagreed about rather than the three the card named.
-  //
-  // Each is asserted twice on purpose: the database refuses it, and JavaScript agrees it is whitespace. That is what
-  // shows the two contracts meet, rather than asserting that they do.
+  expect(await prisma.ruleVersion.count()).toBe(versions)
+
+  // The exception, proved rather than assumed: one nationality can belong to several groups, so two
+  // group criteria on one version can both match a real reader and must still be allowed.
+  const groups = await prisma.ruleVersion.create({
+    data: {
+      countryCode: 'de',
+      obligationId: held,
+      validFrom: NEXT_MONTH,
+      ...source,
+      criteria: {
+        create: [
+          { dimension: 'nationalityGroup', value: 'eu' },
+          { dimension: 'nationalityGroup', value: 'eea' },
+        ],
+      },
+    },
+  })
+  expect(await prisma.eligibilityCriterion.count({ where: { ruleVersionId: groups.id } })).toBe(2)
+  await prisma.ruleVersion.delete({ where: { id: groups.id } })
+})
+
+// SB-438: this lived in the test above, which is about a version carrying two values of one single valued detail,
+// so a failure anywhere in the loop was reported under a name about duplicate values and the next person to see it
+// red had to open the file to learn it was about something else. It carries its own baseline and count assertion
+// because every assertion below is about a REJECTION: none of them would notice a row written anyway, and the count
+// is the only thing that proves none was.
+//
+// SB-354: the CHECK was btrim(value) with no character set, which strips U+0020 and nothing else, while
+// checkProfile refuses what JavaScript's trim() strips. So a criterion made of a tab or a no-break space was
+// stored and could never be matched by any reader: the rule it scoped silently applied to nobody. Both sides now
+// mean the same thing, and this covers every character they disagreed about rather than the three the card named.
+//
+// Each is asserted twice on purpose: the database refuses it, and JavaScript agrees it is whitespace. That is what
+// shows the two contracts meet, rather than asserting that they do.
+test('the database refuses every character JavaScript calls whitespace', async () => {
+  const held = await obligationId('hold-health-insurance')
+  const versions = await prisma.ruleVersion.count()
+
   const BLANK = [
     0x20, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0xa0, 0x1680, 0x2000, 0x2001, 0x2002, 0x2003, 0x2004,
     0x2005, 0x2006, 0x2007, 0x2008, 0x2009, 0x200a, 0x2028, 0x2029, 0x202f, 0x205f, 0x3000, 0xfeff,
@@ -237,25 +269,6 @@ test('a version cannot carry two values of one single valued detail, nor a blank
   }
 
   expect(await prisma.ruleVersion.count()).toBe(versions)
-
-  // The exception, proved rather than assumed: one nationality can belong to several groups, so two
-  // group criteria on one version can both match a real reader and must still be allowed.
-  const groups = await prisma.ruleVersion.create({
-    data: {
-      countryCode: 'de',
-      obligationId: held,
-      validFrom: NEXT_MONTH,
-      ...source,
-      criteria: {
-        create: [
-          { dimension: 'nationalityGroup', value: 'eu' },
-          { dimension: 'nationalityGroup', value: 'eea' },
-        ],
-      },
-    },
-  })
-  expect(await prisma.eligibilityCriterion.count({ where: { ruleVersionId: groups.id } })).toBe(2)
-  await prisma.ruleVersion.delete({ where: { id: groups.id } })
 })
 
 // SB-180: the criterion trigger fires on EligibilityCriterion only, so nothing watched the version
