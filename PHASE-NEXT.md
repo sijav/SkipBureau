@@ -212,6 +212,42 @@ mover between countries already names one status for each.
 in one country is asked for, and by loading a country's statuses wholesale the
 day the Residence status row needs every choice.
 
+## A row a rule reaches only from above can be deleted, though it cannot be moved
+
+**Decided 2026-09-17**, building SB-360.
+
+`skipbureau_tree_row_in_use_keeps_its_place` guards both trees, places and residence statuses. It
+refuses to delete, recode or move a row a criterion names, or one with a named row inside it. It
+also refuses to move a row out from under a named ancestor, and that second guard runs on `UPDATE`
+only. So a leaf nothing names, inside a place or status a rule does name, **can be deleted**. Watched
+on PGlite: with a version naming a parent, moving the leaf out was refused and deleting it succeeded.
+
+That is allowed on purpose, because the two failure modes are not alike.
+
+- **A move is silent.** The row still exists and still resolves, under a different rule, and every
+  reader in it is answered by that other rule without any version changing. Nobody is told.
+- **A delete is loud.** The code stops existing, `rules.service.ts` refuses an unknown region with a
+  `ProfileError`, and `profile-args.ts` returns it as `BAD_USER_INPUT` naming the code.
+
+**Loud is not harmless.** A reader who saved a link with that place gets an error until they choose a
+place that exists, and nothing tells them why it went. That cost is accepted; being answered by the
+wrong rule without knowing is the worse one.
+
+The deciding reason is the research loader. It is the only thing that deletes these rows in anger,
+and it removes a place or status a file has stopped listing through `deepestFirst`, deepest rows
+first, so a row is never taken out from under the rows inside it. Refusing a delete under a named
+ancestor would make a research file that stops listing a city while a rule still names its state fail
+the whole load, on tree shape, for an edit nobody would expect to be refused.
+
+No row is reached only from above today: every German city the research lists inside a state is named
+by a criterion directly, and the states that are named have no cities inside them. This records what
+the invariant means rather than an outstanding bug.
+
+**Undo it** the day something other than the research loader can delete these rows, an admin panel
+most likely, or the day a reader's chosen place is stored for them rather than passed with each
+request. Either makes a silent orphan possible, and then the delete stops being loud, which is the
+whole reason it is allowed.
+
 ## A calculated definition's inputs are not checked
 
 **Decided 2026-09-17**, dropping SB-359.
