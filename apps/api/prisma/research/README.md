@@ -65,7 +65,8 @@ one sentence cite a second page. It has caught, among others:
 - a threshold written **backwards**, which would have told every small Turkish
   company the opposite of the truth;
 - an instruction to plead an emergency for a Berlin appointment, when the
-  actual answer is that you apply online and need no appointment;
+  actual answer is that the online application comes first and an appointment
+  follows the LEA's positive review;
 - two sentences of colour invented here with no evidence behind them, "this
   catches people out" and "nobody mentions";
 - caveats that were themselves overclaims: "not published" where the truth was
