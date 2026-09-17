@@ -42,7 +42,18 @@ test('the bootstrap writes the countries, their names and the twelve goals into 
   await bootstrap(prisma)
 
   expect((await prisma.country.findMany({ select: { code: true } })).map((row) => row.code).sort()).toEqual(['de', 'tr'])
-  expect(await prisma.countryText.count()).toBe(4)
+  // SB-414: a name for every country in every locale the product ships, asserted as the
+  // cross product rather than as a total. `toBe(4)` was a count from when there were two
+  // locales, and a count is the weakest form of this check: eight rows would satisfy it
+  // even if half of them named the wrong locale, or if one country had four names and
+  // the other none. Naming the locales also makes adding one a deliberate act, because
+  // this fails until someone decides what the country is called in it.
+  const names = await prisma.countryText.findMany({ select: { countryCode: true, locale: true } })
+  const shipped = [...new Set(names.map((name) => name.locale))].sort()
+  expect(shipped).toEqual(['de-DE', 'en-US', 'fa-IR', 'tr-TR'])
+  expect(names.map((name) => `${name.countryCode} ${name.locale}`).sort()).toEqual(
+    ['de', 'tr'].flatMap((code) => shipped.map((locale) => `${code} ${locale}`)).sort(),
+  )
 
   const goals = await prisma.task.findMany({ select: { slug: true }, orderBy: { position: 'asc' } })
   expect(goals.map((goal) => goal.slug)).toEqual(TASKS.map((task) => task.slug))

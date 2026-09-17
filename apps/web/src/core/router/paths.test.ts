@@ -50,7 +50,10 @@ test('a locale round trips through its URL segment', () => {
   for (const locale of Object.keys(locales) as Locale[]) {
     assert.equal(localeFromSegment(localeSegment(locale)), locale)
   }
-  assert.equal(localeFromSegment('de'), null)
+  // SB-414: German and Turkish are locales now, and the loop above already round trips
+  // every one the app ships, so this line's job is to name a segment we genuinely do not
+  // have. Left as 'de' it would assert nothing at all.
+  assert.equal(localeFromSegment('ja'), null)
   assert.equal(localeFromSegment(''), null)
   assert.equal(localeFromSegment('..'), null)
 })
@@ -64,7 +67,14 @@ test('the first segment is the language, and where the reader comes from once th
   assert.deepEqual(readerFromSegment('en-US'), { locale: 'en-US', origin: 'us' })
   assert.deepEqual(readerFromSegment('EN-tr'), { locale: 'en-US', origin: 'tr' }, 'any casing reads, and is canonicalised elsewhere')
 
-  assert.equal(readerFromSegment('de'), null, 'a language we do not have')
+  // SB-414: German and Turkish read as languages now, with a reader's origin as English
+  // and Persian already do. /tr-TR/ is Turkish, reader from Turkey: the locale tag and
+  // the segment coincide there, which is the case worth pinning.
+  assert.deepEqual(readerFromSegment('de'), { locale: 'de-DE', origin: null })
+  assert.deepEqual(readerFromSegment('tr'), { locale: 'tr-TR', origin: null })
+  assert.deepEqual(readerFromSegment('tr-TR'), { locale: 'tr-TR', origin: 'tr' }, 'Turkish, reader from Turkey')
+  assert.deepEqual(readerFromSegment('de-TR'), { locale: 'de-DE', origin: 'tr' }, 'German, reader from Turkey')
+  assert.equal(readerFromSegment('ja'), null, 'a language we do not have')
   assert.equal(readerFromSegment('en-ZZ'), null, 'a code that is not a country')
   assert.equal(readerFromSegment('en-UK'), null, 'a retired alias, GB is the code')
   assert.equal(readerFromSegment('en-TR-DE'), null)

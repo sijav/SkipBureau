@@ -5,11 +5,24 @@ import { expect, test } from '@playwright/test'
 // country is now read from what a reader sees, and the language from the document's own lang and dir, because a page's
 // language is not something a reader reads and inventing markup to assert on is changing the product to suit its tests.
 
-test('the root sends a visitor to a language and a country', async ({ page }) => {
-  await page.goto('/')
-  // One page, one address: lowercase locale, uppercase country (addressCountry.ts).
-  await expect(page).toHaveURL(/\/(en|fa)\/TR$/)
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Turkey')
+test.describe('the root redirect', () => {
+  // SB-414: `Desktop Chrome` sets no locale, so Playwright falls back to the HOST
+  // system's. This test has never been an English guarantee, it has passed because the
+  // machines running it happen to be English, and it asserted `(en|fa)` to paper over
+  // that. With Turkish now negotiable and German to come, a machine configured for
+  // either would fail it for a reason that has nothing to do with the root redirect.
+  //
+  // Pinning the browser's language makes the assertion exact rather than tolerant, and
+  // negotiation itself is tested in i18n.test.ts, where it can cover every locale
+  // without starting a browser.
+  test.use({ locale: 'en-US' })
+
+  test('the root sends a visitor to a language and a country', async ({ page }) => {
+    await page.goto('/')
+    // One page, one address: lowercase locale, uppercase country (addressCountry.ts).
+    await expect(page).toHaveURL(/\/en\/TR$/)
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('Turkey')
+  })
 })
 
 test('a deep link opens the page it names, in the language it names', async ({ page }) => {

@@ -1,0 +1,1407 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language: \n"
+"Language-Team: \n"
+"Content-Type: \n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#: src/shared/rule-answer/RuleAnswer.tsx:94
+msgid "{asks} can change this"
+msgstr "{asks} bunu değiştirebilir"
+
+#: src/shared/rule-answer/RuleAnswer.tsx:132
+msgid "{asks} could help settle which rule applies. Tell us and we will check again."
+msgstr "{asks} hangi kuralın geçerli olduğunu belirlemeye yardımcı olabilir. Bize bildirin, yeniden kontrol edelim."
+
+#: src/shared/rule-answer/RuleAnswer.tsx:134
+msgid "{asks} could help settle which rule applies. We cannot take this detail from you yet."
+msgstr "{asks} hangi kuralın geçerli olduğunu belirlemeye yardımcı olabilir. Bu bilgiyi sizden henüz alamıyoruz."
+
+#: src/shared/rule-answer/RuleAnswer.tsx:94
+msgid "{asks} decides the answer"
+msgstr "Yanıtı {asks} belirler"
+
+#: src/shared/rule-answer/factValue.ts:56
+msgid "{count, plural, =1 {the gross minimum wage} other {# times the gross minimum wage}}"
+msgstr "{count, plural, =1 {brüt asgari ücret} other {brüt asgari ücretin # katı}}"
+
+#: src/shared/rule-answer/factValue.ts:53
+msgid "{count, plural, one {# calendar year} other {# calendar years}}"
+msgstr "{count, plural, one {# takvim yılı} other {# takvim yılı}}"
+
+#: src/shared/rule-answer/factValue.ts:43
+msgid "{count, plural, one {# day} other {# days}}"
+msgstr "{count, plural, one {# gün} other {# gün}}"
+
+#: src/shared/rule-answer/factValue.ts:49
+msgid "{count, plural, one {# month} other {# months}}"
+msgstr "{count, plural, one {# ay} other {# ay}}"
+
+#: src/shared/rule-answer/factValue.ts:41
+msgid "{count, plural, one {# percentage point} other {# percentage points}}"
+msgstr "{count, plural, one {# puan} other {# puan}}"
+
+#: src/screens/search/SearchResults.tsx:86
+msgid "{count, plural, one {# result} other {# results}}"
+msgstr "{count, plural, one {# sonuç} other {# sonuç}}"
+
+#: src/shared/rule-answer/factValue.ts:58
+msgid "{count, plural, one {# Turkish employee for each foreigner} other {# Turkish employees for each foreigner}}"
+msgstr "{count, plural, one {her yabancı için # Türk çalışan} other {her yabancı için # Türk çalışan}}"
+
+#: src/shared/rule-answer/factValue.ts:47
+msgid "{count, plural, one {# week} other {# weeks}}"
+msgstr "{count, plural, one {# hafta} other {# hafta}}"
+
+#: src/shared/rule-answer/factValue.ts:45
+msgid "{count, plural, one {# working day} other {# working days}}"
+msgstr "{count, plural, one {# iş günü} other {# iş günü}}"
+
+#: src/shared/rule-answer/factValue.ts:51
+msgid "{count, plural, one {# year} other {# years}}"
+msgstr "{count, plural, one {# yıl} other {# yıl}}"
+
+#: src/shared/deadline-item/DeadlineItem.tsx:30
+msgid "{days, plural, one {# day late} other {# days late}}"
+msgstr "{days, plural, one {# gün gecikti} other {# gün gecikti}}"
+
+#: src/shared/deadline-item/DeadlineItem.tsx:26
+#: src/shared/deadline-item/DeadlineItem.tsx:27
+#: src/shared/deadline-item/DeadlineItem.tsx:28
+msgid "{days, plural, one {# day} other {# days}}"
+msgstr "{days, plural, one {# gün} other {# gün}}"
+
+#: src/shared/progress-indicator/ProgressIndicator.tsx:20
+msgid "{done} of {total, plural, one {# step completed} other {# steps completed}}"
+msgstr "{total, plural, one {# adımdan {done} tanesi tamamlandı} other {# adımdan {done} tanesi tamamlandı}}"
+
+#: src/screens/category-hub/CategoryHub.tsx:108
+msgid "{minutes} min read"
+msgstr "{minutes} dakikalık okuma"
+
+#: src/shared/rule-answer/factValue.ts:30
+msgid "{money} a month"
+msgstr "ayda {money}"
+
+#: src/shared/rule-answer/factValue.ts:29
+msgid "{money} a year"
+msgstr "yılda {money}"
+
+#: src/shared/page-head/title.ts:23
+msgid "{named} · Skipbureau"
+msgstr "{named} · Skipbureau"
+
+#: src/shared/page-head/title.ts:32
+msgid "{title} in {place}"
+msgstr "{place} için {title}"
+
+#: src/screens/coming-soon/SetupSoon.tsx:12
+msgid "A few questions about your situation, then only the steps that apply to you, in the order they come. Until it is ready, the overview lists every area the goal involves."
+msgstr "Durumunuzla ilgili birkaç soru, ardından yalnızca size uyan adımlar, geliş sırasıyla. Hazır olana kadar genel bakış, hedefin kapsadığı tüm alanları listeler."
+
+#: src/shared/rule-answer/factLabels.ts:17
+msgid "A UETS account among the documents"
+msgstr "Belgeler arasında bir UETS adresi"
+
+#: src/shared/context-control/ContextPanel.tsx:147
+msgid "Add"
+msgstr "Ekleyin"
+
+#: src/shared/context-control/YourDetails.tsx:110
+msgid "Add city"
+msgstr "Şehir ekleyin"
+
+#: src/shared/context-control/ContextControl.tsx:60
+msgid "Add your details"
+msgstr "Bilgilerinizi ekleyin"
+
+#: src/shared/rule-answer/factLabels.ts:107
+msgid "Allowance deducted from the levy base"
+msgstr "Matrahtan düşülen istisna"
+
+#: src/screens/task-hub/TaskHub.tsx:32
+msgid "Alternative route"
+msgstr "Alternatif yol"
+
+#: src/shared/rule-answer/factLabels.ts:79
+msgid "Annual tax-certificate renewal deadline"
+msgstr "Yıllık faaliyet belgesi yenileme süresi"
+
+#: src/screens/task-hub/GuidedSetup.tsx:29
+msgid "Answer a few questions and we’ll build a roadmap for your situation."
+msgstr "Birkaç soruyu yanıtlayın, durumunuza uygun bir yol haritası oluşturalım."
+
+#: src/shared/ask-field/HomeAskField.tsx:42
+msgid "Ask"
+msgstr "Sor"
+
+#: src/screens/home/HomeHero.tsx:32
+#: src/screens/search/SearchResults.tsx:77
+msgid "Ask a question or describe what you’re trying to do…"
+msgstr "Bir soru sorun veya ne yapmak istediğinizi anlatın…"
+
+#. placeholder {0}: hub.title
+#: src/screens/category-hub/CategoryHub.tsx:179
+msgid "Ask about {0}"
+msgstr "{0} hakkında sorun"
+
+#: src/screens/search/SearchResults.tsx:71
+msgid "Ask about {name}"
+msgstr "{name} hakkında sorun"
+
+#: src/screens/category-hub/CategoryHub.tsx:175
+msgid "Ask about this and find the most relevant guide."
+msgstr "Bunu sorun, en uygun rehberi bulun."
+
+#: src/screens/home/HomeHero.tsx:31
+#: src/screens/search/SearchResults.tsx:76
+#: src/shared/header/Header.tsx:161
+msgid "Ask Skipbureau"
+msgstr "Skipbureau’ya sorun"
+
+#: src/shared/header/Header.tsx:160
+msgid "Ask Skipbureau…"
+msgstr "Skipbureau’ya sorun…"
+
+#: src/shared/rule-answer/factValue.ts:82
+msgid "at least {number}"
+msgstr "en az {number}"
+
+#: src/shared/rule-answer/factValue.ts:81
+msgid "at most {number}"
+msgstr "en çok {number}"
+
+#: src/screens/guide/Guide.tsx:96
+msgid "Back to {categoryTitle}"
+msgstr "{categoryTitle} bölümüne dönün"
+
+#: src/screens/suggest/SuggestUpdate.tsx:102
+msgid "Back to the guide"
+msgstr "Rehbere dönün"
+
+#: src/screens/coming-soon/GuidesSoon.tsx:13
+#: src/screens/guide/Guide.tsx:96
+#: src/screens/search/SearchResults.tsx:100
+msgid "Back to the home page"
+msgstr "Ana sayfaya dönün"
+
+#: src/screens/coming-soon/SetupSoon.tsx:11
+msgid "Back to the overview"
+msgstr "Genel bakışa dönün"
+
+#: src/screens/guide/GuideSection.tsx:17
+msgid "Before you start"
+msgstr "Başlamadan önce"
+
+#: src/screens/guide/GuideSection.tsx:123
+msgid "Best for"
+msgstr "Şunlar için uygun"
+
+#: src/shared/roadmap-step/RoadmapStep.tsx:23
+msgid "Blocked"
+msgstr "Engellendi"
+
+#: src/shared/breadcrumb/Breadcrumb.tsx:17
+msgid "Breadcrumb"
+msgstr "Gezinme yolu"
+
+#: src/screens/suggest/SuggestUpdate.tsx:189
+msgid "Cancel"
+msgstr "Vazgeçin"
+
+#: src/shared/rule-answer/factLabels.ts:24
+msgid "Card fee"
+msgstr "Belge bedeli"
+
+#: src/shared/rule-answer/factLabels.ts:123
+msgid "Care insurance contribution rate"
+msgstr "Bakım sigortası prim oranı"
+
+#: src/shared/rule-answer/factLabels.ts:125
+msgid "Care insurance discount for each child"
+msgstr "Her çocuk için bakım sigortası indirimi"
+
+#: src/shared/rule-answer/factLabels.ts:124
+msgid "Care insurance rate for a childless member"
+msgstr "Çocuksuz üye için bakım sigortası oranı"
+
+#: src/shared/checklist-item/ChecklistItem.tsx:24
+msgid "Check date"
+msgstr "Tarihi kontrol edin"
+
+#: src/screens/suggest/SuggestUpdate.tsx:145
+msgid "Check the address: it needs an @ and a domain, like you@example.com."
+msgstr "Adresi kontrol edin: bir @ işareti ve alan adı gerekir, örneğin you@example.com."
+
+#: src/shared/source-card/SourceCard.tsx:32
+msgid "Checked this month"
+msgstr "Bu ay kontrol edildi"
+
+#: src/shared/context-control/ContextPanel.tsx:235
+#: src/shared/context-control/ContextPanel.tsx:238
+msgid "City in {countryName}"
+msgstr "{countryName} için şehir"
+
+#: src/shared/context-control/ContextPanel.tsx:328
+msgid "Clear all"
+msgstr "Tümünü temizleyin"
+
+#: src/screens/home/head.ts:13
+#: src/screens/home/HomeHero.tsx:27
+msgid "Clear, step-by-step guidance for living, studying, working and doing business in {name}."
+msgstr "{name} için yaşama, okuma, çalışma ve iş yapma konularında net, adım adım rehberlik."
+
+#: src/screens/category-hub/CategoryHub.tsx:161
+#: src/screens/coming-soon/ComingSoon.tsx:20
+#: src/screens/search/SearchResults.tsx:132
+#: src/shared/context-control/ContextPanel.tsx:182
+#: src/shared/task-tile/TaskTile.tsx:22
+msgid "Coming soon"
+msgstr "Yakında"
+
+#: src/screens/guide/GuideSection.tsx:24
+msgid "Common problems"
+msgstr "Sık karşılaşılan sorunlar"
+
+#: src/screens/home/Home.tsx:83
+msgid "Common questions"
+msgstr "Sık sorulan sorular"
+
+#: src/shared/rule-answer/factLabels.ts:76
+msgid "Competition Authority levy on subscribed capital"
+msgstr "Taahhüt edilen sermaye üzerinden Rekabet Kurumu payı"
+
+#: src/shared/roadmap-step/RoadmapStep.tsx:19
+msgid "Completed"
+msgstr "Tamamlandı"
+
+#: src/screens/category-hub/CategoryHub.tsx:195
+msgid "Content shown here is sample material for design review."
+msgstr "Burada gösterilen içerik, tasarım incelemesi için örnek materyaldir."
+
+#: src/shared/saved-item/SavedItem.tsx:86
+msgid "Continue"
+msgstr "Devam edin"
+
+#: src/shared/rule-answer/factLabels.ts:42
+msgid "Continuous residence before applying for GSS"
+msgstr "GSS başvurusundan önce kesintisiz ikamet"
+
+#: src/shared/rule-answer/factLabels.ts:44
+msgid "Contribution days in the preceding year, for routine treatment"
+msgstr "Rutin tedavi için bir önceki yıldaki prim gün sayısı"
+
+#: src/screens/guide/Guide.tsx:112
+msgid "Cost and time"
+msgstr "Maliyet ve süre"
+
+#: src/shared/context-control/ContextPanel.tsx:223
+#: src/shared/context-control/ContextPanel.tsx:225
+msgid "Currently in"
+msgstr "Şu anda bulunduğunuz yer"
+
+#: src/shared/rule-answer/factLabels.ts:78
+msgid "Deadline for the first tax certificate after tax liability begins"
+msgstr "Mükellefiyet başladıktan sonra ilk faaliyet belgesi süresi"
+
+#: src/shared/rule-answer/factLabels.ts:65
+msgid "Deadline to apply for a residence permit after a work permit ends"
+msgstr "Çalışma izni bittikten sonra ikamet izni başvuru süresi"
+
+#: src/shared/rule-answer/factLabels.ts:89
+msgid "Deadline to apply inside Germany"
+msgstr "Almanya içinden başvuru süresi"
+
+#: src/shared/rule-answer/factLabels.ts:121
+msgid "Deadline to join voluntarily in your first employment"
+msgstr "İlk işinizde isteğe bağlı katılım süresi"
+
+#: src/shared/rule-answer/factLabels.ts:102
+msgid "Deadline to notify the accident insurer"
+msgstr "Kaza sigortasına bildirim süresi"
+
+#: src/shared/rule-answer/factLabels.ts:70
+msgid "Deadline to pay cash capital after registration"
+msgstr "Tescilden sonra nakdî sermayeyi ödeme süresi"
+
+#: src/shared/rule-answer/factLabels.ts:81
+msgid "Deadline to register an employee before starting work"
+msgstr "Çalışanı işe başlamadan önce bildirme süresi"
+
+#: src/shared/rule-answer/factLabels.ts:13
+msgid "Deadline to register your address"
+msgstr "Adres kaydı yaptırma süresi"
+
+#: src/shared/rule-answer/factLabels.ts:77
+msgid "Deadline to request electronic tax notifications after starting business"
+msgstr "İşe başladıktan sonra elektronik tebligat talep süresi"
+
+#: src/shared/rule-answer/factLabels.ts:103
+msgid "Deadline to send the tax questionnaire"
+msgstr "Vergi formunu gönderme süresi"
+
+#: src/screens/task-hub/TaskHub.tsx:29
+msgid "Decision"
+msgstr "Karar"
+
+#: src/screens/suggest/SuggestUpdate.tsx:121
+msgid "Describe what changed"
+msgstr "Neyin değiştiğini anlatın"
+
+#: src/screens/suggest/SuggestUpdate.tsx:127
+msgid "Describe what changed, even in one sentence."
+msgstr "Neyin değiştiğini anlatın, tek cümle bile yeterli."
+
+#: src/screens/task-hub/TaskHub.tsx:195
+msgid "Descriptions on this page are sample content for design review. They deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
+msgstr "Bu sayfadaki açıklamalar tasarım incelemesi için örnek içeriktir. Ücretler, eşikler ve uygunluk kuralları bilinçli olarak yer almaz; bunlar adım adım kurulum sırasında doğrulanmış kaynaklara göre belirlenir."
+
+#: src/shared/saved-item/SavedItem.tsx:18
+msgid "Document"
+msgstr "Belge"
+
+#: src/shared/deadline-item/DeadlineItem.tsx:31
+msgid "Done"
+msgstr "Tamamlandı"
+
+#: src/shared/rule-answer/factLabels.ts:117
+msgid "Earnings threshold for compulsory insurance"
+msgstr "Zorunlu sigorta için kazanç eşiği"
+
+#: src/shared/rule-answer/factLabels.ts:126
+msgid "Employee’s share of the care contribution"
+msgstr "Bakım priminin çalışan payı"
+
+#: src/shared/rule-answer/factLabels.ts:64
+msgid "Employer’s deadline to notify the Ministry of employment changes"
+msgstr "İşverenin Bakanlığa çalışma değişikliklerini bildirme süresi"
+
+#: src/shared/rule-answer/factLabels.ts:127
+msgid "Employer’s share of the care contribution"
+msgstr "Bakım priminin işveren payı"
+
+#: src/shared/rule-answer/factLabels.ts:84
+msgid "Event that opens ETDS"
+msgstr "ETDS’yi açan olay"
+
+#: src/screens/coming-soon/GuidesSoon.tsx:12
+msgid "Every guide for {name}"
+msgstr "{name} için tüm rehberler"
+
+#: src/screens/category-hub/CategoryHub.tsx:199
+#: src/screens/home/Home.tsx:108
+msgid "Every guide shows when it was last verified and links to the official source"
+msgstr "Her rehber en son ne zaman doğrulandığını gösterir ve resmî kaynağa bağlantı verir"
+
+#: src/shared/rule-answer/factLabels.ts:25
+msgid "Exemption from the card fee by nationality"
+msgstr "Uyruğa göre belge bedeli muafiyeti"
+
+#: src/shared/document-card/DocumentCard.tsx:20
+msgid "Expiring"
+msgstr "Süresi doluyor"
+
+#: src/shared/header/Header.tsx:131
+msgid "Explore"
+msgstr "Keşfedin"
+
+#: src/shared/rule-answer/factLabels.ts:56
+msgid "Exports for an established business"
+msgstr "Mevcut işletme için ihracat"
+
+#: src/shared/rule-answer/factLabels.ts:75
+msgid "Fees under Law 492 that company formation is exempt from"
+msgstr "Şirket kuruluşunun muaf olduğu 492 sayılı Harçlar Kanunu harçları"
+
+#: src/screens/home/Home.tsx:104
+msgid "Figures, timings and requirements shown throughout this design are sample content for review, not verified legal information."
+msgstr "Bu tasarımda gösterilen rakamlar, süreler ve koşullar inceleme için örnek içeriktir; doğrulanmış hukuki bilgi değildir."
+
+#: src/shared/rule-answer/factLabels.ts:15
+msgid "Fine for a false address declaration"
+msgstr "Gerçeğe aykırı adres beyanı cezası"
+
+#: src/shared/rule-answer/factLabels.ts:97
+msgid "Fine for a late or missing trade notification"
+msgstr "Geç veya eksik ticaret bildirimi cezası"
+
+#: src/shared/rule-answer/factLabels.ts:14
+msgid "Fine for registering late"
+msgstr "Geç kayıt cezası"
+
+#: src/shared/rule-answer/factLabels.ts:49
+msgid "Fixed-term work permit fee, up to one year"
+msgstr "Bir yıla kadar süreli çalışma izni harcı"
+
+#: src/shared/information-disclaimer/InformationDisclaimer.tsx:15
+msgid "For general information only"
+msgstr "Yalnızca genel bilgi amaçlıdır"
+
+#: src/shared/rule-answer/RuleAnswer.tsx:47
+msgid "For you"
+msgstr "Size özel"
+
+#: src/shared/context-control/YourDetails.tsx:108
+msgid "From {originName}"
+msgstr "Köken: {originName}"
+
+#: src/shared/rule-answer/factLabels.ts:118
+msgid "General contribution rate"
+msgstr "Genel prim oranı"
+
+#: src/screens/category-hub/CategoryHub.tsx:120
+#: src/screens/category-hub/CategoryHub.tsx:135
+msgid "Getting started checklist"
+msgstr "Başlangıç kontrol listesi"
+
+#: src/shared/rule-answer/factLabels.ts:62
+msgid "Gross minimum wage in 2026"
+msgstr "2026 brüt asgari ücret"
+
+#: src/shared/rule-answer/factLabels.ts:46
+msgid "GSS premium base"
+msgstr "GSS prime esas kazanç"
+
+#: src/shared/rule-answer/factLabels.ts:45
+msgid "GSS premium rate"
+msgstr "GSS prim oranı"
+
+#: src/shared/rule-answer/factLabels.ts:43
+msgid "GSS registration starts after the request"
+msgstr "GSS tescili talepten sonra başlar"
+
+#: src/screens/guide/Guide.tsx:218
+#: src/shared/ask-result-row/AskResultRow.tsx:21
+#: src/shared/saved-item/SavedItem.tsx:18
+msgid "Guide"
+msgstr "Rehber"
+
+#: src/shared/process-card/ProcessCard.tsx:43
+msgid "Guided process"
+msgstr "Adım adım süreç"
+
+#: src/screens/coming-soon/SetupSoon.tsx:11
+msgid "Guided setup"
+msgstr "Adım adım kurulum"
+
+#: src/screens/task-hub/TaskHub.tsx:122
+msgid "Guided setup works this out with you"
+msgstr "Adım adım kurulum bunu sizinle birlikte belirler"
+
+#: src/screens/search/SearchResults.tsx:118
+#: src/screens/task-hub/TaskHub.tsx:140
+#: src/shared/header/Header.tsx:136
+msgid "Guides"
+msgstr "Rehberler"
+
+#: src/core/prerender/prerender.ts:81
+#: src/screens/category-hub/CategoryHub.tsx:59
+#: src/screens/category-hub/CategoryHub.tsx:60
+#: src/screens/category-hub/CategoryHub.tsx:66
+#: src/screens/guide/Guide.tsx:206
+#: src/screens/guide/Guide.tsx:211
+#: src/screens/task-hub/TaskHub.tsx:78
+msgid "Home"
+msgstr "Ana sayfa"
+
+#: src/screens/task-hub/GuidedSetup.tsx:45
+msgid "How it works"
+msgstr "Nasıl işler"
+
+#: src/screens/guide/GuideSection.tsx:20
+msgid "How to do it"
+msgstr "Nasıl yapılır"
+
+#: src/shared/context-control/situationLabels.ts:15
+msgid "I am starting a company"
+msgstr "Şirket kuruyorum"
+
+#: src/shared/context-control/situationLabels.ts:16
+msgid "I run an existing company"
+msgstr "Mevcut bir şirketi yönetiyorum"
+
+#: src/screens/task-hub/TaskHub.tsx:30
+msgid "If it applies to you"
+msgstr "Size uyuyorsa"
+
+#: src/screens/guide/Guide.tsx:351
+msgid "If you know this information is outdated or incorrect, let us know. We review submissions before updating the guide."
+msgstr "Bu bilginin güncelliğini yitirdiğini veya yanlış olduğunu biliyorsanız bize bildirin. Rehberi güncellemeden önce bildirimleri inceleriz."
+
+#: src/screens/guide/GuideSection.tsx:22
+msgid "Important to know"
+msgstr "Bilinmesi gerekenler"
+
+#: src/shared/process-card/ProcessCard.tsx:43
+msgid "In progress"
+msgstr "Devam ediyor"
+
+#: src/shared/rule-answer/factLabels.ts:33
+msgid "Inpatient cover, at a non-contracted provider or a public hospital outside Annex 1"
+msgstr "Yatarak tedavi kapsamı, anlaşmasız sağlık kuruluşunda veya Ek 1 dışındaki bir kamu hastanesinde"
+
+#: src/shared/rule-answer/factLabels.ts:29
+msgid "Inpatient cover, at a provider your insurer has contracted with"
+msgstr "Yatarak tedavi kapsamı, sigortanızın anlaşmalı olduğu bir sağlık kuruluşunda"
+
+#: src/shared/rule-answer/factLabels.ts:37
+msgid "Inpatient cover, at a public hospital named in Annex 1"
+msgstr "Yatarak tedavi kapsamı, Ek 1’de sayılan bir kamu hastanesinde"
+
+#: src/screens/suggest/SuggestUpdate.tsx:160
+msgid "It was not sent. Check your connection and try again."
+msgstr "Gönderilemedi. Bağlantınızı kontrol edip yeniden deneyin."
+
+#: src/screens/guide/Guide.tsx:108
+msgid "Key deadlines"
+msgstr "Önemli son tarihler"
+
+#: src/shared/header/LanguageControl.tsx:35
+msgid "Language"
+msgstr "Dil"
+
+#: src/shared/source-card/SourceCard.tsx:60
+msgid "Last checked {day}"
+msgstr "Son kontrol: {day}"
+
+#: src/shared/source-card/SourceCard.tsx:60
+msgid "Last reachable {day}"
+msgstr "Son erişim: {day}"
+
+#: src/screens/category-hub/CategoryHub.tsx:82
+msgid "Last reviewed: {reviewed}"
+msgstr "Son inceleme: {reviewed}"
+
+#. placeholder {0}: formatMonth(latest, locale, 'long')
+#: src/screens/task-hub/TaskHub.tsx:179
+msgid "Last verified {0}"
+msgstr "Son doğrulama: {0}"
+
+#: src/screens/guide/Guide.tsx:234
+#: src/screens/guide/Guide.tsx:307
+#: src/screens/guide/Guide.tsx:365
+msgid "Last verified: {verified}"
+msgstr "Son doğrulama: {verified}"
+
+#: src/shared/context-control/ContextPanel.tsx:104
+msgid "Loading…"
+msgstr "Yükleniyor…"
+
+#: src/shared/rule-answer/factLabels.ts:21
+msgid "Longest stay on a visa or visa exemption"
+msgstr "Vize veya vize muafiyetiyle en uzun kalış"
+
+#: src/shared/header/Header.tsx:98
+msgid "Main"
+msgstr "Ana gezinme"
+
+#: src/shared/rule-answer/factLabels.ts:66
+msgid "Maximum work while a timely extension is assessed"
+msgstr "Süresinde yapılan uzatma değerlendirilirken en fazla çalışma"
+
+#: src/shared/rule-answer/factLabels.ts:69
+msgid "Minimum capital for a limited company"
+msgstr "Limited şirket için asgari sermaye"
+
+#: src/shared/rule-answer/factLabels.ts:50
+msgid "Minimum issued term of the residence permit"
+msgstr "İkamet izninin asgari düzenlenme süresi"
+
+#: src/shared/rule-answer/factLabels.ts:61
+msgid "Minimum salary for domestic and other work"
+msgstr "Ev hizmetleri ve diğer işler için asgari ücret"
+
+#: src/shared/rule-answer/factLabels.ts:58
+msgid "Minimum salary for engineers and architects"
+msgstr "Mühendis ve mimarlar için asgari ücret"
+
+#: src/shared/rule-answer/factLabels.ts:59
+msgid "Minimum salary for other managers"
+msgstr "Diğer yöneticiler için asgari ücret"
+
+#: src/shared/rule-answer/factLabels.ts:57
+msgid "Minimum salary for senior executives and pilots"
+msgstr "Üst düzey yöneticiler ve pilotlar için asgari ücret"
+
+#: src/shared/rule-answer/factLabels.ts:60
+msgid "Minimum salary for work requiring expertise or mastery"
+msgstr "Uzmanlık veya ustalık gerektiren işler için asgari ücret"
+
+#: src/shared/rule-answer/factLabels.ts:112
+msgid "Minimum waiver period"
+msgstr "Asgari vazgeçme süresi"
+
+#: src/shared/checklist-item/ChecklistItem.tsx:22
+#: src/shared/document-card/DocumentCard.tsx:19
+msgid "Missing"
+msgstr "Eksik"
+
+#: src/shared/rule-answer/factLabels.ts:120
+msgid "Monthly contribution assessment ceiling"
+msgstr "Aylık prime esas kazanç tavanı"
+
+#: src/shared/context-control/ContextPanel.tsx:220
+#: src/shared/context-control/ContextPanel.tsx:221
+msgid "Nationality"
+msgstr "Uyruk"
+
+#: src/shared/roadmap-step/RoadmapStep.tsx:24
+msgid "Needs your answer"
+msgstr "Yanıtınız gerekiyor"
+
+#: src/shared/rule-answer/factLabels.ts:63
+msgid "Net minimum wage in 2026"
+msgstr "2026 net asgari ücret"
+
+#: src/shared/rule-answer/factLabels.ts:55
+msgid "Net sales for an established business"
+msgstr "Mevcut işletme için net satışlar"
+
+#: src/shared/roadmap-step/RoadmapStep.tsx:20
+msgid "Next action"
+msgstr "Sonraki adım"
+
+#: src/shared/process-card/ProcessCard.tsx:68
+msgid "Next: {next}"
+msgstr "Sıradaki: {next}"
+
+#: src/screens/suggest/SuggestUpdate.tsx:186
+msgid "No account needed"
+msgstr "Hesap gerekmez"
+
+#: src/shared/rule-answer/factValue.ts:71
+msgid "None"
+msgstr "Yok"
+
+#: src/shared/checklist-item/ChecklistItem.tsx:25
+msgid "Not for you"
+msgstr "Sizin için gerekli değil"
+
+#: src/screens/guide/Guide.tsx:251
+msgid "Not in your language yet"
+msgstr "Henüz sizin dilinizde değil"
+
+#: src/shared/source-card/SourceCard.tsx:33
+msgid "Not re-checked since {month}"
+msgstr "{month} tarihinden beri yeniden kontrol edilmedi"
+
+#: src/shared/document-card/DocumentCard.tsx:17
+msgid "Not started"
+msgstr "Başlanmadı"
+
+#: src/screens/task-hub/GuidedSetup.tsx:26
+msgid "Not sure where to start?"
+msgstr "Nereden başlayacağınızdan emin değil misiniz?"
+
+#: src/shared/info-panel/InfoPanel.tsx:15
+msgid "Not yet verified"
+msgstr "Henüz doğrulanmadı"
+
+#: src/shared/context-control/ContextPanel.tsx:313
+msgid "Nothing here is required."
+msgstr "Buradaki hiçbir bilgi zorunlu değildir."
+
+#: src/shared/context-control/ContextPanel.tsx:105
+msgid "Nothing matches"
+msgstr "Eşleşen yok"
+
+#: src/screens/search/SearchResults.tsx:94
+msgid "Nothing matches yet"
+msgstr "Henüz eşleşen bir şey yok"
+
+#: src/shared/ask-panel/NothingFound.tsx:9
+msgid "Nothing matches yet. Try other words, or pick a goal on the home page."
+msgstr "Henüz eşleşen bir şey yok. Başka kelimeler deneyin veya ana sayfadan bir hedef seçin."
+
+#: src/shared/info-panel/InfoPanel.tsx:10
+msgid "Official information"
+msgstr "Resmî bilgi"
+
+#: src/screens/suggest/SuggestUpdate.tsx:134
+msgid "Official or reliable sources help us verify the change faster."
+msgstr "Resmî veya güvenilir kaynaklar, değişikliği daha hızlı doğrulamamıza yardımcı olur."
+
+#: src/shared/source-card/SourceCard.tsx:34
+msgid "Official page did not respond"
+msgstr "Resmî sayfa yanıt vermedi"
+
+#: src/shared/source-card/SourceCard.tsx:65
+msgid "Official page unavailable"
+msgstr "Resmî sayfaya ulaşılamıyor"
+
+#: src/shared/source-card/SourceCard.tsx:41
+msgid "Official source"
+msgstr "Resmî kaynak"
+
+#: src/screens/guide/Guide.tsx:305
+msgid "Official sources"
+msgstr "Resmî kaynaklar"
+
+#: src/screens/coming-soon/GuidesSoon.tsx:15
+msgid "One list of every guide, to browse by topic. Until it is ready, each guide is a click away from its goal on the home page, or from Ask."
+msgstr "Konuya göre göz atmak için tüm rehberlerin tek listesi. Hazır olana kadar her rehber, ana sayfadaki hedefinden veya Sor’dan bir tık uzaklıktadır."
+
+#: src/screens/task-hub/TaskHub.tsx:31
+msgid "Ongoing"
+msgstr "Sürüyor"
+
+#: src/shared/saved-item/SavedItem.tsx:86
+msgid "Open"
+msgstr "Açın"
+
+#: src/shared/source-card/SourceCard.tsx:41
+msgid "Operator source"
+msgstr "Operatör kaynağı"
+
+#: src/shared/checklist-item/ChecklistItem.tsx:21
+msgid "Optional"
+msgstr "İsteğe bağlı"
+
+#: src/screens/task-hub/TaskHub.tsx:105
+msgid "Or explore the areas involved yourself."
+msgstr "Ya da ilgili alanları kendiniz inceleyin."
+
+#: src/screens/task-hub/TaskHub.tsx:167
+msgid "Other routes"
+msgstr "Diğer yollar"
+
+#: src/shared/rule-answer/factLabels.ts:31
+msgid "Outpatient cover, at a non-contracted provider or a public hospital outside Annex 1"
+msgstr "Ayakta tedavi kapsamı, anlaşmasız sağlık kuruluşunda veya Ek 1 dışındaki bir kamu hastanesinde"
+
+#: src/shared/rule-answer/factLabels.ts:27
+msgid "Outpatient cover, at a provider your insurer has contracted with"
+msgstr "Ayakta tedavi kapsamı, sigortanızın anlaşmalı olduğu bir sağlık kuruluşunda"
+
+#: src/shared/rule-answer/factLabels.ts:35
+msgid "Outpatient cover, at a public hospital named in Annex 1"
+msgstr "Ayakta tedavi kapsamı, Ek 1’de sayılan bir kamu hastanesinde"
+
+#: src/shared/rule-answer/factLabels.ts:53
+msgid "Paid-in capital for a new business"
+msgstr "Yeni işletme için ödenmiş sermaye"
+
+#: src/shared/rule-answer/factLabels.ts:54
+msgid "Paid-in capital for an established business"
+msgstr "Mevcut işletme için ödenmiş sermaye"
+
+#: src/screens/suggest/SuggestUpdate.tsx:131
+msgid "Paste a link if you have one"
+msgstr "Varsa bir bağlantı yapıştırın"
+
+#: src/screens/home/Home.tsx:63
+msgid "Pick a goal. Each one opens a guided process built for your nationality, city and status."
+msgstr "Bir hedef seçin. Her biri uyruğunuza, şehrinize ve durumunuza göre hazırlanmış adım adım bir süreç açar."
+
+#: src/shared/ask-panel/useAsk.tsx:187
+msgid "Popular right now"
+msgstr "Şu anda çok arananlar"
+
+#: src/shared/info-panel/InfoPanel.tsx:11
+msgid "Practical advice"
+msgstr "Pratik bilgi"
+
+#: src/shared/saved-item/SavedItem.tsx:18
+msgid "Process"
+msgstr "Süreç"
+
+#: src/shared/rule-answer/factLabels.ts:90
+msgid "Processing time"
+msgstr "İşlem süresi"
+
+#: src/shared/rule-answer/factLabels.ts:105
+msgid "Profit below which the chamber contribution is nothing"
+msgstr "Oda aidatının alınmadığı kâr sınırı"
+
+#: src/shared/rule-answer/factLabels.ts:106
+msgid "Profit ceiling for founder relief"
+msgstr "Kurucu istisnası için kâr tavanı"
+
+#: src/screens/guide/Guide.tsx:269
+#: src/shared/ask-result-row/AskResultRow.tsx:23
+msgid "Quick answer"
+msgstr "Hızlı yanıt"
+
+#: src/screens/search/SearchResults.tsx:141
+msgid "Quick answers"
+msgstr "Hızlı yanıtlar"
+
+#: src/shared/source-card/SourceCard.tsx:35
+msgid "Re-verification in progress"
+msgstr "Yeniden doğrulama sürüyor"
+
+#: src/screens/task-hub/TaskHub.tsx:141
+msgid "Read about a topic before you deal with it. Guides explain how something works; the areas above are things you may need to do."
+msgstr "Bir konuyla uğraşmadan önce hakkında okuyun. Rehberler bir şeyin nasıl işlediğini anlatır; yukarıdaki alanlar ise yapmanız gerekebilecek işlerdir."
+
+#. placeholder {0}: line.source.name
+#. placeholder {1}: line.source.checked
+#: src/shared/rule-answer/RuleAnswer.tsx:78
+msgid "Read on <0>{0}</0>, checked {1}"
+msgstr "<0>{0}</0> üzerinde okundu, kontrol: {1}"
+
+#: src/screens/search/SearchResults.tsx:130
+#: src/screens/task-hub/TaskHub.tsx:151
+#: src/shared/ask-panel/useAsk.tsx:155
+msgid "Reading · verified {verified}"
+msgstr "Okuma · doğrulandı {verified}"
+
+#: src/shared/checklist-item/ChecklistItem.tsx:20
+#: src/shared/document-card/DocumentCard.tsx:18
+msgid "Ready"
+msgstr "Hazır"
+
+#: src/shared/ask-result-row/AskResultRow.tsx:25
+msgid "Recent"
+msgstr "Son"
+
+#: src/shared/ask-panel/useAsk.tsx:180
+msgid "Recent questions"
+msgstr "Son sorular"
+
+#: src/screens/category-hub/RecommendedStart.tsx:21
+msgid "Recommended starting point"
+msgstr "Önerilen başlangıç noktası"
+
+#: src/shared/rule-answer/factLabels.ts:18
+msgid "Registration fee"
+msgstr "Kayıt ücreti"
+
+#: src/shared/rule-answer/factLabels.ts:98
+msgid "Registration fee for a sole business"
+msgstr "Şahıs işletmesi için kayıt ücreti"
+
+#: src/shared/rule-answer/factLabels.ts:99
+msgid "Registration fee online"
+msgstr "Çevrim içi kayıt ücreti"
+
+#: src/shared/rule-answer/factLabels.ts:74
+msgid "Registry charge on company formation"
+msgstr "Şirket kuruluşunda sicil harcı"
+
+#: src/screens/category-hub/CategoryHub.tsx:152
+#: src/screens/guide/Guide.tsx:326
+msgid "Related guides"
+msgstr "İlgili rehberler"
+
+#: src/shared/saved-item/SavedItem.tsx:92
+msgid "Remove from saved"
+msgstr "Kayıtlılardan çıkarın"
+
+#: src/shared/checklist-item/ChecklistItem.tsx:23
+msgid "Renew"
+msgstr "Yenileyin"
+
+#: src/shared/checklist-item/ChecklistItem.tsx:19
+msgid "Required"
+msgstr "Zorunlu"
+
+#: src/shared/rule-answer/factLabels.ts:82
+msgid "Required time to obtain an opening and operating licence"
+msgstr "İşyeri açma ve çalışma ruhsatı alma süresi"
+
+#: src/shared/rule-answer/factLabels.ts:51
+msgid "Required validity date of the residence permit"
+msgstr "İkamet izninin gerekli geçerlilik tarihi"
+
+#: src/shared/rule-answer/factLabels.ts:39
+msgid "Residence permit charge"
+msgstr "İkamet izni harcı"
+
+#: src/shared/context-control/ContextPanel.tsx:251
+#: src/shared/context-control/ContextPanel.tsx:254
+msgid "Residence status"
+msgstr "İkamet durumu"
+
+#: src/screens/search/SearchResults.tsx:71
+msgid "Results for “{asked}”"
+msgstr "“{asked}” için sonuçlar"
+
+#: src/shared/ask-panel/useAsk.tsx:175
+msgid "Results for “{text}”"
+msgstr "“{text}” için sonuçlar"
+
+#: src/shared/rule-answer/factLabels.ts:22
+msgid "Return while your application is pending"
+msgstr "Başvurunuz sürerken dönüş"
+
+#: src/shared/context-control/ContextPanel.tsx:267
+#: src/shared/context-control/ContextPanel.tsx:270
+msgid "Role"
+msgstr "Rol"
+
+#: src/shared/info-panel/InfoPanel.tsx:13
+msgid "Scam risk"
+msgstr "Dolandırıcılık riski"
+
+#: src/screens/search/SearchResults.tsx:68
+msgid "Search"
+msgstr "Arama"
+
+#: src/shared/rule-answer/factLabels.ts:113
+msgid "Self-employment under the Residence Act"
+msgstr "İkamet Kanunu kapsamında serbest meslek"
+
+#: src/screens/suggest/SuggestUpdate.tsx:192
+msgid "Send suggestion"
+msgstr "Öneriyi gönderin"
+
+#: src/screens/task-hub/TaskHub.tsx:168
+msgid "Separate routes some people look into."
+msgstr "Bazı kişilerin incelediği ayrı yollar."
+
+#: src/screens/home/Home.tsx:83
+msgid "Short answers with the conditions that actually change them."
+msgstr "Kısa yanıtlar ve bu yanıtları gerçekten değiştiren koşullar."
+
+#: src/screens/suggest/SuggestUpdate.tsx:135
+msgid "Shorten the link, or paste only the address of the page."
+msgstr "Bağlantıyı kısaltın veya yalnızca sayfanın adresini yapıştırın."
+
+#: src/shared/header/Header.tsx:91
+msgid "Skipbureau"
+msgstr "Skipbureau"
+
+#: src/screens/Unreachable.tsx:15
+msgid "SkipBureau could not load this"
+msgstr "SkipBureau bunu yükleyemedi"
+
+#: src/shared/information-disclaimer/InformationDisclaimer.tsx:18
+msgid "Skipbureau explains everyday processes in {country}. Information can change and should not be treated as legal or professional advice. Check the linked official sources before making important decisions."
+msgstr "Skipbureau, {country} için günlük işlemleri anlatır. Bilgiler değişebilir ve hukuki ya da mesleki tavsiye olarak görülmemelidir. Önemli kararlar almadan önce bağlantı verilen resmî kaynakları kontrol edin."
+
+#: src/screens/guide/Guide.tsx:344
+#: src/screens/guide/Guide.tsx:348
+msgid "Something changed?"
+msgstr "Bir şey mi değişti?"
+
+#: src/screens/Unreachable.tsx:18
+msgid "Something on our side did not answer. The page exists, we just could not reach it. Trying again usually works."
+msgstr "Bizim tarafımızda bir şey yanıt vermedi. Sayfa mevcut, yalnızca ona ulaşamadık. Yeniden denemek genellikle işe yarar."
+
+#: src/screens/suggest/SuggestUpdate.tsx:130
+msgid "Source or link (optional)"
+msgstr "Kaynak veya bağlantı (isteğe bağlı)"
+
+#: src/screens/guide/Guide.tsx:368
+msgid "Sources are listed above with the date we last checked them. Tell us if something here no longer matches what you found."
+msgstr "Kaynaklar, en son kontrol ettiğimiz tarihle birlikte yukarıda listelenmiştir. Buradaki bir şey bulduğunuzla artık örtüşmüyorsa bize bildirin."
+
+#: src/shared/rule-answer/factLabels.ts:119
+msgid "Split of the general and additional contribution"
+msgstr "Genel ve ek primin paylaşımı"
+
+#: src/screens/task-hub/GuidedSetup.tsx:49
+#: src/screens/task-hub/TaskHub.tsx:130
+msgid "Start guided setup"
+msgstr "Adım adım kurulumu başlatın"
+
+#: src/screens/category-hub/RecommendedStart.tsx:47
+msgid "Start here"
+msgstr "Buradan başlayın"
+
+#: src/shared/rule-answer/factLabels.ts:122
+msgid "Start of compulsory membership through employment"
+msgstr "Çalışma yoluyla zorunlu üyeliğin başlangıcı"
+
+#: src/screens/category-hub/CategoryHub.tsx:172
+msgid "Still have a question?"
+msgstr "Hâlâ sorunuz mu var?"
+
+#: src/screens/guide/Guide.tsx:356
+#: src/screens/suggest/SuggestUpdate.tsx:110
+msgid "Suggest an update"
+msgstr "Güncelleme önerin"
+
+#: src/shared/ask-result-row/AskResultRow.tsx:19
+msgid "Task"
+msgstr "İş"
+
+#: src/screens/task-hub/TaskHub.tsx:82
+msgid "Task hub"
+msgstr "İş merkezi"
+
+#: src/screens/search/SearchResults.tsx:106
+msgid "Tasks"
+msgstr "İşler"
+
+#: src/shared/rule-answer/factLabels.ts:80
+msgid "Tax-certificate renewal deadline after the return deadline in a special accounting period"
+msgstr "Özel hesap döneminde beyan süresinden sonra faaliyet belgesi yenileme süresi"
+
+#: src/shared/rule-answer/RuleAnswer.tsx:114
+#: src/shared/rule-answer/RuleAnswer.tsx:140
+msgid "Tell us"
+msgstr "Bize bildirin"
+
+#: src/shared/rule-answer/RuleAnswer.tsx:104
+msgid "Tell us to show your answer."
+msgstr "Size özel yanıtı göstermemiz için bize bildirin."
+
+#: src/screens/suggest/SuggestUpdate.tsx:126
+msgid "Tell us what looks outdated, incorrect or missing."
+msgstr "Neyin güncelliğini yitirdiğini, yanlış veya eksik olduğunu bize bildirin."
+
+#: src/screens/suggest/SuggestUpdate.tsx:94
+msgid "Thank you"
+msgstr "Teşekkürler"
+
+#: src/screens/suggest/SuggestUpdate.tsx:154
+msgid "That is a lot of suggestions at once. Wait a minute and send this one again."
+msgstr "Aynı anda çok fazla öneri gönderildi. Bir dakika bekleyip bunu yeniden gönderin."
+
+#: src/screens/NotFound.tsx:14
+msgid "The address may be mistyped, or it may point at a country or a guide SkipBureau does not cover yet."
+msgstr "Adres yanlış yazılmış olabilir veya SkipBureau’nun henüz kapsamadığı bir ülkeyi ya da rehberi gösteriyor olabilir."
+
+#: src/shared/source-card/SourceCard.tsx:93
+msgid "The institution’s own wording — not Skipbureau advice"
+msgstr "Kurumun kendi ifadesi, Skipbureau tavsiyesi değil"
+
+#: src/shared/rule-answer/RuleAnswer.tsx:47
+msgid "The rule for everyone"
+msgstr "Herkes için geçerli kural"
+
+#: src/screens/guide/Guide.tsx:281
+msgid "The rules that apply"
+msgstr "Geçerli kurallar"
+
+#: src/screens/task-hub/TaskHub.tsx:114
+msgid "These are the areas most people deal with. They are deliberately not numbered, because the order that applies to you depends on your situation."
+msgstr "Bunlar çoğu kişinin uğraştığı alanlardır. Bilinçli olarak numaralandırılmamışlardır, çünkü size uyan sıra durumunuza bağlıdır."
+
+#: src/shared/info-panel/InfoPanel.tsx:14
+msgid "This depends on your situation"
+msgstr "Bu, durumunuza bağlı"
+
+#. placeholder {0}: locales[language].label
+#: src/screens/guide/Guide.tsx:252
+msgid "This guide has not been translated yet, so it is shown in {0}."
+msgstr "Bu rehber henüz çevrilmedi, bu yüzden {0} dilinde gösteriliyor."
+
+#: src/shared/rule-answer/RuleAnswer.tsx:102
+msgid "This is the rule for everyone. Tell us, and we show the answer for you."
+msgstr "Bu, herkes için geçerli kuraldır. Bize bildirin, size özel yanıtı gösterelim."
+
+#: src/shared/rule-answer/RuleAnswer.tsx:107
+msgid "This is the rule for everyone. We cannot take this detail from you yet."
+msgstr "Bu, herkes için geçerli kuraldır. Bu bilgiyi sizden henüz alamıyoruz."
+
+#: src/screens/NotFound.tsx:11
+msgid "This page does not exist"
+msgstr "Bu sayfa mevcut değil"
+
+#: src/shared/deadline-item/DeadlineItem.tsx:29
+msgid "Today"
+msgstr "Bugün"
+
+#: src/shared/rule-answer/factLabels.ts:104
+msgid "Trade income allowance"
+msgstr "Ticari kazanç istisnası"
+
+#: src/shared/rule-answer/factLabels.ts:111
+msgid "Transaction losing the exemption"
+msgstr "Muafiyeti kaybettiren işlem"
+
+#: src/screens/home/HomeHero.tsx:41
+msgid "Try"
+msgstr "Deneyin"
+
+#: src/screens/Unreachable.tsx:24
+#: src/shared/retry-notice/RetryNotice.tsx:34
+msgid "Try again"
+msgstr "Yeniden deneyin"
+
+#: src/shared/rule-answer/factLabels.ts:52
+msgid "Turkish employees for each foreigner"
+msgstr "Her yabancı için Türk çalışan sayısı"
+
+#: src/shared/rule-answer/factLabels.ts:109
+msgid "Turnover ceiling for the current year"
+msgstr "İçinde bulunulan yıl için ciro tavanı"
+
+#: src/shared/rule-answer/factLabels.ts:108
+msgid "Turnover ceiling for the previous year"
+msgstr "Bir önceki yıl için ciro tavanı"
+
+#: src/shared/rule-answer/factLabels.ts:110
+msgid "Turnover ceiling in the year the business starts"
+msgstr "İşletmenin kurulduğu yıl için ciro tavanı"
+
+#: src/shared/rule-answer/RuleAnswer.tsx:122
+msgid "Two rules could apply to you"
+msgstr "Size iki kural uygulanabilir"
+
+#: src/shared/context-control/ContextPanel.tsx:221
+#: src/shared/context-control/ContextPanel.tsx:226
+msgid "Type a country"
+msgstr "Bir ülke yazın"
+
+#: src/shared/context-control/ContextPanel.tsx:239
+#: src/shared/context-control/ContextPanel.tsx:289
+msgid "Type a place"
+msgstr "Bir yer yazın"
+
+#: src/shared/context-control/ContextPanel.tsx:271
+msgid "Type a role"
+msgstr "Bir rol yazın"
+
+#: src/shared/context-control/ContextPanel.tsx:255
+msgid "Type a status"
+msgstr "Bir durum yazın"
+
+#: src/screens/guide/Guide.tsx:106
+msgid "Typical cost"
+msgstr "Tipik maliyet"
+
+#: src/screens/guide/Guide.tsx:107
+msgid "Typical setup time"
+msgstr "Tipik kurulum süresi"
+
+#: src/shared/country-name/CountryName.tsx:15
+msgid "Unnamed country"
+msgstr "Adsız ülke"
+
+#: src/shared/rule-answer/factLabels.ts:91
+msgid "Until the card can be collected"
+msgstr "Belge teslim alınana kadar"
+
+#: src/shared/roadmap-step/RoadmapStep.tsx:21
+msgid "Upcoming"
+msgstr "Yaklaşan"
+
+#: src/shared/rule-answer/factLabels.ts:93
+msgid "Urgent travel Berlin helps with"
+msgstr "Berlin’in yardımcı olduğu acil seyahat"
+
+#: src/shared/guide-card/GuideCard.tsx:37
+msgid "Verified {verified}"
+msgstr "Doğrulandı: {verified}"
+
+#: src/shared/source-card/SourceCard.tsx:31
+msgid "Verified against this source"
+msgstr "Bu kaynağa göre doğrulandı"
+
+#: src/shared/source-card/SourceCard.tsx:87
+msgid "Visit official source"
+msgstr "Resmî kaynağa git"
+
+#: src/shared/roadmap-step/RoadmapStep.tsx:22
+msgid "Waiting on institution"
+msgstr "Kurumdan bekleniyor"
+
+#: src/shared/info-panel/InfoPanel.tsx:12
+msgid "Warning"
+msgstr "Uyarı"
+
+#: src/screens/guide/Guide.tsx:99
+msgid "We are still writing this guide, and checking it against official sources."
+msgstr "Bu rehberi hâlâ yazıyor ve resmî kaynaklara göre kontrol ediyoruz."
+
+#: src/shared/rule-answer/RuleAnswer.tsx:109
+msgid "We cannot take this detail from you yet."
+msgstr "Bu bilgiyi sizden henüz alamıyoruz."
+
+#: src/screens/guide/Guide.tsx:284
+msgid "We could not load the answer for you."
+msgstr "Size özel yanıtı yükleyemedik."
+
+#: src/shared/rule-answer/RuleAnswer.tsx:57
+msgid "We hold no rule on this for what you have told us."
+msgstr "Bize bildirdikleriniz için bu konuda elimizde bir kural yok."
+
+#: src/screens/suggest/SuggestUpdate.tsx:144
+msgid "We may contact you if we need more information. Your email will not be published."
+msgstr "Daha fazla bilgiye ihtiyaç duyarsak sizinle iletişime geçebiliriz. E-posta adresiniz yayımlanmaz."
+
+#: src/shared/context-control/ContextPanel.tsx:216
+msgid "We only ask for details when they change your answer."
+msgstr "Bilgilerinizi yalnızca yanıtınızı değiştirdiklerinde sorarız."
+
+#: src/screens/search/SearchResults.tsx:97
+msgid "We only search what we have written and checked, so try other words, or start from a goal on the home page."
+msgstr "Yalnızca yazdığımız ve kontrol ettiğimiz içerikte arama yaparız; başka kelimeler deneyin veya ana sayfadaki bir hedeften başlayın."
+
+#: src/screens/suggest/SuggestUpdate.tsx:149
+msgid "We use your email only to review and follow up on this submission."
+msgstr "E-posta adresinizi yalnızca bu bildirimi incelemek ve takip etmek için kullanırız."
+
+#: src/screens/search/SearchResults.tsx:156
+#: src/shared/ask-panel/useAsk.tsx:200
+msgid "We’ll ask about your nationality or city only if it changes the answer."
+msgstr "Uyruğunuzu veya şehrinizi yalnızca yanıtı değiştiriyorsa sorarız."
+
+#: src/screens/suggest/SuggestUpdate.tsx:97
+msgid "We’ll review your suggestion before updating the guide."
+msgstr "Rehberi güncellemeden önce önerinizi inceleriz."
+
+#: src/screens/suggest/SuggestUpdate.tsx:113
+msgid "We’ll review your suggestion before updating the guide. Submitting information does not directly change the published guide."
+msgstr "Rehberi güncellemeden önce önerinizi inceleriz. Bilgi göndermek, yayımlanmış rehberi doğrudan değiştirmez."
+
+#: src/shared/ask-panel/AskPanel.tsx:36
+msgid "What Ask found"
+msgstr "Sor’un bulduğu sonuçlar"
+
+#: src/screens/suggest/SuggestUpdate.tsx:120
+msgid "What changed?"
+msgstr "Ne değişti?"
+
+#: src/screens/category-hub/CategoryHub.tsx:99
+#: src/screens/category-hub/CategoryHub.tsx:180
+msgid "What do you need help with?"
+msgstr "Ne konuda yardıma ihtiyacınız var?"
+
+#: src/screens/home/head.ts:12
+#: src/screens/home/HomeHero.tsx:24
+msgid "What do you need to do in {name}?"
+msgstr "{name} için ne yapmanız gerekiyor?"
+
+#: src/screens/home/Home.tsx:62
+msgid "What do you want to do?"
+msgstr "Ne yapmak istiyorsunuz?"
+
+#: src/shared/context-control/ContextPanel.tsx:198
+#: src/shared/context-control/ContextPanel.tsx:213
+msgid "What Skipbureau knows about you"
+msgstr "Skipbureau’nun sizin hakkınızda bildikleri"
+
+#: src/screens/guide/GuideSection.tsx:23
+msgid "What to check"
+msgstr "Neleri kontrol etmeli"
+
+#: src/screens/task-hub/TaskHub.tsx:94
+msgid "What we know about you"
+msgstr "Sizin hakkınızda bildiklerimiz"
+
+#: src/screens/guide/GuideSection.tsx:18
+msgid "What you need"
+msgstr "Gerekenler"
+
+#: src/screens/task-hub/TaskHub.tsx:108
+msgid "What you’ll need to think about"
+msgstr "Düşünmeniz gerekecek konular"
+
+#: src/shared/rule-answer/factLabels.ts:26
+msgid "What your health cover must cover"
+msgstr "Sağlık sigortanızın kapsaması gerekenler"
+
+#: src/shared/rule-answer/factLabels.ts:100
+msgid "When a warning fine can be charged"
+msgstr "Uyarı cezasının verilebileceği durum"
+
+#: src/shared/rule-answer/factLabels.ts:101
+msgid "When fine proceedings can start"
+msgstr "Ceza işleminin başlayabileceği durum"
+
+#: src/shared/rule-answer/factLabels.ts:96
+msgid "When to notify the trade office"
+msgstr "Ticaret dairesine bildirim zamanı"
+
+#: src/shared/rule-answer/factLabels.ts:16
+msgid "Where the appointment is booked"
+msgstr "Randevunun alındığı yer"
+
+#: src/shared/rule-answer/factLabels.ts:83
+msgid "Where the share register and general-meeting minutes are kept"
+msgstr "Pay defteri ve genel kurul tutanaklarının tutulduğu yer"
+
+#: src/screens/guide/GuideSection.tsx:21
+msgid "Where to do it"
+msgstr "Nerede yapılır"
+
+#: src/screens/guide/Guide.tsx:144
+msgid "Where you live"
+msgstr "Nerede yaşıyorsunuz"
+
+#: src/screens/guide/Guide.tsx:149
+#: src/shared/context-control/ContextPanel.tsx:285
+#: src/shared/context-control/ContextPanel.tsx:288
+msgid "Where you work"
+msgstr "Nerede çalışıyorsunuz"
+
+#: src/shared/rule-answer/factValue.ts:80
+msgid "within {number}"
+msgstr "{number} içinde"
+
+#: src/shared/rule-answer/factLabels.ts:114
+msgid "Work allowed by your residence title"
+msgstr "İkamet belgenizin izin verdiği çalışma"
+
+#: src/shared/context-control/situationLabels.ts:10
+msgid "Worker"
+msgstr "Çalışan"
+
+#: src/screens/category-hub/CategoryHub.tsx:143
+msgid "You can use this checklist as a simple guide. Your progress is not saved."
+msgstr "Bu kontrol listesini basit bir kılavuz olarak kullanabilirsiniz. İlerlemeniz kaydedilmez."
+
+#: src/screens/suggest/SuggestUpdate.tsx:139
+msgid "you@example.com"
+msgstr "you@example.com"
+
+#: src/shared/rule-answer/factLabels.ts:87
+msgid "Your current title while the application is decided"
+msgstr "Başvurunuz karara bağlanırken mevcut belgeniz"
+
+#: src/screens/suggest/SuggestUpdate.tsx:138
+msgid "Your email"
+msgstr "E-posta adresiniz"
+
+#: src/screens/guide/Guide.tsx:146
+msgid "Your nationality"
+msgstr "Uyruğunuz"
+
+#: src/screens/task-hub/TaskHub.tsx:126
+msgid "Your nationality, residence status and plans can each change which of these areas apply to you, and in what order."
+msgstr "Uyruğunuz, ikamet durumunuz ve planlarınız; bu alanlardan hangilerinin size uyduğunu ve hangi sırayla geleceğini değiştirebilir."
+
+#: src/screens/guide/GuideSection.tsx:19
+msgid "Your options"
+msgstr "Seçenekleriniz"
+
+#: src/screens/guide/Guide.tsx:145
+msgid "Your residence status"
+msgstr "İkamet durumunuz"
+
+#: src/screens/guide/Guide.tsx:148
+msgid "Your role"
+msgstr "Rolünüz"
+
+#: src/shared/rule-answer/factLabels.ts:34
+msgid "Your share of inpatient care, at a non-contracted provider or a public hospital outside Annex 1"
+msgstr "Yatarak tedavide payınız, anlaşmasız sağlık kuruluşunda veya Ek 1 dışındaki bir kamu hastanesinde"
+
+#: src/shared/rule-answer/factLabels.ts:30
+msgid "Your share of inpatient care, at a provider your insurer has contracted with"
+msgstr "Yatarak tedavide payınız, sigortanızın anlaşmalı olduğu bir sağlık kuruluşunda"
+
+#: src/shared/rule-answer/factLabels.ts:38
+msgid "Your share of inpatient care, at a public hospital named in Annex 1"
+msgstr "Yatarak tedavide payınız, Ek 1’de sayılan bir kamu hastanesinde"
+
+#: src/shared/rule-answer/factLabels.ts:32
+msgid "Your share of outpatient care, at a non-contracted provider or a public hospital outside Annex 1"
+msgstr "Ayakta tedavide payınız, anlaşmasız sağlık kuruluşunda veya Ek 1 dışındaki bir kamu hastanesinde"
+
+#: src/shared/rule-answer/factLabels.ts:28
+msgid "Your share of outpatient care, at a provider your insurer has contracted with"
+msgstr "Ayakta tedavide payınız, sigortanızın anlaşmalı olduğu bir sağlık kuruluşunda"
+
+#: src/shared/rule-answer/factLabels.ts:36
+msgid "Your share of outpatient care, at a public hospital named in Annex 1"
+msgstr "Ayakta tedavide payınız, Ek 1’de sayılan bir kamu hastanesinde"
+
+#: src/shared/rule-answer/factLabels.ts:88
+msgid "Your stay while the application is decided"
+msgstr "Başvurunuz karara bağlanırken kalışınız"
+
+#: src/shared/rule-answer/factLabels.ts:92
+msgid "Your title, with the online application's confirmation"
+msgstr "Belgeniz, çevrim içi başvurunun onayıyla birlikte"

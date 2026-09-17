@@ -1,0 +1,1407 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language: \n"
+"Language-Team: \n"
+"Content-Type: \n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#: src/shared/rule-answer/RuleAnswer.tsx:94
+msgid "{asks} can change this"
+msgstr "{asks} kann dies ändern"
+
+#: src/shared/rule-answer/RuleAnswer.tsx:132
+msgid "{asks} could help settle which rule applies. Tell us and we will check again."
+msgstr "{asks} könnte klären, welche Regel gilt. Sagen Sie es uns, dann prüfen wir erneut."
+
+#: src/shared/rule-answer/RuleAnswer.tsx:134
+msgid "{asks} could help settle which rule applies. We cannot take this detail from you yet."
+msgstr "{asks} könnte klären, welche Regel gilt. Diese Angabe können wir von Ihnen noch nicht entgegennehmen."
+
+#: src/shared/rule-answer/RuleAnswer.tsx:94
+msgid "{asks} decides the answer"
+msgstr "{asks} entscheidet über die Antwort"
+
+#: src/shared/rule-answer/factValue.ts:56
+msgid "{count, plural, =1 {the gross minimum wage} other {# times the gross minimum wage}}"
+msgstr "{count, plural, =1 {der Brutto-Mindestlohn} other {das #-Fache des Brutto-Mindestlohns}}"
+
+#: src/shared/rule-answer/factValue.ts:53
+msgid "{count, plural, one {# calendar year} other {# calendar years}}"
+msgstr "{count, plural, one {# Kalenderjahr} other {# Kalenderjahre}}"
+
+#: src/shared/rule-answer/factValue.ts:43
+msgid "{count, plural, one {# day} other {# days}}"
+msgstr "{count, plural, one {# Tag} other {# Tage}}"
+
+#: src/shared/rule-answer/factValue.ts:49
+msgid "{count, plural, one {# month} other {# months}}"
+msgstr "{count, plural, one {# Monat} other {# Monate}}"
+
+#: src/shared/rule-answer/factValue.ts:41
+msgid "{count, plural, one {# percentage point} other {# percentage points}}"
+msgstr "{count, plural, one {# Prozentpunkt} other {# Prozentpunkte}}"
+
+#: src/screens/search/SearchResults.tsx:86
+msgid "{count, plural, one {# result} other {# results}}"
+msgstr "{count, plural, one {# Ergebnis} other {# Ergebnisse}}"
+
+#: src/shared/rule-answer/factValue.ts:58
+msgid "{count, plural, one {# Turkish employee for each foreigner} other {# Turkish employees for each foreigner}}"
+msgstr "{count, plural, one {# türkische Beschäftigte je ausländischer Person} other {# türkische Beschäftigte je ausländischer Person}}"
+
+#: src/shared/rule-answer/factValue.ts:47
+msgid "{count, plural, one {# week} other {# weeks}}"
+msgstr "{count, plural, one {# Woche} other {# Wochen}}"
+
+#: src/shared/rule-answer/factValue.ts:45
+msgid "{count, plural, one {# working day} other {# working days}}"
+msgstr "{count, plural, one {# Werktag} other {# Werktage}}"
+
+#: src/shared/rule-answer/factValue.ts:51
+msgid "{count, plural, one {# year} other {# years}}"
+msgstr "{count, plural, one {# Jahr} other {# Jahre}}"
+
+#: src/shared/deadline-item/DeadlineItem.tsx:30
+msgid "{days, plural, one {# day late} other {# days late}}"
+msgstr "{days, plural, one {# Tag überfällig} other {# Tage überfällig}}"
+
+#: src/shared/deadline-item/DeadlineItem.tsx:26
+#: src/shared/deadline-item/DeadlineItem.tsx:27
+#: src/shared/deadline-item/DeadlineItem.tsx:28
+msgid "{days, plural, one {# day} other {# days}}"
+msgstr "{days, plural, one {# Tag} other {# Tage}}"
+
+#: src/shared/progress-indicator/ProgressIndicator.tsx:20
+msgid "{done} of {total, plural, one {# step completed} other {# steps completed}}"
+msgstr "{total, plural, one {{done} von # Schritt abgeschlossen} other {{done} von # Schritten abgeschlossen}}"
+
+#: src/screens/category-hub/CategoryHub.tsx:108
+msgid "{minutes} min read"
+msgstr "{minutes} Min. Lesezeit"
+
+#: src/shared/rule-answer/factValue.ts:30
+msgid "{money} a month"
+msgstr "{money} im Monat"
+
+#: src/shared/rule-answer/factValue.ts:29
+msgid "{money} a year"
+msgstr "{money} im Jahr"
+
+#: src/shared/page-head/title.ts:23
+msgid "{named} · Skipbureau"
+msgstr "{named} · Skipbureau"
+
+#: src/shared/page-head/title.ts:32
+msgid "{title} in {place}"
+msgstr "{title} ({place})"
+
+#: src/screens/coming-soon/SetupSoon.tsx:12
+msgid "A few questions about your situation, then only the steps that apply to you, in the order they come. Until it is ready, the overview lists every area the goal involves."
+msgstr "Ein paar Fragen zu Ihrer Situation, dann nur die Schritte, die für Sie gelten, in der Reihenfolge, in der sie anfallen. Bis es so weit ist, listet die Übersicht alle Bereiche des Ziels auf."
+
+#: src/shared/rule-answer/factLabels.ts:17
+msgid "A UETS account among the documents"
+msgstr "Ein UETS-Konto unter den Unterlagen"
+
+#: src/shared/context-control/ContextPanel.tsx:147
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: src/shared/context-control/YourDetails.tsx:110
+msgid "Add city"
+msgstr "Stadt hinzufügen"
+
+#: src/shared/context-control/ContextControl.tsx:60
+msgid "Add your details"
+msgstr "Ihre Angaben hinzufügen"
+
+#: src/shared/rule-answer/factLabels.ts:107
+msgid "Allowance deducted from the levy base"
+msgstr "Vom Abgabengrundbetrag abgezogener Freibetrag"
+
+#: src/screens/task-hub/TaskHub.tsx:32
+msgid "Alternative route"
+msgstr "Alternativer Weg"
+
+#: src/shared/rule-answer/factLabels.ts:79
+msgid "Annual tax-certificate renewal deadline"
+msgstr "Jährliche Frist zur Erneuerung der Steuerbescheinigung"
+
+#: src/screens/task-hub/GuidedSetup.tsx:29
+msgid "Answer a few questions and we’ll build a roadmap for your situation."
+msgstr "Beantworten Sie ein paar Fragen, dann erstellen wir einen Fahrplan für Ihre Situation."
+
+#: src/shared/ask-field/HomeAskField.tsx:42
+msgid "Ask"
+msgstr "Fragen"
+
+#: src/screens/home/HomeHero.tsx:32
+#: src/screens/search/SearchResults.tsx:77
+msgid "Ask a question or describe what you’re trying to do…"
+msgstr "Stellen Sie eine Frage oder beschreiben Sie, was Sie vorhaben…"
+
+#. placeholder {0}: hub.title
+#: src/screens/category-hub/CategoryHub.tsx:179
+msgid "Ask about {0}"
+msgstr "Zu {0} fragen"
+
+#: src/screens/search/SearchResults.tsx:71
+msgid "Ask about {name}"
+msgstr "Zu {name} fragen"
+
+#: src/screens/category-hub/CategoryHub.tsx:175
+msgid "Ask about this and find the most relevant guide."
+msgstr "Fragen Sie danach und finden Sie den passenden Leitfaden."
+
+#: src/screens/home/HomeHero.tsx:31
+#: src/screens/search/SearchResults.tsx:76
+#: src/shared/header/Header.tsx:161
+msgid "Ask Skipbureau"
+msgstr "Skipbureau fragen"
+
+#: src/shared/header/Header.tsx:160
+msgid "Ask Skipbureau…"
+msgstr "Skipbureau fragen…"
+
+#: src/shared/rule-answer/factValue.ts:82
+msgid "at least {number}"
+msgstr "mindestens {number}"
+
+#: src/shared/rule-answer/factValue.ts:81
+msgid "at most {number}"
+msgstr "höchstens {number}"
+
+#: src/screens/guide/Guide.tsx:96
+msgid "Back to {categoryTitle}"
+msgstr "Zurück zu {categoryTitle}"
+
+#: src/screens/suggest/SuggestUpdate.tsx:102
+msgid "Back to the guide"
+msgstr "Zurück zum Leitfaden"
+
+#: src/screens/coming-soon/GuidesSoon.tsx:13
+#: src/screens/guide/Guide.tsx:96
+#: src/screens/search/SearchResults.tsx:100
+msgid "Back to the home page"
+msgstr "Zurück zur Startseite"
+
+#: src/screens/coming-soon/SetupSoon.tsx:11
+msgid "Back to the overview"
+msgstr "Zurück zur Übersicht"
+
+#: src/screens/guide/GuideSection.tsx:17
+msgid "Before you start"
+msgstr "Bevor Sie beginnen"
+
+#: src/screens/guide/GuideSection.tsx:123
+msgid "Best for"
+msgstr "Am besten geeignet für"
+
+#: src/shared/roadmap-step/RoadmapStep.tsx:23
+msgid "Blocked"
+msgstr "Blockiert"
+
+#: src/shared/breadcrumb/Breadcrumb.tsx:17
+msgid "Breadcrumb"
+msgstr "Navigationspfad"
+
+#: src/screens/suggest/SuggestUpdate.tsx:189
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: src/shared/rule-answer/factLabels.ts:24
+msgid "Card fee"
+msgstr "Dokumentengebühr"
+
+#: src/shared/rule-answer/factLabels.ts:123
+msgid "Care insurance contribution rate"
+msgstr "Beitragssatz der Pflegeversicherung"
+
+#: src/shared/rule-answer/factLabels.ts:125
+msgid "Care insurance discount for each child"
+msgstr "Abschlag in der Pflegeversicherung je Kind"
+
+#: src/shared/rule-answer/factLabels.ts:124
+msgid "Care insurance rate for a childless member"
+msgstr "Beitragssatz der Pflegeversicherung für Kinderlose"
+
+#: src/shared/checklist-item/ChecklistItem.tsx:24
+msgid "Check date"
+msgstr "Datum prüfen"
+
+#: src/screens/suggest/SuggestUpdate.tsx:145
+msgid "Check the address: it needs an @ and a domain, like you@example.com."
+msgstr "Prüfen Sie die Adresse: Sie braucht ein @ und eine Domain, etwa you@example.com."
+
+#: src/shared/source-card/SourceCard.tsx:32
+msgid "Checked this month"
+msgstr "Diesen Monat geprüft"
+
+#: src/shared/context-control/ContextPanel.tsx:235
+#: src/shared/context-control/ContextPanel.tsx:238
+msgid "City in {countryName}"
+msgstr "{countryName}: Stadt"
+
+#: src/shared/context-control/ContextPanel.tsx:328
+msgid "Clear all"
+msgstr "Alles zurücksetzen"
+
+#: src/screens/home/head.ts:13
+#: src/screens/home/HomeHero.tsx:27
+msgid "Clear, step-by-step guidance for living, studying, working and doing business in {name}."
+msgstr "{name}: klare Schritt-für-Schritt-Anleitungen zum Leben, Studieren, Arbeiten und Gründen."
+
+#: src/screens/category-hub/CategoryHub.tsx:161
+#: src/screens/coming-soon/ComingSoon.tsx:20
+#: src/screens/search/SearchResults.tsx:132
+#: src/shared/context-control/ContextPanel.tsx:182
+#: src/shared/task-tile/TaskTile.tsx:22
+msgid "Coming soon"
+msgstr "Demnächst"
+
+#: src/screens/guide/GuideSection.tsx:24
+msgid "Common problems"
+msgstr "Häufige Probleme"
+
+#: src/screens/home/Home.tsx:83
+msgid "Common questions"
+msgstr "Häufige Fragen"
+
+#: src/shared/rule-answer/factLabels.ts:76
+msgid "Competition Authority levy on subscribed capital"
+msgstr "Abgabe an die Wettbewerbsbehörde auf das gezeichnete Kapital"
+
+#: src/shared/roadmap-step/RoadmapStep.tsx:19
+msgid "Completed"
+msgstr "Abgeschlossen"
+
+#: src/screens/category-hub/CategoryHub.tsx:195
+msgid "Content shown here is sample material for design review."
+msgstr "Die hier gezeigten Inhalte sind Beispielmaterial für die Gestaltungsprüfung."
+
+#: src/shared/saved-item/SavedItem.tsx:86
+msgid "Continue"
+msgstr "Fortfahren"
+
+#: src/shared/rule-answer/factLabels.ts:42
+msgid "Continuous residence before applying for GSS"
+msgstr "Ununterbrochener Aufenthalt vor dem GSS-Antrag"
+
+#: src/shared/rule-answer/factLabels.ts:44
+msgid "Contribution days in the preceding year, for routine treatment"
+msgstr "Beitragstage im Vorjahr für die reguläre Behandlung"
+
+#: src/screens/guide/Guide.tsx:112
+msgid "Cost and time"
+msgstr "Kosten und Dauer"
+
+#: src/shared/context-control/ContextPanel.tsx:223
+#: src/shared/context-control/ContextPanel.tsx:225
+msgid "Currently in"
+msgstr "Zurzeit in"
+
+#: src/shared/rule-answer/factLabels.ts:78
+msgid "Deadline for the first tax certificate after tax liability begins"
+msgstr "Frist für die erste Steuerbescheinigung nach Beginn der Steuerpflicht"
+
+#: src/shared/rule-answer/factLabels.ts:65
+msgid "Deadline to apply for a residence permit after a work permit ends"
+msgstr "Frist für den Antrag auf einen Aufenthaltstitel nach Ende der Arbeitserlaubnis"
+
+#: src/shared/rule-answer/factLabels.ts:89
+msgid "Deadline to apply inside Germany"
+msgstr "Frist für die Antragstellung im Inland"
+
+#: src/shared/rule-answer/factLabels.ts:121
+msgid "Deadline to join voluntarily in your first employment"
+msgstr "Frist für den freiwilligen Beitritt in Ihrer ersten Beschäftigung"
+
+#: src/shared/rule-answer/factLabels.ts:102
+msgid "Deadline to notify the accident insurer"
+msgstr "Frist zur Meldung an die Unfallversicherung"
+
+#: src/shared/rule-answer/factLabels.ts:70
+msgid "Deadline to pay cash capital after registration"
+msgstr "Frist zur Einzahlung der Bareinlage nach der Eintragung"
+
+#: src/shared/rule-answer/factLabels.ts:81
+msgid "Deadline to register an employee before starting work"
+msgstr "Frist zur Anmeldung einer beschäftigten Person vor Arbeitsbeginn"
+
+#: src/shared/rule-answer/factLabels.ts:13
+msgid "Deadline to register your address"
+msgstr "Frist für die Anmeldung Ihrer Wohnung"
+
+#: src/shared/rule-answer/factLabels.ts:77
+msgid "Deadline to request electronic tax notifications after starting business"
+msgstr "Frist zur Beantragung elektronischer Steuerbescheide nach Aufnahme der Tätigkeit"
+
+#: src/shared/rule-answer/factLabels.ts:103
+msgid "Deadline to send the tax questionnaire"
+msgstr "Frist für den Fragebogen zur steuerlichen Erfassung"
+
+#: src/screens/task-hub/TaskHub.tsx:29
+msgid "Decision"
+msgstr "Entscheidung"
+
+#: src/screens/suggest/SuggestUpdate.tsx:121
+msgid "Describe what changed"
+msgstr "Beschreiben Sie, was sich geändert hat"
+
+#: src/screens/suggest/SuggestUpdate.tsx:127
+msgid "Describe what changed, even in one sentence."
+msgstr "Beschreiben Sie, was sich geändert hat, ein Satz genügt."
+
+#: src/screens/task-hub/TaskHub.tsx:195
+msgid "Descriptions on this page are sample content for design review. They deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
+msgstr "Die Beschreibungen auf dieser Seite sind Beispielinhalte für die Gestaltungsprüfung. Gebühren, Schwellenwerte und Voraussetzungen fehlen bewusst; sie werden im geführten Ablauf anhand geprüfter Quellen bestimmt."
+
+#: src/shared/saved-item/SavedItem.tsx:18
+msgid "Document"
+msgstr "Dokument"
+
+#: src/shared/deadline-item/DeadlineItem.tsx:31
+msgid "Done"
+msgstr "Erledigt"
+
+#: src/shared/rule-answer/factLabels.ts:117
+msgid "Earnings threshold for compulsory insurance"
+msgstr "Verdienstgrenze für die Versicherungspflicht"
+
+#: src/shared/rule-answer/factLabels.ts:126
+msgid "Employee’s share of the care contribution"
+msgstr "Arbeitnehmeranteil am Pflegebeitrag"
+
+#: src/shared/rule-answer/factLabels.ts:64
+msgid "Employer’s deadline to notify the Ministry of employment changes"
+msgstr "Frist der Arbeitgeberin oder des Arbeitgebers, dem Ministerium Änderungen der Beschäftigung zu melden"
+
+#: src/shared/rule-answer/factLabels.ts:127
+msgid "Employer’s share of the care contribution"
+msgstr "Arbeitgeberanteil am Pflegebeitrag"
+
+#: src/shared/rule-answer/factLabels.ts:84
+msgid "Event that opens ETDS"
+msgstr "Ereignis, das ETDS eröffnet"
+
+#: src/screens/coming-soon/GuidesSoon.tsx:12
+msgid "Every guide for {name}"
+msgstr "{name}: alle Leitfäden"
+
+#: src/screens/category-hub/CategoryHub.tsx:199
+#: src/screens/home/Home.tsx:108
+msgid "Every guide shows when it was last verified and links to the official source"
+msgstr "Jeder Leitfaden zeigt, wann er zuletzt geprüft wurde, und verlinkt die amtliche Quelle"
+
+#: src/shared/rule-answer/factLabels.ts:25
+msgid "Exemption from the card fee by nationality"
+msgstr "Befreiung von der Dokumentengebühr nach Staatsangehörigkeit"
+
+#: src/shared/document-card/DocumentCard.tsx:20
+msgid "Expiring"
+msgstr "Läuft ab"
+
+#: src/shared/header/Header.tsx:131
+msgid "Explore"
+msgstr "Entdecken"
+
+#: src/shared/rule-answer/factLabels.ts:56
+msgid "Exports for an established business"
+msgstr "Ausfuhren eines bestehenden Unternehmens"
+
+#: src/shared/rule-answer/factLabels.ts:75
+msgid "Fees under Law 492 that company formation is exempt from"
+msgstr "Gebühren nach Gesetz Nr. 492, von denen die Unternehmensgründung befreit ist"
+
+#: src/screens/home/Home.tsx:104
+msgid "Figures, timings and requirements shown throughout this design are sample content for review, not verified legal information."
+msgstr "Beträge, Fristen und Voraussetzungen in dieser Gestaltung sind Beispielinhalte für die Prüfung, keine geprüften Rechtsinformationen."
+
+#: src/shared/rule-answer/factLabels.ts:15
+msgid "Fine for a false address declaration"
+msgstr "Bußgeld für eine falsche Wohnungsangabe"
+
+#: src/shared/rule-answer/factLabels.ts:97
+msgid "Fine for a late or missing trade notification"
+msgstr "Bußgeld für eine verspätete oder fehlende Gewerbeanmeldung"
+
+#: src/shared/rule-answer/factLabels.ts:14
+msgid "Fine for registering late"
+msgstr "Bußgeld für eine verspätete Anmeldung"
+
+#: src/shared/rule-answer/factLabels.ts:49
+msgid "Fixed-term work permit fee, up to one year"
+msgstr "Gebühr für eine befristete Arbeitserlaubnis, bis zu einem Jahr"
+
+#: src/shared/information-disclaimer/InformationDisclaimer.tsx:15
+msgid "For general information only"
+msgstr "Nur zur allgemeinen Information"
+
+#: src/shared/rule-answer/RuleAnswer.tsx:47
+msgid "For you"
+msgstr "Für Sie"
+
+#: src/shared/context-control/YourDetails.tsx:108
+msgid "From {originName}"
+msgstr "Herkunft: {originName}"
+
+#: src/shared/rule-answer/factLabels.ts:118
+msgid "General contribution rate"
+msgstr "Allgemeiner Beitragssatz"
+
+#: src/screens/category-hub/CategoryHub.tsx:120
+#: src/screens/category-hub/CategoryHub.tsx:135
+msgid "Getting started checklist"
+msgstr "Checkliste für den Anfang"
+
+#: src/shared/rule-answer/factLabels.ts:62
+msgid "Gross minimum wage in 2026"
+msgstr "Brutto-Mindestlohn 2026"
+
+#: src/shared/rule-answer/factLabels.ts:46
+msgid "GSS premium base"
+msgstr "Beitragsgrundlage der GSS"
+
+#: src/shared/rule-answer/factLabels.ts:45
+msgid "GSS premium rate"
+msgstr "Beitragssatz der GSS"
+
+#: src/shared/rule-answer/factLabels.ts:43
+msgid "GSS registration starts after the request"
+msgstr "Die GSS-Versicherung beginnt nach dem Antrag"
+
+#: src/screens/guide/Guide.tsx:218
+#: src/shared/ask-result-row/AskResultRow.tsx:21
+#: src/shared/saved-item/SavedItem.tsx:18
+msgid "Guide"
+msgstr "Leitfaden"
+
+#: src/shared/process-card/ProcessCard.tsx:43
+msgid "Guided process"
+msgstr "Geführter Vorgang"
+
+#: src/screens/coming-soon/SetupSoon.tsx:11
+msgid "Guided setup"
+msgstr "Geführter Ablauf"
+
+#: src/screens/task-hub/TaskHub.tsx:122
+msgid "Guided setup works this out with you"
+msgstr "Der geführte Ablauf klärt das gemeinsam mit Ihnen"
+
+#: src/screens/search/SearchResults.tsx:118
+#: src/screens/task-hub/TaskHub.tsx:140
+#: src/shared/header/Header.tsx:136
+msgid "Guides"
+msgstr "Leitfäden"
+
+#: src/core/prerender/prerender.ts:81
+#: src/screens/category-hub/CategoryHub.tsx:59
+#: src/screens/category-hub/CategoryHub.tsx:60
+#: src/screens/category-hub/CategoryHub.tsx:66
+#: src/screens/guide/Guide.tsx:206
+#: src/screens/guide/Guide.tsx:211
+#: src/screens/task-hub/TaskHub.tsx:78
+msgid "Home"
+msgstr "Startseite"
+
+#: src/screens/task-hub/GuidedSetup.tsx:45
+msgid "How it works"
+msgstr "So funktioniert es"
+
+#: src/screens/guide/GuideSection.tsx:20
+msgid "How to do it"
+msgstr "So gehen Sie vor"
+
+#: src/shared/context-control/situationLabels.ts:15
+msgid "I am starting a company"
+msgstr "Ich gründe ein Unternehmen"
+
+#: src/shared/context-control/situationLabels.ts:16
+msgid "I run an existing company"
+msgstr "Ich führe ein bestehendes Unternehmen"
+
+#: src/screens/task-hub/TaskHub.tsx:30
+msgid "If it applies to you"
+msgstr "Falls es auf Sie zutrifft"
+
+#: src/screens/guide/Guide.tsx:351
+msgid "If you know this information is outdated or incorrect, let us know. We review submissions before updating the guide."
+msgstr "Wenn Sie wissen, dass diese Angabe veraltet oder falsch ist, sagen Sie uns Bescheid. Wir prüfen Hinweise, bevor wir den Leitfaden aktualisieren."
+
+#: src/screens/guide/GuideSection.tsx:22
+msgid "Important to know"
+msgstr "Wichtig zu wissen"
+
+#: src/shared/process-card/ProcessCard.tsx:43
+msgid "In progress"
+msgstr "Läuft"
+
+#: src/shared/rule-answer/factLabels.ts:33
+msgid "Inpatient cover, at a non-contracted provider or a public hospital outside Annex 1"
+msgstr "Stationäre Leistung bei einem Haus ohne Vertrag oder einem öffentlichen Krankenhaus außerhalb von Anlage 1"
+
+#: src/shared/rule-answer/factLabels.ts:29
+msgid "Inpatient cover, at a provider your insurer has contracted with"
+msgstr "Stationäre Leistung bei einem Haus mit Vertrag Ihrer Versicherung"
+
+#: src/shared/rule-answer/factLabels.ts:37
+msgid "Inpatient cover, at a public hospital named in Annex 1"
+msgstr "Stationäre Leistung bei einem in Anlage 1 genannten öffentlichen Krankenhaus"
+
+#: src/screens/suggest/SuggestUpdate.tsx:160
+msgid "It was not sent. Check your connection and try again."
+msgstr "Es wurde nicht gesendet. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut."
+
+#: src/screens/guide/Guide.tsx:108
+msgid "Key deadlines"
+msgstr "Wichtige Fristen"
+
+#: src/shared/header/LanguageControl.tsx:35
+msgid "Language"
+msgstr "Sprache"
+
+#: src/shared/source-card/SourceCard.tsx:60
+msgid "Last checked {day}"
+msgstr "Zuletzt geprüft: {day}"
+
+#: src/shared/source-card/SourceCard.tsx:60
+msgid "Last reachable {day}"
+msgstr "Zuletzt erreichbar: {day}"
+
+#: src/screens/category-hub/CategoryHub.tsx:82
+msgid "Last reviewed: {reviewed}"
+msgstr "Zuletzt durchgesehen: {reviewed}"
+
+#. placeholder {0}: formatMonth(latest, locale, 'long')
+#: src/screens/task-hub/TaskHub.tsx:179
+msgid "Last verified {0}"
+msgstr "Zuletzt geprüft: {0}"
+
+#: src/screens/guide/Guide.tsx:234
+#: src/screens/guide/Guide.tsx:307
+#: src/screens/guide/Guide.tsx:365
+msgid "Last verified: {verified}"
+msgstr "Zuletzt geprüft: {verified}"
+
+#: src/shared/context-control/ContextPanel.tsx:104
+msgid "Loading…"
+msgstr "Wird geladen…"
+
+#: src/shared/rule-answer/factLabels.ts:21
+msgid "Longest stay on a visa or visa exemption"
+msgstr "Längster Aufenthalt mit Visum oder Visumbefreiung"
+
+#: src/shared/header/Header.tsx:98
+msgid "Main"
+msgstr "Hauptnavigation"
+
+#: src/shared/rule-answer/factLabels.ts:66
+msgid "Maximum work while a timely extension is assessed"
+msgstr "Höchstdauer der Arbeit während einer fristgerecht beantragten Verlängerung"
+
+#: src/shared/rule-answer/factLabels.ts:69
+msgid "Minimum capital for a limited company"
+msgstr "Mindestkapital einer Gesellschaft mit beschränkter Haftung"
+
+#: src/shared/rule-answer/factLabels.ts:50
+msgid "Minimum issued term of the residence permit"
+msgstr "Mindestlaufzeit des ausgestellten Aufenthaltstitels"
+
+#: src/shared/rule-answer/factLabels.ts:61
+msgid "Minimum salary for domestic and other work"
+msgstr "Mindestlohn für Hausarbeit und sonstige Tätigkeiten"
+
+#: src/shared/rule-answer/factLabels.ts:58
+msgid "Minimum salary for engineers and architects"
+msgstr "Mindestlohn für Ingenieurinnen, Ingenieure und Architektinnen und Architekten"
+
+#: src/shared/rule-answer/factLabels.ts:59
+msgid "Minimum salary for other managers"
+msgstr "Mindestlohn für sonstige Führungskräfte"
+
+#: src/shared/rule-answer/factLabels.ts:57
+msgid "Minimum salary for senior executives and pilots"
+msgstr "Mindestlohn für leitende Angestellte und Pilotinnen und Piloten"
+
+#: src/shared/rule-answer/factLabels.ts:60
+msgid "Minimum salary for work requiring expertise or mastery"
+msgstr "Mindestlohn für Tätigkeiten, die Fachkenntnis oder Meisterschaft verlangen"
+
+#: src/shared/rule-answer/factLabels.ts:112
+msgid "Minimum waiver period"
+msgstr "Mindestdauer des Verzichts"
+
+#: src/shared/checklist-item/ChecklistItem.tsx:22
+#: src/shared/document-card/DocumentCard.tsx:19
+msgid "Missing"
+msgstr "Fehlt"
+
+#: src/shared/rule-answer/factLabels.ts:120
+msgid "Monthly contribution assessment ceiling"
+msgstr "Monatliche Beitragsbemessungsgrenze"
+
+#: src/shared/context-control/ContextPanel.tsx:220
+#: src/shared/context-control/ContextPanel.tsx:221
+msgid "Nationality"
+msgstr "Staatsangehörigkeit"
+
+#: src/shared/roadmap-step/RoadmapStep.tsx:24
+msgid "Needs your answer"
+msgstr "Ihre Angabe fehlt"
+
+#: src/shared/rule-answer/factLabels.ts:63
+msgid "Net minimum wage in 2026"
+msgstr "Netto-Mindestlohn 2026"
+
+#: src/shared/rule-answer/factLabels.ts:55
+msgid "Net sales for an established business"
+msgstr "Nettoumsatz eines bestehenden Unternehmens"
+
+#: src/shared/roadmap-step/RoadmapStep.tsx:20
+msgid "Next action"
+msgstr "Nächster Schritt"
+
+#: src/shared/process-card/ProcessCard.tsx:68
+msgid "Next: {next}"
+msgstr "Als Nächstes: {next}"
+
+#: src/screens/suggest/SuggestUpdate.tsx:186
+msgid "No account needed"
+msgstr "Kein Konto nötig"
+
+#: src/shared/rule-answer/factValue.ts:71
+msgid "None"
+msgstr "Keine"
+
+#: src/shared/checklist-item/ChecklistItem.tsx:25
+msgid "Not for you"
+msgstr "Für Sie nicht erforderlich"
+
+#: src/screens/guide/Guide.tsx:251
+msgid "Not in your language yet"
+msgstr "Noch nicht in Ihrer Sprache"
+
+#: src/shared/source-card/SourceCard.tsx:33
+msgid "Not re-checked since {month}"
+msgstr "Seit {month} nicht erneut geprüft"
+
+#: src/shared/document-card/DocumentCard.tsx:17
+msgid "Not started"
+msgstr "Nicht begonnen"
+
+#: src/screens/task-hub/GuidedSetup.tsx:26
+msgid "Not sure where to start?"
+msgstr "Sie wissen nicht, wo Sie anfangen sollen?"
+
+#: src/shared/info-panel/InfoPanel.tsx:15
+msgid "Not yet verified"
+msgstr "Noch nicht geprüft"
+
+#: src/shared/context-control/ContextPanel.tsx:313
+msgid "Nothing here is required."
+msgstr "Nichts davon ist verpflichtend."
+
+#: src/shared/context-control/ContextPanel.tsx:105
+msgid "Nothing matches"
+msgstr "Keine Treffer"
+
+#: src/screens/search/SearchResults.tsx:94
+msgid "Nothing matches yet"
+msgstr "Noch keine Treffer"
+
+#: src/shared/ask-panel/NothingFound.tsx:9
+msgid "Nothing matches yet. Try other words, or pick a goal on the home page."
+msgstr "Noch keine Treffer. Versuchen Sie andere Wörter oder wählen Sie ein Ziel auf der Startseite."
+
+#: src/shared/info-panel/InfoPanel.tsx:10
+msgid "Official information"
+msgstr "Amtliche Information"
+
+#: src/screens/suggest/SuggestUpdate.tsx:134
+msgid "Official or reliable sources help us verify the change faster."
+msgstr "Amtliche oder verlässliche Quellen helfen uns, die Änderung schneller zu prüfen."
+
+#: src/shared/source-card/SourceCard.tsx:34
+msgid "Official page did not respond"
+msgstr "Amtliche Seite hat nicht geantwortet"
+
+#: src/shared/source-card/SourceCard.tsx:65
+msgid "Official page unavailable"
+msgstr "Amtliche Seite nicht erreichbar"
+
+#: src/shared/source-card/SourceCard.tsx:41
+msgid "Official source"
+msgstr "Amtliche Quelle"
+
+#: src/screens/guide/Guide.tsx:305
+msgid "Official sources"
+msgstr "Amtliche Quellen"
+
+#: src/screens/coming-soon/GuidesSoon.tsx:15
+msgid "One list of every guide, to browse by topic. Until it is ready, each guide is a click away from its goal on the home page, or from Ask."
+msgstr "Eine Liste aller Leitfäden, nach Thema zu durchsuchen. Bis es so weit ist, ist jeder Leitfaden einen Klick von seinem Ziel auf der Startseite oder von der Suche entfernt."
+
+#: src/screens/task-hub/TaskHub.tsx:31
+msgid "Ongoing"
+msgstr "Laufend"
+
+#: src/shared/saved-item/SavedItem.tsx:86
+msgid "Open"
+msgstr "Öffnen"
+
+#: src/shared/source-card/SourceCard.tsx:41
+msgid "Operator source"
+msgstr "Quelle des Anbieters"
+
+#: src/shared/checklist-item/ChecklistItem.tsx:21
+msgid "Optional"
+msgstr "Optional"
+
+#: src/screens/task-hub/TaskHub.tsx:105
+msgid "Or explore the areas involved yourself."
+msgstr "Oder sehen Sie sich die beteiligten Bereiche selbst an."
+
+#: src/screens/task-hub/TaskHub.tsx:167
+msgid "Other routes"
+msgstr "Andere Wege"
+
+#: src/shared/rule-answer/factLabels.ts:31
+msgid "Outpatient cover, at a non-contracted provider or a public hospital outside Annex 1"
+msgstr "Ambulante Leistung bei einem Haus ohne Vertrag oder einem öffentlichen Krankenhaus außerhalb von Anlage 1"
+
+#: src/shared/rule-answer/factLabels.ts:27
+msgid "Outpatient cover, at a provider your insurer has contracted with"
+msgstr "Ambulante Leistung bei einem Haus mit Vertrag Ihrer Versicherung"
+
+#: src/shared/rule-answer/factLabels.ts:35
+msgid "Outpatient cover, at a public hospital named in Annex 1"
+msgstr "Ambulante Leistung bei einem in Anlage 1 genannten öffentlichen Krankenhaus"
+
+#: src/shared/rule-answer/factLabels.ts:53
+msgid "Paid-in capital for a new business"
+msgstr "Eingezahltes Kapital eines neuen Unternehmens"
+
+#: src/shared/rule-answer/factLabels.ts:54
+msgid "Paid-in capital for an established business"
+msgstr "Eingezahltes Kapital eines bestehenden Unternehmens"
+
+#: src/screens/suggest/SuggestUpdate.tsx:131
+msgid "Paste a link if you have one"
+msgstr "Fügen Sie einen Link ein, falls Sie einen haben"
+
+#: src/screens/home/Home.tsx:63
+msgid "Pick a goal. Each one opens a guided process built for your nationality, city and status."
+msgstr "Wählen Sie ein Ziel. Jedes öffnet einen geführten Ablauf, zugeschnitten auf Staatsangehörigkeit, Stadt und Status."
+
+#: src/shared/ask-panel/useAsk.tsx:187
+msgid "Popular right now"
+msgstr "Gerade häufig gesucht"
+
+#: src/shared/info-panel/InfoPanel.tsx:11
+msgid "Practical advice"
+msgstr "Praktischer Hinweis"
+
+#: src/shared/saved-item/SavedItem.tsx:18
+msgid "Process"
+msgstr "Vorgang"
+
+#: src/shared/rule-answer/factLabels.ts:90
+msgid "Processing time"
+msgstr "Bearbeitungsdauer"
+
+#: src/shared/rule-answer/factLabels.ts:105
+msgid "Profit below which the chamber contribution is nothing"
+msgstr "Gewinngrenze, unterhalb derer kein Kammerbeitrag anfällt"
+
+#: src/shared/rule-answer/factLabels.ts:106
+msgid "Profit ceiling for founder relief"
+msgstr "Gewinnobergrenze für die Gründerentlastung"
+
+#: src/screens/guide/Guide.tsx:269
+#: src/shared/ask-result-row/AskResultRow.tsx:23
+msgid "Quick answer"
+msgstr "Kurze Antwort"
+
+#: src/screens/search/SearchResults.tsx:141
+msgid "Quick answers"
+msgstr "Kurze Antworten"
+
+#: src/shared/source-card/SourceCard.tsx:35
+msgid "Re-verification in progress"
+msgstr "Erneute Prüfung läuft"
+
+#: src/screens/task-hub/TaskHub.tsx:141
+msgid "Read about a topic before you deal with it. Guides explain how something works; the areas above are things you may need to do."
+msgstr "Lesen Sie über ein Thema, bevor Sie es angehen. Leitfäden erklären, wie etwas funktioniert; die Bereiche oben sind Dinge, die Sie erledigen müssen."
+
+#. placeholder {0}: line.source.name
+#. placeholder {1}: line.source.checked
+#: src/shared/rule-answer/RuleAnswer.tsx:78
+msgid "Read on <0>{0}</0>, checked {1}"
+msgstr "Nachzulesen auf <0>{0}</0>, geprüft am {1}"
+
+#: src/screens/search/SearchResults.tsx:130
+#: src/screens/task-hub/TaskHub.tsx:151
+#: src/shared/ask-panel/useAsk.tsx:155
+msgid "Reading · verified {verified}"
+msgstr "Lesestoff · geprüft {verified}"
+
+#: src/shared/checklist-item/ChecklistItem.tsx:20
+#: src/shared/document-card/DocumentCard.tsx:18
+msgid "Ready"
+msgstr "Bereit"
+
+#: src/shared/ask-result-row/AskResultRow.tsx:25
+msgid "Recent"
+msgstr "Zuletzt"
+
+#: src/shared/ask-panel/useAsk.tsx:180
+msgid "Recent questions"
+msgstr "Zuletzt gestellte Fragen"
+
+#: src/screens/category-hub/RecommendedStart.tsx:21
+msgid "Recommended starting point"
+msgstr "Empfohlener Einstieg"
+
+#: src/shared/rule-answer/factLabels.ts:18
+msgid "Registration fee"
+msgstr "Anmeldegebühr"
+
+#: src/shared/rule-answer/factLabels.ts:98
+msgid "Registration fee for a sole business"
+msgstr "Anmeldegebühr für ein Einzelunternehmen"
+
+#: src/shared/rule-answer/factLabels.ts:99
+msgid "Registration fee online"
+msgstr "Anmeldegebühr online"
+
+#: src/shared/rule-answer/factLabels.ts:74
+msgid "Registry charge on company formation"
+msgstr "Registergebühr bei der Unternehmensgründung"
+
+#: src/screens/category-hub/CategoryHub.tsx:152
+#: src/screens/guide/Guide.tsx:326
+msgid "Related guides"
+msgstr "Verwandte Leitfäden"
+
+#: src/shared/saved-item/SavedItem.tsx:92
+msgid "Remove from saved"
+msgstr "Aus Gespeichertem entfernen"
+
+#: src/shared/checklist-item/ChecklistItem.tsx:23
+msgid "Renew"
+msgstr "Verlängern"
+
+#: src/shared/checklist-item/ChecklistItem.tsx:19
+msgid "Required"
+msgstr "Erforderlich"
+
+#: src/shared/rule-answer/factLabels.ts:82
+msgid "Required time to obtain an opening and operating licence"
+msgstr "Erforderliche Dauer bis zur Betriebserlaubnis"
+
+#: src/shared/rule-answer/factLabels.ts:51
+msgid "Required validity date of the residence permit"
+msgstr "Erforderliche Gültigkeit des Aufenthaltstitels"
+
+#: src/shared/rule-answer/factLabels.ts:39
+msgid "Residence permit charge"
+msgstr "Gebühr für den Aufenthaltstitel"
+
+#: src/shared/context-control/ContextPanel.tsx:251
+#: src/shared/context-control/ContextPanel.tsx:254
+msgid "Residence status"
+msgstr "Aufenthaltsstatus"
+
+#: src/screens/search/SearchResults.tsx:71
+msgid "Results for “{asked}”"
+msgstr "Ergebnisse für „{asked}“"
+
+#: src/shared/ask-panel/useAsk.tsx:175
+msgid "Results for “{text}”"
+msgstr "Ergebnisse für „{text}“"
+
+#: src/shared/rule-answer/factLabels.ts:22
+msgid "Return while your application is pending"
+msgstr "Rückkehr während Ihr Antrag läuft"
+
+#: src/shared/context-control/ContextPanel.tsx:267
+#: src/shared/context-control/ContextPanel.tsx:270
+msgid "Role"
+msgstr "Rolle"
+
+#: src/shared/info-panel/InfoPanel.tsx:13
+msgid "Scam risk"
+msgstr "Betrugsrisiko"
+
+#: src/screens/search/SearchResults.tsx:68
+msgid "Search"
+msgstr "Suche"
+
+#: src/shared/rule-answer/factLabels.ts:113
+msgid "Self-employment under the Residence Act"
+msgstr "Selbstständigkeit nach dem Aufenthaltsgesetz"
+
+#: src/screens/suggest/SuggestUpdate.tsx:192
+msgid "Send suggestion"
+msgstr "Vorschlag senden"
+
+#: src/screens/task-hub/TaskHub.tsx:168
+msgid "Separate routes some people look into."
+msgstr "Eigene Wege, die manche Menschen prüfen."
+
+#: src/screens/home/Home.tsx:83
+msgid "Short answers with the conditions that actually change them."
+msgstr "Kurze Antworten, mit den Bedingungen, die sie tatsächlich ändern."
+
+#: src/screens/suggest/SuggestUpdate.tsx:135
+msgid "Shorten the link, or paste only the address of the page."
+msgstr "Kürzen Sie den Link oder fügen Sie nur die Adresse der Seite ein."
+
+#: src/shared/header/Header.tsx:91
+msgid "Skipbureau"
+msgstr "Skipbureau"
+
+#: src/screens/Unreachable.tsx:15
+msgid "SkipBureau could not load this"
+msgstr "SkipBureau konnte dies nicht laden"
+
+#: src/shared/information-disclaimer/InformationDisclaimer.tsx:18
+msgid "Skipbureau explains everyday processes in {country}. Information can change and should not be treated as legal or professional advice. Check the linked official sources before making important decisions."
+msgstr "Skipbureau erklärt alltägliche Verfahren für {country}. Angaben können sich ändern und sind keine Rechts- oder Fachberatung. Prüfen Sie vor wichtigen Entscheidungen die verlinkten amtlichen Quellen."
+
+#: src/screens/guide/Guide.tsx:344
+#: src/screens/guide/Guide.tsx:348
+msgid "Something changed?"
+msgstr "Hat sich etwas geändert?"
+
+#: src/screens/Unreachable.tsx:18
+msgid "Something on our side did not answer. The page exists, we just could not reach it. Trying again usually works."
+msgstr "Auf unserer Seite hat etwas nicht geantwortet. Die Seite gibt es, wir konnten sie nur nicht erreichen. Ein erneuter Versuch hilft meistens."
+
+#: src/screens/suggest/SuggestUpdate.tsx:130
+msgid "Source or link (optional)"
+msgstr "Quelle oder Link (optional)"
+
+#: src/screens/guide/Guide.tsx:368
+msgid "Sources are listed above with the date we last checked them. Tell us if something here no longer matches what you found."
+msgstr "Die Quellen stehen oben, mit dem Datum unserer letzten Prüfung. Sagen Sie uns Bescheid, wenn hier etwas nicht mehr zu dem passt, was Sie vorgefunden haben."
+
+#: src/shared/rule-answer/factLabels.ts:119
+msgid "Split of the general and additional contribution"
+msgstr "Aufteilung des allgemeinen und des Zusatzbeitrags"
+
+#: src/screens/task-hub/GuidedSetup.tsx:49
+#: src/screens/task-hub/TaskHub.tsx:130
+msgid "Start guided setup"
+msgstr "Geführten Ablauf starten"
+
+#: src/screens/category-hub/RecommendedStart.tsx:47
+msgid "Start here"
+msgstr "Hier beginnen"
+
+#: src/shared/rule-answer/factLabels.ts:122
+msgid "Start of compulsory membership through employment"
+msgstr "Beginn der Pflichtmitgliedschaft durch Beschäftigung"
+
+#: src/screens/category-hub/CategoryHub.tsx:172
+msgid "Still have a question?"
+msgstr "Noch eine Frage?"
+
+#: src/screens/guide/Guide.tsx:356
+#: src/screens/suggest/SuggestUpdate.tsx:110
+msgid "Suggest an update"
+msgstr "Aktualisierung vorschlagen"
+
+#: src/shared/ask-result-row/AskResultRow.tsx:19
+msgid "Task"
+msgstr "Aufgabe"
+
+#: src/screens/task-hub/TaskHub.tsx:82
+msgid "Task hub"
+msgstr "Aufgabenübersicht"
+
+#: src/screens/search/SearchResults.tsx:106
+msgid "Tasks"
+msgstr "Aufgaben"
+
+#: src/shared/rule-answer/factLabels.ts:80
+msgid "Tax-certificate renewal deadline after the return deadline in a special accounting period"
+msgstr "Frist zur Erneuerung der Steuerbescheinigung nach der Abgabefrist in einem abweichenden Wirtschaftsjahr"
+
+#: src/shared/rule-answer/RuleAnswer.tsx:114
+#: src/shared/rule-answer/RuleAnswer.tsx:140
+msgid "Tell us"
+msgstr "Sagen Sie es uns"
+
+#: src/shared/rule-answer/RuleAnswer.tsx:104
+msgid "Tell us to show your answer."
+msgstr "Sagen Sie es uns, dann zeigen wir Ihre Antwort."
+
+#: src/screens/suggest/SuggestUpdate.tsx:126
+msgid "Tell us what looks outdated, incorrect or missing."
+msgstr "Sagen Sie uns, was veraltet, falsch oder unvollständig wirkt."
+
+#: src/screens/suggest/SuggestUpdate.tsx:94
+msgid "Thank you"
+msgstr "Vielen Dank"
+
+#: src/screens/suggest/SuggestUpdate.tsx:154
+msgid "That is a lot of suggestions at once. Wait a minute and send this one again."
+msgstr "Das sind viele Vorschläge auf einmal. Warten Sie eine Minute und senden Sie diesen erneut."
+
+#: src/screens/NotFound.tsx:14
+msgid "The address may be mistyped, or it may point at a country or a guide SkipBureau does not cover yet."
+msgstr "Die Adresse könnte falsch geschrieben sein oder auf ein Land oder einen Leitfaden verweisen, den SkipBureau noch nicht abdeckt."
+
+#: src/shared/source-card/SourceCard.tsx:93
+msgid "The institution’s own wording — not Skipbureau advice"
+msgstr "Der Wortlaut der Behörde selbst, keine Empfehlung von Skipbureau"
+
+#: src/shared/rule-answer/RuleAnswer.tsx:47
+msgid "The rule for everyone"
+msgstr "Die Regel für alle"
+
+#: src/screens/guide/Guide.tsx:281
+msgid "The rules that apply"
+msgstr "Die geltenden Regeln"
+
+#: src/screens/task-hub/TaskHub.tsx:114
+msgid "These are the areas most people deal with. They are deliberately not numbered, because the order that applies to you depends on your situation."
+msgstr "Das sind die Bereiche, mit denen die meisten zu tun haben. Sie sind bewusst nicht nummeriert, denn die für Sie richtige Reihenfolge hängt von Ihrer Situation ab."
+
+#: src/shared/info-panel/InfoPanel.tsx:14
+msgid "This depends on your situation"
+msgstr "Das hängt von Ihrer Situation ab"
+
+#. placeholder {0}: locales[language].label
+#: src/screens/guide/Guide.tsx:252
+msgid "This guide has not been translated yet, so it is shown in {0}."
+msgstr "Dieser Leitfaden ist noch nicht übersetzt und wird deshalb auf {0} angezeigt."
+
+#: src/shared/rule-answer/RuleAnswer.tsx:102
+msgid "This is the rule for everyone. Tell us, and we show the answer for you."
+msgstr "Das ist die Regel für alle. Sagen Sie es uns, dann zeigen wir die Antwort für Sie."
+
+#: src/shared/rule-answer/RuleAnswer.tsx:107
+msgid "This is the rule for everyone. We cannot take this detail from you yet."
+msgstr "Das ist die Regel für alle. Diese Angabe können wir von Ihnen noch nicht entgegennehmen."
+
+#: src/screens/NotFound.tsx:11
+msgid "This page does not exist"
+msgstr "Diese Seite gibt es nicht"
+
+#: src/shared/deadline-item/DeadlineItem.tsx:29
+msgid "Today"
+msgstr "Heute"
+
+#: src/shared/rule-answer/factLabels.ts:104
+msgid "Trade income allowance"
+msgstr "Freibetrag für Gewerbeerträge"
+
+#: src/shared/rule-answer/factLabels.ts:111
+msgid "Transaction losing the exemption"
+msgstr "Vorgang, der die Befreiung entfallen lässt"
+
+#: src/screens/home/HomeHero.tsx:41
+msgid "Try"
+msgstr "Probieren Sie"
+
+#: src/screens/Unreachable.tsx:24
+#: src/shared/retry-notice/RetryNotice.tsx:34
+msgid "Try again"
+msgstr "Erneut versuchen"
+
+#: src/shared/rule-answer/factLabels.ts:52
+msgid "Turkish employees for each foreigner"
+msgstr "Türkische Beschäftigte je ausländischer Person"
+
+#: src/shared/rule-answer/factLabels.ts:109
+msgid "Turnover ceiling for the current year"
+msgstr "Umsatzgrenze für das laufende Jahr"
+
+#: src/shared/rule-answer/factLabels.ts:108
+msgid "Turnover ceiling for the previous year"
+msgstr "Umsatzgrenze für das Vorjahr"
+
+#: src/shared/rule-answer/factLabels.ts:110
+msgid "Turnover ceiling in the year the business starts"
+msgstr "Umsatzgrenze im Gründungsjahr"
+
+#: src/shared/rule-answer/RuleAnswer.tsx:122
+msgid "Two rules could apply to you"
+msgstr "Zwei Regeln könnten für Sie gelten"
+
+#: src/shared/context-control/ContextPanel.tsx:221
+#: src/shared/context-control/ContextPanel.tsx:226
+msgid "Type a country"
+msgstr "Land eingeben"
+
+#: src/shared/context-control/ContextPanel.tsx:239
+#: src/shared/context-control/ContextPanel.tsx:289
+msgid "Type a place"
+msgstr "Ort eingeben"
+
+#: src/shared/context-control/ContextPanel.tsx:271
+msgid "Type a role"
+msgstr "Rolle eingeben"
+
+#: src/shared/context-control/ContextPanel.tsx:255
+msgid "Type a status"
+msgstr "Status eingeben"
+
+#: src/screens/guide/Guide.tsx:106
+msgid "Typical cost"
+msgstr "Übliche Kosten"
+
+#: src/screens/guide/Guide.tsx:107
+msgid "Typical setup time"
+msgstr "Übliche Dauer"
+
+#: src/shared/country-name/CountryName.tsx:15
+msgid "Unnamed country"
+msgstr "Land ohne Namen"
+
+#: src/shared/rule-answer/factLabels.ts:91
+msgid "Until the card can be collected"
+msgstr "Bis das Dokument abgeholt werden kann"
+
+#: src/shared/roadmap-step/RoadmapStep.tsx:21
+msgid "Upcoming"
+msgstr "Anstehend"
+
+#: src/shared/rule-answer/factLabels.ts:93
+msgid "Urgent travel Berlin helps with"
+msgstr "Dringende Reisen, bei denen Berlin hilft"
+
+#: src/shared/guide-card/GuideCard.tsx:37
+msgid "Verified {verified}"
+msgstr "Geprüft: {verified}"
+
+#: src/shared/source-card/SourceCard.tsx:31
+msgid "Verified against this source"
+msgstr "Anhand dieser Quelle geprüft"
+
+#: src/shared/source-card/SourceCard.tsx:87
+msgid "Visit official source"
+msgstr "Zur amtlichen Quelle"
+
+#: src/shared/roadmap-step/RoadmapStep.tsx:22
+msgid "Waiting on institution"
+msgstr "Wartet auf die Behörde"
+
+#: src/shared/info-panel/InfoPanel.tsx:12
+msgid "Warning"
+msgstr "Warnung"
+
+#: src/screens/guide/Guide.tsx:99
+msgid "We are still writing this guide, and checking it against official sources."
+msgstr "Wir schreiben diesen Leitfaden noch und prüfen ihn anhand amtlicher Quellen."
+
+#: src/shared/rule-answer/RuleAnswer.tsx:109
+msgid "We cannot take this detail from you yet."
+msgstr "Diese Angabe können wir von Ihnen noch nicht entgegennehmen."
+
+#: src/screens/guide/Guide.tsx:284
+msgid "We could not load the answer for you."
+msgstr "Wir konnten die Antwort für Sie nicht laden."
+
+#: src/shared/rule-answer/RuleAnswer.tsx:57
+msgid "We hold no rule on this for what you have told us."
+msgstr "Zu Ihren Angaben liegt uns dazu keine Regel vor."
+
+#: src/screens/suggest/SuggestUpdate.tsx:144
+msgid "We may contact you if we need more information. Your email will not be published."
+msgstr "Wir melden uns bei Ihnen, falls wir weitere Angaben brauchen. Ihre E-Mail-Adresse wird nicht veröffentlicht."
+
+#: src/shared/context-control/ContextPanel.tsx:216
+msgid "We only ask for details when they change your answer."
+msgstr "Wir fragen nur nach Angaben, die Ihre Antwort verändern."
+
+#: src/screens/search/SearchResults.tsx:97
+msgid "We only search what we have written and checked, so try other words, or start from a goal on the home page."
+msgstr "Wir durchsuchen nur, was wir selbst geschrieben und geprüft haben. Versuchen Sie andere Wörter oder beginnen Sie mit einem Ziel auf der Startseite."
+
+#: src/screens/suggest/SuggestUpdate.tsx:149
+msgid "We use your email only to review and follow up on this submission."
+msgstr "Wir verwenden Ihre E-Mail-Adresse nur, um diesen Hinweis zu prüfen und nachzufassen."
+
+#: src/screens/search/SearchResults.tsx:156
+#: src/shared/ask-panel/useAsk.tsx:200
+msgid "We’ll ask about your nationality or city only if it changes the answer."
+msgstr "Nach Staatsangehörigkeit oder Stadt fragen wir nur, wenn das die Antwort ändert."
+
+#: src/screens/suggest/SuggestUpdate.tsx:97
+msgid "We’ll review your suggestion before updating the guide."
+msgstr "Wir prüfen Ihren Vorschlag, bevor wir den Leitfaden aktualisieren."
+
+#: src/screens/suggest/SuggestUpdate.tsx:113
+msgid "We’ll review your suggestion before updating the guide. Submitting information does not directly change the published guide."
+msgstr "Wir prüfen Ihren Vorschlag, bevor wir den Leitfaden aktualisieren. Eine Einsendung ändert den veröffentlichten Leitfaden nicht unmittelbar."
+
+#: src/shared/ask-panel/AskPanel.tsx:36
+msgid "What Ask found"
+msgstr "Was die Suche gefunden hat"
+
+#: src/screens/suggest/SuggestUpdate.tsx:120
+msgid "What changed?"
+msgstr "Was hat sich geändert?"
+
+#: src/screens/category-hub/CategoryHub.tsx:99
+#: src/screens/category-hub/CategoryHub.tsx:180
+msgid "What do you need help with?"
+msgstr "Wobei brauchen Sie Hilfe?"
+
+#: src/screens/home/head.ts:12
+#: src/screens/home/HomeHero.tsx:24
+msgid "What do you need to do in {name}?"
+msgstr "{name}: Was müssen Sie tun?"
+
+#: src/screens/home/Home.tsx:62
+msgid "What do you want to do?"
+msgstr "Was möchten Sie tun?"
+
+#: src/shared/context-control/ContextPanel.tsx:198
+#: src/shared/context-control/ContextPanel.tsx:213
+msgid "What Skipbureau knows about you"
+msgstr "Was Skipbureau über Sie weiß"
+
+#: src/screens/guide/GuideSection.tsx:23
+msgid "What to check"
+msgstr "Was zu prüfen ist"
+
+#: src/screens/task-hub/TaskHub.tsx:94
+msgid "What we know about you"
+msgstr "Was wir über Sie wissen"
+
+#: src/screens/guide/GuideSection.tsx:18
+msgid "What you need"
+msgstr "Was Sie brauchen"
+
+#: src/screens/task-hub/TaskHub.tsx:108
+msgid "What you’ll need to think about"
+msgstr "Woran Sie denken müssen"
+
+#: src/shared/rule-answer/factLabels.ts:26
+msgid "What your health cover must cover"
+msgstr "Was Ihr Krankenversicherungsschutz abdecken muss"
+
+#: src/shared/rule-answer/factLabels.ts:100
+msgid "When a warning fine can be charged"
+msgstr "Wann ein Verwarnungsgeld erhoben werden kann"
+
+#: src/shared/rule-answer/factLabels.ts:101
+msgid "When fine proceedings can start"
+msgstr "Wann ein Bußgeldverfahren beginnen kann"
+
+#: src/shared/rule-answer/factLabels.ts:96
+msgid "When to notify the trade office"
+msgstr "Wann das Gewerbeamt zu benachrichtigen ist"
+
+#: src/shared/rule-answer/factLabels.ts:16
+msgid "Where the appointment is booked"
+msgstr "Wo der Termin gebucht wird"
+
+#: src/shared/rule-answer/factLabels.ts:83
+msgid "Where the share register and general-meeting minutes are kept"
+msgstr "Wo Aktienregister und Protokolle der Hauptversammlung geführt werden"
+
+#: src/screens/guide/GuideSection.tsx:21
+msgid "Where to do it"
+msgstr "Wo Sie das erledigen"
+
+#: src/screens/guide/Guide.tsx:144
+msgid "Where you live"
+msgstr "Wo Sie wohnen"
+
+#: src/screens/guide/Guide.tsx:149
+#: src/shared/context-control/ContextPanel.tsx:285
+#: src/shared/context-control/ContextPanel.tsx:288
+msgid "Where you work"
+msgstr "Wo Sie arbeiten"
+
+#: src/shared/rule-answer/factValue.ts:80
+msgid "within {number}"
+msgstr "innerhalb von {number}"
+
+#: src/shared/rule-answer/factLabels.ts:114
+msgid "Work allowed by your residence title"
+msgstr "Arbeit, die Ihr Aufenthaltstitel erlaubt"
+
+#: src/shared/context-control/situationLabels.ts:10
+msgid "Worker"
+msgstr "Arbeitnehmerin oder Arbeitnehmer"
+
+#: src/screens/category-hub/CategoryHub.tsx:143
+msgid "You can use this checklist as a simple guide. Your progress is not saved."
+msgstr "Sie können diese Checkliste als einfache Orientierung nutzen. Ihr Fortschritt wird nicht gespeichert."
+
+#: src/screens/suggest/SuggestUpdate.tsx:139
+msgid "you@example.com"
+msgstr "you@example.com"
+
+#: src/shared/rule-answer/factLabels.ts:87
+msgid "Your current title while the application is decided"
+msgstr "Ihr derzeitiger Titel, solange über den Antrag entschieden wird"
+
+#: src/screens/suggest/SuggestUpdate.tsx:138
+msgid "Your email"
+msgstr "Ihre E-Mail-Adresse"
+
+#: src/screens/guide/Guide.tsx:146
+msgid "Your nationality"
+msgstr "Ihre Staatsangehörigkeit"
+
+#: src/screens/task-hub/TaskHub.tsx:126
+msgid "Your nationality, residence status and plans can each change which of these areas apply to you, and in what order."
+msgstr "Ihre Staatsangehörigkeit, Ihr Aufenthaltsstatus und Ihre Pläne können jeweils ändern, welche dieser Bereiche für Sie gelten und in welcher Reihenfolge."
+
+#: src/screens/guide/GuideSection.tsx:19
+msgid "Your options"
+msgstr "Ihre Möglichkeiten"
+
+#: src/screens/guide/Guide.tsx:145
+msgid "Your residence status"
+msgstr "Ihr Aufenthaltsstatus"
+
+#: src/screens/guide/Guide.tsx:148
+msgid "Your role"
+msgstr "Ihre Rolle"
+
+#: src/shared/rule-answer/factLabels.ts:34
+msgid "Your share of inpatient care, at a non-contracted provider or a public hospital outside Annex 1"
+msgstr "Ihr Anteil an der stationären Behandlung bei einem Haus ohne Vertrag oder einem öffentlichen Krankenhaus außerhalb von Anlage 1"
+
+#: src/shared/rule-answer/factLabels.ts:30
+msgid "Your share of inpatient care, at a provider your insurer has contracted with"
+msgstr "Ihr Anteil an der stationären Behandlung bei einem Haus mit Vertrag Ihrer Versicherung"
+
+#: src/shared/rule-answer/factLabels.ts:38
+msgid "Your share of inpatient care, at a public hospital named in Annex 1"
+msgstr "Ihr Anteil an der stationären Behandlung bei einem in Anlage 1 genannten öffentlichen Krankenhaus"
+
+#: src/shared/rule-answer/factLabels.ts:32
+msgid "Your share of outpatient care, at a non-contracted provider or a public hospital outside Annex 1"
+msgstr "Ihr Anteil an der ambulanten Behandlung bei einem Haus ohne Vertrag oder einem öffentlichen Krankenhaus außerhalb von Anlage 1"
+
+#: src/shared/rule-answer/factLabels.ts:28
+msgid "Your share of outpatient care, at a provider your insurer has contracted with"
+msgstr "Ihr Anteil an der ambulanten Behandlung bei einem Haus mit Vertrag Ihrer Versicherung"
+
+#: src/shared/rule-answer/factLabels.ts:36
+msgid "Your share of outpatient care, at a public hospital named in Annex 1"
+msgstr "Ihr Anteil an der ambulanten Behandlung bei einem in Anlage 1 genannten öffentlichen Krankenhaus"
+
+#: src/shared/rule-answer/factLabels.ts:88
+msgid "Your stay while the application is decided"
+msgstr "Ihr Aufenthalt, solange über den Antrag entschieden wird"
+
+#: src/shared/rule-answer/factLabels.ts:92
+msgid "Your title, with the online application's confirmation"
+msgstr "Ihr Titel, zusammen mit der Bestätigung des Online-Antrags"

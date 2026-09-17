@@ -40,6 +40,15 @@ const NAMES = [
   { countryCode: 'tr', locale: 'fa-IR', name: 'ترکیه' },
   { countryCode: 'de', locale: 'en-US', name: 'Germany' },
   { countryCode: 'de', locale: 'fa-IR', name: 'آلمان' },
+  // SB-414: a country's name in every locale the product ships, because it is
+  // interpolated into nearly every heading. Without these a Turkish page says "Turkey"
+  // and a German one says "Germany", which is the most visible way a half-translated
+  // interface announces itself. The rest of the content stays English until SB-418, and
+  // that is recorded rather than hidden.
+  { countryCode: 'tr', locale: 'tr-TR', name: 'Türkiye' },
+  { countryCode: 'tr', locale: 'de-DE', name: 'Türkei' },
+  { countryCode: 'de', locale: 'tr-TR', name: 'Almanya' },
+  { countryCode: 'de', locale: 'de-DE', name: 'Deutschland' },
 ]
 
 export const bootstrap = async (prisma: PrismaClient): Promise<void> => {

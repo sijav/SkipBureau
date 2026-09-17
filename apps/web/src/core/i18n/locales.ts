@@ -14,6 +14,20 @@ export const locales = {
   // design writes Sep (SB-151).
   'en-US': { label: 'English', dir: 'ltr', catalog: 'en', path: 'en', dates: 'en-GB', months: 'en-US' },
   'fa-IR': { label: 'فارسی', dir: 'rtl', catalog: 'fa', path: 'fa', dates: 'fa-IR', months: 'fa-IR' },
+  // SB-414: the owner asked that every country the product covers brings its own
+  // languages, and Turkey is the first country. `dates` and `months` are Turkish
+  // rather than borrowed, unlike English which takes its order from en-GB: Turkish
+  // writes "24 Ağu 2026", and the owner chose on 2026-09-17 that each language writes
+  // a date the way that language writes it, in preference to the design's English
+  // shape. `path` is `tr`, so `/tr/TR` is the Turkish interface for Turkey, and
+  // `/tr-TR/TR` is the same for a reader who is Turkish.
+  'tr-TR': { label: 'Türkçe', dir: 'ltr', catalog: 'tr', path: 'tr', dates: 'tr-TR', months: 'tr-TR' },
+  // SB-414: Germany is the second country the product covers, so German is the second
+  // locale it gains. `dates` and `months` are German rather than borrowed: German writes
+  // "24. Aug. 2026", with the dots, which is correct German rather than a defect, and the
+  // owner chose on 2026-09-17 that each language writes a date its own way in preference
+  // to the design's English shape.
+  'de-DE': { label: 'Deutsch', dir: 'ltr', catalog: 'de', path: 'de', dates: 'de-DE', months: 'de-DE' },
 } as const
 
 export type Locale = keyof typeof locales
