@@ -1,7 +1,8 @@
 import { execFileSync } from 'node:child_process'
-import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdtempSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
-import { join } from 'node:path'
+import { dirname, join, relative, sep } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { expect, test } from 'vitest'
 import {
   buildStateOf,
@@ -419,6 +420,44 @@ test('a take-down of a case whose file was not on disk leaves no file behind', (
     remove()
   }
 })
+
+// SB-344: labelTestArgs names the web tests a publish runs, by path, because they are the only web tests that read
+// the API's research through the api alias. Renaming one already fails loudly, since vitest is handed a path that no
+// longer exists. ADDING one does not, and the publish would then check less than it claims while reporting success.
+//
+// The pattern is the unit project's own, src/**/*.test.ts from apps/web/vitest.config.ts, so this counts what a
+// publish would actually run. The match is on an import specifier rather than on the text api/, because a comment in
+// TaskHub.stories.tsx names apps/api/test/hub-sample.e2e.spec.ts and a substring scan would call that an importer.
+const WEB_SRC = join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'web', 'src')
+
+const unitTests = (dir: string): string[] =>
+  readdirSync(dir).flatMap((entry) => {
+    const full = join(dir, entry)
+    if (statSync(full).isDirectory()) return unitTests(full)
+    return entry.endsWith('.test.ts') ? [full] : []
+  })
+
+test('every web unit test that reads the API through the api alias is named in the publish', () => {
+  const found = unitTests(WEB_SRC)
+  // A root that resolved wrongly finds nothing, and the comparison below would then fail saying the named tests are
+  // missing, which is a true statement about the wrong thing. This says which it is.
+  expect(found.length, `the walk found the web's unit tests under ${WEB_SRC}`).toBeGreaterThan(10)
+
+  const readsTheApi = /(?:from|import)\s*\(?\s*['"]api\//
+  const reading = found
+    .filter((file) => readsTheApi.test(readFileSync(file, 'utf8')))
+    .map((file) => `src/${relative(WEB_SRC, file).split(sep).join('/')}`)
+    .sort()
+  const named = labelTestArgs('vitest')
+    .filter((arg) => arg.endsWith('.test.ts'))
+    .sort()
+
+  expect(
+    reading,
+    'a web unit test that imports through the api alias must be named in labelTestArgs, or a publish checks less than it claims. Naming it also changes the pinned argument test above, which is the record of what a publish runs, so expect that one to fail next and update it too. If a test deliberately should not run in a publish, change this guard and say why.',
+  ).toEqual(named)
+})
+
 /** A throwaway repository with one commit, git's file monitor off so no watcher outlives it. */
 const repository = () => {
   const folder = mkdtempSync(join(tmpdir(), 'publish-research-spec-'))
