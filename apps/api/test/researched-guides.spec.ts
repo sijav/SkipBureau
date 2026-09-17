@@ -80,7 +80,11 @@ test("every text of each researched guide is its agreed document's, and its titl
  * sentence counts where the guide shows it; one in a part the guide leaves out, such as Germany's table of cities,
  * cites nothing for it.
  */
-const pagesCited = (source: string, shown: string): string[] => {
+/**
+ * The definitions a guide's own shown sentences cite, by label (SB-308). A label cited only by a lead the guide does
+ * not carry, such as the two city table OMITTED records, is not cited BY THE GUIDE, and must not date it.
+ */
+const labelsCited = (source: string, shown: string): Set<string> => {
   const used = new Set<string>()
   for (const paragraph of source.split(/\r?\n\s*\r?\n/)) {
     if (paragraph.startsWith('[^')) continue
@@ -89,6 +93,33 @@ const pagesCited = (source: string, shown: string): string[] => {
       if (labels.length > 0 && shown.includes(plain(sentence))) for (const label of labels) used.add(label)
     }
   }
+  return used
+}
+
+/** Every footnote definition by label, with the day the document records it was read (SB-308). */
+const readsOf = (source: string): Map<string, { url: string | null; read: string }> => {
+  const definitions = new Map<string, { url: string | null; read: string }>()
+  for (const line of source.split(/\r?\n/)) {
+    const found = /^\[\^([^\]]+)\]: (?:<([^>]+)>|calculated) \| (\{.*\})$/.exec(line)
+    if (!found?.[1] || !found[3]) continue
+    const meta: unknown = JSON.parse(found[3])
+    if (typeof meta === 'object' && meta !== null && 'read' in meta && typeof meta.read === 'string') {
+      definitions.set(found[1], { url: found[2] ?? null, read: meta.read })
+    }
+  }
+  return definitions
+}
+
+/** A guide as a reader meets it: the text the sources test already composes, so both tests ask the same question. */
+const shownOf = (guide: (typeof RESEARCHED_GUIDES)[number]): string => {
+  const [first, ...rest] = guide.detail.sections
+  return folded(
+    [first?.title?.en, guide.guide.en.description, first?.body?.en, ...rest.flatMap((section) => [section.title?.en, section.body?.en])].join(' '),
+  )
+}
+
+const pagesCited = (source: string, shown: string): string[] => {
+  const used = labelsCited(source, shown)
   const pages: string[] = []
   for (const line of source.split(/\r?\n/)) {
     const found = /^\[\^([^\]]+)\]: <([^>]+)> \|/.exec(line)
@@ -102,15 +133,7 @@ test("each researched guide's sources are the pages its sentences cite, each onc
   // locator's words, and SB-288 has one that differs.
   for (const guide of RESEARCHED_GUIDES) {
     const key = keyOf(guide)
-    const [first, ...rest] = guide.detail.sections
-    const shown = folded(
-      [
-        first?.title?.en,
-        guide.guide.en.description,
-        first?.body?.en,
-        ...rest.flatMap((section) => [section.title?.en, section.body?.en]),
-      ].join(' '),
-    )
+    const shown = shownOf(guide)
     expect(
       guide.detail.sources.map((source) => source.url),
       key,
@@ -159,5 +182,44 @@ test("every bold lead of a document is a section title of its guide, in the docu
       guide.detail.sections.map((section) => section.title?.en ?? ''),
       key,
     ).toEqual(leads)
+  }
+})
+
+test("every researched guide's date is the oldest day a page its own sentences cite was read", () => {
+  // SB-308: the date said the newest check, so a page dated its oldest claims by its most recent one. Oldest, because
+  // "last verified" is a promise about the whole page, and the whole page is only as current as its stalest sentence.
+  for (const guide of RESEARCHED_GUIDES) {
+    const key = keyOf(guide)
+    const source = documentOf(key)
+    const definitions = readsOf(source)
+    const reads = [...labelsCited(source, shownOf(guide))]
+      .flatMap((label) => {
+        const definition = definitions.get(label)
+        return definition ? [definition.read] : []
+      })
+      .sort()
+    expect(reads.length, `${key} shows no sentence citing a dated definition`).toBeGreaterThan(0)
+    expect(guide.guide.verifiedAt, key).toBe(reads[0])
+  }
+})
+
+test('every source card shows the day its own page was last read, not the day the guide carries', () => {
+  // SB-308: latest for a card, oldest for the guide, and they pull apart on purpose. One URL can stand behind two
+  // cited definitions read on different days, as germany/health-insurance.md does, so a card takes the later.
+  for (const guide of RESEARCHED_GUIDES) {
+    const key = keyOf(guide)
+    const source = documentOf(key)
+    const definitions = readsOf(source)
+    const used = labelsCited(source, shownOf(guide))
+    for (const card of guide.detail.sources) {
+      const reads = [...used]
+        .flatMap((label) => {
+          const definition = definitions.get(label)
+          return definition && definition.url === card.url ? [definition.read] : []
+        })
+        .sort()
+      expect(reads.length, `${key} shows ${card.url}, which no sentence it carries cites`).toBeGreaterThan(0)
+      expect(card.read ?? guide.guide.verifiedAt, `${key} ${card.url}`).toBe(reads[reads.length - 1])
+    }
   }
 })

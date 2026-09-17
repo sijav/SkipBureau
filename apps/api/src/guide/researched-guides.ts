@@ -164,7 +164,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
     },
     guide: {
       slug: 'residence-permit',
-      verifiedAt: '2026-09-15',
+      verifiedAt: '2026-09-14',
       en: {
         title: 'Getting a residence permit in Germany',
         description:
@@ -212,22 +212,27 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
         {
           url: 'https://www.gesetze-im-internet.de/aufenthv/__45.html',
           name: 'Aufenthaltsverordnung (AufenthV), § 45 Gebühren für die Aufenthaltserlaubnis, die Blaue Karte EU, die ICT-Karte und die Mobiler-ICT-Karte',
+          read: '2026-09-14',
         },
         {
           url: 'https://service.berlin.de/dienstleistung/329328/',
           name: 'Service Berlin, Aufenthaltserlaubnis für Fachkräfte mit akademischer Ausbildung beantragen',
+          read: '2026-09-16',
         },
         {
           url: 'https://www.gesetze-im-internet.de/aufenthv/__45b.html',
           name: 'Aufenthaltsverordnung (AufenthV), § 45b Gebühren für Aufenthaltstitel in Ausnahmefällen',
+          read: '2026-09-14',
         },
         {
           url: 'https://www.gesetze-im-internet.de/aufenthg_2004/__81.html',
           name: 'Aufenthaltsgesetz (AufenthG), § 81 Beantragung des Aufenthaltstitels',
+          read: '2026-09-15',
         },
         {
           url: 'https://www.gesetze-im-internet.de/aufenthv/__41.html',
           name: 'Aufenthaltsverordnung (AufenthV), § 41 Vergünstigung für Angehörige bestimmter Staaten',
+          read: '2026-09-15',
         },
         // SB-370: the three Berlin permits beside the academic one, which the restored sentence names. Their place here
         // is the order their footnotes are DEFINED in the document, which is what pagesCited emits, and each name is
@@ -235,18 +240,22 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
         {
           url: 'https://service.berlin.de/dienstleistung/305304/',
           name: 'Service Berlin, Aufenthaltserlaubnis für Fachkräfte mit Berufsausbildung beantragen',
+          read: '2026-09-16',
         },
         {
           url: 'https://service.berlin.de/dienstleistung/328457/',
           name: 'Service Berlin, Aufenthaltserlaubnis für eine Beschäftigung zum Zweck der Forschung beantragen',
+          read: '2026-09-16',
         },
         {
           url: 'https://service.berlin.de/dienstleistung/350471/',
           name: 'Service Berlin, Aufenthaltserlaubnis zur Beschäftigung bestimmter Staatsangehöriger beantragen',
+          read: '2026-09-16',
         },
         {
           url: 'https://www.berlin.de/einwanderung/termine/termin-vereinbaren/',
           name: 'Landesamt für Einwanderung Berlin, Termin vereinbaren',
+          read: '2026-09-14',
         },
       ],
     },
@@ -367,7 +376,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
     area: { slug: 'tax-number', en: 'Get a tax number', fa: 'دریافت شماره مالیاتی' },
     guide: {
       slug: 'tax-number',
-      verifiedAt: '2026-09-16',
+      verifiedAt: '2026-09-14',
       en: {
         title: 'The number that makes you exist in Turkey',
         description:
@@ -410,10 +419,12 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
         {
           url: 'https://cdn.gib.gov.tr/api/gibportal-file/file/getFileResources?objectKey=arsiv/fileadmin/kur_mali_beklentiler_raporlari/2010/2010_Kur_Mali_Beklentiler_Raporu.pdf',
           name: 'Maliye Bakanlığı Gelir İdaresi Başkanlığı, 2010 Yılı Kurumsal Mali Durum ve Beklentiler Raporu',
+          read: '2026-09-14',
         },
         {
           url: 'https://www.mevzuat.gov.tr/MevzuatMetin/1.5.492.pdf',
           name: 'Presidency’s legislation system, 492 sayılı Harçlar Kanunu',
+          read: '2026-09-16',
         },
       ],
     },
@@ -738,6 +749,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
         {
           url: 'https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=20059207&MevzuatTur=21&MevzuatTertip=5',
           name: 'İşyeri Açma ve Çalışma Ruhsatlarına İlişkin Yönetmelik (Bakanlar Kurulu Kararı 2005/9207)',
+          read: '2026-09-16',
         },
         {
           url: 'https://ticaret.gov.tr/data/5e0f1da813b87658f03c9b74/Bakkall%C4%B1k%20Meslek%20K%C4%B1lavuzu.pdf',
@@ -964,23 +976,23 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
           url: 'https://www.handelskammer-hamburg.de/gruendung-sicherung-nachfolge/gewerbe-an-um-melden/gewerbeanmeldung-6598040',
           name: 'Handelskammer Hamburg, Gewerbeanmeldung, -ummeldung und -abmeldung',
         },
-        { url: 'https://www.dguv.de/de/versicherung/unternehmensnummer/anmeldung/index.jsp', name: 'DGUV, Ein neues Unternehmen anmelden' },
-        { url: 'https://www.gesetze-im-internet.de/sgb_7/__192.html', name: 'Sozialgesetzbuch Siebtes Buch (SGB VII), § 192' },
-        { url: 'https://www.gesetze-im-internet.de/ihkg/__3.html', name: 'IHK-Gesetz (IHKG), § 3' },
+        { url: 'https://www.dguv.de/de/versicherung/unternehmensnummer/anmeldung/index.jsp', name: 'DGUV, Ein neues Unternehmen anmelden', read: '2026-09-15' },
+        { url: 'https://www.gesetze-im-internet.de/sgb_7/__192.html', name: 'Sozialgesetzbuch Siebtes Buch (SGB VII), § 192', read: '2026-09-15' },
+        { url: 'https://www.gesetze-im-internet.de/ihkg/__3.html', name: 'IHK-Gesetz (IHKG), § 3', read: '2026-09-15' },
         {
           url: 'https://www.ihk.de/rhein-neckar/ueber-uns/beitrag/beitragsaetze-2017-2026-4653446',
           name: 'IHK Rhein-Neckar, Beitragssätze 2017 bis 2026',
         },
-        { url: 'https://www.gesetze-im-internet.de/ao_1977/__138.html', name: 'Abgabenordnung (AO), § 138' },
-        { url: 'https://www.gesetze-im-internet.de/ustg_1980/__19.html', name: 'Umsatzsteuergesetz (UStG), § 19' },
+        { url: 'https://www.gesetze-im-internet.de/ao_1977/__138.html', name: 'Abgabenordnung (AO), § 138', read: '2026-09-15' },
+        { url: 'https://www.gesetze-im-internet.de/ustg_1980/__19.html', name: 'Umsatzsteuergesetz (UStG), § 19', read: '2026-09-15' },
         {
           url: 'https://www.bundesfinanzministerium.de/Content/DE/Downloads/BMF_Schreiben/Steuerarten/Umsatzsteuer/Umsatzsteuer-Anwendungserlass/2025-03-18-sonderregelung-kleinunternehmer.pdf?__blob=publicationFile&v=4',
           name: 'Bundesministerium der Finanzen, BMF-Schreiben vom 18. März 2025, Sonderregelung für Kleinunternehmer',
         },
-        { url: 'https://www.gesetze-im-internet.de/aufenthg_2004/__2.html', name: 'Aufenthaltsgesetz (AufenthG), § 2' },
-        { url: 'https://www.gesetze-im-internet.de/aufenthg_2004/__4.html', name: 'Aufenthaltsgesetz (AufenthG), § 4' },
-        { url: 'https://www.gesetze-im-internet.de/aufenthg_2004/__6.html', name: 'Aufenthaltsgesetz (AufenthG), § 6' },
-        { url: 'https://www.gesetze-im-internet.de/aufenthg_2004/__4a.html', name: 'Aufenthaltsgesetz (AufenthG), § 4a' },
+        { url: 'https://www.gesetze-im-internet.de/aufenthg_2004/__2.html', name: 'Aufenthaltsgesetz (AufenthG), § 2', read: '2026-09-15' },
+        { url: 'https://www.gesetze-im-internet.de/aufenthg_2004/__4.html', name: 'Aufenthaltsgesetz (AufenthG), § 4', read: '2026-09-15' },
+        { url: 'https://www.gesetze-im-internet.de/aufenthg_2004/__6.html', name: 'Aufenthaltsgesetz (AufenthG), § 6', read: '2026-09-15' },
+        { url: 'https://www.gesetze-im-internet.de/aufenthg_2004/__4a.html', name: 'Aufenthaltsgesetz (AufenthG), § 4a', read: '2026-09-15' },
       ],
     },
     obligations: GERMANY_BUSINESS_REGISTRATION,
@@ -1068,7 +1080,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
       ],
       sources: [
         { url: 'https://www.gesetze-im-internet.de/sgb_5/__5.html', name: 'Sozialgesetzbuch Fünftes Buch (SGB V), § 5' },
-        { url: 'https://www.gesetze-im-internet.de/sgb_5/__9.html', name: 'Sozialgesetzbuch Fünftes Buch (SGB V), § 9' },
+        { url: 'https://www.gesetze-im-internet.de/sgb_5/__9.html', name: 'Sozialgesetzbuch Fünftes Buch (SGB V), § 9', read: '2026-09-15' },
         {
           url: 'https://www.bundesgesundheitsministerium.de/gesetzlich-versicherte',
           name: 'Bundesministerium für Gesundheit, Versicherte in der gesetzlichen Krankenversicherung',
@@ -1082,6 +1094,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
         {
           url: 'https://www.bundesgesundheitsministerium.de/finanzierung-gkv',
           name: 'Bundesministerium für Gesundheit, Finanzierung der gesetzlichen Krankenversicherung',
+          read: '2026-09-16',
         },
         {
           url: 'https://www.bundesgesundheitsministerium.de/service/begriffe-von-a-z/b/beitragsbemessungsgrenze/seite',
@@ -1090,6 +1103,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
         {
           url: 'https://www.bundesgesundheitsministerium.de/themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung',
           name: 'Bundesministerium für Gesundheit, Finanzierung der Pflegeversicherung',
+          read: '2026-09-15',
         },
         { url: 'https://www.gesetze-im-internet.de/sgb_11/__55.html', name: 'Sozialgesetzbuch Elftes Buch (SGB XI), § 55' },
         { url: 'https://www.gesetze-im-internet.de/sgb_11/__58.html', name: 'Sozialgesetzbuch Elftes Buch (SGB XI), § 58' },
