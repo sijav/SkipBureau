@@ -251,3 +251,78 @@ test('one side tied and the other needing a detail is still for a person to deci
   expect(both.needs).toEqual(['residenceRegion', 'workRegion'])
   expect(both.to).toBeNull()
 })
+
+// SB-440: a reader has one nationality, so a version naming two groups that share nobody can be
+// satisfied by no one, and asking for the nationality cannot change what it says. SB-181 refused
+// that shape for every other detail and deliberately exempted nationalityGroup, because two groups
+// CAN both match a real reader. They can when they overlap. The research holds a pair that does not:
+// eu, and the nationalities §41 AufenthV lets enter visa free, which share nobody by design, since
+// that provision exists for people who are not EU citizens. Whether two groups overlap is a fact
+// about membership rows rather than a property of the criterion row, which is why no CHECK could
+// decide it and this is judged where the answer is built.
+test('a version naming two groups that share nobody asks the reader nothing, and one naming two that overlap still asks', async () => {
+  const at = AFTER_NEXT_MONTH
+  const SLUG = 'get-a-tax-number'
+  const CODES = ['t440-a', 't440-b', 't440-ac']
+
+  // This obligation has a Turkish seed rule and no German one, and no other test in this file uses
+  // it, so the three versions below are every German version it has.
+  await prisma.nationalityGroup.createMany({
+    data: [
+      { code: 't440-a', name: 'Holds aa only' },
+      { code: 't440-b', name: 'Holds bb only' },
+      { code: 't440-ac', name: 'Holds aa and cc' },
+    ],
+  })
+
+  // Dated from next month, so the history trigger still counts them as not yet in effect and this
+  // test can remove them again, the way history.e2e.spec.ts removes a membership that is joining.
+  await prisma.nationalityGroupMember.createMany({
+    data: [
+      { groupCode: 't440-a', nationality: 'aa', validFrom: NEXT_MONTH },
+      { groupCode: 't440-b', nationality: 'bb', validFrom: NEXT_MONTH },
+      { groupCode: 't440-ac', nationality: 'aa', validFrom: NEXT_MONTH },
+      { groupCode: 't440-ac', nationality: 'cc', validFrom: NEXT_MONTH },
+    ],
+  })
+
+  // What the reader is told when nothing narrower applies. Without it the impossible version would be
+  // the obligation's only one, and refusing it would take the obligation out of the reply altogether,
+  // so the test would be reading an absence rather than an answer.
+  const plain = await version('de', SLUG, [], [{ key: 'required', textValue: 'yes' }])
+
+  // Says something DIFFERENT from that on purpose: matters() drops an open version that only repeats
+  // the winner, and then needs would be empty whether or not this card's check works.
+  const nobody = await version(
+    'de',
+    SLUG,
+    [
+      { dimension: 'nationalityGroup', value: 't440-a' },
+      { dimension: 'nationalityGroup', value: 't440-b' },
+    ],
+    [{ key: 'required', textValue: 'no' }],
+  )
+
+  const unasked = await entryFor(SLUG, { situation: 'worker', at })
+  expect(unasked.needs, 'no nationality is in both groups, so no answer could change what this version says').not.toContain('nationality')
+
+  await prisma.ruleVersion.delete({ where: { id: nobody.id } })
+
+  const someone = await version(
+    'de',
+    SLUG,
+    [
+      { dimension: 'nationalityGroup', value: 't440-a' },
+      { dimension: 'nationalityGroup', value: 't440-ac' },
+    ],
+    [{ key: 'required', textValue: 'no' }],
+  )
+
+  const asked = await entryFor(SLUG, { situation: 'worker', at })
+  expect(asked.needs, 'aa is in both groups, so the answer does turn on the nationality and is still worth asking').toContain('nationality')
+
+  await prisma.ruleVersion.delete({ where: { id: someone.id } })
+  await prisma.ruleVersion.delete({ where: { id: plain.id } })
+  await prisma.nationalityGroupMember.deleteMany({ where: { groupCode: { in: CODES } } })
+  await prisma.nationalityGroup.deleteMany({ where: { code: { in: CODES } } })
+})

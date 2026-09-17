@@ -18,6 +18,13 @@ export type Criterion = {
 export type GroupsAt = ReadonlySet<string>
 
 /**
+ * The nationalities in each group a version's criteria name, on the date being asked about (SB-440).
+ * The other direction from `GroupsAt`: that one answers whether this reader is in a group, this one
+ * whether anyone at all could be in several of them at once.
+ */
+export type GroupMembers = ReadonlyMap<string, ReadonlySet<string>>
+
+/**
  * One country's rows of a tree, each with the row it is inside, or null for a
  * row with nothing above it: its places (SB-186) or its residence statuses
  * (SB-189). A code a reader gives that is not a key here belongs to another
@@ -100,19 +107,58 @@ const fitOne = (criterion: Criterion, profile: Profile, groups: GroupsAt, trees:
 const isDetail = (fit: CriterionFit): fit is Detail => fit !== 'matches' && fit !== 'contradicted'
 
 /**
+ * Whether any one nationality could satisfy all of a version's nationality shaped criteria at once
+ * (SB-440).
+ *
+ * A reader has one nationality, so a version naming two groups is theirs only if that nationality is
+ * in both. `eu` and `de.aufenthv-41-1` share nobody, by design rather than by accident: §41 AufenthV
+ * lists nationalities that may enter visa free precisely because EU citizens need no permit. Such a
+ * version can match nobody, and without this it would be reported open on the nationality, so the
+ * reader would be asked a question whose every answer leaves it unmatched. That is the defect SB-181
+ * refused for every other detail, which its migration deliberately exempted this one from, on the
+ * ground that two groups CAN both match a real reader. They can, when they overlap. This asks
+ * whether these two do.
+ *
+ * Only asked when the reader gave no nationality. With one given, `fitOne` already contradicts on
+ * whichever group they are not in.
+ *
+ * A code absent from `members` means the group has nobody on the date asked about, so it contradicts.
+ * That is only sound because the caller loads an entry for every code its criteria name, empty ones
+ * included: an absent entry must never be able to mean "not loaded".
+ */
+const anyNationalityFits = (criteria: readonly Criterion[], members: GroupMembers): boolean => {
+  const sets = criteria.flatMap((criterion) => {
+    if (criterion.dimension === 'nationality') return [new Set([criterion.value]) as ReadonlySet<string>]
+    if (criterion.dimension === 'nationalityGroup') return [members.get(criterion.value) ?? new Set<string>()]
+    return []
+  })
+  // One alone is always satisfiable by someone, and SB-181's index already forbids two plain
+  // nationality criteria on one version, so the only combinations reaching here are groups with at
+  // most one nationality beside them.
+  if (sets.length < 2) return true
+  const [first, ...rest] = sets
+  return [...first!].some((nationality) => rest.every((set) => set.has(nationality)))
+}
+
+/**
  * How a version's criteria meet a profile: contradicted by something the reader
  * said, or open on the details they have not said, or neither, which is a match.
  * A criterion the reader has not answered is not a criterion they fail (SB-176).
- * `trees` are the places and statuses of the version's own country.
+ * `trees` are the places and statuses of the version's own country, and `members`
+ * the nationalities of each group its criteria name (SB-440).
  */
 export const fitToProfile = (
   criteria: readonly Criterion[],
   profile: Profile,
   groups: GroupsAt,
   trees: Trees,
+  members: GroupMembers,
 ): { contradicted: boolean; open: Detail[] } => {
   const fits = criteria.map((criterion) => fitOne(criterion, profile, groups, trees))
   if (fits.includes('contradicted')) return { contradicted: true, open: [] }
+  // A version nobody could satisfy is contradicted, not open: being unanswered is not the same as
+  // being unanswerable, and only the second is a question worth putting to a reader (SB-440).
+  if (!profile.nationality && !anyNationalityFits(criteria, members)) return { contradicted: true, open: [] }
   return { contradicted: false, open: [...new Set(fits.filter(isDetail))].sort() }
 }
 
@@ -139,8 +185,17 @@ export const canonicalProfile = (profile: Profile): Profile => {
   }
 }
 
-export const matchesProfile = (criteria: readonly Criterion[], profile: Profile, groups: GroupsAt, trees: Trees): boolean => {
-  const fit = fitToProfile(criteria, profile, groups, trees)
+// Nothing calls this today: `resolve` is the only place a fit is judged, and it uses `fitToProfile`
+// directly. Kept and carried through SB-440's new parameter rather than deleted, because removing an
+// exported function is a decision of its own and not this card's.
+export const matchesProfile = (
+  criteria: readonly Criterion[],
+  profile: Profile,
+  groups: GroupsAt,
+  trees: Trees,
+  members: GroupMembers,
+): boolean => {
+  const fit = fitToProfile(criteria, profile, groups, trees, members)
   return !fit.contradicted && fit.open.length === 0
 }
 

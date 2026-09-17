@@ -83,6 +83,36 @@ export class RulesService {
   }
 
   /**
+   * The nationalities in each of the named groups, on the date asked about (SB-440).
+   *
+   * `groupsAt` reads memberships by nationality, which answers "is this reader in that group". This
+   * reads them by group code, which answers "could anyone be in all of these at once", and nothing
+   * asked that before. Only the codes a version's criteria actually name are fetched: loading every
+   * membership is free at today's twenty odd rows and would not stay free.
+   *
+   * Every code asked for gets an entry, empty where the group has nobody then. `fitToProfile` treats
+   * an absent code as a group with no members, so an entry that is missing because it was never
+   * loaded would silently contradict a version that is perfectly fine.
+   */
+  private async groupMembersAt(codes: readonly string[], at: Date): Promise<ReadonlyMap<string, ReadonlySet<string>>> {
+    const wanted = [...new Set(codes)]
+    if (wanted.length === 0) return new Map()
+
+    const rows = await this.prisma.nationalityGroupMember.findMany({
+      where: {
+        groupCode: { in: wanted },
+        validFrom: { lte: at },
+        OR: [{ validTo: null }, { validTo: { gt: at } }],
+      },
+      select: { groupCode: true, nationality: true },
+    })
+
+    const members = new Map<string, Set<string>>(wanted.map((code) => [code, new Set<string>()]))
+    for (const row of rows) members.get(row.groupCode)?.add(row.nationality)
+    return members
+  }
+
+  /**
    * Refuses what a profile cannot hold, before anything is resolved: a code
    * that is no region or no residence status, two regions of one country in
    * the same list, or two statuses of one country. Here rather than in the
@@ -183,13 +213,21 @@ export class RulesService {
       ...sourceOf(fact, version),
     })
 
+    // SB-440: the nationalities of every group these versions name, so that a version naming two
+    // that share nobody is contradicted rather than reported open on a nationality no answer could
+    // supply. Only the codes actually named, and every one of them, empty groups included.
+    const named = versions.flatMap((version) =>
+      version.criteria.filter((criterion) => criterion.dimension === 'nationalityGroup').map((criterion) => criterion.value),
+    )
+    const members = await this.groupMembersAt(named, at)
+
     // Every version not contradicted by what the reader said, grouped before
     // matching: an obligation whose only versions are open must still answer,
     // with the question, rather than vanish.
     const byObligation = new Map<string, Candidate[]>()
     for (const version of versions) {
       const criteria = version.criteria.map((criterion): Criterion => ({ dimension: criterion.dimension, value: criterion.value }))
-      const fit = fitToProfile(criteria, profile, groups, trees)
+      const fit = fitToProfile(criteria, profile, groups, trees, members)
       if (fit.contradicted) continue
       const slug = version.obligation.slug
       const candidate = { id: version.id, criteria, facts: version.facts.map((fact) => toFact(fact, version)), open: fit.open }
