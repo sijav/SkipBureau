@@ -259,6 +259,9 @@ model Category {
   taskId       String
   slug         String
   position     Int
+  /// The research file that wrote this area and keeps it as that file says, or
+  /// null for one the research did not write (SB-202, SB-305).
+  research     String?
   /// Null for an ordinary setup step, which carries no label.
   kind         CategoryKind?
   /// The category hub's recommended starting point, Figma 133:729.
@@ -308,6 +311,11 @@ model Guide {
   showDisclaimer    Boolean           @default(false)
   showSuggestUpdate Boolean           @default(true)
   createdAt         DateTime          @default(now())
+  /// The research file that wrote this guide and keeps it as that file says, or
+  /// null for one the research did not write (SB-202, SB-305). Sample content and
+  /// anything an editor adds leave it null, and that is what makes a row sample
+  /// rather than its absence from a list in the source.
+  research          String?
   country           Country           @relation(fields: [countryCode], references: [code], onDelete: Cascade)
   category          Category?         @relation(fields: [categoryId], references: [id], onDelete: SetNull)
   /// Its place among its category's guides.

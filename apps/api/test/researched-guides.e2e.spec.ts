@@ -379,3 +379,65 @@ test('a file that reorders its sections is followed, and a language it does not 
     await loadResearchedGuides(prisma)
   }
 })
+
+
+/**
+ * The whole manifest with one entry's area and guide renamed, built by MAPPING the real one (SB-305).
+ *
+ * Not by listing the entries it keeps: reconciliation removes whatever the manifest no longer names, so a copy that
+ * quietly dropped an entry would delete real rows and still pass, which is the one way this test is worse than none.
+ */
+const renamed = (suffix: string): { manifest: readonly ResearchedGuide[]; before: ResearchedGuide; after: ResearchedGuide } => {
+  const before = RESEARCHED_GUIDES[0]
+  if (!before) throw new Error('RESEARCHED_GUIDES is empty')
+  const after: ResearchedGuide = {
+    ...before,
+    area: { ...before.area, slug: `${before.area.slug}-${suffix}` },
+    guide: { ...before.guide, slug: `${before.guide.slug}-${suffix}` },
+    detail: { ...before.detail, slug: `${before.detail.slug}-${suffix}` },
+  }
+  return { manifest: RESEARCHED_GUIDES.map((entry) => (entry === before ? after : entry)), before, after }
+}
+
+const guideRow = (country: string, slug: string) => prisma.guide.findUnique({ where: { countryCode_slug: { countryCode: country, slug } } })
+const areaRow = (country: string, slug: string) => prisma.category.findUnique({ where: { countryCode_slug: { countryCode: country, slug } } })
+
+test('a guide and an area the research renames leave no row behind, and every row it still names is untouched', async () => {
+  const { manifest, before, after } = renamed('renamed')
+  try {
+    const counted = await rows()
+    await loadResearchedGuides(prisma, manifest, { reconcile: true })
+
+    expect(await guideRow(before.country, before.guide.slug), 'the guide under its old slug').toBeNull()
+    expect(await areaRow(before.country, before.area.slug), 'the area under its old slug').toBeNull()
+
+    expect((await guideRow(after.country, after.guide.slug))?.research, 'the renamed guide names the research that wrote it').toBe(after.research)
+    expect((await areaRow(after.country, after.area.slug))?.research, 'the renamed area names the research that wrote it').toBe(after.research)
+
+    // The half that matters: a rename swaps one row for another and leaves the rest of the manifest alone. Without
+    // this, a reconcile that deleted everything it owned would satisfy every assertion above.
+    expect(await rows(), 'a rename removes nothing else').toEqual(counted)
+    for (const other of RESEARCHED_GUIDES.filter((entry) => entry !== before)) {
+      expect(await guideRow(other.country, other.guide.slug), `${other.country}/${other.guide.slug} survives a rename elsewhere`).not.toBeNull()
+    }
+  } finally {
+    await loadResearchedGuides(prisma, RESEARCHED_GUIDES, { reconcile: true })
+  }
+})
+
+test('an area the research stops naming is refused, not removed, while it still holds a guide no research owns', async () => {
+  const { manifest, before } = renamed('stranded')
+  const area = await prisma.category.findUniqueOrThrow({ where: { countryCode_slug: { countryCode: before.country, slug: before.area.slug } } })
+  // Guide.categoryId is onDelete: SetNull, so removing this area would not skip this row, it would uncategorise it.
+  const planted = await prisma.guide.create({
+    data: { countryCode: before.country, slug: 'a-guide-no-research-wrote', categoryId: area.id, verifiedAt: new Date('2026-01-01') },
+  })
+  try {
+    await expect(loadResearchedGuides(prisma, manifest, { reconcile: true })).rejects.toThrow(/still holds a-guide-no-research-wrote/)
+    expect(await areaRow(before.country, before.area.slug), 'the area it refused to remove').not.toBeNull()
+    expect(await prisma.guide.findUnique({ where: { id: planted.id } }), 'the guide it refused to orphan').not.toBeNull()
+  } finally {
+    await prisma.guide.delete({ where: { id: planted.id } })
+    await loadResearchedGuides(prisma, RESEARCHED_GUIDES, { reconcile: true })
+  }
+})

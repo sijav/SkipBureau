@@ -20,7 +20,6 @@ import type {
   TaskView,
 } from './guide.model.js'
 import { CategoryKind, ObligationResolution, ReaderAnswer, SectionKind } from './guide.model.js'
-import { RESEARCHED_GUIDES } from './researched-guides.js'
 import { best, match, WEIGHT, wordsOf, type Field } from './search.js'
 
 const date = (value: Date): string => value.toISOString().slice(0, 10)
@@ -58,10 +57,10 @@ const placeOf = (
  * researched loader, and the loader's are listed in `researched-guides.ts`, so a row the research does not name is the
  * filler's. An admin panel that can edit rows ends that, and SB-011 has to say what takes its place.
  */
-const RESEARCHED_GUIDE_KEYS = new Set(RESEARCHED_GUIDES.map((researched) => `${researched.country}/${researched.guide.slug}`))
-const RESEARCHED_AREA_KEYS = new Set(RESEARCHED_GUIDES.map((researched) => `${researched.country}/${researched.area.slug}`))
-const sampleGuide = (countryCode: string, slug: string): boolean => !RESEARCHED_GUIDE_KEYS.has(`${countryCode}/${slug}`)
-const sampleArea = (countryCode: string, slug: string): boolean => !RESEARCHED_AREA_KEYS.has(`${countryCode}/${slug}`)
+// SB-305: the row says who wrote it, rather than the answer being inferred from a list in the source. Derived by
+// absence, a slug the research renamed away left a row that started calling itself sample content, because absence
+// from the list was the whole definition. A null `research` is every sample and editor written row, and nothing else.
+const isSample = (row: { research: string | null }): boolean => row.research === null
 
 // How many of each kind Ask's panel shows, and the results page.
 const IN_PANEL = 3
@@ -157,9 +156,7 @@ export class GuideService {
       otherRoutesIntro: text.otherRoutesIntro,
       locale: text.locale,
       translationMissing: missing,
-      sample: task.categories.some(
-        (category) => sampleArea(countryCode, category.slug) || category.guides.some((guide) => sampleGuide(countryCode, guide.slug)),
-      ),
+      sample: task.categories.some((category) => isSample(category) || category.guides.some(isSample)),
       areas,
       guides,
       sources: [...sources.values()],
@@ -207,7 +204,7 @@ export class GuideService {
       translationMissing: missing,
       goalSlug: row.task.slug,
       goalTitle: goalText.title,
-      sample: sampleArea(countryCode, row.slug) || row.guides.some((guide) => sampleGuide(countryCode, guide.slug)),
+      sample: isSample(row) || row.guides.some(isSample),
       goalAreas: row.task.categories.length,
       lastReviewed: reviewed ? date(reviewed) : null,
       start: row.startGuide && startText ? { guideSlug: row.startGuide.slug, title: startText.title, reason: text.startReason } : null,

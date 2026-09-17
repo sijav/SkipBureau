@@ -20,6 +20,12 @@ import {
 
 export type ResearchedGuide = {
   country: string
+  /**
+   * The research file that wrote this guide, `turkey` or `germany`, which is the vocabulary the rules loader
+   * already uses (SB-305). Not the country code: a country can have more than one research file, and the two
+   * would silently diverge the first time it does.
+   */
+  research: string
   /** The global goal the area hangs on, from src/tasks.ts. */
   task: string
   /** The area of that goal in this country, titled as the research file titles the obligation. */
@@ -34,6 +40,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
   // Written from research/agreed/turkey/short-term-residence-permit.md.
   {
     country: 'tr',
+    research: 'turkey',
     task: 'get-a-residence-permit',
     area: { slug: 'short-term-residence-permit', en: 'Get a short-term residence permit', fa: 'دریافت اجازه اقامت کوتاه‌مدت' },
     guide: {
@@ -148,6 +155,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
   // Written from research/agreed/germany/residence-permit.md.
   {
     country: 'de',
+    research: 'germany',
     task: 'get-a-residence-permit',
     area: {
       slug: 'residence-permit',
@@ -247,6 +255,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
   // Written from research/agreed/turkey/address-registration.md, in the sample address guide's own row (SB-281).
   {
     country: 'tr',
+    research: 'turkey',
     task: 'getting-settled',
     area: { slug: 'register-your-address', en: 'Report your address and any change to it', fa: 'اعلام نشانی محل سکونت و هر تغییر آن' },
     guide: {
@@ -353,6 +362,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
   // Written from research/agreed/turkey/tax-number.md (SB-279), its charge from Law 492 (SB-206).
   {
     country: 'tr',
+    research: 'turkey',
     task: 'banking-and-money',
     area: { slug: 'tax-number', en: 'Get a tax number', fa: 'دریافت شماره مالیاتی' },
     guide: {
@@ -412,6 +422,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
   // Written from research/agreed/turkey/health-insurance.md (SB-279).
   {
     country: 'tr',
+    research: 'turkey',
     task: 'health-and-insurance',
     area: { slug: 'health-insurance', en: 'Join general health insurance', fa: 'ثبت‌نام در بیمه سلامت عمومی' },
     guide: {
@@ -501,6 +512,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
   // Written from research/agreed/turkey/work-permit.md (SB-279).
   {
     country: 'tr',
+    research: 'turkey',
     task: 'work',
     area: { slug: 'work-permit', en: 'Get a work permit', fa: 'دریافت مجوز کار' },
     guide: {
@@ -602,6 +614,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
   // Written from research/agreed/turkey/company-formation.md (SB-279).
   {
     country: 'tr',
+    research: 'turkey',
     task: 'start-a-business',
     area: { slug: 'company-formation', en: 'Form a limited company', fa: 'تأسیس شرکت با مسئولیت محدود' },
     guide: {
@@ -741,6 +754,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
   // Written from research/agreed/germany/anmeldung.md (SB-299).
   {
     country: 'de',
+    research: 'germany',
     task: 'getting-settled',
     area: { slug: 'anmeldung', en: 'Register where you live', fa: 'ثبت نشانی محل سکونت' },
     guide: {
@@ -850,6 +864,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
   // Written from research/agreed/germany/business-registration.md (SB-299).
   {
     country: 'de',
+    research: 'germany',
     task: 'start-a-business',
     area: { slug: 'business-registration', en: 'Register a business', fa: 'ثبت کسب‌وکار' },
     guide: {
@@ -973,6 +988,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
   // Written from research/agreed/germany/health-insurance.md (SB-299).
   {
     country: 'de',
+    research: 'germany',
     task: 'health-and-insurance',
     area: { slug: 'health-insurance', en: 'Get health insurance', fa: 'تهیه بیمه درمانی' },
     guide: {
@@ -1109,9 +1125,19 @@ const LOCALES = [
  * test/researched-guides.spec.ts holds a file to the fields written here: a section's title and body, a source's address
  * and name.
  */
+/**
+ * SB-305: reconciling is OFF unless asked for, and only the production load asks.
+ *
+ * `guides` is deliberately called with one guide subsets by tests, which then restore the full set in a `finally`. A
+ * cleanup that ran on every call would read such a subset as that country's whole manifest and delete the other rows
+ * the research still names. So removal is an explicit choice made by the one caller that passes the whole manifest.
+ */
+export type LoadOptions = { reconcile?: boolean }
+
 export const loadResearchedGuides = async (
   prisma: PrismaClient,
   guides: readonly ResearchedGuide[] = RESEARCHED_GUIDES,
+  { reconcile = false }: LoadOptions = {},
 ): Promise<string[]> => {
   const loaded: string[] = []
   for (const researched of guides) {
@@ -1138,14 +1164,60 @@ export const loadResearchedGuides = async (
     await prisma.$transaction((tx) => writeGuide(tx, task.id, researched), { timeout: TIMEOUT_MS })
     loaded.push(`${researched.country}/${researched.guide.slug}`)
   }
+  if (reconcile) await removeWhatTheResearchNoLongerNames(prisma, guides)
   return loaded
+}
+
+/**
+ * Rows this research owns and no longer names, removed (SB-305).
+ *
+ * Owned means the `research` column holds one of the names this load carries, so every sample and editor written row,
+ * whose column is null, is out of reach by construction rather than by a filter someone has to remember.
+ *
+ * Guides go before areas, and that order is not cosmetic: `Guide.categoryId` is `onDelete: SetNull`, so removing an
+ * area does not skip a guide inside it, it quietly uncategorises it. An unowned guide sitting in an area about to go is
+ * refused by name instead, because deleting someone else's row and orphaning it are both worse than stopping.
+ */
+const removeWhatTheResearchNoLongerNames = async (prisma: PrismaClient, guides: readonly ResearchedGuide[]): Promise<void> => {
+  const owners = [...new Set(guides.map((researched) => researched.research))]
+  const namedGuides = new Set(guides.map((researched) => `${researched.country}/${researched.guide.slug}`))
+  const namedAreas = new Set(guides.map((researched) => `${researched.country}/${researched.area.slug}`))
+
+  const ownedGuides = await prisma.guide.findMany({ where: { research: { in: owners } }, select: { id: true, countryCode: true, slug: true } })
+  const staleGuides = ownedGuides.filter((row) => !namedGuides.has(`${row.countryCode}/${row.slug}`))
+
+  const ownedAreas = await prisma.category.findMany({
+    where: { research: { in: owners } },
+    select: { id: true, countryCode: true, slug: true, guides: { select: { id: true, slug: true, research: true } } },
+  })
+  const staleAreas = ownedAreas.filter((row) => !namedAreas.has(`${row.countryCode}/${row.slug}`))
+
+  const going = new Set(staleGuides.map((row) => row.id))
+  const stranded = staleAreas.flatMap((area) =>
+    area.guides.filter((guide) => !going.has(guide.id)).map((guide) => `${area.countryCode}/${area.slug} still holds ${guide.slug}`),
+  )
+  if (stranded.length > 0) {
+    throw new Error(`the research no longer names ${stranded.join(', ')}, and removing the area would leave it with no area; nothing was deleted.`)
+  }
+
+  if (staleGuides.length === 0 && staleAreas.length === 0) return
+  await prisma.$transaction(
+    async (tx) => {
+      if (staleGuides.length > 0) await tx.guide.deleteMany({ where: { id: { in: staleGuides.map((row) => row.id) } } })
+      if (staleAreas.length > 0) await tx.category.deleteMany({ where: { id: { in: staleAreas.map((row) => row.id) } } })
+    },
+    { timeout: TIMEOUT_MS },
+  )
+  console.log(
+    `researched guides: removed ${staleGuides.length} guide(s) and ${staleAreas.length} area(s) the research no longer names`,
+  )
 }
 
 const writeGuide = async (tx: Prisma.TransactionClient, taskId: string, researched: ResearchedGuide): Promise<void> => {
   const { country: countryCode, detail } = researched
   const verifiedAt = new Date(researched.guide.verifiedAt)
 
-  const areaRow = { taskId, position: 0, kind: null, startGuideId: null }
+  const areaRow = { taskId, position: 0, kind: null, startGuideId: null, research: researched.research }
   const area = await tx.category.upsert({
     where: { countryCode_slug: { countryCode, slug: researched.area.slug } },
     update: areaRow,
@@ -1168,7 +1240,7 @@ const writeGuide = async (tx: Prisma.TransactionClient, taskId: string, research
     })
   }
 
-  const guideRow = { categoryId: area.id, verifiedAt, position: 0, showDisclaimer: false, showSuggestUpdate: true, readingMinutes: null }
+  const guideRow = { categoryId: area.id, verifiedAt, position: 0, showDisclaimer: false, showSuggestUpdate: true, readingMinutes: null, research: researched.research }
   const guide = await tx.guide.upsert({
     where: { countryCode_slug: { countryCode, slug: researched.guide.slug } },
     update: guideRow,
