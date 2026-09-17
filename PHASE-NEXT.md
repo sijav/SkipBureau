@@ -283,3 +283,41 @@ calculation is found resting on an input nobody verified. The invariant it would
 have to enforce, including the chained and cyclic cases, is written down in
 `apps/api/test/#SB-359 - Nothing checks that a calculated definition's inputs exist or are verified.md`,
 so it does not have to be worked out a second time.
+
+## The upward tree walk's tests cannot tell it from a single parent check
+
+**Decided 2026-09-17**, dropping SB-367.
+
+`skipbureau_tree_row_in_use_keeps_its_place` refuses moving a place or a kind of
+permit out from under one a rule's criteria name, by walking up the whole parent
+chain. Every test of that walk moves a row whose immediate parent IS the named
+row: `place.e2e.spec.ts` moves `TR-52.altinordu` out from under `TR-52`, and
+`status.e2e.spec.ts` moves `tr.reach.kind` out from under `tr.reach`.
+
+So a guard reduced to a single `OLD."parentCode"` comparison, with no recursion
+at all, would refuse both and the whole suite would stay green, while a reader
+two levels under a named place silently left its rule.
+
+**The temporary-cycle test looks like it covers this and does not.** Its
+statement moves three rows of `TR-71`, and two of them, `TR-71.c` and `TR-71.d`,
+are two hops from the named ancestor. But its assertion asks only that the
+statement be refused naming `TR-71`, and `TR-71.b`, whose direct parent is the
+named row, supplies that refusal whatever order PostgreSQL visits rows in, which
+it does not promise. A two hop row is present and never has to be the one
+refused.
+
+The case that would close it is small: a named root, an unnamed middle, a leaf,
+and a move of the leaf alone. Two hops is the right depth, because a deeper
+fixture only moves the blind spot to a deeper bounded rewrite and no finite case
+proves unbounded recursion.
+
+The owner was asked on 2026-09-17, with `CLAUDE.md` lines 37 to 39 quoted against
+the card's exit, and chose to drop it. It is the second card dropped that day
+under that rule, after SB-359. The rule is read literally: what it forbids is
+**adding** a check, and it does not matter that this one would have added no new
+refusal and only told an existing guard apart from a weakened one.
+
+**Undo it** the day the owner asks for the case, or the next time this trigger is
+edited, which is the only moment the reduction it guards against could be
+introduced. The design is written down in
+`apps/api/test/#SB-367 - No test would catch the upward walk being replaced by a one-level check.md`.
