@@ -137,6 +137,27 @@ jobs:
       - name: The browser suite, both projects
         run: npm run test:e2e -w @skipbureau/web
 
+      # SB-410: what a failure leaves behind. Without this the html report and the
+      # traces die with the runner, and the first real failure on this job was
+      # diagnosable only because the assertion text happened to reach the log. A layout
+      # or timing failure that reproduces only on a runner would leave nothing to read.
+      #
+      # `if: failure()` keeps a green run silent. `run_attempt` is in the name because
+      # rerunning just the failed job keeps the same run id, and v7 artifacts are
+      # immutable, so a second attempt would collide. `if-no-files-found: error` because
+      # v7 applies it only when NOTHING matches: a partial match still uploads what
+      # exists, so this costs nothing normally and shouts if reporting produced nothing
+      # at all, which is the silent success this step exists to prevent.
+      - uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: playwright-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            apps/web/playwright-report
+            apps/web/test-results
+          if-no-files-found: error
+          retention-days: 7
+
   # History, not the working tree. A secret added in one commit and deleted in
   # the next is absent from the tree and still in the object database, which is
   # exactly the case a working-tree scan reports clean.

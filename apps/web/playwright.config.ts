@@ -41,7 +41,14 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  reporter: 'list',
+  // SB-410: list for the log, html for afterwards. The list reporter is what makes a CI
+  // log readable line by line and it stays; the html reporter is what makes a failure
+  // explorable once the runner is gone, which it otherwise is not, because test-results
+  // holds raw traces that need `playwright show-trace` to read.
+  //
+  // `open: 'never'` is not decoration. The html reporter opens a browser on failure by
+  // default, which is hostile in a terminal and meaningless on a runner.
+  reporter: [['list'], ['html', { open: 'never' }]],
   use: { trace: 'on-first-retry' },
   projects: [
     {
