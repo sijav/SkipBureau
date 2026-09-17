@@ -8,10 +8,10 @@ visa-free stay, the nationalities §41 AufenthV names, and a Schengen visa. Two 
 both corrected below: §39 No. 3's lawful presence and entitlement, and the early end of §41's 90 days.
 
 The correction worth naming: the draft told a reader who cannot get an
-appointment to plead an emergency. The actual answer is that in Berlin you
-**apply online yourself, and an appointment follows the LEA's positive review
-rather than standing between you and applying**. Published as drafted, it would
-have sent people to beg for a slot they did not need.
+appointment to plead an emergency. The actual answer is that, **where Berlin's
+published conditions for the online route are met, the LEA reviews the online
+application, and an appointment follows the LEA's positive review**. Published as
+drafted, it would have sent people to beg for a slot they did not need.
 
 **Corrected again on 2026-09-17** (SB-357). This paragraph still said you "do
 not need to wait for an appointment at all", which SB-184 had already replaced
