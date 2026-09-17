@@ -211,3 +211,39 @@ mover between countries already names one status for each.
 **Undo it** by adding per-side status lists the day a comparison of two statuses
 in one country is asked for, and by loading a country's statuses wholesale the
 day the Residence status row needs every choice.
+
+## A calculated definition's inputs are not checked
+
+**Decided 2026-09-17**, dropping SB-359.
+
+Ten definitions across five agreed documents are `calculated` rather than read
+from a page. They carry `inputs`, `formula` and `rounding` in place of a url and
+evidence, and work a number out from other definitions. Turkey's health
+insurance premium is one, twice the minimum wage at twelve per cent, and it is
+the only one whose input is itself a calculated definition.
+
+Nothing checks any of it. `definitionsOf` in `test/research-rules.e2e.spec.ts`
+keeps a definition's url, status, read date and evidence, and discards its
+inputs, formula and rounding. The test that validates provenance then walks only
+the labels a rule version or fact names, and no version or fact names a
+calculated definition. So a misspelled input key, an input with no definition
+behind it, an input that was never verified, or an input read on a different day
+from its own source, would each leave the suite green.
+
+**What that costs is the justification, not the number.** A published figure
+lives in the document's text and in the rule's facts, so a broken input does not
+change what a reader is shown. It breaks the recorded account of where that
+figure came from, which is the one thing this product has over a search engine.
+
+The owner was asked on 2026-09-17, with `CLAUDE.md` lines 37 to 39 quoted
+against SB-359's own exit, and chose to drop the card rather than authorise it
+as an exception or defer it to phase Quality. The plan check had ruled the same
+way first: walking every calculated definition in every agreed document is a new
+gate, not a repair of the existing one, which validates only what a rule serves
+and stops there on purpose.
+
+**Undo it** the day the owner asks for the check, or the day a recorded
+calculation is found resting on an input nobody verified. The invariant it would
+have to enforce, including the chained and cyclic cases, is written down in
+`apps/api/test/#SB-359 - Nothing checks that a calculated definition's inputs exist or are verified.md`,
+so it does not have to be worked out a second time.
