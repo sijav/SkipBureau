@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process'
-import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { expect, test } from 'vitest'
@@ -22,6 +22,7 @@ import {
   publishLog,
   readerFor,
   resetNotice,
+  restorer,
   runVerdict,
   tipIn,
   uncommittedLabels,
@@ -378,6 +379,46 @@ test('composing refuses a place two cases list, naming both', () => {
   ).toThrow(/place DE-XX is listed by both one and two/)
 })
 
+// SB-343: a take-down rewrites the case's data file before the checks, because the type check, the research specs
+// and the digest all read the reverted state. Any failure between that rewrite and the commit would otherwise
+// abandon an edit in the working tree that nobody made and nothing reports. These need a real file and no git at
+// all, so they use a bare temporary directory rather than the repository helper below.
+const scratchFile = (): { file: string; remove: () => void } => {
+  const folder = mkdtempSync(join(tmpdir(), 'publish-research-restore-'))
+  return { file: join(folder, 'case.ts'), remove: () => rmSync(folder, { recursive: true, force: true }) }
+}
+
+test('a take-down that fails before its commit leaves the data file exactly as it was', () => {
+  const { file, remove } = scratchFile()
+  try {
+    const was = emptyCase('anmeldung').replace('had not been published before', 'was published and is being taken back')
+    writeFileSync(file, was)
+
+    const restore = restorer(file)
+    writeFileSync(file, emptyCase('anmeldung'))
+    expect(readFileSync(file, 'utf8'), 'the take-down rewrote it').not.toBe(was)
+
+    restore()
+    expect(readFileSync(file, 'utf8'), 'and a failure before the commit put it back byte for byte').toBe(was)
+  } finally {
+    remove()
+  }
+})
+
+test('a take-down of a case whose file was not on disk leaves no file behind', () => {
+  const { file, remove } = scratchFile()
+  try {
+    // caseOf parses the path and checks nothing on disk, so a take-down can run with the file already deleted.
+    const restore = restorer(file)
+    writeFileSync(file, emptyCase('anmeldung'))
+    expect(existsSync(file), 'the take-down wrote one').toBe(true)
+
+    restore()
+    expect(existsSync(file), 'restoring what was never there removes it rather than writing bytes back').toBe(false)
+  } finally {
+    remove()
+  }
+})
 /** A throwaway repository with one commit, git's file monitor off so no watcher outlives it. */
 const repository = () => {
   const folder = mkdtempSync(join(tmpdir(), 'publish-research-spec-'))

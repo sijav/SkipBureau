@@ -161,6 +161,24 @@ export const BUILD_INPUTS: readonly string[] = ['apps/api', 'package.json', 'pac
 export const otherInputs = (changed: readonly string[], selected: readonly string[]): string[] =>
   [...new Set(changed)].filter((path) => !path.endsWith('.md') && !selected.includes(path))
 
+/**
+ * What the case's data file held, ready to be put back (SB-343).
+ *
+ * A take-down rewrites that file BEFORE the checks, and has to: the type check, the research specs and the digest
+ * all read the reverted state, so checking the state a take-down is removing would prove nothing about it. That
+ * leaves a window where any failure would abandon an edit in the working tree that nobody made and nothing reports.
+ *
+ * The file may not be there to begin with, since caseOf parses the path and checks nothing on disk, so restoring
+ * one that did not exist REMOVES it rather than writing bytes back.
+ */
+export const restorer = (path: string): (() => void) => {
+  const was = existsSync(path) ? readFileSync(path) : null
+  return () => {
+    if (was === null) rmSync(path, { force: true })
+    else writeFileSync(path, was)
+  }
+}
+
 /** The files of a snapshot whose bytes are no longer the ones it holds. */
 export const changedSince = (snapshot: readonly { path: string; bytes: Buffer }[], read: (path: string) => Buffer): string[] =>
   snapshot.filter((file) => sha(read(file.path)) !== sha(file.bytes)).map((file) => file.path)
@@ -553,191 +571,206 @@ const main = async (): Promise<void> => {
     throw new PublishError(`${the.agreed} does not exist: a case is published from its agreed document.`)
 
   let reverts: string | undefined
+  // SB-343: set where a take-down rewrites the data file, called if anything fails before the commit.
+  let restore: (() => void) | null = null
+  let committed = false
   if (down) {
     const last = lastUnreverted(publishLog(repo, the), the.name)
     if (!last) throw new PublishError(`${the.name} has no publish that changed its data file and has not been taken down.`)
     reverts = last.id
     const before = run('git', ['show', `${last.commit}^:${inRepo(the.dataFile)}`], { cwd: repo })
+    restore = restorer(resolve(API, the.dataFile))
     writeFileSync(resolve(API, the.dataFile), before.status === 0 ? before.stdout : emptyCase(the.document))
   }
 
-  const selected = (
-    down
-      ? [the.dataFile]
-      : [the.dataFile, the.countryFile, the.agreed, the.talk, 'prisma/research/sessions.json', 'prisma/research/README.md']
-  ).filter((path) => existsSync(resolve(API, path)))
-  // Paths alone, one to a line: a status column's leading space is lost to a trim, and a quoted path to a filter.
-  const listed = (args: readonly string[]) =>
-    run('git', ['-c', 'core.quotepath=false', ...args], { cwd: repo })
-      .stdout.split('\n')
-      .map((line) => line.trim())
-      .filter(Boolean)
-  const changed = [
-    ...listed(['diff', '--name-only', 'HEAD', '--', ...BUILD_INPUTS]),
-    ...listed(['ls-files', '--others', '--exclude-standard', '--', ...BUILD_INPUTS]),
-  ]
-  const others = otherInputs(changed, selected.map(inRepo))
-  if (others.length > 0)
-    throw new PublishError(`the deployed build is made from changes this publish would not carry: ${others.join(', ')}. Commit them first.`)
+  try {
+    const selected = (
+      down
+        ? [the.dataFile]
+        : [the.dataFile, the.countryFile, the.agreed, the.talk, 'prisma/research/sessions.json', 'prisma/research/README.md']
+    ).filter((path) => existsSync(resolve(API, path)))
+    // Paths alone, one to a line: a status column's leading space is lost to a trim, and a quoted path to a filter.
+    const listed = (args: readonly string[]) =>
+      run('git', ['-c', 'core.quotepath=false', ...args], { cwd: repo })
+        .stdout.split('\n')
+        .map((line) => line.trim())
+        .filter(Boolean)
+    const changed = [
+      ...listed(['diff', '--name-only', 'HEAD', '--', ...BUILD_INPUTS]),
+      ...listed(['ls-files', '--others', '--exclude-standard', '--', ...BUILD_INPUTS]),
+    ]
+    const others = otherInputs(changed, selected.map(inRepo))
+    if (others.length > 0)
+      throw new PublishError(`the deployed build is made from changes this publish would not carry: ${others.join(', ')}. Commit them first.`)
 
-  const snapshot = selected.map((path) => ({ path, bytes: readFileSync(resolve(API, path)) }))
+    const snapshot = selected.map((path) => ({ path, bytes: readFileSync(resolve(API, path)) }))
 
-  const require = createRequire(import.meta.url)
-  console.log(`checking ${the.name}: types and the research specs`)
-  const types = run(process.execPath, [require.resolve('typescript/bin/tsc'), '--noEmit'])
-  if (types.status !== 0)
-    throw new PublishError(`the type check failed:\n${(types.stdout + types.stderr).trim().split('\n').slice(0, 20).join('\n')}`)
-  const vitest = join(dirname(require.resolve('vitest/package.json')), 'vitest.mjs')
-  // Without colour, so its failures read as plain lines.
-  const specs = run(process.execPath, [vitest, 'run', 'test/research-rules.e2e.spec.ts', 'test/research-regions.e2e.spec.ts'], {
-    env: { ...process.env, NO_COLOR: '1', FORCE_COLOR: '0' },
-  })
-  if (specs.status !== 0) {
-    const plain = specs.stdout + specs.stderr
-    const failing = plain.split('\n').filter((line) => /FAIL|AssertionError|Error:|Tests\s/.test(line))
-    throw new PublishError(`the research specs failed:\n${failing.slice(0, 20).join('\n')}`)
-  }
-
-  // SB-297: the web is what names a situation or a fact this research adds, and the publish carries neither label
-  // file, so both have to be committed already: a gate that passes against a tree the publish will not carry reports
-  // a safety it has not established. BUILD_INPUTS never sees them, being the API's own, so they are read by name.
-  const dirtyLabels = uncommittedLabels([
-    ...listed(['diff', '--name-only', 'HEAD', '--', ...LABEL_SOURCES]),
-    ...listed(['ls-files', '--others', '--exclude-standard', '--', ...LABEL_SOURCES]),
-  ])
-  if (dirtyLabels.length > 0) {
-    throw new PublishError(
-      `the web's names for what this research adds are not committed: ${dirtyLabels.join(', ')}. Commit them first, or this publish carries the research and the site keeps no name for it.`,
-    )
-  }
-  const labels = run(process.execPath, labelTestArgs(vitest), { cwd: WEB, env: { ...process.env, NO_COLOR: '1', FORCE_COLOR: '0' } })
-  if (labels.status !== 0) {
-    const plain = labels.stdout + labels.stderr
-    const failing = plain.split('\n').filter((line) => /FAIL|AssertionError|Error:|Tests\s/.test(line))
-    throw new PublishError(`the web has no name for what this research adds:\n${failing.slice(0, 20).join('\n')}`)
-  }
-
-  const moved = changedSince(snapshot, (path) => readFileSync(resolve(API, path)))
-  if (moved.length > 0) throw new PublishError(`${moved.join(', ')} changed while the checks ran: run the publish again.`)
-
-  const rules = Object.values(await importFrom(resolve(API, the.countryFile))).find(isRules)
-  const current = (await importFrom(resolve(API, the.dataFile)))['CASE']
-  if (!rules || !isCase(current))
-    throw new PublishError(`${the.countryFile} or ${the.dataFile} does not export what a research case exports.`)
-  const digest = digestOf(rules)
-  const previous = await caseAt(repo, start, the)
-
-  const id = reverts ?? randomUUID()
-  const commit = commitBytes(
-    repo,
-    start,
-    branch,
-    snapshot.map((file) => ({ path: inRepo(file.path), bytes: file.bytes })),
-    messageOf(down ? 'down' : 'publish', the.name, id),
-  )
-  const pushed = run('git', ['push', 'origin', branch.replace(/^refs\/heads\//, '')], { cwd: repo })
-  if (pushed.status !== 0)
-    throw new PublishError(`the push was refused: ${pushed.stderr.trim()}. ${commit} is on ${branch} and not on origin.`)
-  console.log(`committed ${commit} and pushed; waiting for the deployed database's digest for ${rules.research} to be ${digest}`)
-
-  // Northflank's build is watched on this commit alone. A push that lands while another build runs can go unbuilt,
-  // as c5b8b25 did, and pushing again sends nothing, so a commit with no build status three minutes after its push
-  // has its build started through northflank-build.yml, whose run is then followed within its own limits.
-  const pushedAt = Date.now()
-  let deadline = pushedAt + DIGEST_WAIT
-  let fallback: { runId: number; dispatchedAt: number; runningSince: number | null; built: boolean } | null = null
-  // Said once per reason rather than every twenty seconds, since the loop already prints a line each time round.
-  let declined: string | null = null
-  let deployed = await receiptOf(rules.research).catch(() => null)
-  while (deployed !== digest) {
-    const now = Date.now()
-    if (!fallback) {
-      const statuses = readJson(['api', `repos/${REPOSITORY}/commits/${commit}/statuses`])
-      const build = statuses === undefined ? undefined : buildStateOf(statuses)
-      if (build && (build.state === 'failure' || build.state === 'error')) {
-        throw new PublishError(
-          `Northflank's build of ${commit} ended ${build.state}: ${build.description}. Fix what it reports, commit that, and publish again.`,
-        )
-      }
-      if (build === null && now - pushedAt > NO_BUILD_WAIT) {
-        // Only while this commit is still the branch's tip (SB-236): a build started for it after a newer push would
-        // deploy older code over the newer, and the digest would match either way.
-        const choice = dispatchChoice(tipOf(branch), commit)
-        if (choice.dispatch) {
-          const runId = startBuild(branch.replace(/^refs\/heads\//, ''), commit)
-          fallback = { runId, dispatchedAt: now, runningSince: null, built: false }
-          console.log(
-            `Northflank had not started building ${commit} three minutes after the push; started it through northflank-build.yml, run ${runId}`,
-          )
-        } else if (declined !== choice.reason) {
-          declined = choice.reason
-          console.log(`not starting a build of ${commit}: ${choice.reason}; waiting for that build's digest instead`)
-        }
-      }
-    } else if (!fallback.built) {
-      const record = readRun(fallback.runId)
-      const verdict = record === undefined ? null : runVerdict(record, fallback.dispatchedAt, fallback.runningSince, now)
-      if (verdict?.outcome === 'failed') {
-        throw new PublishError(
-          `northflank-build.yml run ${fallback.runId}, building ${commit}, ${verdict.reason}: gh run view ${fallback.runId} --log says why.`,
-        )
-      }
-      if (verdict?.outcome === 'waiting') fallback.runningSince = verdict.runningSince
-      if (verdict?.outcome === 'succeeded') {
-        fallback.built = true
-        deadline = now + DIGEST_WAIT
-        console.log(`run ${fallback.runId} built ${commit}; waiting up to 15 minutes for its deploy`)
-      }
+    const require = createRequire(import.meta.url)
+    console.log(`checking ${the.name}: types and the research specs`)
+    const types = run(process.execPath, [require.resolve('typescript/bin/tsc'), '--noEmit'])
+    if (types.status !== 0)
+      throw new PublishError(`the type check failed:\n${(types.stdout + types.stderr).trim().split('\n').slice(0, 20).join('\n')}`)
+    const vitest = join(dirname(require.resolve('vitest/package.json')), 'vitest.mjs')
+    // Without colour, so its failures read as plain lines.
+    const specs = run(process.execPath, [vitest, 'run', 'test/research-rules.e2e.spec.ts', 'test/research-regions.e2e.spec.ts'], {
+      env: { ...process.env, NO_COLOR: '1', FORCE_COLOR: '0' },
+    })
+    if (specs.status !== 0) {
+      const plain = specs.stdout + specs.stderr
+      const failing = plain.split('\n').filter((line) => /FAIL|AssertionError|Error:|Tests\s/.test(line))
+      throw new PublishError(`the research specs failed:\n${failing.slice(0, 20).join('\n')}`)
     }
-    // While a started build's run is still going, its own limits apply instead of the digest's.
-    if ((!fallback || fallback.built) && now > deadline) {
+
+    // SB-297: the web is what names a situation or a fact this research adds, and the publish carries neither label
+    // file, so both have to be committed already: a gate that passes against a tree the publish will not carry reports
+    // a safety it has not established. BUILD_INPUTS never sees them, being the API's own, so they are read by name.
+    const dirtyLabels = uncommittedLabels([
+      ...listed(['diff', '--name-only', 'HEAD', '--', ...LABEL_SOURCES]),
+      ...listed(['ls-files', '--others', '--exclude-standard', '--', ...LABEL_SOURCES]),
+    ])
+    if (dirtyLabels.length > 0) {
       throw new PublishError(
-        `the deployed digest for ${rules.research} is ${deployed ?? 'missing'} ${fallback ? `15 minutes after run ${fallback.runId} built ${commit}` : 'after 15 minutes'}, not ${digest}: the deploy did not arrive or its load failed; a failed migration stops later deploys at P3009 until prisma migrate resolve runs on the deployed database.`,
+        `the web's names for what this research adds are not committed: ${dirtyLabels.join(', ')}. Commit them first, or this publish carries the research and the site keeps no name for it.`,
       )
     }
-    console.log(`${new Date().toISOString()} deployed digest ${deployed ?? 'missing'}, waiting`)
-    await sleep(20_000)
-    deployed = await receiptOf(rules.research).catch(() => null)
-  }
-
-  const problems: string[] = []
-  // Only a version in force today is asked, since the deployed resolver answers nothing else today (SB-249).
-  const today = new Date().toISOString().slice(0, 10)
-  for (const version of (current.versions ?? []).filter((version) => inForceOn(version, today))) {
-    const answer = expectedOf(rules, version, today)
-    if (answer.disputed !== null) {
-      problems.push(`${identity(version)}: the file's own versions dispute its answer: ${answer.disputed}`)
-      continue
+    const labels = run(process.execPath, labelTestArgs(vitest), { cwd: WEB, env: { ...process.env, NO_COLOR: '1', FORCE_COLOR: '0' } })
+    if (labels.status !== 0) {
+      const plain = labels.stdout + labels.stderr
+      const failing = plain.split('\n').filter((line) => /FAIL|AssertionError|Error:|Tests\s/.test(line))
+      throw new PublishError(`the web has no name for what this research adds:\n${failing.slice(0, 20).join('\n')}`)
     }
-    const { served, errors } = await servedFor(readerFor(rules, version), version.obligation)
-    const missing = answer.facts.filter((fact) => !shows(served, fact)).map((fact) => fact.key)
-    if (errors.length > 0 || missing.length > 0)
-      problems.push(`${identity(version)}: ${[...errors, ...missing.map((key) => `${key} not served`)].join('; ')}`)
-  }
-  for (const region of current.regions ?? []) {
-    const { errors } = await servedFor({ to: rules.country, regions: [region.code] }, '')
-    if (errors.length > 0) problems.push(`place ${region.code}: ${errors.join('; ')}`)
-  }
-  const kept = new Set((current.versions ?? []).map(identity))
-  const oldSources = { ...rules.sources, ...(previous?.sources ?? {}) }
-  for (const version of (previous?.versions ?? []).filter((old) => !kept.has(identity(old)))) {
-    const { served } = await servedFor(readerFor(rules, version), version.obligation)
-    const still = factsOf({ ...rules, sources: oldSources }, version)
-      .filter((fact) => shows(served, fact))
-      .map((fact) => fact.key)
-    if (still.length > 0) problems.push(`${identity(version)} was removed and still serves ${still.join(', ')}`)
-  }
-  const placesKept = new Set((current.regions ?? []).map((region) => region.code))
-  for (const region of (previous?.regions ?? []).filter((old) => !placesKept.has(old.code))) {
-    const { errors } = await servedFor({ to: rules.country, regions: [region.code] }, '')
-    if (errors.length === 0) problems.push(`place ${region.code} was removed and is still accepted`)
-  }
-  if (problems.length > 0) throw new PublishError(`the deployed API does not answer as ${the.name} says:\n${problems.join('\n')}`)
 
-  console.log(
-    `live: ${the.name} ${down ? `taken down, reverting ${reverts}` : `published as ${id}`} in ${commit}, digest ${digest}; ${current.versions?.length ?? 0} versions and ${current.regions?.length ?? 0} places read back`,
-  )
-  console.log(resetNotice(snapshot.map((file) => inRepo(file.path))))
+    const moved = changedSince(snapshot, (path) => readFileSync(resolve(API, path)))
+    if (moved.length > 0) throw new PublishError(`${moved.join(', ')} changed while the checks ran: run the publish again.`)
+
+    const rules = Object.values(await importFrom(resolve(API, the.countryFile))).find(isRules)
+    const current = (await importFrom(resolve(API, the.dataFile)))['CASE']
+    if (!rules || !isCase(current))
+      throw new PublishError(`${the.countryFile} or ${the.dataFile} does not export what a research case exports.`)
+    const digest = digestOf(rules)
+    const previous = await caseAt(repo, start, the)
+
+    const id = reverts ?? randomUUID()
+    const commit = commitBytes(
+      repo,
+      start,
+      branch,
+      snapshot.map((file) => ({ path: inRepo(file.path), bytes: file.bytes })),
+      messageOf(down ? 'down' : 'publish', the.name, id),
+    )
+    // SB-343: the restore window closes HERE, not at the end of the run. The commit now holds the reverted bytes,
+    // and resetNotice tells the operator the index still holds the pre-publish ones, so putting the old content
+    // back after this would leave the working tree contradicting the commit that is about to be pushed.
+    committed = true
+    const pushed = run('git', ['push', 'origin', branch.replace(/^refs\/heads\//, '')], { cwd: repo })
+    if (pushed.status !== 0)
+      throw new PublishError(`the push was refused: ${pushed.stderr.trim()}. ${commit} is on ${branch} and not on origin.`)
+    console.log(`committed ${commit} and pushed; waiting for the deployed database's digest for ${rules.research} to be ${digest}`)
+
+    // Northflank's build is watched on this commit alone. A push that lands while another build runs can go unbuilt,
+    // as c5b8b25 did, and pushing again sends nothing, so a commit with no build status three minutes after its push
+    // has its build started through northflank-build.yml, whose run is then followed within its own limits.
+    const pushedAt = Date.now()
+    let deadline = pushedAt + DIGEST_WAIT
+    let fallback: { runId: number; dispatchedAt: number; runningSince: number | null; built: boolean } | null = null
+    // Said once per reason rather than every twenty seconds, since the loop already prints a line each time round.
+    let declined: string | null = null
+    let deployed = await receiptOf(rules.research).catch(() => null)
+    while (deployed !== digest) {
+      const now = Date.now()
+      if (!fallback) {
+        const statuses = readJson(['api', `repos/${REPOSITORY}/commits/${commit}/statuses`])
+        const build = statuses === undefined ? undefined : buildStateOf(statuses)
+        if (build && (build.state === 'failure' || build.state === 'error')) {
+          throw new PublishError(
+            `Northflank's build of ${commit} ended ${build.state}: ${build.description}. Fix what it reports, commit that, and publish again.`,
+          )
+        }
+        if (build === null && now - pushedAt > NO_BUILD_WAIT) {
+          // Only while this commit is still the branch's tip (SB-236): a build started for it after a newer push would
+          // deploy older code over the newer, and the digest would match either way.
+          const choice = dispatchChoice(tipOf(branch), commit)
+          if (choice.dispatch) {
+            const runId = startBuild(branch.replace(/^refs\/heads\//, ''), commit)
+            fallback = { runId, dispatchedAt: now, runningSince: null, built: false }
+            console.log(
+              `Northflank had not started building ${commit} three minutes after the push; started it through northflank-build.yml, run ${runId}`,
+            )
+          } else if (declined !== choice.reason) {
+            declined = choice.reason
+            console.log(`not starting a build of ${commit}: ${choice.reason}; waiting for that build's digest instead`)
+          }
+        }
+      } else if (!fallback.built) {
+        const record = readRun(fallback.runId)
+        const verdict = record === undefined ? null : runVerdict(record, fallback.dispatchedAt, fallback.runningSince, now)
+        if (verdict?.outcome === 'failed') {
+          throw new PublishError(
+            `northflank-build.yml run ${fallback.runId}, building ${commit}, ${verdict.reason}: gh run view ${fallback.runId} --log says why.`,
+          )
+        }
+        if (verdict?.outcome === 'waiting') fallback.runningSince = verdict.runningSince
+        if (verdict?.outcome === 'succeeded') {
+          fallback.built = true
+          deadline = now + DIGEST_WAIT
+          console.log(`run ${fallback.runId} built ${commit}; waiting up to 15 minutes for its deploy`)
+        }
+      }
+      // While a started build's run is still going, its own limits apply instead of the digest's.
+      if ((!fallback || fallback.built) && now > deadline) {
+        throw new PublishError(
+          `the deployed digest for ${rules.research} is ${deployed ?? 'missing'} ${fallback ? `15 minutes after run ${fallback.runId} built ${commit}` : 'after 15 minutes'}, not ${digest}: the deploy did not arrive or its load failed; a failed migration stops later deploys at P3009 until prisma migrate resolve runs on the deployed database.`,
+        )
+      }
+      console.log(`${new Date().toISOString()} deployed digest ${deployed ?? 'missing'}, waiting`)
+      await sleep(20_000)
+      deployed = await receiptOf(rules.research).catch(() => null)
+    }
+
+    const problems: string[] = []
+    // Only a version in force today is asked, since the deployed resolver answers nothing else today (SB-249).
+    const today = new Date().toISOString().slice(0, 10)
+    for (const version of (current.versions ?? []).filter((version) => inForceOn(version, today))) {
+      const answer = expectedOf(rules, version, today)
+      if (answer.disputed !== null) {
+        problems.push(`${identity(version)}: the file's own versions dispute its answer: ${answer.disputed}`)
+        continue
+      }
+      const { served, errors } = await servedFor(readerFor(rules, version), version.obligation)
+      const missing = answer.facts.filter((fact) => !shows(served, fact)).map((fact) => fact.key)
+      if (errors.length > 0 || missing.length > 0)
+        problems.push(`${identity(version)}: ${[...errors, ...missing.map((key) => `${key} not served`)].join('; ')}`)
+    }
+    for (const region of current.regions ?? []) {
+      const { errors } = await servedFor({ to: rules.country, regions: [region.code] }, '')
+      if (errors.length > 0) problems.push(`place ${region.code}: ${errors.join('; ')}`)
+    }
+    const kept = new Set((current.versions ?? []).map(identity))
+    const oldSources = { ...rules.sources, ...(previous?.sources ?? {}) }
+    for (const version of (previous?.versions ?? []).filter((old) => !kept.has(identity(old)))) {
+      const { served } = await servedFor(readerFor(rules, version), version.obligation)
+      const still = factsOf({ ...rules, sources: oldSources }, version)
+        .filter((fact) => shows(served, fact))
+        .map((fact) => fact.key)
+      if (still.length > 0) problems.push(`${identity(version)} was removed and still serves ${still.join(', ')}`)
+    }
+    const placesKept = new Set((current.regions ?? []).map((region) => region.code))
+    for (const region of (previous?.regions ?? []).filter((old) => !placesKept.has(old.code))) {
+      const { errors } = await servedFor({ to: rules.country, regions: [region.code] }, '')
+      if (errors.length === 0) problems.push(`place ${region.code} was removed and is still accepted`)
+    }
+    if (problems.length > 0) throw new PublishError(`the deployed API does not answer as ${the.name} says:\n${problems.join('\n')}`)
+
+    console.log(
+      `live: ${the.name} ${down ? `taken down, reverting ${reverts}` : `published as ${id}`} in ${commit}, digest ${digest}; ${current.versions?.length ?? 0} versions and ${current.regions?.length ?? 0} places read back`,
+    )
+    console.log(resetNotice(snapshot.map((file) => inRepo(file.path))))
+  } catch (error) {
+    // SB-343: a take-down rewrote the case data file before any of this ran, so a failure here would otherwise
+    // abandon an edit nobody made. After the commit there is nothing to undo, which is what committed says.
+    if (!committed) restore?.()
+    throw error
+  }
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
