@@ -42,6 +42,11 @@ the official source", becomes the other half of the same choice rather than stan
 source are design data, so the assurance shows where the page's rows are researched and the warning where they are
 sample. One of the two, never both, never neither.
 
+**Corrected by SB-304.** That is true of `Home` and `CategoryHub`, and false of `TaskHub`. `Home` line 102 and
+`CategoryHub` line 193 are ternaries, warning against assurance. `TaskHub` line 194 is `{hub.sample && (...)}` with
+no other branch: it has no assurance line at all, so a researched task hub shows **neither** of the two. The
+sentence above describes two screens of the three.
+
 ## How it is checked
 
 - Stories for the three screens, each with the flag true and false, asserting which of the two lines shows; the mocks

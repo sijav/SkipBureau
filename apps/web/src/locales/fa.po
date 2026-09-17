@@ -361,8 +361,8 @@ msgid "Describe what changed, even in one sentence."
 msgstr "توضیح دهید چه چیزی تغییر کرده، حتی در یک جمله."
 
 #: src/screens/task-hub/TaskHub.tsx:195
-msgid "Descriptions on this page are sample content for design review. They deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
-msgstr "توضیحات این صفحه محتوای نمونه برای بازبینی طرح هستند. عمدا از هزینه‌ها، آستانه‌ها و قواعد واجد شرایط بودن پرهیز می‌کنند؛ این‌ها در راه‌اندازی راهنمایی‌شده و بر پایه منابع تأییدشده تعیین می‌شوند."
+#~ msgid "Descriptions on this page are sample content for design review. They deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
+#~ msgstr "توضیحات این صفحه محتوای نمونه برای بازبینی طرح هستند. عمدا از هزینه‌ها، آستانه‌ها و قواعد واجد شرایط بودن پرهیز می‌کنند؛ این‌ها در راه‌اندازی راهنمایی‌شده و بر پایه منابع تأییدشده تعیین می‌شوند."
 
 #: src/shared/saved-item/SavedItem.tsx:18
 msgid "Document"
@@ -977,6 +977,10 @@ msgstr "SkipBureau نتوانست این را بارگذاری کند"
 #: src/shared/information-disclaimer/InformationDisclaimer.tsx:18
 msgid "Skipbureau explains everyday processes in {country}. Information can change and should not be treated as legal or professional advice. Check the linked official sources before making important decisions."
 msgstr "Skipbureau روندهای روزمره در {country} را توضیح می‌دهد. اطلاعات ممکن است تغییر کند و نباید آن را مشاوره حقوقی یا حرفه‌ای دانست. پیش از تصمیم‌های مهم، منابع رسمی پیوندداده‌شده را بررسی کنید."
+
+#: src/screens/task-hub/TaskHub.tsx:196
+msgid "Some descriptions on this page are sample content for design review. Those deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
+msgstr "برخی از توضیحات این صفحه محتوای نمونه برای بازبینی طرح هستند. همان‌ها عمدا از هزینه‌ها، آستانه‌ها و قواعد واجد شرایط بودن پرهیز می‌کنند؛ این‌ها در راه‌اندازی راهنمایی‌شده و بر پایه منابع تأییدشده تعیین می‌شوند."
 
 #: src/screens/guide/Guide.tsx:344
 #: src/screens/guide/Guide.tsx:348

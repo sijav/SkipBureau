@@ -189,12 +189,13 @@ export const TaskHub = () => {
               checkedAt={source.verifiedAt}
             />
           ))}
-          {/* Only where an area or a guide here is sample content (SB-302). */}
+          {/* Only where an area or a guide here is sample content (SB-302), which is what the flag means: guide.service.ts
+              builds it with .some(), so it says at least one row is sample, never that all of them are (SB-304). */}
           {hub.sample && (
             <Typography variant="body2" sx={{ color: tokens.textSecondary }}>
               <Trans>
-                Descriptions on this page are sample content for design review. They deliberately avoid fees, thresholds and eligibility rules, which
-                are determined during guided setup against verified sources.
+                Some descriptions on this page are sample content for design review. Those deliberately avoid fees, thresholds and eligibility
+                rules, which are determined during guided setup against verified sources.
               </Trans>
             </Typography>
           )}

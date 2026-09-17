@@ -117,3 +117,44 @@ export const SampleContent: Story = {
     await expect(await within(canvasElement).findByText(/sample content for design review/, {}, { timeout: 5000 })).toBeVisible()
   },
 }
+
+/**
+ * A goal holding a researched area beside a sample one (SB-304). The flag is one boolean for the page and it means
+ * `.some()`, so the notice has to claim only part of the page: a researched, dated row must not be called sample
+ * material. The pair is the one apps/api/test/hub-sample.e2e.spec.ts proves the API really returns together.
+ */
+export const Mixed: Story = {
+  parameters: {
+    goal: 'getting-settled',
+    msw: {
+      handlers: [
+        graphql.link(endpoint()).query('TaskHub', () =>
+          HttpResponse.json({
+            data: {
+              taskHub: {
+                ...fixtures.taskHub,
+                slug: 'getting-settled',
+                title: 'Getting Settled',
+                heading: null,
+                sample: true,
+                areas: [
+                  { slug: 'first-week', position: 0, kind: null, title: 'Your first week', description: 'What most people deal with first.' },
+                  { slug: 'register-your-address', position: 1, kind: null, title: 'Register your address', description: 'Where you live, on the record.' },
+                ],
+                guides: [],
+                sources: [],
+              },
+            },
+          }),
+        ),
+        ...handlers,
+      ],
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(await canvas.findByText(/Some descriptions on this page are sample content/, {}, { timeout: 5000 })).toBeVisible()
+    // The wording it must not go back to, which called the researched row sample material too.
+    await expect(canvas.queryByText(/^Descriptions on this page are sample content/)).toBeNull()
+  },
+}

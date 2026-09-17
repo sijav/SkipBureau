@@ -359,8 +359,8 @@ msgid "Describe what changed, even in one sentence."
 msgstr "Beschreiben Sie, was sich geändert hat, ein Satz genügt."
 
 #: src/screens/task-hub/TaskHub.tsx:195
-msgid "Descriptions on this page are sample content for design review. They deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
-msgstr "Die Beschreibungen auf dieser Seite sind Beispielinhalte für die Gestaltungsprüfung. Gebühren, Schwellenwerte und Voraussetzungen fehlen bewusst; sie werden im geführten Ablauf anhand geprüfter Quellen bestimmt."
+#~ msgid "Descriptions on this page are sample content for design review. They deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
+#~ msgstr "Die Beschreibungen auf dieser Seite sind Beispielinhalte für die Gestaltungsprüfung. Gebühren, Schwellenwerte und Voraussetzungen fehlen bewusst; sie werden im geführten Ablauf anhand geprüfter Quellen bestimmt."
 
 #: src/shared/saved-item/SavedItem.tsx:18
 msgid "Document"
@@ -975,6 +975,10 @@ msgstr "SkipBureau konnte dies nicht laden"
 #: src/shared/information-disclaimer/InformationDisclaimer.tsx:18
 msgid "Skipbureau explains everyday processes in {country}. Information can change and should not be treated as legal or professional advice. Check the linked official sources before making important decisions."
 msgstr "Skipbureau erklärt alltägliche Verfahren für {country}. Angaben können sich ändern und sind keine Rechts- oder Fachberatung. Prüfen Sie vor wichtigen Entscheidungen die verlinkten amtlichen Quellen."
+
+#: src/screens/task-hub/TaskHub.tsx:196
+msgid "Some descriptions on this page are sample content for design review. Those deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
+msgstr "Einige Beschreibungen auf dieser Seite sind Beispielinhalte für die Gestaltungsprüfung. In diesen fehlen Gebühren, Schwellenwerte und Voraussetzungen bewusst; sie werden im geführten Ablauf anhand geprüfter Quellen bestimmt."
 
 #: src/screens/guide/Guide.tsx:344
 #: src/screens/guide/Guide.tsx:348

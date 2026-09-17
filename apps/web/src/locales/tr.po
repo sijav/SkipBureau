@@ -359,8 +359,8 @@ msgid "Describe what changed, even in one sentence."
 msgstr "Neyin değiştiğini anlatın, tek cümle bile yeterli."
 
 #: src/screens/task-hub/TaskHub.tsx:195
-msgid "Descriptions on this page are sample content for design review. They deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
-msgstr "Bu sayfadaki açıklamalar tasarım incelemesi için örnek içeriktir. Ücretler, eşikler ve uygunluk kuralları bilinçli olarak yer almaz; bunlar adım adım kurulum sırasında doğrulanmış kaynaklara göre belirlenir."
+#~ msgid "Descriptions on this page are sample content for design review. They deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
+#~ msgstr "Bu sayfadaki açıklamalar tasarım incelemesi için örnek içeriktir. Ücretler, eşikler ve uygunluk kuralları bilinçli olarak yer almaz; bunlar adım adım kurulum sırasında doğrulanmış kaynaklara göre belirlenir."
 
 #: src/shared/saved-item/SavedItem.tsx:18
 msgid "Document"
@@ -975,6 +975,10 @@ msgstr "SkipBureau bunu yükleyemedi"
 #: src/shared/information-disclaimer/InformationDisclaimer.tsx:18
 msgid "Skipbureau explains everyday processes in {country}. Information can change and should not be treated as legal or professional advice. Check the linked official sources before making important decisions."
 msgstr "Skipbureau, {country} için günlük işlemleri anlatır. Bilgiler değişebilir ve hukuki ya da mesleki tavsiye olarak görülmemelidir. Önemli kararlar almadan önce bağlantı verilen resmî kaynakları kontrol edin."
+
+#: src/screens/task-hub/TaskHub.tsx:196
+msgid "Some descriptions on this page are sample content for design review. Those deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
+msgstr "Bu sayfadaki bazı açıklamalar tasarım incelemesi için örnek içeriktir. Bunlarda ücretler, eşikler ve uygunluk kuralları bilinçli olarak yer almaz; bu bilgiler adım adım kurulum sırasında doğrulanmış kaynaklara göre belirlenir."
 
 #: src/screens/guide/Guide.tsx:344
 #: src/screens/guide/Guide.tsx:348
