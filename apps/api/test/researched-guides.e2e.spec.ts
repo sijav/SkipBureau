@@ -91,6 +91,7 @@ const AREAS = `
     categories(country: $country) {
       slug
       taskSlug
+      title
       description
     }
   }
@@ -155,7 +156,14 @@ test("on a database no sample content has touched, the loader writes each resear
     const areas = await graphql(AREAS, { country })
     expect([...areas.body.data.categories].sort(byArea), country).toEqual(
       RESEARCHED_GUIDES.filter((researched) => researched.country === country)
-        .map((researched) => ({ slug: researched.area.slug, taskSlug: researched.task, description: researched.guide.en.description }))
+        // SB-322: the title too. A reader meets it in the guide's breadcrumb and a crawler in the JSON-LD trail,
+        // and it comes from the area's text rows, which the loader rewrites and nothing here compared.
+        .map((researched) => ({
+          slug: researched.area.slug,
+          taskSlug: researched.task,
+          title: researched.area.en,
+          description: researched.guide.en.description,
+        }))
         .sort(byArea),
     )
   }

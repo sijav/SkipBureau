@@ -16,6 +16,8 @@ import { fileURLToPath } from 'node:url'
 const GUIDE = 'Getting a short-term residence permit in Turkey'
 const TITLE = `${GUIDE} · Skipbureau`
 const ADDRESS = 'TR/guides/short-term-residence-permit'
+// SB-322: the area this guide sits under, as researched-guides.ts names it.
+const AREA = 'Get a short-term residence permit'
 const LIVE = Boolean(process.env.PAGES_URL)
 
 test('a guide opens cold, left to right', async ({ page }) => {
@@ -35,6 +37,11 @@ test('a guide opens cold, left to right', async ({ page }) => {
     JSON.parse(match[1] ?? ''),
   )
   expect(blocks.map((block) => block['@type'])).toEqual(['Article', 'BreadcrumbList'])
+  // SB-322: the area's title, which a reader meets in the breadcrumb and a crawler reads here. It comes from the
+  // area's text rows, which the researched loader rewrites, and nothing compared it: a title left from the sample
+  // era would reach this block with every check green. A guide's trail is the area then the guide, numbered from
+  // zero, so the area is element 0 and there is no Home crumb, unlike an area page's trail below.
+  expect(blocks[1].itemListElement[0].name, 'the breadcrumb names the area the research names').toBe(AREA)
   expect(blocks[0].dateModified).toMatch(/^\d{4}-\d{2}-\d{2}$/)
   // What a link preview shows (SB-089): no preview bot runs a script.
   expect(source).toContain(`<meta property="og:title" content="${GUIDE}"`)
