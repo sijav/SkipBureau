@@ -13,1981 +13,1397 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:94
 msgid "{asks} can change this"
 msgstr "{asks} می‌تواند این را تغییر دهد"
 
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:132
 msgid "{asks} could help settle which rule applies. Tell us and we will check again."
 msgstr "{asks} می‌تواند به روشن شدن اینکه کدام قاعده اعمال می‌شود کمک کند. به ما بگویید تا دوباره بررسی کنیم."
 
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:134
 msgid "{asks} could help settle which rule applies. We cannot take this detail from you yet."
 msgstr "{asks} می‌تواند به روشن شدن اینکه کدام قاعده اعمال می‌شود کمک کند. هنوز نمی‌توانیم این اطلاعات را از شما بگیریم."
 
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:94
 msgid "{asks} decides the answer"
 msgstr "{asks} پاسخ را تعیین می‌کند"
 
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:56
 msgid "{count, plural, =1 {the gross minimum wage} other {# times the gross minimum wage}}"
 msgstr "{count, plural, =1 {حداقل دستمزد ناخالص} other {# برابر حداقل دستمزد ناخالص}}"
 
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:53
 msgid "{count, plural, one {# calendar year} other {# calendar years}}"
 msgstr "{count, plural, one {# سال تقویمی} other {# سال تقویمی}}"
 
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:43
 msgid "{count, plural, one {# day} other {# days}}"
 msgstr "{count, plural, one {# روز} other {# روز}}"
 
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:49
 msgid "{count, plural, one {# month} other {# months}}"
 msgstr "{count, plural, one {# ماه} other {# ماه}}"
 
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:41
 msgid "{count, plural, one {# percentage point} other {# percentage points}}"
 msgstr "{count, plural, one {# واحد درصد} other {# واحد درصد}}"
 
-#: src/screens/search/SearchResults.tsx
+#: src/screens/search/SearchResults.tsx:86
 msgid "{count, plural, one {# result} other {# results}}"
 msgstr "{count, plural, one {# نتیجه} other {# نتیجه}}"
 
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:58
 msgid "{count, plural, one {# Turkish employee for each foreigner} other {# Turkish employees for each foreigner}}"
 msgstr "{count, plural, one {# کارمند ترک برای هر خارجی} other {# کارمند ترک برای هر خارجی}}"
 
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:47
 msgid "{count, plural, one {# week} other {# weeks}}"
 msgstr "{count, plural, one {# هفته} other {# هفته}}"
 
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:45
 msgid "{count, plural, one {# working day} other {# working days}}"
 msgstr "{count, plural, one {# روز کاری} other {# روز کاری}}"
 
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:51
 msgid "{count, plural, one {# year} other {# years}}"
 msgstr "{count, plural, one {# سال} other {# سال}}"
 
-#: src/shared/deadline-item/DeadlineItem.tsx
+#: src/shared/deadline-item/DeadlineItem.tsx:30
 msgid "{days, plural, one {# day late} other {# days late}}"
 msgstr "{days, plural, one {# روز تأخیر} other {# روز تأخیر}}"
 
-#: src/shared/deadline-item/DeadlineItem.tsx
+#: src/shared/deadline-item/DeadlineItem.tsx:26
+#: src/shared/deadline-item/DeadlineItem.tsx:27
+#: src/shared/deadline-item/DeadlineItem.tsx:28
 msgid "{days, plural, one {# day} other {# days}}"
 msgstr "{days, plural, one {# روز} other {# روز}}"
 
-#: src/shared/progress-indicator/ProgressIndicator.tsx
+#: src/shared/progress-indicator/ProgressIndicator.tsx:20
 msgid "{done} of {total, plural, one {# step completed} other {# steps completed}}"
 msgstr "{done} از {total, plural, one {# مرحله انجام شده} other {# مرحله انجام شده}}"
 
-#: src/screens/category-hub/CategoryHub.tsx
+#: src/screens/category-hub/CategoryHub.tsx:108
 msgid "{minutes} min read"
 msgstr "{minutes} دقیقه مطالعه"
 
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:30
 msgid "{money} a month"
 msgstr "ماهانه {money}"
 
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:29
 msgid "{money} a year"
 msgstr "سالانه {money}"
 
-#: src/shared/page-head/title.ts
+#: src/shared/page-head/title.ts:23
 msgid "{named} · Skipbureau"
 msgstr "{named} · Skipbureau"
 
-#: src/shared/page-head/title.ts
-#~ msgid "{named} · SkipBureau"
-#~ msgstr "{named} · SkipBureau"
-
-#: src/shared/page-head/title.ts
+#: src/shared/page-head/title.ts:32
 msgid "{title} in {place}"
 msgstr "{title} در {place}"
 
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "₺1,200 to ₺1,600 for two documents"
-msgstr "۱٬۲۰۰ تا ۱٬۶۰۰ لیر برای دو مدرک"
-
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "1 question about your company type"
-msgstr "۱ پرسش درباره نوع شرکت شما"
-
-#: src/shared/saved-item/SavedItem.stories.tsx
-msgid "3 of 9 steps · paused 18 Aug"
-msgstr "۳ از ۹ گام · متوقف از ۱۸ اوت"
-
-#: src/shared/process-card/ProcessCard.stories.tsx
-#~ msgid "9 steps · 2 to 4 weeks · ₺14,000 to 22,000"
-#~ msgstr "۹ گام · ۲ تا ۴ هفته · ۱۴٬۰۰۰ تا ۲۲٬۰۰۰ لیر"
-
-#: src/shared/process-card/ProcessCard.stories.tsx
-msgid "9 steps · 2–4 weeks · ₺14,000–22,000"
-msgstr "۹ گام · ۲ تا ۴ هفته · ۱۴٬۰۰۰ تا ۲۲٬۰۰۰ لیر"
-
-#: src/shared/page/Page.stories.tsx
-msgid "A column, not a width"
-msgstr "یک ستون، نه یک عرض"
-
-#: src/screens/coming-soon/ComingSoon.stories.tsx
-msgid "A few questions about your situation, then only the steps that apply to you, in the order they come."
-msgstr "چند پرسش درباره وضعیت شما، و بعد فقط گام‌هایی که به شما مربوط است، به همان ترتیبی که پیش می‌آیند."
-
-#: src/screens/coming-soon/SetupSoon.tsx
+#: src/screens/coming-soon/SetupSoon.tsx:12
 msgid "A few questions about your situation, then only the steps that apply to you, in the order they come. Until it is ready, the overview lists every area the goal involves."
 msgstr "چند پرسش درباره وضعیت شما، و بعد فقط گام‌هایی که به شما مربوط است، به همان ترتیبی که پیش می‌آیند. تا آماده شدنش، نمای کلی همه حوزه‌هایی را که این هدف در بر می‌گیرد فهرست می‌کند."
 
-#: src/App.tsx
-#~ msgid "A step-by-step guide to bureaucracy abroad, for travellers and expats. Nothing is built yet: this page exists to prove the scaffold runs."
-#~ msgstr "یک راهنمای گام‌به‌گام برای کارهای اداری در خارج از کشور، برای مسافران و مهاجران. هنوز چیزی ساخته نشده: این صفحه فقط نشان می‌دهد که ساختار پروژه کار می‌کند."
-
-#: src/shared/info-panel/InfoPanel.stories.tsx
-msgid "A student residence permit application must be submitted within one month of arrival, and the appointment is booked through the official e-ikamet system."
-msgstr "درخواست اقامت دانشجویی باید ظرف یک ماه پس از ورود ثبت شود، و وقت آن از طریق سامانهٔ رسمی e-ikamet گرفته می‌شود."
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:17
 msgid "A UETS account among the documents"
 msgstr "حساب UETS در میان مدارک"
 
-#: src/shared/step-row/StepRow.stories.tsx
-msgid "A working SIM does not mean a registered device."
-msgstr "سیم‌کارتی که کار می‌کند به معنای دستگاه ثبت‌شده نیست."
-
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "About 2 days · ₺1,400 · notary"
-msgstr "حدود ۲ روز · ۱٬۴۰۰ لیر · دفتر اسناد رسمی"
-
-#: src/shared/step-row/StepRow.stories.tsx
-msgid "Activate and test it"
-msgstr "فعال‌سازی و آزمایش"
-
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:147
 msgid "Add"
 msgstr "افزودن"
 
-#: src/shared/context-control/YourDetails.tsx
+#: src/shared/context-control/YourDetails.tsx:110
 msgid "Add city"
 msgstr "افزودن شهر"
 
-#: src/shared/context-chip/ContextChip.stories.tsx
-msgid "Add to sharpen answers"
-msgstr "برای پاسخ دقیق‌تر اضافه کنید"
-
-#: src/shared/context-control/ContextControl.tsx
+#: src/shared/context-control/ContextControl.tsx:60
 msgid "Add your details"
 msgstr "مشخصات خود را وارد کنید"
 
-#: src/shared/deadline-item/DeadlineItem.stories.tsx
-msgid "Address registration"
-msgstr "ثبت نشانی"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:107
 msgid "Allowance deducted from the levy base"
 msgstr "معافیت کسرشده از پایهٔ عوارض"
 
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:32
 msgid "Alternative route"
 msgstr "مسیر جایگزین"
 
-#: src/shared/select-field/SelectField.stories.tsx
-msgid "Ankara"
-msgstr "آنکارا"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:79
 msgid "Annual tax-certificate renewal deadline"
 msgstr "مهلت تمدید سالانهٔ گواهی مالیاتی"
 
-#: src/shared/process-card/ProcessCard.stories.tsx
-msgid "Answer 10 questions and get a roadmap built for your nationality and city, including the trade registry, the tax office, the bank and the social security registration for your first employee."
-msgstr "به ۱۰ پرسش پاسخ دهید و نقشه راهی بگیرید که برای ملیت و شهر شما ساخته شده، از جمله اداره ثبت تجاری، اداره مالیات، بانک و ثبت بیمه تأمین اجتماعی نخستین کارمندتان."
-
-#: src/shared/process-card/ProcessCard.stories.tsx
-msgid "Answer 10 questions and get a roadmap built for your nationality and city."
-msgstr "به ۱۰ پرسش پاسخ دهید و نقشه راهی بگیرید که برای ملیت و شهر شما ساخته شده."
-
-#: src/screens/task-hub/GuidedSetup.tsx
+#: src/screens/task-hub/GuidedSetup.tsx:29
 msgid "Answer a few questions and we’ll build a roadmap for your situation."
 msgstr "به چند پرسش پاسخ دهید تا نقشه راهی متناسب با موقعیت شما بسازیم."
 
-#: src/shared/select-field/SelectField.stories.tsx
-msgid "Antalya"
-msgstr "آنتالیا"
-
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Any notary (noter) in Izmir"
-msgstr "هر دفتر اسناد رسمی (noter) در ازمیر"
-
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Applies to applicants under 18"
-msgstr "برای متقاضیان زیر ۱۸ سال"
-
-#: src/shared/deadline-item/DeadlineItem.stories.tsx
-msgid "Appointment at the migration office"
-msgstr "نوبت در اداره مهاجرت"
-
-#: src/shared/info-panel/InfoPanel.stories.tsx
-msgid "Appointment slots in Istanbul are usually released early in the morning and taken within the hour. Applicants report better luck checking daily than waiting for a convenient date."
-msgstr "نوبت‌های استانبول معمولاً صبح زود باز می‌شوند و در کمتر از یک ساعت پر می‌شوند. متقاضیان می‌گویند سر زدن هر روزه بهتر از منتظر ماندن برای تاریخی مناسب جواب می‌دهد."
-
-#: src/shared/checklist-line/ChecklistLine.stories.tsx
-msgid "Arrange home internet"
-msgstr "ترتیب دادن اینترنت خانگی"
-
-#: src/shared/text-input/TextInput.stories.tsx
-msgid "As written in your passport, no spaces"
-msgstr "همان‌طور که در گذرنامه نوشته شده، بدون فاصله"
-
-#: src/shared/ask-field/HomeAskField.tsx
+#: src/shared/ask-field/HomeAskField.tsx:42
 msgid "Ask"
 msgstr "بپرس"
 
-#: src/screens/home/HomeHero.tsx
-#: src/screens/search/SearchResults.tsx
-#: src/shared/ask-field/HomeAskField.stories.tsx
-#: src/shared/search-input/SearchInput.stories.tsx
+#: src/screens/home/HomeHero.tsx:32
+#: src/screens/search/SearchResults.tsx:77
 msgid "Ask a question or describe what you’re trying to do…"
 msgstr "سؤالی بپرسید یا بگویید چه کاری می‌خواهید انجام دهید…"
 
 #. placeholder {0}: hub.title
-#: src/screens/category-hub/CategoryHub.tsx
+#: src/screens/category-hub/CategoryHub.tsx:179
 msgid "Ask about {0}"
 msgstr "درباره {0} بپرسید"
 
-#: src/screens/search/SearchResults.tsx
+#: src/screens/search/SearchResults.tsx:71
 msgid "Ask about {name}"
 msgstr "درباره {name} بپرسید"
 
-#: src/screens/category-hub/CategoryHub.tsx
+#: src/screens/category-hub/CategoryHub.tsx:175
 msgid "Ask about this and find the most relevant guide."
 msgstr "درباره این موضوع بپرسید و مرتبط‌ترین راهنما را پیدا کنید."
 
-#: src/screens/home/HomeHero.tsx
-#: src/screens/search/SearchResults.tsx
-#: src/shared/header/Header.tsx
+#: src/screens/home/HomeHero.tsx:31
+#: src/screens/search/SearchResults.tsx:76
+#: src/shared/header/Header.tsx:161
 msgid "Ask Skipbureau"
 msgstr "از Skipbureau بپرسید"
 
-#: src/shared/ask-field/HomeAskField.stories.tsx
-msgid "Ask SkipBureau"
-msgstr "از SkipBureau بپرسید"
-
-#: src/shared/header/Header.tsx
+#: src/shared/header/Header.tsx:160
 msgid "Ask Skipbureau…"
 msgstr "از Skipbureau بپرسید…"
 
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:82
 msgid "at least {number}"
 msgstr "دست‌کم {number}"
 
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:81
 msgid "at most {number}"
 msgstr "حداکثر {number}"
 
-#: src/shared/text-input/TextInput.stories.tsx
-msgid "Available once you confirm your nationality"
-msgstr "پس از تأیید ملیت شما در دسترس است"
-
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:96
 msgid "Back to {categoryTitle}"
 msgstr "بازگشت به {categoryTitle}"
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:102
 msgid "Back to the guide"
 msgstr "بازگشت به راهنما"
 
-#: src/screens/coming-soon/GuidesSoon.tsx
-#: src/screens/guide/Guide.tsx
-#: src/screens/search/SearchResults.tsx
+#: src/screens/coming-soon/GuidesSoon.tsx:13
+#: src/screens/guide/Guide.tsx:96
+#: src/screens/search/SearchResults.tsx:100
 msgid "Back to the home page"
 msgstr "بازگشت به خانه"
 
-#: src/screens/coming-soon/ComingSoon.stories.tsx
-#: src/screens/coming-soon/SetupSoon.tsx
+#: src/screens/coming-soon/SetupSoon.tsx:11
 msgid "Back to the overview"
 msgstr "بازگشت به نمای کلی"
 
-#: src/screens/guide/GuideSection.tsx
+#: src/screens/guide/GuideSection.tsx:17
 msgid "Before you start"
 msgstr "پیش از شروع"
 
-#: src/screens/guide/GuideSection.tsx
+#: src/screens/guide/GuideSection.tsx:123
 msgid "Best for"
 msgstr "مناسب برای"
 
-#: src/shared/roadmap-step/RoadmapStep.tsx
-#: src/shared/status-tag/StatusTag.stories.tsx
+#: src/shared/roadmap-step/RoadmapStep.tsx:23
 msgid "Blocked"
 msgstr "مسدود"
 
-#: src/shared/breadcrumb/Breadcrumb.tsx
+#: src/shared/breadcrumb/Breadcrumb.tsx:17
 msgid "Breadcrumb"
 msgstr "مسیر صفحه"
 
-#: src/shared/ask-result-row/AskResultRow.stories.tsx
-msgid "Can foreigners own a Turkish company?"
-msgstr "آیا خارجی‌ها می‌توانند مالک شرکت ترکیه‌ای باشند؟"
-
-#: src/shared/search-input/SearchInput.stories.tsx
-msgid "Can my Turkish company hire an Iranian employee?"
-msgstr "آیا شرکت ترکیه‌ای من می‌تواند کارمند ایرانی استخدام کند؟"
-
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:189
 msgid "Cancel"
 msgstr "انصراف"
 
-#: src/shared/page/Page.stories.tsx
-msgid "Cap"
-msgstr "سقف"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:24
 msgid "Card fee"
 msgstr "هزینهٔ کارت"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:123
 msgid "Care insurance contribution rate"
 msgstr "نرخ حق بیمهٔ مراقبت"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:125
 msgid "Care insurance discount for each child"
 msgstr "تخفیف بیمهٔ مراقبت برای هر فرزند"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:124
 msgid "Care insurance rate for a childless member"
 msgstr "نرخ بیمهٔ مراقبت برای عضو بدون فرزند"
 
-#: src/shared/document-card/DocumentCard.stories.tsx
-msgid "Certificate of enrolment for the current academic year, with the stamp of the faculty"
-msgstr "گواهی ثبت‌نام برای سال تحصیلی جاری، با مهر دانشکده"
-
-#: src/shared/info-panel/InfoPanel.stories.tsx
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Check before booking your appointment"
-msgstr "پیش از گرفتن نوبت بررسی کنید"
-
-#: src/shared/status-tag/StatusTag.stories.tsx
-msgid "Check before you pay"
-msgstr "پیش از پرداخت بررسی کنید"
-
-#: src/shared/checklist-item/ChecklistItem.tsx
+#: src/shared/checklist-item/ChecklistItem.tsx:24
 msgid "Check date"
 msgstr "تاریخ را بررسی کنید"
 
-#: src/shared/step-row/StepRow.stories.tsx
-msgid "Check mobile data, calls, SMS and your new number before you leave the store."
-msgstr "پیش از ترک فروشگاه، اینترنت همراه، تماس، پیامک و شماره جدیدتان را بررسی کنید."
-
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:145
 msgid "Check the address: it needs an @ and a domain, like you@example.com."
 msgstr "نشانی را بررسی کنید: باید یک @ و یک دامنه داشته باشد، مانند you@example.com."
 
-#: src/shared/source-card/SourceCard.tsx
+#: src/shared/source-card/SourceCard.tsx:32
 msgid "Checked this month"
 msgstr "این ماه بررسی شده"
 
-#: src/shared/topic-item/TopicItem.stories.tsx
-msgid "Choose a company type"
-msgstr "انتخاب نوع شرکت"
-
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:235
+#: src/shared/context-control/ContextPanel.tsx:238
 msgid "City in {countryName}"
 msgstr "شهر در {countryName}"
 
-#: src/shared/select-field/SelectField.stories.tsx
-msgid "City in Turkey"
-msgstr "شهری در ترکیه"
-
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:328
 msgid "Clear all"
 msgstr "پاک کردن همه"
 
-#: src/screens/home/head.ts
-#: src/screens/home/HomeHero.tsx
+#: src/screens/home/head.ts:13
+#: src/screens/home/HomeHero.tsx:27
 msgid "Clear, step-by-step guidance for living, studying, working and doing business in {name}."
 msgstr "راهنمای روشن و گام‌به‌گام برای زندگی، تحصیل، کار و کسب‌وکار در {name}."
 
-#: src/screens/category-hub/CategoryHub.tsx
-#: src/screens/coming-soon/ComingSoon.tsx
-#: src/screens/search/SearchResults.tsx
-#: src/shared/context-control/ContextPanel.tsx
-#: src/shared/task-tile/TaskTile.tsx
-#: src/shared/topic-item/TopicItem.stories.tsx
+#: src/screens/category-hub/CategoryHub.tsx:161
+#: src/screens/coming-soon/ComingSoon.tsx:20
+#: src/screens/search/SearchResults.tsx:132
+#: src/shared/context-control/ContextPanel.tsx:182
+#: src/shared/task-tile/TaskTile.tsx:22
 msgid "Coming soon"
 msgstr "به‌زودی"
 
-#: src/screens/guide/GuideSection.tsx
+#: src/screens/guide/GuideSection.tsx:24
 msgid "Common problems"
 msgstr "مشکلات رایج"
 
-#: src/screens/home/Home.tsx
-#: src/shared/section/Section.stories.tsx
+#: src/screens/home/Home.tsx:83
 msgid "Common questions"
 msgstr "پرسش‌های رایج"
 
-#: src/shared/context-control/situationLabels.ts
-#~ msgid "Company founder"
-#~ msgstr "بنیان‌گذار شرکت"
-
-#: src/shared/task-tile/TaskTile.stories.tsx
-msgid "Company types, registration and first obligations"
-msgstr "انواع شرکت، ثبت و نخستین تعهدات"
-
-#: src/shared/task-row/TaskRow.stories.tsx
-msgid "Company types, registration, first obligations"
-msgstr "انواع شرکت، ثبت، نخستین تعهدات"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:76
 msgid "Competition Authority levy on subscribed capital"
 msgstr "عوارض سازمان رقابت از سرمایهٔ تعهدشده"
 
-#: src/shared/roadmap-step/RoadmapStep.tsx
-#: src/shared/status-tag/StatusTag.stories.tsx
+#: src/shared/roadmap-step/RoadmapStep.tsx:19
 msgid "Completed"
 msgstr "انجام‌شده"
 
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Completed 14 Aug 2026"
-msgstr "انجام‌شده در ۱۴ اوت ۲۰۲۶"
-
-#: src/shared/section/Section.stories.tsx
-msgid "Content"
-msgstr "محتوا"
-
-#: src/screens/category-hub/CategoryHub.tsx
+#: src/screens/category-hub/CategoryHub.tsx:195
 msgid "Content shown here is sample material for design review."
 msgstr "محتوای این صفحه نمونه‌ای برای بازبینی طرح است."
 
-#: src/shared/saved-item/SavedItem.tsx
+#: src/shared/saved-item/SavedItem.tsx:86
 msgid "Continue"
 msgstr "ادامه"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:42
 msgid "Continuous residence before applying for GSS"
 msgstr "اقامت پیوسته پیش از درخواست بیمهٔ سلامت عمومی"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:44
 msgid "Contribution days in the preceding year, for routine treatment"
 msgstr "روزهای پرداخت حق‌بیمه در سال پیش، برای درمان عادی"
 
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Copies"
-msgstr "رونوشت‌ها"
-
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:112
 msgid "Cost and time"
 msgstr "هزینه و زمان"
 
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:223
+#: src/shared/context-control/ContextPanel.tsx:225
 msgid "Currently in"
 msgstr "محل زندگی فعلی"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:78
 msgid "Deadline for the first tax certificate after tax liability begins"
 msgstr "مهلت دریافت نخستین گواهی مالیاتی پس از آغاز تکلیف مالیاتی"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:65
 msgid "Deadline to apply for a residence permit after a work permit ends"
 msgstr "مهلت درخواست اجازهٔ اقامت پس از پایان اجازهٔ کار"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:89
 msgid "Deadline to apply inside Germany"
 msgstr "مهلت درخواست از داخل آلمان"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:121
 msgid "Deadline to join voluntarily in your first employment"
 msgstr "مهلت عضویت داوطلبانه در نخستین اشتغال شما"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:102
 msgid "Deadline to notify the accident insurer"
 msgstr "مهلت اطلاع دادن به بیمهٔ حوادث"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:70
 msgid "Deadline to pay cash capital after registration"
 msgstr "مهلت پرداخت سرمایهٔ نقدی پس از ثبت"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:81
 msgid "Deadline to register an employee before starting work"
 msgstr "مهلت ثبت کارمند پیش از شروع کار"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:13
 msgid "Deadline to register your address"
 msgstr "مهلت ثبت نشانی"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:77
 msgid "Deadline to request electronic tax notifications after starting business"
 msgstr "مهلت درخواست ابلاغ الکترونیکی مالیاتی پس از شروع فعالیت"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:103
 msgid "Deadline to send the tax questionnaire"
 msgstr "مهلت فرستادن پرسش‌نامهٔ ثبت مالیاتی"
 
-#: src/screens/task-hub/TaskHub.tsx
-#: src/shared/topic-item/TopicItem.stories.tsx
+#: src/screens/task-hub/TaskHub.tsx:29
 msgid "Decision"
 msgstr "تصمیم"
 
-#: src/shared/status-tag/StatusTag.stories.tsx
-msgid "Depends on nationality"
-msgstr "بسته به ملیت"
-
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:121
 msgid "Describe what changed"
 msgstr "توضیح دهید چه چیزی تغییر کرده"
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:127
 msgid "Describe what changed, even in one sentence."
 msgstr "توضیح دهید چه چیزی تغییر کرده، حتی در یک جمله."
 
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:195
 msgid "Descriptions on this page are sample content for design review. They deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
 msgstr "توضیحات این صفحه محتوای نمونه برای بازبینی طرح هستند. عمدا از هزینه‌ها، آستانه‌ها و قواعد واجد شرایط بودن پرهیز می‌کنند؛ این‌ها در راه‌اندازی راهنمایی‌شده و بر پایه منابع تأییدشده تعیین می‌شوند."
 
-#: src/shared/saved-item/SavedItem.tsx
+#: src/shared/saved-item/SavedItem.tsx:18
 msgid "Document"
 msgstr "مدرک"
 
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Documents needed"
-msgstr "مدارک لازم"
-
-#: src/shared/deadline-item/DeadlineItem.tsx
+#: src/shared/deadline-item/DeadlineItem.tsx:31
 msgid "Done"
 msgstr "انجام شد"
 
-#: src/shared/status-tag/StatusTag.stories.tsx
-msgid "Due in 12 days"
-msgstr "۱۲ روز تا موعد"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:117
 msgid "Earnings threshold for compulsory insurance"
 msgstr "آستانهٔ درآمد برای بیمهٔ اجباری"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:126
 msgid "Employee’s share of the care contribution"
 msgstr "سهم کارمند از حق بیمهٔ مراقبت"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:64
 msgid "Employer’s deadline to notify the Ministry of employment changes"
 msgstr "مهلت کارفرما برای اطلاع به وزارتخانه از تغییرات کار"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:127
 msgid "Employer’s share of the care contribution"
 msgstr "سهم کارفرما از حق بیمهٔ مراقبت"
 
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Estimated cost"
-msgstr "هزینه تقریبی"
-
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Estimated time"
-msgstr "زمان تقریبی"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:84
 msgid "Event that opens ETDS"
 msgstr "رویدادی که ETDS را فعال می‌کند"
 
-#: src/screens/coming-soon/GuidesSoon.tsx
+#: src/screens/coming-soon/GuidesSoon.tsx:12
 msgid "Every guide for {name}"
 msgstr "همه راهنماهای {name}"
 
-#: src/screens/category-hub/CategoryHub.tsx
-#: src/screens/home/Home.tsx
+#: src/screens/category-hub/CategoryHub.tsx:199
+#: src/screens/home/Home.tsx:108
 msgid "Every guide shows when it was last verified and links to the official source"
 msgstr "هر راهنما تاریخ آخرین بررسی را نشان می‌دهد و به منبع رسمی پیوند دارد"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:25
 msgid "Exemption from the card fee by nationality"
 msgstr "معافیت از هزینهٔ کارت بر پایهٔ ملیت"
 
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Expired 12 Jul 2026 · must cover the full permit period"
-msgstr "منقضی در ۱۲ ژوئیه ۲۰۲۶ · باید کل دوره اقامت را پوشش دهد"
-
-#: src/shared/document-card/DocumentCard.stories.tsx
-msgid "Expires in 21 days"
-msgstr "۲۱ روز دیگر منقضی می‌شود"
-
-#: src/shared/document-card/DocumentCard.tsx
+#: src/shared/document-card/DocumentCard.tsx:20
 msgid "Expiring"
 msgstr "رو به انقضا"
 
-#: src/shared/header/Header.tsx
+#: src/shared/header/Header.tsx:131
 msgid "Explore"
 msgstr "کاوش"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:56
 msgid "Exports for an established business"
 msgstr "صادرات کسب‌وکار موجود"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:75
 msgid "Fees under Law 492 that company formation is exempt from"
 msgstr "هزینه‌هایی از قانون ۴۹۲ که تأسیس شرکت از آن‌ها معاف است"
 
-#: src/screens/home/Home.tsx
+#: src/screens/home/Home.tsx:104
 msgid "Figures, timings and requirements shown throughout this design are sample content for review, not verified legal information."
 msgstr "ارقام، زمان‌بندی‌ها و الزاماتی که در سراسر این طرح نشان داده شده‌اند محتوای نمونه برای بازبینی هستند، نه اطلاعات حقوقی تأییدشده."
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:15
 msgid "Fine for a false address declaration"
 msgstr "جریمهٔ اعلام نشانی نادرست"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:97
 msgid "Fine for a late or missing trade notification"
 msgstr "جریمهٔ اعلام دیرهنگام یا نکردن ثبت کسب‌وکار"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:14
 msgid "Fine for registering late"
 msgstr "جریمهٔ ثبت دیرهنگام"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:49
 msgid "Fixed-term work permit fee, up to one year"
 msgstr "هزینهٔ مجوز کار مدت‌دار، تا یک سال"
 
-#: src/shared/information-disclaimer/InformationDisclaimer.tsx
+#: src/shared/information-disclaimer/InformationDisclaimer.tsx:15
 msgid "For general information only"
 msgstr "فقط برای اطلاع عمومی"
 
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:47
 msgid "For you"
 msgstr "برای شما"
 
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Format"
-msgstr "شیوه"
-
-#: src/shared/context-control/YourDetails.tsx
+#: src/shared/context-control/YourDetails.tsx:108
 msgid "From {originName}"
 msgstr "از {originName}"
 
-#: src/shared/info-panel/InfoPanel.stories.tsx
-msgid "From applicant reports, not an official rule"
-msgstr "از گزارش متقاضیان، نه یک قاعدهٔ رسمی"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:118
 msgid "General contribution rate"
 msgstr "نرخ عمومی حق بیمه"
 
-#: src/shared/breadcrumb/Breadcrumb.stories.tsx
-msgid "Getting Settled"
-msgstr "استقرار اولیه"
-
-#: src/screens/category-hub/CategoryHub.tsx
+#: src/screens/category-hub/CategoryHub.tsx:120
+#: src/screens/category-hub/CategoryHub.tsx:135
 msgid "Getting started checklist"
 msgstr "فهرست کارهای شروع"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:62
 msgid "Gross minimum wage in 2026"
 msgstr "حداقل دستمزد ناخالص در ۲۰۲۶"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:46
 msgid "GSS premium base"
 msgstr "مبنای حق‌بیمهٔ سلامت عمومی"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:45
 msgid "GSS premium rate"
 msgstr "نرخ حق‌بیمهٔ سلامت عمومی"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:43
 msgid "GSS registration starts after the request"
 msgstr "آغاز ثبت‌نام بیمهٔ سلامت عمومی پس از درخواست"
 
-#: src/screens/guide/Guide.tsx
-#: src/shared/ask-result-row/AskResultRow.tsx
-#: src/shared/saved-item/SavedItem.tsx
+#: src/screens/guide/Guide.tsx:218
+#: src/shared/ask-result-row/AskResultRow.tsx:21
+#: src/shared/saved-item/SavedItem.tsx:18
 msgid "Guide"
 msgstr "راهنما"
 
-#: src/shared/process-card/ProcessCard.tsx
+#: src/shared/process-card/ProcessCard.tsx:43
 msgid "Guided process"
 msgstr "روند راهنمایی‌شده"
 
-#: src/shared/ask-result-row/AskResultRow.stories.tsx
-msgid "Guided process · 9 steps"
-msgstr "فرایند راهنمایی‌شده · ۹ گام"
-
-#: src/screens/coming-soon/ComingSoon.stories.tsx
-#: src/screens/coming-soon/SetupSoon.tsx
+#: src/screens/coming-soon/SetupSoon.tsx:11
 msgid "Guided setup"
 msgstr "راه‌اندازی راهنمایی‌شده"
 
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:122
 msgid "Guided setup works this out with you"
 msgstr "راه‌اندازی راهنمایی‌شده این را همراه شما مشخص می‌کند"
 
-#: src/screens/search/SearchResults.tsx
-#: src/screens/task-hub/TaskHub.tsx
-#: src/shared/header/Header.tsx
+#: src/screens/search/SearchResults.tsx:118
+#: src/screens/task-hub/TaskHub.tsx:140
+#: src/shared/header/Header.tsx:136
 msgid "Guides"
 msgstr "راهنماها"
 
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Health insurance policy"
-msgstr "بیمه‌نامه درمانی"
-
-#: src/shared/deadline-item/DeadlineItem.stories.tsx
-msgid "Health insurance renewal"
-msgstr "تمدید بیمه درمانی"
-
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Helps if you have held a permit before"
-msgstr "اگر پیش‌تر اقامت داشته‌اید کمک می‌کند"
-
-#: src/core/prerender/prerender.ts
-#: src/screens/category-hub/CategoryHub.tsx
-#: src/screens/guide/Guide.tsx
-#: src/screens/task-hub/TaskHub.tsx
-#: src/shared/breadcrumb/Breadcrumb.stories.tsx
+#: src/core/prerender/prerender.ts:81
+#: src/screens/category-hub/CategoryHub.tsx:59
+#: src/screens/category-hub/CategoryHub.tsx:60
+#: src/screens/category-hub/CategoryHub.tsx:66
+#: src/screens/guide/Guide.tsx:206
+#: src/screens/guide/Guide.tsx:211
+#: src/screens/task-hub/TaskHub.tsx:78
 msgid "Home"
 msgstr "خانه"
 
-#: src/screens/task-hub/GuidedSetup.tsx
+#: src/screens/task-hub/GuidedSetup.tsx:45
 msgid "How it works"
 msgstr "چگونه کار می‌کند"
 
-#: src/screens/guide/GuideSection.tsx
+#: src/screens/guide/GuideSection.tsx:20
 msgid "How to do it"
 msgstr "چگونه انجام دهید"
 
-#: src/shared/ask-result-row/AskResultRow.stories.tsx
-msgid "How to register a company"
-msgstr "چگونه شرکت ثبت کنیم"
-
-#: src/shared/context-control/situationLabels.ts
+#: src/shared/context-control/situationLabels.ts:15
 msgid "I am starting a company"
 msgstr "در حال تأسیس شرکت هستم"
 
-#: src/shared/context-control/situationLabels.ts
+#: src/shared/context-control/situationLabels.ts:16
 msgid "I run an existing company"
 msgstr "شرکتی فعال را اداره می‌کنم"
 
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:30
 msgid "If it applies to you"
 msgstr "اگر برای شما صدق کند"
 
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:351
 msgid "If you know this information is outdated or incorrect, let us know. We review submissions before updating the guide."
 msgstr "اگر می‌دانید این اطلاعات قدیمی یا نادرست است، به ما خبر دهید. پیش از به‌روزرسانی راهنما، پیشنهادها را بررسی می‌کنیم."
 
-#: src/screens/guide/GuideSection.tsx
+#: src/screens/guide/GuideSection.tsx:22
 msgid "Important to know"
 msgstr "دانستنی‌های مهم"
 
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "In person, it cannot be done online"
-msgstr "حضوری، به‌صورت آنلاین ممکن نیست"
-
-#: src/shared/process-card/ProcessCard.tsx
+#: src/shared/process-card/ProcessCard.tsx:43
 msgid "In progress"
 msgstr "در جریان"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:33
 msgid "Inpatient cover, at a non-contracted provider or a public hospital outside Annex 1"
 msgstr "پوشش بستری، نزد ارائه‌دهندهٔ بدون قرارداد یا بیمارستان دولتی بیرون از پیوست ۱"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:29
 msgid "Inpatient cover, at a provider your insurer has contracted with"
 msgstr "پوشش بستری، نزد ارائه‌دهنده‌ای که بیمه‌گر شما با آن قرارداد دارد"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:37
 msgid "Inpatient cover, at a public hospital named in Annex 1"
 msgstr "پوشش بستری، در بیمارستان دولتی نام‌برده در پیوست ۱"
 
-#: src/shared/context-chip/ContextChip.stories.tsx
-msgid "Iranian"
-msgstr "ایرانی"
-
-#: src/shared/select-field/SelectField.stories.tsx
-msgid "Istanbul"
-msgstr "استانبول"
-
-#: src/shared/saved-item/SavedItem.stories.tsx
-msgid "Istanbul · Iranian nationality"
-msgstr "استانبول · ملیت ایرانی"
-
-#: src/shared/saved-item/SavedItem.stories.tsx
-msgid "Istanbul · Iranian nationality · a university that is not on the list of state institutions"
-msgstr "استانبول · ملیت ایرانی · دانشگاهی که در فهرست مؤسسه‌های دولتی نیست"
-
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:160
 msgid "It was not sent. Check your connection and try again."
 msgstr "ارسال نشد. اتصال خود را بررسی کنید و دوباره تلاش کنید."
 
-#: src/shared/select-field/SelectField.stories.tsx
-msgid "Izmir"
-msgstr "ازمیر"
-
-#: src/screens/guide/Guide.tsx
-#: src/shared/fact-strip/FactStrip.stories.tsx
+#: src/screens/guide/Guide.tsx:108
 msgid "Key deadlines"
 msgstr "مهلت‌های مهم"
 
-#: src/shared/header/LanguageControl.tsx
+#: src/shared/header/LanguageControl.tsx:35
 msgid "Language"
 msgstr "زبان"
 
-#: src/shared/source-card/SourceCard.tsx
+#: src/shared/source-card/SourceCard.tsx:60
 msgid "Last checked {day}"
 msgstr "آخرین بررسی {day}"
 
-#: src/shared/source-card/SourceCard.tsx
+#: src/shared/source-card/SourceCard.tsx:60
 msgid "Last reachable {day}"
 msgstr "آخرین دسترسی {day}"
 
-#: src/screens/category-hub/CategoryHub.tsx
+#: src/screens/category-hub/CategoryHub.tsx:82
 msgid "Last reviewed: {reviewed}"
 msgstr "آخرین بازبینی: {reviewed}"
 
 #. placeholder {0}: formatMonth(latest, locale, 'long')
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:179
 msgid "Last verified {0}"
 msgstr "آخرین تأیید {0}"
 
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:234
+#: src/screens/guide/Guide.tsx:307
+#: src/screens/guide/Guide.tsx:365
 msgid "Last verified: {verified}"
 msgstr "آخرین تأیید: {verified}"
 
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:104
 msgid "Loading…"
 msgstr "در حال بارگذاری…"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:21
 msgid "Longest stay on a visa or visa exemption"
 msgstr "بیشترین مدت اقامت با ویزا یا معافیت از ویزا"
 
-#: src/shared/header/Header.tsx
+#: src/shared/header/Header.tsx:98
 msgid "Main"
 msgstr "اصلی"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:66
 msgid "Maximum work while a timely extension is assessed"
 msgstr "حداکثر مدت کار در زمان بررسی تمدید به‌موقع"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:69
 msgid "Minimum capital for a limited company"
 msgstr "حداقل سرمایهٔ شرکت با مسئولیت محدود"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:50
 msgid "Minimum issued term of the residence permit"
 msgstr "حداقل مدتِ اجازهٔ اقامتِ صادرشده"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:61
 msgid "Minimum salary for domestic and other work"
 msgstr "حداقل حقوق کارهای خانگی و سایر کارها"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:58
 msgid "Minimum salary for engineers and architects"
 msgstr "حداقل حقوق مهندسان و معماران"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:59
 msgid "Minimum salary for other managers"
 msgstr "حداقل حقوق سایر مدیران"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:57
 msgid "Minimum salary for senior executives and pilots"
 msgstr "حداقل حقوق مدیران ارشد و خلبانان"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:60
 msgid "Minimum salary for work requiring expertise or mastery"
 msgstr "حداقل حقوق کارِ نیازمند تخصص یا مهارت"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:112
 msgid "Minimum waiver period"
 msgstr "کمترین مدت پایبندی به صرف‌نظر از معافیت"
 
-#: src/shared/checklist-item/ChecklistItem.tsx
-#: src/shared/document-card/DocumentCard.tsx
+#: src/shared/checklist-item/ChecklistItem.tsx:22
+#: src/shared/document-card/DocumentCard.tsx:19
 msgid "Missing"
 msgstr "ناموجود"
 
-#: src/shared/document-card/DocumentCard.stories.tsx
-msgid "Missing, blocks step 4"
-msgstr "ناموجود، گام ۴ را متوقف می‌کند"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:120
 msgid "Monthly contribution assessment ceiling"
 msgstr "سقف ماهانهٔ محاسبهٔ حق بیمه"
 
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Must be dated within the last 30 days"
-msgstr "باید تاریخ ۳۰ روز اخیر را داشته باشد"
-
-#: src/shared/context-chip/ContextChip.stories.tsx
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:220
+#: src/shared/context-control/ContextPanel.tsx:221
 msgid "Nationality"
 msgstr "ملیت"
 
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Needs step 02 first"
-msgstr "اول به گام ۰۲ نیاز دارد"
-
-#: src/shared/roadmap-step/RoadmapStep.tsx
+#: src/shared/roadmap-step/RoadmapStep.tsx:24
 msgid "Needs your answer"
 msgstr "به پاسخ شما نیاز دارد"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:63
 msgid "Net minimum wage in 2026"
 msgstr "حداقل دستمزد خالص در ۲۰۲۶"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:55
 msgid "Net sales for an established business"
 msgstr "فروش خالص کسب‌وکار موجود"
 
-#: src/shared/roadmap-step/RoadmapStep.tsx
+#: src/shared/roadmap-step/RoadmapStep.tsx:20
 msgid "Next action"
 msgstr "اقدام بعدی"
 
-#: src/shared/process-card/ProcessCard.tsx
+#: src/shared/process-card/ProcessCard.tsx:68
 msgid "Next: {next}"
 msgstr "بعدی: {next}"
 
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Next: register the company at the trade registry"
-msgstr "بعدی: ثبت شرکت در اداره ثبت تجاری"
-
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:186
 msgid "No account needed"
 msgstr "نیازی به حساب کاربری نیست"
 
-#: src/shared/info-panel/InfoPanel.stories.tsx
-msgid "No agent can get an appointment faster than the official system, and nobody can guarantee approval. Paying for a “guaranteed” slot buys you nothing you cannot do yourself for free."
-msgstr "هیچ واسطه‌ای نمی‌تواند سریع‌تر از سامانهٔ رسمی نوبت بگیرد، و هیچ‌کس نمی‌تواند تأیید را تضمین کند. پول دادن برای نوبتِ «تضمینی» چیزی به شما نمی‌دهد که خودتان رایگان نتوانید انجامش دهید."
-
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:71
 msgid "None"
 msgstr "ندارد"
 
-#: src/screens/Placeholder.tsx
-#~ msgid "Not built yet"
-#~ msgstr "هنوز ساخته نشده"
-
-#: src/shared/checklist-item/ChecklistItem.tsx
+#: src/shared/checklist-item/ChecklistItem.tsx:25
 msgid "Not for you"
 msgstr "برای شما نیست"
 
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:251
 msgid "Not in your language yet"
 msgstr "هنوز به زبان شما نیست"
 
-#: src/shared/source-card/SourceCard.tsx
+#: src/shared/source-card/SourceCard.tsx:33
 msgid "Not re-checked since {month}"
 msgstr "از {month} دوباره بررسی نشده"
 
-#: src/shared/document-card/DocumentCard.tsx
+#: src/shared/document-card/DocumentCard.tsx:17
 msgid "Not started"
 msgstr "آغاز نشده"
 
-#: src/screens/task-hub/GuidedSetup.tsx
+#: src/screens/task-hub/GuidedSetup.tsx:26
 msgid "Not sure where to start?"
 msgstr "نمی‌دانید از کجا شروع کنید؟"
 
-#: src/shared/info-panel/InfoPanel.tsx
+#: src/shared/info-panel/InfoPanel.tsx:15
 msgid "Not yet verified"
 msgstr "هنوز تأیید نشده"
 
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Notarisation"
-msgstr "تأیید محضری"
-
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Notarised · blocks the appointment step"
-msgstr "محضری · گام نوبت را متوقف می‌کند"
-
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:313
 msgid "Nothing here is required."
 msgstr "هیچ‌کدام از این‌ها الزامی نیست."
 
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:105
 msgid "Nothing matches"
 msgstr "چیزی پیدا نشد"
 
-#: src/screens/search/SearchResults.tsx
+#: src/screens/search/SearchResults.tsx:94
 msgid "Nothing matches yet"
 msgstr "هنوز چیزی پیدا نشد"
 
-#: src/shared/ask-panel/NothingFound.tsx
+#: src/shared/ask-panel/NothingFound.tsx:9
 msgid "Nothing matches yet. Try other words, or pick a goal on the home page."
 msgstr "هنوز چیزی پیدا نشد. واژه‌های دیگری امتحان کنید، یا در صفحه اصلی یک هدف انتخاب کنید."
 
-#: src/shared/document-card/DocumentCard.stories.tsx
-msgid "Obtained from your university registrar. Must be dated within the last 30 days, name the programme and its duration, and carry the stamp and signature of the faculty, not only of the international office."
-msgstr "از اداره ثبت دانشگاهتان گرفته می‌شود. باید تاریخ ۳۰ روز اخیر را داشته باشد، نام رشته و مدت آن را بیاورد، و مهر و امضای دانشکده را داشته باشد، نه فقط دفتر بین‌الملل را."
-
-#: src/shared/document-card/DocumentCard.stories.tsx
-msgid "Obtained from your university registrar. Must be dated within the last 30 days."
-msgstr "از اداره ثبت دانشگاهتان گرفته می‌شود. باید تاریخ ۳۰ روز اخیر را داشته باشد."
-
-#: src/shared/status-tag/StatusTag.stories.tsx
-msgid "Official"
-msgstr "رسمی"
-
-#: src/shared/info-panel/InfoPanel.tsx
+#: src/shared/info-panel/InfoPanel.tsx:10
 msgid "Official information"
 msgstr "اطلاعات رسمی"
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:134
 msgid "Official or reliable sources help us verify the change faster."
 msgstr "منابع رسمی یا معتبر به ما کمک می‌کنند تغییر را سریع‌تر بررسی کنیم."
 
-#: src/shared/source-card/SourceCard.tsx
+#: src/shared/source-card/SourceCard.tsx:34
 msgid "Official page did not respond"
 msgstr "صفحه رسمی پاسخ نداد"
 
-#: src/shared/source-card/SourceCard.tsx
+#: src/shared/source-card/SourceCard.tsx:65
 msgid "Official page unavailable"
 msgstr "صفحه رسمی در دسترس نیست"
 
-#: src/shared/source-card/SourceCard.tsx
+#: src/shared/source-card/SourceCard.tsx:41
 msgid "Official source"
 msgstr "منبع رسمی"
 
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:305
 msgid "Official sources"
 msgstr "منابع رسمی"
 
-#: src/screens/coming-soon/GuidesSoon.tsx
+#: src/screens/coming-soon/GuidesSoon.tsx:15
 msgid "One list of every guide, to browse by topic. Until it is ready, each guide is a click away from its goal on the home page, or from Ask."
 msgstr "فهرستی از همه راهنماها، برای مرور بر اساس موضوع. تا آماده شدنش، هر راهنما با یک کلیک از هدفش در خانه، یا از پرسش، در دسترس است."
 
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:31
 msgid "Ongoing"
 msgstr "مستمر"
 
-#: src/shared/saved-item/SavedItem.tsx
+#: src/shared/saved-item/SavedItem.tsx:86
 msgid "Open"
 msgstr "باز کردن"
 
-#: src/shared/source-card/SourceCard.tsx
+#: src/shared/source-card/SourceCard.tsx:41
 msgid "Operator source"
 msgstr "منبع اپراتور"
 
-#: src/shared/checklist-item/ChecklistItem.tsx
+#: src/shared/checklist-item/ChecklistItem.tsx:21
 msgid "Optional"
 msgstr "اختیاری"
 
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:105
 msgid "Or explore the areas involved yourself."
 msgstr "یا حوزه‌های مربوط را خودتان بررسی کنید."
 
-#: src/shared/document-card/DocumentCard.stories.tsx
-msgid "Original · No translation · No apostille"
-msgstr "اصل مدرک · بدون ترجمه · بدون آپوستیل"
-
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Original required"
-msgstr "اصل مدرک لازم است"
-
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:167
 msgid "Other routes"
 msgstr "مسیرهای دیگر"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:31
 msgid "Outpatient cover, at a non-contracted provider or a public hospital outside Annex 1"
 msgstr "پوشش سرپایی، نزد ارائه‌دهندهٔ بدون قرارداد یا بیمارستان دولتی بیرون از پیوست ۱"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:27
 msgid "Outpatient cover, at a provider your insurer has contracted with"
 msgstr "پوشش سرپایی، نزد ارائه‌دهنده‌ای که بیمه‌گر شما با آن قرارداد دارد"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:35
 msgid "Outpatient cover, at a public hospital named in Annex 1"
 msgstr "پوشش سرپایی، در بیمارستان دولتی نام‌برده در پیوست ۱"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:53
 msgid "Paid-in capital for a new business"
 msgstr "سرمایهٔ پرداخت‌شده برای کسب‌وکار جدید"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:54
 msgid "Paid-in capital for an established business"
 msgstr "سرمایهٔ پرداخت‌شده برای کسب‌وکار موجود"
 
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Parental consent"
-msgstr "رضایت والدین"
-
-#: src/shared/text-input/TextInput.stories.tsx
-msgid "Passport number"
-msgstr "شمارهٔ گذرنامه"
-
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Passport translation"
-msgstr "ترجمه گذرنامه"
-
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:131
 msgid "Paste a link if you have one"
 msgstr "اگر پیوندی دارید اینجا بگذارید"
 
-#: src/screens/home/Home.tsx
+#: src/screens/home/Home.tsx:63
 msgid "Pick a goal. Each one opens a guided process built for your nationality, city and status."
 msgstr "یک هدف انتخاب کنید. هر کدام فرایندی راهنمایی‌شده را باز می‌کند که برای ملیت، شهر و وضعیت شما ساخته شده است."
 
-#: src/shared/ask-panel/useAsk.tsx
+#: src/shared/ask-panel/useAsk.tsx:187
 msgid "Popular right now"
 msgstr "پرطرفدار در حال حاضر"
 
-#: src/shared/info-panel/InfoPanel.tsx
+#: src/shared/info-panel/InfoPanel.tsx:11
 msgid "Practical advice"
 msgstr "توصیهٔ عملی"
 
-#: src/shared/process-card/ProcessCard.stories.tsx
-msgid "prepare notarised passport translation"
-msgstr "ترجمه محضری گذرنامه را آماده کنید"
-
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Prepare translated and notarised documents"
-msgstr "آماده کردن مدارک ترجمه‌شده و محضری"
-
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Presidency of Migration Management"
-msgstr "ریاست مدیریت مهاجرت"
-
-#: src/shared/info-panel/InfoPanel.stories.tsx
-msgid "Presidency of Migration Management · verified August 2026"
-msgstr "ریاست مدیریت مهاجرت · تأییدشده در اوت ۲۰۲۶"
-
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Previous residence permit"
-msgstr "اقامت قبلی"
-
-#: src/shared/saved-item/SavedItem.tsx
+#: src/shared/saved-item/SavedItem.tsx:18
 msgid "Process"
 msgstr "روند"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:90
 msgid "Processing time"
 msgstr "زمان رسیدگی"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:105
 msgid "Profit below which the chamber contribution is nothing"
 msgstr "سودی که تا آن اندازه حق عضویت اتاق صفر است"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:106
 msgid "Profit ceiling for founder relief"
 msgstr "سقف سود برای تخفیف بنیان‌گذاران"
 
-#: src/screens/guide/Guide.tsx
-#: src/shared/ask-result-row/AskResultRow.tsx
+#: src/screens/guide/Guide.tsx:269
+#: src/shared/ask-result-row/AskResultRow.tsx:23
 msgid "Quick answer"
 msgstr "پاسخ کوتاه"
 
-#: src/screens/search/SearchResults.tsx
+#: src/screens/search/SearchResults.tsx:141
 msgid "Quick answers"
 msgstr "پاسخ‌های کوتاه"
 
-#: src/shared/source-card/SourceCard.tsx
+#: src/shared/source-card/SourceCard.tsx:35
 msgid "Re-verification in progress"
 msgstr "بازبینی دوباره در جریان است"
 
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:141
 msgid "Read about a topic before you deal with it. Guides explain how something works; the areas above are things you may need to do."
 msgstr "پیش از رسیدگی به هر موضوع درباره آن بخوانید. راهنماها توضیح می‌دهند چیزی چگونه کار می‌کند؛ حوزه‌های بالا کارهایی هستند که شاید لازم باشد انجام دهید."
 
 #. placeholder {0}: line.source.name
 #. placeholder {1}: line.source.checked
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:78
 msgid "Read on <0>{0}</0>, checked {1}"
 msgstr "خوانده‌شده در <0>{0}</0>، بررسی‌شده در {1}"
 
-#: src/screens/search/SearchResults.tsx
-#: src/screens/task-hub/TaskHub.tsx
-#: src/shared/ask-panel/useAsk.tsx
+#: src/screens/search/SearchResults.tsx:130
+#: src/screens/task-hub/TaskHub.tsx:151
+#: src/shared/ask-panel/useAsk.tsx:155
 msgid "Reading · verified {verified}"
 msgstr "مطالعه · بررسی‌شده در {verified}"
 
-#: src/shared/ask-result-row/AskResultRow.stories.tsx
-msgid "Reading · verified Aug 2026"
-msgstr "مطالعه · بررسی‌شده در اوت ۲۰۲۶"
-
-#: src/shared/checklist-item/ChecklistItem.tsx
-#: src/shared/document-card/DocumentCard.tsx
+#: src/shared/checklist-item/ChecklistItem.tsx:20
+#: src/shared/document-card/DocumentCard.tsx:18
 msgid "Ready"
 msgstr "آماده"
 
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Ready since 14 Aug 2026"
-msgstr "آماده از ۱۴ اوت ۲۰۲۶"
-
-#: src/shared/ask-result-row/AskResultRow.tsx
+#: src/shared/ask-result-row/AskResultRow.tsx:25
 msgid "Recent"
 msgstr "اخیر"
 
-#: src/shared/ask-panel/useAsk.tsx
+#: src/shared/ask-panel/useAsk.tsx:180
 msgid "Recent questions"
 msgstr "پرسش‌های اخیر"
 
-#: src/screens/category-hub/RecommendedStart.tsx
+#: src/screens/category-hub/RecommendedStart.tsx:21
 msgid "Recommended starting point"
 msgstr "نقطه شروع پیشنهادی"
 
-#: src/shared/breadcrumb/Breadcrumb.stories.tsx
-#: src/shared/topic-item/TopicItem.stories.tsx
-msgid "Register your company"
-msgstr "ثبت شرکت"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:18
 msgid "Registration fee"
 msgstr "هزینهٔ ثبت"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:98
 msgid "Registration fee for a sole business"
 msgstr "هزینهٔ ثبت برای کسب‌وکار انفرادی"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:99
 msgid "Registration fee online"
 msgstr "هزینهٔ ثبت به‌صورت آنلاین"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:74
 msgid "Registry charge on company formation"
 msgstr "هزینهٔ ثبت در تأسیس شرکت"
 
-#: src/screens/category-hub/CategoryHub.tsx
-#: src/screens/guide/Guide.tsx
+#: src/screens/category-hub/CategoryHub.tsx:152
+#: src/screens/guide/Guide.tsx:326
 msgid "Related guides"
 msgstr "راهنماهای مرتبط"
 
-#: src/shared/saved-item/SavedItem.tsx
+#: src/shared/saved-item/SavedItem.tsx:92
 msgid "Remove from saved"
 msgstr "حذف از ذخیره‌شده‌ها"
 
-#: src/shared/text-input/TextInput.stories.tsx
-msgid "Remove the dash, this field takes letters and numbers only"
-msgstr "خط تیره را حذف کنید، این فیلد فقط حرف و عدد می‌پذیرد"
-
-#: src/shared/checklist-item/ChecklistItem.tsx
+#: src/shared/checklist-item/ChecklistItem.tsx:23
 msgid "Renew"
 msgstr "تمدید کنید"
 
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Rental contract"
-msgstr "قرارداد اجاره"
-
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Republic of Türkiye"
-msgstr "جمهوری ترکیه"
-
-#: src/shared/checklist-item/ChecklistItem.tsx
+#: src/shared/checklist-item/ChecklistItem.tsx:19
 msgid "Required"
 msgstr "الزامی"
 
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Required at any notary (noter)"
-msgstr "در هر دفتر اسناد رسمی (noter) لازم است"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:82
 msgid "Required time to obtain an opening and operating licence"
 msgstr "زمان لازم برای گرفتن مجوز افتتاح و بهره‌برداری"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:51
 msgid "Required validity date of the residence permit"
 msgstr "تاریخ لازم برای معتبر بودن اجازهٔ اقامت"
 
-#: src/shared/guide-card/GuideCard.stories.tsx
-msgid "Residence and immigration"
-msgstr "اقامت و مهاجرت"
-
-#: src/shared/rule-answer/factLabels.ts
-#~ msgid "Residence permit card fee"
-#~ msgstr "هزینهٔ کارت اقامت"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:39
 msgid "Residence permit charge"
 msgstr "عوارض اجازهٔ اقامت"
 
-#: src/shared/deadline-item/DeadlineItem.stories.tsx
-msgid "Residence permit renewal"
-msgstr "تمدید اقامت"
-
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:251
+#: src/shared/context-control/ContextPanel.tsx:254
 msgid "Residence status"
 msgstr "وضعیت اقامت"
 
-#: src/screens/search/SearchResults.tsx
+#: src/screens/search/SearchResults.tsx:71
 msgid "Results for “{asked}”"
 msgstr "نتایج برای «{asked}»"
 
-#: src/shared/ask-panel/useAsk.tsx
+#: src/shared/ask-panel/useAsk.tsx:175
 msgid "Results for “{text}”"
 msgstr "نتایج برای «{text}»"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:22
 msgid "Return while your application is pending"
 msgstr "بازگشت در مدتی که درخواست شما در جریان است"
 
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:267
+#: src/shared/context-control/ContextPanel.tsx:270
 msgid "Role"
 msgstr "نقش"
 
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Same day, about 1 hour"
-msgstr "همان روز، حدود ۱ ساعت"
-
-#: src/shared/info-panel/InfoPanel.tsx
+#: src/shared/info-panel/InfoPanel.tsx:13
 msgid "Scam risk"
 msgstr "خطر کلاهبرداری"
 
-#: src/screens/search/SearchResults.tsx
+#: src/screens/search/SearchResults.tsx:68
 msgid "Search"
 msgstr "جست‌وجو"
 
-#: src/shared/search-input/SearchInput.stories.tsx
-msgid "Search the guides"
-msgstr "جست‌وجو در راهنماها"
-
-#: src/shared/select-field/SelectField.stories.tsx
-msgid "Select a city"
-msgstr "یک شهر انتخاب کنید"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:113
 msgid "Self-employment under the Residence Act"
 msgstr "خوداشتغالی بر پایهٔ قانون اقامت"
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:192
 msgid "Send suggestion"
 msgstr "ارسال پیشنهاد"
 
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:168
 msgid "Separate routes some people look into."
 msgstr "مسیرهای جداگانه‌ای که برخی بررسی می‌کنند."
 
-#: src/shared/fact-strip/FactStrip.stories.tsx
-msgid "Set once the structure is chosen"
-msgstr "پس از انتخاب ساختار تعیین می‌شود"
-
-#: src/shared/info-panel/InfoPanel.stories.tsx
-msgid "Set your nationality to resolve this"
-msgstr "برای روشن شدن این مورد، ملیت خود را تعیین کنید"
-
-#: src/screens/home/Home.tsx
-#: src/shared/section/Section.stories.tsx
+#: src/screens/home/Home.tsx:83
 msgid "Short answers with the conditions that actually change them."
 msgstr "پاسخ‌های کوتاه، همراه با شرایطی که واقعا آن‌ها را تغییر می‌دهند."
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:135
 msgid "Shorten the link, or paste only the address of the page."
 msgstr "پیوند را کوتاه کنید، یا فقط نشانی صفحه را بگذارید."
 
-#: src/shared/header/Header.tsx
+#: src/shared/header/Header.tsx:91
 msgid "Skipbureau"
 msgstr "Skipbureau"
 
-#: src/screens/Unreachable.tsx
+#: src/screens/Unreachable.tsx:15
 msgid "SkipBureau could not load this"
 msgstr "SkipBureau نتوانست این را بارگذاری کند"
 
-#: src/shared/information-disclaimer/InformationDisclaimer.tsx
+#: src/shared/information-disclaimer/InformationDisclaimer.tsx:18
 msgid "Skipbureau explains everyday processes in {country}. Information can change and should not be treated as legal or professional advice. Check the linked official sources before making important decisions."
 msgstr "Skipbureau روندهای روزمره در {country} را توضیح می‌دهد. اطلاعات ممکن است تغییر کند و نباید آن را مشاوره حقوقی یا حرفه‌ای دانست. پیش از تصمیم‌های مهم، منابع رسمی پیوندداده‌شده را بررسی کنید."
 
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:344
+#: src/screens/guide/Guide.tsx:348
 msgid "Something changed?"
 msgstr "چیزی تغییر کرده است؟"
 
-#: src/screens/Unreachable.tsx
+#: src/screens/Unreachable.tsx:18
 msgid "Something on our side did not answer. The page exists, we just could not reach it. Trying again usually works."
 msgstr "چیزی در سمت ما پاسخ نداد. صفحه وجود دارد، فقط نتوانستیم به آن برسیم. معمولا تلاش دوباره جواب می‌دهد."
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:130
 msgid "Source or link (optional)"
 msgstr "منبع یا پیوند (اختیاری)"
 
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:368
 msgid "Sources are listed above with the date we last checked them. Tell us if something here no longer matches what you found."
 msgstr "منابع همراه با تاریخ آخرین بررسی در بالا آمده‌اند. اگر چیزی در اینجا دیگر با آنچه یافته‌اید مطابقت ندارد، به ما بگویید."
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:119
 msgid "Split of the general and additional contribution"
 msgstr "تقسیم حق بیمهٔ عمومی و تکمیلی"
 
-#: src/shared/breadcrumb/Breadcrumb.stories.tsx
-#: src/shared/task-row/TaskRow.stories.tsx
-#: src/shared/task-tile/TaskTile.stories.tsx
-msgid "Start a business"
-msgstr "راه‌اندازی کسب‌وکار"
-
-#: src/shared/ask-result-row/AskResultRow.stories.tsx
-msgid "Start a business in Turkey"
-msgstr "راه‌اندازی کسب‌وکار در ترکیه"
-
-#: src/shared/process-card/ProcessCard.stories.tsx
-#: src/shared/saved-item/SavedItem.stories.tsx
-msgid "Start a company in Turkey"
-msgstr "راه‌اندازی شرکت در ترکیه"
-
-#: src/shared/process-card/ProcessCard.stories.tsx
-msgid "Start a limited company in Turkey with a foreign shareholder and a local director"
-msgstr "راه‌اندازی شرکت با مسئولیت محدود در ترکیه با سهام‌دار خارجی و مدیر محلی"
-
-#: src/screens/task-hub/GuidedSetup.tsx
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/GuidedSetup.tsx:49
+#: src/screens/task-hub/TaskHub.tsx:130
 msgid "Start guided setup"
 msgstr "شروع راه‌اندازی راهنمایی‌شده"
 
-#: src/screens/category-hub/RecommendedStart.tsx
+#: src/screens/category-hub/RecommendedStart.tsx:47
 msgid "Start here"
 msgstr "از اینجا شروع کنید"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:122
 msgid "Start of compulsory membership through employment"
 msgstr "آغاز عضویت اجباری از راه اشتغال"
 
-#: src/shared/button/Button.stories.tsx
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Start this process"
-msgstr "این فرایند را شروع کنید"
-
-#: src/screens/category-hub/CategoryHub.tsx
+#: src/screens/category-hub/CategoryHub.tsx:172
 msgid "Still have a question?"
 msgstr "هنوز پرسشی دارید؟"
 
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-#: src/shared/document-card/DocumentCard.stories.tsx
-msgid "Student certificate"
-msgstr "گواهی دانشجویی"
-
-#: src/shared/guide-card/GuideCard.stories.tsx
-#: src/shared/saved-item/SavedItem.stories.tsx
-msgid "Student residence permit"
-msgstr "اقامت دانشجویی"
-
-#: src/shared/saved-item/SavedItem.stories.tsx
-msgid "Student residence permit for a second degree, an exchange term, or a language course"
-msgstr "اقامت دانشجویی برای مدرک دوم، دوره تبادل، یا دوره زبان"
-
-#: src/shared/guide-card/GuideCard.stories.tsx
-msgid "Student residence permit for a second degree, an exchange term, or a language course at a private school"
-msgstr "اقامت دانشجویی برای مدرک دوم، دوره تبادل، یا دوره زبان در یک آموزشگاه خصوصی"
-
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Submitted 3 Sep · usually 15 to 20 days"
-msgstr "ارسال‌شده در ۳ سپتامبر · معمولا ۱۵ تا ۲۰ روز"
-
-#: src/screens/guide/Guide.tsx
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/guide/Guide.tsx:356
+#: src/screens/suggest/SuggestUpdate.tsx:110
 msgid "Suggest an update"
 msgstr "پیشنهاد به‌روزرسانی"
 
-#: src/shared/saved-item/SavedItem.stories.tsx
-msgid "Sworn translation"
-msgstr "ترجمه رسمی"
-
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Sworn translation · Notarised · 2 copies"
-msgstr "ترجمه رسمی · محضری · ۲ رونوشت"
-
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Take your passport and diploma to a sworn translator, then to any notary to have the translations certified. The notary does not need an appointment; most offices handle this the same day."
-msgstr "گذرنامه و مدرک تحصیلی‌تان را نزد یک مترجم رسمی ببرید، و بعد به هر دفتر اسناد رسمی تا ترجمه‌ها تأیید شوند. دفتر اسناد رسمی نوبت نمی‌خواهد؛ بیشتر دفترها همان روز انجامش می‌دهند."
-
-#: src/shared/ask-result-row/AskResultRow.tsx
+#: src/shared/ask-result-row/AskResultRow.tsx:19
 msgid "Task"
 msgstr "کار"
 
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:82
 msgid "Task hub"
 msgstr "مرکز کار"
 
-#: src/screens/search/SearchResults.tsx
+#: src/screens/search/SearchResults.tsx:106
 msgid "Tasks"
 msgstr "کارها"
 
-#: src/shared/deadline-item/DeadlineItem.stories.tsx
-msgid "Tax filing, Q3"
-msgstr "اظهارنامه مالیاتی، فصل سوم"
-
-#: src/shared/deadline-item/DeadlineItem.stories.tsx
-msgid "Tax number obtained"
-msgstr "شماره مالیاتی دریافت شد"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:80
 msgid "Tax-certificate renewal deadline after the return deadline in a special accounting period"
 msgstr "مهلت تمدید گواهی مالیاتی پس از مهلت اظهارنامه در دورهٔ حسابداری ویژه"
 
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:114
+#: src/shared/rule-answer/RuleAnswer.tsx:140
 msgid "Tell us"
 msgstr "به ما بگویید"
 
-#: src/shared/info-panel/InfoPanel.stories.tsx
-msgid "Tell us if you have done this in Antalya"
-msgstr "اگر این کار را در آنتالیا انجام داده‌اید، به ما بگویید"
-
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:104
 msgid "Tell us to show your answer."
 msgstr "به ما بگویید تا پاسخ شما را نشان دهیم."
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:126
 msgid "Tell us what looks outdated, incorrect or missing."
 msgstr "بگویید چه چیزی قدیمی، نادرست یا ناقص به نظر می‌رسد."
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:94
 msgid "Thank you"
 msgstr "سپاسگزاریم"
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:154
 msgid "That is a lot of suggestions at once. Wait a minute and send this one again."
 msgstr "پیشنهادها در زمان کوتاهی زیاد بوده است؛ یک دقیقه صبر کنید و دوباره بفرستید."
 
-#: src/screens/NotFound.tsx
+#: src/screens/NotFound.tsx:14
 msgid "The address may be mistyped, or it may point at a country or a guide SkipBureau does not cover yet."
 msgstr "ممکن است نشانی اشتباه تایپ شده باشد، یا به کشور یا راهنمایی اشاره کند که SkipBureau هنوز پوشش نمی‌دهد."
 
-#: src/screens/Placeholder.tsx
-#~ msgid "The address resolved, which is what this page is here to show."
-#~ msgstr "نشانی درست تشخیص داده شد؛ همین چیزی است که این صفحه برای نشان دادنش اینجاست."
-
-#: src/shared/source-card/SourceCard.tsx
+#: src/shared/source-card/SourceCard.tsx:93
 msgid "The institution’s own wording — not Skipbureau advice"
 msgstr "عبارات خود نهاد، نه توصیه Skipbureau"
 
-#: src/shared/app-shell/AppShell.stories.tsx
-msgid "The page goes here"
-msgstr "صفحه اینجا قرار می‌گیرد"
-
-#: src/shared/reading/Reading.stories.tsx
-msgid "The reading measure is 720. The design gives a reason for that one number and for no other, so it is the only width here that is about how text reads rather than about how a screen is divided."
-msgstr "عرض خوانش ۷۲۰ است. طراحی فقط برای همین یک عدد دلیل آورده، پس تنها عرضی است که به خوانایی متن مربوط می‌شود، نه به تقسیم‌بندی صفحه."
-
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:47
 msgid "The rule for everyone"
 msgstr "قاعده برای همه"
 
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:281
 msgid "The rules that apply"
 msgstr "قاعده‌های مربوط"
 
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:114
 msgid "These are the areas most people deal with. They are deliberately not numbered, because the order that applies to you depends on your situation."
 msgstr "این‌ها حوزه‌هایی هستند که بیشتر افراد با آن‌ها سروکار دارند. عمدا شماره‌گذاری نشده‌اند، چون ترتیبی که برای شما صدق می‌کند به موقعیت شما بستگی دارد."
 
-#: src/shared/info-panel/InfoPanel.tsx
+#: src/shared/info-panel/InfoPanel.tsx:14
 msgid "This depends on your situation"
 msgstr "این به وضعیت شما بستگی دارد"
 
 #. placeholder {0}: locales[language].label
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:252
 msgid "This guide has not been translated yet, so it is shown in {0}."
 msgstr "این راهنما هنوز ترجمه نشده است، بنابراین به {0} نمایش داده می‌شود."
 
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:102
 msgid "This is the rule for everyone. Tell us, and we show the answer for you."
 msgstr "این قاعده برای همه است. به ما بگویید تا پاسخ مخصوص شما را نشان دهیم."
 
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:107
 msgid "This is the rule for everyone. We cannot take this detail from you yet."
 msgstr "این قاعدهٔ همگانی است. هنوز نمی‌توانیم این اطلاعات را از شما بگیریم."
 
-#: src/screens/NotFound.tsx
+#: src/screens/NotFound.tsx:11
 msgid "This page does not exist"
 msgstr "این صفحه وجود ندارد"
 
-#: src/shared/deadline-item/DeadlineItem.tsx
+#: src/shared/deadline-item/DeadlineItem.tsx:29
 msgid "Today"
 msgstr "امروز"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:104
 msgid "Trade income allowance"
 msgstr "معافیت درآمد کسب‌وکار"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:111
 msgid "Transaction losing the exemption"
 msgstr "معامله‌ای که معافیت را از بین می‌برد"
 
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Translation"
-msgstr "ترجمه"
-
-#: src/screens/home/HomeHero.tsx
+#: src/screens/home/HomeHero.tsx:41
 msgid "Try"
 msgstr "امتحان کنید"
 
-#: src/screens/Unreachable.tsx
-#: src/shared/retry-notice/RetryNotice.tsx
+#: src/screens/Unreachable.tsx:24
+#: src/shared/retry-notice/RetryNotice.tsx:34
 msgid "Try again"
 msgstr "تلاش دوباره"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:52
 msgid "Turkish employees for each foreigner"
 msgstr "کارکنان ترک برای هر خارجی"
 
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Turkish, by a sworn translator (yeminli tercüman)"
-msgstr "به ترکی، توسط مترجم رسمی (yeminli tercüman)"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:109
 msgid "Turnover ceiling for the current year"
 msgstr "سقف گردش مالی برای سال جاری"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:108
 msgid "Turnover ceiling for the previous year"
 msgstr "سقف گردش مالی برای سال گذشته"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:110
 msgid "Turnover ceiling in the year the business starts"
 msgstr "سقف گردش مالی در سال آغاز کسب‌وکار"
 
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:122
 msgid "Two rules could apply to you"
 msgstr "ممکن است دو قاعده برای شما صدق کند"
 
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:221
+#: src/shared/context-control/ContextPanel.tsx:226
 msgid "Type a country"
 msgstr "نام کشور را بنویسید"
 
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:239
+#: src/shared/context-control/ContextPanel.tsx:289
 msgid "Type a place"
 msgstr "نام مکان را بنویسید"
 
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:271
 msgid "Type a role"
 msgstr "نام نقش را بنویسید"
 
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:255
 msgid "Type a status"
 msgstr "نام وضعیت را بنویسید"
 
-#: src/screens/guide/Guide.tsx
-#: src/shared/fact-strip/FactStrip.stories.tsx
+#: src/screens/guide/Guide.tsx:106
 msgid "Typical cost"
 msgstr "هزینه معمول"
 
-#: src/screens/guide/Guide.tsx
-#: src/shared/fact-strip/FactStrip.stories.tsx
+#: src/screens/guide/Guide.tsx:107
 msgid "Typical setup time"
 msgstr "زمان معمول انجام"
 
-#: src/shared/topic-item/TopicItem.stories.tsx
-msgid "Understand the main company structures and which situations they are commonly used for."
-msgstr "با ساختارهای اصلی شرکت و موقعیت‌هایی که معمولا برای آن‌ها به کار می‌روند آشنا شوید."
-
-#: src/shared/topic-item/TopicItem.stories.tsx
-msgid "Understand the registration process and what needs to be prepared."
-msgstr "با روند ثبت و آنچه باید آماده شود آشنا شوید."
-
-#: src/shared/country-name/CountryName.tsx
-#~ msgid "Unknown country"
-#~ msgstr "کشور ناشناخته"
-
-#: src/shared/country-name/CountryName.tsx
+#: src/shared/country-name/CountryName.tsx:15
 msgid "Unnamed country"
 msgstr "کشور بی‌نام"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:91
 msgid "Until the card can be collected"
 msgstr "تا وقتی کارت آمادهٔ تحویل شود"
 
-#: src/shared/roadmap-step/RoadmapStep.tsx
+#: src/shared/roadmap-step/RoadmapStep.tsx:21
 msgid "Upcoming"
 msgstr "پیش رو"
 
-#: src/shared/saved-item/SavedItem.stories.tsx
-msgid "Updated 28 Aug 2026"
-msgstr "به‌روزشده در ۲۸ اوت ۲۰۲۶"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:93
 msgid "Urgent travel Berlin helps with"
 msgstr "سفر فوری که برلین در آن کمک می‌کند"
 
-#: src/shared/fact-strip/FactStrip.stories.tsx
-msgid "Usually a short visit in store"
-msgstr "معمولا یک مراجعه کوتاه به فروشگاه"
-
-#: src/shared/fact-strip/FactStrip.stories.tsx
-msgid "Varies by company type and situation"
-msgstr "بسته به نوع شرکت و موقعیت متفاوت است"
-
-#: src/shared/fact-strip/FactStrip.stories.tsx
-msgid "Varies by operator, plan, SIM type and campaign"
-msgstr "بسته به اپراتور، طرح، نوع سیم‌کارت و جشنواره متفاوت است"
-
-#: src/shared/guide-card/GuideCard.tsx
+#: src/shared/guide-card/GuideCard.tsx:37
 msgid "Verified {verified}"
 msgstr "تأییدشده {verified}"
 
-#: src/shared/saved-item/SavedItem.stories.tsx
-msgid "Verified 11 Aug 2026"
-msgstr "تأییدشده ۱۱ اوت ۲۰۲۶"
-
-#: src/shared/saved-item/SavedItem.stories.tsx
-msgid "Verified 24 Aug 2026"
-msgstr "تأییدشده ۲۴ اوت ۲۰۲۶"
-
-#: src/shared/source-card/SourceCard.tsx
+#: src/shared/source-card/SourceCard.tsx:31
 msgid "Verified against this source"
 msgstr "با این منبع تطبیق داده شده"
 
-#: src/shared/status-tag/StatusTag.stories.tsx
-msgid "Verified Aug 2026"
-msgstr "تأییدشده، اوت ۲۰۲۶"
-
-#: src/shared/source-card/SourceCard.tsx
+#: src/shared/source-card/SourceCard.tsx:87
 msgid "Visit official source"
 msgstr "رفتن به منبع رسمی"
 
-#: src/shared/roadmap-step/RoadmapStep.tsx
-#: src/shared/status-tag/StatusTag.stories.tsx
+#: src/shared/roadmap-step/RoadmapStep.tsx:22
 msgid "Waiting on institution"
 msgstr "در انتظار نهاد"
 
-#: src/shared/info-panel/InfoPanel.tsx
+#: src/shared/info-panel/InfoPanel.tsx:12
 msgid "Warning"
 msgstr "هشدار"
 
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:99
 msgid "We are still writing this guide, and checking it against official sources."
 msgstr "هنوز این راهنما را می‌نویسیم و با منابع رسمی بررسی می‌کنیم."
 
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:109
 msgid "We cannot take this detail from you yet."
 msgstr "هنوز نمی‌توانیم این اطلاعات را از شما بگیریم."
 
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:284
 msgid "We could not load the answer for you."
 msgstr "نتوانستیم پاسخ مخصوص شما را بارگذاری کنیم."
 
-#: src/shared/info-panel/InfoPanel.stories.tsx
-msgid "We have not verified this process for Antalya. The steps below are correct for Istanbul, Ankara and Izmir; local document requirements may differ."
-msgstr "این روند را برای آنتالیا تأیید نکرده‌ایم. مراحل زیر برای استانبول، آنکارا و ازمیر درست است؛ مدارک لازم در هر شهر ممکن است فرق کند."
-
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:57
 msgid "We hold no rule on this for what you have told us."
 msgstr "برای آنچه به ما گفته‌اید، قاعده‌ای در این باره نداریم."
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:144
 msgid "We may contact you if we need more information. Your email will not be published."
 msgstr "اگر به اطلاعات بیشتری نیاز داشته باشیم ممکن است با شما تماس بگیریم. ایمیل شما منتشر نمی‌شود."
 
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:216
 msgid "We only ask for details when they change your answer."
 msgstr "فقط وقتی جزئیات را می‌پرسیم که پاسخ شما را تغییر دهد."
 
-#: src/screens/search/SearchResults.tsx
+#: src/screens/search/SearchResults.tsx:97
 msgid "We only search what we have written and checked, so try other words, or start from a goal on the home page."
 msgstr "ما فقط در آنچه خودمان نوشته و بررسی کرده‌ایم جست‌وجو می‌کنیم؛ پس واژه‌های دیگری را امتحان کنید، یا از یک هدف در خانه شروع کنید."
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:149
 msgid "We use your email only to review and follow up on this submission."
 msgstr "از ایمیل شما فقط برای بررسی و پیگیری همین پیشنهاد استفاده می‌کنیم."
 
-#: src/screens/search/SearchResults.tsx
-#: src/shared/ask-panel/useAsk.tsx
+#: src/screens/search/SearchResults.tsx:156
+#: src/shared/ask-panel/useAsk.tsx:200
 msgid "We’ll ask about your nationality or city only if it changes the answer."
 msgstr "فقط اگر پاسخ را تغییر دهد، درباره ملیت یا شهرتان می‌پرسیم."
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:97
 msgid "We’ll review your suggestion before updating the guide."
 msgstr "پیش از به‌روزرسانی راهنما، پیشنهاد شما را بررسی می‌کنیم."
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:113
 msgid "We’ll review your suggestion before updating the guide. Submitting information does not directly change the published guide."
 msgstr "پیش از به‌روزرسانی راهنما، پیشنهاد شما را بررسی می‌کنیم. ارسال اطلاعات مستقیما راهنمای منتشرشده را تغییر نمی‌دهد."
 
-#: src/shared/ask-panel/AskPanel.tsx
+#: src/shared/ask-panel/AskPanel.tsx:36
 msgid "What Ask found"
 msgstr "آنچه پرسش پیدا کرد"
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:120
 msgid "What changed?"
 msgstr "چه چیزی تغییر کرده است؟"
 
-#: src/shared/saved-item/SavedItem.stories.tsx
-msgid "What counts as a sworn translator in Turkey"
-msgstr "مترجم رسمی در ترکیه یعنی چه کسی"
-
-#: src/screens/category-hub/CategoryHub.tsx
+#: src/screens/category-hub/CategoryHub.tsx:99
+#: src/screens/category-hub/CategoryHub.tsx:180
 msgid "What do you need help with?"
 msgstr "در چه کاری به کمک نیاز دارید؟"
 
-#: src/screens/home/head.ts
-#: src/screens/home/HomeHero.tsx
+#: src/screens/home/head.ts:12
+#: src/screens/home/HomeHero.tsx:24
 msgid "What do you need to do in {name}?"
 msgstr "در {name} چه کاری باید انجام دهید؟"
 
-#: src/core/i18n/I18nProvider.stories.tsx
-msgid "What do you need to do?"
-msgstr "چه کاری باید انجام دهید؟"
-
-#: src/screens/home/Home.tsx
+#: src/screens/home/Home.tsx:62
 msgid "What do you want to do?"
 msgstr "می‌خواهید چه کار کنید؟"
 
-#: src/shared/ask-result-row/AskResultRow.stories.tsx
-msgid "What documents do I need for student residence?"
-msgstr "برای اقامت دانشجویی به چه مدارکی نیاز دارم؟"
-
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:198
+#: src/shared/context-control/ContextPanel.tsx:213
 msgid "What Skipbureau knows about you"
 msgstr "آنچه Skipbureau درباره شما می‌داند"
 
-#: src/screens/guide/GuideSection.tsx
+#: src/screens/guide/GuideSection.tsx:23
 msgid "What to check"
 msgstr "چه چیزهایی را بررسی کنید"
 
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "What to do"
-msgstr "چه باید کرد"
-
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:94
 msgid "What we know about you"
 msgstr "آنچه درباره شما می‌دانیم"
 
-#: src/screens/guide/GuideSection.tsx
+#: src/screens/guide/GuideSection.tsx:18
 msgid "What you need"
 msgstr "آنچه لازم دارید"
 
-#: src/shared/guide-card/GuideCard.stories.tsx
-msgid "What you need, what it costs, and the two document mistakes that cause most refusals, including the translation and the insurance that has to cover the whole permit, and what to do when the university is late with the certificate."
-msgstr "آنچه لازم دارید، هزینه‌اش، و دو اشتباه مدرکی که بیشترِ ردها از آن‌هاست، از جمله ترجمه و بیمه‌ای که باید کل دوره اقامت را پوشش دهد، و اینکه اگر دانشگاه گواهی را دیر بدهد چه کنید."
-
-#: src/shared/guide-card/GuideCard.stories.tsx
-msgid "What you need, what it costs, and the two document mistakes that cause most refusals."
-msgstr "آنچه لازم دارید، هزینه‌اش، و دو اشتباه مدرکی که بیشترِ ردها از آن‌هاست."
-
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:108
 msgid "What you’ll need to think about"
 msgstr "آنچه باید به آن فکر کنید"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:26
 msgid "What your health cover must cover"
 msgstr "آنچه بیمهٔ درمانی شما باید پوشش دهد"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:100
 msgid "When a warning fine can be charged"
 msgstr "زمانی که جریمهٔ اخطار ممکن است اعمال شود"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:101
 msgid "When fine proceedings can start"
 msgstr "زمانی که روند رسیدگی به جریمه می‌تواند آغاز شود"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:96
 msgid "When to notify the trade office"
 msgstr "زمان اعلام به ادارهٔ کسب‌وکار"
 
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Where"
-msgstr "کجا"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:16
 msgid "Where the appointment is booked"
 msgstr "جای گرفتن نوبت"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:83
 msgid "Where the share register and general-meeting minutes are kept"
 msgstr "محل نگهداری دفتر سهام و صورت‌جلسات مجمع عمومی"
 
-#: src/screens/guide/GuideSection.tsx
+#: src/screens/guide/GuideSection.tsx:21
 msgid "Where to do it"
 msgstr "کجا انجام دهید"
 
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:144
 msgid "Where you live"
 msgstr "محل زندگی شما"
 
-#: src/screens/guide/Guide.tsx
-#: src/shared/context-control/ContextPanel.tsx
+#: src/screens/guide/Guide.tsx:149
+#: src/shared/context-control/ContextPanel.tsx:285
+#: src/shared/context-control/ContextPanel.tsx:288
 msgid "Where you work"
 msgstr "محل کار شما"
 
-#: src/shared/info-panel/InfoPanel.stories.tsx
-msgid "Whether your diploma needs an apostille or consular legalization depends on your country of issue. We cannot show one answer here until you tell us your nationality."
-msgstr "اینکه مدرک تحصیلی شما آپوستیل لازم دارد یا تأیید کنسولی، به کشور صادرکنندهٔ آن بستگی دارد. تا ملیت خود را به ما نگویید، نمی‌توانیم اینجا یک پاسخ نشان دهیم."
-
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:80
 msgid "within {number}"
 msgstr "ظرف {number}"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:114
 msgid "Work allowed by your residence title"
 msgstr "کاری که مجوز اقامت شما اجازه می‌دهد"
 
-#: src/shared/context-control/situationLabels.ts
+#: src/shared/context-control/situationLabels.ts:10
 msgid "Worker"
 msgstr "شاغل"
 
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Yes, bring the original and one copy"
-msgstr "بله، اصل و یک رونوشت را بیاورید"
-
-#: src/shared/ask-result-row/AskResultRow.stories.tsx
-msgid "Yes, no residence permit is required to own shares"
-msgstr "بله، برای مالکیت سهام اجازه اقامت لازم نیست"
-
-#: src/screens/category-hub/CategoryHub.tsx
+#: src/screens/category-hub/CategoryHub.tsx:143
 msgid "You can use this checklist as a simple guide. Your progress is not saved."
 msgstr "می‌توانید از این فهرست به‌عنوان راهنمایی ساده استفاده کنید. پیشرفت شما ذخیره نمی‌شود."
 
-#: src/shared/info-panel/InfoPanel.stories.tsx
-msgid "You do not need an agent for this step"
-msgstr "برای این مرحله به واسطه نیازی ندارید"
-
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:139
 msgid "you@example.com"
 msgstr "you@example.com"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:87
 msgid "Your current title while the application is decided"
 msgstr "مجوز اقامت کنونی شما تا تصمیم دربارهٔ درخواست"
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:138
 msgid "Your email"
 msgstr "ایمیل شما"
 
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:146
 msgid "Your nationality"
 msgstr "ملیت شما"
 
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:126
 msgid "Your nationality, residence status and plans can each change which of these areas apply to you, and in what order."
 msgstr "ملیت، وضعیت اقامت و برنامه‌های شما هر کدام می‌تواند تعیین کند کدام یک از این حوزه‌ها و به چه ترتیبی برای شما صدق می‌کنند."
 
-#: src/screens/guide/GuideSection.tsx
+#: src/screens/guide/GuideSection.tsx:19
 msgid "Your options"
 msgstr "گزینه‌های شما"
 
-#: src/shared/info-panel/InfoPanel.stories.tsx
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Your passport must stay valid for at least 60 days beyond the end of the permit you are requesting. Applications are refused on this alone more often than on any other single reason."
-msgstr "گذرنامهٔ شما باید دست‌کم ۶۰ روز پس از پایان اقامتی که درخواست می‌کنید اعتبار داشته باشد. درخواست‌ها بیش از هر دلیل دیگری تنها به همین خاطر رد می‌شوند."
-
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:145
 msgid "Your residence status"
 msgstr "وضعیت اقامت شما"
 
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:148
 msgid "Your role"
 msgstr "نقش شما"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:34
 msgid "Your share of inpatient care, at a non-contracted provider or a public hospital outside Annex 1"
 msgstr "سهم شما از هزینهٔ درمان بستری، نزد ارائه‌دهندهٔ بدون قرارداد یا بیمارستان دولتی بیرون از پیوست ۱"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:30
 msgid "Your share of inpatient care, at a provider your insurer has contracted with"
 msgstr "سهم شما از هزینهٔ درمان بستری، نزد ارائه‌دهنده‌ای که بیمه‌گر شما با آن قرارداد دارد"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:38
 msgid "Your share of inpatient care, at a public hospital named in Annex 1"
 msgstr "سهم شما از هزینهٔ درمان بستری، در بیمارستان دولتی نام‌برده در پیوست ۱"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:32
 msgid "Your share of outpatient care, at a non-contracted provider or a public hospital outside Annex 1"
 msgstr "سهم شما از هزینهٔ درمان سرپایی، نزد ارائه‌دهندهٔ بدون قرارداد یا بیمارستان دولتی بیرون از پیوست ۱"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:28
 msgid "Your share of outpatient care, at a provider your insurer has contracted with"
 msgstr "سهم شما از هزینهٔ درمان سرپایی، نزد ارائه‌دهنده‌ای که بیمه‌گر شما با آن قرارداد دارد"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:36
 msgid "Your share of outpatient care, at a public hospital named in Annex 1"
 msgstr "سهم شما از هزینهٔ درمان سرپایی، در بیمارستان دولتی نام‌برده در پیوست ۱"
 
-#: src/screens/guide/Guide.tsx
-#~ msgid "Your situation"
-#~ msgstr "وضعیت شما"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:88
 msgid "Your stay while the application is decided"
 msgstr "اقامت شما تا تصمیم دربارهٔ درخواست"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:92
 msgid "Your title, with the online application's confirmation"
 msgstr "مجوز اقامت شما، همراه با تأییدیهٔ درخواست آنلاین"

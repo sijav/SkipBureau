@@ -9,6 +9,12 @@ import { formatter } from '@lingui/format-po'
 export default defineConfig({
   sourceLocale: 'en',
   locales: ['en', 'fa'],
-  catalogs: [{ path: '<rootDir>/src/locales/{locale}', include: ['<rootDir>/src'] }],
-  format: formatter({ lineNumbers: false }),
+  catalogs: [
+    {
+      path: '<rootDir>/src/locales/{locale}',
+      include: ['<rootDir>/src'],
+      exclude: ['**/*.stories.tsx', '**/*.test.ts', '**/*.test.tsx', '**/mocks/**'],
+    },
+  ],
+  format: formatter({ lineNumbers: true }),
 })

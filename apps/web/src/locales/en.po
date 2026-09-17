@@ -13,1981 +13,1397 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:94
 msgid "{asks} can change this"
 msgstr "{asks} can change this"
 
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:132
 msgid "{asks} could help settle which rule applies. Tell us and we will check again."
 msgstr "{asks} could help settle which rule applies. Tell us and we will check again."
 
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:134
 msgid "{asks} could help settle which rule applies. We cannot take this detail from you yet."
 msgstr "{asks} could help settle which rule applies. We cannot take this detail from you yet."
 
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:94
 msgid "{asks} decides the answer"
 msgstr "{asks} decides the answer"
 
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:56
 msgid "{count, plural, =1 {the gross minimum wage} other {# times the gross minimum wage}}"
 msgstr "{count, plural, =1 {the gross minimum wage} other {# times the gross minimum wage}}"
 
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:53
 msgid "{count, plural, one {# calendar year} other {# calendar years}}"
 msgstr "{count, plural, one {# calendar year} other {# calendar years}}"
 
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:43
 msgid "{count, plural, one {# day} other {# days}}"
 msgstr "{count, plural, one {# day} other {# days}}"
 
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:49
 msgid "{count, plural, one {# month} other {# months}}"
 msgstr "{count, plural, one {# month} other {# months}}"
 
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:41
 msgid "{count, plural, one {# percentage point} other {# percentage points}}"
 msgstr "{count, plural, one {# percentage point} other {# percentage points}}"
 
-#: src/screens/search/SearchResults.tsx
+#: src/screens/search/SearchResults.tsx:86
 msgid "{count, plural, one {# result} other {# results}}"
 msgstr "{count, plural, one {# result} other {# results}}"
 
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:58
 msgid "{count, plural, one {# Turkish employee for each foreigner} other {# Turkish employees for each foreigner}}"
 msgstr "{count, plural, one {# Turkish employee for each foreigner} other {# Turkish employees for each foreigner}}"
 
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:47
 msgid "{count, plural, one {# week} other {# weeks}}"
 msgstr "{count, plural, one {# week} other {# weeks}}"
 
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:45
 msgid "{count, plural, one {# working day} other {# working days}}"
 msgstr "{count, plural, one {# working day} other {# working days}}"
 
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:51
 msgid "{count, plural, one {# year} other {# years}}"
 msgstr "{count, plural, one {# year} other {# years}}"
 
-#: src/shared/deadline-item/DeadlineItem.tsx
+#: src/shared/deadline-item/DeadlineItem.tsx:30
 msgid "{days, plural, one {# day late} other {# days late}}"
 msgstr "{days, plural, one {# day late} other {# days late}}"
 
-#: src/shared/deadline-item/DeadlineItem.tsx
+#: src/shared/deadline-item/DeadlineItem.tsx:26
+#: src/shared/deadline-item/DeadlineItem.tsx:27
+#: src/shared/deadline-item/DeadlineItem.tsx:28
 msgid "{days, plural, one {# day} other {# days}}"
 msgstr "{days, plural, one {# day} other {# days}}"
 
-#: src/shared/progress-indicator/ProgressIndicator.tsx
+#: src/shared/progress-indicator/ProgressIndicator.tsx:20
 msgid "{done} of {total, plural, one {# step completed} other {# steps completed}}"
 msgstr "{done} of {total, plural, one {# step completed} other {# steps completed}}"
 
-#: src/screens/category-hub/CategoryHub.tsx
+#: src/screens/category-hub/CategoryHub.tsx:108
 msgid "{minutes} min read"
 msgstr "{minutes} min read"
 
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:30
 msgid "{money} a month"
 msgstr "{money} a month"
 
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:29
 msgid "{money} a year"
 msgstr "{money} a year"
 
-#: src/shared/page-head/title.ts
+#: src/shared/page-head/title.ts:23
 msgid "{named} · Skipbureau"
 msgstr "{named} · Skipbureau"
 
-#: src/shared/page-head/title.ts
-#~ msgid "{named} · SkipBureau"
-#~ msgstr "{named} · SkipBureau"
-
-#: src/shared/page-head/title.ts
+#: src/shared/page-head/title.ts:32
 msgid "{title} in {place}"
 msgstr "{title} in {place}"
 
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "₺1,200 to ₺1,600 for two documents"
-msgstr "₺1,200 to ₺1,600 for two documents"
-
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "1 question about your company type"
-msgstr "1 question about your company type"
-
-#: src/shared/saved-item/SavedItem.stories.tsx
-msgid "3 of 9 steps · paused 18 Aug"
-msgstr "3 of 9 steps · paused 18 Aug"
-
-#: src/shared/process-card/ProcessCard.stories.tsx
-#~ msgid "9 steps · 2 to 4 weeks · ₺14,000 to 22,000"
-#~ msgstr "9 steps · 2 to 4 weeks · ₺14,000 to 22,000"
-
-#: src/shared/process-card/ProcessCard.stories.tsx
-msgid "9 steps · 2–4 weeks · ₺14,000–22,000"
-msgstr "9 steps · 2–4 weeks · ₺14,000–22,000"
-
-#: src/shared/page/Page.stories.tsx
-msgid "A column, not a width"
-msgstr "A column, not a width"
-
-#: src/screens/coming-soon/ComingSoon.stories.tsx
-msgid "A few questions about your situation, then only the steps that apply to you, in the order they come."
-msgstr "A few questions about your situation, then only the steps that apply to you, in the order they come."
-
-#: src/screens/coming-soon/SetupSoon.tsx
+#: src/screens/coming-soon/SetupSoon.tsx:12
 msgid "A few questions about your situation, then only the steps that apply to you, in the order they come. Until it is ready, the overview lists every area the goal involves."
 msgstr "A few questions about your situation, then only the steps that apply to you, in the order they come. Until it is ready, the overview lists every area the goal involves."
 
-#: src/App.tsx
-#~ msgid "A step-by-step guide to bureaucracy abroad, for travellers and expats. Nothing is built yet: this page exists to prove the scaffold runs."
-#~ msgstr "A step-by-step guide to bureaucracy abroad, for travellers and expats. Nothing is built yet: this page exists to prove the scaffold runs."
-
-#: src/shared/info-panel/InfoPanel.stories.tsx
-msgid "A student residence permit application must be submitted within one month of arrival, and the appointment is booked through the official e-ikamet system."
-msgstr "A student residence permit application must be submitted within one month of arrival, and the appointment is booked through the official e-ikamet system."
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:17
 msgid "A UETS account among the documents"
 msgstr "A UETS account among the documents"
 
-#: src/shared/step-row/StepRow.stories.tsx
-msgid "A working SIM does not mean a registered device."
-msgstr "A working SIM does not mean a registered device."
-
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "About 2 days · ₺1,400 · notary"
-msgstr "About 2 days · ₺1,400 · notary"
-
-#: src/shared/step-row/StepRow.stories.tsx
-msgid "Activate and test it"
-msgstr "Activate and test it"
-
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:147
 msgid "Add"
 msgstr "Add"
 
-#: src/shared/context-control/YourDetails.tsx
+#: src/shared/context-control/YourDetails.tsx:110
 msgid "Add city"
 msgstr "Add city"
 
-#: src/shared/context-chip/ContextChip.stories.tsx
-msgid "Add to sharpen answers"
-msgstr "Add to sharpen answers"
-
-#: src/shared/context-control/ContextControl.tsx
+#: src/shared/context-control/ContextControl.tsx:60
 msgid "Add your details"
 msgstr "Add your details"
 
-#: src/shared/deadline-item/DeadlineItem.stories.tsx
-msgid "Address registration"
-msgstr "Address registration"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:107
 msgid "Allowance deducted from the levy base"
 msgstr "Allowance deducted from the levy base"
 
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:32
 msgid "Alternative route"
 msgstr "Alternative route"
 
-#: src/shared/select-field/SelectField.stories.tsx
-msgid "Ankara"
-msgstr "Ankara"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:79
 msgid "Annual tax-certificate renewal deadline"
 msgstr "Annual tax-certificate renewal deadline"
 
-#: src/shared/process-card/ProcessCard.stories.tsx
-msgid "Answer 10 questions and get a roadmap built for your nationality and city, including the trade registry, the tax office, the bank and the social security registration for your first employee."
-msgstr "Answer 10 questions and get a roadmap built for your nationality and city, including the trade registry, the tax office, the bank and the social security registration for your first employee."
-
-#: src/shared/process-card/ProcessCard.stories.tsx
-msgid "Answer 10 questions and get a roadmap built for your nationality and city."
-msgstr "Answer 10 questions and get a roadmap built for your nationality and city."
-
-#: src/screens/task-hub/GuidedSetup.tsx
+#: src/screens/task-hub/GuidedSetup.tsx:29
 msgid "Answer a few questions and we’ll build a roadmap for your situation."
 msgstr "Answer a few questions and we’ll build a roadmap for your situation."
 
-#: src/shared/select-field/SelectField.stories.tsx
-msgid "Antalya"
-msgstr "Antalya"
-
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Any notary (noter) in Izmir"
-msgstr "Any notary (noter) in Izmir"
-
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Applies to applicants under 18"
-msgstr "Applies to applicants under 18"
-
-#: src/shared/deadline-item/DeadlineItem.stories.tsx
-msgid "Appointment at the migration office"
-msgstr "Appointment at the migration office"
-
-#: src/shared/info-panel/InfoPanel.stories.tsx
-msgid "Appointment slots in Istanbul are usually released early in the morning and taken within the hour. Applicants report better luck checking daily than waiting for a convenient date."
-msgstr "Appointment slots in Istanbul are usually released early in the morning and taken within the hour. Applicants report better luck checking daily than waiting for a convenient date."
-
-#: src/shared/checklist-line/ChecklistLine.stories.tsx
-msgid "Arrange home internet"
-msgstr "Arrange home internet"
-
-#: src/shared/text-input/TextInput.stories.tsx
-msgid "As written in your passport, no spaces"
-msgstr "As written in your passport, no spaces"
-
-#: src/shared/ask-field/HomeAskField.tsx
+#: src/shared/ask-field/HomeAskField.tsx:42
 msgid "Ask"
 msgstr "Ask"
 
-#: src/screens/home/HomeHero.tsx
-#: src/screens/search/SearchResults.tsx
-#: src/shared/ask-field/HomeAskField.stories.tsx
-#: src/shared/search-input/SearchInput.stories.tsx
+#: src/screens/home/HomeHero.tsx:32
+#: src/screens/search/SearchResults.tsx:77
 msgid "Ask a question or describe what you’re trying to do…"
 msgstr "Ask a question or describe what you’re trying to do…"
 
 #. placeholder {0}: hub.title
-#: src/screens/category-hub/CategoryHub.tsx
+#: src/screens/category-hub/CategoryHub.tsx:179
 msgid "Ask about {0}"
 msgstr "Ask about {0}"
 
-#: src/screens/search/SearchResults.tsx
+#: src/screens/search/SearchResults.tsx:71
 msgid "Ask about {name}"
 msgstr "Ask about {name}"
 
-#: src/screens/category-hub/CategoryHub.tsx
+#: src/screens/category-hub/CategoryHub.tsx:175
 msgid "Ask about this and find the most relevant guide."
 msgstr "Ask about this and find the most relevant guide."
 
-#: src/screens/home/HomeHero.tsx
-#: src/screens/search/SearchResults.tsx
-#: src/shared/header/Header.tsx
+#: src/screens/home/HomeHero.tsx:31
+#: src/screens/search/SearchResults.tsx:76
+#: src/shared/header/Header.tsx:161
 msgid "Ask Skipbureau"
 msgstr "Ask Skipbureau"
 
-#: src/shared/ask-field/HomeAskField.stories.tsx
-msgid "Ask SkipBureau"
-msgstr "Ask SkipBureau"
-
-#: src/shared/header/Header.tsx
+#: src/shared/header/Header.tsx:160
 msgid "Ask Skipbureau…"
 msgstr "Ask Skipbureau…"
 
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:82
 msgid "at least {number}"
 msgstr "at least {number}"
 
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:81
 msgid "at most {number}"
 msgstr "at most {number}"
 
-#: src/shared/text-input/TextInput.stories.tsx
-msgid "Available once you confirm your nationality"
-msgstr "Available once you confirm your nationality"
-
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:96
 msgid "Back to {categoryTitle}"
 msgstr "Back to {categoryTitle}"
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:102
 msgid "Back to the guide"
 msgstr "Back to the guide"
 
-#: src/screens/coming-soon/GuidesSoon.tsx
-#: src/screens/guide/Guide.tsx
-#: src/screens/search/SearchResults.tsx
+#: src/screens/coming-soon/GuidesSoon.tsx:13
+#: src/screens/guide/Guide.tsx:96
+#: src/screens/search/SearchResults.tsx:100
 msgid "Back to the home page"
 msgstr "Back to the home page"
 
-#: src/screens/coming-soon/ComingSoon.stories.tsx
-#: src/screens/coming-soon/SetupSoon.tsx
+#: src/screens/coming-soon/SetupSoon.tsx:11
 msgid "Back to the overview"
 msgstr "Back to the overview"
 
-#: src/screens/guide/GuideSection.tsx
+#: src/screens/guide/GuideSection.tsx:17
 msgid "Before you start"
 msgstr "Before you start"
 
-#: src/screens/guide/GuideSection.tsx
+#: src/screens/guide/GuideSection.tsx:123
 msgid "Best for"
 msgstr "Best for"
 
-#: src/shared/roadmap-step/RoadmapStep.tsx
-#: src/shared/status-tag/StatusTag.stories.tsx
+#: src/shared/roadmap-step/RoadmapStep.tsx:23
 msgid "Blocked"
 msgstr "Blocked"
 
-#: src/shared/breadcrumb/Breadcrumb.tsx
+#: src/shared/breadcrumb/Breadcrumb.tsx:17
 msgid "Breadcrumb"
 msgstr "Breadcrumb"
 
-#: src/shared/ask-result-row/AskResultRow.stories.tsx
-msgid "Can foreigners own a Turkish company?"
-msgstr "Can foreigners own a Turkish company?"
-
-#: src/shared/search-input/SearchInput.stories.tsx
-msgid "Can my Turkish company hire an Iranian employee?"
-msgstr "Can my Turkish company hire an Iranian employee?"
-
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:189
 msgid "Cancel"
 msgstr "Cancel"
 
-#: src/shared/page/Page.stories.tsx
-msgid "Cap"
-msgstr "Cap"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:24
 msgid "Card fee"
 msgstr "Card fee"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:123
 msgid "Care insurance contribution rate"
 msgstr "Care insurance contribution rate"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:125
 msgid "Care insurance discount for each child"
 msgstr "Care insurance discount for each child"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:124
 msgid "Care insurance rate for a childless member"
 msgstr "Care insurance rate for a childless member"
 
-#: src/shared/document-card/DocumentCard.stories.tsx
-msgid "Certificate of enrolment for the current academic year, with the stamp of the faculty"
-msgstr "Certificate of enrolment for the current academic year, with the stamp of the faculty"
-
-#: src/shared/info-panel/InfoPanel.stories.tsx
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Check before booking your appointment"
-msgstr "Check before booking your appointment"
-
-#: src/shared/status-tag/StatusTag.stories.tsx
-msgid "Check before you pay"
-msgstr "Check before you pay"
-
-#: src/shared/checklist-item/ChecklistItem.tsx
+#: src/shared/checklist-item/ChecklistItem.tsx:24
 msgid "Check date"
 msgstr "Check date"
 
-#: src/shared/step-row/StepRow.stories.tsx
-msgid "Check mobile data, calls, SMS and your new number before you leave the store."
-msgstr "Check mobile data, calls, SMS and your new number before you leave the store."
-
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:145
 msgid "Check the address: it needs an @ and a domain, like you@example.com."
 msgstr "Check the address: it needs an @ and a domain, like you@example.com."
 
-#: src/shared/source-card/SourceCard.tsx
+#: src/shared/source-card/SourceCard.tsx:32
 msgid "Checked this month"
 msgstr "Checked this month"
 
-#: src/shared/topic-item/TopicItem.stories.tsx
-msgid "Choose a company type"
-msgstr "Choose a company type"
-
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:235
+#: src/shared/context-control/ContextPanel.tsx:238
 msgid "City in {countryName}"
 msgstr "City in {countryName}"
 
-#: src/shared/select-field/SelectField.stories.tsx
-msgid "City in Turkey"
-msgstr "City in Turkey"
-
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:328
 msgid "Clear all"
 msgstr "Clear all"
 
-#: src/screens/home/head.ts
-#: src/screens/home/HomeHero.tsx
+#: src/screens/home/head.ts:13
+#: src/screens/home/HomeHero.tsx:27
 msgid "Clear, step-by-step guidance for living, studying, working and doing business in {name}."
 msgstr "Clear, step-by-step guidance for living, studying, working and doing business in {name}."
 
-#: src/screens/category-hub/CategoryHub.tsx
-#: src/screens/coming-soon/ComingSoon.tsx
-#: src/screens/search/SearchResults.tsx
-#: src/shared/context-control/ContextPanel.tsx
-#: src/shared/task-tile/TaskTile.tsx
-#: src/shared/topic-item/TopicItem.stories.tsx
+#: src/screens/category-hub/CategoryHub.tsx:161
+#: src/screens/coming-soon/ComingSoon.tsx:20
+#: src/screens/search/SearchResults.tsx:132
+#: src/shared/context-control/ContextPanel.tsx:182
+#: src/shared/task-tile/TaskTile.tsx:22
 msgid "Coming soon"
 msgstr "Coming soon"
 
-#: src/screens/guide/GuideSection.tsx
+#: src/screens/guide/GuideSection.tsx:24
 msgid "Common problems"
 msgstr "Common problems"
 
-#: src/screens/home/Home.tsx
-#: src/shared/section/Section.stories.tsx
+#: src/screens/home/Home.tsx:83
 msgid "Common questions"
 msgstr "Common questions"
 
-#: src/shared/context-control/situationLabels.ts
-#~ msgid "Company founder"
-#~ msgstr "Company founder"
-
-#: src/shared/task-tile/TaskTile.stories.tsx
-msgid "Company types, registration and first obligations"
-msgstr "Company types, registration and first obligations"
-
-#: src/shared/task-row/TaskRow.stories.tsx
-msgid "Company types, registration, first obligations"
-msgstr "Company types, registration, first obligations"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:76
 msgid "Competition Authority levy on subscribed capital"
 msgstr "Competition Authority levy on subscribed capital"
 
-#: src/shared/roadmap-step/RoadmapStep.tsx
-#: src/shared/status-tag/StatusTag.stories.tsx
+#: src/shared/roadmap-step/RoadmapStep.tsx:19
 msgid "Completed"
 msgstr "Completed"
 
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Completed 14 Aug 2026"
-msgstr "Completed 14 Aug 2026"
-
-#: src/shared/section/Section.stories.tsx
-msgid "Content"
-msgstr "Content"
-
-#: src/screens/category-hub/CategoryHub.tsx
+#: src/screens/category-hub/CategoryHub.tsx:195
 msgid "Content shown here is sample material for design review."
 msgstr "Content shown here is sample material for design review."
 
-#: src/shared/saved-item/SavedItem.tsx
+#: src/shared/saved-item/SavedItem.tsx:86
 msgid "Continue"
 msgstr "Continue"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:42
 msgid "Continuous residence before applying for GSS"
 msgstr "Continuous residence before applying for GSS"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:44
 msgid "Contribution days in the preceding year, for routine treatment"
 msgstr "Contribution days in the preceding year, for routine treatment"
 
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Copies"
-msgstr "Copies"
-
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:112
 msgid "Cost and time"
 msgstr "Cost and time"
 
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:223
+#: src/shared/context-control/ContextPanel.tsx:225
 msgid "Currently in"
 msgstr "Currently in"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:78
 msgid "Deadline for the first tax certificate after tax liability begins"
 msgstr "Deadline for the first tax certificate after tax liability begins"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:65
 msgid "Deadline to apply for a residence permit after a work permit ends"
 msgstr "Deadline to apply for a residence permit after a work permit ends"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:89
 msgid "Deadline to apply inside Germany"
 msgstr "Deadline to apply inside Germany"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:121
 msgid "Deadline to join voluntarily in your first employment"
 msgstr "Deadline to join voluntarily in your first employment"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:102
 msgid "Deadline to notify the accident insurer"
 msgstr "Deadline to notify the accident insurer"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:70
 msgid "Deadline to pay cash capital after registration"
 msgstr "Deadline to pay cash capital after registration"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:81
 msgid "Deadline to register an employee before starting work"
 msgstr "Deadline to register an employee before starting work"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:13
 msgid "Deadline to register your address"
 msgstr "Deadline to register your address"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:77
 msgid "Deadline to request electronic tax notifications after starting business"
 msgstr "Deadline to request electronic tax notifications after starting business"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:103
 msgid "Deadline to send the tax questionnaire"
 msgstr "Deadline to send the tax questionnaire"
 
-#: src/screens/task-hub/TaskHub.tsx
-#: src/shared/topic-item/TopicItem.stories.tsx
+#: src/screens/task-hub/TaskHub.tsx:29
 msgid "Decision"
 msgstr "Decision"
 
-#: src/shared/status-tag/StatusTag.stories.tsx
-msgid "Depends on nationality"
-msgstr "Depends on nationality"
-
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:121
 msgid "Describe what changed"
 msgstr "Describe what changed"
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:127
 msgid "Describe what changed, even in one sentence."
 msgstr "Describe what changed, even in one sentence."
 
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:195
 msgid "Descriptions on this page are sample content for design review. They deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
 msgstr "Descriptions on this page are sample content for design review. They deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
 
-#: src/shared/saved-item/SavedItem.tsx
+#: src/shared/saved-item/SavedItem.tsx:18
 msgid "Document"
 msgstr "Document"
 
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Documents needed"
-msgstr "Documents needed"
-
-#: src/shared/deadline-item/DeadlineItem.tsx
+#: src/shared/deadline-item/DeadlineItem.tsx:31
 msgid "Done"
 msgstr "Done"
 
-#: src/shared/status-tag/StatusTag.stories.tsx
-msgid "Due in 12 days"
-msgstr "Due in 12 days"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:117
 msgid "Earnings threshold for compulsory insurance"
 msgstr "Earnings threshold for compulsory insurance"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:126
 msgid "Employee’s share of the care contribution"
 msgstr "Employee’s share of the care contribution"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:64
 msgid "Employer’s deadline to notify the Ministry of employment changes"
 msgstr "Employer’s deadline to notify the Ministry of employment changes"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:127
 msgid "Employer’s share of the care contribution"
 msgstr "Employer’s share of the care contribution"
 
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Estimated cost"
-msgstr "Estimated cost"
-
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Estimated time"
-msgstr "Estimated time"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:84
 msgid "Event that opens ETDS"
 msgstr "Event that opens ETDS"
 
-#: src/screens/coming-soon/GuidesSoon.tsx
+#: src/screens/coming-soon/GuidesSoon.tsx:12
 msgid "Every guide for {name}"
 msgstr "Every guide for {name}"
 
-#: src/screens/category-hub/CategoryHub.tsx
-#: src/screens/home/Home.tsx
+#: src/screens/category-hub/CategoryHub.tsx:199
+#: src/screens/home/Home.tsx:108
 msgid "Every guide shows when it was last verified and links to the official source"
 msgstr "Every guide shows when it was last verified and links to the official source"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:25
 msgid "Exemption from the card fee by nationality"
 msgstr "Exemption from the card fee by nationality"
 
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Expired 12 Jul 2026 · must cover the full permit period"
-msgstr "Expired 12 Jul 2026 · must cover the full permit period"
-
-#: src/shared/document-card/DocumentCard.stories.tsx
-msgid "Expires in 21 days"
-msgstr "Expires in 21 days"
-
-#: src/shared/document-card/DocumentCard.tsx
+#: src/shared/document-card/DocumentCard.tsx:20
 msgid "Expiring"
 msgstr "Expiring"
 
-#: src/shared/header/Header.tsx
+#: src/shared/header/Header.tsx:131
 msgid "Explore"
 msgstr "Explore"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:56
 msgid "Exports for an established business"
 msgstr "Exports for an established business"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:75
 msgid "Fees under Law 492 that company formation is exempt from"
 msgstr "Fees under Law 492 that company formation is exempt from"
 
-#: src/screens/home/Home.tsx
+#: src/screens/home/Home.tsx:104
 msgid "Figures, timings and requirements shown throughout this design are sample content for review, not verified legal information."
 msgstr "Figures, timings and requirements shown throughout this design are sample content for review, not verified legal information."
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:15
 msgid "Fine for a false address declaration"
 msgstr "Fine for a false address declaration"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:97
 msgid "Fine for a late or missing trade notification"
 msgstr "Fine for a late or missing trade notification"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:14
 msgid "Fine for registering late"
 msgstr "Fine for registering late"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:49
 msgid "Fixed-term work permit fee, up to one year"
 msgstr "Fixed-term work permit fee, up to one year"
 
-#: src/shared/information-disclaimer/InformationDisclaimer.tsx
+#: src/shared/information-disclaimer/InformationDisclaimer.tsx:15
 msgid "For general information only"
 msgstr "For general information only"
 
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:47
 msgid "For you"
 msgstr "For you"
 
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Format"
-msgstr "Format"
-
-#: src/shared/context-control/YourDetails.tsx
+#: src/shared/context-control/YourDetails.tsx:108
 msgid "From {originName}"
 msgstr "From {originName}"
 
-#: src/shared/info-panel/InfoPanel.stories.tsx
-msgid "From applicant reports, not an official rule"
-msgstr "From applicant reports, not an official rule"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:118
 msgid "General contribution rate"
 msgstr "General contribution rate"
 
-#: src/shared/breadcrumb/Breadcrumb.stories.tsx
-msgid "Getting Settled"
-msgstr "Getting Settled"
-
-#: src/screens/category-hub/CategoryHub.tsx
+#: src/screens/category-hub/CategoryHub.tsx:120
+#: src/screens/category-hub/CategoryHub.tsx:135
 msgid "Getting started checklist"
 msgstr "Getting started checklist"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:62
 msgid "Gross minimum wage in 2026"
 msgstr "Gross minimum wage in 2026"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:46
 msgid "GSS premium base"
 msgstr "GSS premium base"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:45
 msgid "GSS premium rate"
 msgstr "GSS premium rate"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:43
 msgid "GSS registration starts after the request"
 msgstr "GSS registration starts after the request"
 
-#: src/screens/guide/Guide.tsx
-#: src/shared/ask-result-row/AskResultRow.tsx
-#: src/shared/saved-item/SavedItem.tsx
+#: src/screens/guide/Guide.tsx:218
+#: src/shared/ask-result-row/AskResultRow.tsx:21
+#: src/shared/saved-item/SavedItem.tsx:18
 msgid "Guide"
 msgstr "Guide"
 
-#: src/shared/process-card/ProcessCard.tsx
+#: src/shared/process-card/ProcessCard.tsx:43
 msgid "Guided process"
 msgstr "Guided process"
 
-#: src/shared/ask-result-row/AskResultRow.stories.tsx
-msgid "Guided process · 9 steps"
-msgstr "Guided process · 9 steps"
-
-#: src/screens/coming-soon/ComingSoon.stories.tsx
-#: src/screens/coming-soon/SetupSoon.tsx
+#: src/screens/coming-soon/SetupSoon.tsx:11
 msgid "Guided setup"
 msgstr "Guided setup"
 
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:122
 msgid "Guided setup works this out with you"
 msgstr "Guided setup works this out with you"
 
-#: src/screens/search/SearchResults.tsx
-#: src/screens/task-hub/TaskHub.tsx
-#: src/shared/header/Header.tsx
+#: src/screens/search/SearchResults.tsx:118
+#: src/screens/task-hub/TaskHub.tsx:140
+#: src/shared/header/Header.tsx:136
 msgid "Guides"
 msgstr "Guides"
 
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Health insurance policy"
-msgstr "Health insurance policy"
-
-#: src/shared/deadline-item/DeadlineItem.stories.tsx
-msgid "Health insurance renewal"
-msgstr "Health insurance renewal"
-
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Helps if you have held a permit before"
-msgstr "Helps if you have held a permit before"
-
-#: src/core/prerender/prerender.ts
-#: src/screens/category-hub/CategoryHub.tsx
-#: src/screens/guide/Guide.tsx
-#: src/screens/task-hub/TaskHub.tsx
-#: src/shared/breadcrumb/Breadcrumb.stories.tsx
+#: src/core/prerender/prerender.ts:81
+#: src/screens/category-hub/CategoryHub.tsx:59
+#: src/screens/category-hub/CategoryHub.tsx:60
+#: src/screens/category-hub/CategoryHub.tsx:66
+#: src/screens/guide/Guide.tsx:206
+#: src/screens/guide/Guide.tsx:211
+#: src/screens/task-hub/TaskHub.tsx:78
 msgid "Home"
 msgstr "Home"
 
-#: src/screens/task-hub/GuidedSetup.tsx
+#: src/screens/task-hub/GuidedSetup.tsx:45
 msgid "How it works"
 msgstr "How it works"
 
-#: src/screens/guide/GuideSection.tsx
+#: src/screens/guide/GuideSection.tsx:20
 msgid "How to do it"
 msgstr "How to do it"
 
-#: src/shared/ask-result-row/AskResultRow.stories.tsx
-msgid "How to register a company"
-msgstr "How to register a company"
-
-#: src/shared/context-control/situationLabels.ts
+#: src/shared/context-control/situationLabels.ts:15
 msgid "I am starting a company"
 msgstr "I am starting a company"
 
-#: src/shared/context-control/situationLabels.ts
+#: src/shared/context-control/situationLabels.ts:16
 msgid "I run an existing company"
 msgstr "I run an existing company"
 
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:30
 msgid "If it applies to you"
 msgstr "If it applies to you"
 
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:351
 msgid "If you know this information is outdated or incorrect, let us know. We review submissions before updating the guide."
 msgstr "If you know this information is outdated or incorrect, let us know. We review submissions before updating the guide."
 
-#: src/screens/guide/GuideSection.tsx
+#: src/screens/guide/GuideSection.tsx:22
 msgid "Important to know"
 msgstr "Important to know"
 
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "In person, it cannot be done online"
-msgstr "In person, it cannot be done online"
-
-#: src/shared/process-card/ProcessCard.tsx
+#: src/shared/process-card/ProcessCard.tsx:43
 msgid "In progress"
 msgstr "In progress"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:33
 msgid "Inpatient cover, at a non-contracted provider or a public hospital outside Annex 1"
 msgstr "Inpatient cover, at a non-contracted provider or a public hospital outside Annex 1"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:29
 msgid "Inpatient cover, at a provider your insurer has contracted with"
 msgstr "Inpatient cover, at a provider your insurer has contracted with"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:37
 msgid "Inpatient cover, at a public hospital named in Annex 1"
 msgstr "Inpatient cover, at a public hospital named in Annex 1"
 
-#: src/shared/context-chip/ContextChip.stories.tsx
-msgid "Iranian"
-msgstr "Iranian"
-
-#: src/shared/select-field/SelectField.stories.tsx
-msgid "Istanbul"
-msgstr "Istanbul"
-
-#: src/shared/saved-item/SavedItem.stories.tsx
-msgid "Istanbul · Iranian nationality"
-msgstr "Istanbul · Iranian nationality"
-
-#: src/shared/saved-item/SavedItem.stories.tsx
-msgid "Istanbul · Iranian nationality · a university that is not on the list of state institutions"
-msgstr "Istanbul · Iranian nationality · a university that is not on the list of state institutions"
-
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:160
 msgid "It was not sent. Check your connection and try again."
 msgstr "It was not sent. Check your connection and try again."
 
-#: src/shared/select-field/SelectField.stories.tsx
-msgid "Izmir"
-msgstr "Izmir"
-
-#: src/screens/guide/Guide.tsx
-#: src/shared/fact-strip/FactStrip.stories.tsx
+#: src/screens/guide/Guide.tsx:108
 msgid "Key deadlines"
 msgstr "Key deadlines"
 
-#: src/shared/header/LanguageControl.tsx
+#: src/shared/header/LanguageControl.tsx:35
 msgid "Language"
 msgstr "Language"
 
-#: src/shared/source-card/SourceCard.tsx
+#: src/shared/source-card/SourceCard.tsx:60
 msgid "Last checked {day}"
 msgstr "Last checked {day}"
 
-#: src/shared/source-card/SourceCard.tsx
+#: src/shared/source-card/SourceCard.tsx:60
 msgid "Last reachable {day}"
 msgstr "Last reachable {day}"
 
-#: src/screens/category-hub/CategoryHub.tsx
+#: src/screens/category-hub/CategoryHub.tsx:82
 msgid "Last reviewed: {reviewed}"
 msgstr "Last reviewed: {reviewed}"
 
 #. placeholder {0}: formatMonth(latest, locale, 'long')
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:179
 msgid "Last verified {0}"
 msgstr "Last verified {0}"
 
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:234
+#: src/screens/guide/Guide.tsx:307
+#: src/screens/guide/Guide.tsx:365
 msgid "Last verified: {verified}"
 msgstr "Last verified: {verified}"
 
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:104
 msgid "Loading…"
 msgstr "Loading…"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:21
 msgid "Longest stay on a visa or visa exemption"
 msgstr "Longest stay on a visa or visa exemption"
 
-#: src/shared/header/Header.tsx
+#: src/shared/header/Header.tsx:98
 msgid "Main"
 msgstr "Main"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:66
 msgid "Maximum work while a timely extension is assessed"
 msgstr "Maximum work while a timely extension is assessed"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:69
 msgid "Minimum capital for a limited company"
 msgstr "Minimum capital for a limited company"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:50
 msgid "Minimum issued term of the residence permit"
 msgstr "Minimum issued term of the residence permit"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:61
 msgid "Minimum salary for domestic and other work"
 msgstr "Minimum salary for domestic and other work"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:58
 msgid "Minimum salary for engineers and architects"
 msgstr "Minimum salary for engineers and architects"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:59
 msgid "Minimum salary for other managers"
 msgstr "Minimum salary for other managers"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:57
 msgid "Minimum salary for senior executives and pilots"
 msgstr "Minimum salary for senior executives and pilots"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:60
 msgid "Minimum salary for work requiring expertise or mastery"
 msgstr "Minimum salary for work requiring expertise or mastery"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:112
 msgid "Minimum waiver period"
 msgstr "Minimum waiver period"
 
-#: src/shared/checklist-item/ChecklistItem.tsx
-#: src/shared/document-card/DocumentCard.tsx
+#: src/shared/checklist-item/ChecklistItem.tsx:22
+#: src/shared/document-card/DocumentCard.tsx:19
 msgid "Missing"
 msgstr "Missing"
 
-#: src/shared/document-card/DocumentCard.stories.tsx
-msgid "Missing, blocks step 4"
-msgstr "Missing, blocks step 4"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:120
 msgid "Monthly contribution assessment ceiling"
 msgstr "Monthly contribution assessment ceiling"
 
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Must be dated within the last 30 days"
-msgstr "Must be dated within the last 30 days"
-
-#: src/shared/context-chip/ContextChip.stories.tsx
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:220
+#: src/shared/context-control/ContextPanel.tsx:221
 msgid "Nationality"
 msgstr "Nationality"
 
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Needs step 02 first"
-msgstr "Needs step 02 first"
-
-#: src/shared/roadmap-step/RoadmapStep.tsx
+#: src/shared/roadmap-step/RoadmapStep.tsx:24
 msgid "Needs your answer"
 msgstr "Needs your answer"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:63
 msgid "Net minimum wage in 2026"
 msgstr "Net minimum wage in 2026"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:55
 msgid "Net sales for an established business"
 msgstr "Net sales for an established business"
 
-#: src/shared/roadmap-step/RoadmapStep.tsx
+#: src/shared/roadmap-step/RoadmapStep.tsx:20
 msgid "Next action"
 msgstr "Next action"
 
-#: src/shared/process-card/ProcessCard.tsx
+#: src/shared/process-card/ProcessCard.tsx:68
 msgid "Next: {next}"
 msgstr "Next: {next}"
 
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Next: register the company at the trade registry"
-msgstr "Next: register the company at the trade registry"
-
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:186
 msgid "No account needed"
 msgstr "No account needed"
 
-#: src/shared/info-panel/InfoPanel.stories.tsx
-msgid "No agent can get an appointment faster than the official system, and nobody can guarantee approval. Paying for a “guaranteed” slot buys you nothing you cannot do yourself for free."
-msgstr "No agent can get an appointment faster than the official system, and nobody can guarantee approval. Paying for a “guaranteed” slot buys you nothing you cannot do yourself for free."
-
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:71
 msgid "None"
 msgstr "None"
 
-#: src/screens/Placeholder.tsx
-#~ msgid "Not built yet"
-#~ msgstr "Not built yet"
-
-#: src/shared/checklist-item/ChecklistItem.tsx
+#: src/shared/checklist-item/ChecklistItem.tsx:25
 msgid "Not for you"
 msgstr "Not for you"
 
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:251
 msgid "Not in your language yet"
 msgstr "Not in your language yet"
 
-#: src/shared/source-card/SourceCard.tsx
+#: src/shared/source-card/SourceCard.tsx:33
 msgid "Not re-checked since {month}"
 msgstr "Not re-checked since {month}"
 
-#: src/shared/document-card/DocumentCard.tsx
+#: src/shared/document-card/DocumentCard.tsx:17
 msgid "Not started"
 msgstr "Not started"
 
-#: src/screens/task-hub/GuidedSetup.tsx
+#: src/screens/task-hub/GuidedSetup.tsx:26
 msgid "Not sure where to start?"
 msgstr "Not sure where to start?"
 
-#: src/shared/info-panel/InfoPanel.tsx
+#: src/shared/info-panel/InfoPanel.tsx:15
 msgid "Not yet verified"
 msgstr "Not yet verified"
 
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Notarisation"
-msgstr "Notarisation"
-
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Notarised · blocks the appointment step"
-msgstr "Notarised · blocks the appointment step"
-
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:313
 msgid "Nothing here is required."
 msgstr "Nothing here is required."
 
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:105
 msgid "Nothing matches"
 msgstr "Nothing matches"
 
-#: src/screens/search/SearchResults.tsx
+#: src/screens/search/SearchResults.tsx:94
 msgid "Nothing matches yet"
 msgstr "Nothing matches yet"
 
-#: src/shared/ask-panel/NothingFound.tsx
+#: src/shared/ask-panel/NothingFound.tsx:9
 msgid "Nothing matches yet. Try other words, or pick a goal on the home page."
 msgstr "Nothing matches yet. Try other words, or pick a goal on the home page."
 
-#: src/shared/document-card/DocumentCard.stories.tsx
-msgid "Obtained from your university registrar. Must be dated within the last 30 days, name the programme and its duration, and carry the stamp and signature of the faculty, not only of the international office."
-msgstr "Obtained from your university registrar. Must be dated within the last 30 days, name the programme and its duration, and carry the stamp and signature of the faculty, not only of the international office."
-
-#: src/shared/document-card/DocumentCard.stories.tsx
-msgid "Obtained from your university registrar. Must be dated within the last 30 days."
-msgstr "Obtained from your university registrar. Must be dated within the last 30 days."
-
-#: src/shared/status-tag/StatusTag.stories.tsx
-msgid "Official"
-msgstr "Official"
-
-#: src/shared/info-panel/InfoPanel.tsx
+#: src/shared/info-panel/InfoPanel.tsx:10
 msgid "Official information"
 msgstr "Official information"
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:134
 msgid "Official or reliable sources help us verify the change faster."
 msgstr "Official or reliable sources help us verify the change faster."
 
-#: src/shared/source-card/SourceCard.tsx
+#: src/shared/source-card/SourceCard.tsx:34
 msgid "Official page did not respond"
 msgstr "Official page did not respond"
 
-#: src/shared/source-card/SourceCard.tsx
+#: src/shared/source-card/SourceCard.tsx:65
 msgid "Official page unavailable"
 msgstr "Official page unavailable"
 
-#: src/shared/source-card/SourceCard.tsx
+#: src/shared/source-card/SourceCard.tsx:41
 msgid "Official source"
 msgstr "Official source"
 
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:305
 msgid "Official sources"
 msgstr "Official sources"
 
-#: src/screens/coming-soon/GuidesSoon.tsx
+#: src/screens/coming-soon/GuidesSoon.tsx:15
 msgid "One list of every guide, to browse by topic. Until it is ready, each guide is a click away from its goal on the home page, or from Ask."
 msgstr "One list of every guide, to browse by topic. Until it is ready, each guide is a click away from its goal on the home page, or from Ask."
 
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:31
 msgid "Ongoing"
 msgstr "Ongoing"
 
-#: src/shared/saved-item/SavedItem.tsx
+#: src/shared/saved-item/SavedItem.tsx:86
 msgid "Open"
 msgstr "Open"
 
-#: src/shared/source-card/SourceCard.tsx
+#: src/shared/source-card/SourceCard.tsx:41
 msgid "Operator source"
 msgstr "Operator source"
 
-#: src/shared/checklist-item/ChecklistItem.tsx
+#: src/shared/checklist-item/ChecklistItem.tsx:21
 msgid "Optional"
 msgstr "Optional"
 
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:105
 msgid "Or explore the areas involved yourself."
 msgstr "Or explore the areas involved yourself."
 
-#: src/shared/document-card/DocumentCard.stories.tsx
-msgid "Original · No translation · No apostille"
-msgstr "Original · No translation · No apostille"
-
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Original required"
-msgstr "Original required"
-
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:167
 msgid "Other routes"
 msgstr "Other routes"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:31
 msgid "Outpatient cover, at a non-contracted provider or a public hospital outside Annex 1"
 msgstr "Outpatient cover, at a non-contracted provider or a public hospital outside Annex 1"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:27
 msgid "Outpatient cover, at a provider your insurer has contracted with"
 msgstr "Outpatient cover, at a provider your insurer has contracted with"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:35
 msgid "Outpatient cover, at a public hospital named in Annex 1"
 msgstr "Outpatient cover, at a public hospital named in Annex 1"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:53
 msgid "Paid-in capital for a new business"
 msgstr "Paid-in capital for a new business"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:54
 msgid "Paid-in capital for an established business"
 msgstr "Paid-in capital for an established business"
 
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Parental consent"
-msgstr "Parental consent"
-
-#: src/shared/text-input/TextInput.stories.tsx
-msgid "Passport number"
-msgstr "Passport number"
-
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Passport translation"
-msgstr "Passport translation"
-
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:131
 msgid "Paste a link if you have one"
 msgstr "Paste a link if you have one"
 
-#: src/screens/home/Home.tsx
+#: src/screens/home/Home.tsx:63
 msgid "Pick a goal. Each one opens a guided process built for your nationality, city and status."
 msgstr "Pick a goal. Each one opens a guided process built for your nationality, city and status."
 
-#: src/shared/ask-panel/useAsk.tsx
+#: src/shared/ask-panel/useAsk.tsx:187
 msgid "Popular right now"
 msgstr "Popular right now"
 
-#: src/shared/info-panel/InfoPanel.tsx
+#: src/shared/info-panel/InfoPanel.tsx:11
 msgid "Practical advice"
 msgstr "Practical advice"
 
-#: src/shared/process-card/ProcessCard.stories.tsx
-msgid "prepare notarised passport translation"
-msgstr "prepare notarised passport translation"
-
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Prepare translated and notarised documents"
-msgstr "Prepare translated and notarised documents"
-
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Presidency of Migration Management"
-msgstr "Presidency of Migration Management"
-
-#: src/shared/info-panel/InfoPanel.stories.tsx
-msgid "Presidency of Migration Management · verified August 2026"
-msgstr "Presidency of Migration Management · verified August 2026"
-
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Previous residence permit"
-msgstr "Previous residence permit"
-
-#: src/shared/saved-item/SavedItem.tsx
+#: src/shared/saved-item/SavedItem.tsx:18
 msgid "Process"
 msgstr "Process"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:90
 msgid "Processing time"
 msgstr "Processing time"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:105
 msgid "Profit below which the chamber contribution is nothing"
 msgstr "Profit below which the chamber contribution is nothing"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:106
 msgid "Profit ceiling for founder relief"
 msgstr "Profit ceiling for founder relief"
 
-#: src/screens/guide/Guide.tsx
-#: src/shared/ask-result-row/AskResultRow.tsx
+#: src/screens/guide/Guide.tsx:269
+#: src/shared/ask-result-row/AskResultRow.tsx:23
 msgid "Quick answer"
 msgstr "Quick answer"
 
-#: src/screens/search/SearchResults.tsx
+#: src/screens/search/SearchResults.tsx:141
 msgid "Quick answers"
 msgstr "Quick answers"
 
-#: src/shared/source-card/SourceCard.tsx
+#: src/shared/source-card/SourceCard.tsx:35
 msgid "Re-verification in progress"
 msgstr "Re-verification in progress"
 
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:141
 msgid "Read about a topic before you deal with it. Guides explain how something works; the areas above are things you may need to do."
 msgstr "Read about a topic before you deal with it. Guides explain how something works; the areas above are things you may need to do."
 
 #. placeholder {0}: line.source.name
 #. placeholder {1}: line.source.checked
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:78
 msgid "Read on <0>{0}</0>, checked {1}"
 msgstr "Read on <0>{0}</0>, checked {1}"
 
-#: src/screens/search/SearchResults.tsx
-#: src/screens/task-hub/TaskHub.tsx
-#: src/shared/ask-panel/useAsk.tsx
+#: src/screens/search/SearchResults.tsx:130
+#: src/screens/task-hub/TaskHub.tsx:151
+#: src/shared/ask-panel/useAsk.tsx:155
 msgid "Reading · verified {verified}"
 msgstr "Reading · verified {verified}"
 
-#: src/shared/ask-result-row/AskResultRow.stories.tsx
-msgid "Reading · verified Aug 2026"
-msgstr "Reading · verified Aug 2026"
-
-#: src/shared/checklist-item/ChecklistItem.tsx
-#: src/shared/document-card/DocumentCard.tsx
+#: src/shared/checklist-item/ChecklistItem.tsx:20
+#: src/shared/document-card/DocumentCard.tsx:18
 msgid "Ready"
 msgstr "Ready"
 
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Ready since 14 Aug 2026"
-msgstr "Ready since 14 Aug 2026"
-
-#: src/shared/ask-result-row/AskResultRow.tsx
+#: src/shared/ask-result-row/AskResultRow.tsx:25
 msgid "Recent"
 msgstr "Recent"
 
-#: src/shared/ask-panel/useAsk.tsx
+#: src/shared/ask-panel/useAsk.tsx:180
 msgid "Recent questions"
 msgstr "Recent questions"
 
-#: src/screens/category-hub/RecommendedStart.tsx
+#: src/screens/category-hub/RecommendedStart.tsx:21
 msgid "Recommended starting point"
 msgstr "Recommended starting point"
 
-#: src/shared/breadcrumb/Breadcrumb.stories.tsx
-#: src/shared/topic-item/TopicItem.stories.tsx
-msgid "Register your company"
-msgstr "Register your company"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:18
 msgid "Registration fee"
 msgstr "Registration fee"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:98
 msgid "Registration fee for a sole business"
 msgstr "Registration fee for a sole business"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:99
 msgid "Registration fee online"
 msgstr "Registration fee online"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:74
 msgid "Registry charge on company formation"
 msgstr "Registry charge on company formation"
 
-#: src/screens/category-hub/CategoryHub.tsx
-#: src/screens/guide/Guide.tsx
+#: src/screens/category-hub/CategoryHub.tsx:152
+#: src/screens/guide/Guide.tsx:326
 msgid "Related guides"
 msgstr "Related guides"
 
-#: src/shared/saved-item/SavedItem.tsx
+#: src/shared/saved-item/SavedItem.tsx:92
 msgid "Remove from saved"
 msgstr "Remove from saved"
 
-#: src/shared/text-input/TextInput.stories.tsx
-msgid "Remove the dash, this field takes letters and numbers only"
-msgstr "Remove the dash, this field takes letters and numbers only"
-
-#: src/shared/checklist-item/ChecklistItem.tsx
+#: src/shared/checklist-item/ChecklistItem.tsx:23
 msgid "Renew"
 msgstr "Renew"
 
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Rental contract"
-msgstr "Rental contract"
-
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Republic of Türkiye"
-msgstr "Republic of Türkiye"
-
-#: src/shared/checklist-item/ChecklistItem.tsx
+#: src/shared/checklist-item/ChecklistItem.tsx:19
 msgid "Required"
 msgstr "Required"
 
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Required at any notary (noter)"
-msgstr "Required at any notary (noter)"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:82
 msgid "Required time to obtain an opening and operating licence"
 msgstr "Required time to obtain an opening and operating licence"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:51
 msgid "Required validity date of the residence permit"
 msgstr "Required validity date of the residence permit"
 
-#: src/shared/guide-card/GuideCard.stories.tsx
-msgid "Residence and immigration"
-msgstr "Residence and immigration"
-
-#: src/shared/rule-answer/factLabels.ts
-#~ msgid "Residence permit card fee"
-#~ msgstr "Residence permit card fee"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:39
 msgid "Residence permit charge"
 msgstr "Residence permit charge"
 
-#: src/shared/deadline-item/DeadlineItem.stories.tsx
-msgid "Residence permit renewal"
-msgstr "Residence permit renewal"
-
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:251
+#: src/shared/context-control/ContextPanel.tsx:254
 msgid "Residence status"
 msgstr "Residence status"
 
-#: src/screens/search/SearchResults.tsx
+#: src/screens/search/SearchResults.tsx:71
 msgid "Results for “{asked}”"
 msgstr "Results for “{asked}”"
 
-#: src/shared/ask-panel/useAsk.tsx
+#: src/shared/ask-panel/useAsk.tsx:175
 msgid "Results for “{text}”"
 msgstr "Results for “{text}”"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:22
 msgid "Return while your application is pending"
 msgstr "Return while your application is pending"
 
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:267
+#: src/shared/context-control/ContextPanel.tsx:270
 msgid "Role"
 msgstr "Role"
 
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Same day, about 1 hour"
-msgstr "Same day, about 1 hour"
-
-#: src/shared/info-panel/InfoPanel.tsx
+#: src/shared/info-panel/InfoPanel.tsx:13
 msgid "Scam risk"
 msgstr "Scam risk"
 
-#: src/screens/search/SearchResults.tsx
+#: src/screens/search/SearchResults.tsx:68
 msgid "Search"
 msgstr "Search"
 
-#: src/shared/search-input/SearchInput.stories.tsx
-msgid "Search the guides"
-msgstr "Search the guides"
-
-#: src/shared/select-field/SelectField.stories.tsx
-msgid "Select a city"
-msgstr "Select a city"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:113
 msgid "Self-employment under the Residence Act"
 msgstr "Self-employment under the Residence Act"
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:192
 msgid "Send suggestion"
 msgstr "Send suggestion"
 
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:168
 msgid "Separate routes some people look into."
 msgstr "Separate routes some people look into."
 
-#: src/shared/fact-strip/FactStrip.stories.tsx
-msgid "Set once the structure is chosen"
-msgstr "Set once the structure is chosen"
-
-#: src/shared/info-panel/InfoPanel.stories.tsx
-msgid "Set your nationality to resolve this"
-msgstr "Set your nationality to resolve this"
-
-#: src/screens/home/Home.tsx
-#: src/shared/section/Section.stories.tsx
+#: src/screens/home/Home.tsx:83
 msgid "Short answers with the conditions that actually change them."
 msgstr "Short answers with the conditions that actually change them."
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:135
 msgid "Shorten the link, or paste only the address of the page."
 msgstr "Shorten the link, or paste only the address of the page."
 
-#: src/shared/header/Header.tsx
+#: src/shared/header/Header.tsx:91
 msgid "Skipbureau"
 msgstr "Skipbureau"
 
-#: src/screens/Unreachable.tsx
+#: src/screens/Unreachable.tsx:15
 msgid "SkipBureau could not load this"
 msgstr "SkipBureau could not load this"
 
-#: src/shared/information-disclaimer/InformationDisclaimer.tsx
+#: src/shared/information-disclaimer/InformationDisclaimer.tsx:18
 msgid "Skipbureau explains everyday processes in {country}. Information can change and should not be treated as legal or professional advice. Check the linked official sources before making important decisions."
 msgstr "Skipbureau explains everyday processes in {country}. Information can change and should not be treated as legal or professional advice. Check the linked official sources before making important decisions."
 
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:344
+#: src/screens/guide/Guide.tsx:348
 msgid "Something changed?"
 msgstr "Something changed?"
 
-#: src/screens/Unreachable.tsx
+#: src/screens/Unreachable.tsx:18
 msgid "Something on our side did not answer. The page exists, we just could not reach it. Trying again usually works."
 msgstr "Something on our side did not answer. The page exists, we just could not reach it. Trying again usually works."
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:130
 msgid "Source or link (optional)"
 msgstr "Source or link (optional)"
 
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:368
 msgid "Sources are listed above with the date we last checked them. Tell us if something here no longer matches what you found."
 msgstr "Sources are listed above with the date we last checked them. Tell us if something here no longer matches what you found."
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:119
 msgid "Split of the general and additional contribution"
 msgstr "Split of the general and additional contribution"
 
-#: src/shared/breadcrumb/Breadcrumb.stories.tsx
-#: src/shared/task-row/TaskRow.stories.tsx
-#: src/shared/task-tile/TaskTile.stories.tsx
-msgid "Start a business"
-msgstr "Start a business"
-
-#: src/shared/ask-result-row/AskResultRow.stories.tsx
-msgid "Start a business in Turkey"
-msgstr "Start a business in Turkey"
-
-#: src/shared/process-card/ProcessCard.stories.tsx
-#: src/shared/saved-item/SavedItem.stories.tsx
-msgid "Start a company in Turkey"
-msgstr "Start a company in Turkey"
-
-#: src/shared/process-card/ProcessCard.stories.tsx
-msgid "Start a limited company in Turkey with a foreign shareholder and a local director"
-msgstr "Start a limited company in Turkey with a foreign shareholder and a local director"
-
-#: src/screens/task-hub/GuidedSetup.tsx
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/GuidedSetup.tsx:49
+#: src/screens/task-hub/TaskHub.tsx:130
 msgid "Start guided setup"
 msgstr "Start guided setup"
 
-#: src/screens/category-hub/RecommendedStart.tsx
+#: src/screens/category-hub/RecommendedStart.tsx:47
 msgid "Start here"
 msgstr "Start here"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:122
 msgid "Start of compulsory membership through employment"
 msgstr "Start of compulsory membership through employment"
 
-#: src/shared/button/Button.stories.tsx
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Start this process"
-msgstr "Start this process"
-
-#: src/screens/category-hub/CategoryHub.tsx
+#: src/screens/category-hub/CategoryHub.tsx:172
 msgid "Still have a question?"
 msgstr "Still have a question?"
 
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-#: src/shared/document-card/DocumentCard.stories.tsx
-msgid "Student certificate"
-msgstr "Student certificate"
-
-#: src/shared/guide-card/GuideCard.stories.tsx
-#: src/shared/saved-item/SavedItem.stories.tsx
-msgid "Student residence permit"
-msgstr "Student residence permit"
-
-#: src/shared/saved-item/SavedItem.stories.tsx
-msgid "Student residence permit for a second degree, an exchange term, or a language course"
-msgstr "Student residence permit for a second degree, an exchange term, or a language course"
-
-#: src/shared/guide-card/GuideCard.stories.tsx
-msgid "Student residence permit for a second degree, an exchange term, or a language course at a private school"
-msgstr "Student residence permit for a second degree, an exchange term, or a language course at a private school"
-
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Submitted 3 Sep · usually 15 to 20 days"
-msgstr "Submitted 3 Sep · usually 15 to 20 days"
-
-#: src/screens/guide/Guide.tsx
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/guide/Guide.tsx:356
+#: src/screens/suggest/SuggestUpdate.tsx:110
 msgid "Suggest an update"
 msgstr "Suggest an update"
 
-#: src/shared/saved-item/SavedItem.stories.tsx
-msgid "Sworn translation"
-msgstr "Sworn translation"
-
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Sworn translation · Notarised · 2 copies"
-msgstr "Sworn translation · Notarised · 2 copies"
-
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Take your passport and diploma to a sworn translator, then to any notary to have the translations certified. The notary does not need an appointment; most offices handle this the same day."
-msgstr "Take your passport and diploma to a sworn translator, then to any notary to have the translations certified. The notary does not need an appointment; most offices handle this the same day."
-
-#: src/shared/ask-result-row/AskResultRow.tsx
+#: src/shared/ask-result-row/AskResultRow.tsx:19
 msgid "Task"
 msgstr "Task"
 
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:82
 msgid "Task hub"
 msgstr "Task hub"
 
-#: src/screens/search/SearchResults.tsx
+#: src/screens/search/SearchResults.tsx:106
 msgid "Tasks"
 msgstr "Tasks"
 
-#: src/shared/deadline-item/DeadlineItem.stories.tsx
-msgid "Tax filing, Q3"
-msgstr "Tax filing, Q3"
-
-#: src/shared/deadline-item/DeadlineItem.stories.tsx
-msgid "Tax number obtained"
-msgstr "Tax number obtained"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:80
 msgid "Tax-certificate renewal deadline after the return deadline in a special accounting period"
 msgstr "Tax-certificate renewal deadline after the return deadline in a special accounting period"
 
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:114
+#: src/shared/rule-answer/RuleAnswer.tsx:140
 msgid "Tell us"
 msgstr "Tell us"
 
-#: src/shared/info-panel/InfoPanel.stories.tsx
-msgid "Tell us if you have done this in Antalya"
-msgstr "Tell us if you have done this in Antalya"
-
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:104
 msgid "Tell us to show your answer."
 msgstr "Tell us to show your answer."
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:126
 msgid "Tell us what looks outdated, incorrect or missing."
 msgstr "Tell us what looks outdated, incorrect or missing."
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:94
 msgid "Thank you"
 msgstr "Thank you"
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:154
 msgid "That is a lot of suggestions at once. Wait a minute and send this one again."
 msgstr "That is a lot of suggestions at once. Wait a minute and send this one again."
 
-#: src/screens/NotFound.tsx
+#: src/screens/NotFound.tsx:14
 msgid "The address may be mistyped, or it may point at a country or a guide SkipBureau does not cover yet."
 msgstr "The address may be mistyped, or it may point at a country or a guide SkipBureau does not cover yet."
 
-#: src/screens/Placeholder.tsx
-#~ msgid "The address resolved, which is what this page is here to show."
-#~ msgstr "The address resolved, which is what this page is here to show."
-
-#: src/shared/source-card/SourceCard.tsx
+#: src/shared/source-card/SourceCard.tsx:93
 msgid "The institution’s own wording — not Skipbureau advice"
 msgstr "The institution’s own wording — not Skipbureau advice"
 
-#: src/shared/app-shell/AppShell.stories.tsx
-msgid "The page goes here"
-msgstr "The page goes here"
-
-#: src/shared/reading/Reading.stories.tsx
-msgid "The reading measure is 720. The design gives a reason for that one number and for no other, so it is the only width here that is about how text reads rather than about how a screen is divided."
-msgstr "The reading measure is 720. The design gives a reason for that one number and for no other, so it is the only width here that is about how text reads rather than about how a screen is divided."
-
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:47
 msgid "The rule for everyone"
 msgstr "The rule for everyone"
 
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:281
 msgid "The rules that apply"
 msgstr "The rules that apply"
 
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:114
 msgid "These are the areas most people deal with. They are deliberately not numbered, because the order that applies to you depends on your situation."
 msgstr "These are the areas most people deal with. They are deliberately not numbered, because the order that applies to you depends on your situation."
 
-#: src/shared/info-panel/InfoPanel.tsx
+#: src/shared/info-panel/InfoPanel.tsx:14
 msgid "This depends on your situation"
 msgstr "This depends on your situation"
 
 #. placeholder {0}: locales[language].label
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:252
 msgid "This guide has not been translated yet, so it is shown in {0}."
 msgstr "This guide has not been translated yet, so it is shown in {0}."
 
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:102
 msgid "This is the rule for everyone. Tell us, and we show the answer for you."
 msgstr "This is the rule for everyone. Tell us, and we show the answer for you."
 
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:107
 msgid "This is the rule for everyone. We cannot take this detail from you yet."
 msgstr "This is the rule for everyone. We cannot take this detail from you yet."
 
-#: src/screens/NotFound.tsx
+#: src/screens/NotFound.tsx:11
 msgid "This page does not exist"
 msgstr "This page does not exist"
 
-#: src/shared/deadline-item/DeadlineItem.tsx
+#: src/shared/deadline-item/DeadlineItem.tsx:29
 msgid "Today"
 msgstr "Today"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:104
 msgid "Trade income allowance"
 msgstr "Trade income allowance"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:111
 msgid "Transaction losing the exemption"
 msgstr "Transaction losing the exemption"
 
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Translation"
-msgstr "Translation"
-
-#: src/screens/home/HomeHero.tsx
+#: src/screens/home/HomeHero.tsx:41
 msgid "Try"
 msgstr "Try"
 
-#: src/screens/Unreachable.tsx
-#: src/shared/retry-notice/RetryNotice.tsx
+#: src/screens/Unreachable.tsx:24
+#: src/shared/retry-notice/RetryNotice.tsx:34
 msgid "Try again"
 msgstr "Try again"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:52
 msgid "Turkish employees for each foreigner"
 msgstr "Turkish employees for each foreigner"
 
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Turkish, by a sworn translator (yeminli tercüman)"
-msgstr "Turkish, by a sworn translator (yeminli tercüman)"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:109
 msgid "Turnover ceiling for the current year"
 msgstr "Turnover ceiling for the current year"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:108
 msgid "Turnover ceiling for the previous year"
 msgstr "Turnover ceiling for the previous year"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:110
 msgid "Turnover ceiling in the year the business starts"
 msgstr "Turnover ceiling in the year the business starts"
 
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:122
 msgid "Two rules could apply to you"
 msgstr "Two rules could apply to you"
 
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:221
+#: src/shared/context-control/ContextPanel.tsx:226
 msgid "Type a country"
 msgstr "Type a country"
 
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:239
+#: src/shared/context-control/ContextPanel.tsx:289
 msgid "Type a place"
 msgstr "Type a place"
 
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:271
 msgid "Type a role"
 msgstr "Type a role"
 
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:255
 msgid "Type a status"
 msgstr "Type a status"
 
-#: src/screens/guide/Guide.tsx
-#: src/shared/fact-strip/FactStrip.stories.tsx
+#: src/screens/guide/Guide.tsx:106
 msgid "Typical cost"
 msgstr "Typical cost"
 
-#: src/screens/guide/Guide.tsx
-#: src/shared/fact-strip/FactStrip.stories.tsx
+#: src/screens/guide/Guide.tsx:107
 msgid "Typical setup time"
 msgstr "Typical setup time"
 
-#: src/shared/topic-item/TopicItem.stories.tsx
-msgid "Understand the main company structures and which situations they are commonly used for."
-msgstr "Understand the main company structures and which situations they are commonly used for."
-
-#: src/shared/topic-item/TopicItem.stories.tsx
-msgid "Understand the registration process and what needs to be prepared."
-msgstr "Understand the registration process and what needs to be prepared."
-
-#: src/shared/country-name/CountryName.tsx
-#~ msgid "Unknown country"
-#~ msgstr "Unknown country"
-
-#: src/shared/country-name/CountryName.tsx
+#: src/shared/country-name/CountryName.tsx:15
 msgid "Unnamed country"
 msgstr "Unnamed country"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:91
 msgid "Until the card can be collected"
 msgstr "Until the card can be collected"
 
-#: src/shared/roadmap-step/RoadmapStep.tsx
+#: src/shared/roadmap-step/RoadmapStep.tsx:21
 msgid "Upcoming"
 msgstr "Upcoming"
 
-#: src/shared/saved-item/SavedItem.stories.tsx
-msgid "Updated 28 Aug 2026"
-msgstr "Updated 28 Aug 2026"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:93
 msgid "Urgent travel Berlin helps with"
 msgstr "Urgent travel Berlin helps with"
 
-#: src/shared/fact-strip/FactStrip.stories.tsx
-msgid "Usually a short visit in store"
-msgstr "Usually a short visit in store"
-
-#: src/shared/fact-strip/FactStrip.stories.tsx
-msgid "Varies by company type and situation"
-msgstr "Varies by company type and situation"
-
-#: src/shared/fact-strip/FactStrip.stories.tsx
-msgid "Varies by operator, plan, SIM type and campaign"
-msgstr "Varies by operator, plan, SIM type and campaign"
-
-#: src/shared/guide-card/GuideCard.tsx
+#: src/shared/guide-card/GuideCard.tsx:37
 msgid "Verified {verified}"
 msgstr "Verified {verified}"
 
-#: src/shared/saved-item/SavedItem.stories.tsx
-msgid "Verified 11 Aug 2026"
-msgstr "Verified 11 Aug 2026"
-
-#: src/shared/saved-item/SavedItem.stories.tsx
-msgid "Verified 24 Aug 2026"
-msgstr "Verified 24 Aug 2026"
-
-#: src/shared/source-card/SourceCard.tsx
+#: src/shared/source-card/SourceCard.tsx:31
 msgid "Verified against this source"
 msgstr "Verified against this source"
 
-#: src/shared/status-tag/StatusTag.stories.tsx
-msgid "Verified Aug 2026"
-msgstr "Verified Aug 2026"
-
-#: src/shared/source-card/SourceCard.tsx
+#: src/shared/source-card/SourceCard.tsx:87
 msgid "Visit official source"
 msgstr "Visit official source"
 
-#: src/shared/roadmap-step/RoadmapStep.tsx
-#: src/shared/status-tag/StatusTag.stories.tsx
+#: src/shared/roadmap-step/RoadmapStep.tsx:22
 msgid "Waiting on institution"
 msgstr "Waiting on institution"
 
-#: src/shared/info-panel/InfoPanel.tsx
+#: src/shared/info-panel/InfoPanel.tsx:12
 msgid "Warning"
 msgstr "Warning"
 
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:99
 msgid "We are still writing this guide, and checking it against official sources."
 msgstr "We are still writing this guide, and checking it against official sources."
 
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:109
 msgid "We cannot take this detail from you yet."
 msgstr "We cannot take this detail from you yet."
 
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:284
 msgid "We could not load the answer for you."
 msgstr "We could not load the answer for you."
 
-#: src/shared/info-panel/InfoPanel.stories.tsx
-msgid "We have not verified this process for Antalya. The steps below are correct for Istanbul, Ankara and Izmir; local document requirements may differ."
-msgstr "We have not verified this process for Antalya. The steps below are correct for Istanbul, Ankara and Izmir; local document requirements may differ."
-
-#: src/shared/rule-answer/RuleAnswer.tsx
+#: src/shared/rule-answer/RuleAnswer.tsx:57
 msgid "We hold no rule on this for what you have told us."
 msgstr "We hold no rule on this for what you have told us."
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:144
 msgid "We may contact you if we need more information. Your email will not be published."
 msgstr "We may contact you if we need more information. Your email will not be published."
 
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:216
 msgid "We only ask for details when they change your answer."
 msgstr "We only ask for details when they change your answer."
 
-#: src/screens/search/SearchResults.tsx
+#: src/screens/search/SearchResults.tsx:97
 msgid "We only search what we have written and checked, so try other words, or start from a goal on the home page."
 msgstr "We only search what we have written and checked, so try other words, or start from a goal on the home page."
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:149
 msgid "We use your email only to review and follow up on this submission."
 msgstr "We use your email only to review and follow up on this submission."
 
-#: src/screens/search/SearchResults.tsx
-#: src/shared/ask-panel/useAsk.tsx
+#: src/screens/search/SearchResults.tsx:156
+#: src/shared/ask-panel/useAsk.tsx:200
 msgid "We’ll ask about your nationality or city only if it changes the answer."
 msgstr "We’ll ask about your nationality or city only if it changes the answer."
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:97
 msgid "We’ll review your suggestion before updating the guide."
 msgstr "We’ll review your suggestion before updating the guide."
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:113
 msgid "We’ll review your suggestion before updating the guide. Submitting information does not directly change the published guide."
 msgstr "We’ll review your suggestion before updating the guide. Submitting information does not directly change the published guide."
 
-#: src/shared/ask-panel/AskPanel.tsx
+#: src/shared/ask-panel/AskPanel.tsx:36
 msgid "What Ask found"
 msgstr "What Ask found"
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:120
 msgid "What changed?"
 msgstr "What changed?"
 
-#: src/shared/saved-item/SavedItem.stories.tsx
-msgid "What counts as a sworn translator in Turkey"
-msgstr "What counts as a sworn translator in Turkey"
-
-#: src/screens/category-hub/CategoryHub.tsx
+#: src/screens/category-hub/CategoryHub.tsx:99
+#: src/screens/category-hub/CategoryHub.tsx:180
 msgid "What do you need help with?"
 msgstr "What do you need help with?"
 
-#: src/screens/home/head.ts
-#: src/screens/home/HomeHero.tsx
+#: src/screens/home/head.ts:12
+#: src/screens/home/HomeHero.tsx:24
 msgid "What do you need to do in {name}?"
 msgstr "What do you need to do in {name}?"
 
-#: src/core/i18n/I18nProvider.stories.tsx
-msgid "What do you need to do?"
-msgstr "What do you need to do?"
-
-#: src/screens/home/Home.tsx
+#: src/screens/home/Home.tsx:62
 msgid "What do you want to do?"
 msgstr "What do you want to do?"
 
-#: src/shared/ask-result-row/AskResultRow.stories.tsx
-msgid "What documents do I need for student residence?"
-msgstr "What documents do I need for student residence?"
-
-#: src/shared/context-control/ContextPanel.tsx
+#: src/shared/context-control/ContextPanel.tsx:198
+#: src/shared/context-control/ContextPanel.tsx:213
 msgid "What Skipbureau knows about you"
 msgstr "What Skipbureau knows about you"
 
-#: src/screens/guide/GuideSection.tsx
+#: src/screens/guide/GuideSection.tsx:23
 msgid "What to check"
 msgstr "What to check"
 
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "What to do"
-msgstr "What to do"
-
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:94
 msgid "What we know about you"
 msgstr "What we know about you"
 
-#: src/screens/guide/GuideSection.tsx
+#: src/screens/guide/GuideSection.tsx:18
 msgid "What you need"
 msgstr "What you need"
 
-#: src/shared/guide-card/GuideCard.stories.tsx
-msgid "What you need, what it costs, and the two document mistakes that cause most refusals, including the translation and the insurance that has to cover the whole permit, and what to do when the university is late with the certificate."
-msgstr "What you need, what it costs, and the two document mistakes that cause most refusals, including the translation and the insurance that has to cover the whole permit, and what to do when the university is late with the certificate."
-
-#: src/shared/guide-card/GuideCard.stories.tsx
-msgid "What you need, what it costs, and the two document mistakes that cause most refusals."
-msgstr "What you need, what it costs, and the two document mistakes that cause most refusals."
-
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:108
 msgid "What you’ll need to think about"
 msgstr "What you’ll need to think about"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:26
 msgid "What your health cover must cover"
 msgstr "What your health cover must cover"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:100
 msgid "When a warning fine can be charged"
 msgstr "When a warning fine can be charged"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:101
 msgid "When fine proceedings can start"
 msgstr "When fine proceedings can start"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:96
 msgid "When to notify the trade office"
 msgstr "When to notify the trade office"
 
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Where"
-msgstr "Where"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:16
 msgid "Where the appointment is booked"
 msgstr "Where the appointment is booked"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:83
 msgid "Where the share register and general-meeting minutes are kept"
 msgstr "Where the share register and general-meeting minutes are kept"
 
-#: src/screens/guide/GuideSection.tsx
+#: src/screens/guide/GuideSection.tsx:21
 msgid "Where to do it"
 msgstr "Where to do it"
 
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:144
 msgid "Where you live"
 msgstr "Where you live"
 
-#: src/screens/guide/Guide.tsx
-#: src/shared/context-control/ContextPanel.tsx
+#: src/screens/guide/Guide.tsx:149
+#: src/shared/context-control/ContextPanel.tsx:285
+#: src/shared/context-control/ContextPanel.tsx:288
 msgid "Where you work"
 msgstr "Where you work"
 
-#: src/shared/info-panel/InfoPanel.stories.tsx
-msgid "Whether your diploma needs an apostille or consular legalization depends on your country of issue. We cannot show one answer here until you tell us your nationality."
-msgstr "Whether your diploma needs an apostille or consular legalization depends on your country of issue. We cannot show one answer here until you tell us your nationality."
-
-#: src/shared/rule-answer/factValue.ts
+#: src/shared/rule-answer/factValue.ts:80
 msgid "within {number}"
 msgstr "within {number}"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:114
 msgid "Work allowed by your residence title"
 msgstr "Work allowed by your residence title"
 
-#: src/shared/context-control/situationLabels.ts
+#: src/shared/context-control/situationLabels.ts:10
 msgid "Worker"
 msgstr "Worker"
 
-#: src/shared/checklist-item/ChecklistItem.stories.tsx
-msgid "Yes, bring the original and one copy"
-msgstr "Yes, bring the original and one copy"
-
-#: src/shared/ask-result-row/AskResultRow.stories.tsx
-msgid "Yes, no residence permit is required to own shares"
-msgstr "Yes, no residence permit is required to own shares"
-
-#: src/screens/category-hub/CategoryHub.tsx
+#: src/screens/category-hub/CategoryHub.tsx:143
 msgid "You can use this checklist as a simple guide. Your progress is not saved."
 msgstr "You can use this checklist as a simple guide. Your progress is not saved."
 
-#: src/shared/info-panel/InfoPanel.stories.tsx
-msgid "You do not need an agent for this step"
-msgstr "You do not need an agent for this step"
-
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:139
 msgid "you@example.com"
 msgstr "you@example.com"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:87
 msgid "Your current title while the application is decided"
 msgstr "Your current title while the application is decided"
 
-#: src/screens/suggest/SuggestUpdate.tsx
+#: src/screens/suggest/SuggestUpdate.tsx:138
 msgid "Your email"
 msgstr "Your email"
 
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:146
 msgid "Your nationality"
 msgstr "Your nationality"
 
-#: src/screens/task-hub/TaskHub.tsx
+#: src/screens/task-hub/TaskHub.tsx:126
 msgid "Your nationality, residence status and plans can each change which of these areas apply to you, and in what order."
 msgstr "Your nationality, residence status and plans can each change which of these areas apply to you, and in what order."
 
-#: src/screens/guide/GuideSection.tsx
+#: src/screens/guide/GuideSection.tsx:19
 msgid "Your options"
 msgstr "Your options"
 
-#: src/shared/info-panel/InfoPanel.stories.tsx
-#: src/shared/roadmap-step/RoadmapStep.stories.tsx
-msgid "Your passport must stay valid for at least 60 days beyond the end of the permit you are requesting. Applications are refused on this alone more often than on any other single reason."
-msgstr "Your passport must stay valid for at least 60 days beyond the end of the permit you are requesting. Applications are refused on this alone more often than on any other single reason."
-
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:145
 msgid "Your residence status"
 msgstr "Your residence status"
 
-#: src/screens/guide/Guide.tsx
+#: src/screens/guide/Guide.tsx:148
 msgid "Your role"
 msgstr "Your role"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:34
 msgid "Your share of inpatient care, at a non-contracted provider or a public hospital outside Annex 1"
 msgstr "Your share of inpatient care, at a non-contracted provider or a public hospital outside Annex 1"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:30
 msgid "Your share of inpatient care, at a provider your insurer has contracted with"
 msgstr "Your share of inpatient care, at a provider your insurer has contracted with"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:38
 msgid "Your share of inpatient care, at a public hospital named in Annex 1"
 msgstr "Your share of inpatient care, at a public hospital named in Annex 1"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:32
 msgid "Your share of outpatient care, at a non-contracted provider or a public hospital outside Annex 1"
 msgstr "Your share of outpatient care, at a non-contracted provider or a public hospital outside Annex 1"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:28
 msgid "Your share of outpatient care, at a provider your insurer has contracted with"
 msgstr "Your share of outpatient care, at a provider your insurer has contracted with"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:36
 msgid "Your share of outpatient care, at a public hospital named in Annex 1"
 msgstr "Your share of outpatient care, at a public hospital named in Annex 1"
 
-#: src/screens/guide/Guide.tsx
-#~ msgid "Your situation"
-#~ msgstr "Your situation"
-
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:88
 msgid "Your stay while the application is decided"
 msgstr "Your stay while the application is decided"
 
-#: src/shared/rule-answer/factLabels.ts
+#: src/shared/rule-answer/factLabels.ts:92
 msgid "Your title, with the online application's confirmation"
 msgstr "Your title, with the online application's confirmation"
