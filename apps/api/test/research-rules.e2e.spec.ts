@@ -542,6 +542,34 @@ const toldInSituation = async (duties: readonly [slug: string, opening: string][
 test("a reader starting a company is told each duty that follows registration, its facts on their pages and its condition first in its notes, a reader who has not said is asked, and a student is not told them", () =>
   toldInSituation(COMPANY_DUTIES, 'company-founder'))
 
+// SB-337: the worker and the founder are told one legal fact, Law 6735 Article 22(1)'s fifteen days, so work-permit.ts
+// gives both versions the same fact object rather than two that happen to match. These two assertions fail for
+// different reasons and neither can stand in for the other: the first refuses a divergence in the file, the second
+// refuses a change to what either reader is told. The figures are literals here on purpose. toldInSituation compares
+// the API with factsIn(TURKEY, version), so its expectation is read from the same file a plant would edit and moves
+// with it, which is the circularity SB-212 already met and answered the same way.
+test('the worker and the founder are told one fifteen day report, written once', async () => {
+  const slug = 'report-employment-starting-and-ending'
+  const versionFor = (situation: string): ResearchVersion | undefined =>
+    TURKEY.versions.find(
+      (candidate) =>
+        candidate.obligation === slug && candidate.criteria.some((criterion) => criterion.dimension === 'situation' && criterion.value === situation),
+    )
+  const worker = versionFor('worker')
+  const founder = versionFor('company-founder')
+  expect(worker, "the worker's version is in Turkey's file").toBeDefined()
+  expect(founder, "the founder's version is in Turkey's file").toBeDefined()
+
+  const deadlineOf = (version?: ResearchVersion) => version?.facts.find((fact) => fact.key === 'reportWithin')
+  expect(deadlineOf(worker), 'both versions state the deadline from one fact, not two that agree').toBe(deadlineOf(founder))
+
+  for (const situation of ['worker', 'company-founder']) {
+    const told = await entryFor(slug, { situation })
+    expect(told?.to?.facts, situation).toHaveLength(1)
+    expect(told?.to?.facts?.[0], situation).toMatchObject({ key: 'reportWithin', operator: 'within', numericValue: '15', unit: 'days' })
+  }
+})
+
 // SB-212: the tax certificate is the one duty of the six that splits by who the reader is, and the
 // assertion has to name the facts as literals. factsOf compares the API with the file, so it would
 // pass whatever the file said, which cannot decide whether an existing company is correctly told the

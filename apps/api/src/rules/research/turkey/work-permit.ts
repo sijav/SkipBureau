@@ -13,6 +13,19 @@ const WORKER: ResearchVersion['criteria'] = [{ dimension: 'situation', value: 'w
 // are gets one of them and a reader who has said neither is still asked.
 const FOUNDER: ResearchVersion['criteria'] = [{ dimension: 'situation', value: 'company-founder' }]
 
+// SB-337: Law 6735 Article 22(1) is one duty with one deadline, told to two audiences, so the worker's version and
+// the founder's state it from ONE fact rather than two that happen to match. Written twice, a later correction to
+// either would tell the two readers different deadlines for the same law with every test green. The notes stay
+// separate, because who is addressed genuinely differs; only the fact is shared.
+const REPORT_WITHIN: ResearchVersion['facts'][number] = {
+  key: 'reportWithin',
+  operator: 'within',
+  numericValue: 15,
+  unit: 'days',
+  source: 'internationalLabourLaw',
+  labels: ['law6735-22-1-fifteen-days'],
+}
+
 export const CASE: ResearchCase = {
   document: 'work-permit',
   obligations: [
@@ -233,16 +246,7 @@ export const CASE: ResearchCase = {
       criteria: WORKER,
       source: 'internationalLabourLaw',
       labels: ['law6735-22-1-fifteen-days'],
-      facts: [
-        {
-          key: 'reportWithin',
-          operator: 'within',
-          numericValue: 15,
-          unit: 'days',
-          source: 'internationalLabourLaw',
-          labels: ['law6735-22-1-fifteen-days'],
-        },
-      ],
+      facts: [REPORT_WITHIN],
       notes: {
         en: 'For a worker: your employer must tell the Ministry within fifteen days when work under your permit or exemption starts or ends, or when cancellation is required. If you hold an indefinite or independent work permit, you have that reporting duty yourself. It is a reporting duty and not a grace period for the worker, whose permit is liable to cancellation when the employment ends.',
       },
@@ -257,16 +261,7 @@ export const CASE: ResearchCase = {
       criteria: FOUNDER,
       source: 'internationalLabourLaw',
       labels: ['law6735-22-1-fifteen-days'],
-      facts: [
-        {
-          key: 'reportWithin',
-          operator: 'within',
-          numericValue: 15,
-          unit: 'days',
-          source: 'internationalLabourLaw',
-          labels: ['law6735-22-1-fifteen-days'],
-        },
-      ],
+      facts: [REPORT_WITHIN],
       notes: {
         en: "For the employer: tell the Ministry within fifteen days when work under a foreign employee's permit or exemption starts or ends, or when cancellation is required. This is your reporting duty.",
       },
