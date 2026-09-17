@@ -177,7 +177,7 @@ msgstr "en az {number}"
 msgid "at most {number}"
 msgstr "en çok {number}"
 
-#: src/screens/guide/Guide.tsx:96
+#: src/screens/guide/Guide.tsx:97
 msgid "Back to {categoryTitle}"
 msgstr "{categoryTitle} bölümüne dönün"
 
@@ -186,7 +186,7 @@ msgid "Back to the guide"
 msgstr "Rehbere dönün"
 
 #: src/screens/coming-soon/GuidesSoon.tsx:13
-#: src/screens/guide/Guide.tsx:96
+#: src/screens/guide/Guide.tsx:97
 #: src/screens/search/SearchResults.tsx:100
 msgid "Back to the home page"
 msgstr "Ana sayfaya dönün"
@@ -297,7 +297,7 @@ msgstr "GSS başvurusundan önce kesintisiz ikamet"
 msgid "Contribution days in the preceding year, for routine treatment"
 msgstr "Rutin tedavi için bir önceki yıldaki prim gün sayısı"
 
-#: src/screens/guide/Guide.tsx:112
+#: src/screens/guide/Guide.tsx:113
 msgid "Cost and time"
 msgstr "Maliyet ve süre"
 
@@ -476,7 +476,7 @@ msgstr "GSS prim oranı"
 msgid "GSS registration starts after the request"
 msgstr "GSS tescili talepten sonra başlar"
 
-#: src/screens/guide/Guide.tsx:218
+#: src/screens/guide/Guide.tsx:209
 #: src/shared/ask-result-row/AskResultRow.tsx:21
 #: src/shared/saved-item/SavedItem.tsx:18
 msgid "Guide"
@@ -504,8 +504,8 @@ msgstr "Rehberler"
 #: src/screens/category-hub/CategoryHub.tsx:59
 #: src/screens/category-hub/CategoryHub.tsx:60
 #: src/screens/category-hub/CategoryHub.tsx:66
-#: src/screens/guide/Guide.tsx:206
-#: src/screens/guide/Guide.tsx:211
+#: src/screens/guide/Guide.tsx:197
+#: src/screens/guide/Guide.tsx:202
 #: src/screens/task-hub/TaskHub.tsx:78
 msgid "Home"
 msgstr "Ana sayfa"
@@ -530,7 +530,7 @@ msgstr "Mevcut bir şirketi yönetiyorum"
 msgid "If it applies to you"
 msgstr "Size uyuyorsa"
 
-#: src/screens/guide/Guide.tsx:351
+#: src/screens/guide/Guide.tsx:342
 msgid "If you know this information is outdated or incorrect, let us know. We review submissions before updating the guide."
 msgstr "Bu bilginin güncelliğini yitirdiğini veya yanlış olduğunu biliyorsanız bize bildirin. Rehberi güncellemeden önce bildirimleri inceleriz."
 
@@ -558,7 +558,7 @@ msgstr "Yatarak tedavi kapsamı, Ek 1’de sayılan bir kamu hastanesinde"
 msgid "It was not sent. Check your connection and try again."
 msgstr "Gönderilemedi. Bağlantınızı kontrol edip yeniden deneyin."
 
-#: src/screens/guide/Guide.tsx:108
+#: src/screens/guide/Guide.tsx:109
 msgid "Key deadlines"
 msgstr "Önemli son tarihler"
 
@@ -583,9 +583,9 @@ msgstr "Son inceleme: {reviewed}"
 msgid "Last verified {0}"
 msgstr "Son doğrulama: {0}"
 
-#: src/screens/guide/Guide.tsx:234
-#: src/screens/guide/Guide.tsx:307
-#: src/screens/guide/Guide.tsx:365
+#: src/screens/guide/Guide.tsx:225
+#: src/screens/guide/Guide.tsx:298
+#: src/screens/guide/Guide.tsx:356
 msgid "Last verified: {verified}"
 msgstr "Son doğrulama: {verified}"
 
@@ -683,7 +683,7 @@ msgstr "Yok"
 msgid "Not for you"
 msgstr "Sizin için gerekli değil"
 
-#: src/screens/guide/Guide.tsx:251
+#: src/screens/guide/Guide.tsx:242
 msgid "Not in your language yet"
 msgstr "Henüz sizin dilinizde değil"
 
@@ -739,7 +739,7 @@ msgstr "Resmî sayfaya ulaşılamıyor"
 msgid "Official source"
 msgstr "Resmî kaynak"
 
-#: src/screens/guide/Guide.tsx:305
+#: src/screens/guide/Guide.tsx:296
 msgid "Official sources"
 msgstr "Resmî kaynaklar"
 
@@ -823,7 +823,7 @@ msgstr "Oda aidatının alınmadığı kâr sınırı"
 msgid "Profit ceiling for founder relief"
 msgstr "Kurucu istisnası için kâr tavanı"
 
-#: src/screens/guide/Guide.tsx:269
+#: src/screens/guide/Guide.tsx:260
 #: src/shared/ask-result-row/AskResultRow.tsx:23
 msgid "Quick answer"
 msgstr "Hızlı yanıt"
@@ -886,7 +886,7 @@ msgid "Registry charge on company formation"
 msgstr "Şirket kuruluşunda sicil harcı"
 
 #: src/screens/category-hub/CategoryHub.tsx:152
-#: src/screens/guide/Guide.tsx:326
+#: src/screens/guide/Guide.tsx:317
 msgid "Related guides"
 msgstr "İlgili rehberler"
 
@@ -980,8 +980,8 @@ msgstr "Skipbureau, {country} için günlük işlemleri anlatır. Bilgiler deği
 msgid "Some descriptions on this page are sample content for design review. Those deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
 msgstr "Bu sayfadaki bazı açıklamalar tasarım incelemesi için örnek içeriktir. Bunlarda ücretler, eşikler ve uygunluk kuralları bilinçli olarak yer almaz; bu bilgiler adım adım kurulum sırasında doğrulanmış kaynaklara göre belirlenir."
 
-#: src/screens/guide/Guide.tsx:344
-#: src/screens/guide/Guide.tsx:348
+#: src/screens/guide/Guide.tsx:335
+#: src/screens/guide/Guide.tsx:339
 msgid "Something changed?"
 msgstr "Bir şey mi değişti?"
 
@@ -993,7 +993,7 @@ msgstr "Bizim tarafımızda bir şey yanıt vermedi. Sayfa mevcut, yalnızca ona
 msgid "Source or link (optional)"
 msgstr "Kaynak veya bağlantı (isteğe bağlı)"
 
-#: src/screens/guide/Guide.tsx:368
+#: src/screens/guide/Guide.tsx:359
 msgid "Sources are listed above with the date we last checked them. Tell us if something here no longer matches what you found."
 msgstr "Kaynaklar, en son kontrol ettiğimiz tarihle birlikte yukarıda listelenmiştir. Buradaki bir şey bulduğunuzla artık örtüşmüyorsa bize bildirin."
 
@@ -1018,7 +1018,7 @@ msgstr "Çalışma yoluyla zorunlu üyeliğin başlangıcı"
 msgid "Still have a question?"
 msgstr "Hâlâ sorunuz mu var?"
 
-#: src/screens/guide/Guide.tsx:356
+#: src/screens/guide/Guide.tsx:347
 #: src/screens/suggest/SuggestUpdate.tsx:110
 msgid "Suggest an update"
 msgstr "Güncelleme önerin"
@@ -1072,7 +1072,7 @@ msgstr "Kurumun kendi ifadesi, Skipbureau tavsiyesi değil"
 msgid "The rule for everyone"
 msgstr "Herkes için geçerli kural"
 
-#: src/screens/guide/Guide.tsx:281
+#: src/screens/guide/Guide.tsx:272
 msgid "The rules that apply"
 msgstr "Geçerli kurallar"
 
@@ -1085,7 +1085,7 @@ msgid "This depends on your situation"
 msgstr "Bu, durumunuza bağlı"
 
 #. placeholder {0}: locales[language].label
-#: src/screens/guide/Guide.tsx:252
+#: src/screens/guide/Guide.tsx:243
 msgid "This guide has not been translated yet, so it is shown in {0}."
 msgstr "Bu rehber henüz çevrilmedi, bu yüzden {0} dilinde gösteriliyor."
 
@@ -1160,11 +1160,11 @@ msgstr "Bir rol yazın"
 msgid "Type a status"
 msgstr "Bir durum yazın"
 
-#: src/screens/guide/Guide.tsx:106
+#: src/screens/guide/Guide.tsx:107
 msgid "Typical cost"
 msgstr "Tipik maliyet"
 
-#: src/screens/guide/Guide.tsx:107
+#: src/screens/guide/Guide.tsx:108
 msgid "Typical setup time"
 msgstr "Tipik kurulum süresi"
 
@@ -1204,7 +1204,7 @@ msgstr "Kurumdan bekleniyor"
 msgid "Warning"
 msgstr "Uyarı"
 
-#: src/screens/guide/Guide.tsx:99
+#: src/screens/guide/Guide.tsx:100
 msgid "We are still writing this guide, and checking it against official sources."
 msgstr "Bu rehberi hâlâ yazıyor ve resmî kaynaklara göre kontrol ediyoruz."
 
@@ -1212,7 +1212,7 @@ msgstr "Bu rehberi hâlâ yazıyor ve resmî kaynaklara göre kontrol ediyoruz."
 msgid "We cannot take this detail from you yet."
 msgstr "Bu bilgiyi sizden henüz alamıyoruz."
 
-#: src/screens/guide/Guide.tsx:284
+#: src/screens/guide/Guide.tsx:275
 msgid "We could not load the answer for you."
 msgstr "Size özel yanıtı yükleyemedik."
 
@@ -1320,13 +1320,13 @@ msgstr "Pay defteri ve genel kurul tutanaklarının tutulduğu yer"
 msgid "Where to do it"
 msgstr "Nerede yapılır"
 
-#: src/screens/guide/Guide.tsx:144
+#: src/shared/context-control/detailPrompts.ts:21
 msgid "Where you live"
 msgstr "Nerede yaşıyorsunuz"
 
-#: src/screens/guide/Guide.tsx:149
 #: src/shared/context-control/ContextPanel.tsx:285
 #: src/shared/context-control/ContextPanel.tsx:288
+#: src/shared/context-control/detailPrompts.ts:26
 msgid "Where you work"
 msgstr "Nerede çalışıyorsunuz"
 
@@ -1358,7 +1358,7 @@ msgstr "Başvurunuz karara bağlanırken mevcut belgeniz"
 msgid "Your email"
 msgstr "E-posta adresiniz"
 
-#: src/screens/guide/Guide.tsx:146
+#: src/shared/context-control/detailPrompts.ts:23
 msgid "Your nationality"
 msgstr "Uyruğunuz"
 
@@ -1370,11 +1370,11 @@ msgstr "Uyruğunuz, ikamet durumunuz ve planlarınız; bu alanlardan hangilerini
 msgid "Your options"
 msgstr "Seçenekleriniz"
 
-#: src/screens/guide/Guide.tsx:145
+#: src/shared/context-control/detailPrompts.ts:22
 msgid "Your residence status"
 msgstr "İkamet durumunuz"
 
-#: src/screens/guide/Guide.tsx:148
+#: src/shared/context-control/detailPrompts.ts:25
 msgid "Your role"
 msgstr "Rolünüz"
 

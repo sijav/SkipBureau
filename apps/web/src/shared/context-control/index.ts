@@ -1,4 +1,5 @@
 export { ContextControl, type ContextControlProps } from './ContextControl'
+export { DETAIL_PROMPTS } from './detailPrompts'
 export type { ContextPanelProps, DetailOption, Origin } from './ContextPanel'
 export { SmallChevron } from './SmallChevron'
 export { YourDetails } from './YourDetails'

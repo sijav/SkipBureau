@@ -179,7 +179,7 @@ msgstr "at least {number}"
 msgid "at most {number}"
 msgstr "at most {number}"
 
-#: src/screens/guide/Guide.tsx:96
+#: src/screens/guide/Guide.tsx:97
 msgid "Back to {categoryTitle}"
 msgstr "Back to {categoryTitle}"
 
@@ -188,7 +188,7 @@ msgid "Back to the guide"
 msgstr "Back to the guide"
 
 #: src/screens/coming-soon/GuidesSoon.tsx:13
-#: src/screens/guide/Guide.tsx:96
+#: src/screens/guide/Guide.tsx:97
 #: src/screens/search/SearchResults.tsx:100
 msgid "Back to the home page"
 msgstr "Back to the home page"
@@ -299,7 +299,7 @@ msgstr "Continuous residence before applying for GSS"
 msgid "Contribution days in the preceding year, for routine treatment"
 msgstr "Contribution days in the preceding year, for routine treatment"
 
-#: src/screens/guide/Guide.tsx:112
+#: src/screens/guide/Guide.tsx:113
 msgid "Cost and time"
 msgstr "Cost and time"
 
@@ -478,7 +478,7 @@ msgstr "GSS premium rate"
 msgid "GSS registration starts after the request"
 msgstr "GSS registration starts after the request"
 
-#: src/screens/guide/Guide.tsx:218
+#: src/screens/guide/Guide.tsx:209
 #: src/shared/ask-result-row/AskResultRow.tsx:21
 #: src/shared/saved-item/SavedItem.tsx:18
 msgid "Guide"
@@ -506,8 +506,8 @@ msgstr "Guides"
 #: src/screens/category-hub/CategoryHub.tsx:59
 #: src/screens/category-hub/CategoryHub.tsx:60
 #: src/screens/category-hub/CategoryHub.tsx:66
-#: src/screens/guide/Guide.tsx:206
-#: src/screens/guide/Guide.tsx:211
+#: src/screens/guide/Guide.tsx:197
+#: src/screens/guide/Guide.tsx:202
 #: src/screens/task-hub/TaskHub.tsx:78
 msgid "Home"
 msgstr "Home"
@@ -532,7 +532,7 @@ msgstr "I run an existing company"
 msgid "If it applies to you"
 msgstr "If it applies to you"
 
-#: src/screens/guide/Guide.tsx:351
+#: src/screens/guide/Guide.tsx:342
 msgid "If you know this information is outdated or incorrect, let us know. We review submissions before updating the guide."
 msgstr "If you know this information is outdated or incorrect, let us know. We review submissions before updating the guide."
 
@@ -560,7 +560,7 @@ msgstr "Inpatient cover, at a public hospital named in Annex 1"
 msgid "It was not sent. Check your connection and try again."
 msgstr "It was not sent. Check your connection and try again."
 
-#: src/screens/guide/Guide.tsx:108
+#: src/screens/guide/Guide.tsx:109
 msgid "Key deadlines"
 msgstr "Key deadlines"
 
@@ -585,9 +585,9 @@ msgstr "Last reviewed: {reviewed}"
 msgid "Last verified {0}"
 msgstr "Last verified {0}"
 
-#: src/screens/guide/Guide.tsx:234
-#: src/screens/guide/Guide.tsx:307
-#: src/screens/guide/Guide.tsx:365
+#: src/screens/guide/Guide.tsx:225
+#: src/screens/guide/Guide.tsx:298
+#: src/screens/guide/Guide.tsx:356
 msgid "Last verified: {verified}"
 msgstr "Last verified: {verified}"
 
@@ -685,7 +685,7 @@ msgstr "None"
 msgid "Not for you"
 msgstr "Not for you"
 
-#: src/screens/guide/Guide.tsx:251
+#: src/screens/guide/Guide.tsx:242
 msgid "Not in your language yet"
 msgstr "Not in your language yet"
 
@@ -741,7 +741,7 @@ msgstr "Official page unavailable"
 msgid "Official source"
 msgstr "Official source"
 
-#: src/screens/guide/Guide.tsx:305
+#: src/screens/guide/Guide.tsx:296
 msgid "Official sources"
 msgstr "Official sources"
 
@@ -825,7 +825,7 @@ msgstr "Profit below which the chamber contribution is nothing"
 msgid "Profit ceiling for founder relief"
 msgstr "Profit ceiling for founder relief"
 
-#: src/screens/guide/Guide.tsx:269
+#: src/screens/guide/Guide.tsx:260
 #: src/shared/ask-result-row/AskResultRow.tsx:23
 msgid "Quick answer"
 msgstr "Quick answer"
@@ -888,7 +888,7 @@ msgid "Registry charge on company formation"
 msgstr "Registry charge on company formation"
 
 #: src/screens/category-hub/CategoryHub.tsx:152
-#: src/screens/guide/Guide.tsx:326
+#: src/screens/guide/Guide.tsx:317
 msgid "Related guides"
 msgstr "Related guides"
 
@@ -982,8 +982,8 @@ msgstr "Skipbureau explains everyday processes in {country}. Information can cha
 msgid "Some descriptions on this page are sample content for design review. Those deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
 msgstr "Some descriptions on this page are sample content for design review. Those deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
 
-#: src/screens/guide/Guide.tsx:344
-#: src/screens/guide/Guide.tsx:348
+#: src/screens/guide/Guide.tsx:335
+#: src/screens/guide/Guide.tsx:339
 msgid "Something changed?"
 msgstr "Something changed?"
 
@@ -995,7 +995,7 @@ msgstr "Something on our side did not answer. The page exists, we just could not
 msgid "Source or link (optional)"
 msgstr "Source or link (optional)"
 
-#: src/screens/guide/Guide.tsx:368
+#: src/screens/guide/Guide.tsx:359
 msgid "Sources are listed above with the date we last checked them. Tell us if something here no longer matches what you found."
 msgstr "Sources are listed above with the date we last checked them. Tell us if something here no longer matches what you found."
 
@@ -1020,7 +1020,7 @@ msgstr "Start of compulsory membership through employment"
 msgid "Still have a question?"
 msgstr "Still have a question?"
 
-#: src/screens/guide/Guide.tsx:356
+#: src/screens/guide/Guide.tsx:347
 #: src/screens/suggest/SuggestUpdate.tsx:110
 msgid "Suggest an update"
 msgstr "Suggest an update"
@@ -1074,7 +1074,7 @@ msgstr "The institution’s own wording — not Skipbureau advice"
 msgid "The rule for everyone"
 msgstr "The rule for everyone"
 
-#: src/screens/guide/Guide.tsx:281
+#: src/screens/guide/Guide.tsx:272
 msgid "The rules that apply"
 msgstr "The rules that apply"
 
@@ -1087,7 +1087,7 @@ msgid "This depends on your situation"
 msgstr "This depends on your situation"
 
 #. placeholder {0}: locales[language].label
-#: src/screens/guide/Guide.tsx:252
+#: src/screens/guide/Guide.tsx:243
 msgid "This guide has not been translated yet, so it is shown in {0}."
 msgstr "This guide has not been translated yet, so it is shown in {0}."
 
@@ -1162,11 +1162,11 @@ msgstr "Type a role"
 msgid "Type a status"
 msgstr "Type a status"
 
-#: src/screens/guide/Guide.tsx:106
+#: src/screens/guide/Guide.tsx:107
 msgid "Typical cost"
 msgstr "Typical cost"
 
-#: src/screens/guide/Guide.tsx:107
+#: src/screens/guide/Guide.tsx:108
 msgid "Typical setup time"
 msgstr "Typical setup time"
 
@@ -1206,7 +1206,7 @@ msgstr "Waiting on institution"
 msgid "Warning"
 msgstr "Warning"
 
-#: src/screens/guide/Guide.tsx:99
+#: src/screens/guide/Guide.tsx:100
 msgid "We are still writing this guide, and checking it against official sources."
 msgstr "We are still writing this guide, and checking it against official sources."
 
@@ -1214,7 +1214,7 @@ msgstr "We are still writing this guide, and checking it against official source
 msgid "We cannot take this detail from you yet."
 msgstr "We cannot take this detail from you yet."
 
-#: src/screens/guide/Guide.tsx:284
+#: src/screens/guide/Guide.tsx:275
 msgid "We could not load the answer for you."
 msgstr "We could not load the answer for you."
 
@@ -1322,13 +1322,13 @@ msgstr "Where the share register and general-meeting minutes are kept"
 msgid "Where to do it"
 msgstr "Where to do it"
 
-#: src/screens/guide/Guide.tsx:144
+#: src/shared/context-control/detailPrompts.ts:21
 msgid "Where you live"
 msgstr "Where you live"
 
-#: src/screens/guide/Guide.tsx:149
 #: src/shared/context-control/ContextPanel.tsx:285
 #: src/shared/context-control/ContextPanel.tsx:288
+#: src/shared/context-control/detailPrompts.ts:26
 msgid "Where you work"
 msgstr "Where you work"
 
@@ -1360,7 +1360,7 @@ msgstr "Your current title while the application is decided"
 msgid "Your email"
 msgstr "Your email"
 
-#: src/screens/guide/Guide.tsx:146
+#: src/shared/context-control/detailPrompts.ts:23
 msgid "Your nationality"
 msgstr "Your nationality"
 
@@ -1372,11 +1372,11 @@ msgstr "Your nationality, residence status and plans can each change which of th
 msgid "Your options"
 msgstr "Your options"
 
-#: src/screens/guide/Guide.tsx:145
+#: src/shared/context-control/detailPrompts.ts:22
 msgid "Your residence status"
 msgstr "Your residence status"
 
-#: src/screens/guide/Guide.tsx:148
+#: src/shared/context-control/detailPrompts.ts:25
 msgid "Your role"
 msgstr "Your role"
 

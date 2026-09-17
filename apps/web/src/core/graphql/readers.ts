@@ -1,5 +1,5 @@
 import type { ResultOf } from '@graphql-typed-document-node/core'
-import type { CountriesQuery, GuideQuery } from './documents'
+import type { CountriesQuery, GuideAnswersQuery, GuideQuery } from './documents'
 
 // Real reads of generated result types. Without one of these the contract is
 // theatre: a field could vanish from the schema and nothing in the app would
@@ -7,6 +7,13 @@ import type { CountriesQuery, GuideQuery } from './documents'
 
 export type Countries = ResultOf<typeof CountriesQuery>
 export type Guide = ResultOf<typeof GuideQuery>
+
+/**
+ * A detail the API can ask a reader for (SB-315), read off the answers document rather than imported from the
+ * generated union, which no barrel re-exports. Derived, so a change to what `needs` carries breaks here.
+ */
+type Answers = ResultOf<typeof GuideAnswersQuery>
+export type Detail = NonNullable<NonNullable<Answers['guide']>['obligations'][number]['reader']>['needs'][number]
 
 /** The codes a reader can browse, in the order the server returned them. */
 export const countryCodes = (data: Countries): string[] => data.countries.map((country) => country.code)

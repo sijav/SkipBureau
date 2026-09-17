@@ -11,6 +11,7 @@ import { useShell } from 'src/core/shell'
 import { useSiteOrigin } from 'src/core/site'
 import { spacing, type SourceState } from 'src/core/theme'
 import { Breadcrumb } from 'src/shared/breadcrumb'
+import { DETAIL_PROMPTS } from 'src/shared/context-control'
 import { FactStrip } from 'src/shared/fact-strip'
 import { InfoPanel } from 'src/shared/info-panel'
 import { InformationDisclaimer } from 'src/shared/information-disclaimer'
@@ -140,16 +141,6 @@ export const Guide = () => {
       },
     ]
   }
-  const detailWords = {
-    residenceRegion: t`Where you live`,
-    residenceStatus: t`Your residence status`,
-    nationality: t`Your nationality`,
-    // The panel's row is Role, so the question uses its word (SB-286).
-    situation: t`Your role`,
-    workRegion: t`Where you work`,
-  }
-  // The context panel has a row for every one of these since SB-313, where you work included, so every question a
-  // card asks has a way in. RuleAnswer still says a detail cannot be taken when it is given no way to ask.
   const answerOf = new Map((answers?.guide?.obligations ?? []).map((row) => [row.slug, row.reader]))
   const ruleAnswers = obligations.flatMap((obligation) => {
     const answer = answerOf.get(obligation.slug) ?? null
@@ -173,7 +164,7 @@ export const Guide = () => {
     // it (guide.service.ts returns side.needs with the ambiguity). A pure lookup, so the !general && !asks guard below
     // is unchanged by moving it earlier.
     const need = answer?.needs[0]
-    const asks = need ? detailWords[need] : undefined
+    const asks = need ? i18n._(DETAIL_PROMPTS[need]) : undefined
     if (answer?.answer === 'needsReview') {
       return [
         <RuleAnswer

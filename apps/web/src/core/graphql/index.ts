@@ -15,4 +15,4 @@ export {
   TaskHubQuery,
   TasksQuery,
 } from './documents'
-export { countryCodes, isUntranslated, lastVerified, type Countries, type Guide } from './readers'
+export { countryCodes, isUntranslated, lastVerified, type Countries, type Detail, type Guide } from './readers'

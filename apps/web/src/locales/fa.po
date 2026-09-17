@@ -179,7 +179,7 @@ msgstr "دست‌کم {number}"
 msgid "at most {number}"
 msgstr "حداکثر {number}"
 
-#: src/screens/guide/Guide.tsx:96
+#: src/screens/guide/Guide.tsx:97
 msgid "Back to {categoryTitle}"
 msgstr "بازگشت به {categoryTitle}"
 
@@ -188,7 +188,7 @@ msgid "Back to the guide"
 msgstr "بازگشت به راهنما"
 
 #: src/screens/coming-soon/GuidesSoon.tsx:13
-#: src/screens/guide/Guide.tsx:96
+#: src/screens/guide/Guide.tsx:97
 #: src/screens/search/SearchResults.tsx:100
 msgid "Back to the home page"
 msgstr "بازگشت به خانه"
@@ -299,7 +299,7 @@ msgstr "اقامت پیوسته پیش از درخواست بیمهٔ سلامت
 msgid "Contribution days in the preceding year, for routine treatment"
 msgstr "روزهای پرداخت حق‌بیمه در سال پیش، برای درمان عادی"
 
-#: src/screens/guide/Guide.tsx:112
+#: src/screens/guide/Guide.tsx:113
 msgid "Cost and time"
 msgstr "هزینه و زمان"
 
@@ -478,7 +478,7 @@ msgstr "نرخ حق‌بیمهٔ سلامت عمومی"
 msgid "GSS registration starts after the request"
 msgstr "آغاز ثبت‌نام بیمهٔ سلامت عمومی پس از درخواست"
 
-#: src/screens/guide/Guide.tsx:218
+#: src/screens/guide/Guide.tsx:209
 #: src/shared/ask-result-row/AskResultRow.tsx:21
 #: src/shared/saved-item/SavedItem.tsx:18
 msgid "Guide"
@@ -506,8 +506,8 @@ msgstr "راهنماها"
 #: src/screens/category-hub/CategoryHub.tsx:59
 #: src/screens/category-hub/CategoryHub.tsx:60
 #: src/screens/category-hub/CategoryHub.tsx:66
-#: src/screens/guide/Guide.tsx:206
-#: src/screens/guide/Guide.tsx:211
+#: src/screens/guide/Guide.tsx:197
+#: src/screens/guide/Guide.tsx:202
 #: src/screens/task-hub/TaskHub.tsx:78
 msgid "Home"
 msgstr "خانه"
@@ -532,7 +532,7 @@ msgstr "شرکتی فعال را اداره می‌کنم"
 msgid "If it applies to you"
 msgstr "اگر برای شما صدق کند"
 
-#: src/screens/guide/Guide.tsx:351
+#: src/screens/guide/Guide.tsx:342
 msgid "If you know this information is outdated or incorrect, let us know. We review submissions before updating the guide."
 msgstr "اگر می‌دانید این اطلاعات قدیمی یا نادرست است، به ما خبر دهید. پیش از به‌روزرسانی راهنما، پیشنهادها را بررسی می‌کنیم."
 
@@ -560,7 +560,7 @@ msgstr "پوشش بستری، در بیمارستان دولتی نام‌برد
 msgid "It was not sent. Check your connection and try again."
 msgstr "ارسال نشد. اتصال خود را بررسی کنید و دوباره تلاش کنید."
 
-#: src/screens/guide/Guide.tsx:108
+#: src/screens/guide/Guide.tsx:109
 msgid "Key deadlines"
 msgstr "مهلت‌های مهم"
 
@@ -585,9 +585,9 @@ msgstr "آخرین بازبینی: {reviewed}"
 msgid "Last verified {0}"
 msgstr "آخرین تأیید {0}"
 
-#: src/screens/guide/Guide.tsx:234
-#: src/screens/guide/Guide.tsx:307
-#: src/screens/guide/Guide.tsx:365
+#: src/screens/guide/Guide.tsx:225
+#: src/screens/guide/Guide.tsx:298
+#: src/screens/guide/Guide.tsx:356
 msgid "Last verified: {verified}"
 msgstr "آخرین تأیید: {verified}"
 
@@ -685,7 +685,7 @@ msgstr "ندارد"
 msgid "Not for you"
 msgstr "برای شما نیست"
 
-#: src/screens/guide/Guide.tsx:251
+#: src/screens/guide/Guide.tsx:242
 msgid "Not in your language yet"
 msgstr "هنوز به زبان شما نیست"
 
@@ -741,7 +741,7 @@ msgstr "صفحه رسمی در دسترس نیست"
 msgid "Official source"
 msgstr "منبع رسمی"
 
-#: src/screens/guide/Guide.tsx:305
+#: src/screens/guide/Guide.tsx:296
 msgid "Official sources"
 msgstr "منابع رسمی"
 
@@ -825,7 +825,7 @@ msgstr "سودی که تا آن اندازه حق عضویت اتاق صفر ا�
 msgid "Profit ceiling for founder relief"
 msgstr "سقف سود برای تخفیف بنیان‌گذاران"
 
-#: src/screens/guide/Guide.tsx:269
+#: src/screens/guide/Guide.tsx:260
 #: src/shared/ask-result-row/AskResultRow.tsx:23
 msgid "Quick answer"
 msgstr "پاسخ کوتاه"
@@ -888,7 +888,7 @@ msgid "Registry charge on company formation"
 msgstr "هزینهٔ ثبت در تأسیس شرکت"
 
 #: src/screens/category-hub/CategoryHub.tsx:152
-#: src/screens/guide/Guide.tsx:326
+#: src/screens/guide/Guide.tsx:317
 msgid "Related guides"
 msgstr "راهنماهای مرتبط"
 
@@ -982,8 +982,8 @@ msgstr "Skipbureau روندهای روزمره در {country} را توضیح م
 msgid "Some descriptions on this page are sample content for design review. Those deliberately avoid fees, thresholds and eligibility rules, which are determined during guided setup against verified sources."
 msgstr "برخی از توضیحات این صفحه محتوای نمونه برای بازبینی طرح هستند. همان‌ها عمدا از هزینه‌ها، آستانه‌ها و قواعد واجد شرایط بودن پرهیز می‌کنند؛ این‌ها در راه‌اندازی راهنمایی‌شده و بر پایه منابع تأییدشده تعیین می‌شوند."
 
-#: src/screens/guide/Guide.tsx:344
-#: src/screens/guide/Guide.tsx:348
+#: src/screens/guide/Guide.tsx:335
+#: src/screens/guide/Guide.tsx:339
 msgid "Something changed?"
 msgstr "چیزی تغییر کرده است؟"
 
@@ -995,7 +995,7 @@ msgstr "چیزی در سمت ما پاسخ نداد. صفحه وجود دارد�
 msgid "Source or link (optional)"
 msgstr "منبع یا پیوند (اختیاری)"
 
-#: src/screens/guide/Guide.tsx:368
+#: src/screens/guide/Guide.tsx:359
 msgid "Sources are listed above with the date we last checked them. Tell us if something here no longer matches what you found."
 msgstr "منابع همراه با تاریخ آخرین بررسی در بالا آمده‌اند. اگر چیزی در اینجا دیگر با آنچه یافته‌اید مطابقت ندارد، به ما بگویید."
 
@@ -1020,7 +1020,7 @@ msgstr "آغاز عضویت اجباری از راه اشتغال"
 msgid "Still have a question?"
 msgstr "هنوز پرسشی دارید؟"
 
-#: src/screens/guide/Guide.tsx:356
+#: src/screens/guide/Guide.tsx:347
 #: src/screens/suggest/SuggestUpdate.tsx:110
 msgid "Suggest an update"
 msgstr "پیشنهاد به‌روزرسانی"
@@ -1074,7 +1074,7 @@ msgstr "عبارات خود نهاد، نه توصیه Skipbureau"
 msgid "The rule for everyone"
 msgstr "قاعده برای همه"
 
-#: src/screens/guide/Guide.tsx:281
+#: src/screens/guide/Guide.tsx:272
 msgid "The rules that apply"
 msgstr "قاعده‌های مربوط"
 
@@ -1087,7 +1087,7 @@ msgid "This depends on your situation"
 msgstr "این به وضعیت شما بستگی دارد"
 
 #. placeholder {0}: locales[language].label
-#: src/screens/guide/Guide.tsx:252
+#: src/screens/guide/Guide.tsx:243
 msgid "This guide has not been translated yet, so it is shown in {0}."
 msgstr "این راهنما هنوز ترجمه نشده است، بنابراین به {0} نمایش داده می‌شود."
 
@@ -1162,11 +1162,11 @@ msgstr "نام نقش را بنویسید"
 msgid "Type a status"
 msgstr "نام وضعیت را بنویسید"
 
-#: src/screens/guide/Guide.tsx:106
+#: src/screens/guide/Guide.tsx:107
 msgid "Typical cost"
 msgstr "هزینه معمول"
 
-#: src/screens/guide/Guide.tsx:107
+#: src/screens/guide/Guide.tsx:108
 msgid "Typical setup time"
 msgstr "زمان معمول انجام"
 
@@ -1206,7 +1206,7 @@ msgstr "در انتظار نهاد"
 msgid "Warning"
 msgstr "هشدار"
 
-#: src/screens/guide/Guide.tsx:99
+#: src/screens/guide/Guide.tsx:100
 msgid "We are still writing this guide, and checking it against official sources."
 msgstr "هنوز این راهنما را می‌نویسیم و با منابع رسمی بررسی می‌کنیم."
 
@@ -1214,7 +1214,7 @@ msgstr "هنوز این راهنما را می‌نویسیم و با منابع
 msgid "We cannot take this detail from you yet."
 msgstr "هنوز نمی‌توانیم این اطلاعات را از شما بگیریم."
 
-#: src/screens/guide/Guide.tsx:284
+#: src/screens/guide/Guide.tsx:275
 msgid "We could not load the answer for you."
 msgstr "نتوانستیم پاسخ مخصوص شما را بارگذاری کنیم."
 
@@ -1322,13 +1322,13 @@ msgstr "محل نگهداری دفتر سهام و صورت‌جلسات مجم�
 msgid "Where to do it"
 msgstr "کجا انجام دهید"
 
-#: src/screens/guide/Guide.tsx:144
+#: src/shared/context-control/detailPrompts.ts:21
 msgid "Where you live"
 msgstr "محل زندگی شما"
 
-#: src/screens/guide/Guide.tsx:149
 #: src/shared/context-control/ContextPanel.tsx:285
 #: src/shared/context-control/ContextPanel.tsx:288
+#: src/shared/context-control/detailPrompts.ts:26
 msgid "Where you work"
 msgstr "محل کار شما"
 
@@ -1360,7 +1360,7 @@ msgstr "مجوز اقامت کنونی شما تا تصمیم دربارهٔ د�
 msgid "Your email"
 msgstr "ایمیل شما"
 
-#: src/screens/guide/Guide.tsx:146
+#: src/shared/context-control/detailPrompts.ts:23
 msgid "Your nationality"
 msgstr "ملیت شما"
 
@@ -1372,11 +1372,11 @@ msgstr "ملیت، وضعیت اقامت و برنامه‌های شما هر ک
 msgid "Your options"
 msgstr "گزینه‌های شما"
 
-#: src/screens/guide/Guide.tsx:145
+#: src/shared/context-control/detailPrompts.ts:22
 msgid "Your residence status"
 msgstr "وضعیت اقامت شما"
 
-#: src/screens/guide/Guide.tsx:148
+#: src/shared/context-control/detailPrompts.ts:25
 msgid "Your role"
 msgstr "نقش شما"
 
