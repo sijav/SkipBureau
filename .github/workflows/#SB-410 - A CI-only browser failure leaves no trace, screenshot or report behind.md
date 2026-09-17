@@ -110,11 +110,27 @@ That is roughly twelve minutes of CI for a few lines of YAML. It is worth it
 here, because the failure mode being guarded against is precisely a step that
 appears to work.
 
-## The step I am least sure of
+## The step I was least sure of, and how it was settled
 
 **Whether `upload-artifact@v7` fails or merely warns when one of several listed
 paths is missing.** A run where the html report exists but no trace was taken, or
-the reverse, would present a partially missing path list. v4 tightened this
-behaviour, and if v7 is stricter still, a diagnostic step could turn one failure
-into two. If it is strict, the answer is either `if-no-files-found: ignore` or
-uploading a single parent path rather than two siblings.
+the reverse, presents a partially missing path list, and if v7 counted that as no
+files found, a step added to explain one failure would cause a second one.
+
+It does not, and the answer comes from the implementation rather than from the
+README. At tag v7.0.1, `src/upload/upload-artifact.ts` line 31 is
+`if (searchResult.filesToUpload.length === 0)`, and the `switch` on
+`inputs.ifNoFilesFound` with its `warn`, `error` and `ignore` cases sits inside
+that branch. `filesToUpload` is the aggregate over every path given, so a partial
+match has a non-zero length and never reaches the switch. The README says the
+same in words, "If a path (or paths), result in no files being found for the
+artifact", but the count is the mechanism.
+
+So `if-no-files-found: error` fires only when **both** paths are empty, which is
+exactly the silent success this card exists to catch, and never on the partial
+case that `ignore` was first reached for.
+
+This is recorded because the proof below cannot show it. A real failure writes
+both directories and a green run skips the step, so neither run exercises a
+partial match. It was read from the source because nothing else here can prove
+it.
