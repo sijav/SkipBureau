@@ -605,3 +605,26 @@ test('where two wider rules state the same value, only the version whose fact th
     [both.id, 'both'],
   ])
 })
+
+// SB-352: SB-180's CHECK is evaluated before this AFTER trigger, so a country change that keeps the code is refused
+// by the CHECK and the tree's own branch is never reached. It is reachable only by changing the code and the country
+// together, which satisfies the CHECK, because Region_code_names_its_country wants upper(countryCode) and a dash.
+//
+// On scratch codes rather than the seeded ones. TR-16, which SB-352 suggested, has nothing inside it, so the branch's
+// EXISTS would find no child and the test would pass without reaching the guard; and works('TR-16') names it later in
+// this file, so the freeze would refuse the recode first with its own message.
+test('a region cannot take its code and country to another country while a place inside it stays behind', async () => {
+  await prisma.region.createMany({
+    data: [
+      { code: 'TR-77', countryCode: 'tr', name: 'Scratch province' },
+      { code: 'TR-77.inside', countryCode: 'tr', parentCode: 'TR-77', name: 'Scratch district' },
+    ],
+  })
+
+  await expect(prisma.region.update({ where: { code: 'TR-77' }, data: { code: 'DE-77', countryCode: 'de' } })).rejects.toThrow(
+    /while a place inside it is in another country/,
+  )
+
+  expect(await prisma.region.findUniqueOrThrow({ where: { code: 'TR-77' } })).toMatchObject({ countryCode: 'tr' })
+  expect(await prisma.region.findUniqueOrThrow({ where: { code: 'TR-77.inside' } })).toMatchObject({ parentCode: 'TR-77', countryCode: 'tr' })
+})

@@ -351,3 +351,32 @@ test('the seed, run a second time on a database with residence statuses, adds no
   await seed(prisma)
   expect(await counts()).toEqual(before)
 })
+
+// SB-352: the same bypass as the region tree's, because skipbureau_tree_holds is generic and dispatched by
+// TG_TABLE_NAME. SB-180's CHECK is evaluated before this AFTER trigger, so a country change that keeps the code is
+// refused by the CHECK and the tree's own branch is never reached; it is reachable only by changing the code and the
+// country together.
+//
+// The two CHECKs are NOT the same shape: a region's code wants upper(countryCode) and a dash, a status's wants the
+// country code as it is and a dot. So this recode is tr.x to de.x, not TR-X to DE-X.
+//
+// On fresh codes: tr.protection and the kind inside it are named by a criterion above, so the freeze would refuse a
+// recode of those first, with its own message.
+test('a residence status cannot take its code and country to another country while a kind inside it stays behind', async () => {
+  await prisma.residenceStatus.createMany({
+    data: [
+      { code: 'tr.scratch352', countryCode: 'tr', name: 'Scratch status' },
+      { code: 'tr.scratch352.kind', countryCode: 'tr', parentCode: 'tr.scratch352', name: 'Scratch kind' },
+    ],
+  })
+
+  await expect(
+    prisma.residenceStatus.update({ where: { code: 'tr.scratch352' }, data: { code: 'de.scratch352', countryCode: 'de' } }),
+  ).rejects.toThrow(/while a status inside it is in another country/)
+
+  expect(await prisma.residenceStatus.findUniqueOrThrow({ where: { code: 'tr.scratch352' } })).toMatchObject({ countryCode: 'tr' })
+  expect(await prisma.residenceStatus.findUniqueOrThrow({ where: { code: 'tr.scratch352.kind' } })).toMatchObject({
+    parentCode: 'tr.scratch352',
+    countryCode: 'tr',
+  })
+})
