@@ -197,7 +197,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
           kind: 'commonProblems',
           title: { en: 'If you cannot get an appointment.' },
           body: {
-            en: "This is real and officially acknowledged: Berlin says some departments have nothing available for months. In Berlin, applicants for the residence permits for academic skilled workers, skilled workers with vocational training, research employment and employment of certain nationalities submit the online application \"Befristeter Aufenthaltstitel zur Beschäftigung\" while their current title is still valid. The LEA reviews the application and, if it is positively reviewed, you receive an appointment to attend in person. For additional help in a documented emergency, use the responsible department's contact form. Berlin assesses emergency requests for urgent travel within the next four weeks evidenced by a booking, or threatened job loss or benefit termination because of missing valid documentation, evidenced by an employer's or Jobcenter/Sozialamt's letter. If it accepts the emergency, it can send a Fiktionsbescheinigung or offer a prompt appointment.",
+            en: "This is real and officially acknowledged: Berlin says some departments have nothing available for months. In Berlin, applicants for the residence permits for academic skilled workers, skilled workers with vocational training and research employment submit the online application \"Befristeter Aufenthaltstitel zur Beschäftigung\" if they already hold a residence permit or another residence title, a national D visa for example, or if their nationality lets them apply after entering without a visa; applying before such a title expires is what keeps it valid until the decision, which does not hold for a Schengen C visa. Berlin takes the application no earlier than four months before a national D visa or a current employment residence permit expires. For employment of certain nationalities Berlin sets the condition by nationality instead: nationals of Australia, Israel, Japan, Canada, the Republic of Korea, New Zealand, the United Kingdom and the United States entered no more than ninety days ago or already hold a residence permit or another residence title, while nationals of Albania, Andorra, Bosnia and Herzegovina, Kosovo, Monaco, Montenegro, North Macedonia, Serbia and San Marino entered on a national D visa a German mission abroad issued for employment, and they submit the same application. The LEA reviews the application and, if it is positively reviewed, you receive an appointment to attend in person. For additional help in a documented emergency, use the responsible department's contact form. Berlin assesses emergency requests for urgent travel within the next four weeks evidenced by a booking, or threatened job loss or benefit termination because of missing valid documentation, evidenced by an employer's or Jobcenter/Sozialamt's letter. If it accepts the emergency, it can send a Fiktionsbescheinigung or offer a prompt appointment.",
           },
         },
         {
@@ -217,7 +217,7 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
         {
           url: 'https://service.berlin.de/dienstleistung/329328/',
           name: 'Service Berlin, Aufenthaltserlaubnis für Fachkräfte mit akademischer Ausbildung beantragen',
-          read: '2026-09-16',
+          read: '2026-09-17',
         },
         {
           url: 'https://www.gesetze-im-internet.de/aufenthv/__45b.html',
@@ -240,17 +240,17 @@ export const RESEARCHED_GUIDES: readonly ResearchedGuide[] = [
         {
           url: 'https://service.berlin.de/dienstleistung/305304/',
           name: 'Service Berlin, Aufenthaltserlaubnis für Fachkräfte mit Berufsausbildung beantragen',
-          read: '2026-09-16',
+          read: '2026-09-17',
         },
         {
           url: 'https://service.berlin.de/dienstleistung/328457/',
           name: 'Service Berlin, Aufenthaltserlaubnis für eine Beschäftigung zum Zweck der Forschung beantragen',
-          read: '2026-09-16',
+          read: '2026-09-17',
         },
         {
           url: 'https://service.berlin.de/dienstleistung/350471/',
           name: 'Service Berlin, Aufenthaltserlaubnis zur Beschäftigung bestimmter Staatsangehöriger beantragen',
-          read: '2026-09-16',
+          read: '2026-09-17',
         },
         {
           url: 'https://www.berlin.de/einwanderung/termine/termin-vereinbaren/',

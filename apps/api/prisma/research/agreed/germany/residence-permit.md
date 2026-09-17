@@ -9,9 +9,17 @@ both corrected below: §39 No. 3's lawful presence and entitlement, and the earl
 
 The correction worth naming: the draft told a reader who cannot get an
 appointment to plead an emergency. The actual answer is that in Berlin you
-**submit the online application before your permission expires and do not need
-to wait for an appointment at all**. Published as drafted, it would have sent
-people to beg for a slot they did not need.
+**apply online yourself, and an appointment follows the LEA's positive review
+rather than standing between you and applying**. Published as drafted, it would
+have sent people to beg for a slot they did not need.
+
+**Corrected again on 2026-09-17** (SB-357). This paragraph still said you "do
+not need to wait for an appointment at all", which SB-184 had already replaced
+below: Berlin's own pages say that once the application is reviewed positively,
+you receive an appointment to attend in person. SB-184 corrected the paragraph
+under "If you cannot get an appointment" and left this one, so the document
+contradicted itself for a day, and the sentence congratulating itself on a
+correction was the one still carrying the error.
 
 ## What a reader is told
 
@@ -86,11 +94,22 @@ nationality, such as British National (Overseas), are not among them.
 Berlin says some departments have nothing available for months. In Berlin,
 **applicants for the residence permits for academic skilled
 workers[^berlin-online-before-expiry], skilled workers with vocational
-training[^berlin-online-vocational], research employment[^berlin-online-research] and employment of
-certain nationalities[^berlin-online-nationalities] submit the online application "Befristeter
-Aufenthaltstitel zur Beschäftigung" while their current title is still
-valid[^aufenthg-81-4-before-expiry]. The LEA reviews the application and, if it is positively
-reviewed, you receive an appointment to attend in person.** For additional help in a documented emergency, use the
+training[^berlin-online-vocational] and research employment[^berlin-online-research] submit the
+online application "Befristeter Aufenthaltstitel zur Beschäftigung" if they already hold a residence
+permit or another residence title, a national D visa for example, or if their nationality lets them
+apply after entering without a
+visa[^berlin-online-lawful-stay][^berlin-online-lawful-stay-vocational][^berlin-online-lawful-stay-research];
+applying before such a title expires is what keeps it valid until the decision, which does not hold
+for a Schengen C visa[^aufenthg-81-4-before-expiry][^aufenthg-81-4-not-a-schengen-visa]. Berlin takes the application no earlier than four months before a national D visa or a
+current employment residence permit expires[^berlin-online-lawful-stay][^berlin-online-lawful-stay-vocational][^berlin-online-lawful-stay-research][^berlin-online-nationalities-who]. For employment of certain nationalities Berlin sets the
+condition by nationality instead: nationals of Australia, Israel, Japan, Canada, the Republic of
+Korea, New Zealand, the United Kingdom and the United States entered no more than ninety days ago or
+already hold a residence permit or another residence title, while nationals of Albania, Andorra,
+Bosnia and Herzegovina, Kosovo, Monaco, Montenegro, North Macedonia, Serbia and San Marino entered on
+a national D visa a German mission abroad issued for employment[^berlin-online-nationalities-who],
+and they submit the same application[^berlin-online-nationalities].
+The LEA reviews the application and, if it is positively reviewed, you receive an appointment to
+attend in person.** For additional help in a documented emergency, use the
 responsible department's contact form. Berlin assesses emergency requests for
 urgent travel within the next four weeks[^berlin-emergency-four-weeks] evidenced by a booking, or threatened
 job loss or benefit termination because of missing valid documentation,
@@ -156,6 +175,14 @@ All read 2026-09-12; the pages for a visa-free stay and a Schengen visa read 202
 [^berlin-online-vocational]: <https://service.berlin.de/dienstleistung/305304/> | {"status": "verified", "read": "2026-09-16", "method": "raw page", "locator": "Verfahrensablauf, Schritte 1 bis 3", "evidence": ["Stellen Sie den Online-Antrag „Befristeter Aufenthaltstitel zur Beschäftigung“.", "Am Ende erhalten Sie ein PDF-Dokument als Bestätigung Ihres Antrags. Damit wird bescheinigt, dass Ihr aktueller Aufenthaltstitel (nationales D-Visum oder Aufenthaltserlaubnis) über das bisherige Gültigkeitsdatum hinaus im Bundesgebiet weiter gültig bleibt.", "(Dies gilt nicht, wenn Sie ein Schengen-Visum (C-Visum) für einen kurzfristigen Aufenthalt besitzen oder Ihr aktueller Aufenthaltstitel am Tag der Antragstellung bereits abgelaufen ist.)", "Nachdem Sie den Online-Antrag „Befristeter Aufenthaltstitel zur Beschäftigung“ gestellt haben, wird das LEA den Antrag prüfen und sich schnellstmöglich bei Ihnen melden.", "Wenn Ihr Antrag positiv geprüft wurde, erhalten Sie einen Termin zur Vorsprache."]}
 
 [^berlin-online-research]: <https://service.berlin.de/dienstleistung/328457/> | {"status": "verified", "read": "2026-09-16", "method": "raw page", "locator": "Verfahrensablauf, Schritte 1 bis 3", "evidence": ["Stellen Sie den Online-Antrag „Befristeter Aufenthaltstitel zur Beschäftigung“.", "Am Ende erhalten Sie ein PDF-Dokument als Bestätigung Ihres Antrags. Damit wird bescheinigt, dass Ihr aktueller Aufenthaltstitel (nationales D-Visum oder Aufenthaltserlaubnis) über das bisherige Gültigkeitsdatum hinaus im Bundesgebiet weiter gültig bleibt.", "(Dies gilt nicht, wenn Sie ein Schengen-Visum (C-Visum) für einen kurzfristigen Aufenthalt besitzen oder Ihr aktueller Aufenthaltstitel am Tag der Antragstellung bereits abgelaufen ist.)", "Nachdem Sie den Online-Antrag „Befristeter Aufenthaltstitel zur Beschäftigung“ gestellt haben, wird das LEA den Antrag prüfen und sich schnellstmöglich bei Ihnen melden.", "Wenn Ihr Antrag positiv geprüft wurde, erhalten Sie einen Termin zur Vorsprache."]}
+
+[^berlin-online-lawful-stay-vocational]: <https://service.berlin.de/dienstleistung/305304/> | {"status": "verified", "read": "2026-09-17", "method": "raw page", "locator": "Rechtmäßiger Aufenthalt", "evidence": ["Sie halten sich im Bundesgebiet bereits mit einer Aufenthaltserlaubnis oder einem anderen Aufenthaltstitel auf (zum Beispiel nationales D-Visum).", "Oder Sie sind aufgrund Ihrer Staatsangehörigkeit berechtigt, nach einer visumfreien Einreise den Antrag auf Erteilung der Aufenthaltserlaubnis zu stellen.", "Die Antragstellung ist frühestens 4 Monate vor Ablauf des nationalen D-Visums oder der aktuellen Aufenthaltserlaubnis zur Beschäftigung möglich."]}
+
+[^berlin-online-lawful-stay-research]: <https://service.berlin.de/dienstleistung/328457/> | {"status": "verified", "read": "2026-09-17", "method": "raw page", "locator": "Rechtmäßiger Aufenthalt", "evidence": ["Sie halten sich im Bundesgebiet bereits mit einer Aufenthaltserlaubnis oder einem anderen Aufenthaltstitel auf (zum Beispiel nationales D-Visum).", "Oder Sie sind aufgrund Ihrer Staatsangehörigkeit berechtigt, nach einer visumfreien Einreise den Antrag auf Erteilung der Aufenthaltserlaubnis zu stellen.", "Die Antragstellung ist frühestens 4 Monate vor Ablauf des nationalen D-Visums oder der aktuellen Aufenthaltserlaubnis zur Beschäftigung möglich."]}
+
+[^berlin-online-lawful-stay]: <https://service.berlin.de/dienstleistung/329328/> | {"status": "verified", "read": "2026-09-17", "method": "raw page", "locator": "Rechtmäßiger Aufenthalt", "evidence": ["Sie halten sich im Bundesgebiet bereits mit einer Aufenthaltserlaubnis oder einem anderen Aufenthaltstitel auf (zum Beispiel nationales D-Visum).", "Oder Sie sind aufgrund Ihrer Staatsangehörigkeit berechtigt, nach einer visumfreien Einreise den Antrag auf Erteilung der Aufenthaltserlaubnis zu stellen.", "Die Antragstellung ist frühestens 4 Monate vor Ablauf des nationalen D-Visums oder der aktuellen Aufenthaltserlaubnis zur Beschäftigung möglich."]}
+
+[^berlin-online-nationalities-who]: <https://service.berlin.de/dienstleistung/350471/> | {"status": "verified", "read": "2026-09-17", "method": "raw page", "locator": "Voraussetzungen", "evidence": ["Für Staatsangehörige von Australien, Israel, Japan, Kanada, der Republik Korea, Neuseeland, des Vereinigten Königreichs Großbritannien und Nordirland sowie der Vereinigten Staaten von Amerika: Sie sind vor nicht mehr als 90 Tagen eingereist oder halten sich im Bundesgebiet bereits mit einer Aufenthaltserlaubnis oder einem anderen Aufenthaltstitel auf.", "Für Staatsangehörige von Albanien, Andorra, Bosnien und Herzegowina, Kosovo, Monaco, Montenegro, Nordmazedonien, Serbien und San Marino: Sie sind mit einem nationalen D-Visum eingereist. Das Visum wurde von einer deutschen Auslandsvertretung zur Ausübung einer Beschäftigung (nach § 19c Aufenthaltsgesetz in Verbindung mit § 26 Beschäftigungsverordnung) ausgestellt.", "Die Antragstellung ist frühestens 4 Monate vor Ablauf des nationalen D-Visums oder der aktuellen Aufenthaltserlaubnis zur Beschäftigung möglich."]}
 
 [^berlin-online-nationalities]: <https://service.berlin.de/dienstleistung/350471/> | {"status": "verified", "read": "2026-09-16", "method": "raw page", "locator": "Verfahrensablauf, Schritte 1 bis 3", "evidence": ["Stellen Sie den Online-Antrag „Befristeter Aufenthaltstitel zur Beschäftigung“.", "Am Ende erhalten Sie ein PDF-Dokument als Bestätigung Ihres Antrags. Damit wird bescheinigt, dass Ihr aktueller Aufenthaltstitel (nationales D-Visum oder Aufenthaltserlaubnis) über das bisherige Gültigkeitsdatum hinaus im Bundesgebiet weiter gültig bleibt.", "(Dies gilt nicht, wenn Ihr aktueller Aufenthaltstitel am Tag der Antragstellung bereits abgelaufen ist.)", "Nachdem Sie den Online-Antrag „Befristeter Aufenthaltstitel zur Beschäftigung“ gestellt haben, wird das LEA den Antrag prüfen und sich schnellstmöglich bei Ihnen melden.", "Wenn Ihr Antrag positiv geprüft wurde, erhalten Sie einen Termin zur Vorsprache."]}
 

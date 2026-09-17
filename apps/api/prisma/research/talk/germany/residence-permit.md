@@ -1512,3 +1512,218 @@ The wording follows steps 2 and 3, which are identical on all four pages.
 - <https://service.berlin.de/dienstleistung/328332/> (§21, names a different form, not used as a boundary)
 
 All read 2026-09-16.
+
+---
+
+## Asked, 2026-09-17 11:08 UTC
+
+SB-357. The closing question this document was closed with before, put to THIS conversation at last.
+
+SB-184 rewrote the Berlin paragraph on 2026-09-16 to enumerate four permit routes, and that turn went
+to `01a09371-...`, a conversation that had never read this subject, which is the whole reason this
+card exists. The document as it now stands was pasted in, 23,984 bytes, with the change since the
+2026-09-15 pass named: three new evidence blocks, three rewritten, one untouched, and the reader
+facing reversal from "you do not need to wait for an appointment" to an appointment following a
+positive review. The turn was told the material was new to it and to judge it cold, and required to
+name the file's last footnote key and quote five words from it, so a reply could not come from memory
+of an older version or a truncated argument.
+
+**Two earlier attempts were discarded rather than recorded.** At 09:05 the chain fell through to
+claude/sonnet in `fbe54c3a-...`, which is `search:claude` and has never read this document; its answer
+was a clean looking No. that satisfied the canary exactly, and only the report header showed it was
+the wrong reviewer. At 10:04, forced to terra, the run failed outright rather than falling back, which
+is why forcing the model is worth it. `gpt-5.6` is permanently unusable on this account, HTTP 400, now
+SB-439.
+
+Reviewer codex gpt-5.6-terra, effort medium, session `01a093c2-4c44-7dd2-b927-478f5d8922e6` resumed,
+taken from the report header rather than the stderr line, which prints before an attempt succeeds. No
+earlier attempts were recorded on this run: no fallback, no skipped reviewer.
+
+## Answered
+
+Not a no. Two, and both check out against the pages rather than against the answer.
+
+1. **The document contradicted itself about the appointment.** The paragraph under "If you cannot get
+   an appointment" said an appointment follows a positive review, as SB-184 corrected it. The
+   preamble still said, in bold, that you "do not need to wait for an appointment at all". SB-184 had
+   corrected one and left the other, so the sentence congratulating itself on a correction was the one
+   still carrying the error. Berlin's §18b page settles it: "Wenn Ihr Antrag positiv geprüft wurde,
+   erhalten Sie einen Termin zur Vorsprache."
+
+2. **The enumerated sentence made a valid title a condition for all four routes.** It is not one for
+   the fourth. Fetched from 350471 here rather than taken from the answer: "Republik Korea,
+   Neuseeland, des Vereinigten Königreichs Großbritannien und Nordirland sowie der Vereinigten Staaten
+   von Amerika: Sie sind vor nicht mehr als 90 Tagen eingereist oder halten sich im Bundesgebiet
+   bereits mit einer Aufenthaltserlaubnis oder einem anderen Aufenthaltstitel auf." Entered within
+   ninety days, OR already holding a title. The stored evidence for that marker carries only the
+   expired title exclusion, so the sentence rested on a quote that leaves out the condition it depends
+   on, which is exactly what the closing question asks about.
+
+**This round is therefore not the fixed point.** Both corrections are applied here, as SB-358 did with
+the rounding field, and the round is put again. The card closes on a round that raises nothing new,
+not on this one.
+
+## Sources
+
+- <https://service.berlin.de/dienstleistung/350471/>, fetched again 2026-09-17 for the ninety day
+  condition
+- <https://service.berlin.de/dienstleistung/329328/>, for the appointment following a positive review
+
+The twenty one URLs the turn itself opened are listed in its report.
+
+---
+
+## Asked, 2026-09-17 11:19 UTC
+
+Second round. The two corrections from the first were applied and the same closing question put again,
+with the document as it then stood pasted in, 24,853 bytes. The turn was told what had been corrected
+and why, including that the first attempt at the ninety day correction here had been wrong: it wrote
+only the ninety day half, which would have told a Serbian national something 350471 does not say, and
+the sentence was widened to both nationality groups before this round was fired.
+
+Reviewer codex gpt-5.6-terra, effort medium, session `01a093c2-4c44-7dd2-b927-478f5d8922e6` resumed,
+from the report header. No earlier attempts recorded: no fallback, no skipped reviewer.
+
+## Answered
+
+Not a no again, and the finding is the mirror of the first one.
+
+The sentence still made a valid current title the condition for the OTHER three routes, academic
+skilled workers, skilled workers with vocational training and research employment. Each of those
+three Berlin pages states two alternatives under "Rechtmäßiger Aufenthalt": you already hold a
+residence permit or another title, a national D visa for example, **or** your nationality entitles you
+to apply after entering without a visa.
+
+**Checked here on all three pages rather than on one.** 329328, 305304 and 328457 were fetched and
+each carries that passage identically, "Sie halten sich im Bundesgebiet bereits mit einer
+Aufenthaltserlaubnis oder einem anderen Aufenthaltstitel auf (zum Beispiel nationales D-Visum). Oder
+Sie sind aufgrund Ihrer Staatsangehörigkeit berechtigt, nach einer visumfreien Einreise den Antrag auf
+Erteilung der Aufenthaltserlaubnis zu stellen." Verifying one and writing "each of the three" would
+have been the same mistake as the ninety day clause, one round later.
+
+A first search for that section found nothing, and that result was worthless rather than reassuring:
+the pattern used `..` for "äß", which is four bytes in a shell whose grep is not in a UTF-8 locale.
+An empty result meant the regex was wrong, not that the section was absent.
+
+## What a reader is told
+
+The sentence now says those three submit the application if they already hold a residence permit or
+another residence title, a national D visa for example, or if their nationality lets them apply after
+entering without a visa, and that applying before a title expires is what keeps it valid until the
+decision, which is what §81(4) actually says. A new definition carries the German with a
+"Rechtmäßiger Aufenthalt" locator.
+
+**This round is not the fixed point either.** The correction is applied and the round goes again.
+
+---
+
+## Asked, 2026-09-17 11:24 UTC
+
+Third round, 24,345 bytes, the corrected document pasted in again with what had changed named.
+
+Reviewer codex gpt-5.6-terra, effort medium, session `01a093c2-4c44-7dd2-b927-478f5d8922e6` resumed,
+from the report header. No earlier attempts recorded.
+
+## Answered
+
+Not a no. Two, and both landed on the correction rather than on the original text, which is now the
+pattern three rounds running.
+
+1. **`berlin-online-lawful-stay` supported only the academic skilled worker page.** The sentence
+   covers three routes with three pages, and cited one. That was a shortcut taken knowingly here:
+   all three pages had been fetched and carry the passage identically, and one citation was let
+   stand for three claims. Two definitions are added, `berlin-online-lawful-stay-vocational` from
+   305304 and `berlin-online-lawful-stay-research` from 328457, each quoting its own page's
+   "Rechtmäßiger Aufenthalt" section, read 2026-09-17, and the sentence now cites one per route.
+
+2. **The §81(4) clause left out that the preservation does not hold for a Schengen C visa**, because
+   §81(4) sentence 2 excludes a §6(1) visa. True, and checked from the document rather than from the
+   answer: `aufenthg-81-4-before-expiry` quotes only sentence 1, so the exclusion genuinely was not
+   in the evidence the clause rested on.
+
+   **The document could already prove it, so nothing new was invented.**
+   `aufenthg-81-4-not-a-schengen-visa` was already there, quoting "Dies gilt nicht für ein Visum nach
+   § 6 Absatz 1", and already referenced twice elsewhere. It is now attached to this clause too, and
+   the clause says the preservation does not hold for a Schengen C visa.
+
+## What a reader is told
+
+The three routes submit the application if they already hold a residence permit or another residence
+title, a national D visa for example, or if their nationality lets them apply after entering without
+a visa, each route citing its own page. Applying before such a title expires is what keeps it valid
+until the decision, which does not hold for a Schengen C visa.
+
+**And the guide had to follow, which is its own lesson.** Correcting the agreed document turned
+`researched-guides.spec.ts` red: it asserts each guide's text is a substring of its document, so the
+published prose in `apps/api/src/guide/researched-guides.ts` had to be corrected in step, and the
+four Berlin source cards re-dated to 2026-09-17 to match the pages actually re-read today. A
+correction that stops at the document leaves the product saying the old thing.
+
+---
+
+## Asked, 2026-09-17 11:27 UTC
+
+Fourth round, 25,219 bytes. Reviewer codex gpt-5.6-terra, effort medium, session
+`01a093c2-4c44-7dd2-b927-478f5d8922e6` resumed, from the report header. No earlier attempts recorded.
+
+## Answered
+
+Not a no. One, and it was sitting in my own working notes the whole time.
+
+**Berlin publishes a timing condition the clause left out**: the application can be made no earlier
+than four months before a national D visa or a current employment residence permit expires, and the
+three `berlin-online-lawful-stay` definitions and `berlin-online-nationalities-who` all quoted around
+it.
+
+**This one is mine twice over.** That sentence appeared in the page text fetched here in round two,
+and again in round three, both times a line or two from the passage being quoted, and it was read
+past on both occasions. The reviewer did not find something hidden; it found something quoted around.
+Confirmed here on all four pages from the saved HTML, identically: "Die Antragstellung ist frühestens
+4 Monate vor Ablauf des nationalen D-Visums oder der aktuellen Aufenthaltserlaubnis zur Beschäftigung
+möglich."
+
+The condition is now quoted in all four definitions, rather than given a new block of its own, because
+the finding is exactly that those definitions omitted a condition their sentence depends on. The prose
+states it, carrying all four markers, since all four pages support it.
+
+**Four rounds, and every finding after the first has been in the correction rather than the original
+text.** The cause is consistent and worth naming: each time, a page was quoted partially, and the
+sentence next to the quote carried a condition. That is an argument for the rule that a round repeats
+until it raises nothing, and an argument against trusting my own first reading of a page.
+
+---
+
+## Asked, 2026-09-17 11:31 UTC
+
+Fifth round, 25,932 bytes, the corrected document again. The turn was told plainly that four rounds
+running the new overclaim had been in my correction rather than the original text, and that if the
+paragraph was now right, the single line No. was the answer being asked for and worth as much as
+another finding.
+
+## Answered
+
+**No.**
+
+## The fixed point, and what proves it
+
+This is the pass SB-357 has owed since 2026-09-16, and it is recorded against three proofs rather
+than one, because the first attempt this morning was a polished No. that satisfied the canary exactly
+and came from the wrong conversation.
+
+- **The reviewer.** The report header reads `reviewer: codex gpt-5.6-terra, effort medium` over
+  `session: 01a093c2-4c44-7dd2-b927-478f5d8922e6 (resumed)`, with no `earlier attempts` line at all:
+  no fallback, no skipped reviewer. Taken from the written header, never from the stderr `resuming`
+  line, which prints before an attempt succeeds.
+- **What it read.** It named `[^munich-up-to-seven-months]`, the file's last footnote definition, and
+  quoted "Bearbeitungszeit Bis zu 7 Monate" from it. A truncated argument or a memory of an older
+  version cannot produce that.
+- **That it opened the pages.** Ten URLs, including all four Berlin service pages, rather than the
+  "Cannot verify" the question required if web access failed. That instruction exists because the
+  evidence quoted inside the document is the very thing under test, so a pass resting on it would be
+  circular.
+
+Five rounds, in this conversation, resumed, never fresh. The first found two things, the second one,
+the third two, the fourth one, and the fifth nothing. Every finding after the first was in a
+correction of mine rather than in the original text, always because a page had been quoted partially
+and the sentence beside the quote carried a condition. The rule that a round repeats until it raises
+nothing is what turned that into a finished paragraph instead of a confident one.

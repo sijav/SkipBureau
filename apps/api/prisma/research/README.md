@@ -172,6 +172,30 @@ official source in the sense this repository means, and that the cross reference
 carrying §223 to voluntary members is §240(2)'s last sentence rather than the
 paragraph itself.
 
+**The residence permit's no was overtaken the next day, and took five rounds to
+replace** (SB-357). The sentence above is true of the text that existed on
+2026-09-15. SB-184 then rewrote the Berlin appointment paragraph on 2026-09-16
+to enumerate four permit routes, and sent that turn to whichever conversation
+the shared `search:codex` slot happened to hold, one that had never read this
+subject. So the document's own thread had never seen what a reader was being
+told.
+
+Put to that thread on 2026-09-17, it took five rounds to come back no. It found,
+in order: that the document contradicted itself, a preamble still saying you "do
+not need to wait for an appointment at all" while the corrected paragraph said an
+appointment follows a positive review; that a valid current title was made a
+condition for a route whose page sets it by nationality instead; that the same
+overclaim survived for the other three routes, each page stating two
+alternatives under "Rechtmäßiger Aufenthalt"; that one citation was doing the
+work of three; and that all four definitions quoted around Berlin's published
+four month timing condition.
+
+**Four of those five findings were in my corrections, not in the original text**,
+each time because a page had been quoted partially and the sentence beside the
+quote carried a condition. That is the clearest argument this file has for the
+rule that a round repeats until it raises nothing: a single closing pass would
+have replaced one error with another and called it finished.
+
 **Compare in Unicode's composed form.** The Ministry of Health's care page writes
 `fünften` as `u` followed by a combining mark, and a literal search for the
 passage fails although every word of it is on the page.
