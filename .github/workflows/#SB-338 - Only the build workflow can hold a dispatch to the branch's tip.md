@@ -131,7 +131,17 @@ rather than the record edited away.
   test gains `inputs[require_tip]=true`.
 - **`permissions: {}` can stay**, because nothing is read.
 
-## The step I am least sure of
+## The two steps I was least sure of, both answered by the runs below
+
+Left here as they were written, because what was doubted beforehand is the useful
+part of the record. Each is answered in its run's own section:
+
+- **Is `github.sha` the dispatched ref's commit?** Yes. Run 1 refused an older sha
+  against it and run 2 skipped the refusal for the ref's own commit, so it is shown
+  unequal in one direction and equal in the other.
+- **Does the string sent by the API arrive as a real boolean?** Yes. Run 3 omitted the
+  input entirely and the refusal step was skipped, so the default is a boolean false
+  rather than an absent value read as truthy.
 
 **Whether `github.sha` is the dispatched ref's tip in every case I care about.** The
 check says it is GitHub's recorded last commit of the ref, which is what run 1 and
@@ -166,3 +176,96 @@ path-rules input is ticked in GitHub's own form, which sends a real boolean, whi
 the publish sends `inputs[require_tip]=true` as a string through the dispatch API.
 So the precedent settles how such an input is declared and read, and says nothing
 about the string-from-API path. Run 3 is still what settles that remainder.
+
+## Run 1, the refusal
+
+Dispatched on main with `require_tip=true` and `f369ddb7a01d9ff231dec776ab157e5bc2008b91`,
+two commits behind, while the ref's commit was `c96706d3d52aa3926fa186a22656ec862c0e0b65`.
+
+```
+X build in 3s
+  v Set up job
+  X Refuse a sha the ref has moved past
+  - Start the build and wait until it concludes
+  v Complete job
+```
+
+and the step conclusions read back from the API as success, failure, **skipped**,
+success.
+
+**Skipped is the word that matters.** The build step did not fail, it never ran, so
+Northflank was never called: a refused dispatch costs nothing, builds nothing and
+deploys nothing. Three seconds from dispatch to conclusion.
+
+That is the exit's first clause met by a run rather than by reasoning, and it also
+shows `github.sha` is the dispatched ref's commit rather than something else, since
+the comparison had to resolve to a real and different sha for the step to fire at
+all.
+
+## Run 3, the historical build, which also tests the default
+
+Dispatched on main with `191c8e2ed92f2df825eee903cf967a73e8543fad`, the commit before
+the ref's, and with `require_tip` **omitted entirely** rather than passed as false,
+because omitting it is what a build of an older commit by hand actually does.
+
+```
+conclusion: success   in 88 seconds
+  Set up job                                   success
+  Refuse a sha the ref has moved past          skipped
+  Start the build and wait until it concludes  success
+  Complete job                                 success
+```
+
+**Two things are settled by that skip.** The exit's second clause is met: an older
+sha still builds, by a run. And the assumption recorded above is answered, that the
+input might arrive as a string and be read as truthy when absent. It is not: with the
+input omitted the condition evaluated false and the step was skipped, so the default
+is genuinely a boolean false.
+
+**And it deployed nothing different.** `191c8e2` and `c96706d` differ only in
+`.claude/todo.db`, the diff over `apps/api/**`, both package.json files,
+package-lock.json and .dockerignore is empty, and `.dockerignore` line 14 excludes
+`.claude` from the build context. So the build read identical included repository
+inputs. That is the claim, and it is not the stronger one: the base image
+`node:24-alpine` is mutable, so nothing here establishes an identical image.
+
+## Run 2, the tip with the guard on
+
+Dispatched on main with `c96706d3d52aa3926fa186a22656ec862c0e0b65`, the ref's own
+commit, and `require_tip=true`.
+
+```
+conclusion: success   in 95 seconds
+  Set up job                                   success
+  Refuse a sha the ref has moved past          skipped
+  Start the build and wait until it concludes  success
+  Complete job                                 success
+```
+
+**This is the run that shows the guard can pass, not only fail.** Run 1 showed it
+refuses and run 3 showed the default lets an older commit through. Without this one I
+would have proved a check that can fail and never one that allows the case it exists
+to allow, which is the shape of a gate that quietly refuses everything and looks
+healthy doing it.
+
+**It also answers what this plan called its least certain step.** `github.sha` had to
+resolve to the dispatched ref's own commit for the comparison to be equal and the
+step to skip. Run 1 shows it is not equal to an older sha, run 2 shows it is equal to
+the tip. Both directions, by run.
+
+## The three runs together
+
+```
+sha                          require_tip   refusal step   build step   outcome
+f369ddb, two commits behind  true          FAILED         skipped      nothing built
+191c8e2, one commit behind   omitted       skipped        success      built
+c96706d, the ref's commit    true          skipped        success      built
+```
+
+Both clauses of the exit are met by runs rather than by reasoning: a sha the ref has
+moved past is refused when the publish dispatches it, and a build of an older commit
+by hand still works. Nothing was deployed that differs from what was already running,
+and the refused dispatch never reached Northflank at all.
+
+**This card's exit needed no restating**, which is worth recording after three in a
+row whose wording named a mechanism the work removed.
