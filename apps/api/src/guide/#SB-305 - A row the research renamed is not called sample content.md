@@ -82,10 +82,13 @@ and keeps it as that file says, or null (SB-202)".
 ## The approach
 
 **1. Schema.** `research String?` on `Guide` and on `Category`, carrying the doc
-sentence the other four already carry. No file path in it: the comments in
-`researched-guides.ts` cite `research/agreed/<country>/<name>.md`, and no
-`research/` directory exists in the working tree, so naming one in the schema
-would document something that is not there.
+sentence the other four already carry. No file path in it, and the reason first given here was wrong. This plan said no
+`research/` directory exists in the working tree; it does, at
+`apps/api/prisma/research/agreed`, and the claim came from a search run only three
+levels deep from the repository root. The decision stands on its own ground
+instead: the four columns this one copies name no path either, and a schema
+comment that hardcodes a directory would go stale the first time the research
+files move.
 
 **2. The owner is named `turkey` or `germany`, not `tr` or `de`.** That
 vocabulary is in use: `research-rules.e2e.spec.ts` line 437 writes
