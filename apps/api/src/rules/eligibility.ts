@@ -132,10 +132,14 @@ const anyNationalityFits = (criteria: readonly Criterion[], members: GroupMember
     if (criterion.dimension === 'nationalityGroup') return [members.get(criterion.value) ?? new Set<string>()]
     return []
   })
-  // One alone is always satisfiable by someone, and SB-181's index already forbids two plain
-  // nationality criteria on one version, so the only combinations reaching here are groups with at
+  // Nothing to satisfy is satisfied, and that is the only early answer (SB-442). A single set falls
+  // through on purpose: `rest` is then empty, so `rest.every(...)` is vacuously true and a group
+  // with anyone in it still passes, while a group that has emptied fails on `.some` over nothing,
+  // which is the whole of that card. Returning early on one set instead, as this first did, left a
+  // version scoped to one emptied group open and the reader still asked. SB-181's index forbids two
+  // plain nationality criteria on one version, so what reaches here is any number of groups with at
   // most one nationality beside them.
-  if (sets.length < 2) return true
+  if (sets.length === 0) return true
   const [first, ...rest] = sets
   return [...first!].some((nationality) => rest.every((set) => set.has(nationality)))
 }

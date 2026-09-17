@@ -326,3 +326,51 @@ test('a version naming two groups that share nobody asks the reader nothing, and
   await prisma.nationalityGroupMember.deleteMany({ where: { groupCode: { in: CODES } } })
   await prisma.nationalityGroup.deleteMany({ where: { code: { in: CODES } } })
 })
+
+// SB-442: SB-440 caught a version naming two groups that share nobody, but its check answered early
+// on a single set without looking inside it, so a version scoped to ONE group that has emptied was
+// still reported open and the reader still asked. That case needs no editor error to arrive, which
+// is what makes it worth its own test: a membership ending is enough, and the seed already holds gb
+// in eu only until 2020-02-01.
+test('a version scoped to one group whose members have all left asks the reader nothing, and one whose group still has someone asks', async () => {
+  const at = AFTER_NEXT_MONTH
+  const SLUG = 'get-a-tax-number'
+  const CODES = ['t442-gone', 't442-here']
+
+  await prisma.nationalityGroup.createMany({
+    data: [
+      { code: 't442-gone', name: 'Everyone has left by then' },
+      { code: 't442-here', name: 'Still holds someone' },
+    ],
+  })
+
+  // The first membership ends a full day BEFORE the date asked about, which is what this card's exit
+  // says, rather than ending exactly on it. The group still exists and simply holds nobody then, so
+  // this proves the emptied case and not an absent one. Both are dated ahead of today, so the history
+  // trigger counts them as not yet in effect and this test can delete them again.
+  await prisma.nationalityGroupMember.createMany({
+    data: [
+      { groupCode: 't442-gone', nationality: 'ga', validFrom: day(29), validTo: day(30) },
+      { groupCode: 't442-here', nationality: 'ha', validFrom: day(29) },
+    ],
+  })
+
+  // The answer when nothing narrower applies, so the obligation never drops out of the reply, and
+  // saying something different from it so matters() cannot discard the open version for the wrong
+  // reason. Both are the same care SB-440's test takes.
+  const plain = await version('de', SLUG, [], [{ key: 'required', textValue: 'yes' }])
+
+  const emptied = await version('de', SLUG, [{ dimension: 'nationalityGroup', value: 't442-gone' }], [{ key: 'required', textValue: 'no' }])
+  const unasked = await entryFor(SLUG, { situation: 'worker', at })
+  expect(unasked.needs, 'that group holds nobody by then, so no nationality could bring this version in').not.toContain('nationality')
+  await prisma.ruleVersion.delete({ where: { id: emptied.id } })
+
+  const peopled = await version('de', SLUG, [{ dimension: 'nationalityGroup', value: 't442-here' }], [{ key: 'required', textValue: 'no' }])
+  const asked = await entryFor(SLUG, { situation: 'worker', at })
+  expect(asked.needs, 'ha is in that group, so the answer does turn on the nationality and is worth asking').toContain('nationality')
+  await prisma.ruleVersion.delete({ where: { id: peopled.id } })
+
+  await prisma.ruleVersion.delete({ where: { id: plain.id } })
+  await prisma.nationalityGroupMember.deleteMany({ where: { groupCode: { in: CODES } } })
+  await prisma.nationalityGroup.deleteMany({ where: { code: { in: CODES } } })
+})
