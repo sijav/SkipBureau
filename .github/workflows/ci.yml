@@ -298,6 +298,19 @@ jobs:
       # SKIPBUREAU_BASE because the site is served from a repository subpath, not
       # a domain root. VITE_GRAPHQL_URL is baked in at build time, so it is a
       # repository variable rather than a commit, checked in the step above.
+      # SB-295: the API has to answer every query this build asks, before anything is
+      # built. A push that adds a field can reach here before Northflank has rolled the
+      # API out, or when Northflank skipped the push because a build was already running.
+      # Then the six documents the prerender asks throw, it burns its patience and ships
+      # with every address falling back to 404.html on a warning, while ReaderDetails and
+      # GuideAnswers, which it never asks, break in the reader's browser after a green
+      # deploy. This refuses to deploy instead, and it runs before the build so a mismatch
+      # costs neither the Vite build nor the Storybook one.
+      - name: The API answers every query this build asks
+        run: npm run validate:documents -w @skipbureau/web
+        env:
+          VITE_GRAPHQL_URL: ${{ vars.GRAPHQL_URL }}
+
       - name: Build for Pages
         run: npm run build -w @skipbureau/web
         env:
