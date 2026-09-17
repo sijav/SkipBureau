@@ -132,6 +132,18 @@ turning a check into a gate that refuses to let work close, which this project's
 rules forbid in as many words, while quietly dropping the rule would be worse than
 either.
 
+**It did return nothing, an hour and twenty minutes later, so this card was built and
+closed with no plan check at all.** The second attempt failed the same three ways:
+codex/gpt-5.6 failed part way through its own output, codex/gpt-5.6-terra was skipped
+as still out of its usage window, and claude/sonnet timed out after 900 seconds. That
+outcome is written here rather than left to be inferred from a paragraph that only
+says what would happen, because the two read very differently to somebody deciding
+how much this plan was reviewed. The answer is: not at all. What it was checked
+against instead is above, and it is not nothing: the card's first option was shown
+impossible from the code, the restore window was derived from what commitBytes and
+resetNotice actually do, and both halves were proved by real runs of the real
+command.
+
 ## What was built, and the shape decided without a ruling
 
 The check never returned, so the shape was chosen here and the reasoning is recorded
